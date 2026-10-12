@@ -1,5 +1,5 @@
 """Gemeinsame Hilfen: Pfade, JSON, Namensabgleich, Belag-Erkennung."""
-import json, re, unicodedata, difflib
+import json, re, unicodedata, difflib, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -93,8 +93,46 @@ def core_tokens(name):
 GENERIC = {"san", "santa", "saint", "port", "city", "north", "south", "east", "west", "nuevo", "nueva", "grand", "slam", "great", "royal"}
 
 
-def detect_surface(turnier, turniere, history):
-    """Liefert (belag, quelle). quelle: 'tabelle' | 'historie' | 'standard'."""
+def kalender_belag(turnier, datum, kalender):
+    """Belag aus dem Wikipedia-Kalender: Ort (oder Turniername ohne 'Challenger') kommt im Turniernamen vor,
+    Turnierwoche passt zum Spieldatum (Wochenbeginn -2 bis +9 Tage). Nächstgelegene Woche gewinnt."""
+    if not kalender:
+        return None
+    t = " " + norm(turnier) + " "
+    try:
+        d = datetime.date.fromisoformat(str(datum)[:10]) if datum else None
+    except ValueError:
+        d = None
+    best = None
+    for e in kalender:
+        keys = {norm(e.get("ort", ""))}
+        nm = norm(re.sub(r"(?i)challenger|open|cup|trophy|\b(i{1,3}|iv|v)\b|\d+", " ", e.get("name", "")))
+        if nm:
+            keys.add(nm)
+        if not any(k and len(k) >= 3 and f" {k} " in t for k in keys):
+            continue
+        abstand = 0
+        if d and e.get("woche"):
+            w = datetime.date.fromisoformat(e["woche"])
+            diff = (d - w).days
+            if diff < -2 or diff > 9:
+                continue
+            abstand = abs(diff - 3)
+        elif d:
+            abstand = 99
+        ist_ch = "challenger" in t
+        if e.get("art") and (e["art"] == "challenger") != ist_ch:
+            abstand += 50                     # ATP-Turnier und Challenger am selben Ort: passende Art bevorzugen
+        if best is None or abstand < best[0]:
+            best = (abstand, e["belag"])
+    return best[1] if best else None
+
+
+def detect_surface(turnier, turniere, history, kalender=None, datum=None):
+    """Liefert (belag, quelle). quelle: 'kalender' | 'tabelle' | 'historie' | 'standard'."""
+    kb = kalender_belag(turnier, datum, kalender)
+    if kb:
+        return kb, "kalender"
     t = norm(turnier)
     # 1) gepflegte Turniertabelle (Stichwort -> Belag), längste Stichworte zuerst
     for kw in sorted(turniere, key=len, reverse=True):
