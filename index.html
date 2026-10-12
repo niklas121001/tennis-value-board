@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<title>Tennis Value Board</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Kopfleiste mit Steuerung -> Kennzahlen -> Partien nach Turnier gruppiert; Zeile klappt Detailanalyse auf */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --fg:#17202b; --muted:#5d6b7a; --line:#dde3ea;
+  --accent:#1d4f91; --accent-soft:#e3ecf8;
+  --good:#17803d; --good-soft:#e2f4e7; --warn:#a15c00; --warn-soft:#fbefd9; --bad:#b42318; --bad-soft:#fbe6e4;
+  --hard:#2563b8; --clay:#c2552b; --grass:#2f7d32;
+  --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141a; --panel:#171e26; --fg:#e6ebf0; --muted:#93a1b0; --line:#2a3440;
+  --accent:#7fb0ef; --accent-soft:#1c2b3e;
+  --good:#5fcf85; --good-soft:#15301f; --warn:#f0b55c; --warn-soft:#33270f; --bad:#ff8a80; --bad-soft:#3a1c1a;
+  --hard:#6ea6ee; --clay:#ec8a5f; --grass:#73c276; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141a; --panel:#171e26; --fg:#e6ebf0; --muted:#93a1b0; --line:#2a3440;
+  --accent:#7fb0ef; --accent-soft:#1c2b3e;
+  --good:#5fcf85; --good-soft:#15301f; --warn:#f0b55c; --warn-soft:#33270f; --bad:#ff8a80; --bad-soft:#3a1c1a;
+  --hard:#6ea6ee; --clay:#ec8a5f; --grass:#73c276; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 var(--f-body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 48px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;border-bottom:2px solid var(--fg);padding-bottom:12px}
+h1{font:700 2.1rem/1 var(--f-display);letter-spacing:.01em;margin:0;text-transform:uppercase}
+h1 span{color:var(--accent)}
+.stand{font:12px/1.4 var(--f-mono);color:var(--muted);text-align:right}
+.banner{margin-top:14px;padding:10px 14px;border-radius:6px;background:var(--warn-soft);color:var(--warn);font-size:13px}
+nav.tabs{display:flex;gap:4px;margin-top:16px;overflow-x:auto;scrollbar-width:none}
+nav.tabs button{white-space:nowrap;flex:none}
+nav.tabs button{font:600 1rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:6px 10px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--accent)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end;margin-top:16px}
+.ctl{display:flex;flex-direction:column;gap:3px}
+.ctl label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+select,input[type=search]{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;min-width:0}
+#bm{font-weight:600;border-color:var(--accent);min-width:190px}
+.check{display:flex;align-items:center;gap:6px;padding-bottom:7px;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:18px}
+.kpi{background:var(--panel);padding:10px 14px}
+.kpi b{display:block;font:600 1.7rem/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.kpi span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.group{margin-top:22px}
+.group h2{display:flex;gap:10px;align-items:center;font:600 1.15rem/1.2 var(--f-display);letter-spacing:.04em;text-transform:uppercase;margin:0 0 6px}
+.surf{display:inline-block;font:500 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;padding:4px 7px;border-radius:3px;color:var(--panel)}
+.surf.hard{background:var(--hard)}.surf.clay{background:var(--clay)}.surf.grass{background:var(--grass)}
+.surf.geschaetzt{outline:1px dashed var(--fg);outline-offset:1px}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th{font:500 11px/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:nth-child(-n+2){text-align:left}
+td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;vertical-align:middle}
+td.l{text-align:left}
+tr.m{cursor:pointer}
+tr.m:hover td{background:var(--accent-soft)}
+tr.m.value td:first-child{box-shadow:inset 3px 0 0 var(--good)}
+tr.m:last-of-type td{border-bottom:0}
+.time{font-family:var(--f-mono);color:var(--muted);font-size:12px}
+.pl{display:flex;flex-direction:column;line-height:1.3}
+.pl .bet{font-weight:600}
+.pl .miss{color:var(--warn)}
+.num{font-family:var(--f-mono);font-size:13px}
+.pos{color:var(--good)}.neg{color:var(--muted)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.pill.go{background:var(--good-soft);color:var(--good)}
+.pill.no{background:transparent;color:var(--muted);font-weight:400}
+.pill.stop{background:var(--bad-soft);color:var(--bad)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+tr.detail td{background:var(--bg);white-space:normal;text-align:left;padding:14px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
+.box h3{font:600 .95rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:var(--accent)}
+.kv{display:grid;grid-template-columns:1fr auto auto;gap:2px 12px;font-size:13px}
+.kv.two{grid-template-columns:1fr auto}
+.kv span:nth-child(n){font-variant-numeric:tabular-nums}
+.kv .k{color:var(--muted)}
+.kv .v{font-family:var(--f-mono);text-align:right}
+.kv .h{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right}
+.warns{margin:10px 0 0;padding-left:18px;color:var(--warn);font-size:13px}
+.empty{padding:28px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:8px;margin-top:20px}
+.info{max-width:70ch}
+.info h2{font:600 1.3rem var(--f-display);text-transform:uppercase;letter-spacing:.04em;margin:24px 0 6px}
+.info code{font-family:var(--f-mono);font-size:12px;background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+footer{margin-top:32px;font-size:12px;color:var(--muted)}
+.show-s{display:none}
+@media (max-width:720px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  h1{font-size:1.7rem}.stand{text-align:left}
+  #bm{min-width:0;width:100%}.ctl.bmctl{flex-basis:100%}
+  .hide-s{display:none}.show-s{display:block}
+  td,th{padding-inline:7px}td{white-space:normal}td.num{white-space:nowrap}
+  .pill{font-size:11px}
+}
+.calc{display:grid;grid-template-columns:minmax(0,2fr) auto minmax(0,2fr) minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,.8fr) minmax(0,.8fr);gap:10px 12px;align-items:end;margin-top:16px}
+.calc .q{grid-column:span 1}
+.calc input,.calc select{width:100%;font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px}
+.calc .pa input,.calc .pb input{font-weight:600;border-color:var(--accent)}
+.swap{justify-self:center;width:auto;font:600 1.1rem var(--f-body);background:var(--panel);color:var(--accent);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+.result{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:stretch;margin-top:20px}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;min-width:0}
+.side.bet{border-color:var(--good);box-shadow:inset 0 0 0 1px var(--good)}
+.side .nm{font:600 1.35rem/1.15 var(--f-display);text-transform:uppercase;letter-spacing:.03em}
+.side .fair{display:flex;align-items:baseline;gap:10px}
+.side .fair b{font:700 2.6rem/1 var(--f-display);font-variant-numeric:tabular-nums;color:var(--accent)}
+.side .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.side .sub{font-size:13px;color:var(--muted)}
+.vs{align-self:center;font:600 1rem var(--f-display);text-transform:uppercase;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin:10px 0 14px;max-width:80ch}
+.sug{font:inherit;font-size:13px;background:var(--accent-soft);color:var(--accent);border:0;border-radius:4px;padding:2px 7px;margin:2px;cursor:pointer}
+@media (max-width:980px){
+  .calc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-flow:dense}
+  .calc .pa,.calc .pb,.calc .swap{grid-column:1 / -1}
+  .calc .swap{justify-self:start;padding:2px 12px}
+  .calc .ctl:has(#c-turnier){grid-column:1 / -1}
+  .result{grid-template-columns:minmax(0,1fr)}.vs{display:none}
+  .side .fair b{font-size:2.2rem}
+}
+@media (max-width:720px){nav.tabs button{padding:6px 7px;font-size:.95rem}}
+.dayh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font:700 1.6rem/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;margin:30px 0 0;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.dayh span{font:500 13px var(--f-body);text-transform:none;letter-spacing:0;color:var(--muted)}
+tr.m.past td{color:var(--muted)}
+.kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
+@media (prefers-reduced-motion:no-preference){tr.m td{transition:background .12s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Tennis <span>Value</span> Board</h1>
+    <div class="stand" id="stand">lädt …</div>
+  </header>
+  <div class="banner" id="banner" hidden></div>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-partien" aria-selected="true" data-tab="partien">Partien</button>
+    <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Rechner</button>
+    <button role="tab" id="tab-protokoll" aria-selected="false" data-tab="protokoll">Tipp-Protokoll</button>
+    <button role="tab" id="tab-info" aria-selected="false" data-tab="info">Modell</button>
+  </nav>
+
+  <section id="v-partien">
+    <div class="controls">
+      <div class="ctl bmctl"><label for="bm">Buchmacher</label><select id="bm"></select></div>
+      <div class="ctl"><label for="f-tag">Tag</label>
+        <select id="f-tag"><option value="beide">Heute + Morgen</option><option value="heute">Heute</option><option value="morgen">Morgen</option></select></div>
+      <div class="ctl"><label for="f-art">Turniere</label>
+        <select id="f-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+      <div class="ctl"><label for="f-belag">Belag</label>
+        <select id="f-belag"><option value="alle">alle</option><option value="hard">Hard</option><option value="clay">Sand</option><option value="grass">Rasen</option></select></div>
+      <div class="ctl"><label for="f-suche">Spieler / Turnier</label><input type="search" id="f-suche" placeholder="z. B. Jodar"></div>
+      <label class="check" for="f-value"><input type="checkbox" id="f-value"> nur Value-Wetten</label>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b id="k-partien">–</b><span>Partien</span></div>
+      <div class="kpi"><b id="k-value">–</b><span>Value-Wetten</span></div>
+      <div class="kpi"><b id="k-kelly">–</b><span>Kelly-Einsatz gesamt</span></div>
+      <div class="kpi"><b id="k-edge">–</b><span>Ø Edge der Tipps</span></div>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <section id="v-rechner" hidden>
+    <form class="calc" id="calc" autocomplete="off">
+      <div class="ctl pa"><label for="c-a">Spieler A</label><input id="c-a" list="c-players" placeholder="Name eintippen"></div>
+      <button type="button" class="swap" id="c-swap" title="Spieler tauschen" aria-label="Spieler tauschen">⇄</button>
+      <div class="ctl pb"><label for="c-b">Spieler B</label><input id="c-b" list="c-players" placeholder="Name eintippen"></div>
+      <div class="ctl"><label for="c-belag">Belag</label>
+        <select id="c-belag"><option value="hard">Hard</option><option value="clay">Sand</option><option value="grass">Rasen</option></select></div>
+      <div class="ctl"><label for="c-turnier">Turnier</label><input id="c-turnier" placeholder="optional, z. B. Madrid"></div>
+      <div class="ctl"><label for="c-modus">Modus</label>
+        <select id="c-modus"><option value="">auto</option><option value="3">Best of 3</option><option value="5">Best of 5</option></select></div>
+      <div class="ctl q"><label for="c-qa">Quote A</label><input id="c-qa" inputmode="decimal" placeholder="optional"></div>
+      <div class="ctl q"><label for="c-qb">Quote B</label><input id="c-qb" inputmode="decimal" placeholder="optional"></div>
+      <datalist id="c-players"></datalist>
+    </form>
+    <div id="c-out"></div>
+  </section>
+
+  <section id="v-protokoll" hidden>
+    <p class="info" style="margin-top:16px">Jedes Value-Signal wird beim automatischen Update mit erster und letzter gesehener Quote gespeichert. Steigt die Quote nach dem ersten Signal, lag der Markt gegen den Tipp; fällt sie, hast du Closing-Line-Value.</p>
+    <div id="protokoll"></div>
+  </section>
+
+  <section id="v-info" class="info" hidden></section>
+
+  <footer>Modell: Nachbau des Excel-Blatts MODELL (Analysetool_Belag.xlsx). Elo: Tennis Abstract. Quoten: OddsPapi. Keine Garantie, Wetten mit Verantwortung.</footer>
+</div>
+
+<script src="model.js"></script>
+<script>
+(function(){
+"use strict";
+const $ = (s) => document.querySelector(s);
+const store = {get(k,d){try{const v=localStorage.getItem("tvb."+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+               set(k,v){try{localStorage.setItem("tvb."+k,JSON.stringify(v))}catch(e){}}};
+const BEST = "__best__";
+let D, M, META, LOG, open = new Set();
+
+const fx = (x,d=2) => (typeof x==="number"&&isFinite(x)) ? x.toFixed(d).replace(".",",") : "–";
+const pc = (x,d=1) => (typeof x==="number"&&isFinite(x)) ? (x*100).toFixed(d).replace(".",",")+" %" : "–";
+const sg = (x) => (typeof x==="number"&&isFinite(x)) ? (x>0?"+":"")+(x*100).toFixed(1).replace(".",",")+" %" : "–";
+const eur = (x) => (typeof x==="number"&&isFinite(x)) ? x.toFixed(2).replace(".",",")+" €" : "–";
+const esc = (s) => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const SURF = {hard:"Hard",clay:"Sand",grass:"Rasen"};
+
+async function j(f, d){ try{ const r = await fetch("data/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
+
+async function init(){
+  const [P, players, h2h, ps, bl, matches, meta, log] = await Promise.all([
+    j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
+    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {})]);
+  if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
+  D = {params:P.params, csi:P.csi, players, h2h, playerStats:ps, blacklist:bl};
+  M = matches; META = meta||{}; LOG = log||{};
+  setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc();
+}
+
+function setupHeader(){
+  const t = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "–";
+  const k = META.kontingent ? ` · API ${META.kontingent.verbraucht}/${META.kontingent.limit}` : "";
+  $("#stand").innerHTML = `Quoten: ${t(META.quoten_update || M.stand)} · Elo: ${t(META.elo_update)}${k}`;
+  const msgs = [];
+  if(M.demo) msgs.push("Demo-Daten: Partien und Quoten aus dem aktuellen DASHBOARD deiner Excel. Live-Quoten erscheinen, sobald der OddsPapi-Key hinterlegt ist.");
+  if(META.quoten_hinweis) msgs.push(META.quoten_hinweis);
+  if(META.buchmacher_fehlen && META.buchmacher_fehlen.length) msgs.push("Bei OddsPapi nicht gefunden: "+META.buchmacher_fehlen.join(", "));
+  if(META.unbekannte_namen && META.unbekannte_namen.length) msgs.push(`${META.unbekannte_namen.length} Spielernamen nicht in der Spieler-DB (siehe Reiter Modell).`);
+  if(msgs.length){ $("#banner").hidden = false; $("#banner").innerHTML = msgs.map(esc).join("<br>"); }
+}
+
+function bookmakers(){
+  const s = new Set(); (M.partien||[]).forEach(p => Object.keys(p.quoten||{}).forEach(b => s.add(b)));
+  return [...s];
+}
+
+function setupControls(){
+  const bms = bookmakers();
+  const sel = $("#bm");
+  sel.innerHTML = (bms.length>1 ? `<option value="${BEST}">Beste Value-Quote (alle)</option>` : "") + bms.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+  const saved = store.get("bm", null);
+  if(saved && [...sel.options].some(o=>o.value===saved)) sel.value = saved;
+  for(const id of ["f-tag","f-art","f-belag"]) { const v = store.get(id,null); if(v) $("#"+id).value = v; }
+  $("#f-value").checked = store.get("f-value", false);
+  ["bm","f-tag","f-art","f-belag","f-value","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
+    const el = $("#"+id); store.set(id==="bm"?"bm":id, el.type==="checkbox"?el.checked:el.value); render(); }));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+  if(["partien","rechner","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
+}
+
+function showTab(t){
+  document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t));
+  ["partien","rechner","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
+}
+
+function belagFor(p){ const o = store.get("belag."+p.id, null); return o ? {belag:o, quelle:"manuell"} : {belag:p.belag, quelle:p.belagQuelle}; }
+
+function evalMatch(p){
+  const {belag, quelle} = belagFor(p);
+  const bm = $("#bm").value;
+  const books = bm===BEST ? Object.keys(p.quoten||{}) : [bm];
+  let best = null;
+  for(const b of books){
+    const q = (p.quoten||{})[b]; if(!q) continue;
+    const r = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
+    r.bm = b; r.qa = q[0]; r.qb = q[1];
+    const e = r.wette ? (r.wette==="A"?r.edgeA:r.edgeB) : -9;
+    if(!best || e > best._e) { r._e = e; best = r; }
+  }
+  if(!best) best = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b}, D);
+  best.belagQuelle = quelle; best.belagEff = belag;
+  return best;
+}
+
+const TZ = "Europe/Berlin";
+const dayKey = (d) => d.toLocaleDateString("sv-SE", {timeZone: TZ});
+const startOf = (p) => { const d = p.start ? new Date(String(p.start).replace(" ","T")) : null; return d && !isNaN(d) ? d : null; };
+
+function render(){
+  const now = new Date(), kHeute = dayKey(now), kMorgen = dayKey(new Date(now.getTime() + 864e5));
+  const tag = $("#f-tag").value;
+  const art = $("#f-art").value, fb = $("#f-belag").value, onlyV = $("#f-value").checked, q = $("#f-suche").value.trim().toLowerCase();
+  const rows = [];
+  for(const p of (M.partien||[])){
+    const d = startOf(p), dk = d ? dayKey(d) : kHeute;
+    if(!M.demo){
+      if(dk !== kHeute && dk !== kMorgen) continue;              // nur heute + morgen
+      if(d && now - d > 4 * 36e5) continue;                       // vor über 4 h begonnen -> ausblenden
+      if(tag === "heute" && dk !== kHeute) continue;
+      if(tag === "morgen" && dk !== kMorgen) continue;
+    }
+    p._day = M.demo ? kHeute : dk;
+    const isCh = /challenger/i.test(p.turnier+" "+(p.kategorie||""));
+    if(art==="atp" && isCh) continue; if(art==="ch" && !isCh) continue;
+    const r = evalMatch(p);
+    if(fb!=="alle" && r.belagEff!==fb) continue;
+    if(onlyV && !r.wette) continue;
+    if(q && !(p.a+" "+p.b+" "+p.turnier).toLowerCase().includes(q)) continue;
+    rows.push({p, r});
+  }
+  const tips = rows.filter(x => x.r.wette && !String(x.r.empfehlung).startsWith("⛔"));
+  $("#k-partien").textContent = rows.length;
+  $("#k-value").textContent = tips.length;
+  $("#k-kelly").textContent = eur(tips.reduce((s,x)=>s+(x.r.kelly||0),0));
+  $("#k-edge").textContent = tips.length ? sg(tips.reduce((s,x)=>s+(x.r.wette==="A"?x.r.edgeA:x.r.edgeB),0)/tips.length) : "–";
+
+  if(!rows.length){ $("#list").innerHTML = `<div class="empty">${(M.partien||[]).length ? "Keine Partie passt zu den Filtern." : "Für heute und morgen sind noch keine ATP- oder Challenger-Partien geladen. Das nächste automatische Update holt den Spielplan."}</div>`; return; }
+  rows.sort((x,y) => String(x.p.start).localeCompare(String(y.p.start)));
+  const days = new Map();
+  for(const x of rows){ const dk = x.p._day; if(!days.has(dk)) days.set(dk, new Map());
+    const g = days.get(dk); if(!g.has(x.p.turnier)) g.set(x.p.turnier, []); g.get(x.p.turnier).push(x); }
+  let html = "";
+  for(const dk of [...days.keys()].sort()){
+    const groups = days.get(dk), n = [...groups.values()].reduce((s,xs)=>s+xs.length,0);
+    const dd = new Date(dk+"T12:00:00");
+    html += `<h2 class="dayh">${dk===kHeute?"Heute":dk===kMorgen?"Morgen":""} <span>${dd.toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"2-digit"})} · ${n} ${n===1?"Partie":"Partien"}</span></h2>`;
+  for(const [t, xs] of groups){
+    const b = xs[0].r.belagEff, est = xs[0].r.belagQuelle==="standard";
+    html += `<div class="group"><h2>${esc(t)} <span class="surf ${b}${est?" geschaetzt":""}" title="${est?"Belag geschätzt – in den Details änderbar":"Belag"}">${SURF[b]||b}${est?" ?":""}</span></h2><div class="tablewrap"><table>
+      <thead><tr><th class="hide-s">Zeit</th><th>Partie</th><th>Quote</th><th class="hide-s">Fair</th><th>Edge</th><th>Empfehlung</th><th class="hide-s">Kelly</th><th class="hide-s">Buchm.</th></tr></thead><tbody>`;
+    for(const {p, r} of xs) html += rowHtml(p, r);
+    html += `</tbody></table></div></div>`;
+  }}
+  $("#list").innerHTML = html;
+  document.querySelectorAll("tr.m").forEach(tr => tr.addEventListener("click", () => { const id = tr.dataset.id; open.has(id)?open.delete(id):open.add(id); render(); }));
+  document.querySelectorAll("select.belag-ovr").forEach(s => { s.addEventListener("click", e => e.stopPropagation()); s.addEventListener("change", e => {
+    const id = s.dataset.id; if(s.value==="auto") { try{localStorage.removeItem("tvb.belag."+id)}catch(_){} } else store.set("belag."+id, s.value); render(); }); });
+}
+
+function rowHtml(p, r){
+  const id = esc(p.id);
+  const d = startOf(p);
+  const laeuft = !M.demo && d && d <= new Date();
+  const time = laeuft ? "läuft" : d ? d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
+  if(!r.ok){
+    return `<tr class="m" data-id="${id}"><td class="l time">${time}</td><td class="l"><div class="pl"><span class="${p.aInDb===false||!D.players[p.a]?"miss":""}">${esc(p.a)}</span><span class="${p.bInDb===false||!D.players[p.b]?"miss":""}">${esc(p.b)}</span></div></td>
+      <td colspan="6" class="l"><span class="pill warn">${esc(r.warnungen.join(" · "))}</span></td></tr>`;
+  }
+  const stop = String(r.empfehlung).startsWith("⛔"), beide = String(r.empfehlung).startsWith("⚠️");
+  const pill = r.wette ? `<span class="pill ${stop?"stop":"go"}">${stop?"Blacklist":`<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
+             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : `<span class="pill no">kein Value</span>`;
+  const e = r.wette==="A" ? r.edgeA : r.wette==="B" ? r.edgeB : Math.max(r.edgeA??-1, r.edgeB??-1);
+  const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
+  let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
+    <td class="l time hide-s">${time}</td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${esc(r.a)}</span><span class="${r.wette==="B"?"bet":""}">${esc(r.b)}${warn}</span></div></td>
+    <td class="num"><div class="pl"><span>${fx(r.qa)}</span><span>${fx(r.qb)}</span></div></td>
+    <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
+    <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
+    <td>${pill}${r.kelly&&!stop?`<span class="num show-s kel">${eur(r.kelly)}</span>`:""}</td>
+    <td class="num hide-s">${r.kelly&&!stop?eur(r.kelly):"–"}</td>
+    <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
+  if(open.has(p.id)) html += `<tr class="detail"><td colspan="8">${detailHtml(p, r)}</td></tr>`;
+  return html;
+}
+
+function detailHtml(p, r){
+  const ab = (a,b,f) => `<span class="v">${f(a)}</span><span class="v">${f(b)}</span>`;
+  const s = r.saetze || {};
+  const scores = s.scores ? Object.entries(s.scores).map(([k,v]) => `<span class="k">${k}</span><span class="v">${pc(v)}</span><span class="v">${fx(1/v)}</span>`).join("") : "";
+  const allBooks = Object.entries(p.quoten||{}).map(([b,q]) => {
+    const x = TennisModel.analyse({turnier:p.turnier, belag:r.belagEff, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
+    return `<span class="k">${esc(b)}${x.wette?" ✓":""}</span><span class="v">${fx(q[0])} / ${fx(q[1])}</span><span class="v">${sg(x.edgeA)} / ${sg(x.edgeB)}</span>`; }).join("");
+  const chk = (c, rolle) => c ? `<span class="k">${esc(c.name)} (${rolle})</span><span class="v">${c.n>=D.params.MIN_N_SIEGQUOTE&&c.pct!=null?pc(c.pct,0):"—"} · n ${c.n}</span>` : "";
+  const cur = store.get("belag."+p.id, null) || "auto";
+  return `<div class="dgrid">
+    <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
+      <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
+      <span class="k">Elo</span><span class="v">${pc(r.pElo)}</span>
+      <span class="k">H2H ${r.h2h.a}:${r.h2h.b} (Gewicht ${pc(r.h2h.gewicht,0)})</span><span class="v">${r.h2h.n?pc(r.h2h.pct):"–"}</span>
+      <span class="k">Kombiniert</span><span class="v">${pc(r.pKombi)}</span>
+      <span class="k">Kalibriert (k ${fx(D.params.K_KALIBRIERUNG,1)})</span><span class="v">${pc(r.pKal)}</span>
+      <span class="k">Markt (entvigt)</span><span class="v">${pc(r.pMarkt)}</span>
+      <span class="k"><b>Final (${pc(D.params.W_MODELL_BLEND,0)} Modell)</b></span><span class="v"><b>${pc(r.pFinal)}</b></span></div></div>
+    <div class="box"><h3>Spieler</h3><div class="kv">
+      <span></span><span class="h">A</span><span class="h">B</span>
+      <span class="k">Elo genutzt</span>${ab(r.eloA,r.eloB,x=>fx(x,0))}
+      <span class="k">yElo</span>${ab(r.yEloA,r.yEloB,x=>fx(x,0))}
+      <span class="k">p_srv</span>${ab(r.pSrvA,r.pSrvB,x=>pc(x))}
+      <span class="k">TB-Bilanz</span>${ab(r.tbA,r.tbB,x=>pc(x,0))}
+      <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
+      <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}</div></div>
+    <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
+      <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
+    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}</div>
+      ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
+      <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
+        <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
+        ${["hard","clay","grass"].map(b=>`<option value="${b}"${cur===b?" selected":""}>${SURF[b]}</option>`).join("")}</select>`}
+      ${r.csi!=null?`<div class="kv two" style="margin-top:6px"><span class="k">Court Speed Index</span><span class="v">${fx(r.csi,1)}</span></div>`:""}</div>
+    ${allBooks?`<div class="box"><h3>Alle Buchmacher</h3><div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}</div></div>`:""}
+  </div>${r.warnungen&&r.warnungen.length?`<ul class="warns">${r.warnungen.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:""}`;
+}
+
+function renderLog(){
+  const e = Object.values(LOG||{}).sort((a,b) => String(b.erstGesehen).localeCompare(String(a.erstGesehen)));
+  if(!e.length){ $("#protokoll").innerHTML = '<div class="empty">Noch keine protokollierten Tipps. Sie entstehen automatisch bei jedem Quoten-Update.</div>'; return; }
+  $("#protokoll").innerHTML = `<div class="tablewrap"><table><thead><tr><th>Gesehen</th><th>Tipp</th><th>Turnier</th><th>Buchm.</th><th>Erste Q.</th><th>Letzte Q.</th><th>CLV</th><th>Edge</th><th>Kelly</th></tr></thead><tbody>${
+    e.map(x => { const clv = x.erstQuote && x.letzteQuote ? x.erstQuote/x.letzteQuote-1 : null;
+      return `<tr><td class="l time">${esc(String(x.erstGesehen).slice(5,16).replace("T"," "))}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td>
+      <td class="l">${esc(x.turnier)}</td><td class="time">${esc(x.buchmacher)}</td><td class="num">${fx(x.erstQuote)}</td><td class="num">${fx(x.letzteQuote)}</td>
+      <td class="num ${clv>0?"pos":"neg"}">${sg(clv)}</td><td class="num">${sg(x.edge)}</td><td class="num">${eur(x.kelly)}</td></tr>`; }).join("")}</tbody></table></div>`;
+}
+
+function renderInfo(){
+  const P = D.params, n = Object.keys(D.players).length;
+  const ohne = Object.values(D.players).filter(p => p.hard_1in==null).length;
+  const un = META.unbekannte_namen || [];
+  $("#v-info").innerHTML = `
+  <h2>So rechnet das Board</h2>
+  <p>Jede Partie läuft durch denselben Rechenweg wie das Blatt MODELL der Excel: Elo (Belags-Elo, ${pc(P.W_YELO_BLEND,0)} yElo beigemischt), Aufschlag-Markov über Spiel, Satz und Match, dynamisches H2H bis ${pc(P.H2H_MAX_WEIGHT,0)}, Belagsgewichtung samt Court Speed Index auf Sand, Kalibrierung mit k = ${fx(P.K_KALIBRIERUNG,1)} und Mischung mit der entvigten Quote des gewählten Buchmachers (${pc(P.W_MODELL_BLEND,0)} Modell).</p>
+  <p>Value heißt: Buchmacherquote über der fairen Quote und höchstens ${fx(P.MAX_QUOTE_VALUE,1)}. Empfohlen wird nur der Modell-Favorit. Kelly: ${fx(P.BANKROLL,0)} € Bankroll × ${fx(P.KELLY_FRACTION,2)}.</p>
+  <h2>Spieler-Datenbank</h2>
+  <p>${n} Spieler, davon ${ohne} ohne Aufschlagwerte auf Hard. Fehlen einem Spieler die Werte für den Belag, rechnet das Board diese Partie nur mit Elo und H2H (in der Liste mit * markiert). Die Excel würde dort mit 0 rechnen. Umschaltbar über <code>FEHLENDE_STATS</code> in <code>data/params.json</code>.</p>
+  ${un.length?`<h2>Unbekannte Namen beim letzten Update</h2><p>Zuordnung in <code>data/name_map.json</code> nachtragen, z. B. <code>{"${esc(un[0])}": "Vorname Nachname"}</code>:</p><p class="time">${un.map(esc).join(" · ")}</p>`:""}
+  <h2>Parameter</h2>
+  <p>Alle Werte kommen aus dem Blatt PARAMETER. Nach Änderungen in der Excel einmal <code>scripts/excel_export.py</code> laufen lassen.</p>`;
+}
+
+// ---------------------------------------------------------------- Rechner
+const CALC_IDS = ["c-a","c-b","c-belag","c-turnier","c-modus","c-qa","c-qb"];
+function num(v){ const x = parseFloat(String(v).replace(",",".")); return isFinite(x) && x > 1 ? x : undefined; }
+
+function setupCalc(){
+  const names = Object.keys(D.players).sort((a,b)=>a.localeCompare(b,"de"));
+  $("#c-players").innerHTML = names.map(n=>`<option value="${esc(n)}">`).join("");
+  const saved = store.get("calc", null);
+  if(saved) CALC_IDS.forEach(id => { if(saved[id]!=null) $("#"+id).value = saved[id]; });
+  else { $("#c-a").value = "Jannik Sinner"; $("#c-b").value = "Carlos Alcaraz"; }
+  CALC_IDS.forEach(id => $("#"+id).addEventListener(id.startsWith("c-a")||id.startsWith("c-b")||id==="c-turnier"||id.startsWith("c-q")?"input":"change", calc));
+  $("#c-swap").addEventListener("click", () => {
+    [[ "c-a","c-b"],["c-qa","c-qb"]].forEach(([x,y]) => { const t = $("#"+x).value; $("#"+x).value = $("#"+y).value; $("#"+y).value = t; });
+    calc(); });
+  $("#calc").addEventListener("submit", e => e.preventDefault());
+  calc();
+}
+
+function findPlayer(v){
+  v = v.trim(); if(!v) return null;
+  if(D.players[v]) return v;
+  const l = v.toLowerCase(), hits = Object.keys(D.players).filter(n => n.toLowerCase()===l);
+  return hits[0] || null;
+}
+function suggest(v){
+  const l = v.trim().toLowerCase(); if(l.length<2) return [];
+  return Object.keys(D.players).filter(n => n.toLowerCase().includes(l)).slice(0,6);
+}
+
+function calc(){
+  const val = {}; CALC_IDS.forEach(id => val[id] = $("#"+id).value); store.set("calc", val);
+  const a = findPlayer(val["c-a"]), b = findPlayer(val["c-b"]);
+  const out = $("#c-out");
+  const miss = [];
+  for(const [raw, hit, lab] of [[val["c-a"],a,"Spieler A"],[val["c-b"],b,"Spieler B"]]){
+    if(!hit){ const s = suggest(raw);
+      miss.push(raw.trim() ? `<b>${esc(raw)}</b> ist nicht in der Spieler-DB.${s.length?" Meintest du: "+s.map(x=>`<button type="button" class="sug" data-f="${lab==="Spieler A"?"c-a":"c-b"}" data-v="${esc(x)}">${esc(x)}</button>`).join(" "):""}` : `${lab} eintragen.`); }
+  }
+  if(miss.length){ out.innerHTML = `<div class="empty">${miss.join("<br>")}</div>`;
+    out.querySelectorAll(".sug").forEach(btn => btn.addEventListener("click", () => { $("#"+btn.dataset.f).value = btn.dataset.v; calc(); })); return; }
+  if(a===b){ out.innerHTML = `<div class="empty">Bitte zwei verschiedene Spieler wählen.</div>`; return; }
+  const qa = num(val["c-qa"]), qb = num(val["c-qb"]);
+  const turnier = val["c-turnier"].trim();
+  const r = TennisModel.analyse({turnier, belag:val["c-belag"], a, b, qa, qb, modus: val["c-modus"] ? +val["c-modus"] : undefined}, D);
+  if(!r.ok){ out.innerHTML = `<div class="empty">${esc(r.warnungen.join(" · "))}</div>`; return; }
+  r.belagEff = val["c-belag"];
+  const mitMarkt = qa && qb;
+  const stop = String(r.empfehlung).startsWith("⛔");
+  const card = (name, fair, q, edge, value, bet) => `<div class="side${bet?" bet":""}">
+      <div class="nm">${esc(name)}</div>
+      <div class="fair"><span class="lbl">Faire Quote</span><b>${fx(fair)}</b></div>
+      <div class="sub">${pc(1/fair)} Siegchance${mitMarkt?` · Buch ${fx(q)} · Edge <span class="${edge>0?"pos":"neg"}">${sg(edge)}</span>`:""}</div>
+      ${mitMarkt?(value?`<span class="pill ${bet&&!stop?"go":"warn"}">${bet?(stop?"Blacklist":"Value – setzen"):"Value, aber Außenseiter"}</span>`:`<span class="pill no">kein Value</span>`):""}
+    </div>`;
+  out.innerHTML = `<div class="result">
+      ${card(a, r.fairA, qa, r.edgeA, r.valueA, r.wette==="A")}
+      <div class="vs">vs</div>
+      ${card(b, r.fairB, qb, r.edgeB, r.valueB, r.wette==="B")}
+    </div>
+    <p class="note">${mitMarkt
+      ? `Faire Quote inkl. ${pc(1-D.params.W_MODELL_BLEND,0)} Marktanteil aus den eingegebenen Quoten. Reines Modell: ${fx(r.fairModellA)} / ${fx(r.fairModellB)}.${r.kelly&&!stop?` Kelly-Einsatz: <b>${eur(r.kelly)}</b>.`:""}`
+      : `Reines Modell (kalibriert), ohne Marktquoten. Mit Quoten A und B rechnet der Rechner wie das DASHBOARD inkl. Markt-Mischung, Value und Kelly.`}
+      ${r.nurElo?" Aufschlagwerte fehlen, daher nur Elo und H2H.":""} Bo${r.modus}${r.csi!=null?`, CSI ${fx(r.csi,1)}`:""}.</p>
+    ${detailHtml({id:"rechner", calc:true, quoten:{}, belag:r.belagEff}, r)}`;
+}
+
+init();
+})();
+</script>

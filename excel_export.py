@@ -1,0 +1,136 @@
+"""Exportiert die Stammdaten aus Analysetool_Belag.xlsx nach data/*.json.
+
+Aufruf:  python scripts/excel_export.py Pfad/zu/Analysetool_Belag.xlsx
+Kann jederzeit erneut laufen, wenn die Excel weiter gepflegt wird.
+"""
+import json, sys, datetime, warnings
+from pathlib import Path
+import openpyxl
+
+warnings.filterwarnings("ignore")
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "docs" / "data"
+
+
+def num(v):
+    if v is None or v == "":
+        return None
+    if isinstance(v, (int, float)):
+        return float(v)
+    try:
+        return float(str(v).replace(",", ".").replace("\xa0", ""))
+    except ValueError:
+        return None
+
+
+def clean(s):
+    return str(s).replace("\xa0", " ").strip() if s is not None else ""
+
+
+def main(path):
+    wb = openpyxl.load_workbook(path, data_only=True)
+    DATA.mkdir(exist_ok=True)
+
+    # ---- PARAMETER (Name -> Wert, Spalte A/B) ----
+    ws = wb["PARAMETER"]
+    params = {}
+    for r in ws.iter_rows(min_row=1, max_row=120, max_col=2, values_only=True):
+        k, v = r
+        if isinstance(k, str) and k.isupper() and k.replace("_", "").isalnum():
+            if isinstance(v, (datetime.date, datetime.datetime)):
+                v = v.strftime("%Y-%m-%d")
+            params[k] = v
+    # App-Parameter (nicht in der Excel): Umgang mit fehlenden Aufschlagwerten
+    #   "nur_elo" = Statistik-Teil entfällt, wenn einem Spieler Werte fehlen
+    #   "excel"   = wie die Excel (leere Zellen zählen als 0)
+    params.setdefault("FEHLENDE_STATS", "nur_elo")
+    # CSI-Tabelle
+    csi = []
+    for r in ws.iter_rows(min_row=50, max_row=67, max_col=5, values_only=True):
+        if r[0]:
+            csi.append({"name": clean(r[0]), "csi": num(r[1]), "alias": clean(r[4])})
+
+    # ---- SPIELER_DB ----
+    ws = wb["SPIELER_DB"]
+    cols = ["elo", "hard_1in", "hard_1won", "hard_2won", "clay_1in", "clay_1won", "clay_2won",
+            "grass_1in", "grass_1won", "grass_2won", "ret_hard", "ret_clay", "ret_grass",
+            "tb", "elo_hard", "elo_clay", "elo_grass"]
+    players = {}
+    for r in ws.iter_rows(min_row=4, max_col=18, values_only=True):
+        name = clean(r[0])
+        if not name:
+            continue
+        players[name] = {c: num(v) for c, v in zip(cols, r[1:18])}
+
+    # ---- SPIELER-STATS (Favorit/Außenseiter-Bilanz) ----
+    ws = wb["SPIELER-STATS"]
+    pstats = {}
+    for r in ws.iter_rows(min_row=11, max_col=11, values_only=True):
+        name = clean(r[1])
+        if not name:
+            continue
+        fav_n = (r[4] or 0) + (r[5] or 0)
+        aus_n = (r[8] or 0) + (r[9] or 0)
+        pstats[name] = {"fav_pct": num(r[6]), "fav_n": fav_n, "aus_pct": num(r[10]), "aus_n": aus_n}
+
+    # ---- H2H: Gesamtbilanz (manuell + getrackt) ----
+    ws = wb["H2H"]
+    h2h = {}
+    for r in ws.iter_rows(min_row=4, max_col=14, values_only=True):
+        a, b = clean(r[0]), clean(r[1])
+        if not a or not b:
+            continue
+        wa, wb_ = int(num(r[12]) or 0), int(num(r[13]) or 0)
+        # Excel nimmt bei Dubletten den ersten Treffer (MATCH) -> erster gewinnt
+        if f"{a}|{b}" not in h2h and f"{b}|{a}" not in h2h:
+            h2h[f"{a}|{b}"] = [wa, wb_]
+
+    # ---- ANALYSE: getrackte Spiele (für H2H-Fallback und spätere Auswertung) ----
+    ws = wb["ANALYSE"]
+    stichtag = datetime.datetime.strptime(params.get("H2H_STICHTAG", "2026-04-04"), "%Y-%m-%d")
+    history = []
+    for r in ws.iter_rows(min_row=5, max_col=16, values_only=True):
+        if not r[2]:
+            continue
+        d = r[3]
+        history.append({
+            "turnier": clean(r[1]), "belag": clean(r[2]).lower(),
+            "datum": d.strftime("%Y-%m-%d") if isinstance(d, datetime.datetime) else None,
+            "a": clean(r[4]), "b": clean(r[5]), "qa": num(r[6]), "qb": num(r[7]),
+            "pa": num(r[8]), "sieger": clean(r[15]),
+        })
+    # Paare, die nicht in der H2H-Tabelle stehen: aus ANALYSE ab Stichtag zählen
+    tracked = {}
+    for m in history:
+        if not m["datum"] or m["sieger"] not in ("A", "B"):
+            continue
+        if datetime.datetime.strptime(m["datum"], "%Y-%m-%d") < stichtag:
+            continue
+        w, l = (m["a"], m["b"]) if m["sieger"] == "A" else (m["b"], m["a"])
+        tracked[(w, l)] = tracked.get((w, l), 0) + 1
+    for (w, l), n in tracked.items():
+        a, b = sorted([w, l])
+        key = f"{a}|{b}"
+        if key in h2h or f"{b}|{a}" in h2h:
+            continue
+        h2h[key] = [tracked.get((a, b), 0), tracked.get((b, a), 0)]
+
+    # ---- BLACKLIST ----
+    ws = wb["BLACKLIST"]
+    blacklist = [clean(r[0]) for r in ws.iter_rows(min_row=4, max_col=1, values_only=True) if clean(r[0])]
+
+    out = {
+        "params.json": {"params": params, "csi": csi},
+        "players.json": players,
+        "player_stats.json": pstats,
+        "h2h.json": h2h,
+        "blacklist.json": blacklist,
+        "history.json": history,
+    }
+    for fn, obj in out.items():
+        (DATA / fn).write_text(json.dumps(obj, ensure_ascii=False, indent=0 if fn == "history.json" else 1), encoding="utf-8")
+    print(f"Spieler: {len(players)}, H2H-Paare: {len(h2h)}, Blacklist: {len(blacklist)}, Historie: {len(history)}, Parameter: {len(params)}")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1])

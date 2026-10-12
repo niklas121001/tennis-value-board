@@ -1,0 +1,10 @@
+{
+  "buchmacher": ["bet365", "tipico", "bwin", "interwetten", "winamax"],
+  "tage": 2,
+  "anfragen_limit_monat": 250,
+  "anfragen_reserve": 20,
+  "turnier_filter": {
+    "einschliessen": ["atp", "challenger"],
+    "ausschliessen": ["doubles", "double", "wta", "women", "itf", "utr", "mixed", "exhibition", "davis", "laver", "united cup", "juniors", "boys", "girls", "wheelchair"]
+  }
+}
