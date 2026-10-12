@@ -30,21 +30,30 @@ jobs:
 
       - name: Ordnerstruktur prüfen
         run: |
-          # Falls der Projektordner als Unterordner hochgeladen wurde: Inhalt einmalig nach oben verschieben
+          git config user.name "tennis-bot"
+          git config user.email "tennis-bot@users.noreply.github.com"
+          changed=0
+          # Fall 1: Projektordner als Unterordner hochgeladen -> Inhalt nach oben
           for d in tennis-value-app tennis-value-board; do
             if [ -d "$d/docs" ] && [ ! -d docs ]; then
-              echo "Verschiebe Inhalt von $d nach oben"
-              git config user.name "tennis-bot"
-              git config user.email "tennis-bot@users.noreply.github.com"
               for f in "$d"/* ; do git mv "$f" . ; done
-              git rm -r -q --cached "$d" 2>/dev/null || true
-              rm -rf "$d"
-              git add -A
-              git commit -m "Ordnerstruktur korrigiert"
-              git push
+              git rm -r -q --cached "$d" 2>/dev/null || true; rm -rf "$d"; changed=1
             fi
           done
-          ls -la
+          # Fall 2: Dateien flach hochgeladen -> in ihre Ordner einsortieren
+          mv_to () { dir="$1"; shift; mkdir -p "$dir"; for f in "$@"; do [ -f "$f" ] && git mv -f "$f" "$dir/$f" && changed=1; done; true; }
+          mv_to docs index.html model.js
+          mv_to docs/data blacklist.json h2h.json history.json matches.json meta.json name_map.json \
+                params.json player_stats.json players.json turniere.json tips_log.json oddspapi.json
+          mv_to scripts common.py excel_export.py fetch_odds.py log_tips.js update_elo.py
+          mv_to tests test_model.js excel_dashboard.json
+          [ -f update.yml ] && [ -f .github/workflows/update.yml ] && git rm -q update.yml && changed=1
+          if [ "$changed" = 1 ]; then
+            git add -A
+            git commit -m "Ordnerstruktur korrigiert"
+            git push
+          fi
+          find . -path ./.git -prune -o -type f -print | sort
 
       - name: Modell-Test (Abgleich mit Excel)
         run: node tests/test_model.js
