@@ -1,244 +1,2073 @@
 {
- "stand": "2026-10-11T20:00:00Z",
- "demo": true,
+ "stand": "2026-10-12T12:23:51Z",
  "partien": [
   {
-   "id": "demo0",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1203543675519204",
+   "start": "2026-10-12T12:25:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Pablo Carreno Busta",
-   "b": "Felix Auger-Aliassime",
-   "aRoh": "Pablo Carreno Busta",
-   "bRoh": "Felix Auger-Aliassime",
+   "belagQuelle": "standard",
+   "a": "Norbert Gombos",
+   "b": "Catry, Robin",
+   "aRoh": "Gombos, Norbert",
+   "bRoh": "Catry, Robin",
    "aInDb": true,
-   "bInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     3.8,
-     1.3
+    "bet365": [
+     1.17,
+     4.33
     ]
    }
   },
   {
-   "id": "demo1",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1203086975516434",
+   "start": "2026-10-12T12:30:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Learner Tien",
-   "b": "Casper Ruud",
-   "aRoh": "Learner Tien",
-   "bRoh": "Casper Ruud",
+   "belagQuelle": "standard",
+   "a": "Schoen, Patrick",
+   "b": "Vrbensky, Michael",
+   "aRoh": "Schoen, Patrick",
+   "bRoh": "Vrbensky, Michael",
+   "aInDb": false,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "bet365": [
+     1.17,
+     4.33
+    ]
+   }
+  },
+  {
+   "id": "id1203086975517274",
+   "start": "2026-10-12T12:30:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Alejo Sanchez Quilez",
+   "b": "Ivan Gakhov",
+   "aRoh": "Sanchez Quilez, Alejo",
+   "bRoh": "Gakhov, Ivan",
    "aInDb": true,
    "bInDb": true,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     1.7,
+    "bet365": [
+     1.58,
      2.2
     ]
    }
   },
   {
-   "id": "demo2",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1203086975519132",
+   "start": "2026-10-12T12:30:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Stefanos Tsitsipas",
-   "b": "Taylor Fritz",
-   "aRoh": "Stefanos Tsitsipas",
-   "bRoh": "Taylor Fritz",
+   "belagQuelle": "standard",
+   "a": "Milos Karol",
+   "b": "Oleksii Krutykh",
+   "aRoh": "Karol, Milos",
+   "bRoh": "Krutykh, Oleksii",
    "aInDb": true,
    "bInDb": true,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     2.4,
-     1.62
+    "bet365": [
+     2.25,
+     1.54
     ]
    }
   },
   {
-   "id": "demo3",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1205207875484704",
+   "start": "2026-10-12T12:30:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Jiri Lehecka",
-   "b": "Rafael Jodar",
-   "aRoh": "Jiri Lehecka",
-   "bRoh": "Rafael Jodar",
+   "belagQuelle": "standard",
+   "a": "Gabriele Piraino",
+   "b": "Felix Gill",
+   "aRoh": "Piraino, Gabriele",
+   "bRoh": "Gill, Felix",
    "aInDb": true,
    "bInDb": true,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     1.7,
-     2.2
+    "winamax": [
+     3.35,
+     1.27
+    ],
+    "tipico": [
+     3.3,
+     1.25
+    ],
+    "bet365": [
+     2.75,
+     1.37
     ]
    }
   },
   {
-   "id": "demo4",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1205207875484706",
+   "start": "2026-10-12T12:30:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Daniil Medvedev",
-   "b": "Dalibor Svrcina",
-   "aRoh": "Daniil Medvedev",
-   "bRoh": "Dalibor Svrcina",
+   "belagQuelle": "standard",
+   "a": "Sean Cuenin",
+   "b": "Izan Almazan Valiente",
+   "aRoh": "Cuenin, Sean",
+   "bRoh": "Almazan Valiente, Izan",
    "aInDb": true,
    "bInDb": true,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     1.15,
-     5.9
-    ]
-   }
-  },
-  {
-   "id": "demo5",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
-   "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Arthur Fils",
-   "b": "Botic van de Zandschulp",
-   "aRoh": "Arthur Fils",
-   "bRoh": "Botic van de Zandschulp",
-   "aInDb": true,
-   "bInDb": true,
-   "quoten": {
-    "Excel-Quoten": [
-     1.23,
-     4.5
-    ]
-   }
-  },
-  {
-   "id": "demo6",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
-   "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Zizou Bergs",
-   "b": "Carlos Alcaraz",
-   "aRoh": "Zizou Bergs",
-   "bRoh": "Carlos Alcaraz",
-   "aInDb": true,
-   "bInDb": true,
-   "quoten": {
-    "Excel-Quoten": [
-     10,
-     1.07
-    ]
-   }
-  },
-  {
-   "id": "demo7",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
-   "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Tommy Paul",
-   "b": "Valentin Vacherot",
-   "aRoh": "Tommy Paul",
-   "bRoh": "Valentin Vacherot",
-   "aInDb": true,
-   "bInDb": true,
-   "quoten": {
-    "Excel-Quoten": [
-     1.68,
+    "winamax": [
+     1.6,
+     2.15
+    ],
+    "bet365": [
+     1.54,
      2.25
     ]
    }
   },
   {
-   "id": "demo8",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1204070975510802",
+   "start": "2026-10-12T13:10:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Alexander Zverev",
-   "b": "Alexander Bublik",
-   "aRoh": "Alexander Zverev",
-   "bRoh": "Alexander Bublik",
+   "belagQuelle": "standard",
+   "a": "Lorenzo Carboni",
+   "b": "Mackenzie McDonald",
+   "aRoh": "Carboni, Lorenzo",
+   "bRoh": "McDonald, Mackenzie",
    "aInDb": true,
    "bInDb": true,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
+    "winamax": [
+     3.8,
+     1.22
+    ],
+    "tipico": [
+     3.9,
+     1.18
+    ],
+    "bet365": [
+     3.75,
+     1.22
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481446",
+   "start": "2026-10-12T13:35:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Mika Brunold",
+   "b": "Domenc, Mathys",
+   "aRoh": "Brunold, Mika",
+   "bRoh": "Domenc, Mathys",
+   "aInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.12,
+     5.1
+    ],
+    "tipico": [
+     1.09,
+     5.5
+    ],
+    "bet365": [
+     1.11,
+     5.5
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481578",
+   "start": "2026-10-12T13:40:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Sumit Nagal",
+   "b": "Henrique Rocha",
+   "aRoh": "Nagal, Sumit",
+   "bRoh": "Rocha, Henrique",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     3.35,
+     1.27
+    ],
+    "tipico": [
+     3.6,
+     1.22
+    ],
+    "bet365": [
+     3.5,
+     1.25
+    ]
+   }
+  },
+  {
+   "id": "id1205207875484698",
+   "start": "2026-10-12T13:40:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Francesco Forti",
+   "b": "Zdenek Kolar",
+   "aRoh": "Forti, Francesco",
+   "bRoh": "Kolar, Zdenek",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     1.8,
+     1.83
+    ],
+    "bet365": [
+     1.77,
+     1.87
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481458",
+   "start": "2026-10-12T14:30:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Sascha Gueymard Wayenburg",
+   "b": "Liam Broady",
+   "aRoh": "Gueymard Wayenburg, Sascha",
+   "bRoh": "Broady, Liam",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
      1.31,
-     3.45
+     3.1
+    ],
+    "tipico": [
+     1.25,
+     3.3
+    ],
+    "bet365": [
+     1.25,
+     3.5
     ]
    }
   },
   {
-   "id": "demo9",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1203086975481584",
+   "start": "2026-10-12T15:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Arthur Gea",
-   "b": "Jakub Mensik",
-   "aRoh": "Arthur Gea",
-   "bRoh": "Jakub Mensik",
+   "belagQuelle": "standard",
+   "a": "Pol Martin Tiffon",
+   "b": "Rocha, Francisco",
+   "aRoh": "Martin Tiffon, Pol",
+   "bRoh": "Rocha, Francisco",
    "aInDb": true,
-   "bInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     2.5,
-     1.52
+    "winamax": [
+     1.16,
+     4.4
+    ],
+    "tipico": [
+     1.12,
+     4.8
+    ],
+    "bet365": [
+     1.13,
+     5.0
     ]
    }
   },
   {
-   "id": "demo10",
-   "start": "2026-10-12T06:00:00Z",
-   "turnier": "ATP Shanghai",
-   "kategorie": "ATP",
+   "id": "id1203543675481464",
+   "start": "2026-10-12T16:30:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Alex de Minaur",
-   "b": "Karen Khachanov",
-   "aRoh": "Alex de Minaur",
-   "bRoh": "Karen Khachanov",
+   "belagQuelle": "standard",
+   "a": "Hugo Gaston",
+   "b": "Jade, Daniel",
+   "aRoh": "Gaston, Hugo",
+   "bRoh": "Jade, Daniel",
+   "aInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     1.12,
+     4.8
+    ],
+    "bet365": [
+     1.15,
+     4.5
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481444",
+   "start": "2026-10-12T17:40:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Hugo Grenier",
+   "b": "Benjamin Bonzi",
+   "aRoh": "Grenier, Hugo",
+   "bRoh": "Bonzi, Benjamin",
    "aInDb": true,
    "bInDb": true,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     1.66,
+    "tipico": [
+     3.7,
+     1.2
+    ],
+    "bet365": [
+     3.75,
+     1.22
+    ]
+   }
+  },
+  {
+   "id": "id1203609375517290",
+   "start": "2026-10-12T18:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Mateus Alves",
+   "b": "Bruno Fernandez",
+   "aRoh": "Alves, Mateus",
+   "bRoh": "Fernandez, Bruno",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "bet365": [
+     1.17,
+     4.33
+    ]
+   }
+  },
+  {
+   "id": "id1203609375519240",
+   "start": "2026-10-12T18:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Hernan Casanova",
+   "b": "Leite, Wilson",
+   "aRoh": "Casanova, Hernan",
+   "bRoh": "Leite, Wilson",
+   "aInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "bet365": [
+     1.19,
+     4.0
+    ]
+   }
+  },
+  {
+   "id": "id1203609375519284",
+   "start": "2026-10-12T18:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Lucio Ratti",
+   "b": "Zeballos, Federico",
+   "aRoh": "Ratti, Lucio",
+   "bRoh": "Zeballos, Federico",
+   "aInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "bet365": [
+     1.08,
+     6.5
+    ]
+   }
+  },
+  {
+   "id": "id1203609375521922",
+   "start": "2026-10-12T19:10:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Santiago Fa Rodriguez Taverna",
+   "b": "Maximo Zeitune",
+   "aRoh": "Rodriguez Taverna, Santiago",
+   "bRoh": "Zeitune, Maximo",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "bet365": [
+     2.25,
+     1.54
+    ]
+   }
+  },
+  {
+   "id": "id1203609375526058",
+   "start": "2026-10-12T19:10:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Lorenzo Joaquin Rodriguez",
+   "b": "Cigarran, Thiago",
+   "aRoh": "Rodriguez, Lorenzo Joaquin",
+   "bRoh": "Cigarran, Thiago",
+   "aInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "bet365": [
+     1.25,
+     3.5
+    ]
+   }
+  },
+  {
+   "id": "id1203609375526482",
+   "start": "2026-10-12T19:10:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Santiago De La Fuente",
+   "b": "Huertas Del Pino Cordova, Arklon",
+   "aRoh": "De la Fuente, Santiago",
+   "bRoh": "Huertas Del Pino Cordova, Arklon",
+   "aInDb": true,
+   "bInDb": false,
+   "hatQuoten": false,
+   "quoten": {}
+  },
+  {
+   "id": "id1203609375486036",
+   "start": "2026-10-12T20:20:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Munk Mesa, Bernardo",
+   "b": "Hugo Dellien",
+   "aRoh": "Munk Mesa, Bernardo",
+   "bRoh": "Dellien, Hugo",
+   "aInDb": false,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     7.75,
+     1.04
+    ],
+    "tipico": [
+     9.0,
+     1.01
+    ],
+    "bet365": [
+     8.0,
+     1.052
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486038",
+   "start": "2026-10-12T20:20:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Rodrigo Pacheco Mendez",
+   "b": "Juan Estevez",
+   "aRoh": "Pacheco Mendez, Rodrigo",
+   "bRoh": "Estevez, Juan",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.27,
+     3.35
+    ],
+    "tipico": [
+     1.22,
+     3.6
+    ],
+    "bet365": [
+     1.27,
+     3.4
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486050",
+   "start": "2026-10-12T20:20:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Juan Bautista Torres",
+   "b": "Alex Barrena",
+   "aRoh": "Torres, Juan Bautista",
+   "bRoh": "Barrena, Alex",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.45,
+     1.48
+    ],
+    "tipico": [
+     2.85,
+     1.33
+    ],
+    "bet365": [
+     2.75,
+     1.37
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486052",
+   "start": "2026-10-12T22:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Joaquin  Aguilar Cardozo",
+   "b": "Felipe Meligeni Alves",
+   "aRoh": "Aguilar Cardozo, Joaquin",
+   "bRoh": "Meligeni Alves, Felipe",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.62,
+     2.15
+    ],
+    "tipico": [
+     1.6,
+     2.1
+    ],
+    "bet365": [
+     1.58,
      2.2
     ]
    }
   },
   {
-   "id": "demo11",
-   "start": "2026-10-12T06:00:00Z",
+   "id": "id1203609375486054",
+   "start": "2026-10-12T22:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Francisco Comesana",
+   "b": "Nick Hardt",
+   "aRoh": "Comesana, Francisco",
+   "bRoh": "Hardt, Nick",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.16,
+     4.5
+    ],
+    "tipico": [
+     1.12,
+     4.8
+    ],
+    "bet365": [
+     1.13,
+     4.5
+    ]
+   }
+  },
+  {
+   "id": "id1201562875508884",
+   "start": "2026-10-13T03:00:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Liam Draxl",
+   "b": "Omar Jasika",
+   "aRoh": "Draxl, Liam",
+   "bRoh": "Jasika, Omar",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": false,
+   "quoten": {}
+  },
+  {
+   "id": "id1201562875510442",
+   "start": "2026-10-13T03:00:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Marat Sharipov",
+   "b": "Jake Delaney",
+   "aRoh": "Sharipov, Marat",
+   "bRoh": "Delaney, Jake",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": false,
+   "quoten": {}
+  },
+  {
+   "id": "id1200308575498306",
+   "start": "2026-10-13T04:00:00.000Z",
    "turnier": "ATP Shanghai",
    "kategorie": "ATP",
    "belag": "hard",
-   "belagQuelle": "excel",
-   "a": "Hubert Hurkacz",
-   "b": "Alejandro Davidovich Fokina",
-   "aRoh": "Hubert Hurkacz",
-   "bRoh": "Alejandro Davidovich Fokina",
+   "belagQuelle": "tabelle",
+   "a": "Alex de Minaur",
+   "b": "Karen Khachanov",
+   "aRoh": "de Minaur, Alex",
+   "bRoh": "Khachanov, Karen",
    "aInDb": true,
    "bInDb": true,
+   "hatQuoten": true,
    "quoten": {
-    "Excel-Quoten": [
-     1.88,
-     1.92
+    "winamax": [
+     1.84,
+     2.0
+    ],
+    "tipico": [
+     1.72,
+     2.0
+    ],
+    "bet365": [
+     1.63,
+     2.2
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477958",
+   "start": "2026-10-13T04:30:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Fajing Sun",
+   "b": "Jie Cui",
+   "aRoh": "Sun, Fajing",
+   "bRoh": "Cui, Jie",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.94,
+     1.76
+    ],
+    "tipico": [
+     1.95,
+     1.7
+    ],
+    "bet365": [
+     1.87,
+     1.77
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477960",
+   "start": "2026-10-13T04:30:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Martin Landaluce",
+   "b": "Ilia Simakin",
+   "aRoh": "Landaluce, Martin",
+   "bRoh": "Simakin, Ilia",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.64,
+     2.1
+    ],
+    "bet365": [
+     1.63,
+     2.1
+    ]
+   }
+  },
+  {
+   "id": "id1201562875492308",
+   "start": "2026-10-13T04:30:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Stefanos Sakellaridis",
+   "b": "Keegan Smith",
+   "aRoh": "Sakellaridis, Stefanos",
+   "bRoh": "Smith, Keegan",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.54,
+     2.25
+    ],
+    "tipico": [
+     1.5,
+     2.3
+    ],
+    "bet365": [
+     1.58,
+     2.2
+    ]
+   }
+  },
+  {
+   "id": "id1200308575509552",
+   "start": "2026-10-13T05:10:00.000Z",
+   "turnier": "ATP Shanghai",
+   "kategorie": "ATP",
+   "belag": "hard",
+   "belagQuelle": "tabelle",
+   "a": "Arthur Gea",
+   "b": "Jakub Mensik",
+   "aRoh": "Gea, Arthur",
+   "bRoh": "Mensik, Jakub",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.55,
+     1.54
+    ],
+    "tipico": [
+     2.5,
+     1.47
+    ],
+    "bet365": [
+     2.5,
+     1.5
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477962",
+   "start": "2026-10-13T05:50:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Adam Walton",
+   "b": "Marin Cilic",
+   "aRoh": "Walton, Adam",
+   "bRoh": "Cilic, Marin",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.84,
+     1.84
+    ],
+    "tipico": [
+     1.8,
+     1.83
+    ],
+    "bet365": [
+     1.8,
+     1.8
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477954",
+   "start": "2026-10-13T06:00:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Pavel Kotov",
+   "b": "Vit Kopriva",
+   "aRoh": "Kotov, Pavel",
+   "bRoh": "Kopriva, Vit",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.41,
+     2.65
+    ],
+    "tipico": [
+     1.37,
+     2.7
+    ],
+    "bet365": [
+     1.37,
+     2.75
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477964",
+   "start": "2026-10-13T06:00:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Dane Sweeny",
+   "b": "Bernard Tomic",
+   "aRoh": "Sweeny, Dane",
+   "bRoh": "Tomic, Bernard",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.84,
+     1.84
+    ],
+    "tipico": [
+     1.83,
+     1.8
+    ],
+    "bet365": [
+     1.8,
+     1.8
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477966",
+   "start": "2026-10-13T06:50:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Facundo Diaz Acosta",
+   "b": "Shintaro Mochizuki",
+   "aRoh": "Diaz Acosta, Facundo",
+   "bRoh": "Mochizuki, Shintaro",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     1.57,
+     2.15
+    ],
+    "bet365": [
+     1.54,
+     2.25
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477952",
+   "start": "2026-10-13T07:30:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Tomas Machac",
+   "b": "Alexandre Muller",
+   "aRoh": "Machac, Tomas",
+   "bRoh": "Muller, Alexandre",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.35,
+     2.9
+    ],
+    "tipico": [
+     1.3,
+     3.0
+    ],
+    "bet365": [
+     1.33,
+     3.0
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477968",
+   "start": "2026-10-13T07:30:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Elias Ymer",
+   "b": "Mattia Bellucci",
+   "aRoh": "Ymer, Elias",
+   "bRoh": "Bellucci, Mattia",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     3.8,
+     1.22
+    ],
+    "tipico": [
+     4.0,
+     1.17
+    ],
+    "bet365": [
+     4.0,
+     1.19
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477970",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Kachmazov, Alibek",
+   "b": "Friend, Jay",
+   "aRoh": "Kachmazov, Alibek",
+   "bRoh": "Friend, Jay",
+   "aInDb": false,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.05,
+     1.66
+    ],
+    "tipico": [
+     1.93,
+     1.72
+    ],
+    "bet365": [
+     2.1,
+     1.63
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481448",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Matisse Bobichon",
+   "b": "Billy Harris",
+   "aRoh": "Bobichon, Matisse",
+   "bRoh": "Harris, Billy",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.9,
+     1.35
+    ],
+    "tipico": [
+     3.0,
+     1.3
+    ],
+    "bet365": [
+     3.0,
+     1.33
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481450",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Gauthier Onclin",
+   "b": "Felix Balshaw",
+   "aRoh": "Onclin, Gauthier",
+   "bRoh": "Balshaw, Felix",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.35,
+     1.52
+    ],
+    "tipico": [
+     2.3,
+     1.5
+    ],
+    "bet365": [
+     2.2,
+     1.58
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481452",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Remy Bertola",
+   "b": "Otto Virtanen",
+   "aRoh": "Bertola, Remy",
+   "bRoh": "Virtanen, Otto",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.9,
+     1.35
+    ],
+    "tipico": [
+     3.0,
+     1.3
+    ],
+    "bet365": [
+     3.0,
+     1.33
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481456",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Clement Chidekh",
+   "b": "Jerome Kym",
+   "aRoh": "Chidekh, Clement",
+   "bRoh": "Kym, Jerome",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.47,
+     2.45
+    ],
+    "tipico": [
+     1.42,
+     2.5
+    ],
+    "bet365": [
+     1.47,
+     2.5
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481460",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Matteo Martineau",
+   "b": "Max Schoenhaus",
+   "aRoh": "Martineau, Matteo",
+   "bRoh": "Schoenhaus, Max",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.05,
+     1.68
+    ],
+    "tipico": [
+     1.93,
+     1.72
+    ],
+    "bet365": [
+     2.1,
+     1.63
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510812",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Hynek Barton",
+   "b": "Maxim Mrva",
+   "aRoh": "Barton, Hynek",
+   "bRoh": "Mrva, Maxim",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.52,
+     2.35
+    ],
+    "tipico": [
+     1.47,
+     2.4
+    ],
+    "bet365": [
+     1.5,
+     2.37
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510816",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Jacob Fearnley",
+   "b": "Daniil Glinka",
+   "aRoh": "Fearnley, Jacob",
+   "bRoh": "Glinka, Daniil",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "bet365": [
+     1.41,
+     2.62
+    ]
+   }
+  },
+  {
+   "id": "id1205207875484700",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Oriol Roca Batalla",
+   "b": "Luca Potenza",
+   "aRoh": "Roca Batalla, Oriol",
+   "bRoh": "Potenza, Luca",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.23,
+     3.65
+    ],
+    "tipico": [
+     1.2,
+     3.7
+    ],
+    "bet365": [
+     1.22,
+     3.75
+    ]
+   }
+  },
+  {
+   "id": "id1205207875484702",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Michele Ribecai",
+   "b": "Radu Mihai Papoe",
+   "aRoh": "Ribecai, Michele",
+   "bRoh": "Papoe, Radu Mihai",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.6,
+     2.15
+    ],
+    "tipico": [
+     1.6,
+     2.1
+    ],
+    "bet365": [
+     1.63,
+     2.1
+    ]
+   }
+  },
+  {
+   "id": "id1205207875484708",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Enrico Dalla Valle",
+   "b": "Federico Bondioli",
+   "aRoh": "Dalla Valle, Enrico",
+   "bRoh": "Bondioli, Federico",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.37,
+     2.8
+    ],
+    "tipico": [
+     1.32,
+     2.9
+    ],
+    "bet365": [
+     1.33,
+     3.0
+    ]
+   }
+  },
+  {
+   "id": "id1205207875484712",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Carlos Sanchez Jover",
+   "b": "Marvin Moeller",
+   "aRoh": "Sanchez Jover, Carlos",
+   "bRoh": "Moeller, Marvin",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.75,
+     1.39
+    ],
+    "tipico": [
+     2.85,
+     1.33
+    ],
+    "bet365": [
+     2.75,
+     1.37
+    ]
+   }
+  },
+  {
+   "id": "id1205207875484714",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Massimo Giunta",
+   "b": "Henry Searle",
+   "aRoh": "Giunta, Massimo",
+   "bRoh": "Searle, Henry",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.49,
+     2.4
+    ],
+    "tipico": [
+     1.42,
+     2.5
+    ],
+    "bet365": [
+     1.37,
+     2.75
+    ]
+   }
+  },
+  {
+   "id": "id1205207875484716",
+   "start": "2026-10-13T08:00:00.000Z",
+   "turnier": "Catania Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Max Wiskandt",
+   "b": "Miguel Damas",
+   "aRoh": "Wiskandt, Max",
+   "bRoh": "Damas, Miguel",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.3,
+     1.52
+    ],
+    "tipico": [
+     2.4,
+     1.47
+    ],
+    "bet365": [
+     2.37,
+     1.5
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481454",
+   "start": "2026-10-13T08:30:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Dominic Stricker",
+   "b": "Philip Henning",
+   "aRoh": "Stricker, Dominic",
+   "bRoh": "Henning, Philip",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.4,
+     2.7
+    ],
+    "tipico": [
+     1.33,
+     2.85
+    ],
+    "bet365": [
+     1.37,
+     2.75
+    ]
+   }
+  },
+  {
+   "id": "id1203543675481462",
+   "start": "2026-10-13T08:30:00.000Z",
+   "turnier": "Roanne Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Moise Kouame",
+   "b": "Diego Dedura",
+   "aRoh": "Kouame, Moise",
+   "bRoh": "Dedura, Diego",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.4,
+     2.7
+    ],
+    "tipico": [
+     1.37,
+     2.7
+    ],
+    "bet365": [
+     1.37,
+     2.75
+    ]
+   }
+  },
+  {
+   "id": "id1201562875477972",
+   "start": "2026-10-13T09:00:00.000Z",
+   "turnier": "Jinan Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Miomir Kecmanovic",
+   "b": "Alexander Shevchenko",
+   "aRoh": "Kecmanovic, Miomir",
+   "bRoh": "Shevchenko, Aleksandr",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.35,
+     2.9
+    ],
+    "tipico": [
+     1.3,
+     3.0
+    ],
+    "bet365": [
+     1.33,
+     3.0
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510796",
+   "start": "2026-10-13T09:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Aziz Dougaz",
+   "b": "Damir Dzumhur",
+   "aRoh": "Dougaz, Aziz",
+   "bRoh": "Dzumhur, Damir",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.25,
+     1.56
+    ],
+    "tipico": [
+     2.3,
+     1.5
+    ],
+    "bet365": [
+     2.25,
+     1.54
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510804",
+   "start": "2026-10-13T09:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Luca Nardi",
+   "b": "August Holmgren",
+   "aRoh": "Nardi, Luca",
+   "bRoh": "Holmgren, August",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.25,
+     1.56
+    ],
+    "tipico": [
+     2.3,
+     1.5
+    ],
+    "bet365": [
+     2.25,
+     1.54
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510806",
+   "start": "2026-10-13T09:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Samuele Pieri",
+   "b": "Daniel Rincon",
+   "aRoh": "Pieri, Samuele",
+   "bRoh": "Rincon, Daniel",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     5.9,
+     1.09
+    ],
+    "tipico": [
+     6.7,
+     1.05
+    ],
+    "bet365": [
+     6.5,
+     1.091
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510808",
+   "start": "2026-10-13T09:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Michael Mmoh",
+   "b": "Laslo Djere",
+   "aRoh": "Mmoh, Michael",
+   "bRoh": "Djere, Laslo",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.35,
+     1.52
+    ],
+    "tipico": [
+     2.4,
+     1.47
+    ],
+    "bet365": [
+     2.37,
+     1.5
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510810",
+   "start": "2026-10-13T09:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Mili Poljicak",
+   "b": "Francesco Maestrelli",
+   "aRoh": "Poljicak, Mili",
+   "bRoh": "Maestrelli, Francesco",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.3,
+     1.52
+    ],
+    "tipico": [
+     2.4,
+     1.47
+    ],
+    "bet365": [
+     2.37,
+     1.5
+    ]
+   }
+  },
+  {
+   "id": "id1204070975510814",
+   "start": "2026-10-13T09:00:00.000Z",
+   "turnier": "Olbia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Jan Kumstat",
+   "b": "Edas Butvilas",
+   "aRoh": "Kumstat, Jan",
+   "bRoh": "Butvilas, Edas",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.2,
+     1.58
+    ],
+    "tipico": [
+     2.3,
+     1.5
+    ],
+    "bet365": [
+     2.2,
+     1.58
+    ]
+   }
+  },
+  {
+   "id": "id1200308575515280",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "ATP Shanghai",
+   "kategorie": "ATP",
+   "belag": "hard",
+   "belagQuelle": "tabelle",
+   "a": "Alexander Zverev",
+   "b": "Alexander Bublik",
+   "aRoh": "Zverev, Alexander",
+   "bRoh": "Bublik, Alexander",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     1.25,
+     3.6
+    ],
+    "bet365": [
+     1.25,
+     3.75
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481580",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Tiago Pereira",
+   "b": "Luka Mikrut",
+   "aRoh": "Pereira, Tiago",
+   "bRoh": "Mikrut, Luka",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     3.7,
+     1.23
+    ],
+    "tipico": [
+     4.0,
+     1.17
+    ],
+    "bet365": [
+     3.75,
+     1.22
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481582",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Andrej Nedic",
+   "b": "Filippo Romano",
+   "aRoh": "Nedic, Andrej",
+   "bRoh": "Romano, Filippo",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.48,
+     2.45
+    ],
+    "tipico": [
+     1.42,
+     2.5
+    ],
+    "bet365": [
+     1.47,
+     2.5
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481586",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Andrea Pellegrino",
+   "b": "Lorenzo Giustino",
+   "aRoh": "Pellegrino, Andrea",
+   "bRoh": "Giustino, Lorenzo",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.49,
+     2.4
+    ],
+    "tipico": [
+     1.42,
+     2.5
+    ],
+    "bet365": [
+     1.5,
+     2.37
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481588",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Kimmer Coppejans",
+   "b": "Vilius Gaubas",
+   "aRoh": "Coppejans, Kimmer",
+   "bRoh": "Gaubas, Vilius",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.35,
+     1.5
+    ],
+    "tipico": [
+     2.4,
+     1.47
+    ],
+    "bet365": [
+     2.5,
+     1.47
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481590",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Tristan Boyer",
+   "b": "Alejandro Moro Canas",
+   "aRoh": "Boyer, Tristan",
+   "bRoh": "Moro Canas, Alejandro",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.96,
+     1.74
+    ],
+    "tipico": [
+     2.0,
+     1.67
+    ],
+    "bet365": [
+     1.97,
+     1.69
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481592",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Elmer Moeller",
+   "b": "Lukas Neumayer",
+   "aRoh": "Moller, Elmer",
+   "bRoh": "Neumayer, Lukas",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.98,
+     1.72
+    ],
+    "tipico": [
+     2.0,
+     1.67
+    ],
+    "bet365": [
+     1.97,
+     1.69
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481594",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Pedro Martinez",
+   "b": "Matej Dodig",
+   "aRoh": "Martinez, Pedro",
+   "bRoh": "Dodig, Matej",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     2.3,
+     1.5
+    ],
+    "bet365": [
+     2.2,
+     1.58
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481596",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Francesco Passaro",
+   "b": "Tiago Torres",
+   "aRoh": "Passaro, Francesco",
+   "bRoh": "Torres, Tiago",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     1.17,
+     4.0
+    ],
+    "bet365": [
+     1.22,
+     3.75
+    ]
+   }
+  },
+  {
+   "id": "id1203086975481598",
+   "start": "2026-10-13T10:00:00.000Z",
+   "turnier": "Maia Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Marco Trungelliti",
+   "b": "Thiago Monteiro",
+   "aRoh": "Trungelliti, Marco",
+   "bRoh": "Monteiro, Thiago",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     1.6,
+     2.1
+    ],
+    "bet365": [
+     1.63,
+     2.1
+    ]
+   }
+  },
+  {
+   "id": "id1200308575516836",
+   "start": "2026-10-13T11:10:00.000Z",
+   "turnier": "ATP Shanghai",
+   "kategorie": "ATP",
+   "belag": "hard",
+   "belagQuelle": "tabelle",
+   "a": "Hubert Hurkacz",
+   "b": "Alejandro Davidovich Fokina",
+   "aRoh": "Hurkacz, Hubert",
+   "bRoh": "Davidovich Fokina, Alejandro",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.86,
+     2.0
+    ],
+    "tipico": [
+     1.75,
+     1.95
+    ],
+    "bet365": [
+     1.77,
+     1.97
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486044",
+   "start": "2026-10-13T14:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Valerio Aboian",
+   "b": "Franco Roncadelli",
+   "aRoh": "Aboian, Valerio",
+   "bRoh": "Roncadelli, Franco",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     2.75,
+     1.38
+    ],
+    "tipico": [
+     2.85,
+     1.33
+    ],
+    "bet365": [
+     2.62,
+     1.41
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486046",
+   "start": "2026-10-13T14:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Pedro Boscardin Dias",
+   "b": "Facundo Mena",
+   "aRoh": "Boscardin Dias, Pedro",
+   "bRoh": "Mena, Facundo",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.9,
+     1.8
+    ],
+    "tipico": [
+     1.83,
+     1.8
+    ],
+    "bet365": [
+     1.87,
+     1.77
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486040",
+   "start": "2026-10-13T18:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Luis Guto Miguel",
+   "b": "Dellien, Murkel",
+   "aRoh": "Miguel, Luis Guto",
+   "bRoh": "Dellien, Murkel",
+   "aInDb": true,
+   "bInDb": false,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.32,
+     3.05
+    ],
+    "tipico": [
+     1.3,
+     3.0
+    ],
+    "bet365": [
+     1.33,
+     3.0
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486042",
+   "start": "2026-10-13T18:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Eduardo Ribeiro",
+   "b": "Juan Carlos Prado Angelo",
+   "aRoh": "Ribeiro, Eduardo",
+   "bRoh": "Prado Angelo, Juan Carlos",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "tipico": [
+     3.3,
+     1.25
+    ],
+    "bet365": [
+     3.25,
+     1.3
+    ]
+   }
+  },
+  {
+   "id": "id1203609375486048",
+   "start": "2026-10-13T18:00:00.000Z",
+   "turnier": "Santa Cruz 2 Challenger",
+   "kategorie": "Challenger",
+   "belag": "hard",
+   "belagQuelle": "standard",
+   "a": "Gonzalo Villanueva",
+   "b": "Carlos Maria Zarate",
+   "aRoh": "Villanueva, Gonzalo",
+   "bRoh": "Zarate, Carlos Maria",
+   "aInDb": true,
+   "bInDb": true,
+   "hatQuoten": true,
+   "quoten": {
+    "winamax": [
+     1.52,
+     2.35
+    ],
+    "tipico": [
+     1.45,
+     2.45
+    ],
+    "bet365": [
+     1.47,
+     2.5
     ]
    }
   }
