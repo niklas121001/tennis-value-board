@@ -1,0 +1,60 @@
+name: Excel importieren
+
+# Startet automatisch, sobald eine .xlsx in den Ordner excel/ hochgeladen wird.
+# Manuell: Actions -> Excel importieren -> Run workflow (nimmt die .xlsx, die gerade in excel/ liegt).
+on:
+  push:
+    paths:
+      - "excel/**.xlsx"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update          # nicht gleichzeitig mit dem täglichen Update laufen
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+
+      - name: Excel suchen
+        id: datei
+        run: |
+          f=$(ls -t excel/*.xlsx 2>/dev/null | head -1)
+          if [ -z "$f" ]; then echo "Keine .xlsx im Ordner excel/ gefunden."; exit 1; fi
+          echo "Gefunden: $f"
+          echo "pfad=$f" >> "$GITHUB_OUTPUT"
+
+      - name: Excel nach JSON (Elo und geschätzte Spieler bleiben erhalten)
+        run: |
+          pip install --quiet openpyxl
+          python scripts/excel_export.py "${{ steps.datei.outputs.pfad }}" --merge --tests
+
+      - name: Modell-Test gegen die neue Excel
+        run: node tests/test_model.js
+
+      - name: Durchschnittswerte neu berechnen
+        continue-on-error: true
+        working-directory: scripts
+        run: python extra_players.py
+
+      - name: Excel wieder entfernen und speichern
+        run: |
+          git config user.name "tennis-bot"
+          git config user.email "tennis-bot@users.noreply.github.com"
+          git rm -q excel/*.xlsx
+          git add docs/data tests
+          git commit -m "Excel importiert: $(basename "${{ steps.datei.outputs.pfad }}")"
+          git push
