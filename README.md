@@ -41,10 +41,20 @@ später, ersetzt das Elo-Update die Schätzwerte automatisch.
 | Was | Wo |
 |---|---|
 | Buchmacher, Zeitfenster (`tage`: 2 = heute + morgen), Turnierfilter | `config.json` |
-| Modell-Parameter | Excel-Blatt PARAMETER → `python scripts/excel_export.py Analysetool_Belag.xlsx` → `docs/data` hochladen |
+| Modell-Parameter, Aufschlagwerte, H2H, Blacklist | Excel in den Ordner `excel/` hochladen → Workflow „Excel importieren“ läuft automatisch (siehe unten) |
 | Belag eines Turniers | automatisch aus dem Wikipedia-Kalender (Ort + Turnierwoche); Ersatz: `docs/data/turniere.json` (Stichwort → hard/clay/grass) oder direkt auf der Website je Partie |
 | Unbekannte Spielernamen | `docs/data/name_map.json`, z. B. `{"Rodriguez Taverna S.": "Santiago Rodriguez Taverna"}` |
 | Fehlende Aufschlagwerte | `FEHLENDE_STATS` in `docs/data/params.json`: `nur_elo` (Standard) oder `excel` |
+
+## Excel importieren
+
+1. Im Repo **Add file → Upload files**, als Ziel den Ordner `excel/` (beim ersten Mal: **Add file → Create new file**, Name `excel/.keep`, speichern; danach in den Ordner wechseln und hochladen).
+2. Die gespeicherte `Analysetool_Belag.xlsx` hineinziehen → **Commit changes**.
+3. Der Workflow „Excel importieren“ startet von selbst: übernimmt Aufschlag-/Return-/TB-Werte, H2H, Blacklist, Parameter
+   und Spieler-Statistik, behält Elo-Werte und geschätzte Spieler, prüft das Modell gegen das DASHBOARD der Excel und
+   löscht die Excel danach wieder aus dem Ordner.
+
+Hinweis: Das Repo ist öffentlich. Auch nach dem Löschen bleibt die Excel in der Versionsgeschichte abrufbar (inkl. Blatt BANKROLL).
 
 ## Ordner
 
