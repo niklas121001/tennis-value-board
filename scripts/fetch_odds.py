@@ -46,7 +46,8 @@ def konto(acc, cfg):
     used = next((flat[k] for k in flat if ("count" in k or "used" in k) and "limit" not in k), None)
     limit = next((flat[k] for k in flat if "limit" in k), None) or cfg["anfragen_limit_monat"]
     if used is None:
-        print("  /account-Antwort:", json.dumps(acc, ensure_ascii=False)[:300])
+        # nur Feldnamen mit Zahlenwerten ausgeben – keine Kontodaten (Protokoll ist öffentlich)
+        print("  /account: Zahlenfelder", sorted(flat))
     return used, limit
 
 
@@ -223,15 +224,34 @@ def main():
     state = load("meta.json", {})
 
     acc = api("account")
-    used, limit = konto(acc, cfg)
-    n_books = max(1, len(cfg["buchmacher"]))
-    need = 1 + math.ceil(n_books / 3) + (0 if meta.get("markets_geprueft") else 3)
-    print(f"Kontingent: {used}/{limit} verbraucht, dieser Lauf braucht ca. {need}")
-    if used is not None and used + need > limit - cfg.get("anfragen_reserve", 0):
+    used_api, limit = konto(acc, cfg)
+    monat = now_utc().strftime("%Y-%m")
+    eigen = meta.setdefault("verbrauch", {}).get(monat, 0)   # eigener Zähler je Kalendermonat
+    used = max(used_api or 0, eigen)
+    # Budget gleichmäßig auf die restlichen Läufe im Monat verteilen
+    import calendar
+    heute = now_utc()
+    tage_rest = calendar.monthrange(heute.year, heute.month)[1] - heute.day + 1
+    laeufe_rest = max(1, tage_rest * cfg.get("laeufe_pro_tag", 1))
+    budget = (limit - cfg.get("anfragen_reserve", 0) - used) // laeufe_rest
+    budget -= 0 if meta.get("markets_geprueft") else 3
+    n_books = max(0, min(len(cfg["buchmacher"]), budget - 1))  # 1 Anfrage Spielplan + 1 je Buchmacher
+    print(f"Kontingent: {used}/{limit} verbraucht (API: {used_api}, eigener Zähler: {eigen}), "
+          f"dieser Lauf: {1 + n_books} Anfragen für {n_books} Buchmacher")
+    if n_books == 0:
         state["quoten_hinweis"] = f"Kontingent fast aufgebraucht ({used}/{limit}) – Update übersprungen"
         save("meta.json", state)
         print(state["quoten_hinweis"])
         return 0
+    try:
+        return run(cfg, meta, state, n_books)
+    finally:
+        meta["verbrauch"][monat] = eigen + len(calls)
+        meta["verbrauch"] = {k: v for k, v in meta["verbrauch"].items() if k >= monat}
+        save("oddspapi.json", meta)
+
+
+def run(cfg, meta, state, n_books):
 
     meta = ensure_meta(cfg, meta)
     save("oddspapi.json", meta)
@@ -250,14 +270,13 @@ def main():
     tids = sorted({fx["tournamentId"] for fx in fixtures})
     print(f"{len(fixtures)} relevante Partien in {len(tids)} Turnieren")
 
-    # 2) Quoten: bis zu 3 Buchmacher je Anfrage
-    slugs = list(meta["buchmacher"].values())
+    # 2) Quoten: eine Anfrage je Buchmacher (Gratis-Tarif erlaubt nur einen pro Anfrage)
+    slugs = [meta["buchmacher"][b] for b in cfg["buchmacher"] if b in meta["buchmacher"]][:n_books]
     odds = {}
-    for i in range(0, len(slugs), 3):
+    for slug in slugs:
         if not tids:
             break
-        chunk = slugs[i:i + 3]
-        res = api("odds-by-tournaments", tournamentIds=",".join(map(str, tids)), bookmakers=",".join(chunk))
+        res = api("odds-by-tournaments", tournamentIds=",".join(map(str, tids)), bookmaker=slug)
         if isinstance(res, dict):
             res = res.get("data") or list(res.values())
         for fx in res:
@@ -294,8 +313,11 @@ def main():
 
     save("matches.json", {"stand": iso(now_utc()), "partien": out})
     acc = api("account")
+    v, l = konto(acc, cfg)
+    monat = now_utc().strftime("%Y-%m")
+    v = max(v or 0, meta.get("verbrauch", {}).get(monat, 0) + len(calls))
     state.update(quoten_update=iso(now_utc()), quoten_hinweis=None,
-                 kontingent=dict(zip(("verbraucht", "limit"), konto(acc, cfg))),
+                 kontingent={"verbraucht": v, "limit": l},
                  unbekannte_namen=sorted(unbekannt), buchmacher_fehlen=meta.get("buchmacher_fehlen", []))
     save("meta.json", state)
     print("Verwendete Siegermärkte (Markt-ID: Anzahl):", GEFUNDEN or "keine")
