@@ -2,9 +2,10 @@ name: Daten aktualisieren
 
 on:
   schedule:
-    # Zeit in UTC: 07:15 UTC = 09:15 Uhr deutscher Sommerzeit (08:15 Uhr Winterzeit)
-    # Gratis-Kontingent: 1 Lauf/Tag mit 5 Buchmachern = 6 Anfragen/Tag
-    - cron: "15 7 * * *"
+    # Zeit in UTC: 02:07 UTC = 04:07 Uhr Sommerzeit, ab 25.10. (Winterzeit) 03:07 Uhr deutscher Zeit.
+    # Früh wegen der Asien-Turniere (Beginn ca. 6 Uhr deutscher Zeit). Für Europa-/Amerika-Wochen z. B. "15 7 * * *".
+    # GitHub startet geplante Läufe oft einige Minuten verspätet.
+    - cron: "7 2 * * *"
   workflow_dispatch: {}   # manuell starten: Actions → Daten aktualisieren → Run workflow
 
 permissions:
@@ -58,6 +59,11 @@ jobs:
       - name: Modell-Test (Abgleich mit Excel)
         run: node tests/test_model.js
 
+      - name: Turnierkalender mit Belag (Wikipedia)
+        continue-on-error: true
+        working-directory: scripts
+        run: python update_calendar.py
+
       - name: Elo von Tennis Abstract
         continue-on-error: true
         working-directory: scripts
@@ -69,6 +75,11 @@ jobs:
         env:
           ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
         run: python fetch_odds.py
+
+      - name: Fehlende Spieler schätzen (Challenger)
+        continue-on-error: true
+        working-directory: scripts
+        run: python extra_players.py
 
       - name: Value-Tipps protokollieren
         run: node scripts/log_tips.js
