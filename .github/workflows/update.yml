@@ -2,9 +2,9 @@ name: Daten aktualisieren
 
 on:
   schedule:
-    # Zeiten in UTC: 07:15 und 15:15 UTC = 09:15 und 17:15 Uhr deutscher Sommerzeit
+    # Zeit in UTC: 07:15 UTC = 09:15 Uhr deutscher Sommerzeit (08:15 Uhr Winterzeit)
+    # Gratis-Kontingent: 1 Lauf/Tag mit 5 Buchmachern = 6 Anfragen/Tag
     - cron: "15 7 * * *"
-    - cron: "15 15 * * *"
   workflow_dispatch: {}   # manuell starten: Actions → Daten aktualisieren → Run workflow
 
 permissions:
@@ -74,6 +74,7 @@ jobs:
         run: node scripts/log_tips.js
 
       - name: Änderungen speichern
+        if: always()
         run: |
           git config user.name "tennis-bot"
           git config user.email "tennis-bot@users.noreply.github.com"
