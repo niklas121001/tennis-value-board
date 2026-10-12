@@ -128,6 +128,12 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
 .dayh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font:700 1.6rem/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;margin:30px 0 0;padding-bottom:6px;border-bottom:1px solid var(--line)}
 .dayh span{font:500 13px var(--f-body);text-transform:none;letter-spacing:0;color:var(--muted)}
 tr.m.past td{color:var(--muted)}
+.kpis6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.kpi b.pos{color:var(--good)}.kpi b.negv{color:var(--bad)}
+.kv.split{grid-template-columns:1fr auto auto auto auto}
+.kv small{color:var(--muted);font-size:11px}
+@media (max-width:980px){.kpis6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.kpis6{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
 @media (prefers-reduced-motion:no-preference){tr.m td{transition:background .12s}}
 </style>
@@ -142,7 +148,7 @@ tr.m.past td{color:var(--muted)}
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-partien" aria-selected="true" data-tab="partien">Partien</button>
     <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Rechner</button>
-    <button role="tab" id="tab-protokoll" aria-selected="false" data-tab="protokoll">Tipp-Protokoll</button>
+    <button role="tab" id="tab-protokoll" aria-selected="false" data-tab="protokoll">Bilanz</button>
     <button role="tab" id="tab-info" aria-selected="false" data-tab="info">Modell</button>
   </nav>
 
@@ -185,8 +191,24 @@ tr.m.past td{color:var(--muted)}
   </section>
 
   <section id="v-protokoll" hidden>
-    <p class="info" style="margin-top:16px">Jedes Value-Signal wird beim automatischen Update mit erster und letzter gesehener Quote gespeichert. Steigt die Quote nach dem ersten Signal, lag der Markt gegen den Tipp; fällt sie, hast du Closing-Line-Value.</p>
+    <div class="controls">
+      <div class="ctl bmctl"><label for="b-bm">Buchmacher</label><select id="b-bm"></select></div>
+      <div class="ctl"><label for="b-art">Turniere</label>
+        <select id="b-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+      <div class="ctl"><label for="b-status">Tipps</label>
+        <select id="b-status"><option value="alle">alle</option><option value="fertig">abgeschlossen</option><option value="offen">offen</option></select></div>
+    </div>
+    <div class="kpis kpis6">
+      <div class="kpi"><b id="b-n">–</b><span>Tipps (gew.–verl.)</span></div>
+      <div class="kpi"><b id="b-hit">–</b><span>Trefferquote</span></div>
+      <div class="kpi"><b id="b-roi">–</b><span>ROI (1 Einheit je Tipp)</span></div>
+      <div class="kpi"><b id="b-units">–</b><span>Gewinn in Einheiten</span></div>
+      <div class="kpi"><b id="b-kelly">–</b><span>Gewinn mit Kelly-Einsatz</span></div>
+      <div class="kpi"><b id="b-clv">–</b><span>Ø CLV</span></div>
+    </div>
+    <div id="b-split"></div>
     <div id="protokoll"></div>
+    <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt.</p>
   </section>
 
   <section id="v-info" class="info" hidden></section>
@@ -229,6 +251,7 @@ function setupHeader(){
   $("#stand").innerHTML = `Quoten: ${t(META.quoten_update || M.stand)} · Elo: ${t(META.elo_update)}${k}`;
   const msgs = [];
   if(M.demo) msgs.push("Demo-Daten: Partien und Quoten aus dem aktuellen DASHBOARD deiner Excel. Live-Quoten erscheinen, sobald der OddsPapi-Key hinterlegt ist.");
+  if(M.hinweis) msgs.push(M.hinweis);
   if(META.quoten_hinweis) msgs.push(META.quoten_hinweis);
   if(META.buchmacher_fehlen && META.buchmacher_fehlen.length) msgs.push("Bei OddsPapi nicht gefunden: "+META.buchmacher_fehlen.join(", "));
   if(META.unbekannte_namen && META.unbekannte_namen.length) msgs.push(`${META.unbekannte_namen.length} Spielernamen nicht in der Spieler-DB (siehe Reiter Modell).`);
@@ -291,7 +314,6 @@ function render(){
     const d = startOf(p), dk = d ? dayKey(d) : kHeute;
     if(!M.demo){
       if(dk !== kHeute && dk !== kMorgen) continue;              // nur heute + morgen
-      if(d && now - d > 4 * 36e5) continue;                       // vor über 4 h begonnen -> ausblenden
       if(tag === "heute" && dk !== kHeute) continue;
       if(tag === "morgen" && dk !== kMorgen) continue;
     }
@@ -337,7 +359,7 @@ function rowHtml(p, r){
   const id = esc(p.id);
   const d = startOf(p);
   const laeuft = !M.demo && d && d <= new Date();
-  const time = laeuft ? "läuft" : d ? d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
+  const time = p.zeit ? esc(p.zeit) : laeuft ? "läuft" : d ? d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
   if(!r.ok){
     return `<tr class="m" data-id="${id}"><td class="l time">${time}</td><td class="l"><div class="pl"><span class="${p.aInDb===false||!D.players[p.a]?"miss":""}">${esc(p.a)}</span><span class="${p.bInDb===false||!D.players[p.b]?"miss":""}">${esc(p.b)}</span></div></td>
       <td colspan="6" class="l"><span class="pill warn">${esc(r.warnungen.join(" · "))}</span></td></tr>`;
@@ -398,14 +420,63 @@ function detailHtml(p, r){
   </div>${r.warnungen&&r.warnungen.length?`<ul class="warns">${r.warnungen.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:""}`;
 }
 
+// ---------------------------------------------------------------- Bilanz
+const isChTip = (x) => /challenger/i.test(String(x.turnier)+" "+(x.kategorie||""));
+function kennzahlen(xs){
+  const k = {n:xs.length, w:0, l:0, v:0, offen:0, units:0, einsatzK:0, kelly:0, clvS:0, clvN:0};
+  for(const x of xs){
+    if(x.clv!=null && x.ergebnis!=="V"){ k.clvS += x.clv; k.clvN++; }
+    if(!x.ergebnis){ k.offen++; continue; }
+    if(x.ergebnis==="V"){ k.v++; continue; }
+    const st = x.kelly||0; k.einsatzK += st;
+    if(x.ergebnis==="W"){ k.w++; k.units += x.erstQuote-1; k.kelly += st*(x.erstQuote-1); }
+    else { k.l++; k.units -= 1; k.kelly -= st; }
+  }
+  const fertig = k.w+k.l;
+  k.hit = fertig ? k.w/fertig : null; k.roi = fertig ? k.units/fertig : null; k.clv = k.clvN ? k.clvS/k.clvN : null;
+  return k;
+}
 function renderLog(){
-  const e = Object.values(LOG||{}).sort((a,b) => String(b.erstGesehen).localeCompare(String(a.erstGesehen)));
-  if(!e.length){ $("#protokoll").innerHTML = '<div class="empty">Noch keine protokollierten Tipps. Sie entstehen automatisch bei jedem Quoten-Update.</div>'; return; }
-  $("#protokoll").innerHTML = `<div class="tablewrap"><table><thead><tr><th>Gesehen</th><th>Tipp</th><th>Turnier</th><th>Buchm.</th><th>Erste Q.</th><th>Letzte Q.</th><th>CLV</th><th>Edge</th><th>Kelly</th></tr></thead><tbody>${
-    e.map(x => { const clv = x.erstQuote && x.letzteQuote ? x.erstQuote/x.letzteQuote-1 : null;
-      return `<tr><td class="l time">${esc(String(x.erstGesehen).slice(5,16).replace("T"," "))}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td>
-      <td class="l">${esc(x.turnier)}</td><td class="time">${esc(x.buchmacher)}</td><td class="num">${fx(x.erstQuote)}</td><td class="num">${fx(x.letzteQuote)}</td>
-      <td class="num ${clv>0?"pos":"neg"}">${sg(clv)}</td><td class="num">${sg(x.edge)}</td><td class="num">${eur(x.kelly)}</td></tr>`; }).join("")}</tbody></table></div>`;
+  const all = Object.values(LOG||{});
+  const bms = [...new Set(all.map(x=>x.buchmacher))];
+  const sel = $("#b-bm");
+  if(!sel.options.length){
+    sel.innerHTML = `<option value="alle">alle Buchmacher</option>` + bms.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+    ["b-bm","b-art","b-status"].forEach(id => { const v = store.get(id,null); if(v && [...$("#"+id).options].some(o=>o.value===v)) $("#"+id).value = v;
+      $("#"+id).addEventListener("change", () => { store.set(id, $("#"+id).value); renderLog(); }); });
+  }
+  const bm = $("#b-bm").value, art = $("#b-art").value, stt = $("#b-status").value;
+  let xs = all.filter(x => (bm==="alle"||x.buchmacher===bm) && (art==="alle"||(art==="ch")===isChTip(x)));
+  const k = kennzahlen(xs);
+  $("#b-n").textContent = `${k.w+k.l} (${k.w}–${k.l})`;
+  $("#b-hit").textContent = pc(k.hit);
+  $("#b-roi").textContent = sg(k.roi); $("#b-roi").className = k.roi>0?"pos":k.roi<0?"negv":"";
+  $("#b-units").textContent = (k.w+k.l) ? (k.units>0?"+":"")+fx(k.units) : "–";
+  $("#b-kelly").textContent = (k.w+k.l) ? (k.kelly>0?"+":"")+eur(k.kelly) : "–";
+  $("#b-clv").textContent = sg(k.clv); $("#b-clv").className = k.clv>0?"pos":k.clv<0?"negv":"";
+
+  // Aufschlüsselung
+  const gruppen = [["Monat", x=>String(x.start||"").slice(0,7)], ["Belag", x=>SURF[x.belag]||x.belag], ["Turniere", x=>isChTip(x)?"Challenger":"ATP"]];
+  let split = "";
+  for(const [titel, f] of gruppen){
+    const m = new Map(); xs.forEach(x => { const g=f(x); if(!m.has(g)) m.set(g,[]); m.get(g).push(x); });
+    split += `<div class="box"><h3>${titel}</h3><div class="kv split"><span></span><span class="h">Tipps</span><span class="h">Treffer</span><span class="h">ROI</span><span class="h">CLV</span>${
+      [...m.entries()].sort().map(([g,ys]) => { const z = kennzahlen(ys);
+        return `<span class="k">${esc(g||"–")}</span><span class="v">${z.w}–${z.l}${z.offen?` <small>+${z.offen}</small>`:""}</span><span class="v">${pc(z.hit,0)}</span><span class="v ${z.roi>0?"pos":""}">${sg(z.roi)}</span><span class="v ${z.clv>0?"pos":""}">${sg(z.clv)}</span>`; }).join("")}</div></div>`;
+  }
+  $("#b-split").innerHTML = xs.length ? `<div class="dgrid" style="margin-top:16px">${split}</div>` : "";
+
+  if(stt==="fertig") xs = xs.filter(x=>x.ergebnis); else if(stt==="offen") xs = xs.filter(x=>!x.ergebnis);
+  xs.sort((a,b) => String(b.start).localeCompare(String(a.start)));
+  if(!xs.length){ $("#protokoll").innerHTML = '<div class="empty">Noch keine Tipps in dieser Auswahl. Value-Tipps werden bei jedem Update automatisch gespeichert, Ergebnisse am Folgetag nachgetragen.</div>'; return; }
+  const ERG = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
+  $("#protokoll").innerHTML = `<div class="tablewrap" style="margin-top:16px"><table><thead><tr><th>Spiel</th><th>Tipp</th><th class="hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th class="hide-s">Schluss</th><th>CLV</th><th>Ergebnis</th><th class="hide-s">Einh.</th></tr></thead><tbody>${
+    xs.map(x => { const d = new Date(x.start); const u = x.ergebnis==="W" ? x.erstQuote-1 : x.ergebnis==="L" ? -1 : null;
+      return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
+      <td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td>
+      <td class="l hide-s">${esc(x.turnier)}</td><td class="time hide-s">${esc(x.buchmacher)}</td><td class="num">${fx(x.erstQuote)}</td>
+      <td class="num hide-s">${fx(x.schlussQuote)}</td><td class="num ${x.clv>0?"pos":"neg"}">${sg(x.clv)}</td>
+      <td>${ERG[x.ergebnis]||'<span class="pill no">offen</span>'}</td><td class="num hide-s ${u>0?"pos":""}">${u==null?"–":(u>0?"+":"")+fx(u)}</td></tr>`; }).join("")}</tbody></table></div>`;
 }
 
 function renderInfo(){
