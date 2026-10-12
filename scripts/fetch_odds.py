@@ -131,12 +131,24 @@ def ensure_meta(cfg, meta):
 
 
 # ------------------------------------------------------------- Quoten auslesen
+PAUSIERT = [False]  # wird von extract() gesetzt, wenn nur pausierte/inaktive Preise vorliegen
+
+
 def price(outcome):
+    """Aktiver Preis bevorzugt; sonst letzter bekannter (pausierter) Preis, markiert über PAUSIERT."""
     players = (outcome or {}).get("players") or {}
+    if isinstance(players, list):
+        players = dict(enumerate(players))
+    fallback = None
     for p in players.values():
-        if p.get("active", True) is not False and p.get("price"):
+        if not isinstance(p, dict) or not p.get("price"):
+            continue
+        if p.get("active", True) is not False:
             return float(p["price"])
-    return None
+        fallback = fallback or float(p["price"])
+    if fallback:
+        PAUSIERT[0] = True
+    return fallback
 
 
 GEFUNDEN = {}   # welche Markt-IDs als Siegermarkt verwendet wurden (fürs Protokoll)
@@ -289,24 +301,54 @@ def run(cfg, meta, state, n_books):
     if len(auftraege) < len(gruppen) * len(slugs):
         print(f"Budget reicht für {len(auftraege)} von {len(gruppen) * len(slugs)} Quoten-Anfragen "
               f"({len(gruppen)} Turniergruppen × {len(slugs)} Buchmacher) – hintere Challenger/Buchmacher fehlen heute")
-    odds = {}
+    odds, pausiert = {}, {}
+    relevant_ids = {fx["fixtureId"] for fx in fixtures}
+    diag = {}   # Abdeckung je Buchmacher (fürs Protokoll und die Website)
     for gruppe, slug in auftraege:
-        res = api("odds-by-tournaments", tournamentIds=",".join(map(str, gruppe)), bookmaker=slug)
+        try:
+            res = api("odds-by-tournaments", tournamentIds=",".join(map(str, gruppe)), bookmaker=slug)
+        except SystemExit as e:
+            print(f"  {slug}: Abruf fehlgeschlagen – {e}")
+            continue
         if isinstance(res, dict):
             res = res.get("data") or list(res.values())
+        d = diag.setdefault(slug, {"partien": 0, "geliefert": 0, "mit_quote": 0, "pausiert": 0,
+                                    "ohne_siegermarkt": 0, "beispiele": []})
+        d["partien"] += sum(1 for fx in fixtures if fx["tournamentId"] in gruppe)
         for fx in res:
-            for slug, bo in (fx.get("bookmakerOdds") or {}).items():
-                if bo.get("bookmakerIsActive") is False or bo.get("suspended"):
-                    continue
+            if fx.get("fixtureId") not in relevant_ids:
+                continue
+            for s_, bo in (fx.get("bookmakerOdds") or {}).items():
+                d["geliefert"] += 1
+                PAUSIERT[0] = bool(bo.get("bookmakerIsActive") is False or bo.get("suspended"))
                 qa, qb = extract(bo, meta)
                 if qa and qb:
-                    odds.setdefault(fx["fixtureId"], {})[slug] = [qa, qb]
+                    odds.setdefault(fx["fixtureId"], {})[s_] = [qa, qb]
+                    d["mit_quote"] += 1
+                    if PAUSIERT[0]:
+                        d["pausiert"] += 1
+                        if s_ not in pausiert.setdefault(fx["fixtureId"], []):
+                            pausiert[fx["fixtureId"]].append(s_)
+                else:
+                    d["ohne_siegermarkt"] += 1
+                    if len(d["beispiele"]) < 3:
+                        mk = bo.get("markets") or {}
+                        if isinstance(mk, list):
+                            mk = {str(m.get("marketId")): m for m in mk}
+                        d["beispiele"].append({"fixture": f"{fx.get('participant1Id')}-{fx.get('participant2Id')}",
+                                               "maerkte": {k: str(v.get("bookmakerMarketId", ""))[:40] for k, v in list(mk.items())[:8]}})
+    for slug_, d in diag.items():
+        print(f"Abdeckung {slug_}: {d['partien']} Partien angefragt, {d['geliefert']} geliefert, {d['mit_quote']} mit Siegquote "
+              f"(davon {d['pausiert']} pausiert), {d['ohne_siegermarkt']} ohne Siegermarkt")
+        for b_ in d["beispiele"]:
+            print("   ohne Siegermarkt, vorhandene Märkte:", json.dumps(b_["maerkte"], ensure_ascii=False))
 
     # 3) Zusammenbauen
     players = load("players.json")
     matcher = NameMatcher(players.keys(), load("name_map.json", {}))
     turniere = load("turniere.json", {}).get("turniere", {})
     history = load("history.json", [])
+    kalender = load("kalender.json", [])
     slug2name = {v: k for k, v in meta["buchmacher"].items()}
     out, unbekannt = [], set()
     for fx in sorted(fixtures, key=lambda x: x.get("startTime", "")):
@@ -317,13 +359,14 @@ def run(cfg, meta, state, n_books):
             if not hit:
                 unbekannt.add(raw)
         tn = display_name(fx)
-        belag, quelle = detect_surface(tn, turniere, history)
+        belag, quelle = detect_surface(tn, turniere, history, kalender, fx.get("startTime"))
         out.append({
             "id": fx["fixtureId"], "start": fx.get("startTime"), "turnier": tn,
             "kategorie": fx.get("categoryName"), "belag": belag, "belagQuelle": quelle,
             "a": a or ra, "b": b or rb, "aRoh": ra, "bRoh": rb,
             "aInDb": bool(a), "bInDb": bool(b), "hatQuoten": bool(o),
             "quoten": {slug2name.get(s, s): q for s, q in o.items()},
+            "pausiert": [slug2name.get(s, s) for s in pausiert.get(fx["fixtureId"], [])],
             "tid": fx.get("tournamentId"), "p1Id": fx.get("participant1Id"), "p2Id": fx.get("participant2Id"),
         })
 
@@ -346,7 +389,9 @@ def run(cfg, meta, state, n_books):
     v = max(v or 0, meta.get("verbrauch", {}).get(monat, 0) + len(calls))
     state.update(quoten_update=iso(now_utc()), quoten_hinweis=None,
                  kontingent={"verbraucht": v, "limit": l},
-                 unbekannte_namen=sorted(unbekannt), buchmacher_fehlen=meta.get("buchmacher_fehlen", []))
+                 unbekannte_namen=sorted(unbekannt), buchmacher_fehlen=meta.get("buchmacher_fehlen", []),
+                 abdeckung={slug2name.get(k, k): {x: v[x] for x in ("partien", "mit_quote", "pausiert", "ohne_siegermarkt")}
+                            for k, v in diag.items()})
     save("meta.json", state)
     print("Verwendete Siegermärkte (Markt-ID: Anzahl):", GEFUNDEN or "keine")
     if not GEFUNDEN and BEISPIEL:
