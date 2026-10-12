@@ -101,7 +101,7 @@ def ensure_meta(cfg, meta):
         print(f"Märkte gesamt: {len(markets)}, davon Tennis: {len(tennis)}")
         if markets and not tennis:
             print("  Beispiel-Markt (Felder):", json.dumps(markets[0], ensure_ascii=False)[:400])
-        for m in tennis[:40]:
+        for m in [m for m in tennis if "total" not in str(m.get("marketType", "")).lower()][:8]:
             print("  Tennis-Markt:", m.get("marketId"), "|", m.get("marketName"), "|", m.get("marketType"), "|",
                   m.get("period"), "| hc", m.get("handicap"), "| n", m.get("marketLength") or len(m.get("outcomes") or []),
                   "|", [o.get("outcomeName") for o in (m.get("outcomes") or [])])
@@ -235,9 +235,9 @@ def main():
     laeufe_rest = max(1, tage_rest * cfg.get("laeufe_pro_tag", 1))
     budget = (limit - cfg.get("anfragen_reserve", 0) - used) // laeufe_rest
     budget -= 0 if meta.get("markets_geprueft") else 3
-    n_books = max(0, min(len(cfg["buchmacher"]), budget - 1))  # 1 Anfrage Spielplan + 1 je Buchmacher
+    n_books = max(0, budget - 1)  # Anfragen für Quoten (1 geht an den Spielplan)
     print(f"Kontingent: {used}/{limit} verbraucht (API: {used_api}, eigener Zähler: {eigen}), "
-          f"dieser Lauf: {1 + n_books} Anfragen für {n_books} Buchmacher")
+          f"Budget dieses Laufs: 1 Spielplan + bis zu {n_books} Quoten-Anfragen")
     if n_books == 0:
         state["quoten_hinweis"] = f"Kontingent fast aufgebraucht ({used}/{limit}) – Update übersprungen"
         save("meta.json", state)
@@ -270,13 +270,24 @@ def run(cfg, meta, state, n_books):
     tids = sorted({fx["tournamentId"] for fx in fixtures})
     print(f"{len(fixtures)} relevante Partien in {len(tids)} Turnieren")
 
-    # 2) Quoten: eine Anfrage je Buchmacher (Gratis-Tarif erlaubt nur einen pro Anfrage)
-    slugs = [meta["buchmacher"][b] for b in cfg["buchmacher"] if b in meta["buchmacher"]][:n_books]
+    # 2) Quoten. Gratis-Tarif: 1 Buchmacher und max. 5 Turniere je Anfrage.
+    #    Turniere in 5er-Gruppen: ATP zuerst, dann Challenger nach Anzahl Partien.
+    #    Budget: Gruppe für Gruppe, je Gruppe Buchmacher in der Reihenfolge aus config.json.
+    slugs = [meta["buchmacher"][b] for b in cfg["buchmacher"] if b in meta["buchmacher"]]
+    anz, ist_ch = {}, {}
+    for fx in fixtures:
+        t = fx["tournamentId"]
+        anz[t] = anz.get(t, 0) + 1
+        ist_ch[t] = "challenger" in norm(f"{fx.get('categoryName', '')} {fx.get('tournamentName', '')}")
+    tids = sorted(tids, key=lambda t: (ist_ch[t], -anz[t]))
+    gruppen = [tids[i:i + cfg.get("turniere_pro_anfrage", 5)] for i in range(0, len(tids), cfg.get("turniere_pro_anfrage", 5))]
+    auftraege = [(g, s) for g in gruppen for s in slugs][:n_books]
+    if len(auftraege) < len(gruppen) * len(slugs):
+        print(f"Budget reicht für {len(auftraege)} von {len(gruppen) * len(slugs)} Quoten-Anfragen "
+              f"({len(gruppen)} Turniergruppen × {len(slugs)} Buchmacher) – hintere Challenger/Buchmacher fehlen heute")
     odds = {}
-    for slug in slugs:
-        if not tids:
-            break
-        res = api("odds-by-tournaments", tournamentIds=",".join(map(str, tids)), bookmaker=slug)
+    for gruppe, slug in auftraege:
+        res = api("odds-by-tournaments", tournamentIds=",".join(map(str, gruppe)), bookmaker=slug)
         if isinstance(res, dict):
             res = res.get("data") or list(res.values())
         for fx in res:
