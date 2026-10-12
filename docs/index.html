@@ -134,6 +134,12 @@ tr.m.past td{color:var(--muted)}
 .kv small{color:var(--muted);font-size:11px}
 @media (max-width:980px){.kpis6{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:520px){.kpis6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gesch{display:inline-block;color:var(--warn);font-weight:600;cursor:help}
+.prog{display:flex;flex-direction:column;line-height:1.3}
+.favm{color:var(--accent);margin-right:3px}
+@media (max-width:720px){.favm.show-s{display:inline}}
+th.l{text-align:left}
+.paus{font:500 10px var(--f-body);color:var(--warn);text-transform:uppercase;letter-spacing:.04em}
 .kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
 @media (prefers-reduced-motion:no-preference){tr.m td{transition:background .12s}}
 </style>
@@ -213,7 +219,7 @@ tr.m.past td{color:var(--muted)}
 
   <section id="v-info" class="info" hidden></section>
 
-  <footer>Modell: Nachbau des Excel-Blatts MODELL (Analysetool_Belag.xlsx). Elo: Tennis Abstract. Quoten: OddsPapi. Keine Garantie, Wetten mit Verantwortung.</footer>
+  <footer>Modell: Nachbau des Excel-Blatts MODELL (Analysetool_Belag.xlsx). Elo: Tennis Abstract. Quoten: OddsPapi. Turnierkalender: Wikipedia (CC BY-SA). Keine Garantie, Wetten mit Verantwortung.</footer>
 </div>
 
 <script src="model.js"></script>
@@ -236,11 +242,11 @@ const SURF = {hard:"Hard",clay:"Sand",grass:"Rasen"};
 async function j(f, d){ try{ const r = await fetch("data/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
 
 async function init(){
-  const [P, players, h2h, ps, bl, matches, meta, log] = await Promise.all([
+  const [P, players, h2h, ps, bl, matches, meta, log, avg] = await Promise.all([
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
-    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {})]);
+    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null)]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
-  D = {params:P.params, csi:P.csi, players, h2h, playerStats:ps, blacklist:bl};
+  D = {params:P.params, csi:P.csi, players, h2h, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc();
 }
@@ -345,7 +351,7 @@ function render(){
   for(const [t, xs] of groups){
     const b = xs[0].r.belagEff, est = xs[0].r.belagQuelle==="standard";
     html += `<div class="group"><h2>${esc(t)} <span class="surf ${b}${est?" geschaetzt":""}" title="${est?"Belag geschätzt – in den Details änderbar":"Belag"}">${SURF[b]||b}${est?" ?":""}</span></h2><div class="tablewrap"><table>
-      <thead><tr><th class="hide-s">Zeit</th><th>Partie</th><th>Quote</th><th class="hide-s">Fair</th><th>Edge</th><th>Empfehlung</th><th class="hide-s">Kelly</th><th class="hide-s">Buchm.</th></tr></thead><tbody>`;
+      <thead><tr><th class="hide-s">Zeit</th><th>Partie</th><th class="hide-s l">Prognose</th><th>Quote</th><th class="hide-s">Fair</th><th>Edge</th><th>Empfehlung</th><th class="hide-s">Kelly</th><th class="hide-s">Buchm.</th></tr></thead><tbody>`;
     for(const {p, r} of xs) html += rowHtml(p, r);
     html += `</tbody></table></div></div>`;
   }}
@@ -362,23 +368,26 @@ function rowHtml(p, r){
   const time = p.zeit ? esc(p.zeit) : laeuft ? "läuft" : d ? d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
   if(!r.ok){
     return `<tr class="m" data-id="${id}"><td class="l time">${time}</td><td class="l"><div class="pl"><span class="${p.aInDb===false||!D.players[p.a]?"miss":""}">${esc(p.a)}</span><span class="${p.bInDb===false||!D.players[p.b]?"miss":""}">${esc(p.b)}</span></div></td>
-      <td colspan="6" class="l"><span class="pill warn">${esc(r.warnungen.join(" · "))}</span></td></tr>`;
+      <td colspan="7" class="l"><span class="pill warn">${esc(r.warnungen.join(" · "))}</span></td></tr>`;
   }
   const stop = String(r.empfehlung).startsWith("⛔"), beide = String(r.empfehlung).startsWith("⚠️");
   const pill = r.wette ? `<span class="pill ${stop?"stop":"go"}">${stop?"Blacklist":`<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
              : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : `<span class="pill no">kein Value</span>`;
   const e = r.wette==="A" ? r.edgeA : r.wette==="B" ? r.edgeB : Math.max(r.edgeA??-1, r.edgeB??-1);
   const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
+  const favA = r.pFinal >= 0.5;   // Modell-Favorit = prognostizierter Sieger (wie Excel "Modell-Favorit")
+  const gs = (flag, name) => flag ? `<span class="gesch" title="Elo geschätzt aus Marktquoten und ersten Ergebnissen – noch kein Value-Tipp für die Bilanz">≈</span> ${esc(name)}` : esc(name);
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
-    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${esc(r.a)}</span><span class="${r.wette==="B"?"bet":""}">${esc(r.b)}${warn}</span></div></td>
-    <td class="num"><div class="pl"><span>${fx(r.qa)}</span><span>${fx(r.qb)}</span></div></td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warn}</span></div></td>
+    <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span></div></td>
+    <td class="num"><div class="pl"><span>${fx(r.qa)}</span><span>${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
     <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
     <td>${pill}${r.kelly&&!stop?`<span class="num show-s kel">${eur(r.kelly)}</span>`:""}</td>
     <td class="num hide-s">${r.kelly&&!stop?eur(r.kelly):"–"}</td>
     <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
-  if(open.has(p.id)) html += `<tr class="detail"><td colspan="8">${detailHtml(p, r)}</td></tr>`;
+  if(open.has(p.id)) html += `<tr class="detail"><td colspan="9">${detailHtml(p, r)}</td></tr>`;
   return html;
 }
 
@@ -482,14 +491,17 @@ function renderLog(){
 function renderInfo(){
   const P = D.params, n = Object.keys(D.players).length;
   const ohne = Object.values(D.players).filter(p => p.hard_1in==null).length;
+  const gesch = Object.values(D.players).filter(p => p.geschaetzt).length;
   const un = META.unbekannte_namen || [];
   $("#v-info").innerHTML = `
   <h2>So rechnet das Board</h2>
   <p>Jede Partie läuft durch denselben Rechenweg wie das Blatt MODELL der Excel: Elo (Belags-Elo, ${pc(P.W_YELO_BLEND,0)} yElo beigemischt), Aufschlag-Markov über Spiel, Satz und Match, dynamisches H2H bis ${pc(P.H2H_MAX_WEIGHT,0)}, Belagsgewichtung samt Court Speed Index auf Sand, Kalibrierung mit k = ${fx(P.K_KALIBRIERUNG,1)} und Mischung mit der entvigten Quote des gewählten Buchmachers (${pc(P.W_MODELL_BLEND,0)} Modell).</p>
   <p>Value heißt: Buchmacherquote über der fairen Quote und höchstens ${fx(P.MAX_QUOTE_VALUE,1)}. Empfohlen wird nur der Modell-Favorit. Kelly: ${fx(P.BANKROLL,0)} € Bankroll × ${fx(P.KELLY_FRACTION,2)}.</p>
   <h2>Spieler-Datenbank</h2>
-  <p>${n} Spieler, davon ${ohne} ohne Aufschlagwerte auf Hard. Fehlen einem Spieler die Werte für den Belag, rechnet das Board diese Partie nur mit Elo und H2H (in der Liste mit * markiert). Die Excel würde dort mit 0 rechnen. Umschaltbar über <code>FEHLENDE_STATS</code> in <code>data/params.json</code>.</p>
+  <p>${n} Spieler, davon ${ohne} ohne Aufschlagwerte auf Hard und ${gesch} mit geschätztem Elo (≈). Fehlen einem Spieler die Aufschlag- oder Returnwerte für den Belag, setzt das Board den Durchschnitt der Spieler auf Challenger-Niveau ein${D.statsAvg&&D.statsAvg.hard?` (Hard: 1st In ${pc(D.statsAvg.hard["1in"],0)}, 1st Won ${pc(D.statsAvg.hard["1won"],0)}, 2nd Won ${pc(D.statsAvg.hard["2won"],0)}, Return ${pc(D.statsAvg.hard.ret,0)}; aus ${D.statsAvg.hard.n} Spielern)`:""}. Die Excel würde dort mit 0 rechnen.</p>
+  <p>Spieler, die Tennis Abstract nicht führt (meist Challenger), bekommen ein geschätztes Elo: Startwert aus den Buchmacher-Quoten gegen einen bekannten Gegner, danach fortgeschrieben mit jedem Ergebnis. Solange ein geschätzter Spieler weniger als 5 Ergebnisse hat, erscheinen faire Quoten, aber keine Tipps in der Bilanz. Sobald Tennis Abstract den Spieler führt, werden die Schätzwerte automatisch ersetzt.</p>
   ${un.length?`<h2>Unbekannte Namen beim letzten Update</h2><p>Zuordnung in <code>data/name_map.json</code> nachtragen, z. B. <code>{"${esc(un[0])}": "Vorname Nachname"}</code>:</p><p class="time">${un.map(esc).join(" · ")}</p>`:""}
+  ${META.abdeckung?`<h2>Quoten-Abdeckung beim letzten Update</h2><p>${Object.entries(META.abdeckung).map(([b,d])=>`<b>${esc(b)}</b>: ${d.mit_quote} von ${d.partien} Partien mit Siegquote${d.pausiert?` (${d.pausiert} pausiert)`:""}${d.ohne_siegermarkt?`, ${d.ohne_siegermarkt} ohne Siegermarkt`:""}`).join(" · ")}</p>`:""}
   <h2>Parameter</h2>
   <p>Alle Werte kommen aus dem Blatt PARAMETER. Nach Änderungen in der Excel einmal <code>scripts/excel_export.py</code> laufen lassen.</p>`;
 }
