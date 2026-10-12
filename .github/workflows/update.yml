@@ -73,6 +73,13 @@ jobs:
       - name: Value-Tipps protokollieren
         run: node scripts/log_tips.js
 
+      - name: Ergebnisse und Schlussquoten nachtragen
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+        run: python results.py
+
       - name: Änderungen speichern
         if: always()
         run: |
