@@ -1,6 +1,7 @@
 """Exportiert die Stammdaten aus Analysetool_Belag.xlsx nach data/*.json.
 
-Aufruf:  python scripts/excel_export.py Pfad/zu/Analysetool_Belag.xlsx
+Aufruf:  python scripts/excel_export.py Pfad/zu/Analysetool_Belag.xlsx [--merge] [--tests]
+Auf GitHub: Excel in den Ordner excel/ hochladen -> Workflow "Excel importieren" läuft automatisch.
 Kann jederzeit erneut laufen, wenn die Excel weiter gepflegt wird.
 """
 import json, sys, datetime, warnings
@@ -27,7 +28,7 @@ def clean(s):
     return str(s).replace("\xa0", " ").strip() if s is not None else ""
 
 
-def main(path):
+def main(path, merge=False, tests=False):
     wb = openpyxl.load_workbook(path, data_only=True)
     DATA.mkdir(exist_ok=True)
 
@@ -119,6 +120,43 @@ def main(path):
     ws = wb["BLACKLIST"]
     blacklist = [clean(r[0]) for r in ws.iter_rows(min_row=4, max_col=1, values_only=True) if clean(r[0])]
 
+    # Test-Vorlagen (eingefrorener Excel-Stand) neu schreiben: Spieler-DB + gespeicherte DASHBOARD-Werte
+    if tests:
+        TESTS = ROOT / "tests"
+        (TESTS / "players_excel.json").write_text(json.dumps(players, ensure_ascii=False, indent=1), encoding="utf-8")
+        ws = wb["DASHBOARD"]
+        rows = []
+        for r in ws.iter_rows(min_row=5, max_row=36, max_col=52, values_only=True):
+            if not r[4] or not isinstance(r[6], (int, float)) or not isinstance(r[16], (int, float)):
+                continue
+            rows.append(dict(turnier=r[1], belag=r[2], a=r[4], b=r[5], qa=r[6], qb=r[7], eloA=r[8], eloB=r[9],
+                             pSrvA=r[10], pSrvB=r[11], pStats=r[12], pElo=r[13], pFinal=r[16], fairA=r[17], fairB=r[18],
+                             edgeA=r[19], empf=r[23], kelly=r[34], csi=r[35], spieleA=r[26], spieleB=r[27], modus=r[42], top=r[44]))
+        (TESTS / "excel_dashboard.json").write_text(json.dumps(rows, ensure_ascii=False, default=str, indent=1), encoding="utf-8")
+        print(f"Test-Vorlagen: {len(rows)} DASHBOARD-Partien")
+
+    # Zusammenführen statt überschreiben: Elo-Werte (täglich von Tennis Abstract) und geschätzte Spieler bleiben,
+    # aus der Excel kommen Aufschlag-/Return-/Tiebreak-Werte.
+    if merge and (DATA / "players.json").exists():
+        alt = json.loads((DATA / "players.json").read_text(encoding="utf-8"))
+        elo_felder = ("elo", "elo_hard", "elo_clay", "elo_grass")
+        neu_gesamt = dict(alt)
+        for name, rec in players.items():
+            if name in alt:
+                ziel = dict(alt[name])
+                for k, v in rec.items():
+                    if k in elo_felder and ziel.get(k) is not None:
+                        continue                      # aktuelles Elo behalten
+                    if v is not None:
+                        ziel[k] = v
+                ziel.pop("neu", None)
+                neu_gesamt[name] = ziel
+            else:
+                neu_gesamt[name] = rec
+        print(f"Zusammengeführt: {len(players)} Spieler aus der Excel, {len(neu_gesamt)} insgesamt "
+              f"(Elo-Werte und geschätzte Spieler beibehalten)")
+        players = neu_gesamt
+
     out = {
         "params.json": {"params": params, "csi": csi},
         "players.json": players,
@@ -133,4 +171,8 @@ def main(path):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    # python excel_export.py Datei.xlsx [--merge] [--tests]
+    #   --merge  bestehende players.json ergänzen (Elo + geschätzte Spieler behalten) statt ersetzen
+    #   --tests  Test-Vorlagen in tests/ aus derselben Excel neu erzeugen
+    args = sys.argv[1:]
+    main(args[0], merge="--merge" in args, tests="--tests" in args)
