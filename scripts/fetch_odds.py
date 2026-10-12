@@ -4,7 +4,7 @@ Benötigt die Umgebungsvariable ODDSPAPI_KEY.
 Anfragen pro Lauf: 1 (Spielplan) + 1 je 3 Buchmacher. Einmalig zusätzlich: sports, bookmakers, markets.
 Vor jedem Lauf wird das Kontingent über /v4/account geprüft (kostenlos).
 """
-import os, sys, json, time, math, datetime, urllib.request, urllib.parse
+import os, re, sys, json, time, math, datetime, urllib.request, urllib.parse
 from common import load, save, config, norm, NameMatcher, detect_surface
 
 BASE = os.environ.get("ODDSPAPI_BASE", "https://api.oddspapi.io/v4")
@@ -33,6 +33,23 @@ def api(path, **params):
     return json.loads(body)
 
 
+def konto(acc, cfg):
+    """Verbrauch/Limit aus /account – Feldnamen tolerant lesen."""
+    flat = {}
+    def walk(x, pre=""):
+        if isinstance(x, dict):
+            for k, v in x.items():
+                walk(v, k.lower())
+        elif isinstance(x, (int, float)):
+            flat[pre] = x
+    walk(acc)
+    used = next((flat[k] for k in flat if ("count" in k or "used" in k) and "limit" not in k), None)
+    limit = next((flat[k] for k in flat if "limit" in k), None) or cfg["anfragen_limit_monat"]
+    if used is None:
+        print("  /account-Antwort:", json.dumps(acc, ensure_ascii=False)[:300])
+    return used, limit
+
+
 def now_utc():
     return datetime.datetime.now(datetime.timezone.utc)
 
@@ -54,42 +71,59 @@ def ensure_meta(cfg, meta):
     wanted = cfg["buchmacher"]
     if set(meta.get("buchmacher_wunsch", [])) != set(wanted) or not meta.get("buchmacher"):
         books = api("bookmakers")
+        if isinstance(books, dict):
+            books = books.get("data") or list(books.values())
+        key = lambda x: re.sub(r"[^a-z0-9]", "", str(x).lower())  # Ziffern behalten (bet365 != 18bet)
         found, missing = {}, []
         for w in wanted:
-            nw = norm(w).replace(" ", "")
-            hit = [b for b in books if norm(b.get("slug", "")).replace(" ", "") == nw]
-            hit = hit or [b for b in books if norm(b.get("bookmakerName", "")).replace(" ", "") == nw]
-            # Länder-Varianten (z. B. 'bwin.de', 'winamax-de'): deutsche Variante bevorzugen
-            hit = hit or sorted([b for b in books if nw in norm(b.get("slug", "")).replace(" ", "")],
-                                key=lambda b: (0 if "de" in b.get("slug", "") else 1, len(b.get("slug", ""))))
+            kw = key(w)
+            hit = [b for b in books if key(b.get("slug", "")) == kw or key(b.get("bookmakerName", "")) == kw]
+            # Länder-Varianten (z. B. 'bwin.de', 'winamax.de'): nur Slugs, die mit dem Namen BEGINNEN, .de bevorzugt
+            hit = hit or sorted([b for b in books if key(b.get("slug", "")).startswith(kw)],
+                                key=lambda b: (0 if b.get("slug", "").lower().endswith(("de", ".de", "-de")) else 1, len(b.get("slug", ""))))
             if hit:
                 found[w] = hit[0]["slug"]
             else:
                 missing.append(w)
+                print(f"  '{w}' nicht gefunden. Ähnliche Slugs:", [b.get("slug") for b in books if kw[:4] in key(b.get("slug", ""))][:10])
         meta["buchmacher"] = found
         meta["buchmacher_wunsch"] = wanted
         meta["buchmacher_fehlen"] = missing
         print("Buchmacher:", found, "fehlen:", missing)
 
-    if not meta.get("marketId"):
+    if not meta.get("markets_geprueft"):
         markets = api("markets")
-        sid = meta["sportId"]
-        cands = [m for m in markets if m.get("sportId") == sid and m.get("marketLength") == 2
-                 and not m.get("playerProp") and str(m.get("period", "")).lower() in ("fulltime", "ft", "match", "full time", "")
-                 and not m.get("handicap")]
-        def score(m):
-            n = (str(m.get("marketName", "")) + " " + str(m.get("marketType", ""))).lower()
-            return (("winner" in n) or ("moneyline" in n) or ("12" == str(m.get("marketType", ""))) or ("match" in n)) * 10 - len(n)
-        cands.sort(key=score, reverse=True)
-        if not cands:
-            raise SystemExit("Kein Tennis-Siegermarkt gefunden")
-        mk = cands[0]
-        outs = mk.get("outcomes", [])
-        o1 = next((o for o in outs if str(o.get("outcomeName")) in ("1", "Home", "home")), outs[0])
-        o2 = next((o for o in outs if o is not o1), outs[-1])
-        meta.update(marketId=mk["marketId"], marketName=mk.get("marketName"),
-                    outcome1=o1["outcomeId"], outcome2=o2["outcomeId"])
-        print(f"Siegermarkt: {mk['marketId']} {mk.get('marketName')} ({o1.get('outcomeName')}/{o2.get('outcomeName')})")
+        if isinstance(markets, dict):
+            markets = markets.get("data") or list(markets.values())
+        sid = str(meta["sportId"])
+        tennis = [m for m in markets if str(m.get("sportId")) == sid]
+        print(f"Märkte gesamt: {len(markets)}, davon Tennis: {len(tennis)}")
+        if markets and not tennis:
+            print("  Beispiel-Markt (Felder):", json.dumps(markets[0], ensure_ascii=False)[:400])
+        for m in tennis[:40]:
+            print("  Tennis-Markt:", m.get("marketId"), "|", m.get("marketName"), "|", m.get("marketType"), "|",
+                  m.get("period"), "| hc", m.get("handicap"), "| n", m.get("marketLength") or len(m.get("outcomes") or []),
+                  "|", [o.get("outcomeName") for o in (m.get("outcomes") or [])])
+        def n_out(m):
+            return m.get("marketLength") or len(m.get("outcomes") or [])
+        def is_winner(m):
+            n = f"{m.get('marketName', '')} {m.get('marketType', '')}".lower()
+            bad = any(w in n for w in ("handicap", "total", "over", "under", "set ", "game", "exact", "correct", "odd", "even", "tie"))
+            good = any(w in n for w in ("winner", "moneyline", "match result", "to win", "12", "head to head", "1x2", "full time result"))
+            return good and not bad and n_out(m) == 2 and not m.get("playerProp") and not m.get("handicap")
+        cands = [m for m in tennis if is_winner(m)]
+        meta["siegermarkt_ids"] = [m["marketId"] for m in cands]
+        if cands:
+            mk = cands[0]
+            outs = mk.get("outcomes") or []
+            o1 = next((o for o in outs if str(o.get("outcomeName")).lower() in ("1", "home")), outs[0] if outs else {})
+            o2 = next((o for o in outs if o is not o1), outs[-1] if outs else {})
+            meta.update(marketId=mk["marketId"], marketName=mk.get("marketName"),
+                        outcome1=o1.get("outcomeId"), outcome2=o2.get("outcomeId"))
+            print(f"Siegermarkt: {mk['marketId']} {mk.get('marketName')} ({o1.get('outcomeName')}/{o2.get('outcomeName')})")
+        else:
+            print("Kein Siegermarkt in /markets erkannt – Erkennung erfolgt direkt aus den Quoten.")
+        meta["markets_geprueft"] = True
     return meta
 
 
@@ -102,19 +136,53 @@ def price(outcome):
     return None
 
 
+GEFUNDEN = {}   # welche Markt-IDs als Siegermarkt verwendet wurden (fürs Protokoll)
+BEISPIEL = []
+
+
 def extract(bm_odds, meta):
+    """Liefert (Quote Spieler 1, Quote Spieler 2) aus dem Siegermarkt eines Buchmachers."""
     markets = bm_odds.get("markets") or {}
-    mk = markets.get(str(meta["marketId"]))
-    if mk:
+    if isinstance(markets, list):
+        markets = {str(m.get("marketId")): m for m in markets}
+    mid = str(meta.get("marketId")) if meta.get("marketId") is not None else None
+    if mid and mid in markets and meta.get("outcome1") is not None:
+        outs = markets[mid].get("outcomes") or {}
+        qa, qb = price(outs.get(str(meta["outcome1"]))), price(outs.get(str(meta["outcome2"])))
+        if qa and qb:
+            GEFUNDEN[mid] = GEFUNDEN.get(mid, 0) + 1
+            return qa, qb
+    # Fallback: Markt mit genau 2 Ausgängen, der nach Siegwette aussieht
+    bekannte = {str(x) for x in meta.get("siegermarkt_ids", [])}
+    best = None
+    for k, mk in markets.items():
         outs = mk.get("outcomes") or {}
-        return price(outs.get(str(meta["outcome1"]))), price(outs.get(str(meta["outcome2"])))
-    # Fallback: Markt mit 2 Ausgängen und 'moneyline'/'winner' in der Buchmacher-ID
-    for mid, mk in markets.items():
-        outs = mk.get("outcomes") or {}
+        if len(outs) != 2:
+            continue
         bid = str(mk.get("bookmakerMarketId", "")).lower()
-        if len(outs) == 2 and any(w in bid for w in ("moneyline", "winner", "match")):
-            o = sorted(outs.keys())
-            return price(outs[o[0]]), price(outs[o[1]])
+        if any(w in bid for w in ("total", "handicap", "spread", "over", "under", "set", "game", "point")):
+            continue
+        boid = {}
+        for oid, o in outs.items():
+            for pl in (o.get("players") or {}).values():
+                boid[oid] = str(pl.get("bookmakerOutcomeId", "")).lower()
+                break
+        score = (3 if k in bekannte else 0) + (2 if any(w in bid for w in ("moneyline", "winner", "match", "ml", "12")) else 0) \
+            + (2 if set(boid.values()) & {"home", "away", "1", "2"} else 0)
+        if score >= 2 and (best is None or score > best[0]):
+            best = (score, k, outs, boid)
+    if best:
+        _, k, outs, boid = best
+        ids = sorted(outs.keys())
+        home = next((i for i, v in boid.items() if v in ("home", "1")), ids[0])
+        away = next((i for i in ids if i != home), ids[-1])
+        qa, qb = price(outs[home]), price(outs[away])
+        if qa and qb:
+            GEFUNDEN[k] = GEFUNDEN.get(k, 0) + 1
+            return qa, qb
+    if len(BEISPIEL) < 2 and markets:
+        BEISPIEL.append({k: {"bookmakerMarketId": v.get("bookmakerMarketId"), "outcomes": len(v.get("outcomes") or {})}
+                         for k, v in list(markets.items())[:15]})
     return None, None
 
 
@@ -155,9 +223,9 @@ def main():
     state = load("meta.json", {})
 
     acc = api("account")
-    used, limit = acc.get("request_count"), acc.get("request_limit") or cfg["anfragen_limit_monat"]
+    used, limit = konto(acc, cfg)
     n_books = max(1, len(cfg["buchmacher"]))
-    need = 1 + math.ceil(n_books / 3) + (0 if meta.get("marketId") else 3)
+    need = 1 + math.ceil(n_books / 3) + (0 if meta.get("markets_geprueft") else 3)
     print(f"Kontingent: {used}/{limit} verbraucht, dieser Lauf braucht ca. {need}")
     if used is not None and used + need > limit - cfg.get("anfragen_reserve", 0):
         state["quoten_hinweis"] = f"Kontingent fast aufgebraucht ({used}/{limit}) – Update übersprungen"
@@ -227,9 +295,12 @@ def main():
     save("matches.json", {"stand": iso(now_utc()), "partien": out})
     acc = api("account")
     state.update(quoten_update=iso(now_utc()), quoten_hinweis=None,
-                 kontingent={"verbraucht": acc.get("request_count"), "limit": acc.get("request_limit")},
+                 kontingent=dict(zip(("verbraucht", "limit"), konto(acc, cfg))),
                  unbekannte_namen=sorted(unbekannt), buchmacher_fehlen=meta.get("buchmacher_fehlen", []))
     save("meta.json", state)
+    print("Verwendete Siegermärkte (Markt-ID: Anzahl):", GEFUNDEN or "keine")
+    if not GEFUNDEN and BEISPIEL:
+        print("Beispiel-Märkte eines Buchmachers:", json.dumps(BEISPIEL, ensure_ascii=False)[:1500])
     print(f"{len(out)} Partien gespeichert ({sum(1 for x in out if x['hatQuoten'])} mit Quoten), {len(unbekannt)} unbekannte Namen, Anfragen: {calls}")
     return 0
 
