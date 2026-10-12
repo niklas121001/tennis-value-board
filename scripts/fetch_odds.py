@@ -26,6 +26,8 @@ def api(path, **params):
     except urllib.error.HTTPError as e:
         msg = e.read().decode("utf-8", "replace")[:500]
         raise SystemExit(f"OddsPapi {path}: HTTP {e.code} – {msg}")
+    except (urllib.error.URLError, ConnectionError, TimeoutError, OSError) as e:
+        raise SystemExit(f"OddsPapi {path}: Verbindungsfehler – {e}")
     finally:
         _last_call[0] = time.time()
     if path != "account":
@@ -266,7 +268,9 @@ def run(cfg, meta, state, n_books):
     fixtures = api("fixtures", sportId=meta["sportId"], **{"from": iso(start), "to": iso(end)})
     if isinstance(fixtures, dict):
         fixtures = fixtures.get("data") or fixtures.get("fixtures") or []
-    fixtures = [fx for fx in fixtures if relevant(fx, cfg) and iso(start)[:16] <= str(fx.get("startTime", ""))[:16] < iso(end)[:16]]
+    roh_alle = list(fixtures)
+    fixtures = [fx for fx in fixtures if relevant(fx, cfg) and iso(start)[:16] <= str(fx.get("startTime", ""))[:16] < iso(end)[:16]
+                and fx.get("statusId") in (None, 0)]
     tids = sorted({fx["tournamentId"] for fx in fixtures})
     print(f"{len(fixtures)} relevante Partien in {len(tids)} Turnieren")
 
@@ -320,9 +324,22 @@ def run(cfg, meta, state, n_books):
             "a": a or ra, "b": b or rb, "aRoh": ra, "bRoh": rb,
             "aInDb": bool(a), "bInDb": bool(b), "hatQuoten": bool(o),
             "quoten": {slug2name.get(s, s): q for s, q in o.items()},
+            "tid": fx.get("tournamentId"), "p1Id": fx.get("participant1Id"), "p2Id": fx.get("participant2Id"),
         })
 
     save("matches.json", {"stand": iso(now_utc()), "partien": out})
+
+    # Gesehene Partien sammeln (Basis für das Nachtragen der Ergebnisse: wer in der nächsten
+    # Runde wieder auftaucht, hat gewonnen). Behalten: 21 Tage.
+    seen = load("fixtures_seen.json", {})
+    for m in out:
+        seen[m["id"]] = {k: m.get(k) for k in ("start", "turnier", "tid", "p1Id", "p2Id", "a", "b")}
+    for fx in roh_alle:
+        if fx.get("fixtureId") in seen and fx.get("statusId") is not None:
+            seen[fx["fixtureId"]]["status"] = fx.get("statusId")
+    grenze = iso(now_utc() - datetime.timedelta(days=21))
+    seen = {k: v for k, v in seen.items() if str(v.get("start", "")) >= grenze}
+    save("fixtures_seen.json", seen, indent=0)
     acc = api("account")
     v, l = konto(acc, cfg)
     monat = now_utc().strftime("%Y-%m")

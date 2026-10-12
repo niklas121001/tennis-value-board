@@ -15,14 +15,21 @@ const now = new Date().toISOString().slice(0, 16) + "Z";
 let neu = 0;
 
 for (const m of matches) {
+  // Nur vor Spielbeginn tippen – ein Tipp nach Anpfiff wäre für die Bilanz wertlos
+  if (!m.start || new Date(m.start) <= new Date()) continue;
   for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
     const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
     if (!r.ok || !r.wette) continue;
     const key = `${m.id}|${bm}`;
     const q = r.wette === "A" ? qa : qb;
-    const e = log[key] || { id: m.id, start: m.start, turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, buchmacher: bm, wette: r.wette, erstQuote: q, erstP: r.pFinal, erstGesehen: now };
+    // Erste Sichtung wird eingefroren (Tippquote, Edge, Kelly) – spätere Läufe ändern nur "letzte*"
+    const e = log[key] || { id: m.id, start: m.start, turnier: m.turnier, belag: m.belag, a: m.a, b: m.b,
+      tid: m.tid, p1Id: m.p1Id, p2Id: m.p2Id, kategorie: m.kategorie,
+      buchmacher: bm, wette: r.wette, erstQuote: q, erstP: r.pFinal, edge: r.wette === "A" ? r.edgeA : r.edgeB,
+      kelly: r.kelly, erstGesehen: now };
     if (!log[key]) neu++;
-    Object.assign(e, { letzteQuote: q, letzteP: r.pFinal, edge: r.wette === "A" ? r.edgeA : r.edgeB, kelly: r.kelly, zuletztGesehen: now });
+    e.start = m.start;  // Ansetzung kann sich verschieben
+    Object.assign(e, { letzteQuote: q, letzteP: r.pFinal, zuletztGesehen: now });
     log[key] = e;
   }
 }
