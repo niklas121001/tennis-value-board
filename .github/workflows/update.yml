@@ -18,15 +18,33 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: "20"
+
+      - name: Ordnerstruktur prüfen
+        run: |
+          # Falls der Projektordner als Unterordner hochgeladen wurde: Inhalt einmalig nach oben verschieben
+          for d in tennis-value-app tennis-value-board; do
+            if [ -d "$d/docs" ] && [ ! -d docs ]; then
+              echo "Verschiebe Inhalt von $d nach oben"
+              git config user.name "tennis-bot"
+              git config user.email "tennis-bot@users.noreply.github.com"
+              for f in "$d"/* ; do git mv "$f" . ; done
+              git rm -r -q --cached "$d" 2>/dev/null || true
+              rm -rf "$d"
+              git add -A
+              git commit -m "Ordnerstruktur korrigiert"
+              git push
+            fi
+          done
+          ls -la
 
       - name: Modell-Test (Abgleich mit Excel)
         run: node tests/test_model.js
