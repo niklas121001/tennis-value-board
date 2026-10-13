@@ -15,36 +15,52 @@ if not KEY:
     sys.exit(1)
 
 BASES = ["https://api.sportsapipro.com/v2/tennis", "https://v2.tennis.sportsapipro.com"]
-MAX_ANFRAGEN = 12
+MAX_ANFRAGEN = 14
 anfragen = 0
 base_ok = None
 
 
+# Cloudflare (Fehler 1010) sperrt die Standard-Kennung von Python ("Python-urllib").
+# Darum eine eigene Kennung senden; falls auch die gesperrt ist, eine übliche Browser-Kennung.
+USER_AGENTS = ["TennisValueBoard/1.0 (+https://github.com)",
+               "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"]
+ua_ok = None
+
+
 def get(pfad):
-    """GET mit x-api-key. Probiert beim ersten Mal beide Hosts. Liefert (status, json|None)."""
-    global anfragen, base_ok
+    """GET mit x-api-key. Probiert beim ersten Mal Hosts und Kennungen durch. Liefert (status, json|None)."""
+    global anfragen, base_ok, ua_ok
+    letzter = None
     for base in ([base_ok] if base_ok else BASES):
-        if anfragen >= MAX_ANFRAGEN:
-            print("  (Testbudget erreicht)")
-            return None, None
-        anfragen += 1
-        url = base + pfad
-        req = urllib.request.Request(url, headers={"x-api-key": KEY, "Accept": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=45) as r:
-                limits = {k: v for k, v in r.headers.items() if "limit" in k.lower() or "remaining" in k.lower()}
-                if limits:
-                    print(f"  Kontingent-Header: {limits}")
-                base_ok = base
-                return r.status, json.loads(r.read().decode("utf-8") or "null")
-        except urllib.error.HTTPError as e:
-            text = e.read().decode("utf-8", "replace")[:200]
-            print(f"  {pfad} @ {base.split('//')[1].split('/')[0]} -> HTTP {e.code}: {text}")
-            if e.code in (401, 403, 429):
-                return e.code, None
-        except Exception as e:
-            print(f"  {pfad} -> Fehler: {type(e).__name__}: {e}")
-    return None, None
+        for ua in ([ua_ok] if ua_ok else USER_AGENTS):
+            if anfragen >= MAX_ANFRAGEN:
+                print("  (Testbudget erreicht)")
+                return None, None
+            anfragen += 1
+            req = urllib.request.Request(base + pfad, headers={"x-api-key": KEY, "Accept": "application/json", "User-Agent": ua})
+            host = base.split("//")[1].split("/")[0]
+            try:
+                with urllib.request.urlopen(req, timeout=45) as r:
+                    limits = {k: v for k, v in r.headers.items() if "limit" in k.lower() or "remaining" in k.lower()}
+                    if limits:
+                        print(f"  Kontingent-Header: {limits}")
+                    base_ok, ua_ok = base, ua
+                    return r.status, json.loads(r.read().decode("utf-8") or "null")
+            except urllib.error.HTTPError as e:
+                text = e.read().decode("utf-8", "replace")
+                cf = "1010" in text or "cloudflare" in text.lower()
+                print(f"  {pfad} @ {host} [{ua.split('/')[0]}] -> HTTP {e.code}{' (Cloudflare-Sperre)' if cf else ''}: {text[:160]}")
+                letzter = e.code
+                if cf:
+                    continue                      # nächste Kennung probieren
+                if e.code in (401, 403, 429):
+                    base_ok, ua_ok = base, ua     # Server erreicht, Key/Kontingent ist das Problem
+                    return e.code, None
+                break                             # 404 o. ä.: nächster Host
+            except Exception as e:
+                print(f"  {pfad} @ {host} -> Fehler: {type(e).__name__}: {e}")
+                break
+    return letzter, None
 
 
 def finde_events(obj):
@@ -88,7 +104,7 @@ events = []
 for pfad in (f"/schedule/{gestern.isoformat()}", f"/api/schedule/{gestern.isoformat()}", "/today"):
     st, js = get(pfad)
     if st in (401, 403):
-        print("Key wird nicht akzeptiert – Abbruch.")
+        print("Abbruch: " + ("Key wird nicht akzeptiert." if ua_ok else "Cloudflare sperrt den Zugriff von GitHub – siehe Meldungen oben."))
         sys.exit(1)
     if js is not None:
         events = finde_events(js)
