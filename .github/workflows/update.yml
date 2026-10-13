@@ -46,8 +46,10 @@ jobs:
           mv_to docs index.html model.js
           mv_to docs/data blacklist.json h2h.json history.json matches.json meta.json name_map.json \
                 params.json player_stats.json players.json turniere.json tips_log.json oddspapi.json
-          mv_to scripts common.py excel_export.py fetch_odds.py log_tips.js update_elo.py
+          mv_to scripts common.py excel_export.py fetch_odds.py log_tips.js update_elo.py results.py extra_players.py \
+                update_calendar.py migrate_history.py sportsapipro.py test_sportsapipro.py serve_stats.py
           mv_to tests test_model.js excel_dashboard.json
+          [ -f api-test.yml ] && mkdir -p .github/workflows && git mv -f api-test.yml .github/workflows/api-test.yml && changed=1
           [ -f update.yml ] && [ -f .github/workflows/update.yml ] && git rm -q update.yml && changed=1
           if [ "$changed" = 1 ]; then
             git add -A
@@ -86,6 +88,17 @@ jobs:
         working-directory: scripts
         run: python extra_players.py
 
+      - name: Ergebnisse, Belag und H2H (SportsAPIPro)
+        if: ${{ env.SPORTSAPIPRO_KEY != '' }}
+        continue-on-error: true
+        working-directory: scripts
+        run: python sportsapipro.py
+
+      - name: Aufschlag-/Returnwerte fortschreiben
+        continue-on-error: true
+        working-directory: scripts
+        run: python serve_stats.py
+
       - name: Value-Tipps protokollieren
         run: node scripts/log_tips.js
 
@@ -106,3 +119,4 @@ jobs:
           git push
     env:
       ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+      SPORTSAPIPRO_KEY: ${{ secrets.SPORTSAPIPRO_KEY }}
