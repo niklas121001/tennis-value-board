@@ -1,0 +1,140 @@
+{
+ "params": {
+  "W_STATS": 0.412,
+  "W_ELO": 0.588,
+  "H2H_MIN_MATCHES": 3,
+  "H2H_MAX_WEIGHT": 0.25,
+  "P_SRV_MIN": 0.48,
+  "P_SRV_MAX": 0.78,
+  "SURF_HARD": 0,
+  "SURF_CLAY": 0,
+  "SURF_GRASS": 0,
+  "W_TB": 0.25,
+  "MODUS_SAETZE": 3,
+  "W_SURF_EXP": 0.1,
+  "SURF_EXP_REF": 25,
+  "BANKROLL": 500,
+  "KELLY_FRACTION": 0.33,
+  "W_STATS_CLAY": 0.294,
+  "W_ELO_CLAY": 0.706,
+  "W_STATS_HARD": 0.444,
+  "W_ELO_HARD": 0.556,
+  "W_STATS_GRASS": 0.529,
+  "W_ELO_GRASS": 0.471,
+  "W_STATS_CLAY_SLOW": 0.294,
+  "W_ELO_CLAY_SLOW": 0.706,
+  "W_STATS_CLAY_FAST": 0.412,
+  "W_ELO_CLAY_FAST": 0.588,
+  "YELO_EINBEZIEHEN": "Ja",
+  "W_YELO_BLEND": 0.4,
+  "K_KALIBRIERUNG": 1.3,
+  "W_MODELL_BLEND": 0.55,
+  "MAX_QUOTE_VALUE": 3,
+  "UMSTELLUNG_AB": "2026-08-26",
+  "MIN_N_SIEGQUOTE": 5,
+  "CHALLENGER_IN_STATISTIK": "Nein",
+  "MAX_QUOTE_AUS": 6,
+  "QUALI_IN_STATISTIK": "Nein",
+  "H2H_STICHTAG": "2026-04-04",
+  "MOMENTUM_GEWICHT": 0.3,
+  "MAX_QUOTE_VALUE_LIVE": null,
+  "JAHR_LISTE": null,
+  "FAV_SEHR_ZUVERLAESSIG": 0.8,
+  "FAV_GUT": 0.7,
+  "FAV_LEICHT_POSITIV": 0.6,
+  "FAV_MEIDEN_UNTER": 0.35,
+  "FEHLENDE_STATS": "nur_elo"
+ },
+ "csi": [
+  {
+   "name": "Buenos Aires",
+   "csi": 0.0,
+   "alias": "Buenos Aires"
+  },
+  {
+   "name": "Barcelona",
+   "csi": 0.2,
+   "alias": "Barcelona"
+  },
+  {
+   "name": "Bukarest",
+   "csi": 0.2,
+   "alias": "Bucharest"
+  },
+  {
+   "name": "Hamburg",
+   "csi": 0.2,
+   "alias": "Hamburg"
+  },
+  {
+   "name": "Estoril",
+   "csi": 0.9,
+   "alias": "Estoril"
+  },
+  {
+   "name": "Monte Carlo",
+   "csi": 1.1,
+   "alias": "Monte-Carlo"
+  },
+  {
+   "name": "Rom",
+   "csi": 3.2,
+   "alias": "Rome"
+  },
+  {
+   "name": "Bastad",
+   "csi": 3.4,
+   "alias": "Båstad"
+  },
+  {
+   "name": "Houston",
+   "csi": 3.4,
+   "alias": "Houston"
+  },
+  {
+   "name": "Genf",
+   "csi": 3.6,
+   "alias": "Geneva"
+  },
+  {
+   "name": "Umag",
+   "csi": 3.6,
+   "alias": "Umag"
+  },
+  {
+   "name": "München",
+   "csi": 4.5,
+   "alias": "Munich"
+  },
+  {
+   "name": "Kitzbühel",
+   "csi": 6.4,
+   "alias": "Kitzbuhel"
+  },
+  {
+   "name": "Santiago",
+   "csi": 6.8,
+   "alias": "Santiago"
+  },
+  {
+   "name": "Madrid",
+   "csi": 8.2,
+   "alias": "Madrid"
+  },
+  {
+   "name": "Gstaad",
+   "csi": 8.6,
+   "alias": "Gstaad"
+  },
+  {
+   "name": "Rio de Janeiro",
+   "csi": 10.0,
+   "alias": "Rio"
+  },
+  {
+   "name": "Marrakesch",
+   "csi": 10.0,
+   "alias": "Marrakech"
+  }
+ ]
+}

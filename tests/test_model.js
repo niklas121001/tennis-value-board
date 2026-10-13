@@ -2,7 +2,8 @@
 const fs = require("fs"), path = require("path");
 const M = require("../docs/model.js");
 const d = (f) => JSON.parse(fs.readFileSync(path.join(__dirname, "..", "docs", "data", f), "utf8"));
-const P = d("params.json");
+// Parameter eingefroren auf Excel-Stand (docs/data/params.json darf live geändert werden, z. B. W_MODELL_BLEND)
+const P = JSON.parse(fs.readFileSync(path.join(__dirname, "params_excel.json"), "utf8"));
 // Spieler-DB eingefroren auf Excel-Stand (docs/data/players.json wird täglich mit neuen Elo-Werten überschrieben)
 const players = JSON.parse(fs.readFileSync(path.join(__dirname, "players_excel.json"), "utf8"));
 const D = { params: P.params, csi: P.csi, players, h2h: d("h2h.json"), playerStats: d("player_stats.json"), blacklist: d("blacklist.json") };
