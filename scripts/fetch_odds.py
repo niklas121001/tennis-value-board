@@ -5,7 +5,7 @@ Anfragen pro Lauf: 1 (Spielplan) + 1 je 3 Buchmacher. Einmalig zusätzlich: spor
 Vor jedem Lauf wird das Kontingent über /v4/account geprüft (kostenlos).
 """
 import os, re, sys, json, time, math, datetime, urllib.request, urllib.parse
-from common import load, save, config, norm, NameMatcher, detect_surface
+from common import load, save, config, norm, NameMatcher, detect_surface, ist_platzhalter
 
 BASE = os.environ.get("ODDSPAPI_BASE", "https://api.oddspapi.io/v4")
 KEY = os.environ.get("ODDSPAPI_KEY", "")
@@ -209,7 +209,10 @@ def relevant(fx, cfg):
     if not any(norm(x) in t for x in f["einschliessen"]):
         return False
     p1, p2 = fx.get("participant1Name") or "", fx.get("participant2Name") or ""
-    return "/" not in p1 and "/" not in p2  # Doppel aussortieren
+    if "/" in p1 or "/" in p2:                       # Doppel aussortieren
+        return False
+    # Unbesetzte Paarungen (nächste Runde schon angelegt, Spieler noch offen) aussortieren
+    return not (ist_platzhalter(p1) or ist_platzhalter(p2))
 
 
 def display_name(fx):
@@ -347,7 +350,7 @@ def run(cfg, meta, state, n_books):
     players = load("players.json")
     matcher = NameMatcher(players.keys(), load("name_map.json", {}))
     turniere = load("turniere.json", {}).get("turniere", {})
-    history = load("history.json", [])
+    history = load("turnier_belag.json", None) or load("history.json", [])
     kalender = load("kalender.json", [])
     slug2name = {v: k for k, v in meta["buchmacher"].items()}
     out, unbekannt = [], set()

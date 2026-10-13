@@ -30,6 +30,18 @@ def norm(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
+PLATZHALTER = re.compile(
+    r"\d|\b(tbd|tba|n\.?\s?n|winner|sieger|gewinner|loser|verlierer|qualifier|qualifikant|lucky|bye|freilos|"
+    r"match|partie|spiel|round|runde|final|finale|halbfinale|viertelfinale|achtelfinale|semi|quarter|r16|r32|unknown|unbekannt)\b",
+    re.I)
+
+
+def ist_platzhalter(name):
+    """True für unbesetzte Paarungen wie '1/8 Final 3 Winner', 'TBD', 'Qualifier', 'Sieger Spiel 12'."""
+    n = str(name or "").strip()
+    return not n or bool(PLATZHALTER.search(n))
+
+
 def flip(s):
     """'Sinner, Jannik' -> 'Jannik Sinner'"""
     if "," in s:
@@ -76,7 +88,36 @@ class NameMatcher:
                     if len(hits) == 1:
                         return hits[0]
         best = difflib.get_close_matches(norm(flip(raw)), list(self.exact), n=1, cutoff=0.88)
-        return self.exact[best[0]] if best else None
+        if best:
+            return self.exact[best[0]]
+        # Gleicher Nachname + Vorname ist Kurz-/Langform ("Alex" ~ "Alexander", "Nico" ~ "Nicolas"), nur wenn eindeutig
+        f = norm(flip(raw)).split()
+        if len(f) >= 2:
+            for i in range(1, len(f)):
+                vor, nach = f[:i], " ".join(f[i:])
+                kand = []
+                for n in self.by_last.get(nach, []):
+                    dv = norm(n).split()[0]
+                    if len(vor[0]) >= 3 and len(dv) >= 3 and (dv.startswith(vor[0]) or vor[0].startswith(dv)):
+                        kand.append(n)
+                if len(set(kand)) == 1:
+                    return kand[0]
+            # Mehrere Initialen hinten oder vorne ("Ficovich J.P.", "J.P. Ficovich")
+            hinten = [t for t in f if len(t) == 1]
+            rest = [t for t in f if len(t) > 1]
+            if len(hinten) >= 2 and rest and (all(len(t) == 1 for t in f[-len(hinten):]) or all(len(t) == 1 for t in f[:len(hinten)])):
+                kand = {n for n in self.by_last.get(" ".join(rest), []) if norm(n).startswith(hinten[0])}
+                if len(kand) == 1:
+                    return kand.pop()
+            # Zusätzlicher zweiter Nachname im Spielplan ("Daniel Merida Aguilar" ~ "Daniel Merida")
+            kand = {n for n in self.db if len(norm(n).split()) == len(f) - 1 and norm(n).split() == f[:-1]}
+            if len(kand) == 1:
+                return kand.pop()
+            # Doppelter Nachname nur teilweise geschrieben ("Pedro Martinez" ~ "Pedro Martinez Portero")
+            kand = {n for n in self.db if norm(n).split()[:2] == f[:2] and len(norm(n).split()) > len(f) == 2}
+            if len(kand) == 1:
+                return kand.pop()
+        return None
 
 
 # ---------------------------------------------------------------- Belag
