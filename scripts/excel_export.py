@@ -1,11 +1,12 @@
 """Exportiert die Stammdaten aus Analysetool_Belag.xlsx nach data/*.json.
 
 Aufruf:  python scripts/excel_export.py Pfad/zu/Analysetool_Belag.xlsx [--merge] [--tests]
-Auf GitHub: Excel in den Ordner excel/ hochladen -> Workflow "Excel importieren" läuft automatisch.
+Excel-Updates laufen über den Chat (die Excel soll nicht ins öffentliche Repo): --merge behält Elo + geschätzte Spieler.
 Kann jederzeit erneut laufen, wenn die Excel weiter gepflegt wird.
 """
 import json, sys, datetime, warnings
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import openpyxl
 
 warnings.filterwarnings("ignore")
@@ -116,6 +117,18 @@ def main(path, merge=False, tests=False):
             continue
         h2h[key] = [tracked.get((a, b), 0), tracked.get((b, a), 0)]
 
+    # Quotenbereiche je Spieler aus ANALYSE (nur Summen je Spieler und Bereich werden veröffentlicht, keine Einzelspiele)
+    from common import spieler_bilanz_add
+    bilanz = {}
+    for m in history:
+        if m["sieger"] not in ("A", "B"):
+            continue
+        spieler_bilanz_add(bilanz, m["a"], m["qa"], m["qb"], m["sieger"] == "A")
+        spieler_bilanz_add(bilanz, m["b"], m["qb"], m["qa"], m["sieger"] == "B")
+    for name, rec in bilanz.items():
+        ziel = pstats.setdefault(name, {"fav_pct": None, "fav_n": 0, "aus_pct": None, "aus_n": 0})
+        ziel["baender"] = rec["baender"]
+
     # ---- BLACKLIST ----
     ws = wb["BLACKLIST"]
     blacklist = [clean(r[0]) for r in ws.iter_rows(min_row=4, max_col=1, values_only=True) if clean(r[0])]
@@ -124,6 +137,7 @@ def main(path, merge=False, tests=False):
     if tests:
         TESTS = ROOT / "tests"
         (TESTS / "players_excel.json").write_text(json.dumps(players, ensure_ascii=False, indent=1), encoding="utf-8")
+        (TESTS / "params_excel.json").write_text(json.dumps({"params": params, "csi": csi}, ensure_ascii=False, indent=1), encoding="utf-8")
         ws = wb["DASHBOARD"]
         rows = []
         for r in ws.iter_rows(min_row=5, max_row=36, max_col=52, values_only=True):
@@ -157,17 +171,36 @@ def main(path, merge=False, tests=False):
               f"(Elo-Werte und geschätzte Spieler beibehalten)")
         players = neu_gesamt
 
+    # H2H-Stichtag: alles bis zum letzten ANALYSE-Datum steckt jetzt in h2h.json; Website-Spiele bis dahin verwerfen
+    daten = [m["datum"] for m in history if m.get("datum")]
+    stand = max(daten) if daten else None
+    hw_pfad = DATA / "h2h_web.json"
+    hw = json.loads(hw_pfad.read_text(encoding="utf-8")) if hw_pfad.exists() else {"spiele": {}}
+    if stand:
+        hw["stand"] = stand
+        hw["spiele"] = {k: v for k, v in hw.get("spiele", {}).items() if str(v.get("start", ""))[:10] > stand}
+        paare = {}
+        for sp in hw["spiele"].values():
+            x, y = sorted([sp["sieger"], sp["verlierer"]])
+            rec = paare.setdefault(f"{x}|{y}", [0, 0])
+            rec[0 if sp["sieger"] == x else 1] += 1
+        hw["paare"] = paare
+        hw_pfad.write_text(json.dumps(hw, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"H2H-Stichtag: {stand} ({len(hw['spiele'])} Website-Spiele danach bleiben)")
+
     out = {
         "params.json": {"params": params, "csi": csi},
         "players.json": players,
         "player_stats.json": pstats,
         "h2h.json": h2h,
         "blacklist.json": blacklist,
-        "history.json": history,
+        # Nur Turnier -> Belag veröffentlichen (keine getrackten Spiele, Quoten oder Ergebnisse)
+        "turnier_belag.json": __import__("migrate_history").turnier_belag(history),
     }
     for fn, obj in out.items():
-        (DATA / fn).write_text(json.dumps(obj, ensure_ascii=False, indent=0 if fn == "history.json" else 1), encoding="utf-8")
-    print(f"Spieler: {len(players)}, H2H-Paare: {len(h2h)}, Blacklist: {len(blacklist)}, Historie: {len(history)}, Parameter: {len(params)}")
+        (DATA / fn).write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
+    (DATA / "history.json").unlink(missing_ok=True)
+    print(f"Spieler: {len(players)}, H2H-Paare: {len(h2h)}, Blacklist: {len(blacklist)}, getrackte Spiele (nur intern genutzt): {len(history)}, Parameter: {len(params)}")
 
 
 if __name__ == "__main__":

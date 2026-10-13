@@ -186,3 +186,39 @@ def detect_surface(turnier, turniere, history, kalender=None, datum=None):
             if m.get("belag") in ("hard", "clay", "grass") and toks & set(core_tokens(m.get("turnier", ""))):
                 return m["belag"], "historie"
     return "hard", "standard"
+
+
+# ---------------------------------------------------------------- Quotenbereiche (Spieler-Check)
+# Untergrenze inklusive, Obergrenze exklusiv. Muss mit QUOTEN_BAENDER in docs/model.js übereinstimmen.
+QUOTEN_BAENDER = [1.0, 1.3, 1.5, 1.7, 1.9, 2.1, 2.5, 3.0, 4.0]
+
+
+def quoten_band(q):
+    """1.82 -> '1.70-1.90', 5.0 -> '4.00+'. None bei ungültiger Quote."""
+    try:
+        q = float(q)
+    except (TypeError, ValueError):
+        return None
+    if q <= 1:
+        return None
+    for i, lo in enumerate(QUOTEN_BAENDER):
+        hi = QUOTEN_BAENDER[i + 1] if i + 1 < len(QUOTEN_BAENDER) else None
+        if hi is None:
+            return f"{lo:.2f}+"
+        if lo <= q < hi:
+            return f"{lo:.2f}-{hi:.2f}"
+    return None
+
+
+def spieler_bilanz_add(ziel, name, quote, gegen_quote, gewonnen):
+    """Zählt ein Spiel in {name: {fav:[S,N], aus:[S,N], baender:{band:[S,N]}}}. Favorit = niedrigere Quote."""
+    if not name or not quote or not gegen_quote:
+        return
+    rec = ziel.setdefault(name, {"fav": [0, 0], "aus": [0, 0], "baender": {}})
+    rolle = "fav" if quote < gegen_quote else "aus" if quote > gegen_quote else None
+    i = 0 if gewonnen else 1
+    if rolle:
+        rec[rolle][i] += 1
+    b = quoten_band(quote)
+    if b:
+        rec["baender"].setdefault(b, [0, 0])[i] += 1

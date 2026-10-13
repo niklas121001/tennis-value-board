@@ -1,6 +1,7 @@
 """Trägt Ergebnisse und Schlussquoten für protokollierte Value-Tipps nach -> tips_log.json + bilanz.json
 
 Ergebnis (Reihenfolge):
+  0. SportsAPIPro (sap_events.json / sap_map.json aus sportsapipro.py): Sieger bzw. Absage/Walkover direkt.
   1. Rundenlogik (kostenlos): Wer nach dem Tipp-Spiel im selben Turnier erneut im Spielplan steht,
      hat gewonnen. Bei Qualifikationen zählt auch das Hauptfeld.
   2. Absage: Status "abgesagt" aus dem Spielplan -> Tipp ungültig (Einsatz zurück).
@@ -9,10 +10,12 @@ Ergebnis (Reihenfolge):
 Schlussquote (CLV): /v4/historical-odds (laut OddsPapi kontingentfrei), letzte Quote vor Spielbeginn.
 """
 import os, sys, json, datetime
-from common import load, save, config, norm
+from common import load, save, config, norm, spieler_bilanz_add
 import fetch_odds as fo
+from sportsapipro import ergebnis as sap_ergebnis
 
 ERGEBNIS_ANFRAGEN = 2
+H2H_STAND_STANDARD = "2026-10-13"   # letztes ANALYSE-Datum des zuletzt exportierten Excel-Stands
 OFFEN_NACH_H = 30
 
 
@@ -54,6 +57,16 @@ def runden_sieger(tip, seen):
             if (ids[seite] and ids[seite] in fx_ids) or namen[seite] in fx_namen:
                 gefunden.add(seite)
     return gefunden.pop() if len(gefunden) == 1 else None
+
+
+def api_sieger(fid, smap, sap):
+    """Sieger aus den SportsAPIPro-Spieldaten: 'A', 'B', 'V' oder None."""
+    z = smap.get(fid)
+    r = sap_ergebnis(sap.get(str(z["sap"]))) if z else None
+    if r in ("H", "A"):
+        heim_ist_a = not z.get("tausch")
+        return "A" if (r == "H") == heim_ist_a else "B"
+    return r
 
 
 def settlement_sieger(tip, meta):
@@ -164,6 +177,7 @@ def main():
     log = load("tips_log.json", {})
     seen = load("fixtures_seen.json", {})
     meta = load("oddspapi.json", {})
+    smap, sap = load("sap_map.json", {}), load("sap_events.json", {})
     cfg = config()
     jetzt = datetime.datetime.now(datetime.timezone.utc)
     hat_key = bool(fo.KEY) and meta.get("marketId")
@@ -209,6 +223,8 @@ def main():
         if st == 3:
             sieger, quelle = "V", "abgesagt"
         if not sieger:
+            sieger, quelle = api_sieger(fid, smap, sap), "spieldaten"
+        if not sieger:
             sieger, quelle = runden_sieger(tipps[0], seen), "folgerunde"
         if not sieger and start < jetzt - datetime.timedelta(hours=OFFEN_NACH_H) and settle_calls < settle_budget:
             try:
@@ -230,6 +246,72 @@ def main():
         save("oddspapi.json", meta)
 
     save("tips_log.json", log, indent=0)
+
+    # Ergebnisse ALLER gesehenen Partien (für "Meine Wetten" auf der Website) – nur Folgerunde/Absage, keine Anfragen.
+    # Enthält keine persönlichen Daten: Partie-ID, Spieler, Sieger.
+    erg_alle = load("ergebnisse.json", {})
+    for fid, fx in seen.items():
+        if fid in erg_alle:
+            continue
+        st = ts(fx.get("start"))
+        if not st or st > jetzt - datetime.timedelta(hours=2):
+            continue
+        sieger = "V" if fx.get("status") == 3 else (api_sieger(fid, smap, sap) or runden_sieger(dict(fx, id=fid), seen))
+        if sieger:
+            erg_alle[fid] = {"sieger": sieger, "a": fx.get("a"), "b": fx.get("b"), "start": fx.get("start")}
+    for t in log.values():                      # Settlements aus der Bilanz mitnehmen
+        if t.get("sieger") and t["id"] not in erg_alle:
+            erg_alle[t["id"]] = {"sieger": t["sieger"], "a": t.get("a"), "b": t.get("b"), "start": t.get("start")}
+    grenze = (jetzt - datetime.timedelta(days=60)).strftime("%Y-%m-%d")
+    erg_alle = {k: v for k, v in erg_alle.items() if str(v.get("start", "")) >= grenze}
+    save("ergebnisse.json", erg_alle, indent=0)
+
+    # H2H automatisch erweitern: jedes entschiedene Spiel NACH dem Excel-Stichtag (letztes Datum in ANALYSE)
+    # einmal zählen. Ältere Spiele stecken bereits in h2h.json aus der Excel.
+    hw = load("h2h_web.json", {"stand": H2H_STAND_STANDARD, "spiele": {}})
+    neu_h2h = 0
+    for fid, e in erg_alle.items():
+        if fid in hw["spiele"] or e.get("sieger") not in ("A", "B") or not e.get("a") or not e.get("b"):
+            continue
+        if str(e.get("start", ""))[:10] <= str(hw.get("stand", "")):
+            continue
+        sieger, verlierer = (e["a"], e["b"]) if e["sieger"] == "A" else (e["b"], e["a"])
+        hw["spiele"][fid] = {"sieger": sieger, "verlierer": verlierer, "start": e.get("start")}
+        neu_h2h += 1
+    paare = {}
+    for sp in hw["spiele"].values():
+        x, y = sorted([sp["sieger"], sp["verlierer"]])
+        rec = paare.setdefault(f"{x}|{y}", [0, 0])
+        rec[0 if sp["sieger"] == x else 1] += 1
+    hw["paare"] = paare
+    save("h2h_web.json", hw)
+    if neu_h2h:
+        print(f"H2H: {neu_h2h} neue Spiele erfasst (seit Excel-Stand {hw.get('stand')}), {len(paare)} Paarungen ergänzt")
+
+    # Spieler-Check fortschreiben (Favorit/Außenseiter, Quotenbereiche): jedes entschiedene Spiel mit Quote NACH dem
+    # Excel-Stichtag einmal zählen. Quote = Durchschnitt der Buchmacher vor Spielbeginn (prognosen.json).
+    prog = load("prognosen.json", {})
+    sw = {"stand": hw.get("stand"), "spiele": load("player_stats_web.json", {}).get("spiele", {})}
+    sw["spiele"] = {k: v for k, v in sw["spiele"].items() if str(v.get("start", ""))[:10] > str(sw["stand"] or "")}
+    for fid, e in erg_alle.items():
+        pr = prog.get(fid)
+        if fid in sw["spiele"] or not pr or e.get("sieger") not in ("A", "B"):
+            continue
+        if str(e.get("start", ""))[:10] <= str(sw.get("stand") or ""):
+            continue
+        qa, qb = pr.get("qaM") or pr.get("qa"), pr.get("qbM") or pr.get("qb")
+        if not qa or not qb:
+            continue
+        # gleiche Partie -> gleiche Reihenfolge A/B; Namen aus der Prognose (Spieler-DB-Namen)
+        sw["spiele"][fid] = {"a": pr.get("a") or e["a"], "b": pr.get("b") or e["b"], "qa": qa, "qb": qb, "sieger": e["sieger"], "start": e.get("start")}
+    spieler = {}
+    for sp in sw["spiele"].values():
+        spieler_bilanz_add(spieler, sp["a"], sp["qa"], sp["qb"], sp["sieger"] == "A")
+        spieler_bilanz_add(spieler, sp["b"], sp["qb"], sp["qa"], sp["sieger"] == "B")
+    sw["spieler"] = spieler
+    save("player_stats_web.json", sw, indent=0)
+    print(f"Spieler-Check: {len(sw['spiele'])} Spiele seit Excel-Stand {sw.get('stand')}, {len(spieler)} Spieler fortgeschrieben")
+
     b = bilanz(log)
     b["_stand"] = jetzt.strftime("%Y-%m-%dT%H:%MZ")
     save("bilanz.json", b)
