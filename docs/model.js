@@ -3,7 +3,7 @@
  * Läuft im Browser (window.TennisModel) und in Node (module.exports).
  *
  * Eingabe pro Partie: { turnier, belag, a, b, qa, qb, spieleA?, spieleB?, modus? }
- * Stammdaten: { params, csi, players, h2h, playerStats, blacklist }
+ * Stammdaten: { params, csi, players, h2h, h2hWeb, h2hApi, playerStats, playerStatsWeb, serveLive, blacklist }
  */
 (function (root) {
   "use strict";
@@ -77,10 +77,52 @@
     return [P.W_STATS, P.W_ELO];
   }
 
-  function h2hLookup(a, b, h2h) {
+  function h2hEinzeln(a, b, h2h) {
+    if (!h2h) return [0, 0];
     if (h2h[a + "|" + b]) return h2h[a + "|" + b];
     if (h2h[b + "|" + a]) { const r = h2h[b + "|" + a]; return [r[1], r[0]]; }
     return [0, 0];
+  }
+  // Excel-Bilanz (h2h.json) + von der Website nach dem Excel-Stichtag erfasste Spiele (h2h_web.json).
+  // Liegt eine abgerufene Gesamtbilanz vor (h2h_api.json, SportsAPIPro), gilt sie – außer Excel+Web kennt mehr Duelle
+  // (z. B. ein neues Duell nach dem Abruf). Rückgabe: [Siege A, Siege B, Quelle]
+  function h2hLookup(a, b, h2h, web, api) {
+    const x = h2hEinzeln(a, b, h2h), y = h2hEinzeln(a, b, web);
+    const eigen = [x[0] + y[0], x[1] + y[1]];
+    const hatApi = api && (api[a + "|" + b] || api[b + "|" + a]);
+    if (hatApi) {
+      const z = h2hEinzeln(a, b, api);
+      if (z[0] + z[1] >= eigen[0] + eigen[1]) return [z[0], z[1], "spieldaten"];
+    }
+    return [eigen[0], eigen[1], "excel"];
+  }
+
+  // ---- Spieler-Check: Excel-Bilanz (player_stats.json) + seit dem Excel-Stand fortgeschrieben (player_stats_web.json)
+  const QUOTEN_BAENDER = [1.0, 1.3, 1.5, 1.7, 1.9, 2.1, 2.5, 3.0, 4.0];   // wie scripts/common.py
+  function quotenBand(q) {
+    if (!isNum(q) || q <= 1) return null;
+    for (let i = 0; i < QUOTEN_BAENDER.length; i++) {
+      const lo = QUOTEN_BAENDER[i], hi = QUOTEN_BAENDER[i + 1];
+      if (hi === undefined) return lo.toFixed(2) + "+";
+      if (q >= lo && q < hi) return lo.toFixed(2) + "-" + hi.toFixed(2);
+    }
+    return null;
+  }
+  function spielerRolle(name, rolle, D) {
+    const x = (D.playerStats || {})[name], w = (D.playerStatsWeb || {})[name];
+    const nX = x ? x[rolle + "_n"] || 0 : 0, pX = x ? x[rolle + "_pct"] : null;
+    const sX = nX && isNum(pX) ? pX * nX : 0;
+    const [sW, lW] = (w && w[rolle]) || [0, 0];
+    const n = nX + sW + lW;
+    return { pct: n ? (sX + sW) / n : null, n, nWeb: sW + lW };
+  }
+  function spielerBand(name, q, D) {
+    const band = quotenBand(q);
+    if (!band) return null;
+    const x = (((D.playerStats || {})[name] || {}).baender || {})[band] || [0, 0];
+    const w = (((D.playerStatsWeb || {})[name] || {}).baender || {})[band] || [0, 0];
+    const s = x[0] + w[0], n = s + x[1] + w[1];
+    return { name, band, quote: q, siege: s, n, pct: n ? s / n : null };
   }
 
   // Satzergebnis-Prognose (BY3..CM3): q so bestimmen, dass P(Match) = P(A) final
@@ -110,8 +152,13 @@
   function analyse(match, D) {
     const P = D.params;
     const sk = surfKey(match.belag);
-    const pa = D.players[match.a];
-    const pb = D.players[match.b];
+    // Fortgeschriebene Aufschlag-/Returnwerte (serve_live.json) über den Excel-Stand legen
+    const live = (n) => {
+      const p = D.players[n], l = D.serveLive && D.serveLive[n];
+      return p && l ? Object.assign({}, p, l) : p;
+    };
+    const pa = live(match.a);
+    const pb = live(match.b);
     const out = { a: match.a, b: match.b, belag: sk, warnungen: [] };
     if (!pa) out.warnungen.push(match.a + " nicht in Spieler-DB");
     if (!pb) out.warnungen.push(match.b + " nicht in Spieler-DB");
@@ -126,20 +173,38 @@
     // Aufschlagwerte nach Belag (H..N); "other" nutzt Hard-Spalten wie die Excel
     const s = sk === "clay" ? "clay" : sk === "grass" ? "grass" : "hard";
     const retKey = "ret_" + s;
-    // Excel: leere Zelle -> VLOOKUP liefert 0 (kein Fehler), daher 0 statt 0,348
-    const retA = isNum(pa[retKey]) ? pa[retKey] : 0; // BJ3
-    const retB = isNum(pb[retKey]) ? pb[retKey] : 0; // BI3
-    const fehlt = (p) => [s + "_1in", s + "_1won", s + "_2won", retKey].some((k) => !isNum(p[k]));
+    const felder = [s + "_1in", s + "_1won", s + "_2won", retKey];
+    const fehlt = (p) => felder.some((k) => !isNum(p[k]));
     out.statsFehlenA = fehlt(pa); out.statsFehlenB = fehlt(pb);
-    if (out.statsFehlenA) out.warnungen.push(match.a + ": Aufschlag-/Returnwerte (" + s + ") fehlen");
-    if (out.statsFehlenB) out.warnungen.push(match.b + ": Aufschlag-/Returnwerte (" + s + ") fehlen");
+    out.aufschlagQuelle = { a: pa["quelle_" + s] || (out.statsFehlenA ? null : "excel"), b: pb["quelle_" + s] || (out.statsFehlenB ? null : "excel"),
+      nA: pa["n_" + s] || 0, nB: pb["n_" + s] || 0 };
+    // App-Erweiterung: fehlende Werte mit dem Durchschnitt auf Challenger-Niveau (stats_avg.json) auffüllen
+    const avg = D.statsAvg && D.statsAvg[s];
+    const mitAvg = !!avg && P.FEHLENDE_STATS !== "excel" && P.STATS_DURCHSCHNITT !== false;
+    const fuell = (p) => {
+      if (!mitAvg) return p;
+      const q = Object.assign({}, p);
+      for (const k of felder) if (!isNum(q[k])) q[k] = avg[k.replace(s + "_", "").replace(retKey, "ret")];
+      return q;
+    };
+    if (out.statsFehlenA) out.warnungen.push(match.a + ": Aufschlag-/Returnwerte (" + s + ") fehlen" + (mitAvg ? " – Durchschnitt verwendet" : ""));
+    if (out.statsFehlenB) out.warnungen.push(match.b + ": Aufschlag-/Returnwerte (" + s + ") fehlen" + (mitAvg ? " – Durchschnitt verwendet" : ""));
+    out.statsDurchschnitt = mitAvg && (out.statsFehlenA || out.statsFehlenB);
+    out.eloGeschaetztA = !!pa.geschaetzt; out.eloGeschaetztB = !!pb.geschaetzt;
+    for (const [p, n] of [[pa, match.a], [pb, match.b]])
+      if (p.geschaetzt) out.warnungen.push(n + ": Elo geschätzt aus Marktquoten (" + (p.n_markt || 0) + " Quoten, " + (p.n_erg || 0) + " Ergebnisse" +
+        ({ direkt: ", Bezug: Gegner mit echtem Elo", indirekt: ", Bezug: anderer geschätzter Spieler", basis: ", Bezug: Challenger-Mittelwert – grob" }[p.anker] || "") + ")");
+    const sa = fuell(pa), sb = fuell(pb);
+    // Excel: leere Zelle -> VLOOKUP liefert 0 (kein Fehler), daher 0 statt 0,348
+    const retA = isNum(sa[retKey]) ? sa[retKey] : 0; // BJ3
+    const retB = isNum(sb[retKey]) ? sb[retKey] : 0; // BI3
     const srv = (p, retOpp) => (p[s + "_1in"] * p[s + "_1won"] + (1 - p[s + "_1in"]) * p[s + "_2won"] + (1 - retOpp)) / 2;
     const adj = sk === "clay" ? P.SURF_CLAY : sk === "grass" ? P.SURF_GRASS : P.SURF_HARD;
-    const pSrvA = clip(srv(pa, retB) + adj, P.P_SRV_MIN, P.P_SRV_MAX);
-    const pSrvB = clip(srv(pb, retA) + adj, P.P_SRV_MIN, P.P_SRV_MAX);
+    const pSrvA = clip(srv(sa, retB) + adj, P.P_SRV_MIN, P.P_SRV_MAX);
+    const pSrvB = clip(srv(sb, retA) + adj, P.P_SRV_MIN, P.P_SRV_MAX);
 
     const mode = detectMode(match.turnier, match.modus, P);
-    const tbA = isNum(pa.tb) ? pa.tb : 0.52, tbB = isNum(pb.tb) ? pb.tb : 0.52;
+    const tbA = isNum(pa.tb) ? pa.tb : (mitAvg && avg.tb) || 0.52, tbB = isNum(pb.tb) ? pb.tb : (mitAvg && avg.tb) || 0.52;
     const gA = pGame(pSrvA), gB = pGame(pSrvB);
     let setA = pSet(gA, gB, tbA, tbB, P.W_TB);
     if (!isFinite(setA)) setA = 0.5; // IFERROR(...;0,5)
@@ -147,7 +212,7 @@
     const pElo = 1 / (1 + 10 ** ((eloB - eloA) / 400));
 
     // H2H (AB..AF)
-    const [hA, hB] = h2hLookup(match.a, match.b, D.h2h);
+    const [hA, hB, hQuelle] = h2hLookup(match.a, match.b, D.h2h, D.h2hWeb, D.h2hApi);
     const hN = hA + hB;
     const h2hPct = hN >= P.H2H_MIN_MATCHES ? hA / hN : 0.5;
     const h2hW = hN < P.H2H_MIN_MATCHES ? 0 : Math.min(P.H2H_MAX_WEIGHT, (hN / 10) * P.H2H_MAX_WEIGHT);
@@ -162,7 +227,7 @@
     const csi = lookupCSI(match.turnier, match.belag, D.csi || []);
     let [wS, wE] = weights(sk, csi, P);
     // App-Erweiterung: fehlen Aufschlagwerte, Statistik-Teil abschalten (Excel rechnet mit 0)
-    out.nurElo = P.FEHLENDE_STATS !== "excel" && (out.statsFehlenA || out.statsFehlenB);
+    out.nurElo = P.FEHLENDE_STATS !== "excel" && !mitAvg && (out.statsFehlenA || out.statsFehlenB);
     if (out.nurElo) wS = 0;
     const pKombi = clip((wS * pStats + wE * pElo + h2hW * h2hPct) / (wS + wE + h2hW) + erf, 0.05, 0.95);
 
@@ -202,26 +267,27 @@
     if (haveOdds && D.playerStats) {
       const fav = match.qa < match.qb ? match.a : match.b;
       const aus = match.qa < match.qb ? match.b : match.a;
-      const fs = D.playerStats[fav], as = D.playerStats[aus];
-      favCheck = fs ? { name: fav, pct: fs.fav_pct, n: fs.fav_n } : { name: fav, pct: null, n: 0 };
-      ausCheck = as ? { name: aus, pct: as.aus_pct, n: as.aus_n } : { name: aus, pct: null, n: 0 };
+      favCheck = Object.assign({ name: fav }, spielerRolle(fav, "fav", D));
+      ausCheck = Object.assign({ name: aus }, spielerRolle(aus, "aus", D));
     }
+    // Quotenbereich: wie oft hat der Spieler bei einer Quote in diesem Bereich gewonnen?
+    const baender = haveOdds ? { a: spielerBand(match.a, match.qa, D), b: spielerBand(match.b, match.qb, D) } : null;
 
     return Object.assign(out, {
       ok: true, modus: mode, csi,
       eloA, eloB, yEloA: pa.elo, yEloB: pb.elo,
       pSrvA, pSrvB, pStats, pElo,
-      h2h: { a: hA, b: hB, n: hN, pct: hN > 0 ? h2hPct : null, gewicht: h2hW },
+      h2h: { a: hA, b: hB, n: hN, quelle: hQuelle, pct: hN > 0 ? h2hPct : null, gewicht: h2hW },
       tbA, tbB, pKombi, pKal, pMarkt, pFinal,
       fairA, fairB, fairModellA: 1 / pKal, fairModellB: 1 / (1 - pKal),
       fairMarktA: pMarkt ? 1 / pMarkt : null, fairMarktB: pMarkt ? 1 / (1 - pMarkt) : null,
       edgeA, edgeB, valueA, valueB, empfehlung, wette, kelly, buchQ,
-      favCheck, ausCheck,
+      favCheck, ausCheck, baender,
       saetze: setScores(pFinal, mode),
     });
   }
 
-  const api = { analyse, pGame, pSet, pMatch, detectMode, lookupCSI, setScores };
+  const api = { analyse, pGame, pSet, pMatch, detectMode, lookupCSI, setScores, quotenBand };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.TennisModel = api;
 })(typeof self !== "undefined" ? self : this);

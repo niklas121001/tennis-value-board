@@ -267,7 +267,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
 
   <section id="v-info" class="info" hidden></section>
 
-  <footer>Modell: Nachbau des Excel-Blatts MODELL (Analysetool_Belag.xlsx). Elo: Tennis Abstract. Quoten: OddsPapi. Turnierkalender: Wikipedia (CC BY-SA). Keine Garantie, Wetten mit Verantwortung.</footer>
+  <footer>Modell: Nachbau des Excel-Blatts MODELL (Analysetool_Belag.xlsx). Elo: Tennis Abstract. Quoten: OddsPapi. Ergebnisse, Belag, H2H: SportsAPIPro. Turnierkalender: Wikipedia (CC BY-SA). Keine Garantie, Wetten mit Verantwortung.</footer>
 </div>
 
 <script src="model.js"></script>
@@ -290,11 +290,11 @@ const SURF = {hard:"Hard",clay:"Sand",grass:"Rasen"};
 async function j(f, d){ try{ const r = await fetch("data/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
 
 async function init(){
-  const [P, players, h2h, ps, bl, matches, meta, log, avg, erg] = await Promise.all([
+  const [P, players, h2h, ps, bl, matches, meta, log, avg, erg, h2hw, h2ha, psw, svl] = await Promise.all([
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
-    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {})]);
+    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {}), j("h2h_web.json", {}), j("h2h_api.json", {}), j("player_stats_web.json", {}), j("serve_live.json", {})]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
-  D = {params:P.params, csi:P.csi, players, h2h, playerStats:ps, blacklist:bl, statsAvg:avg};
+  D = {params:P.params, csi:P.csi, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   ERG = erg || {};
   setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten();
@@ -449,13 +449,14 @@ function detailHtml(p, r){
   const allBooks = Object.entries(p.quoten||{}).map(([b,q]) => {
     const x = TennisModel.analyse({turnier:p.turnier, belag:r.belagEff, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
     return `<span class="k">${esc(b)}${x.wette?" ✓":""}</span><span class="v">${fx(q[0])} / ${fx(q[1])}</span><span class="v">${sg(x.edgeA)} / ${sg(x.edgeB)}</span>`; }).join("");
-  const chk = (c, rolle) => c ? `<span class="k">${esc(c.name)} (${rolle})</span><span class="v">${c.n>=D.params.MIN_N_SIEGQUOTE&&c.pct!=null?pc(c.pct,0):"—"} · n ${c.n}</span>` : "";
+  const chk = (c, rolle) => c ? `<span class="k">${esc(c.name)} (${rolle})</span><span class="v" title="${c.nWeb?c.nWeb+" Spiele seit dem Excel-Stand ergänzt":"Stand Excel"}">${c.n>=D.params.MIN_N_SIEGQUOTE&&c.pct!=null?pc(c.pct,0):"—"} · n ${c.n}</span>` : "";
+  const band = (x) => x ? `<span class="k">${esc(x.name)} bei Quote ${x.band.replace("-","–").replace(/\./g,",")}</span><span class="v">${x.n?`${x.siege}/${x.n} (${pc(x.pct,0)})`:"—"}</span>` : "";
   const cur = store.get("belag."+p.id, null) || "auto";
   return `<div class="dgrid">
     <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
       <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
       <span class="k">Elo</span><span class="v">${pc(r.pElo)}</span>
-      <span class="k">H2H ${r.h2h.a}:${r.h2h.b} (Gewicht ${pc(r.h2h.gewicht,0)})</span><span class="v">${r.h2h.n?pc(r.h2h.pct):"–"}</span>
+      <span class="k">H2H ${r.h2h.a}:${r.h2h.b} (${r.h2h.quelle==="spieldaten"?"alle Duelle, ":""}Gewicht ${pc(r.h2h.gewicht,0)})</span><span class="v">${r.h2h.n?pc(r.h2h.pct):"–"}</span>
       <span class="k">Kombiniert</span><span class="v">${pc(r.pKombi)}</span>
       <span class="k">Kalibriert (k ${fx(D.params.K_KALIBRIERUNG,1)})</span><span class="v">${pc(r.pKal)}</span>
       <span class="k">Markt (entvigt)</span><span class="v">${pc(r.pMarkt)}</span>
@@ -465,12 +466,14 @@ function detailHtml(p, r){
       <span class="k">Elo genutzt</span>${ab(r.eloA,r.eloB,x=>fx(x,0))}
       <span class="k">yElo</span>${ab(r.yEloA,r.yEloB,x=>fx(x,0))}
       <span class="k">p_srv</span>${ab(r.pSrvA,r.pSrvB,x=>pc(x))}
+      ${r.aufschlagQuelle?`<span class="k">Aufschlagwerte</span>${ab(["a",r.aufschlagQuelle.nA],["b",r.aufschlagQuelle.nB],([k,n])=>{const q=r.aufschlagQuelle[k];
+        return q==="excel+spieldaten"?`Excel + ${n} Sp.`:q==="spieldaten"?`Spieldaten (${n} Sp.)`:q==="excel"?"Excel":"Ø Challenger";})}`:""}
       <span class="k">TB-Bilanz</span>${ab(r.tbA,r.tbB,x=>pc(x,0))}
       <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}</div></div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
-    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}</div>
+    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>
       ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
         <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
