@@ -59,8 +59,10 @@ jobs:
           find . -path ./.git -prune -o -type f -print | sort
 
       - name: Getrackte Spiele aus dem öffentlichen Ordner entfernen (einmalig)
+        continue-on-error: true
         working-directory: scripts
-        run: python migrate_history.py
+        run: |
+          if [ -f migrate_history.py ]; then python migrate_history.py; else echo "migrate_history.py nicht vorhanden – übersprungen"; fi
 
       - name: Modell-Test (Abgleich mit Excel)
         continue-on-error: true      # warnt nur – blockiert das tägliche Update nicht
