@@ -140,6 +140,16 @@ tr.m.past td{color:var(--muted)}
 @media (max-width:720px){.favm.show-s{display:inline}}
 th.l{text-align:left}
 .paus{font:500 10px var(--f-body);color:var(--warn);text-transform:uppercase;letter-spacing:.04em}
+.mform{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:end;margin-top:10px}
+.mform input,.mform select{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:100%;min-width:0}
+.mform .ctl{flex:1 1 130px}
+.btn{font:600 13px var(--f-body);background:var(--accent);color:var(--panel);border:0;border-radius:6px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+.btn.mini{padding:3px 8px;font-size:12px}
+details.box summary{cursor:pointer;list-style-position:outside}
+.wbox .mform .ctl{flex:1 1 90px}
+.gespeichert{color:var(--good);font-size:12px;margin-top:6px}
+select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
 @media (prefers-reduced-motion:no-preference){tr.m td{transition:background .12s}}
 </style>
@@ -154,6 +164,7 @@ th.l{text-align:left}
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-partien" aria-selected="true" data-tab="partien">Partien</button>
     <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Rechner</button>
+    <button role="tab" id="tab-wetten" aria-selected="false" data-tab="wetten">Meine Wetten</button>
     <button role="tab" id="tab-protokoll" aria-selected="false" data-tab="protokoll">Bilanz</button>
     <button role="tab" id="tab-info" aria-selected="false" data-tab="info">Modell</button>
   </nav>
@@ -217,6 +228,43 @@ th.l{text-align:left}
     <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt.</p>
   </section>
 
+  <section id="v-wetten" hidden>
+    <div class="kpis kpis6">
+      <div class="kpi"><b id="m-n">–</b><span>Wetten (gew.–verl.)</span></div>
+      <div class="kpi"><b id="m-einsatz">–</b><span>Einsatz abgerechnet</span></div>
+      <div class="kpi"><b id="m-gewinn">–</b><span>Gewinn / Verlust</span></div>
+      <div class="kpi"><b id="m-roi">–</b><span>ROI</span></div>
+      <div class="kpi"><b id="m-offen">–</b><span>offen (Einsatz)</span></div>
+      <div class="kpi"><b id="m-clv">–</b><span>Ø Quote</span></div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><label for="m-filter">Anzeigen</label>
+        <select id="m-filter"><option value="alle">alle Wetten</option><option value="offen">offen</option><option value="fertig">abgerechnet</option></select></div>
+      <div class="ctl"><label for="m-monat">Monat</label><select id="m-monat"><option value="alle">alle</option></select></div>
+    </div>
+    <div id="m-liste"></div>
+    <details class="box" id="m-manuell-box" style="margin-top:16px"><summary><b>Wette manuell eintragen</b> <span class="time">(für Partien, die nicht auf der Seite stehen)</span></summary>
+      <form class="mform" id="m-form" autocomplete="off">
+        <div class="ctl"><label for="mf-spieler">Gewettet auf</label><input id="mf-spieler" required placeholder="Spieler"></div>
+        <div class="ctl"><label for="mf-gegner">Gegner</label><input id="mf-gegner" placeholder="Gegner"></div>
+        <div class="ctl"><label for="mf-datum">Datum</label><input id="mf-datum" type="date" required></div>
+        <div class="ctl"><label for="mf-turnier">Turnier</label><input id="mf-turnier" placeholder="optional"></div>
+        <div class="ctl"><label for="mf-bm">Buchmacher</label><input id="mf-bm" placeholder="z. B. winamax"></div>
+        <div class="ctl"><label for="mf-quote">Quote</label><input id="mf-quote" inputmode="decimal" required placeholder="1,85"></div>
+        <div class="ctl"><label for="mf-einsatz">Einsatz €</label><input id="mf-einsatz" inputmode="decimal" required placeholder="10"></div>
+        <button type="submit" class="btn">Eintragen</button>
+      </form>
+    </details>
+    <details class="box" id="m-sync-box" style="margin-top:12px"><summary><b>Abgleich zwischen Geräten</b> <span class="time" id="m-sync-status">nicht eingerichtet – Wetten liegen nur in diesem Browser</span></summary>
+      <p class="note">Deine Wetten werden in einem <b>geheimen GitHub-Gist</b> gespeichert (nicht öffentlich gelistet, nur mit deinem Schlüssel beschreibbar) und so zwischen Handy und PC abgeglichen. Schlüssel anlegen: GitHub → Settings → Developer settings → Personal access tokens → <b>Tokens (classic)</b> → Generate new token (classic) → nur Haken bei <b>gist</b>. Der Schlüssel bleibt in diesem Browser gespeichert und wird nirgends veröffentlicht. Auf dem zweiten Gerät denselben Schlüssel eintragen – der Gist wird automatisch gefunden.</p>
+      <form class="mform" id="m-sync-form" autocomplete="off">
+        <div class="ctl" style="flex:1 1 260px"><label for="ms-token">GitHub-Schlüssel (Token)</label><input id="ms-token" type="password" placeholder="ghp_…"></div>
+        <button type="submit" class="btn">Verbinden &amp; abgleichen</button>
+        <button type="button" class="btn ghost" id="ms-trennen">Trennen</button>
+      </form>
+    </details>
+  </section>
+
   <section id="v-info" class="info" hidden></section>
 
   <footer>Modell: Nachbau des Excel-Blatts MODELL (Analysetool_Belag.xlsx). Elo: Tennis Abstract. Quoten: OddsPapi. Turnierkalender: Wikipedia (CC BY-SA). Keine Garantie, Wetten mit Verantwortung.</footer>
@@ -230,7 +278,7 @@ const $ = (s) => document.querySelector(s);
 const store = {get(k,d){try{const v=localStorage.getItem("tvb."+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
                set(k,v){try{localStorage.setItem("tvb."+k,JSON.stringify(v))}catch(e){}}};
 const BEST = "__best__";
-let D, M, META, LOG, open = new Set();
+let D, M, META, LOG, ERG = {}, open = new Set();
 
 const fx = (x,d=2) => (typeof x==="number"&&isFinite(x)) ? x.toFixed(d).replace(".",",") : "–";
 const pc = (x,d=1) => (typeof x==="number"&&isFinite(x)) ? (x*100).toFixed(d).replace(".",",")+" %" : "–";
@@ -242,13 +290,14 @@ const SURF = {hard:"Hard",clay:"Sand",grass:"Rasen"};
 async function j(f, d){ try{ const r = await fetch("data/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
 
 async function init(){
-  const [P, players, h2h, ps, bl, matches, meta, log, avg] = await Promise.all([
+  const [P, players, h2h, ps, bl, matches, meta, log, avg, erg] = await Promise.all([
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
-    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null)]);
+    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {})]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
   D = {params:P.params, csi:P.csi, players, h2h, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
-  setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc();
+  ERG = erg || {};
+  setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten();
 }
 
 function setupHeader(){
@@ -280,12 +329,12 @@ function setupControls(){
   ["bm","f-tag","f-art","f-belag","f-value","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
     const el = $("#"+id); store.set(id==="bm"?"bm":id, el.type==="checkbox"?el.checked:el.value); render(); }));
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
-  if(["partien","rechner","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
+  if(["partien","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
 }
 
 function showTab(t){
   document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t));
-  ["partien","rechner","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
+  ["partien","rechner","wetten","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
 }
 
 function belagFor(p){ const o = store.get("belag."+p.id, null); return o ? {belag:o, quelle:"manuell"} : {belag:p.belag, quelle:p.belagQuelle}; }
@@ -316,7 +365,9 @@ function render(){
   const tag = $("#f-tag").value;
   const art = $("#f-art").value, fb = $("#f-belag").value, onlyV = $("#f-value").checked, q = $("#f-suche").value.trim().toLowerCase();
   const rows = [];
+  const platzhalter = /\d|\b(tbd|tba|winner|sieger|gewinner|loser|qualifier|qualifikant|lucky|bye|match|round|runde|final|finale|semi|quarter)\b/i;
   for(const p of (M.partien||[])){
+    if(platzhalter.test(p.aRoh||p.a||"") || platzhalter.test(p.bRoh||p.b||"")) continue;   // unbesetzte Paarung
     const d = startOf(p), dk = d ? dayKey(d) : kHeute;
     if(!M.demo){
       if(dk !== kHeute && dk !== kMorgen) continue;              // nur heute + morgen
@@ -425,6 +476,7 @@ function detailHtml(p, r){
         <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
         ${["hard","clay","grass"].map(b=>`<option value="${b}"${cur===b?" selected":""}>${SURF[b]}</option>`).join("")}</select>`}
       ${r.csi!=null?`<div class="kv two" style="margin-top:6px"><span class="k">Court Speed Index</span><span class="v">${fx(r.csi,1)}</span></div>`:""}</div>
+    ${p.calc||!r.ok?"":wetteBox(p, r)}
     ${allBooks?`<div class="box"><h3>Alle Buchmacher</h3><div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}</div></div>`:""}
   </div>${r.warnungen&&r.warnungen.length?`<ul class="warns">${r.warnungen.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:""}`;
 }
@@ -570,6 +622,191 @@ function calc(){
       : `Reines Modell (kalibriert), ohne Marktquoten. Mit Quoten A und B rechnet der Rechner wie das DASHBOARD inkl. Markt-Mischung, Value und Kelly.`}
       ${r.nurElo?" Aufschlagwerte fehlen, daher nur Elo und H2H.":""} Bo${r.modus}${r.csi!=null?`, CSI ${fx(r.csi,1)}`:""}.</p>
     ${detailHtml({id:"rechner", calc:true, quoten:{}, belag:r.belagEff}, r)}`;
+}
+
+// ---------------------------------------------------------------- Meine Wetten
+const W_KEY = "wetten";            // localStorage: {items:{id:wette}, geloescht:{id:zeit}}
+const GIST_FILE = "meine_wetten.json";
+const nowIso = () => new Date().toISOString();
+function wLoad(){ const w = store.get(W_KEY, null); return w && w.items ? w : {items:{}, geloescht:{}}; }
+function wSave(w){ store.set(W_KEY, w); }
+const num2 = (v) => { const x = parseFloat(String(v).replace(",", ".")); return isFinite(x) ? x : null; };
+
+function wetteBox(p, r){
+  const seite = r.wette || (r.pFinal >= 0.5 ? "A" : "B");
+  const bms = Object.keys(p.quoten||{});
+  const bm = r.bm && bms.includes(r.bm) ? r.bm : bms[0] || "";
+  const q = bm ? p.quoten[bm][seite==="A"?0:1] : "";
+  const vorhanden = Object.values(wLoad().items).filter(w => w.fixtureId === p.id);
+  const id = esc(p.id);
+  return `<div class="box wbox"><h3>Als Wette speichern</h3>
+    <form class="mform w-form" data-id="${id}" autocomplete="off">
+      <div class="ctl"><label for="ws-s-${id}">Auf</label><select id="ws-s-${id}" name="seite">
+        <option value="A"${seite==="A"?" selected":""}>${esc(p.a)}</option><option value="B"${seite==="B"?" selected":""}>${esc(p.b)}</option></select></div>
+      <div class="ctl"><label for="ws-b-${id}">Buchmacher</label><select id="ws-b-${id}" name="bm">
+        ${bms.map(b=>`<option${b===bm?" selected":""}>${esc(b)}</option>`).join("")}<option value="andere">andere</option></select></div>
+      <div class="ctl"><label for="ws-q-${id}">Quote</label><input id="ws-q-${id}" name="quote" inputmode="decimal" value="${q?fx(q):""}"></div>
+      <div class="ctl"><label for="ws-e-${id}">Einsatz €</label><input id="ws-e-${id}" name="einsatz" inputmode="decimal" value="${r.kelly?fx(r.kelly):"10"}"></div>
+      <button type="submit" class="btn">Speichern</button>
+    </form>
+    ${vorhanden.length?`<div class="gespeichert">✓ ${vorhanden.length} Wette${vorhanden.length>1?"n":""} auf diese Partie gespeichert</div>`:""}</div>`;
+}
+
+function ergebnisVon(w){
+  if (w.manuell) return w.ergebnis || null;
+  const e = w.fixtureId && ERG[w.fixtureId];
+  if (!e) return null;
+  if (e.sieger === "V") return "V";
+  return e.sieger === w.seite ? "W" : "L";
+}
+function gewinnVon(w, erg){ return erg==="W" ? w.einsatz*(w.quote-1) : erg==="L" ? -w.einsatz : 0; }
+
+function wetteNeu(daten){
+  const w = wLoad();
+  const id = "w" + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+  w.items[id] = Object.assign({id, erstellt: nowIso(), geaendert: nowIso()}, daten);
+  wSave(w); renderWetten(); syncPush();
+  return id;
+}
+function wetteAendern(id, felder){
+  const w = wLoad(); if(!w.items[id]) return;
+  Object.assign(w.items[id], felder, {geaendert: nowIso()}); wSave(w); renderWetten(); syncPush();
+}
+function wetteLoeschen(id){
+  const w = wLoad(); delete w.items[id]; w.geloescht[id] = nowIso(); wSave(w); renderWetten(); syncPush();
+}
+
+function setupWetten(){
+  // Speichern aus den Partien-Details (Event-Delegation, Details werden neu gerendert)
+  $("#list").addEventListener("submit", (e) => {
+    const f = e.target.closest(".w-form"); if(!f) return;
+    e.preventDefault();
+    const p = (M.partien||[]).find(x => x.id === f.dataset.id); if(!p) return;
+    const seite = f.seite.value, quote = num2(f.quote.value), einsatz = num2(f.einsatz.value);
+    if(!quote || quote <= 1 || !einsatz || einsatz <= 0){ f.quote.focus(); return; }
+    const r = evalMatch(p);
+    wetteNeu({fixtureId: p.id, start: p.start, turnier: p.turnier, belag: r.belagEff, a: p.a, b: p.b, seite,
+      spieler: seite==="A"?p.a:p.b, gegner: seite==="A"?p.b:p.a, buchmacher: f.bm.value, quote, einsatz,
+      modellP: seite==="A"?r.pFinal:1-r.pFinal, edge: seite==="A"?r.edgeA:r.edgeB, valueTipp: r.wette===seite});
+    render();
+  });
+  $("#list").addEventListener("click", (e) => { if(e.target.closest(".w-form")) e.stopPropagation(); });
+  // Manuell
+  $("#mf-datum").value = new Date().toISOString().slice(0,10);
+  $("#m-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const quote = num2($("#mf-quote").value), einsatz = num2($("#mf-einsatz").value);
+    if(!quote || quote <= 1 || !einsatz) return;
+    wetteNeu({fixtureId: null, start: $("#mf-datum").value + "T12:00:00Z", turnier: $("#mf-turnier").value.trim(),
+      a: $("#mf-spieler").value.trim(), b: $("#mf-gegner").value.trim(), seite: "A", spieler: $("#mf-spieler").value.trim(),
+      gegner: $("#mf-gegner").value.trim(), buchmacher: $("#mf-bm").value.trim(), quote, einsatz, manuell: true, ergebnis: null});
+    ["mf-spieler","mf-gegner","mf-quote","mf-einsatz","mf-turnier"].forEach(id => $("#"+id).value = "");
+  });
+  // Liste: Ergebnis korrigieren / löschen
+  $("#m-liste").addEventListener("change", (e) => {
+    const sel = e.target.closest("select.erg"); if(!sel) return;
+    const v = sel.value;
+    wetteAendern(sel.dataset.id, v==="auto" ? {manuell:false, ergebnis:null} : {manuell:true, ergebnis: v==="offen"?null:v});
+  });
+  $("#m-liste").addEventListener("click", (e) => {
+    const b = e.target.closest(".w-del"); if(!b) return;
+    if(b.dataset.sicher){ wetteLoeschen(b.dataset.id); return; }
+    b.dataset.sicher = "1"; b.textContent = "wirklich löschen?";
+    setTimeout(() => { if(b.isConnected){ delete b.dataset.sicher; b.textContent = "✕"; } }, 4000);
+  });
+  ["m-filter","m-monat"].forEach(id => $("#"+id).addEventListener("change", renderWetten));
+  // Abgleich
+  $("#m-sync-form").addEventListener("submit", (e) => { e.preventDefault();
+    const t = $("#ms-token").value.trim(); if(!t) return; store.set("gist.token", t); syncPull(true); });
+  $("#ms-trennen").addEventListener("click", () => { try{ localStorage.removeItem("tvb.gist.token"); localStorage.removeItem("tvb.gist.id"); }catch(_){}
+    $("#ms-token").value = ""; syncStatus("getrennt – Wetten liegen nur in diesem Browser"); });
+  if(store.get("gist.token", null)){ $("#ms-token").value = "••••••••"; syncPull(false); }
+  renderWetten();
+}
+
+function renderWetten(){
+  const all = Object.values(wLoad().items).sort((a,b) => String(b.start).localeCompare(String(a.start)));
+  const monate = [...new Set(all.map(w => String(w.start||"").slice(0,7)).filter(Boolean))].sort().reverse();
+  const ms = $("#m-monat"), cur = ms.value;
+  ms.innerHTML = `<option value="alle">alle</option>` + monate.map(m => `<option value="${m}">${m}</option>`).join("");
+  if([...ms.options].some(o => o.value===cur)) ms.value = cur;
+  const mon = ms.value, fil = $("#m-filter").value;
+  let xs = all.filter(w => mon==="alle" || String(w.start).startsWith(mon));
+  let n=0, g=0, l=0, einsatz=0, gewinn=0, offen=0, qs=0;
+  for(const w of xs){ const e = ergebnisVon(w);
+    if(!e){ offen += w.einsatz; continue; }
+    if(e==="V") continue;
+    n++; einsatz += w.einsatz; gewinn += gewinnVon(w, e); qs += w.quote; if(e==="W") g++; else l++; }
+  $("#m-n").textContent = n ? `${n} (${g}–${l})` : "–";
+  $("#m-einsatz").textContent = n ? eur(einsatz) : "–";
+  $("#m-gewinn").textContent = n ? (gewinn>0?"+":"")+eur(gewinn) : "–"; $("#m-gewinn").className = gewinn>0?"pos":gewinn<0?"negv":"";
+  $("#m-roi").textContent = einsatz ? sg(gewinn/einsatz) : "–"; $("#m-roi").className = gewinn>0?"pos":gewinn<0?"negv":"";
+  $("#m-offen").textContent = offen ? eur(offen) : "–";
+  $("#m-clv").textContent = n ? fx(qs/n) : "–";
+  if(fil==="offen") xs = xs.filter(w => !ergebnisVon(w)); else if(fil==="fertig") xs = xs.filter(w => ergebnisVon(w));
+  if(!xs.length){ $("#m-liste").innerHTML = `<div class="empty">${all.length ? "Keine Wetten in dieser Auswahl." : "Noch keine Wetten gespeichert. Öffne eine Partie unter <b>Partien</b> und klicke bei „Als Wette speichern“ auf Speichern – oder trage unten eine Wette manuell ein."}</div>`; return; }
+  $("#m-liste").innerHTML = `<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Spiel</th><th>Wette</th><th class="hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th>Einsatz</th><th>Ergebnis</th><th>Gewinn</th><th></th></tr></thead><tbody>${
+    xs.map(w => { const e = ergebnisVon(w), d = new Date(w.start), gw = e ? gewinnVon(w, e) : null;
+      const opt = (v, t) => `<option value="${v}"${(w.manuell ? (w.ergebnis||"offen") : "auto")===v?" selected":""}>${t}</option>`;
+      const autoTxt = e ? ({W:"gewonnen",L:"verloren",V:"ungültig"})[e] : "offen";
+      return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
+        <td class="l"><b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
+        <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
+        <td class="num">${fx(w.quote)}</td><td class="num">${eur(w.einsatz)}</td>
+        <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${w.fixtureId?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}</select></td>
+        <td class="num ${gw>0?"pos":gw<0?"negv":""}">${gw==null?"–":(gw>0?"+":"")+eur(gw)}</td>
+        <td><button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>`; }).join("")}</tbody></table></div>`;
+}
+
+// ---- Abgleich über geheimen Gist
+let syncTimer = null, syncLaeuft = false;
+function syncStatus(t){ $("#m-sync-status").textContent = t; }
+async function gh(method, url, body){
+  const token = store.get("gist.token", null);
+  const r = await fetch("https://api.github.com" + url, {method, headers: {"Authorization": "Bearer " + token,
+    "Accept": "application/vnd.github+json", "Content-Type": "application/json"}, body: body ? JSON.stringify(body) : undefined});
+  if(!r.ok) throw new Error(r.status === 401 ? "Schlüssel ungültig" : r.status === 403 || r.status === 404 ? "Schlüssel ohne gist-Recht" : "GitHub-Fehler " + r.status);
+  return r.json();
+}
+async function findeGist(){
+  let id = store.get("gist.id", null);
+  if(id) return id;
+  for(let page = 1; page <= 5; page++){
+    const liste = await gh("GET", `/gists?per_page=100&page=${page}`);
+    const hit = liste.find(g => g.files && g.files[GIST_FILE]);
+    if(hit){ store.set("gist.id", hit.id); return hit.id; }
+    if(liste.length < 100) break;
+  }
+  const neu = await gh("POST", "/gists", {description: "Tennis Value Board – Meine Wetten", public: false,
+    files: {[GIST_FILE]: {content: JSON.stringify(wLoad())}}});
+  store.set("gist.id", neu.id); return neu.id;
+}
+function zusammenfuehren(a, b){
+  const out = {items: {}, geloescht: Object.assign({}, a.geloescht||{}, b.geloescht||{})};
+  for(const src of [a.items||{}, b.items||{}]) for(const [id, w] of Object.entries(src))
+    if(!out.items[id] || String(w.geaendert) > String(out.items[id].geaendert)) out.items[id] = w;
+  for(const [id, t] of Object.entries(out.geloescht)) if(out.items[id] && String(out.items[id].geaendert) <= String(t)) delete out.items[id];
+  return out;
+}
+async function syncPull(meldung){
+  if(!store.get("gist.token", null) || syncLaeuft) return;
+  syncLaeuft = true; syncStatus("gleiche ab …");
+  try{
+    const id = await findeGist();
+    const g = await gh("GET", "/gists/" + id);
+    const f = g.files && g.files[GIST_FILE];
+    let remote = {items:{}, geloescht:{}};
+    if(f){ const txt = f.truncated ? await (await fetch(f.raw_url)).text() : f.content; try{ remote = JSON.parse(txt); }catch(_){} }
+    const merged = zusammenfuehren(wLoad(), remote);
+    wSave(merged); renderWetten(); render();
+    await gh("PATCH", "/gists/" + id, {files: {[GIST_FILE]: {content: JSON.stringify(merged)}}});
+    syncStatus("verbunden · zuletzt abgeglichen " + new Date().toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit"}));
+  }catch(err){ syncStatus("Abgleich fehlgeschlagen: " + err.message); }
+  finally{ syncLaeuft = false; }
+}
+function syncPush(){
+  if(!store.get("gist.token", null)) return;
+  clearTimeout(syncTimer); syncTimer = setTimeout(() => syncPull(false), 1200);
 }
 
 init();
