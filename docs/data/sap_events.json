@@ -3424,9 +3424,9 @@
 "a": "Felix Balshaw",
 "hId": 233700,
 "aId": 494195,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -3439,7 +3439,7 @@
 ],
 [
 4,
-5
+6
 ]
 ]
 },
@@ -3454,9 +3454,9 @@
 "a": "Georgii Kravchenko",
 "hId": 66002,
 "aId": 221339,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -3464,8 +3464,12 @@
 6
 ],
 [
-4,
-5
+5,
+7
+],
+[
+6,
+7
 ]
 ]
 },
@@ -3480,9 +3484,9 @@
 "a": "Alexander Bublik",
 "hId": 57163,
 "aId": 163480,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
@@ -3494,8 +3498,8 @@
 6
 ],
 [
-4,
-4
+7,
+6
 ]
 ]
 },
@@ -3562,9 +3566,9 @@
 "a": "Viktor Durasović",
 "hId": 36300,
 "aId": 96239,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -3576,8 +3580,8 @@
 5
 ],
 [
-4,
-2
+6,
+3
 ]
 ]
 },
@@ -3670,9 +3674,9 @@
 "a": "Lorenzo Giustino",
 "hId": 93597,
 "aId": 48626,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -3680,8 +3684,12 @@
 6
 ],
 [
-0,
-0
+6,
+2
+],
+[
+1,
+6
 ]
 ]
 },
@@ -3696,9 +3704,9 @@
 "a": "George Loffhagen",
 "hId": 275948,
 "aId": 258978,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -3706,8 +3714,8 @@
 1
 ],
 [
-0,
-0
+6,
+3
 ]
 ]
 },
@@ -3722,14 +3730,18 @@
 "a": "Alejo Sanchez Quilez",
 "hId": 281447,
 "aId": 451920,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
-2,
-3
+3,
+6
+],
+[
+4,
+6
 ]
 ]
 },
@@ -3744,20 +3756,24 @@
 "a": "Nicolai Budkov Kjaer",
 "hId": 213979,
 "aId": 483188,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
-1,
-2
+4,
+6
+],
+[
+5,
+7
 ]
 ]
 },
 "17310022": {
 "id": 17310022,
-"start": "2026-10-13T12:20:00Z",
+"start": "2026-10-13T13:00:00Z",
 "kat": "ATP",
 "turnier": "Shanghai, China",
 "belag": "hard",
@@ -3766,11 +3782,24 @@
 "a": "Alejandro Davidovich Fokina",
 "hId": 158896,
 "aId": 157456,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+3,
+6
+],
+[
+6,
+7
+]
+]
 },
 "17302461": {
 "id": 17302461,
@@ -3783,20 +3812,24 @@
 "a": "Vilius Gaubas",
 "hId": 54955,
 "aId": 322022,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
-0,
-1
+3,
+6
+],
+[
+4,
+6
 ]
 ]
 },
 "17318634": {
 "id": 17318634,
-"start": "2026-10-13T12:20:00Z",
+"start": "2026-10-13T12:45:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -3805,15 +3838,28 @@
 "a": "Clement Tabur",
 "hId": 466210,
 "aId": 206602,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+7
+],
+[
+6,
+3
+],
+[
+3,
+6
+]
+]
 },
 "17305905": {
 "id": 17305905,
-"start": "2026-10-13T12:20:00Z",
+"start": "2026-10-13T12:50:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -3822,15 +3868,28 @@
 "a": "Damir Džumhur",
 "hId": 172482,
 "aId": 49172,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+6,
+2
+],
+[
+3,
+6
+]
+]
 },
 "17305914": {
 "id": 17305914,
-"start": "2026-10-13T12:20:00Z",
+"start": "2026-10-13T13:55:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -3839,11 +3898,20 @@
 "a": "Edas Butvilas",
 "hId": 417205,
 "aId": 385592,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+7,
+6
+]
+]
 },
 "17318396": {
 "id": 17318396,
@@ -3898,7 +3966,7 @@
 },
 "17302463": {
 "id": 17302463,
-"start": "2026-10-13T12:40:00Z",
+"start": "2026-10-13T13:55:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -3907,15 +3975,24 @@
 "a": "Alejandro Moro Canas",
 "hId": 232036,
 "aId": 250857,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+6,
+2
+]
+]
 },
 "17317464": {
 "id": 17317464,
-"start": "2026-10-13T12:50:00Z",
+"start": "2026-10-13T13:15:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -3924,15 +4001,24 @@
 "a": "Simone Massellani",
 "hId": 51009,
 "aId": 1166334,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+6,
+1
+]
+]
 },
 "17318694": {
 "id": 17318694,
-"start": "2026-10-13T13:10:00Z",
+"start": "2026-10-13T13:55:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -3941,15 +4027,24 @@
 "a": "Raul Brancaccio",
 "hId": 235930,
 "aId": 201847,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+1
+]
+]
 },
 "17305913": {
 "id": 17305913,
-"start": "2026-10-13T13:30:00Z",
+"start": "2026-10-13T16:05:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -3958,15 +4053,24 @@
 "a": "Maxim Mrva",
 "hId": 372310,
 "aId": 450846,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+1,
+2
+]
+]
 },
 "17305909": {
 "id": 17305909,
-"start": "2026-10-13T13:30:00Z",
+"start": "2026-10-13T15:05:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -3975,11 +4079,24 @@
 "a": "August Holmgren",
 "hId": 289233,
 "aId": 207089,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+6,
+4
+],
+[
+6,
+4
+]
+]
 },
 "17304320": {
 "id": 17304320,
@@ -4000,7 +4117,7 @@
 },
 "17318692": {
 "id": 17318692,
-"start": "2026-10-13T13:50:00Z",
+"start": "2026-10-13T15:45:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -4009,15 +4126,24 @@
 "a": "Nikolas Sanchez Izquierdo",
 "hId": 24415,
 "aId": 193644,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+5,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17302451": {
 "id": 17302451,
-"start": "2026-10-13T14:00:00Z",
+"start": "2026-10-13T14:15:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -4026,15 +4152,24 @@
 "a": "Luka Mikrut",
 "hId": 409264,
 "aId": 349090,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+0,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17318693": {
 "id": 17318693,
-"start": "2026-10-13T14:20:00Z",
+"start": "2026-10-13T15:40:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -4043,15 +4178,24 @@
 "a": "Miloš Karol",
 "hId": 203751,
 "aId": 341853,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17318635": {
 "id": 17318635,
-"start": "2026-10-13T14:30:00Z",
+"start": "2026-10-13T15:10:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -4060,15 +4204,24 @@
 "a": "Norbert Gombos",
 "hId": 44553,
 "aId": 50139,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+2
+]
+]
 },
 "17305912": {
 "id": 17305912,
-"start": "2026-10-13T15:00:00Z",
+"start": "2026-10-13T17:45:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -4077,15 +4230,24 @@
 "a": "Francesco Maestrelli",
 "hId": 342975,
 "aId": 261017,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17302468": {
 "id": 17302468,
-"start": "2026-10-13T15:10:00Z",
+"start": "2026-10-13T15:40:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -4094,15 +4256,28 @@
 "a": "Thiago Monteiro",
 "hId": 38517,
 "aId": 47603,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+6,
+1
+],
+[
+6,
+4
+]
+]
 },
 "17302462": {
 "id": 17302462,
-"start": "2026-10-13T16:30:00Z",
+"start": "2026-10-13T16:35:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -4111,15 +4286,24 @@
 "a": "Diego Dedura",
 "hId": 522369,
 "aId": 484219,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+6,
+4
+]
+]
 },
 "17318629": {
 "id": 17318629,
-"start": "2026-10-13T17:40:00Z",
+"start": "2026-10-13T18:15:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -4128,11 +4312,20 @@
 "a": "Etienne Donnet",
 "hId": 289146,
 "aId": 275099,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+7
+],
+[
+6,
+7
+]
+]
 },
 "17321605": {
 "id": 17321605,
@@ -4145,11 +4338,24 @@
 "a": "Lucio Ratti",
 "hId": 169486,
 "aId": 405124,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+4,
+6
+],
+[
+6,
+2
+]
+]
 },
 "17321602": {
 "id": 17321602,
@@ -4162,11 +4368,20 @@
 "a": "Maximo Zeitune",
 "hId": 299765,
 "aId": 460294,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17304356": {
 "id": 17304356,
@@ -4179,15 +4394,28 @@
 "a": "Franco Roncadelli",
 "hId": 297139,
 "aId": 240797,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+0,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17321606": {
 "id": 17321606,
-"start": "2026-10-13T19:10:00Z",
+"start": "2026-10-13T20:55:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -4196,15 +4424,28 @@
 "a": "Arklon Huertas Del Pino Cordova",
 "hId": 255418,
 "aId": 266259,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+2,
+6
+],
+[
+6,
+0
+]
+]
 },
 "17321603": {
 "id": 17321603,
-"start": "2026-10-13T19:10:00Z",
+"start": "2026-10-13T21:05:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -4213,15 +4454,24 @@
 "a": "Juan Manuel La Serna",
 "hId": 54975,
 "aId": 379442,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17304355": {
 "id": 17304355,
-"start": "2026-10-13T19:10:00Z",
+"start": "2026-10-13T19:40:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -4230,11 +4480,20 @@
 "a": "Murkel Dellien",
 "hId": 517358,
 "aId": 82133,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+0
+],
+[
+1,
+0
+]
+]
 },
 "17304350": {
 "id": 17304350,
@@ -4247,15 +4506,24 @@
 "a": "Facundo Mena",
 "hId": 284096,
 "aId": 38180,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+4,
+6
+]
+]
 },
 "17321604": {
 "id": 17321604,
-"start": "2026-10-13T21:00:00Z",
+"start": "2026-10-13T22:45:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -4264,15 +4532,24 @@
 "a": "Nicolas Kicker",
 "hId": 303908,
 "aId": 66086,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17304349": {
 "id": 17304349,
-"start": "2026-10-13T22:10:00Z",
+"start": "2026-10-13T23:10:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -4281,15 +4558,24 @@
 "a": "Juan Carlos Prado Angelo",
 "hId": 199488,
 "aId": 392072,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17304354": {
 "id": 17304354,
-"start": "2026-10-13T22:10:00Z",
+"start": "2026-10-14T00:25:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -4298,15 +4584,28 @@
 "a": "Carlos Maria Zarate",
 "hId": 85877,
 "aId": 511702,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+7,
+5
+],
+[
+1,
+2
+]
+]
 },
 "17321601": {
 "id": 17321601,
-"start": "2026-10-13T22:10:00Z",
+"start": "2026-10-14T00:25:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -4315,22 +4614,31 @@
 "a": "Mateus Alves",
 "hId": 161262,
 "aId": 204776,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+7,
+6
+]
+]
 },
 "17274813": {
 "id": 17274813,
-"start": "2026-10-14T02:00:00Z",
+"start": "2026-10-15T03:00:00Z",
 "kat": "Challenger",
 "turnier": "Jinan, China",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "R16P1",
+"h": "Aleksandr Shevchenko",
 "a": "Jay Friend",
-"hId": 393276,
+"hId": 264344,
 "aId": 393595,
 "st": "notstarted",
 "desc": "Not started",
@@ -4340,7 +4648,7 @@
 },
 "17274812": {
 "id": 17274812,
-"start": "2026-10-14T02:00:00Z",
+"start": "2026-10-15T02:00:00Z",
 "kat": "Challenger",
 "turnier": "Jinan, China",
 "belag": "hard",
@@ -4357,7 +4665,7 @@
 },
 "17274817": {
 "id": 17274817,
-"start": "2026-10-14T02:00:00Z",
+"start": "2026-10-15T02:00:00Z",
 "kat": "Challenger",
 "turnier": "Jinan, China",
 "belag": "hard",
@@ -4374,7 +4682,7 @@
 },
 "17274808": {
 "id": 17274808,
-"start": "2026-10-14T02:00:00Z",
+"start": "2026-10-15T02:00:00Z",
 "kat": "Challenger",
 "turnier": "Jinan, China",
 "belag": "hard",
@@ -4544,7 +4852,7 @@
 },
 "17274452": {
 "id": 17274452,
-"start": "2026-10-14T08:00:00Z",
+"start": "2026-10-14T10:10:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -4561,7 +4869,7 @@
 },
 "17274457": {
 "id": 17274457,
-"start": "2026-10-14T08:00:00Z",
+"start": "2026-10-14T13:00:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
@@ -4578,7 +4886,7 @@
 },
 "17302455": {
 "id": 17302455,
-"start": "2026-10-14T08:30:00Z",
+"start": "2026-10-14T11:30:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -4612,15 +4920,15 @@
 },
 "17274698": {
 "id": 17274698,
-"start": "2026-10-14T08:30:00Z",
+"start": "2026-10-14T17:40:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Hugo Gaston",
-"a": "R16P2",
+"a": "Pierre-Hugues Herbert",
 "hId": 205906,
-"aId": 393277,
+"aId": 44553,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -4629,7 +4937,7 @@
 },
 "17302447": {
 "id": 17302447,
-"start": "2026-10-14T08:30:00Z",
+"start": "2026-10-14T10:00:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -4646,7 +4954,7 @@
 },
 "17274688": {
 "id": 17274688,
-"start": "2026-10-14T08:30:00Z",
+"start": "2026-10-14T16:30:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -4663,14 +4971,14 @@
 },
 "17274693": {
 "id": 17274693,
-"start": "2026-10-14T08:30:00Z",
+"start": "2026-10-15T08:30:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "R16P5",
+"h": "Etienne Donnet",
 "a": "Matteo Martineau",
-"hId": 393280,
+"hId": 275099,
 "aId": 145122,
 "st": "notstarted",
 "desc": "Not started",
@@ -4697,7 +5005,7 @@
 },
 "17302450": {
 "id": 17302450,
-"start": "2026-10-14T08:30:00Z",
+"start": "2026-10-14T10:00:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
@@ -4714,15 +5022,15 @@
 },
 "17274699": {
 "id": 17274699,
-"start": "2026-10-14T08:30:00Z",
+"start": "2026-10-14T12:40:00Z",
 "kat": "Challenger",
 "turnier": "Roanne, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Sascha Gueymard Wayenburg",
-"a": "R16P8",
+"a": "Clement Tabur",
 "hId": 340741,
-"aId": 393283,
+"aId": 206602,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -4731,14 +5039,14 @@
 },
 "17274448": {
 "id": 17274448,
-"start": "2026-10-14T09:00:00Z",
+"start": "2026-10-14T15:00:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "R16P7",
+"h": "Luca Nardi",
 "a": "Lorenzo Carboni",
-"hId": 393282,
+"hId": 289233,
 "aId": 462062,
 "st": "notstarted",
 "desc": "Not started",
@@ -4753,9 +5061,9 @@
 "turnier": "Olbia, Italy",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "R16P11",
+"h": "Stefano Travaglia",
 "a": "Valentin Royer",
-"hId": 393286,
+"hId": 36300,
 "aId": 255449,
 "st": "notstarted",
 "desc": "Not started",
@@ -4765,15 +5073,15 @@
 },
 "17274446": {
 "id": 17274446,
-"start": "2026-10-14T09:00:00Z",
+"start": "2026-10-15T09:00:00Z",
 "kat": "Challenger",
 "turnier": "Olbia, Italy",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Tom Gentzsch",
-"a": "R16P14",
+"a": "Georgii Kravchenko",
 "hId": 380042,
-"aId": 393289,
+"aId": 221339,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -4816,7 +5124,7 @@
 },
 "17302467": {
 "id": 17302467,
-"start": "2026-10-14T10:00:00Z",
+"start": "2026-10-14T14:00:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -4850,7 +5158,7 @@
 },
 "17274654": {
 "id": 17274654,
-"start": "2026-10-14T10:00:00Z",
+"start": "2026-10-14T11:10:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
@@ -4867,14 +5175,14 @@
 },
 "17274664": {
 "id": 17274664,
-"start": "2026-10-14T10:00:00Z",
+"start": "2026-10-14T15:10:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
 "gt": "Red clay indoor",
-"h": "R16P13",
+"h": "Alejo Sanchez Quilez",
 "a": "Andrej Nedić",
-"hId": 393288,
+"hId": 451920,
 "aId": 316900,
 "st": "notstarted",
 "desc": "Not started",
@@ -4884,14 +5192,14 @@
 },
 "17274656": {
 "id": 17274656,
-"start": "2026-10-14T10:00:00Z",
+"start": "2026-10-14T11:10:00Z",
 "kat": "Challenger",
 "turnier": "Maia, Portugal",
 "belag": "clay",
 "gt": "Red clay indoor",
-"h": "R16P15",
+"h": "Luka Mikrut",
 "a": "Sumit Nagal",
-"hId": 393290,
+"hId": 349090,
 "aId": 131566,
 "st": "notstarted",
 "desc": "Not started",
@@ -4935,15 +5243,15 @@
 },
 "17274750": {
 "id": 17274750,
-"start": "2026-10-14T08:00:00Z",
+"start": "2026-10-14T12:00:00Z",
 "kat": "Challenger",
 "turnier": "Catania, Italy",
 "belag": "clay",
 "gt": "Red clay",
 "h": "Buvaysar Gadamauri",
-"a": "R16P10",
+"a": "Enrico Dalla Valle",
 "hId": 225214,
-"aId": 393285,
+"aId": 106153,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -4969,15 +5277,15 @@
 },
 "17274738": {
 "id": 17274738,
-"start": "2026-10-14T08:00:00Z",
+"start": "2026-10-15T08:30:00Z",
 "kat": "Challenger",
 "turnier": "Catania, Italy",
 "belag": "clay",
 "gt": "Red clay",
 "h": "Gianluca Cadenasso",
-"a": "R16P6",
+"a": "Svyatoslav Gulin",
 "hId": 425525,
-"aId": 393281,
+"aId": 403858,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -5003,7 +5311,7 @@
 },
 "17274737": {
 "id": 17274737,
-"start": "2026-10-14T08:00:00Z",
+"start": "2026-10-15T08:30:00Z",
 "kat": "Challenger",
 "turnier": "Catania, Italy",
 "belag": "clay",
@@ -5020,15 +5328,15 @@
 },
 "17274747": {
 "id": 17274747,
-"start": "2026-10-14T08:00:00Z",
+"start": "2026-10-14T14:30:00Z",
 "kat": "Challenger",
 "turnier": "Catania, Italy",
 "belag": "clay",
 "gt": "Red clay",
 "h": "Radu Mihai Papoe",
-"a": "R16P14",
+"a": "Luca Potenza",
 "hId": 286484,
-"aId": 393289,
+"aId": 226810,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -5037,7 +5345,7 @@
 },
 "17274772": {
 "id": 17274772,
-"start": "2026-10-14T18:00:00Z",
+"start": "2026-10-14T21:40:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -5059,9 +5367,9 @@
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
 "gt": "Red clay",
-"h": "R16P3",
+"h": "Genaro Alberto Olivieri",
 "a": "Alex Barrena",
-"hId": 393278,
+"hId": 169486,
 "aId": 303307,
 "st": "notstarted",
 "desc": "Not started",
@@ -5071,7 +5379,7 @@
 },
 "17274767": {
 "id": 17274767,
-"start": "2026-10-14T18:00:00Z",
+"start": "2026-10-14T20:30:00Z",
 "kat": "Challenger",
 "turnier": "Santa Cruz 2, Bolivia",
 "belag": "clay",
@@ -5097,6 +5405,295 @@
 "a": "Dane Sweeny",
 "hId": 298795,
 "aId": 233126,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274687": {
+"id": 17274687,
+"start": "2026-10-14T08:30:00Z",
+"kat": "Challenger",
+"turnier": "Roanne, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Felix Balshaw",
+"a": "R16P14",
+"hId": 494195,
+"aId": 393289,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274686": {
+"id": 17274686,
+"start": "2026-10-15T08:30:00Z",
+"kat": "Challenger",
+"turnier": "Roanne, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Moise Kouame",
+"a": "Nicolai Budkov Kjaer",
+"hId": 522369,
+"aId": 483188,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274449": {
+"id": 17274449,
+"start": "2026-10-15T09:00:00Z",
+"kat": "Challenger",
+"turnier": "Olbia, Italy",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Maxim Mrva",
+"a": "Francesco Maestrelli",
+"hId": 450846,
+"aId": 261017,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274666": {
+"id": 17274666,
+"start": "2026-10-14T11:10:00Z",
+"kat": "Challenger",
+"turnier": "Maia, Portugal",
+"belag": "clay",
+"gt": "Red clay indoor",
+"h": "Lorenzo Giustino",
+"a": "Michael Vrbensky",
+"hId": 48626,
+"aId": 235930,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274773": {
+"id": 17274773,
+"start": "2026-10-14T18:00:00Z",
+"kat": "Challenger",
+"turnier": "Santa Cruz 2, Bolivia",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Maximo Zeitune",
+"a": "Luis Guto Miguel",
+"hId": 460294,
+"aId": 517358,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17325622": {
+"id": 17325622,
+"start": "2026-10-15T04:00:00Z",
+"kat": "ATP",
+"turnier": "Shanghai, China",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Alexander Zverev",
+"a": "Alex de Minaur",
+"hId": 57163,
+"aId": 201239,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17326876": {
+"id": 17326876,
+"start": "2026-10-15T04:00:00Z",
+"kat": "ATP",
+"turnier": "Shanghai, China",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Arthur Gea",
+"a": "Alejandro Davidovich Fokina",
+"hId": 383987,
+"aId": 157456,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17274447": {
+"id": 17274447,
+"start": "2026-10-15T09:00:00Z",
+"kat": "Challenger",
+"turnier": "Olbia, Italy",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Dimitar Kuzmanov",
+"a": "Damir Džumhur",
+"hId": 51009,
+"aId": 49172,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274451": {
+"id": 17274451,
+"start": "2026-10-15T09:00:00Z",
+"kat": "Challenger",
+"turnier": "Olbia, Italy",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Jacob Fearnley",
+"a": "Jan Kumstat",
+"hId": 275948,
+"aId": 417205,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274655": {
+"id": 17274655,
+"start": "2026-10-15T10:00:00Z",
+"kat": "Challenger",
+"turnier": "Maia, Portugal",
+"belag": "clay",
+"gt": "Red clay indoor",
+"h": "Marco Trungelliti",
+"a": "Miloš Karol",
+"hId": 38517,
+"aId": 341853,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274657": {
+"id": 17274657,
+"start": "2026-10-15T10:00:00Z",
+"kat": "Challenger",
+"turnier": "Maia, Portugal",
+"belag": "clay",
+"gt": "Red clay indoor",
+"h": "R16P3",
+"a": "Nikolas Sanchez Izquierdo",
+"hId": 393278,
+"aId": 193644,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274658": {
+"id": 17274658,
+"start": "2026-10-15T10:00:00Z",
+"kat": "Challenger",
+"turnier": "Maia, Portugal",
+"belag": "clay",
+"gt": "Red clay indoor",
+"h": "Tristan Boyer",
+"a": "Vilius Gaubas",
+"hId": 232036,
+"aId": 322022,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274743": {
+"id": 17274743,
+"start": "2026-10-15T08:30:00Z",
+"kat": "Challenger",
+"turnier": "Catania, Italy",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Carlo Alberto Caniato",
+"a": "Marvin Möller",
+"hId": 403167,
+"aId": 226833,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274751": {
+"id": 17274751,
+"start": "2026-10-15T08:30:00Z",
+"kat": "Challenger",
+"turnier": "Catania, Italy",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Pedro Vives Marcos",
+"a": "Max Wiskandt",
+"hId": 213962,
+"aId": 300296,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274777": {
+"id": 17274777,
+"start": "2026-10-15T18:00:00Z",
+"kat": "Challenger",
+"turnier": "Santa Cruz 2, Bolivia",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Franco Roncadelli",
+"a": "Juan Carlos Prado Angelo",
+"hId": 240797,
+"aId": 392072,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274764": {
+"id": 17274764,
+"start": "2026-10-15T18:00:00Z",
+"kat": "Challenger",
+"turnier": "Santa Cruz 2, Bolivia",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Guido Ivan Justo",
+"a": "Juan Manuel La Serna",
+"hId": 255418,
+"aId": 379442,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17274769": {
+"id": 17274769,
+"start": "2026-10-15T18:00:00Z",
+"kat": "Challenger",
+"turnier": "Santa Cruz 2, Bolivia",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Nicolas Kicker",
+"a": "Facundo Mena",
+"hId": 66086,
+"aId": 38180,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
