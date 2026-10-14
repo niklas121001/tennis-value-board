@@ -1,13 +1,11 @@
 {
   "buchmacher": [
-    "winamax",
-    "tipico",
-    "bet365"
+    "winamax"
   ],
   "tage": 2,
   "anfragen_limit_monat": 250,
   "anfragen_reserve": 20,
-  "laeufe_pro_tag": 1,
+  "laeufe_pro_tag": 2,
   "turnier_filter": {
     "einschliessen": [
       "atp",
@@ -34,5 +32,10 @@
   "aufschlag_fortschreibung": {
     "excel_gewicht_punkte": 1500,
     "min_spiele_ohne_excel": 3
+  },
+  "telegram": {
+    "aktiv": true,
+    "unit_eur": 10,
+    "bankroll": 500
   }
 }

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<title>Ergebnis-Archiv</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#17202b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tennis Value">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --fg:#17202b; --muted:#5d6b7a; --line:#dde3ea;
+  --accent:#1d4f91; --accent-soft:#e3ecf8;
+  --good:#17803d; --good-soft:#e2f4e7; --bad:#b42318; --bad-soft:#fbe6e4;
+  --hard:#2563b8; --clay:#c2552b; --grass:#2f7d32;
+  --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141a; --panel:#171e26; --fg:#e6ebf0; --muted:#93a1b0; --line:#2a3440;
+  --accent:#7fb0ef; --accent-soft:#1c2b3e; --good:#5fcf85; --good-soft:#15301f; --bad:#ff8a80; --bad-soft:#3a1c1a;
+  --hard:#6ea6ee; --clay:#ec8a5f; --grass:#73c276; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141a; --panel:#171e26; --fg:#e6ebf0; --muted:#93a1b0; --line:#2a3440;
+  --accent:#7fb0ef; --accent-soft:#1c2b3e; --good:#5fcf85; --good-soft:#15301f; --bad:#ff8a80; --bad-soft:#3a1c1a;
+  --hard:#6ea6ee; --clay:#ec8a5f; --grass:#73c276; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 var(--f-body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 48px}
+header{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:flex-end;justify-content:space-between;border-bottom:2px solid var(--fg);padding-bottom:12px}
+h1{font:700 2.1rem/1 var(--f-display);letter-spacing:.01em;margin:0;text-transform:uppercase}
+h1 span{color:var(--accent)}
+a{color:var(--accent)}
+.back{font:500 13px var(--f-body);text-decoration:none}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end;margin-top:16px}
+.ctl{display:flex;flex-direction:column;gap:3px}
+.ctl label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+select,input[type=search]{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;min-width:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:18px}
+.kpi{background:var(--panel);padding:10px 14px}
+.kpi b{display:block;font:600 1.7rem/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.kpi span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.day{margin-top:22px}
+.day h2{font:600 1.15rem/1.2 var(--f-display);letter-spacing:.04em;text-transform:uppercase;margin:0 0 6px}
+.day h2 small{font:400 12px var(--f-body);text-transform:none;letter-spacing:0;color:var(--muted);margin-left:8px}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th{font:500 11px/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-family:var(--f-mono);font-size:13px}
+th.num{text-align:right}
+.time{font:12px var(--f-mono);color:var(--muted)}
+.pl{display:flex;flex-direction:column;gap:2px}
+.win{font-weight:600}
+.lose{color:var(--muted)}
+.score{font:13px var(--f-mono);white-space:nowrap}
+.pill{display:inline-block;font:500 11px/1 var(--f-body);padding:4px 8px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--good-soft);color:var(--good)}
+.pill.no{background:var(--bad-soft);color:var(--bad)}
+.pill.v{background:var(--accent-soft);color:var(--accent)}
+.surf{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:1px}
+.surf.hard{background:var(--hard)}.surf.clay{background:var(--clay)}.surf.grass{background:var(--grass)}
+.empty{margin-top:24px;padding:24px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:8px}
+.note{color:var(--muted);font-size:12px;margin-top:20px}
+@media (max-width:700px){.hide-s{display:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:1.7rem}}
+</style>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Ergebnis-<span>Archiv</span></h1>
+    <a class="back" href="./">← zurück zum Board</a>
+  </header>
+  <div class="controls">
+    <div class="ctl"><label for="f-monat">Monat</label><select id="f-monat"></select></div>
+    <div class="ctl"><label for="f-art">Turniere</label>
+      <select id="f-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+    <div class="ctl"><label for="f-zeige">Partien</label>
+      <select id="f-zeige"><option value="alle">alle</option><option value="prog">mit Prognose</option><option value="tipp">nur Value-Tipps</option><option value="falsch">Prognose falsch</option></select></div>
+    <div class="ctl"><label for="f-suche">Spieler / Turnier</label><input type="search" id="f-suche" placeholder="z. B. Jodar"></div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b id="k-n">–</b><span>Partien entschieden</span></div>
+    <div class="kpi"><b id="k-prog">–</b><span>Prognose richtig</span></div>
+    <div class="kpi"><b id="k-fav">–</b><span>Quoten-Favorit gewinnt</span></div>
+    <div class="kpi"><b id="k-tipp">–</b><span>Value-Tipps (gew.–verl.)</span></div>
+  </div>
+  <div id="liste"></div>
+  <p class="note">Alle Partien, die das Board gesehen hat, mit Sieger und Satzstand. Quote = Durchschnitt der Buchmacher vor Spielbeginn, Prognose = Siegchance des Modells vor Spielbeginn. „Value“ markiert Partien mit Value-Tipp in der Bilanz. Ungültig = Absage oder Walkover.</p>
+</div>
+<script>
+const $ = (s) => document.querySelector(s);
+const TZ = "Europe/Berlin";
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const fx = (x, d=2) => (typeof x === "number" && isFinite(x)) ? x.toFixed(d).replace(".", ",") : "–";
+const pc = (x, d=0) => (typeof x === "number" && isFinite(x)) ? (x*100).toFixed(d).replace(".", ",") + " %" : "–";
+const store = {get(k,d){try{const v=localStorage.getItem("tvb.erg."+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+               set(k,v){try{localStorage.setItem("tvb.erg."+k,JSON.stringify(v))}catch(e){}}};
+const cache = {};
+async function j(f, d){ try{ const r = await fetch("data/archiv/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
+const isCh = (x) => /challenger/i.test((x.turnier||"")+" "+(x.kat||""));
+const MON = (m) => { const [y, mm] = m.split("-"); return new Date(+y, +mm-1, 1).toLocaleDateString("de-DE", {month:"long", year:"numeric"}); };
+
+async function init(){
+  const index = await j("index.json", {});
+  const monate = Object.keys(index).sort().reverse();
+  const sel = $("#f-monat");
+  if(!monate.length){ sel.innerHTML = `<option>–</option>`; $("#liste").innerHTML = `<div class="empty">Noch keine Ergebnisse archiviert. Das Archiv füllt sich mit dem nächsten täglichen Update.</div>`; return; }
+  sel.innerHTML = monate.map(m => `<option value="${m}">${MON(m)} (${index[m]})</option>`).join("");
+  for(const id of ["f-art","f-zeige"]){ const v = store.get(id, null); if(v) $("#"+id).value = v; }
+  ["f-monat","f-art","f-zeige"].forEach(id => $("#"+id).addEventListener("change", () => { store.set(id, $("#"+id).value); render(); }));
+  $("#f-suche").addEventListener("input", render);
+  render();
+}
+
+async function render(){
+  const m = $("#f-monat").value;
+  if(!cache[m]) cache[m] = await j(m + ".json", {});
+  const art = $("#f-art").value, zeige = $("#f-zeige").value, q = $("#f-suche").value.trim().toLowerCase();
+  let xs = Object.entries(cache[m]).map(([id, x]) => Object.assign({id}, x));
+  xs = xs.filter(x => {
+    if(art !== "alle" && (art === "ch") !== isCh(x)) return false;
+    if(q && !`${x.a} ${x.b} ${x.turnier}`.toLowerCase().includes(q)) return false;
+    const progOk = typeof x.p === "number" && x.sieger !== "V";
+    if(zeige === "prog" && !progOk) return false;
+    if(zeige === "tipp" && !x.tipp) return false;
+    if(zeige === "falsch" && !(progOk && ((x.p >= .5) !== (x.sieger === "A")))) return false;
+    return true;
+  }).sort((a, b) => String(b.start).localeCompare(String(a.start)));
+
+  // Kennzahlen
+  const ent = xs.filter(x => x.sieger === "A" || x.sieger === "B");
+  const mitP = ent.filter(x => typeof x.p === "number" && x.p !== .5);
+  const richtig = mitP.filter(x => (x.p > .5) === (x.sieger === "A")).length;
+  const mitQ = ent.filter(x => x.qa && x.qb && x.qa !== x.qb);
+  const favSieg = mitQ.filter(x => (x.qa < x.qb) === (x.sieger === "A")).length;
+  const tipps = ent.filter(x => x.tipp), tw = tipps.filter(x => x.tipp === x.sieger).length;
+  $("#k-n").textContent = ent.length;
+  $("#k-prog").textContent = mitP.length ? `${pc(richtig/mitP.length)}` : "–";
+  $("#k-prog").title = `${richtig} von ${mitP.length}`;
+  $("#k-fav").textContent = mitQ.length ? pc(favSieg/mitQ.length) : "–";
+  $("#k-tipp").textContent = tipps.length ? `${tw}–${tipps.length - tw}` : "–";
+
+  if(!xs.length){ $("#liste").innerHTML = `<div class="empty">Keine Partie passt zu den Filtern.</div>`; return; }
+  const tage = new Map();
+  for(const x of xs){
+    const d = new Date(x.start), k = isNaN(d) ? "?" : d.toLocaleDateString("de-DE", {weekday:"long", day:"2-digit", month:"2-digit", year:"numeric", timeZone:TZ});
+    if(!tage.has(k)) tage.set(k, []);
+    tage.get(k).push(x);
+  }
+  let html = "";
+  for(const [tag, ys] of tage){
+    html += `<section class="day"><h2>${esc(tag)}<small>${ys.length} Partien</small></h2><div class="tablewrap"><table>
+      <thead><tr><th class="hide-s">Zeit</th><th>Partie</th><th>Ergebnis</th><th class="num hide-s">Quote</th><th>Prognose</th><th class="hide-s">Turnier</th></tr></thead><tbody>${ys.map(zeile).join("")}</tbody></table></div></section>`;
+  }
+  $("#liste").innerHTML = html;
+}
+
+function zeile(x){
+  const d = new Date(x.start);
+  const zeit = isNaN(d) ? "–" : d.toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit", timeZone:TZ});
+  const cls = (s) => x.sieger === "V" ? "" : (x.sieger === s ? "win" : "lose");
+  const haken = (s) => x.sieger === s ? " ✓" : "";
+  const satz = x.sieger === "V" ? `<span class="pill v">ungültig</span>`
+    : (x.satz && x.satz.length ? `<span class="score">${x.satz.map(([a, b]) => `${a}:${b}`).join(" ")}</span>` : `<span class="time">${x.sieger === "A" ? esc(x.a) : esc(x.b)} gewinnt</span>`);
+  let prog = `<span class="time">–</span>`;
+  if(typeof x.p === "number"){
+    const favA = x.p >= .5, name = favA ? x.a : x.b, ok = x.sieger === "V" ? null : favA === (x.sieger === "A");
+    prog = `<div class="pl"><span>${esc(name)} <span class="time">${pc(favA ? x.p : 1 - x.p)}</span></span>${ok == null ? "" : `<span><span class="pill ${ok ? "ok" : "no"}">${ok ? "richtig" : "falsch"}</span></span>`}</div>`;
+  }
+  const tipp = x.tipp ? `<div><span class="pill ${x.sieger === "V" ? "v" : x.tipp === x.sieger ? "ok" : "no"}" title="Value-Tipp auf ${esc(x.tipp === "A" ? x.a : x.b)}${x.bm ? " (" + esc(x.bm.join(", ")) + ")" : ""}">Value: ${esc(x.tipp === "A" ? x.a : x.b)}</span></div>` : "";
+  return `<tr>
+    <td class="time hide-s">${zeit}</td>
+    <td><div class="pl"><span class="${cls("A")}">${esc(x.a)}${haken("A")}</span><span class="${cls("B")}">${esc(x.b)}${haken("B")}</span></div>${tipp}</td>
+    <td>${satz}</td>
+    <td class="num hide-s"><div class="pl"><span>${fx(x.qa)}</span><span>${fx(x.qb)}</span></div></td>
+    <td>${prog}</td>
+    <td class="hide-s"><span class="surf ${esc(x.belag || "")}"></span>${esc(x.turnier || "")}${x.runde ? `<div class="time">${esc(x.runde)}</div>` : ""}</td>
+  </tr>`;
+}
+init();
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
