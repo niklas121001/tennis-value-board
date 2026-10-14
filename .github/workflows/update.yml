@@ -6,6 +6,9 @@ on:
     # Früh wegen der Asien-Turniere (Beginn ca. 6 Uhr deutscher Zeit). Für Europa-/Amerika-Wochen z. B. "15 7 * * *".
     # GitHub startet geplante Läufe oft einige Minuten verspätet.
     - cron: "7 2 * * *"
+    # Zweiter Lauf mittags (10:07 UTC = 12:07 Uhr Sommerzeit / 11:07 Winterzeit) für Europa-/Amerika-Partien:
+    # frischere Quoten näher am Spielbeginn. Nur Winamax -> passt ins OddsPapi-Kontingent (config.json: laeufe_pro_tag 2).
+    - cron: "7 10 * * *"
   workflow_dispatch: {}   # manuell starten: Actions → Daten aktualisieren → Run workflow
 
 permissions:
@@ -34,23 +37,24 @@ jobs:
           git config user.name "tennis-bot"
           git config user.email "tennis-bot@users.noreply.github.com"
           changed=0
-          # Fall 1: Projektordner als Unterordner hochgeladen -> Inhalt nach oben
+          # Fall 1: Projektordner als Unterordner hochgeladen -> Inhalt nach oben kopieren (ersetzt vorhandene Dateien)
           for d in tennis-value-app tennis-value-board; do
-            if [ -d "$d/docs" ] && [ ! -d docs ]; then
-              for f in "$d"/* ; do git mv "$f" . ; done
-              git rm -r -q --cached "$d" 2>/dev/null || true; rm -rf "$d"; changed=1
+            if [ -d "$d" ]; then
+              cp -r "$d"/. . ; git rm -r -q --cached "$d" 2>/dev/null || true; rm -rf "$d"; changed=1
             fi
           done
-          # Fall 2: Dateien flach hochgeladen -> in ihre Ordner einsortieren
-          mv_to () { dir="$1"; shift; mkdir -p "$dir"; for f in "$@"; do [ -f "$f" ] && git mv -f "$f" "$dir/$f" && changed=1; done; true; }
-          mv_to docs index.html model.js
+          # Fall 2: Dateien flach (ohne Ordner) hochgeladen -> in ihre Ordner einsortieren, vorhandene ersetzen
+          mv_to () { dir="$1"; shift; mkdir -p "$dir"; for f in "$@"; do if [ -f "$f" ]; then git mv -f "$f" "$dir/$f" 2>/dev/null || mv -f "$f" "$dir/$f"; changed=1; fi; done; true; }
+          mv_to docs index.html model.js ergebnisse.html manifest.webmanifest sw.js
+          mv_to docs/icons icon-192.png icon-512.png icon-maskable-512.png apple-touch-icon.png
           mv_to docs/data blacklist.json h2h.json history.json matches.json meta.json name_map.json \
                 params.json player_stats.json players.json turniere.json tips_log.json oddspapi.json
           mv_to scripts common.py excel_export.py fetch_odds.py log_tips.js update_elo.py results.py extra_players.py \
-                update_calendar.py migrate_history.py sportsapipro.py test_sportsapipro.py serve_stats.py
+                update_calendar.py migrate_history.py sportsapipro.py test_sportsapipro.py serve_stats.py quoten_verlauf.py notify.py
           mv_to tests test_model.js excel_dashboard.json
-          [ -f api-test.yml ] && mkdir -p .github/workflows && git mv -f api-test.yml .github/workflows/api-test.yml && changed=1
-          [ -f update.yml ] && [ -f .github/workflows/update.yml ] && git rm -q update.yml && changed=1
+          # Workflow-Dateien darf der Bot nicht ändern (GitHub-Sperre) -> lose Kopien im Hauptordner nur entfernen;
+          # neue Fassungen bitte direkt in .github/workflows/ bearbeiten
+          for f in update.yml api-test.yml; do [ -f "$f" ] && git rm -q -f "$f" && changed=1; done; true
           if [ "$changed" = 1 ]; then
             git add -A
             git commit -m "Ordnerstruktur korrigiert"
@@ -85,6 +89,11 @@ jobs:
           ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
         run: python fetch_odds.py
 
+      - name: Quotenverlauf speichern
+        continue-on-error: true
+        working-directory: scripts
+        run: python quoten_verlauf.py
+
       - name: Fehlende Spieler schätzen (Challenger)
         continue-on-error: true
         working-directory: scripts
@@ -103,6 +112,14 @@ jobs:
 
       - name: Value-Tipps protokollieren
         run: node scripts/log_tips.js
+
+      - name: Telegram-Nachricht bei neuen Tipps
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python notify.py
 
       - name: Ergebnisse und Schlussquoten nachtragen
         continue-on-error: true
