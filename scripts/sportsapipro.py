@@ -23,6 +23,7 @@ TAGESLIMIT = 100
 RESERVE = 5
 CACHE_TAGE = 7          # beendete/alte Partien so lange im Cache halten
 STATS_TAGE = 3          # Statistiken nur für Spiele der letzten Tage nachholen
+MITTAG_RESERVE = 30     # so viele Abfragen bleiben nach dem Frühlauf für den Mittagslauf
 KATEGORIEN = {"atp", "challenger"}
 
 jetzt = datetime.datetime.now(datetime.timezone.utc)
@@ -275,6 +276,32 @@ def main():
                 print(f"  Belag {m.get('turnier')}: {m.get('belag')} ({m.get('belagQuelle')}) -> {ev['belag']} ({ev.get('gt')})")
             m["belag"], m["belagQuelle"] = ev["belag"], "spieldaten"
             n_belag += 1
+    # Form/Belastung je Board-Spieler aus dem Partien-Cache (ATP + Challenger der letzten 7 Tage)
+    def form(pid, vor, ev_jetzt):
+        basis = re.sub(r",?\s*qualifying.*$", "", ev_jetzt.get("turnier", ""), flags=re.I).strip().lower()
+        spiele = [e for e in evs if pid in (e.get("hId"), e.get("aId")) and e.get("id") != ev_jetzt["id"]
+                  and e.get("start") and zeit(e["start"]) < vor and (vor - zeit(e["start"])).days < 7
+                  and ergebnis(e) in ("H", "A")]
+        if not spiele:
+            return {"spiele7": 0}
+        letzte = max(spiele, key=lambda e: e["start"])
+        quali = any("qualif" in e.get("turnier", "").lower() and e["turnier"].lower().startswith(basis) for e in spiele) \
+            and "qualif" not in ev_jetzt.get("turnier", "").lower()
+        siege = sum(1 for e in spiele if (ergebnis(e) == "H") == (e.get("hId") == pid))
+        return {"spiele7": len(spiele), "saetze7": sum(len(e.get("satz") or []) for e in spiele),
+                "dreisatz7": sum(1 for e in spiele if len(e.get("satz") or []) >= 3), "siege7": siege,
+                "letztes": letzte["start"], "quali": quali}
+    n_form = 0
+    for m in mj.get("partien", []):
+        z = smap.get(m["id"])
+        ev = cache.get(str(z["sap"])) if z else None
+        s_ = zeit(m.get("start"))
+        if not ev or not s_:
+            continue
+        fh, fa = form(ev.get("hId"), s_, ev), form(ev.get("aId"), s_, ev)
+        m["form"] = {"a": fa, "b": fh} if z["tausch"] else {"a": fh, "b": fa}
+        n_form += 1
+
     if not mj.get("demo"):
         save("matches.json", mj, indent=0)
 
@@ -316,13 +343,20 @@ def main():
         if e["kat"].lower() == "atp":
             p += 1
         return (-p, e["start"])
-    n_stats = 0
+    n_stats, fehler = 0, 0
+    # Frühlauf: Kontingent für den Mittagslauf übrig lassen (Spielplan + H2H neuer Partien)
+    fuer_spaeter = MITTAG_RESERVE if jetzt.hour < 8 else 0
     for e in sorted(fertig, key=prio):
-        if frei() <= 0:
+        if frei() - fuer_spaeter <= 0:
             break
         js = get(f"/match/{e['id']}/statistics")
         if js is None:
+            fehler += 1
+            if fehler >= 3:
+                print("  Statistiken: 3 Fehler in Folge – Abbruch für diesen Lauf")
+                break
             continue
+        fehler = 0
         st = statistik(js)
         stats[str(e["id"])] = {"start": e["start"], "kat": e["kat"], "turnier": e["turnier"], "belag": e["belag"],
                                "h": e["h"], "a": e["a"], "hId": e["hId"], "aId": e["aId"], "w": e["w"],

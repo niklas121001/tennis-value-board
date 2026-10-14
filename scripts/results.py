@@ -10,7 +10,7 @@ Ergebnis (Reihenfolge):
 Schlussquote (CLV): /v4/historical-odds (laut OddsPapi kontingentfrei), letzte Quote vor Spielbeginn.
 """
 import os, sys, json, datetime
-from common import load, save, config, norm, spieler_bilanz_add
+from common import load, save, config, norm, spieler_bilanz_add, DATA
 import fetch_odds as fo
 from sportsapipro import ergebnis as sap_ergebnis
 
@@ -173,6 +173,51 @@ def bilanz(log):
     return out
 
 
+def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
+    """Ergebnis-Archiv aller entschiedenen Partien -> docs/data/archiv/JJJJ-MM.json (+ index.json).
+    Einträge werden nur ergänzt bzw. um den Satzstand vervollständigt, nie gelöscht."""
+    ordner = DATA / "archiv"
+    ordner.mkdir(exist_ok=True)
+    tipps = {}
+    for t in log.values():
+        x = tipps.setdefault(t["id"], {"seite": t.get("wette"), "bm": []})
+        x["bm"].append(t.get("buchmacher"))
+    monate, neu = {}, 0
+    for fid, e in erg_alle.items():
+        start = str(e.get("start") or "")
+        if len(start) < 7 or e.get("sieger") not in ("A", "B", "V"):
+            continue
+        m = start[:7]
+        if m not in monate:
+            pf = ordner / f"{m}.json"
+            monate[m] = json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else {}
+        alt = monate[m].get(fid)
+        pr, fx = prog.get(fid) or {}, seen.get(fid) or {}
+        z = smap.get(fid)
+        ev = sap.get(str(z["sap"])) if z else None
+        satz = None
+        if ev and ev.get("satz"):
+            satz = [[y, x] if z.get("tausch") else [x, y] for x, y in ev["satz"]]
+        if alt and (alt.get("satz") or not satz):
+            continue
+        tp = tipps.get(fid)
+        monate[m][fid] = {
+            "start": start, "turnier": pr.get("turnier") or fx.get("turnier"), "kat": pr.get("kategorie"),
+            "belag": pr.get("belag") or (ev or {}).get("belag"), "a": pr.get("a") or e.get("a"), "b": pr.get("b") or e.get("b"),
+            "qa": pr.get("qaM") or pr.get("qa"), "qb": pr.get("qbM") or pr.get("qb"), "p": pr.get("pFinal"),
+            "sieger": e["sieger"], "satz": satz, "runde": (ev or {}).get("runde"),
+            "tipp": tp["seite"] if tp else None, "bm": sorted(set(tp["bm"])) if tp else None,
+        }
+        neu += 0 if alt else 1
+    for m, inhalt in monate.items():
+        (ordner / f"{m}.json").write_text(json.dumps(inhalt, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    index = {}
+    for pf in sorted(ordner.glob("????-??.json")):
+        index[pf.stem] = len(json.loads(pf.read_text(encoding="utf-8")))
+    (ordner / "index.json").write_text(json.dumps(index), encoding="utf-8")
+    print(f"Ergebnis-Archiv: {neu} neue Partien, {sum(index.values())} insgesamt in {len(index)} Monaten")
+
+
 def main():
     log = load("tips_log.json", {})
     seen = load("fixtures_seen.json", {})
@@ -311,6 +356,11 @@ def main():
     sw["spieler"] = spieler
     save("player_stats_web.json", sw, indent=0)
     print(f"Spieler-Check: {len(sw['spiele'])} Spiele seit Excel-Stand {sw.get('stand')}, {len(spieler)} Spieler fortgeschrieben")
+
+    try:
+        archiv_schreiben(erg_alle, seen, prog, smap, sap, log)
+    except Exception as ex:                      # Archiv darf das Update nie blockieren
+        print("Ergebnis-Archiv übersprungen:", ex)
 
     b = bilanz(log)
     b["_stand"] = jetzt.strftime("%Y-%m-%dT%H:%MZ")

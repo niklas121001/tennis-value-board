@@ -90,11 +90,36 @@ def main():
     if len(elo) < 100 or len(yelo) < 50:
         raise SystemExit(f"Zu wenige Zeilen gelesen (Elo {len(elo)}, yElo {len(yelo)}) – Seitenaufbau geändert?")
 
-    upd, neu = 0, 0
+    # Geschätzte Spieler (extra_players.py) über Kurzformen wiederfinden: "Rodriguez Taverna S." <-> "Santiago Rodriguez Taverna"
+    geschaetzt = {norm(k): k for k, v in players.items() if v.get("geschaetzt")}
+
+    def kurz_varianten(full):
+        t = norm(full).split()
+        if len(t) < 2:
+            return {norm(full)}
+        out = {norm(full)}
+        for i in range(1, len(t)):
+            first, last = t[:i], " ".join(t[i:])
+            out |= {f"{last} {first[0][0]}", f"{first[0][0]} {last}", f"{last} {' '.join(first)}"}
+        return out
+
+    upd, neu, uebernommen = 0, 0, 0
     seen = {}
     for r in elo:
         name = r["Player"].strip()
-        key = m.match(name) or name
+        key = m.match(name)
+        alt = next((geschaetzt[v] for v in kurz_varianten(name) if v in geschaetzt), None)
+        if alt and (key is None or key == alt):
+            # geschätzten Eintrag durch Tennis-Abstract-Werte ersetzen
+            players.pop(alt, None)
+            key = name
+            if norm(alt) != norm(name):
+                manual[alt] = name                 # Spielplan-Namen künftig auf den vollen Namen abbilden
+            uebernommen += 1
+        key = key or name
+        if players.get(key, {}).get("geschaetzt"):
+            players.pop(key)
+            uebernommen += 1
         rec = players.setdefault(key, {"elo": None, "neu": True})
         if rec.get("neu"):
             neu += 1 if key not in seen else 0
@@ -107,6 +132,7 @@ def main():
             rec["elo"] = f(r.get("Elo"))
         seen[key] = True
         upd += 1
+    m = NameMatcher(players.keys(), manual)   # neu aufbauen: Einträge wurden ggf. umbenannt
     for r in yelo:
         name = r["Player"].strip()
         key = m.match(name)
@@ -114,10 +140,11 @@ def main():
             players[key]["elo"] = f(r.get("yElo"))
 
     save("players.json", players)
+    save("name_map.json", manual)
     meta = load("meta.json", {})
     meta["elo_update"] = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
     save("meta.json", meta)
-    print(f"Elo aktualisiert: {upd} Spieler (davon {neu} neu ohne Aufschlagwerte), yElo-Zeilen: {len(yelo)}")
+    print(f"Elo aktualisiert: {upd} Spieler (davon {neu} neu ohne Aufschlagwerte, {uebernommen} geschätzte übernommen), yElo-Zeilen: {len(yelo)}")
 
 
 if __name__ == "__main__":
