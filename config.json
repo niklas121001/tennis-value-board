@@ -36,6 +36,15 @@
   "telegram": {
     "aktiv": true,
     "unit_eur": 10,
-    "bankroll": 500
+    "bankroll": 500,
+    "tagesbericht": true,
+    "systemwarnungen": true,
+    "regeln": {
+      "min_edge": 0,
+      "quote_min": 1.0,
+      "quote_max": 3.0,
+      "turniere": "alle",
+      "ohne_warnung": false
+    }
   }
 }

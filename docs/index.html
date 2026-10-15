@@ -68,6 +68,8 @@ select,input[type=search]{font:inherit;color:var(--fg);background:var(--panel);b
 .kurve .tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:12px;padding:6px 8px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-100%);display:none}
 .kurve .stats{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;color:var(--muted);margin-top:4px}
 .kurve .stats b{color:var(--fg);font-family:var(--f-mono);font-weight:500}
+.wwarn{color:var(--warn);cursor:help;font-size:12px}
+.co{margin-top:4px;font-size:12px;color:var(--muted)}.co input{width:80px;font:inherit;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .profbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
 dialog#profil{border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);padding:0;width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 32px)}
 dialog#profil::backdrop{background:rgba(10,15,20,.55)}
@@ -162,7 +164,9 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
 tr.m.past td{color:var(--muted)}
 .kpis6{grid-template-columns:repeat(6,minmax(0,1fr))}
 .kpi b.pos{color:var(--good)}.kpi b.negv{color:var(--bad)}
-.kv.split{grid-template-columns:1fr auto auto auto auto}
+.kv.split{grid-template-columns:minmax(90px,1fr) auto auto auto auto}
+.kv.split .v{white-space:nowrap}
+#b-split .dgrid{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
 .kv small{color:var(--muted);font-size:11px}
 @media (max-width:980px){.kpis6{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:520px){.kpis6{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -256,6 +260,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <select id="b-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
       <div class="ctl"><label for="b-status">Tipps</label>
         <select id="b-status"><option value="alle">alle</option><option value="fertig">abgeschlossen</option><option value="offen">offen</option></select></div>
+      <label class="check" for="b-regeln"><input type="checkbox" id="b-regeln"> nur nach meinen Tipp-Regeln</label>
     </div>
     <div class="kpis kpis6">
       <div class="kpi"><b id="b-n">–</b><span>Tipps (gew.–verl.)</span></div>
@@ -298,6 +303,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <button type="button" class="btn ghost mini" id="mf-plus" hidden>+ weitere Auswahl</button>
         <div class="mform">
           <div class="ctl"><label for="mf-quote">Gesamtquote</label><input id="mf-quote" inputmode="decimal" required placeholder="1,85"></div>
+          <div class="ctl" id="mf-bonus-ctl" hidden><label for="mf-bonus" title="Winamax-Kombi-Bonus: Prozent auf den Reingewinn">Kombi-Bonus %</label><input id="mf-bonus" inputmode="decimal" placeholder="z. B. 12"></div>
           <div class="ctl"><label for="mf-einsatz">Einsatz €</label><input id="mf-einsatz" inputmode="decimal" required placeholder="z. B. 10 = 1 U"></div>
           <button type="submit" class="btn">Eintragen</button>
         </div>
@@ -419,6 +425,30 @@ function showTab(t){
 
 function belagFor(p){ const o = store.get("belag."+p.id, null); return o ? {belag:o, quelle:"manuell"} : {belag:p.belag, quelle:p.belagQuelle}; }
 
+// ---- Eigene Tipp-Regeln (je Browser) und Warnhinweise je Partie
+const REGEL_STD = {minEdge: 0, qMin: 1, qMax: 99, art: "alle", ohneWarn: false};
+const regeln = () => Object.assign({}, REGEL_STD, store.get("regeln", {}));
+const regelnAktiv = () => { const g = regeln(); return g.minEdge > 0 || g.qMin > 1 || g.qMax < 99 || g.art !== "alle" || g.ohneWarn; };
+function regelOk(edge, quote, istCh, warnAnzahl){
+  const g = regeln();
+  if(edge != null && edge*100 < g.minEdge) return false;
+  if(quote && (quote < g.qMin || quote > g.qMax)) return false;
+  if(g.art !== "alle" && (g.art === "ch") !== istCh) return false;
+  if(g.ohneWarn && warnAnzahl) return false;
+  return true;
+}
+function warnListe(p, r){
+  const ws = (p.warnungen || []).slice();
+  if(r.wette){
+    const reihe = qvReihe(p, r.bm), i = r.wette==="A" ? 1 : 2, jetzt = r.wette==="A" ? r.qa : r.qb;
+    if(reihe.length >= 2 && reihe[0][i] && jetzt && jetzt/reihe[0][i] - 1 >= 0.08)
+      ws.push({seite: r.wette, typ: "quote", text: `Quote steigt gegen den Tipp (${fx(reihe[0][i])} → ${fx(jetzt)}) – Markt weiß evtl. mehr`});
+  }
+  return ws;
+}
+const WARN_KURZ = {aufgabe:"Aufgabe zuletzt", pause:"lange Pause", belag:"Belagwechsel", quote:"Quote steigt"};
+const warnIcon = (ws, seite, name) => { const x = ws.filter(w => w.seite === seite); return x.length ? ` <span class="wwarn" title="${esc(name+": "+x.map(w=>w.text).join(" · "))}">⚠</span>` : ""; };
+
 function evalMatch(p){
   const {belag, quelle} = belagFor(p);
   const bm = $("#bm").value;
@@ -433,6 +463,11 @@ function evalMatch(p){
   }
   if(!best) best = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b}, D);
   best.belagQuelle = quelle; best.belagEff = belag;
+  best.warn = warnListe(p, best);
+  if(best.wette){
+    const e = best.wette==="A" ? best.edgeA : best.edgeB, q = best.wette==="A" ? best.qa : best.qb;
+    best.regelOk = regelOk(e, q, /challenger/i.test((p.turnier||"")+" "+(p.kategorie||"")), best.warn.filter(w => w.seite===best.wette).length);
+  }
   return best;
 }
 
@@ -459,11 +494,11 @@ function render(){
     if(art==="atp" && isCh) continue; if(art==="ch" && !isCh) continue;
     const r = evalMatch(p);
     if(fb!=="alle" && r.belagEff!==fb) continue;
-    if(onlyV && !r.wette) continue;
+    if(onlyV && !(r.wette && r.regelOk !== false)) continue;
     if(q && !(p.a+" "+p.b+" "+p.turnier).toLowerCase().includes(q)) continue;
     rows.push({p, r});
   }
-  const tips = rows.filter(x => x.r.wette && !String(x.r.empfehlung).startsWith("⛔"));
+  const tips = rows.filter(x => x.r.wette && x.r.regelOk !== false && !String(x.r.empfehlung).startsWith("⛔"));
   $("#k-partien").textContent = rows.length;
   $("#k-value").textContent = tips.length;
   { const su = tips.reduce((s,x)=>s+unitsOf(x.r.kelly),0); $("#k-kelly").innerHTML = tips.length ? uSpan(fu(Math.round(su*100)/100)+" U", eur(su*unitCfg().unit)) : "–"; }
@@ -502,7 +537,10 @@ function rowHtml(p, r){
       <td colspan="7" class="l"><span class="pill warn">${esc(r.warnungen.join(" · "))}</span></td></tr>`;
   }
   const stop = String(r.empfehlung).startsWith("⛔"), beide = String(r.empfehlung).startsWith("⚠️");
-  const pill = r.wette ? `<span class="pill ${stop?"stop":"go"}">${stop?"Blacklist":`<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
+  const regelAus = r.wette && r.regelOk === false && !stop;
+  const tipWarn = r.wette ? r.warn.filter(w => w.seite===r.wette) : [];
+  const pill = regelAus ? `<span class="pill no" title="Value, aber außerhalb deiner Tipp-Regeln (Modell-Reiter)">Value · außerhalb Regeln</span>`
+             : r.wette ? `<span class="pill ${stop?"stop":"go"}"${tipWarn.length?` title="${esc(tipWarn.map(w=>w.text).join(" · "))}"`:""}>${stop?"Blacklist":`${tipWarn.length?"⚠ ":""}<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
              : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : `<span class="pill no">kein Value</span>`;
   const e = r.wette==="A" ? r.edgeA : r.wette==="B" ? r.edgeB : Math.max(r.edgeA??-1, r.edgeB??-1);
   const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
@@ -510,13 +548,13 @@ function rowHtml(p, r){
   const gs = (flag, name) => flag ? `<span class="gesch" title="Elo geschätzt aus Marktquoten und ersten Ergebnissen – noch kein Value-Tipp für die Bilanz">≈</span> ${esc(name)}` : esc(name);
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
-    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warn}</span></div></td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warnIcon(r.warn, "B", r.b)}${warn}</span></div></td>
     <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span></div></td>
     <td class="num"><div class="pl"><span>${qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
     <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
-    <td>${pill}${r.kelly&&!stop?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
-    <td class="num hide-s">${r.kelly&&!stop?stakeHtml(r.kelly):"–"}</td>
+    <td>${pill}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
+    <td class="num hide-s">${r.kelly&&!stop&&!regelAus?stakeHtml(r.kelly):"–"}</td>
     <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
   if(open.has(p.id)) html += `<tr class="detail"><td colspan="9">${detailHtml(p, r)}</td></tr>`;
   return html;
@@ -643,6 +681,10 @@ function formText(f, start){
   const tage = f.letztes && start ? Math.max(0, Math.round((new Date(start) - new Date(f.letztes)) / 864e5)) : null;
   return `${f.spiele7} Sp. (${f.siege7||0} S), ${f.saetze7} Sätze${f.dreisatz7?`, ${f.dreisatz7}× 3 Sätze`:""}${tage!=null?`, zuletzt vor ${tage===0?"<1":tage} T.`:""}${f.quali?", aus Quali":""}`;
 }
+function warnHtml(p, r){
+  const ws = r.warn || []; if(!ws.length) return "";
+  return `<h3 style="margin-top:10px">⚠ Hinweise</h3><div class="fz2">${ws.map(w => `<div><b>${esc(w.seite==="A"?p.a:p.b)}:</b> ${esc(w.text)}</div>`).join("")}</div>`;
+}
 function formHtml(p){
   if(!p.form) return "";
   return `<h3 style="margin-top:10px">Form · letzte 7 Tage</h3><div class="fz2"><span class="k">${esc(p.a)}</span>${formText(p.form.a, p.start)}</div><div class="fz2"><span class="k">${esc(p.b)}</span>${formText(p.form.b, p.start)}</div>`;
@@ -694,7 +736,7 @@ function detailHtml(p, r){
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}</div></div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
-    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc?"":formHtml(p)+qvHtml(p, r)}
+    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc?"":warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
       ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
         <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
@@ -727,11 +769,14 @@ function renderLog(){
   const sel = $("#b-bm");
   if(!sel.options.length){
     sel.innerHTML = `<option value="alle">alle Buchmacher</option>` + bms.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+    $("#b-regeln").checked = !!store.get("b-regeln", false);
+    $("#b-regeln").addEventListener("change", () => { store.set("b-regeln", $("#b-regeln").checked); renderLog(); });
     ["b-bm","b-art","b-status"].forEach(id => { const v = store.get(id,null); if(v && [...$("#"+id).options].some(o=>o.value===v)) $("#"+id).value = v;
       $("#"+id).addEventListener("change", () => { store.set(id, $("#"+id).value); renderLog(); }); });
   }
   const bm = $("#b-bm").value, art = $("#b-art").value, stt = $("#b-status").value;
   let xs = all.filter(x => (bm==="alle"||x.buchmacher===bm) && (art==="alle"||(art==="ch")===isChTip(x)));
+  if($("#b-regeln").checked) xs = xs.filter(x => regelOk(x.edge, x.erstQuote, isChTip(x), (x.warn||[]).length));
   const k = kennzahlen(xs);
   $("#b-n").textContent = `${k.w+k.l} (${k.w}–${k.l})`;
   $("#b-hit").textContent = pc(k.hit);
@@ -752,12 +797,19 @@ function renderLog(){
   }
 
   // Aufschlüsselung
-  const gruppen = [["Monat", x=>String(x.start||"").slice(0,7)], ["Belag", x=>SURF[x.belag]||x.belag], ["Turniere", x=>isChTip(x)?"Challenger":"ATP"]];
+  const EDGE_B = ["unter 2 %","2–5 %","5–10 %","über 10 %"], QB = ["bis 1,50","1,50–1,80","1,80–2,20","2,20–2,60","über 2,60"];
+  const edgeB = (e) => e==null ? "–" : e < .02 ? EDGE_B[0] : e < .05 ? EDGE_B[1] : e < .10 ? EDGE_B[2] : EDGE_B[3];
+  const qB = (q) => !q ? "–" : q < 1.5 ? QB[0] : q < 1.8 ? QB[1] : q < 2.2 ? QB[2] : q < 2.6 ? QB[3] : QB[4];
+  const lauf = (x) => { const h = new Date(x.erstGesehen||"").getUTCHours(); return isNaN(h) ? "–" : h < 8 ? "Frühlauf" : "Mittagslauf"; };
+  const gruppen = [["Monat", x=>String(x.start||"").slice(0,7)], ["Belag", x=>SURF[x.belag]||x.belag], ["Turniere", x=>isChTip(x)?"Challenger":"ATP"],
+    ["Edge beim Tipp", x=>edgeB(x.edge), EDGE_B], ["Quote", x=>qB(x.erstQuote), QB], ["Tipp gefunden im", lauf],
+    ["Warnhinweis", x=>(x.warn||[]).length ? "mit ⚠ ("+(x.warn||[]).map(t=>WARN_KURZ[t]||t).join(", ")+")" : "ohne Warnung"]];
   let split = "";
-  for(const [titel, f] of gruppen){
+  for(const [titel, f, ordnung] of gruppen){
     const m = new Map(); xs.forEach(x => { const g=f(x); if(!m.has(g)) m.set(g,[]); m.get(g).push(x); });
+    const sortiert = (a, b) => ordnung ? (ordnung.indexOf(a[0]) - ordnung.indexOf(b[0])) : String(a[0]).localeCompare(String(b[0]));
     split += `<div class="box"><h3>${titel}</h3><div class="kv split"><span></span><span class="h">Tipps</span><span class="h">Treffer</span><span class="h">ROI</span><span class="h">CLV</span>${
-      [...m.entries()].sort().map(([g,ys]) => { const z = kennzahlen(ys);
+      [...m.entries()].sort(sortiert).map(([g,ys]) => { const z = kennzahlen(ys);
         return `<span class="k">${esc(g||"–")}</span><span class="v">${z.w}–${z.l}${z.offen?` <small>+${z.offen}</small>`:""}</span><span class="v">${pc(z.hit,0)}</span><span class="v ${z.roi>0?"pos":""}">${sg(z.roi)}</span><span class="v ${z.clv>0?"pos":""}">${sg(z.clv)}</span>`; }).join("")}</div></div>`;
   }
   $("#b-split").innerHTML = xs.length ? `<div class="dgrid" style="margin-top:16px">${split}</div>` : "";
@@ -769,7 +821,7 @@ function renderLog(){
   $("#protokoll").innerHTML = `<div class="tablewrap" style="margin-top:16px"><table><thead><tr><th>Spiel</th><th>Tipp</th><th class="hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th class="hide-s">Schluss</th><th>CLV</th><th>Ergebnis</th><th class="hide-s">Einh.</th></tr></thead><tbody>${
     xs.map(x => { const d = new Date(x.start); const u = x.ergebnis==="W" ? x.erstQuote-1 : x.ergebnis==="L" ? -1 : null;
       return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
-      <td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td>
+      <td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b>${(x.warn||[]).length?` <span class="wwarn" title="${esc((x.warn||[]).map(t=>WARN_KURZ[t]||t).join(", "))}">⚠</span>`:""} <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td>
       <td class="l hide-s">${esc(x.turnier)}</td><td class="time hide-s">${esc(x.buchmacher)}</td><td class="num">${fx(x.erstQuote)}</td>
       <td class="num hide-s">${fx(x.schlussQuote)}</td><td class="num ${x.clv>0?"pos":"neg"}">${sg(x.clv)}</td>
       <td>${x.aufgabe?'<span class="pill warn" title="Partie durch Aufgabe beendet – zählt nicht">Aufgabe</span>':ERG[x.ergebnis]||'<span class="pill no">offen</span>'}</td><td class="num hide-s ${u>0?"pos":""}">${u==null?"–":(u>0?"+":"")+fx(u)}</td></tr>`; }).join("")}</tbody></table></div>`;
@@ -789,6 +841,16 @@ function renderInfo(){
     <div class="ctl"><label for="u-unit">1 Unit = €</label><input id="u-unit" inputmode="decimal" value="${fx(uc.unit,0)}"></div>
     <button type="submit" class="btn">Übernehmen</button><span class="time">${pc(uc.unit/uc.bank,1)} der Bankroll je Unit</span>
   </form>
+  <h2>Meine Tipp-Regeln</h2>
+  <p>Value-Tipps, die nicht zu deinen Regeln passen, erscheinen grau als „außerhalb Regeln“, ohne Einsatz und ohne Zählung oben. In der Bilanz kannst du auf „nur nach meinen Tipp-Regeln“ schalten und so prüfen, wie sich die Regeln rückblickend ausgewirkt hätten.</p>
+  <form class="uform" id="r-form" autocomplete="off">
+    <div class="ctl"><label for="r-edge">Mindest-Edge %</label><input id="r-edge" inputmode="decimal" value="${fx(regeln().minEdge,1)}"></div>
+    <div class="ctl"><label for="r-qmin">Quote ab</label><input id="r-qmin" inputmode="decimal" value="${fx(regeln().qMin)}"></div>
+    <div class="ctl"><label for="r-qmax">Quote bis</label><input id="r-qmax" inputmode="decimal" value="${regeln().qMax>=99?"":fx(regeln().qMax)}" placeholder="ohne"></div>
+    <div class="ctl"><label for="r-art">Turniere</label><select id="r-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+    <label class="check" for="r-warn"><input type="checkbox" id="r-warn"${regeln().ohneWarn?" checked":""}> keine Tipps mit ⚠</label>
+    <button type="submit" class="btn">Übernehmen</button>
+  </form>
   <h2>So rechnet das Board</h2>
   <p>Jede Partie läuft durch denselben Rechenweg wie das Blatt MODELL der Excel: Elo (Belags-Elo, ${pc(P.W_YELO_BLEND,0)} yElo beigemischt), Aufschlag-Markov über Spiel, Satz und Match, dynamisches H2H bis ${pc(P.H2H_MAX_WEIGHT,0)}, Belagsgewichtung samt Court Speed Index auf Sand, Kalibrierung mit k = ${fx(P.K_KALIBRIERUNG,1)} und Mischung mit der entvigten Quote des gewählten Buchmachers (${pc(P.W_MODELL_BLEND,0)} Modell).</p>
   <p>Value heißt: Buchmacherquote über der fairen Quote und höchstens ${fx(P.MAX_QUOTE_VALUE,1)}. Empfohlen wird nur der Modell-Favorit. Kelly: ${fx(uc.bank,0)} € Bankroll × ${fx(P.KELLY_FRACTION,2)}, Einsatz in Units (1 U = ${fx(uc.unit,0)} €).</p>
@@ -799,6 +861,13 @@ function renderInfo(){
   ${META.abdeckung?`<h2>Quoten-Abdeckung beim letzten Update</h2><p>${Object.entries(META.abdeckung).map(([b,d])=>`<b>${esc(b)}</b>: ${d.mit_quote} von ${d.partien} Partien mit Siegquote${d.pausiert?` (${d.pausiert} pausiert)`:""}${d.ohne_siegermarkt?`, ${d.ohne_siegermarkt} ohne Siegermarkt`:""}`).join(" · ")}</p>`:""}
   <h2>Parameter</h2>
   <p>Alle Werte kommen aus dem Blatt PARAMETER. Nach Änderungen in der Excel einmal <code>scripts/excel_export.py</code> laufen lassen.</p>`;
+  $("#r-art").value = regeln().art;
+  $("#r-form").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const z = (id, d) => { const v = parseFloat(String($(id).value).replace(",", ".")); return isFinite(v) ? v : d; };
+    store.set("regeln", {minEdge: Math.max(0, z("#r-edge", 0)), qMin: z("#r-qmin", 1), qMax: z("#r-qmax", 99), art: $("#r-art").value, ohneWarn: $("#r-warn").checked});
+    render(); renderLog(); renderInfo();
+  });
   $("#u-form").addEventListener("submit", (ev) => {
     ev.preventDefault();
     const zahl = (id) => parseFloat(String($(id).value).replace(/\./g,"").replace(",", "."));
@@ -906,7 +975,9 @@ function wetteBox(p, r){
 }
 
 // ---- Auswahlen (Einzel/Kombi, Sieg oder genaues Ergebnis) gegen das Ergebnis-Archiv prüfen
-const MARKT_OPT = `<option value="sieg">Sieg</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("");
+const SAETZE_MARKT = {"o2.5":"Über 2,5 Sätze","u2.5":"Unter 2,5 Sätze","o3.5":"Über 3,5 Sätze","u3.5":"Unter 3,5 Sätze","o4.5":"Über 4,5 Sätze","u4.5":"Unter 4,5 Sätze"};
+const MARKT_OPT = `<option value="sieg">Sieg</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("")
+  + Object.entries(SAETZE_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("");
 const nameNorm = (s) => String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z ]/g," ").split(/\s+/).filter(Boolean);
 function nameGleich(x, y){       // "Sinner", "J. Sinner", "Jannik Sinner" passen zusammen
   const a = nameNorm(x), b = nameNorm(y); if(!a.length || !b.length) return false;
@@ -938,6 +1009,11 @@ function beinAuswertung(bein){
   const text = `${x.sieger==="V" ? "abgesagt" : (x.sieger===seite ? "gewonnen" : "verloren")}${st?" "+st:""}${satz.length?" ("+satz.map(([u,v])=>u+":"+v).join(" ")+")":""}${x.aufgabe?" – Aufgabe":""}`;
   if(x.sieger === "V" || x.aufgabe) return {e: "V", text};
   if(!bein.markt || bein.markt === "sieg") return {e: x.sieger === seite ? "W" : "L", text};
+  if(SAETZE_MARKT[bein.markt]){            // Über/Unter Sätze: zählt für beide Spieler gleich
+    if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
+    const n = satz.length, linie = parseFloat(bein.markt.slice(1));
+    return {e: (bein.markt[0]==="o" ? n > linie : n < linie) ? "W" : "L", text: `${n} Sätze · ${text}`};
+  }
   if(!st) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
   return {e: st === bein.markt ? "W" : "L", text};
 }
@@ -953,7 +1029,7 @@ function wetteAuswertung(w){      // {e, quote} – Kombi: eine falsche Auswahl 
     quote = w.beine.reduce((q, b, i) => q * (es[i] === "V" ? 1 : b.quote), 1);
   return {e, quote, beine: r};
 }
-const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : "Ergebnis " + b.markt;
+const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : SAETZE_MARKT[b.markt] || "Ergebnis " + b.markt;
 
 function ergebnisVon(w){
   if (w.manuell) return w.ergebnis || null;
@@ -964,8 +1040,9 @@ function ergebnisVon(w){
   return e.sieger === w.seite ? "W" : "L";
 }
 function gewinnVon(w, erg){
+  if(erg === "C") return (w.cashout || 0) - w.einsatz;      // Cashout: Auszahlung minus Einsatz
   const q = erg==="W" && w.beine && w.beine.length && !w.manuell ? wetteAuswertung(w).quote : w.quote;
-  return erg==="W" ? w.einsatz*(q-1) : erg==="L" ? -w.einsatz : 0;
+  return erg==="W" ? w.einsatz*(q-1)*(1 + (w.bonus||0)/100) : erg==="L" ? -w.einsatz : 0;   // Kombi-Bonus: % auf den Reingewinn
 }
 
 function wetteNeu(daten){
@@ -1006,7 +1083,7 @@ function beineLesen(){
 }
 function artWechsel(){
   const kombi = $("#mf-art").value === "kombi";
-  $("#mf-plus").hidden = !kombi;
+  $("#mf-plus").hidden = !kombi; $("#mf-bonus-ctl").hidden = !kombi;
   if(kombi && $("#mf-beine").children.length < 2) beinZeile({});
   if(!kombi) while($("#mf-beine").children.length > 1) $("#mf-beine").lastElementChild.remove();
   $("#mf-beine").querySelectorAll(".b-weg").forEach(x => x.hidden = !kombi);
@@ -1064,13 +1141,18 @@ function setupWetten(){
     wetteNeu({fixtureId: kombi ? null : beine[0].fixtureId || null, start: erst + "T12:00:00Z", turnier: $("#mf-turnier").value.trim(),
       a: beine[0].spieler, b: beine[0].gegner, seite: beine[0].seite || "A",
       spieler: kombi ? `Kombi (${beine.length})` : beine[0].spieler, gegner: kombi ? "" : beine[0].gegner,
-      buchmacher: $("#mf-bm").value.trim(), quote, einsatz, typ: kombi ? "kombi" : "einzel", beine, manuell: false, ergebnis: null});
-    $("#mf-beine").innerHTML = ""; beinZeile({}); ["mf-quote","mf-einsatz","mf-turnier"].forEach(id => $("#"+id).value = "");
+      buchmacher: $("#mf-bm").value.trim(), quote, einsatz, typ: kombi ? "kombi" : "einzel", beine, manuell: false, ergebnis: null,
+      bonus: kombi ? Math.max(0, num2($("#mf-bonus").value) || 0) : 0});
+    $("#mf-beine").innerHTML = ""; beinZeile({}); ["mf-quote","mf-einsatz","mf-turnier","mf-bonus"].forEach(id => $("#"+id).value = "");
     $("#mf-art").value = "einzel"; artWechsel();
     try{ localStorage.removeItem("tvb.kombi.entwurf"); }catch(_){}
   });
   // Liste: Ergebnis korrigieren / löschen
   $("#m-liste").addEventListener("change", (e) => {
+    const bo = e.target.closest("input.bonus-wert");
+    if(bo){ const v = num2(bo.value); wetteAendern(bo.dataset.id, {bonus: v && v > 0 ? v : 0}); return; }
+    const co = e.target.closest("input.co-wert");
+    if(co){ const v = num2(co.value); if(v != null && v >= 0) wetteAendern(co.dataset.id, {cashout: v}); return; }
     const sel = e.target.closest("select.erg"); if(!sel) return;
     const v = sel.value;
     wetteAendern(sel.dataset.id, v==="auto" ? {manuell:false, ergebnis:null} : {manuell:true, ergebnis: v==="offen"?null:v});
@@ -1107,22 +1189,22 @@ function renderWetten(){
   if([...ms.options].some(o => o.value===cur)) ms.value = cur;
   const mon = ms.value, fil = $("#m-filter").value;
   let xs = all.filter(w => mon==="alle" || String(w.start).startsWith(mon));
-  let n=0, g=0, l=0, einsatz=0, gewinn=0, offen=0, qs=0;
+  let n=0, g=0, l=0, co=0, einsatz=0, gewinn=0, offen=0, qs=0;
   for(const w of xs){ const e = ergebnisVon(w);
     if(!e){ offen += w.einsatz; continue; }
     if(e==="V") continue;
-    n++; einsatz += w.einsatz; gewinn += gewinnVon(w, e); qs += w.quote; if(e==="W") g++; else l++; }
-  $("#m-n").textContent = n ? `${n} (${g}–${l})` : "–";
+    n++; einsatz += w.einsatz; gewinn += gewinnVon(w, e); qs += w.quote; if(e==="W") g++; else if(e==="C") co++; else l++; }
+  $("#m-n").textContent = n ? `${n} (${g}–${l}${co?` · ${co} Cashout`:""})` : "–";
   $("#m-einsatz").innerHTML = n ? betragU(einsatz) : "–";
   $("#m-gewinn").innerHTML = n ? betragU(gewinn, true) : "–"; $("#m-gewinn").className = gewinn>0?"pos":gewinn<0?"negv":"";
   $("#m-roi").textContent = einsatz ? sg(gewinn/einsatz) : "–"; $("#m-roi").className = gewinn>0?"pos":gewinn<0?"negv":"";
   $("#m-offen").innerHTML = offen ? betragU(offen) : "–";
   $("#m-clv").textContent = n ? fx(qs/n) : "–";
-  { const unit = unitCfg().unit, fertig = xs.map(w => ({w, e: ergebnisVon(w)})).filter(x => x.e==="W" || x.e==="L").sort((a,b) => String(a.w.start).localeCompare(String(b.w.start)));
+  { const unit = unitCfg().unit, fertig = xs.map(w => ({w, e: ergebnisVon(w)})).filter(x => x.e==="W" || x.e==="L" || x.e==="C").sort((a,b) => String(a.w.start).localeCompare(String(b.w.start)));
     let sum = 0; const werte = [], info = [];
     for(const {w, e} of fertig){ sum += gewinnVon(w, e) / unit; werte.push(Math.round(sum*100)/100);
-      info.push({label: `${kDatum(w.start)} · ${w.spieler} @ ${fx(w.quote)} · ${e==="W"?"gewonnen":"verloren"}`, datum: kDatum(w.start)}); }
-    const kk = kennKurve(werte, fertig.map(x => x.e));
+      info.push({label: `${kDatum(w.start)} · ${w.spieler} @ ${fx(w.quote)} · ${e==="W"?"gewonnen":e==="C"?"Cashout "+eur(w.cashout||0):"verloren"}`, datum: kDatum(w.start)}); }
+    const kk = kennKurve(werte, fertig.map(x => x.e==="C" ? (gewinnVon(x.w,"C") < 0 ? "L" : "W") : x.e));
     kurveZeichnen($("#m-kurve"), "Meine Bankroll in Units", [{name:"Gewinn", farbe:"var(--accent)", werte}], info,
       `<span>Größter Rückgang <b>${fx(kk.dd,1)} U</b> (${eur(kk.dd*unit)})</span><span>Längste Niederlagenserie <b>${kk.serie}</b></span>`);
   }
@@ -1139,8 +1221,8 @@ function renderWetten(){
       return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
         <td class="l">${wetteTxt}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
         <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
-        <td class="num">${fx(w.quote)}</td><td class="num">${betragU(w.einsatz)}</td>
-        <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}</select></td>
+        <td class="num">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${fx(w.bonus,0)} % Bonus</div>`:""}</td><td class="num">${betragU(w.einsatz)}</td>
+        <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}${opt("C","Cashout")}</select>${e==="C"?`<div class="co"><label>Auszahlung € <input class="co-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.cashout!=null?fx(w.cashout):""}" placeholder="z. B. 14,50"></label></div>`:""}</td>
         <td class="num ${gw>0?"pos":gw<0?"negv":""}">${gw==null?"–":betragU(gw, true)}</td>
         <td><button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${kombi && offenK ? kombiDetail(w) : ""}`; }).join("")}</tbody></table></div>`;
 }
@@ -1153,7 +1235,8 @@ function kombiDetail(w){
     return `<tr><td>${i+1}.</td><td><b>${esc(b.spieler)}</b>${b.gegner?` <span class="time">vs ${esc(b.gegner)}</span>`:""}<div class="time">${esc(String(b.datum||"").slice(0,10).split("-").reverse().join("."))} · ${esc(marktText(b))}${b.quote?" @ "+fx(b.quote):""}</div></td>
       <td class="time">${esc(x.text)}</td><td>${pill(x.e)}</td>
       <td><select class="bein-erg" data-id="${esc(w.id)}" data-i="${i}" aria-label="Ergebnis der Auswahl ${i+1}">${sel}</select></td></tr>`; }).join("")}</tbody></table>
-    ${r.e==="W" && r.quote!==w.quote ? `<p class="time" style="margin:6px 0 0">Ausgezahlt mit Quote ${fx(r.quote)} (ungültige Auswahl zählt mit 1,00).</p>` : ""}</td></tr>`;
+    ${r.e==="W" && r.quote!==w.quote ? `<p class="time" style="margin:6px 0 0">Ausgezahlt mit Quote ${fx(r.quote)} (ungültige Auswahl zählt mit 1,00).</p>` : ""}
+    <div class="co">Kombi-Bonus % <input class="bonus-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.bonus?fx(w.bonus,0):""}" placeholder="0"> <span class="time">auf den Reingewinn${w.bonus?` · Gewinn bei Treffer: ${eur(w.einsatz*(w.quote-1)*(1+w.bonus/100))}`:""}</span></div></td></tr>`;
 }
 
 // ---- Abgleich über geheimen Gist

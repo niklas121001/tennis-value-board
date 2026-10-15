@@ -296,6 +296,46 @@ def main():
         return {"spiele7": len(spiele), "saetze7": sum(len(e.get("satz") or []) for e in spiele),
                 "dreisatz7": sum(1 for e in spiele if len(e.get("satz") or []) >= 3), "siege7": siege,
                 "letztes": letzte["start"], "quali": quali}
+    # Spielerverlauf (dauerhaft): letztes Spiel, Aufgabe im letzten Spiel, letztes Spiel je Belag
+    hist = load("letzte_spiele.json", {"seit": heute_utc, "spieler": {}})
+    for e in sorted(evs, key=lambda e: e.get("start") or ""):
+        if ergebnis(e) not in ("H", "A") or not e.get("start"):
+            continue
+        for seite, pid_, name in (("H", e.get("hId"), e.get("h")), ("A", e.get("aId"), e.get("a"))):
+            if pid_ is None:
+                continue
+            r = hist["spieler"].setdefault(str(pid_), {"name": name, "belag": {}})
+            if e["start"] >= r.get("letztes", ""):
+                r["letztes"] = e["start"]
+                r["name"] = name
+                # Aufgabe: Partie durch Aufgabe beendet und dieser Spieler hat verloren
+                r["aufgabe"] = e["start"][:10] if aufgabe(e) and ergebnis(e) != seite else None
+            if e.get("belag") and e["start"] > r["belag"].get(e["belag"], ""):
+                r["belag"][e["belag"]] = e["start"]
+    save("letzte_spiele.json", hist, indent=0)
+    beobachtet_seit = zeit(hist["seit"] + "T00:00:00Z")
+    BELAG_DE = {"hard": "Hard", "clay": "Sand", "grass": "Rasen"}
+
+    def warnungen(pid_, start, belag):
+        r = hist["spieler"].get(str(pid_))
+        if not r or not r.get("letztes"):
+            return []
+        w = []
+        letztes = zeit(r["letztes"])
+        if letztes and letztes < start:
+            tage = (start - letztes).days
+            if r.get("aufgabe"):
+                w.append({"typ": "aufgabe", "text": f"Aufgabe im letzten Spiel ({r['aufgabe'][8:10]}.{r['aufgabe'][5:7]}.)"})
+            if tage > 30:
+                w.append({"typ": "pause", "text": f"Pause: letztes Spiel vor {tage} Tagen"})
+        if belag and (start - beobachtet_seit).days > 30:
+            auf_b = zeit(r["belag"].get(belag, "")) if r["belag"].get(belag) else None
+            andere = [zeit(t) for b, t in r["belag"].items() if b != belag]
+            kuerzlich_anders = any(t and 0 <= (start - t).days <= 14 for t in andere)
+            if kuerzlich_anders and (not auf_b or (start - auf_b).days > 30):
+                w.append({"typ": "belag", "text": f"Belagwechsel: erstes {BELAG_DE.get(belag, belag)}-Spiel seit über 30 Tagen"})
+        return w
+
     n_form = 0
     for m in mj.get("partien", []):
         z = smap.get(m["id"])
@@ -305,6 +345,12 @@ def main():
             continue
         fh, fa = form(ev.get("hId"), s_, ev), form(ev.get("aId"), s_, ev)
         m["form"] = {"a": fa, "b": fh} if z["tausch"] else {"a": fh, "b": fa}
+        wh, wa = warnungen(ev.get("hId"), s_, m.get("belag")), warnungen(ev.get("aId"), s_, m.get("belag"))
+        ws = [dict(x, seite="A") for x in (wa if z["tausch"] else wh)] + [dict(x, seite="B") for x in (wh if z["tausch"] else wa)]
+        if ws:
+            m["warnungen"] = ws
+        else:
+            m.pop("warnungen", None)
         n_form += 1
 
     if not mj.get("demo"):

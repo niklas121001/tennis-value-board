@@ -31,7 +31,8 @@ for (const m of matches) {
     const e = log[key] || { id: m.id, start: m.start, turnier: m.turnier, belag: m.belag, a: m.a, b: m.b,
       tid: m.tid, p1Id: m.p1Id, p2Id: m.p2Id, kategorie: m.kategorie,
       buchmacher: bm, wette: r.wette, erstQuote: q, erstP: r.pFinal, edge: r.wette === "A" ? r.edgeA : r.edgeB,
-      kelly: r.kelly, erstGesehen: now };
+      kelly: r.kelly, erstGesehen: now,
+      warn: (m.warnungen || []).filter((w) => w.seite === r.wette).map((w) => w.typ) };   // Warnhinweise beim Tipp (für die Auswertung)
     if (!log[key]) neu++;
     e.start = m.start;  // Ansetzung kann sich verschieben
     Object.assign(e, { letzteQuote: q, letzteP: r.pFinal, zuletztGesehen: now });
