@@ -1,97 +1,9 @@
 {
-"stand": "2026-10-15T09:57:38Z",
+"stand": "2026-10-15T10:36:16Z",
 "partien": [
 {
-"id": "id1200308575596350",
-"start": "2026-10-15T10:00:00.000Z",
-"turnier": "ATP Shanghai",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Alexander Zverev",
-"b": "Alex de Minaur",
-"aRoh": "Zverev, Alexander",
-"bRoh": "de Minaur, Alex",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.5,
-2.7
-]
-},
-"pausiert": [],
-"tid": 3085,
-"p1Id": 57163,
-"p2Id": 214182,
-"sapId": 17325622,
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-10-13T10:10:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-13T04:00:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1203086975371374",
-"start": "2026-10-15T10:00:00.000Z",
-"turnier": "Maia Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Marco Trungelliti",
-"b": "Milos Karol",
-"aRoh": "Trungelliti, Marco",
-"bRoh": "Karol, Milos",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.23,
-3.65
-]
-},
-"pausiert": [],
-"tid": 30869,
-"p1Id": 38517,
-"p2Id": 628218,
-"sapId": 17274655,
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-10-13T15:40:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 3,
-"saetze7": 8,
-"dreisatz7": 2,
-"siege7": 3,
-"letztes": "2026-10-13T15:40:00Z",
-"quali": true
-}
-}
-},
-{
 "id": "id1204070975371232",
-"start": "2026-10-15T10:10:00.000Z",
+"start": "2026-10-15T10:50:00.000Z",
 "turnier": "Olbia Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -129,50 +41,6 @@
 "dreisatz7": 1,
 "siege7": 1,
 "letztes": "2026-10-13T12:50:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1203543675371402",
-"start": "2026-10-15T10:30:00.000Z",
-"turnier": "Roanne Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Dominic Stricker",
-"b": "Otto Virtanen",
-"aRoh": "Stricker, Dominic",
-"bRoh": "Virtanen, Otto",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.1,
-1.64
-]
-},
-"pausiert": [],
-"tid": 35436,
-"p1Id": 496346,
-"p2Id": 276563,
-"sapId": 17274697,
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-14T08:30:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-14T10:00:00Z",
 "quali": false
 }
 }
@@ -308,7 +176,7 @@
 },
 {
 "id": "id1203543675371416",
-"start": "2026-10-15T11:40:00.000Z",
+"start": "2026-10-15T11:45:00.000Z",
 "turnier": "Roanne Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -753,7 +621,7 @@
 "quoten": {
 "winamax": [
 1.06,
-7.0
+7.25
 ]
 },
 "pausiert": [],
@@ -989,6 +857,26 @@
 "quali": false
 }
 }
+},
+{
+"id": "id1201562875371554",
+"start": "2026-10-16T05:10:00.000Z",
+"turnier": "Jinan Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Tomas Machac",
+"b": "Liam Draxl",
+"aRoh": "Machac, Tomas",
+"bRoh": "Draxl, Liam",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15628,
+"p1Id": 300540,
+"p2Id": 263917
 },
 {
 "id": "id1200308575614834",
