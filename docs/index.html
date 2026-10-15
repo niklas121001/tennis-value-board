@@ -187,6 +187,7 @@ details.box summary{cursor:pointer;list-style-position:outside}
 .bein{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:end;padding:8px 0;border-top:1px dashed var(--line);margin-top:8px}
 .bein .ctl{flex:1 1 120px}.bein .ctl.k{flex:0 1 90px}
 .bein input,.bein select{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:100%;min-width:0}
+.bein .ctl.partie{flex:1 1 220px}.bein .b-tausch{align-self:end;margin-bottom:4px}
 .bein .nr{font:600 13px var(--f-display);color:var(--muted);align-self:center;min-width:18px}
 tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 .kombi-t{width:100%;font-size:13px}.kombi-t td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
@@ -976,7 +977,7 @@ function wetteBox(p, r){
 
 // ---- Auswahlen (Einzel/Kombi, Sieg oder genaues Ergebnis) gegen das Ergebnis-Archiv prüfen
 const SAETZE_MARKT = {"o2.5":"Über 2,5 Sätze","u2.5":"Unter 2,5 Sätze","o3.5":"Über 3,5 Sätze","u3.5":"Unter 3,5 Sätze","o4.5":"Über 4,5 Sätze","u4.5":"Unter 4,5 Sätze"};
-const MARKT_OPT = `<option value="sieg">Sieg</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("")
+const MARKT_OPT = `<option value="sieg">Sieg</option><option value="satz1">gewinnt mind. 1 Satz</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("")
   + Object.entries(SAETZE_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("");
 const nameNorm = (s) => String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z ]/g," ").split(/\s+/).filter(Boolean);
 function nameGleich(x, y){       // "Sinner", "J. Sinner", "Jannik Sinner" passen zusammen
@@ -1009,6 +1010,10 @@ function beinAuswertung(bein){
   const text = `${x.sieger==="V" ? "abgesagt" : (x.sieger===seite ? "gewonnen" : "verloren")}${st?" "+st:""}${satz.length?" ("+satz.map(([u,v])=>u+":"+v).join(" ")+")":""}${x.aufgabe?" – Aufgabe":""}`;
   if(x.sieger === "V" || x.aufgabe) return {e: "V", text};
   if(!bein.markt || bein.markt === "sieg") return {e: x.sieger === seite ? "W" : "L", text};
+  if(bein.markt === "satz1"){              // Spieler gewinnt mindestens einen Satz
+    if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
+    return {e: satz.some(([u,v]) => u > v) ? "W" : "L", text};
+  }
   if(SAETZE_MARKT[bein.markt]){            // Über/Unter Sätze: zählt für beide Spieler gleich
     if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
     const n = satz.length, linie = parseFloat(bein.markt.slice(1));
@@ -1029,7 +1034,7 @@ function wetteAuswertung(w){      // {e, quote} – Kombi: eine falsche Auswahl 
     quote = w.beine.reduce((q, b, i) => q * (es[i] === "V" ? 1 : b.quote), 1);
   return {e, quote, beine: r};
 }
-const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : SAETZE_MARKT[b.markt] || "Ergebnis " + b.markt;
+const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : b.markt==="satz1" ? "mind. 1 Satz" : SAETZE_MARKT[b.markt] || "Ergebnis " + b.markt;
 
 function ergebnisVon(w){
   if (w.manuell) return w.ergebnis || null;
@@ -1066,14 +1071,23 @@ function beinZeile(b){
   if(b.fixtureId) d.dataset.fixture = b.fixtureId;
   if(b.seite) d.dataset.seite = b.seite;
   d.innerHTML = `<span class="nr">${i+1}.</span>
-    <div class="ctl"><label>Gewettet auf</label><input name="spieler" placeholder="Spieler" value="${esc(b.spieler||"")}"></div>
-    <div class="ctl"><label>Gegner</label><input name="gegner" placeholder="Gegner" value="${esc(b.gegner||"")}"></div>
+    <div class="ctl partie"><label>Partie vom Board</label><select name="partie">${partieOptionen(b.fixtureId)}</select></div>
+    <div class="ctl"><label>Gewettet auf</label><input name="spieler" list="c-players" placeholder="Spieler" value="${esc(b.spieler||"")}"></div>
+    <button type="button" class="btn ghost mini b-tausch" title="Spieler und Gegner tauschen">⇄</button>
+    <div class="ctl"><label>Gegner</label><input name="gegner" list="c-players" placeholder="Gegner" value="${esc(b.gegner||"")}"></div>
     <div class="ctl k"><label>Datum</label><input name="datum" type="date" value="${esc(String(b.datum||new Date().toISOString()).slice(0,10))}"></div>
     <div class="ctl"><label>Markt</label><select name="markt">${MARKT_OPT}</select></div>
     <div class="ctl k"><label>Quote</label><input name="quote" inputmode="decimal" placeholder="1,85" value="${b.quote?fx(b.quote):""}"></div>
     <button type="button" class="btn ghost mini b-weg" title="Auswahl entfernen">✕</button>`;
-  d.querySelector("select").value = b.markt || "sieg";
+  d.querySelector('[name="markt"]').value = b.markt || "sieg";
   box.appendChild(d);
+}
+function partieOptionen(gewaehlt){   // kommende und gerade laufende Board-Partien
+  const grenze = Date.now() - 12*36e5;
+  const ps = (M && M.partien || []).filter(p => p.start && new Date(p.start) > grenze).sort((a,b) => String(a.start).localeCompare(String(b.start)));
+  return `<option value="">– frei eingeben –</option>` + ps.map(p => { const d = new Date(p.start);
+    const t = d.toLocaleString("de-DE",{weekday:"short", hour:"2-digit", minute:"2-digit", timeZone:TZ});
+    return `<option value="${esc(p.id)}"${p.id===gewaehlt?" selected":""}>${esc(p.a)} – ${esc(p.b)} (${t})</option>`; }).join("");
 }
 function nummern(){ [...$("#mf-beine").children].forEach((d,i) => d.querySelector(".nr").textContent = (i+1)+"."); }
 function beineLesen(){
@@ -1124,7 +1138,22 @@ function setupWetten(){
   $("#mf-art").addEventListener("change", () => { artWechsel(); entwurfSichern(); });
   $("#mf-plus").addEventListener("click", () => { beinZeile({}); entwurfSichern(); });
   $("#mf-beine").addEventListener("input", (e) => { if(e.target.name==="quote") gesamtQuote(); entwurfSichern(); });
-  $("#mf-beine").addEventListener("change", entwurfSichern);
+  $("#mf-beine").addEventListener("change", (e) => {
+    const sel = e.target.closest('select[name="partie"]');
+    if(sel){ const d = sel.closest(".bein"), p = (M.partien||[]).find(x => x.id === sel.value);
+      if(p){ d.dataset.fixture = p.id; d.dataset.seite = "A";
+        d.querySelector('[name="spieler"]').value = p.a; d.querySelector('[name="gegner"]').value = p.b;
+        d.querySelector('[name="datum"]').value = String(p.start).slice(0,10);
+        const q = Object.values(p.quoten||{})[0]; if(q) { d.querySelector('[name="quote"]').value = fx(q[0]); gesamtQuote(); } }
+      else { delete d.dataset.fixture; delete d.dataset.seite; } }
+    entwurfSichern(); });
+  $("#mf-beine").addEventListener("click", (e) => { const t = e.target.closest(".b-tausch"); if(!t) return;
+    const d = t.closest(".bein"), a = d.querySelector('[name="spieler"]'), g = d.querySelector('[name="gegner"]');
+    [a.value, g.value] = [g.value, a.value];
+    if(d.dataset.seite){ d.dataset.seite = d.dataset.seite === "A" ? "B" : "A";
+      const p = (M.partien||[]).find(x => x.id === d.dataset.fixture), q = p && Object.values(p.quoten||{})[0];
+      if(q){ d.querySelector('[name="quote"]').value = fx(q[d.dataset.seite==="A"?0:1]); gesamtQuote(); } }
+    entwurfSichern(); });
   $("#mf-beine").addEventListener("click", (e) => { const x = e.target.closest(".b-weg"); if(!x) return;
     x.closest(".bein").remove(); if(!$("#mf-beine").children.length) beinZeile({}); nummern(); gesamtQuote(); entwurfSichern(); });
   const ent = store.get("kombi.entwurf", null);
