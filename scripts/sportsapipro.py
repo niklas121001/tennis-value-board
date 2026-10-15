@@ -121,6 +121,11 @@ def kompakt(e):
             "w": e.get("winnerCode"), "runde": (e.get("roundInfo") or {}).get("name"), "satz": satz}
 
 
+def aufgabe(ev):
+    """True, wenn die Partie durch Aufgabe (Retirement/Disqualifikation) endete – nicht zu Ende gespielt."""
+    return bool(ev) and ev.get("st") == "finished" and bool(re.search(r"retir|ret\.|aufgabe|default|abandon", ev.get("desc", ""), re.I))
+
+
 def ergebnis(ev):
     """'H', 'A', 'V' (ungültig: Absage/Walkover) oder None (noch offen)."""
     if not ev:

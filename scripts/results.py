@@ -12,7 +12,7 @@ Schlussquote (CLV): /v4/historical-odds (laut OddsPapi kontingentfrei), letzte Q
 import os, sys, json, datetime
 from common import load, save, config, norm, spieler_bilanz_add, DATA
 import fetch_odds as fo
-from sportsapipro import ergebnis as sap_ergebnis
+from sportsapipro import ergebnis as sap_ergebnis, aufgabe as sap_aufgabe
 
 ERGEBNIS_ANFRAGEN = 2
 H2H_STAND_STANDARD = "2026-10-13"   # letztes ANALYSE-Datum des zuletzt exportierten Excel-Stands
@@ -67,6 +67,12 @@ def api_sieger(fid, smap, sap):
         heim_ist_a = not z.get("tausch")
         return "A" if (r == "H") == heim_ist_a else "B"
     return r
+
+
+def api_aufgabe(fid, smap, sap):
+    """True, wenn die Partie laut Spieldaten durch Aufgabe endete."""
+    z = smap.get(fid)
+    return bool(z) and sap_aufgabe(sap.get(str(z["sap"])))
 
 
 def settlement_sieger(tip, meta):
@@ -198,14 +204,14 @@ def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
         satz = None
         if ev and ev.get("satz"):
             satz = [[y, x] if z.get("tausch") else [x, y] for x, y in ev["satz"]]
-        if alt and (alt.get("satz") or not satz):
+        if alt and (alt.get("satz") or not satz) and bool(alt.get("aufgabe")) == bool(e.get("aufgabe")):
             continue
         tp = tipps.get(fid)
         monate[m][fid] = {
             "start": start, "turnier": pr.get("turnier") or fx.get("turnier"), "kat": pr.get("kategorie"),
             "belag": pr.get("belag") or (ev or {}).get("belag"), "a": pr.get("a") or e.get("a"), "b": pr.get("b") or e.get("b"),
             "qa": pr.get("qaM") or pr.get("qa"), "qb": pr.get("qbM") or pr.get("qb"), "p": pr.get("pFinal"),
-            "sieger": e["sieger"], "satz": satz, "runde": (ev or {}).get("runde"),
+            "sieger": e["sieger"], "aufgabe": bool(e.get("aufgabe")) or None, "satz": satz, "runde": (ev or {}).get("runde"),
             "tipp": tp["seite"] if tp else None, "bm": sorted(set(tp["bm"])) if tp else None,
         }
         neu += 0 if alt else 1
@@ -260,6 +266,15 @@ def main():
                     t["clv"] = t["erstQuote"] / t["schlussQuote"] - 1
                     neu_clv += 1
 
+        # Aufgabe: Partie nicht zu Ende gespielt -> Tipp zählt nicht (ungültig), auch nachträglich
+        if api_aufgabe(fid, smap, sap):
+            for t in tipps:
+                if t.get("ergebnis") != "V" or not t.get("aufgabe"):
+                    t["ergebnis"], t["ergebnisQuelle"], t["aufgabe"] = "V", "aufgabe", True
+                    t.setdefault("sieger", api_sieger(fid, smap, sap))
+                    neu_erg += 1
+            continue
+
         # Ergebnis
         if all(t.get("ergebnis") for t in tipps):
             continue
@@ -304,6 +319,9 @@ def main():
         sieger = "V" if fx.get("status") == 3 else (api_sieger(fid, smap, sap) or runden_sieger(dict(fx, id=fid), seen))
         if sieger:
             erg_alle[fid] = {"sieger": sieger, "a": fx.get("a"), "b": fx.get("b"), "start": fx.get("start")}
+    for fid, e in erg_alle.items():              # Aufgabe markieren (zählt nicht als richtig/falsch)
+        if e.get("sieger") in ("A", "B") and api_aufgabe(fid, smap, sap):
+            e["aufgabe"] = True
     for t in log.values():                      # Settlements aus der Bilanz mitnehmen
         if t.get("sieger") and t["id"] not in erg_alle:
             erg_alle[t["id"]] = {"sieger": t["sieger"], "a": t.get("a"), "b": t.get("b"), "start": t.get("start")}
@@ -337,10 +355,11 @@ def main():
     # Excel-Stichtag einmal zählen. Quote = Durchschnitt der Buchmacher vor Spielbeginn (prognosen.json).
     prog = load("prognosen.json", {})
     sw = {"stand": hw.get("stand"), "spiele": load("player_stats_web.json", {}).get("spiele", {})}
-    sw["spiele"] = {k: v for k, v in sw["spiele"].items() if str(v.get("start", ""))[:10] > str(sw["stand"] or "")}
+    sw["spiele"] = {k: v for k, v in sw["spiele"].items() if str(v.get("start", ""))[:10] > str(sw["stand"] or "")
+                    and not (erg_alle.get(k) or {}).get("aufgabe")}
     for fid, e in erg_alle.items():
         pr = prog.get(fid)
-        if fid in sw["spiele"] or not pr or e.get("sieger") not in ("A", "B"):
+        if fid in sw["spiele"] or not pr or e.get("sieger") not in ("A", "B") or e.get("aufgabe"):
             continue
         if str(e.get("start", ""))[:10] <= str(sw.get("stand") or ""):
             continue
