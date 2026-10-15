@@ -1,182 +1,9 @@
 {
-"stand": "2026-10-15T10:36:16Z",
+"stand": "2026-10-15T11:53:18Z",
 "partien": [
 {
-"id": "id1204070975371232",
-"start": "2026-10-15T10:50:00.000Z",
-"turnier": "Olbia Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Dimitar Kuzmanov",
-"b": "Damir Dzumhur",
-"aRoh": "Kuzmanov, Dimitar",
-"bRoh": "Dzumhur, Damir",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.2,
-1.58
-]
-},
-"pausiert": [],
-"tid": 40709,
-"p1Id": 51009,
-"p2Id": 49172,
-"sapId": 17274447,
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 4,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-13T13:15:00Z",
-"quali": true
-},
-"b": {
-"spiele7": 1,
-"saetze7": 3,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-10-13T12:50:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1205207875371456",
-"start": "2026-10-15T11:00:00.000Z",
-"turnier": "Catania Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Pedro Vives Marcos",
-"b": "Max Wiskandt",
-"aRoh": "Vives Marcos, Pedro",
-"bRoh": "Wiskandt, Max",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.39,
-2.75
-]
-},
-"pausiert": [],
-"tid": 52078,
-"p1Id": 243478,
-"p2Id": 508496,
-"sapId": 17274751,
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-12T08:00:00Z",
-"quali": true
-},
-"b": {
-"spiele7": 0
-}
-}
-},
-{
-"id": "id1205207875371458",
-"start": "2026-10-15T11:00:00.000Z",
-"turnier": "Catania Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Pavel Lagutin",
-"b": "Massimo Giunta",
-"aRoh": "Lagutin, Pavel",
-"bRoh": "Giunta, Massimo",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.54,
-2.3
-]
-},
-"pausiert": [
-"winamax"
-],
-"tid": 52078,
-"p1Id": 1218077,
-"p2Id": 904027,
-"sapId": 17274737,
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 7,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-10-13T08:00:00Z",
-"quali": true
-},
-"b": {
-"spiele7": 1,
-"saetze7": 3,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-10-13T08:00:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1203086975371376",
-"start": "2026-10-15T11:30:00.000Z",
-"turnier": "Maia Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Francesco Passaro",
-"b": "Nikolas Sanchez Izquierdo",
-"aRoh": "Passaro, Francesco",
-"bRoh": "Sanchez Izquierdo, Nikolas",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.49,
-2.4
-]
-},
-"pausiert": [],
-"tid": 30869,
-"p1Id": 353530,
-"p2Id": 199196,
-"sapId": 17274657,
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-14T14:00:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-13T15:45:00Z",
-"quali": false
-}
-}
-},
-{
 "id": "id1203543675371416",
-"start": "2026-10-15T11:45:00.000Z",
+"start": "2026-10-15T12:00:00.000Z",
 "turnier": "Roanne Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -532,8 +359,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.05,
-1.66
+2.0,
+1.68
 ]
 },
 "pausiert": [],
@@ -709,7 +536,7 @@
 "quoten": {
 "winamax": [
 2.25,
-1.54
+1.56
 ]
 },
 "pausiert": [],
@@ -735,6 +562,26 @@
 "quali": false
 }
 }
+},
+{
+"id": "id1201562875371554",
+"start": "2026-10-16T03:35:00.000Z",
+"turnier": "Jinan Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Tomas Machac",
+"b": "Liam Draxl",
+"aRoh": "Machac, Tomas",
+"bRoh": "Draxl, Liam",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15628,
+"p1Id": 300540,
+"p2Id": 263917
 },
 {
 "id": "id1201562875371550",
@@ -772,50 +619,6 @@
 "siege7": 3,
 "letztes": "2026-10-15T05:30:00Z",
 "quali": true
-}
-}
-},
-{
-"id": "id1201562875371552",
-"start": "2026-10-16T04:00:00.000Z",
-"turnier": "Jinan Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Martin Landaluce",
-"b": "Keegan Smith",
-"aRoh": "Landaluce, Martin",
-"bRoh": "Smith, Keegan",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.27,
-3.35
-]
-},
-"pausiert": [],
-"tid": 15628,
-"p1Id": 903987,
-"p2Id": 284835,
-"sapId": 17274819,
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 4,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-14T04:50:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 2,
-"saetze7": 6,
-"dreisatz7": 2,
-"siege7": 2,
-"letztes": "2026-10-14T07:00:00Z",
-"quali": false
 }
 }
 },
@@ -859,24 +662,48 @@
 }
 },
 {
-"id": "id1201562875371554",
-"start": "2026-10-16T05:10:00.000Z",
+"id": "id1201562875371552",
+"start": "2026-10-16T05:20:00.000Z",
 "turnier": "Jinan Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Tomas Machac",
-"b": "Liam Draxl",
-"aRoh": "Machac, Tomas",
-"bRoh": "Draxl, Liam",
+"belagQuelle": "spieldaten",
+"a": "Martin Landaluce",
+"b": "Keegan Smith",
+"aRoh": "Landaluce, Martin",
+"bRoh": "Smith, Keegan",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.27,
+3.35
+]
+},
 "pausiert": [],
 "tid": 15628,
-"p1Id": 300540,
-"p2Id": 263917
+"p1Id": 903987,
+"p2Id": 284835,
+"sapId": 17274819,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-14T04:50:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 6,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-10-14T07:00:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1200308575614834",
@@ -921,6 +748,26 @@
 "quali": false
 }
 }
+},
+{
+"id": "id1203543675371398",
+"start": "2026-10-16T09:00:00.000Z",
+"turnier": "Roanne Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Felix Balshaw",
+"b": "Mika Brunold",
+"aRoh": "Balshaw, Felix",
+"bRoh": "Brunold, Mika",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 35436,
+"p1Id": 1067542,
+"p2Id": 745797
 },
 {
 "id": "id1204070975371222",
