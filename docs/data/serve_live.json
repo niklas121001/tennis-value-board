@@ -1,5 +1,478 @@
 {
  "stand": "2026-10-13",
  "excel_gewicht_punkte": 1500.0,
- "spieler": {}
+ "spieler": {
+  "Botic van de Zandschulp": {
+   "hard_1in": 0.6161,
+   "hard_1won": 0.7656,
+   "hard_2won": 0.4807,
+   "ret_hard": 0.3536,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Rafael Jodar": {
+   "hard_1in": 0.6232,
+   "hard_1won": 0.715,
+   "hard_2won": 0.561,
+   "ret_hard": 0.4148,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Daniil Medvedev": {
+   "hard_1in": 0.6287,
+   "hard_1won": 0.7541,
+   "hard_2won": 0.5596,
+   "ret_hard": 0.3554,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Stefanos Tsitsipas": {
+   "hard_1in": 0.6136,
+   "hard_1won": 0.7793,
+   "hard_2won": 0.5095,
+   "ret_hard": 0.3508,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Tommy Paul": {
+   "hard_1in": 0.609,
+   "hard_1won": 0.7656,
+   "hard_2won": 0.5733,
+   "ret_hard": 0.3751,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Zizou Bergs": {
+   "hard_1in": 0.577,
+   "hard_1won": 0.7398,
+   "hard_2won": 0.5393,
+   "ret_hard": 0.3453,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Gonzalo Villanueva": {
+   "clay_1in": 0.6373,
+   "clay_1won": 0.639,
+   "clay_2won": 0.487,
+   "ret_clay": 0.4485,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Carlos Maria Zarate": {
+   "clay_1in": 0.5687,
+   "clay_1won": 0.6797,
+   "clay_2won": 0.5055,
+   "ret_clay": 0.4285,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Thiago Seyboth Wild": {
+   "clay_1in": 0.6339,
+   "clay_1won": 0.7081,
+   "clay_2won": 0.4933,
+   "ret_clay": 0.3844,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Hayato Matsuoka": {
+   "hard_1in": 0.6523,
+   "hard_1won": 0.6827,
+   "hard_2won": 0.502,
+   "ret_hard": 0.4004,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Aleksandar Vukic": {
+   "hard_1in": 0.5794,
+   "hard_1won": 0.7288,
+   "hard_2won": 0.5283,
+   "ret_hard": 0.3316,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Liam Draxl": {
+   "hard_1in": 0.6477,
+   "hard_1won": 0.6926,
+   "hard_2won": 0.5122,
+   "ret_hard": 0.3923,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "James Duckworth": {
+   "hard_1in": 0.6368,
+   "hard_1won": 0.7432,
+   "hard_2won": 0.5393,
+   "ret_hard": 0.3472,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Andre Ilagan": {
+   "hard_1in": 0.6508,
+   "hard_1won": 0.6737,
+   "hard_2won": 0.5194,
+   "ret_hard": 0.3935,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Yosuke Watanuki": {
+   "hard_1in": 0.556,
+   "hard_1won": 0.7264,
+   "hard_2won": 0.4671,
+   "ret_hard": 0.396,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Luka Pavlovic": {
+   "hard_1in": 0.5147,
+   "hard_1won": 0.7638,
+   "hard_2won": 0.4521,
+   "ret_hard": 0.334,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Tristan Schoolkate": {
+   "hard_1in": 0.5943,
+   "hard_1won": 0.7535,
+   "hard_2won": 0.5084,
+   "ret_hard": 0.3433,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Martin Landaluce": {
+   "hard_1in": 0.6404,
+   "hard_1won": 0.7077,
+   "hard_2won": 0.5075,
+   "ret_hard": 0.3887,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Jie Cui": {
+   "hard_1in": 0.6349,
+   "hard_1won": 0.6845,
+   "hard_2won": 0.515,
+   "ret_hard": 0.3914,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Keegan Smith": {
+   "hard_1in": 0.7276,
+   "hard_1won": 0.734,
+   "hard_2won": 0.5376,
+   "ret_hard": 0.3748,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Vit Kopriva": {
+   "hard_1in": 0.6084,
+   "hard_1won": 0.6623,
+   "hard_2won": 0.496,
+   "ret_hard": 0.3681,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Dominic Stricker": {
+   "hard_1in": 0.6322,
+   "hard_1won": 0.7401,
+   "hard_2won": 0.5458,
+   "ret_hard": 0.3542,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Stefano Travaglia": {
+   "hard_1in": 0.5735,
+   "hard_1won": 0.7504,
+   "hard_2won": 0.542,
+   "ret_hard": 0.3935,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Valentin Royer": {
+   "hard_1in": 0.6296,
+   "hard_1won": 0.7147,
+   "hard_2won": 0.5209,
+   "ret_hard": 0.3483,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Matisse Bobichon": {
+   "hard_1in": 0.5803,
+   "hard_1won": 0.7224,
+   "hard_2won": 0.5059,
+   "ret_hard": 0.3633,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Billy Harris": {
+   "hard_1in": 0.6035,
+   "hard_1won": 0.7169,
+   "hard_2won": 0.5232,
+   "ret_hard": 0.3528,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Remy Bertola": {
+   "hard_1in": 0.6111,
+   "hard_1won": 0.7301,
+   "hard_2won": 0.5303,
+   "ret_hard": 0.3705,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Otto Virtanen": {
+   "hard_1in": 0.6027,
+   "hard_1won": 0.7709,
+   "hard_2won": 0.523,
+   "ret_hard": 0.3682,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Elmer Moeller": {
+   "clay_1in": 0.6225,
+   "clay_1won": 0.614,
+   "clay_2won": 0.4685,
+   "ret_clay": 0.4387,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Lukas Neumayer": {
+   "clay_1in": 0.6145,
+   "clay_1won": 0.6694,
+   "clay_2won": 0.5094,
+   "ret_clay": 0.4184,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Pedro Martinez": {
+   "clay_1in": 0.668,
+   "clay_1won": 0.6243,
+   "clay_2won": 0.4857,
+   "ret_clay": 0.3985,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Matej Dodig": {
+   "clay_1in": 0.6064,
+   "clay_1won": 0.6787,
+   "clay_2won": 0.5166,
+   "ret_clay": 0.4106,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Andrea Guerrieri": {
+   "hard_1in": 0.6166,
+   "hard_1won": 0.7013,
+   "hard_2won": 0.5079,
+   "ret_hard": 0.4166,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Maks Kasnikowski": {
+   "hard_1in": 0.5937,
+   "hard_1won": 0.7316,
+   "hard_2won": 0.5231,
+   "ret_hard": 0.4079,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Pol Martin Tiffon": {
+   "clay_1in": 0.6028,
+   "clay_1won": 0.6644,
+   "clay_2won": 0.5207,
+   "ret_clay": 0.3927,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Zsombor Piros": {
+   "clay_1in": 0.5846,
+   "clay_1won": 0.6875,
+   "clay_2won": 0.5664,
+   "ret_clay": 0.4221,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Luka Mikrut": {
+   "clay_1in": 0.5704,
+   "clay_1won": 0.7377,
+   "clay_2won": 0.5436,
+   "ret_clay": 0.418,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Sumit Nagal": {
+   "clay_1in": 0.6983,
+   "clay_1won": 0.086,
+   "clay_2won": 0.4755,
+   "ret_clay": 0.4334,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Clement Chidekh": {
+   "hard_1in": 0.626,
+   "hard_1won": 0.692,
+   "hard_2won": 0.5152,
+   "ret_hard": 0.415,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Jerome Kym": {
+   "hard_1in": 0.6255,
+   "hard_1won": 0.7684,
+   "hard_2won": 0.5015,
+   "ret_hard": 0.3639,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Lorenzo Giustino": {
+   "clay_1in": 0.5882,
+   "clay_1won": 0.6912,
+   "clay_2won": 0.4929,
+   "ret_clay": 0.435,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Michael Mmoh": {
+   "hard_1in": 0.6148,
+   "hard_1won": 0.7322,
+   "hard_2won": 0.468,
+   "ret_hard": 0.3973,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Daniel Rincon": {
+   "hard_1in": 0.6072,
+   "hard_1won": 0.6489,
+   "hard_2won": 0.4431,
+   "ret_hard": 0.4086,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Francesco Passaro": {
+   "clay_1in": 0.6372,
+   "clay_1won": 0.6981,
+   "clay_2won": 0.5596,
+   "ret_clay": 0.377,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Luca Nardi": {
+   "hard_1in": 0.603,
+   "hard_1won": 0.6879,
+   "hard_2won": 0.5219,
+   "ret_hard": 0.3753,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Lorenzo Carboni": {
+   "hard_1in": 0.6279,
+   "hard_1won": 0.6329,
+   "hard_2won": 0.477,
+   "ret_hard": 0.4168,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Andrej Nedic": {
+   "clay_1in": 0.6523,
+   "clay_1won": 0.6369,
+   "clay_2won": 0.5042,
+   "ret_clay": 0.4566,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Genaro Alberto Olivieri": {
+   "clay_1in": 0.6256,
+   "clay_1won": 0.711,
+   "clay_2won": 0.5306,
+   "ret_clay": 0.3804,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Alex Barrena": {
+   "clay_1in": 0.5938,
+   "clay_1won": 0.6297,
+   "clay_2won": 0.4963,
+   "ret_clay": 0.4343,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Maximo Zeitune": {
+   "clay_1in": 0.6882,
+   "clay_1won": 0.6803,
+   "clay_2won": 0.4855,
+   "ret_clay": 0.3905,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Hugo Dellien": {
+   "clay_1in": 0.7143,
+   "clay_1won": 0.6591,
+   "clay_2won": 0.5168,
+   "ret_clay": 0.4221,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Francisco Comesana": {
+   "clay_1in": 0.6365,
+   "clay_1won": 0.7191,
+   "clay_2won": 0.4721,
+   "ret_clay": 0.396,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Felipe Meligeni Alves": {
+   "clay_1in": 0.6641,
+   "clay_1won": 0.6754,
+   "clay_2won": 0.5318,
+   "ret_clay": 0.4163,
+   "n_clay": 1,
+   "quelle_clay": "excel+spieldaten"
+  },
+  "Sascha Gueymard Wayenburg": {
+   "hard_1in": 0.6217,
+   "hard_1won": 0.7058,
+   "hard_2won": 0.5188,
+   "ret_hard": 0.3894,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Clement Tabur": {
+   "hard_1in": 0.6202,
+   "hard_1won": 0.7223,
+   "hard_2won": 0.5348,
+   "ret_hard": 0.3451,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Mika Brunold": {
+   "hard_1in": 0.6314,
+   "hard_1won": 0.6823,
+   "hard_2won": 0.5474,
+   "ret_hard": 0.3945,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Benjamin Bonzi": {
+   "hard_1in": 0.6413,
+   "hard_1won": 0.7234,
+   "hard_2won": 0.5138,
+   "ret_hard": 0.3441,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Hugo Gaston": {
+   "hard_1in": 0.5888,
+   "hard_1won": 0.7154,
+   "hard_2won": 0.5069,
+   "ret_hard": 0.3926,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  },
+  "Pierre-Hugues Herbert": {
+   "hard_1in": 0.5887,
+   "hard_1won": 0.7589,
+   "hard_2won": 0.5057,
+   "ret_hard": 0.3447,
+   "n_hard": 1,
+   "quelle_hard": "excel+spieldaten"
+  }
+ }
 }
