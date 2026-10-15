@@ -9,14 +9,6 @@
 "sieger": "A",
 "start": "2026-10-14T03:00:00.000Z"
 },
-"id1201562875591598": {
-"a": "Ilya Ivashka",
-"b": "Marat Sharipov",
-"qa": 2.1,
-"qb": 1.6,
-"sieger": "A",
-"start": "2026-10-14T03:00:00.000Z"
-},
 "id1201562875591600": {
 "a": "Hayato Matsuoka",
 "b": "Aleksandar Vukic",
@@ -96,14 +88,6 @@
 "qb": 3.483,
 "sieger": "A",
 "start": "2026-10-14T14:00:00.000Z"
-},
-"id1200308575542000": {
-"a": "Casper Ruud",
-"b": "Felix Auger-Aliassime",
-"qa": 2.25,
-"qb": 1.6,
-"sieger": "A",
-"start": "2026-10-14T05:10:00.000Z"
 },
 "id1200308575558184": {
 "a": "Daniil Medvedev",
@@ -272,6 +256,46 @@
 "qb": 1.37,
 "sieger": "A",
 "start": "2026-10-14T18:00:00.000Z"
+},
+"id1201562875371548": {
+"a": "Alexander Shevchenko",
+"b": "Jay Dylan Hara Friend",
+"qa": 1.75,
+"qb": 1.875,
+"sieger": "A",
+"start": "2026-10-15T04:00:00.000Z"
+},
+"id1201562875371560": {
+"a": "Tomas Machac",
+"b": "Aleksandar Vukic",
+"qa": 1.44,
+"qb": 2.55,
+"sieger": "A",
+"start": "2026-10-15T06:20:00.000Z"
+},
+"id1201562875371566": {
+"a": "Luka Pavlovic",
+"b": "Mattia Bellucci",
+"qa": 4.2,
+"qb": 1.18,
+"sieger": "B",
+"start": "2026-10-15T05:10:00.000Z"
+},
+"id1201562875371568": {
+"a": "Shintaro Mochizuki",
+"b": "Dane Sweeny",
+"qa": 1.65,
+"qb": 2.05,
+"sieger": "A",
+"start": "2026-10-15T04:00:00.000Z"
+},
+"id1201562875371570": {
+"a": "Yosuke Watanuki",
+"b": "Marin Cilic",
+"qa": 2.55,
+"qb": 1.44,
+"sieger": "A",
+"start": "2026-10-15T05:10:00.000Z"
 }
 },
 "spieler": {
@@ -292,38 +316,6 @@
 }
 },
 "James Duckworth": {
-"fav": [
-0,
-1
-],
-"aus": [
-0,
-0
-],
-"baender": {
-"1.50-1.70": [
-0,
-1
-]
-}
-},
-"Ilya Ivashka": {
-"fav": [
-0,
-0
-],
-"aus": [
-1,
-0
-],
-"baender": {
-"2.10-2.50": [
-1,
-0
-]
-}
-},
-"Marat Sharipov": {
 "fav": [
 0,
 1
@@ -362,12 +354,16 @@
 ],
 "aus": [
 0,
-0
+1
 ],
 "baender": {
 "1.50-1.70": [
 1,
 0
+],
+"2.50-3.00": [
+0,
+1
 ]
 }
 },
@@ -393,11 +389,15 @@
 0
 ],
 "aus": [
-0,
+1,
 0
 ],
 "baender": {
 "1.70-1.90": [
+1,
+0
+],
+"2.50-3.00": [
 1,
 0
 ]
@@ -410,12 +410,16 @@
 ],
 "aus": [
 1,
-0
+1
 ],
 "baender": {
 "2.50-3.00": [
 1,
 0
+],
+"4.00+": [
+0,
+1
 ]
 }
 },
@@ -654,38 +658,6 @@
 ],
 "baender": {
 "3.00-4.00": [
-0,
-1
-]
-}
-},
-"Casper Ruud": {
-"fav": [
-0,
-0
-],
-"aus": [
-1,
-0
-],
-"baender": {
-"2.10-2.50": [
-1,
-0
-]
-}
-},
-"Felix Auger-Aliassime": {
-"fav": [
-0,
-1
-],
-"aus": [
-0,
-0
-],
-"baender": {
-"1.50-1.70": [
 0,
 1
 ]
@@ -1348,6 +1320,118 @@
 }
 },
 "Alex Barrena": {
+"fav": [
+0,
+1
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.30-1.50": [
+0,
+1
+]
+}
+},
+"Alexander Shevchenko": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.70-1.90": [
+1,
+0
+]
+}
+},
+"Jay Dylan Hara Friend": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"1.70-1.90": [
+0,
+1
+]
+}
+},
+"Tomas Machac": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.30-1.50": [
+1,
+0
+]
+}
+},
+"Mattia Bellucci": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.00-1.30": [
+1,
+0
+]
+}
+},
+"Shintaro Mochizuki": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.50-1.70": [
+1,
+0
+]
+}
+},
+"Dane Sweeny": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"1.90-2.10": [
+0,
+1
+]
+}
+},
+"Marin Cilic": {
 "fav": [
 0,
 1
