@@ -180,6 +180,13 @@ th.l{text-align:left}
 .btn.mini{padding:3px 8px;font-size:12px}
 details.box summary{cursor:pointer;list-style-position:outside}
 .wbox .mform .ctl{flex:1 1 90px}
+.bein{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:end;padding:8px 0;border-top:1px dashed var(--line);margin-top:8px}
+.bein .ctl{flex:1 1 120px}.bein .ctl.k{flex:0 1 90px}
+.bein input,.bein select{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:100%;min-width:0}
+.bein .nr{font:600 13px var(--f-display);color:var(--muted);align-self:center;min-width:18px}
+tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
+.kombi-t{width:100%;font-size:13px}.kombi-t td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
@@ -280,16 +287,21 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <div class="ctl"><label for="m-monat">Monat</label><select id="m-monat"><option value="alle">alle</option></select></div>
     </div>
     <div id="m-liste"></div>
-    <details class="box" id="m-manuell-box" style="margin-top:16px"><summary><b>Wette manuell eintragen</b> <span class="time">(für Partien, die nicht auf der Seite stehen)</span></summary>
-      <form class="mform" id="m-form" autocomplete="off">
-        <div class="ctl"><label for="mf-spieler">Gewettet auf</label><input id="mf-spieler" required placeholder="Spieler"></div>
-        <div class="ctl"><label for="mf-gegner">Gegner</label><input id="mf-gegner" placeholder="Gegner"></div>
-        <div class="ctl"><label for="mf-datum">Datum</label><input id="mf-datum" type="date" required></div>
-        <div class="ctl"><label for="mf-turnier">Turnier</label><input id="mf-turnier" placeholder="optional"></div>
-        <div class="ctl"><label for="mf-bm">Buchmacher</label><input id="mf-bm" placeholder="z. B. winamax"></div>
-        <div class="ctl"><label for="mf-quote">Quote</label><input id="mf-quote" inputmode="decimal" required placeholder="1,85"></div>
-        <div class="ctl"><label for="mf-einsatz">Einsatz €</label><input id="mf-einsatz" inputmode="decimal" required placeholder="z. B. 10 = 1 U"></div>
-        <button type="submit" class="btn">Eintragen</button>
+    <details class="box" id="m-manuell-box" style="margin-top:16px"><summary><b>Wette manuell eintragen</b> <span class="time">(Einzelwette oder Kombi, auch genaues Ergebnis)</span></summary>
+      <form id="m-form" autocomplete="off">
+        <div class="mform">
+          <div class="ctl"><label for="mf-art">Art</label><select id="mf-art"><option value="einzel">Einzelwette</option><option value="kombi">Kombi</option></select></div>
+          <div class="ctl"><label for="mf-bm">Buchmacher</label><input id="mf-bm" placeholder="z. B. winamax"></div>
+          <div class="ctl"><label for="mf-turnier">Turnier</label><input id="mf-turnier" placeholder="optional"></div>
+        </div>
+        <div id="mf-beine"></div>
+        <button type="button" class="btn ghost mini" id="mf-plus" hidden>+ weitere Auswahl</button>
+        <div class="mform">
+          <div class="ctl"><label for="mf-quote">Gesamtquote</label><input id="mf-quote" inputmode="decimal" required placeholder="1,85"></div>
+          <div class="ctl"><label for="mf-einsatz">Einsatz €</label><input id="mf-einsatz" inputmode="decimal" required placeholder="z. B. 10 = 1 U"></div>
+          <button type="submit" class="btn">Eintragen</button>
+        </div>
+        <p class="note" style="margin:6px 0 0">Die Auswertung läuft automatisch über das Ergebnis-Archiv (Spieler, Gegner und Datum ±1 Tag). Bei „genaues Ergebnis“ zählt der Satzstand aus Sicht des gewählten Spielers. Was nicht gefunden wird, kannst du je Auswahl selbst setzen.</p>
       </form>
     </details>
     <details class="box" id="m-sync-box" style="margin-top:12px"><summary><b>Abgleich zwischen Geräten</b> <span class="time" id="m-sync-status">nicht eingerichtet – Wetten liegen nur in diesem Browser</span></summary>
@@ -563,7 +575,7 @@ function kurveZeichnen(el, titel, serien, info, extra){
 const kDatum = (s) => new Date(s).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ});
 
 // ---- Spielerprofil (Dialog)
-let ARCHIV = null;
+let ARCHIV = null; const KOMBI_OFFEN = new Set();
 async function archivLaden(){
   if(ARCHIV) return ARCHIV;
   const idx = await j("archiv/index.json", {}), ms = Object.keys(idx).sort().slice(-3);
@@ -884,21 +896,77 @@ function wetteBox(p, r){
         <option value="A"${seite==="A"?" selected":""}>${esc(p.a)}</option><option value="B"${seite==="B"?" selected":""}>${esc(p.b)}</option></select></div>
       <div class="ctl"><label for="ws-b-${id}">Buchmacher</label><select id="ws-b-${id}" name="bm">
         ${bms.map(b=>`<option${b===bm?" selected":""}>${esc(b)}</option>`).join("")}<option value="andere">andere</option></select></div>
+      <div class="ctl"><label for="ws-m-${id}">Markt</label><select id="ws-m-${id}" name="markt">${MARKT_OPT}</select></div>
       <div class="ctl"><label for="ws-q-${id}">Quote</label><input id="ws-q-${id}" name="quote" inputmode="decimal" value="${q?fx(q):""}"></div>
       <div class="ctl"><label for="ws-e-${id}">Einsatz € (1 U = ${fx(unitCfg().unit,0)} €)</label><input id="ws-e-${id}" name="einsatz" inputmode="decimal" value="${(()=>{const s=stakeU(kellyEur(r.kelly)); return s ? fx(s.klein ? kellyEur(r.kelly) : s.u*unitCfg().unit) : fx(unitCfg().unit);})()}"></div>
       <button type="submit" class="btn">Speichern</button>
+      <button type="button" class="btn ghost w-kombi" title="Als Auswahl in den Kombi-Entwurf unter „Meine Wetten“ übernehmen">+ Kombi</button>
     </form>
     ${vorhanden.length?`<div class="gespeichert">✓ ${vorhanden.length} Wette${vorhanden.length>1?"n":""} auf diese Partie gespeichert</div>`:""}</div>`;
 }
 
+// ---- Auswahlen (Einzel/Kombi, Sieg oder genaues Ergebnis) gegen das Ergebnis-Archiv prüfen
+const MARKT_OPT = `<option value="sieg">Sieg</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("");
+const nameNorm = (s) => String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z ]/g," ").split(/\s+/).filter(Boolean);
+function nameGleich(x, y){       // "Sinner", "J. Sinner", "Jannik Sinner" passen zusammen
+  const a = nameNorm(x), b = nameNorm(y); if(!a.length || !b.length) return false;
+  const lang = (t) => t.filter(w => w.length > 2);
+  const la = lang(a), lb = lang(b);
+  return la.some(w => lb.includes(w)) && (la.length < 2 || lb.length < 2 || la.filter(w => lb.includes(w)).length >= 1);
+}
+function archivSuche(bein){
+  if(bein.fixtureId && ARCHIV && ARCHIV[bein.fixtureId]) return ARCHIV[bein.fixtureId];
+  if(!ARCHIV) return null;
+  const d = new Date(String(bein.datum||"").slice(0,10)+"T12:00:00Z");
+  const treffer = Object.values(ARCHIV).filter(x => {
+    const dd = Math.abs(new Date(x.start) - d) / 864e5; if(!(dd <= 1.6)) return false;
+    const pa = nameGleich(bein.spieler, x.a), pb = nameGleich(bein.spieler, x.b);
+    if(!pa && !pb) return false;
+    return !bein.gegner || nameGleich(bein.gegner, pa ? x.b : x.a);
+  });
+  return treffer.length === 1 ? treffer[0] : treffer.sort((a,b) => Math.abs(new Date(a.start)-d) - Math.abs(new Date(b.start)-d))[0] || null;
+}
+function beinAuswertung(bein){
+  if(bein.erg) return {e: bein.erg === "offen" ? null : bein.erg, text: "manuell gesetzt"};
+  let x = archivSuche(bein);
+  if(!x && bein.fixtureId && ERG[bein.fixtureId]){ const g = ERG[bein.fixtureId]; x = {a:g.a, b:g.b, sieger:g.sieger, aufgabe:g.aufgabe}; }
+  if(!x) return {e: null, text: "noch kein Ergebnis gefunden"};
+  const ma = nameGleich(bein.spieler, x.a), mb = nameGleich(bein.spieler, x.b);
+  const seite = ma && !mb ? "A" : mb && !ma ? "B" : (bein.seite || "A");
+  const satz = (x.satz||[]).map(([u,v]) => seite==="A" ? [u,v] : [v,u]);
+  const st = satz.length ? satz.filter(([u,v]) => u>v).length + ":" + satz.filter(([u,v]) => v>u).length : null;
+  const text = `${x.sieger==="V" ? "abgesagt" : (x.sieger===seite ? "gewonnen" : "verloren")}${st?" "+st:""}${satz.length?" ("+satz.map(([u,v])=>u+":"+v).join(" ")+")":""}${x.aufgabe?" – Aufgabe":""}`;
+  if(x.sieger === "V" || x.aufgabe) return {e: "V", text};
+  if(!bein.markt || bein.markt === "sieg") return {e: x.sieger === seite ? "W" : "L", text};
+  if(!st) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
+  return {e: st === bein.markt ? "W" : "L", text};
+}
+function wetteAuswertung(w){      // {e, quote} – Kombi: eine falsche Auswahl = verloren; ungültige Auswahl zählt mit Quote 1
+  if(!w.beine || !w.beine.length) return null;
+  const r = w.beine.map(beinAuswertung);
+  const es = r.map(x => x.e);
+  let e = null;
+  if(es.includes("L")) e = "L";
+  else if(!es.includes(null)) e = es.every(x => x === "V") ? "V" : "W";
+  let quote = w.quote;
+  if(e === "W" && es.includes("V") && w.beine.every(b => b.quote > 1))
+    quote = w.beine.reduce((q, b, i) => q * (es[i] === "V" ? 1 : b.quote), 1);
+  return {e, quote, beine: r};
+}
+const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : "Ergebnis " + b.markt;
+
 function ergebnisVon(w){
   if (w.manuell) return w.ergebnis || null;
+  if (w.beine && w.beine.length) return wetteAuswertung(w).e;
   const e = w.fixtureId && ERG[w.fixtureId];
   if (!e) return null;
   if (e.sieger === "V" || e.aufgabe) return "V";      // Aufgabe: nicht zu Ende gespielt -> ungültig (manuell änderbar)
   return e.sieger === w.seite ? "W" : "L";
 }
-function gewinnVon(w, erg){ return erg==="W" ? w.einsatz*(w.quote-1) : erg==="L" ? -w.einsatz : 0; }
+function gewinnVon(w, erg){
+  const q = erg==="W" && w.beine && w.beine.length && !w.manuell ? wetteAuswertung(w).quote : w.quote;
+  return erg==="W" ? w.einsatz*(q-1) : erg==="L" ? -w.einsatz : 0;
+}
 
 function wetteNeu(daten){
   const w = wLoad();
@@ -915,31 +983,91 @@ function wetteLoeschen(id){
   const w = wLoad(); delete w.items[id]; w.geloescht[id] = nowIso(); wSave(w); renderWetten(); syncPush();
 }
 
+function beinZeile(b){
+  const box = $("#mf-beine"), i = box.children.length;
+  const d = document.createElement("div"); d.className = "bein";
+  if(b.fixtureId) d.dataset.fixture = b.fixtureId;
+  if(b.seite) d.dataset.seite = b.seite;
+  d.innerHTML = `<span class="nr">${i+1}.</span>
+    <div class="ctl"><label>Gewettet auf</label><input name="spieler" placeholder="Spieler" value="${esc(b.spieler||"")}"></div>
+    <div class="ctl"><label>Gegner</label><input name="gegner" placeholder="Gegner" value="${esc(b.gegner||"")}"></div>
+    <div class="ctl k"><label>Datum</label><input name="datum" type="date" value="${esc(String(b.datum||new Date().toISOString()).slice(0,10))}"></div>
+    <div class="ctl"><label>Markt</label><select name="markt">${MARKT_OPT}</select></div>
+    <div class="ctl k"><label>Quote</label><input name="quote" inputmode="decimal" placeholder="1,85" value="${b.quote?fx(b.quote):""}"></div>
+    <button type="button" class="btn ghost mini b-weg" title="Auswahl entfernen">✕</button>`;
+  d.querySelector("select").value = b.markt || "sieg";
+  box.appendChild(d);
+}
+function nummern(){ [...$("#mf-beine").children].forEach((d,i) => d.querySelector(".nr").textContent = (i+1)+"."); }
+function beineLesen(){
+  return [...$("#mf-beine").children].map(d => { const v = (n) => d.querySelector(`[name="${n}"]`).value.trim();
+    return {spieler: v("spieler"), gegner: v("gegner"), datum: v("datum"), markt: v("markt"), quote: num2(v("quote")),
+      fixtureId: d.dataset.fixture || undefined, seite: d.dataset.seite || undefined}; });
+}
+function artWechsel(){
+  const kombi = $("#mf-art").value === "kombi";
+  $("#mf-plus").hidden = !kombi;
+  if(kombi && $("#mf-beine").children.length < 2) beinZeile({});
+  if(!kombi) while($("#mf-beine").children.length > 1) $("#mf-beine").lastElementChild.remove();
+  $("#mf-beine").querySelectorAll(".b-weg").forEach(x => x.hidden = !kombi);
+  nummern(); gesamtQuote();
+}
+function gesamtQuote(){       // Produkt der Einzelquoten vorschlagen (Feld bleibt überschreibbar)
+  const qs = beineLesen().map(b => b.quote);
+  if(qs.length && qs.every(q => q > 1)) $("#mf-quote").value = fx(qs.reduce((a,b) => a*b, 1));
+}
+function entwurfSichern(){ store.set("kombi.entwurf", {art: $("#mf-art").value, beine: beineLesen()}); }
+
 function setupWetten(){
   // Speichern aus den Partien-Details (Event-Delegation, Details werden neu gerendert)
   $("#list").addEventListener("submit", (e) => {
     const f = e.target.closest(".w-form"); if(!f) return;
     e.preventDefault();
     const p = (M.partien||[]).find(x => x.id === f.dataset.id); if(!p) return;
-    const seite = f.seite.value, quote = num2(f.quote.value), einsatz = num2(f.einsatz.value);
+    const seite = f.seite.value, quote = num2(f.quote.value), einsatz = num2(f.einsatz.value), markt = f.markt.value;
     if(!quote || quote <= 1 || !einsatz || einsatz <= 0){ f.quote.focus(); return; }
     const r = evalMatch(p);
+    const bein = {fixtureId: p.id, seite, spieler: seite==="A"?p.a:p.b, gegner: seite==="A"?p.b:p.a, datum: p.start, markt, quote};
     wetteNeu({fixtureId: p.id, start: p.start, turnier: p.turnier, belag: r.belagEff, a: p.a, b: p.b, seite,
       spieler: seite==="A"?p.a:p.b, gegner: seite==="A"?p.b:p.a, buchmacher: f.bm.value, quote, einsatz,
-      modellP: seite==="A"?r.pFinal:1-r.pFinal, edge: seite==="A"?r.edgeA:r.edgeB, valueTipp: r.wette===seite});
+      beine: markt==="sieg" ? undefined : [bein], markt,
+      modellP: seite==="A"?r.pFinal:1-r.pFinal, edge: seite==="A"?r.edgeA:r.edgeB, valueTipp: markt==="sieg" && r.wette===seite});
     render();
   });
-  $("#list").addEventListener("click", (e) => { if(e.target.closest(".w-form")) e.stopPropagation(); });
-  // Manuell
-  $("#mf-datum").value = new Date().toISOString().slice(0,10);
+  $("#list").addEventListener("click", (e) => {
+    const k = e.target.closest(".w-kombi");
+    if(k){ const f = k.closest(".w-form"), p = (M.partien||[]).find(x => x.id === f.dataset.id); if(!p) return;
+      const seite = f.seite.value, quote = num2(f.quote.value);
+      [...$("#mf-beine").children].forEach(d => { if(!d.querySelector('[name="spieler"]').value.trim()) d.remove(); });
+      beinZeile({fixtureId: p.id, seite, spieler: seite==="A"?p.a:p.b, gegner: seite==="A"?p.b:p.a, datum: String(p.start).slice(0,10), markt: f.markt.value, quote});
+      $("#mf-art").value = "kombi"; artWechsel(); entwurfSichern(); gesamtQuote();
+      { const n = beineLesen().filter(x => x.spieler).length; k.textContent = `✓ in Kombi (${n} Auswahl${n===1?"":"en"})`; } }
+    if(e.target.closest(".w-form")) e.stopPropagation(); });
+  // Manuell: Einzelwette oder Kombi aus Auswahlen; Entwurf bleibt im Browser, bis eingetragen
+  $("#mf-art").addEventListener("change", () => { artWechsel(); entwurfSichern(); });
+  $("#mf-plus").addEventListener("click", () => { beinZeile({}); entwurfSichern(); });
+  $("#mf-beine").addEventListener("input", (e) => { if(e.target.name==="quote") gesamtQuote(); entwurfSichern(); });
+  $("#mf-beine").addEventListener("change", entwurfSichern);
+  $("#mf-beine").addEventListener("click", (e) => { const x = e.target.closest(".b-weg"); if(!x) return;
+    x.closest(".bein").remove(); if(!$("#mf-beine").children.length) beinZeile({}); nummern(); gesamtQuote(); entwurfSichern(); });
+  const ent = store.get("kombi.entwurf", null);
+  if(ent && ent.beine && ent.beine.length){ $("#mf-art").value = ent.art || "kombi"; ent.beine.forEach(beinZeile); }
+  else beinZeile({});
+  artWechsel(); gesamtQuote();
   $("#m-form").addEventListener("submit", (e) => {
     e.preventDefault();
+    const beine = beineLesen().filter(b => b.spieler);
     const quote = num2($("#mf-quote").value), einsatz = num2($("#mf-einsatz").value);
-    if(!quote || quote <= 1 || !einsatz) return;
-    wetteNeu({fixtureId: null, start: $("#mf-datum").value + "T12:00:00Z", turnier: $("#mf-turnier").value.trim(),
-      a: $("#mf-spieler").value.trim(), b: $("#mf-gegner").value.trim(), seite: "A", spieler: $("#mf-spieler").value.trim(),
-      gegner: $("#mf-gegner").value.trim(), buchmacher: $("#mf-bm").value.trim(), quote, einsatz, manuell: true, ergebnis: null});
-    ["mf-spieler","mf-gegner","mf-quote","mf-einsatz","mf-turnier"].forEach(id => $("#"+id).value = "");
+    if(!beine.length || !quote || quote <= 1 || !einsatz) return;
+    const kombi = $("#mf-art").value === "kombi" && beine.length > 1;
+    const erst = beine.map(b => b.datum).sort()[0];
+    wetteNeu({fixtureId: kombi ? null : beine[0].fixtureId || null, start: erst + "T12:00:00Z", turnier: $("#mf-turnier").value.trim(),
+      a: beine[0].spieler, b: beine[0].gegner, seite: beine[0].seite || "A",
+      spieler: kombi ? `Kombi (${beine.length})` : beine[0].spieler, gegner: kombi ? "" : beine[0].gegner,
+      buchmacher: $("#mf-bm").value.trim(), quote, einsatz, typ: kombi ? "kombi" : "einzel", beine, manuell: false, ergebnis: null});
+    $("#mf-beine").innerHTML = ""; beinZeile({}); ["mf-quote","mf-einsatz","mf-turnier"].forEach(id => $("#"+id).value = "");
+    $("#mf-art").value = "einzel"; artWechsel();
+    try{ localStorage.removeItem("tvb.kombi.entwurf"); }catch(_){}
   });
   // Liste: Ergebnis korrigieren / löschen
   $("#m-liste").addEventListener("change", (e) => {
@@ -960,7 +1088,15 @@ function setupWetten(){
   $("#ms-trennen").addEventListener("click", () => { try{ localStorage.removeItem("tvb.gist.token"); localStorage.removeItem("tvb.gist.id"); }catch(_){}
     $("#ms-token").value = ""; syncStatus("getrennt – Wetten liegen nur in diesem Browser"); });
   if(store.get("gist.token", null)){ $("#ms-token").value = "••••••••"; syncPull(false); }
+  // Kombi ausklappen / Auswahl-Ergebnis setzen
+  $("#m-liste").addEventListener("click", (e) => { const t = e.target.closest(".ktog"); if(!t) return;
+    const id = t.dataset.id; KOMBI_OFFEN.has(id) ? KOMBI_OFFEN.delete(id) : KOMBI_OFFEN.add(id); renderWetten(); });
+  $("#m-liste").addEventListener("change", (e) => { const s_ = e.target.closest("select.bein-erg"); if(!s_) return;
+    const w = wLoad().items[s_.dataset.id]; if(!w) return;
+    const beine = w.beine.map((b, i) => i === +s_.dataset.i ? Object.assign({}, b, {erg: s_.value === "auto" ? undefined : s_.value}) : b);
+    wetteAendern(s_.dataset.id, {beine}); });
   renderWetten();
+  archivLaden().then(renderWetten);
 }
 
 function renderWetten(){
@@ -996,13 +1132,28 @@ function renderWetten(){
     xs.map(w => { const e = ergebnisVon(w), d = new Date(w.start), gw = e ? gewinnVon(w, e) : null;
       const opt = (v, t) => `<option value="${v}"${(w.manuell ? (w.ergebnis||"offen") : "auto")===v?" selected":""}>${t}</option>`;
       const autoTxt = e ? (e==="V" && w.fixtureId && (ERG[w.fixtureId]||{}).aufgabe ? "Aufgabe (ungültig)" : ({W:"gewonnen",L:"verloren",V:"ungültig"})[e]) : "offen";
+      const hatBeine = w.beine && w.beine.length, kombi = hatBeine && w.beine.length > 1, offenK = KOMBI_OFFEN.has(w.id);
+      const wetteTxt = kombi ? `<button type="button" class="ktog" data-id="${esc(w.id)}" aria-expanded="${offenK}">${offenK?"▾":"▸"} <b>Kombi</b> · ${w.beine.length} Auswahlen</button>`
+        : `<b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${hatBeine && w.beine[0].markt && w.beine[0].markt!=="sieg" ? ` <span class="pill">${esc(marktText(w.beine[0]))}</span>` : ""}`;
+      const hatAuto = w.fixtureId || hatBeine;
       return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
-        <td class="l"><b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
+        <td class="l">${wetteTxt}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
         <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
         <td class="num">${fx(w.quote)}</td><td class="num">${betragU(w.einsatz)}</td>
-        <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${w.fixtureId?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}</select></td>
+        <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}</select></td>
         <td class="num ${gw>0?"pos":gw<0?"negv":""}">${gw==null?"–":betragU(gw, true)}</td>
-        <td><button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>`; }).join("")}</tbody></table></div>`;
+        <td><button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${kombi && offenK ? kombiDetail(w) : ""}`; }).join("")}</tbody></table></div>`;
+}
+
+function kombiDetail(w){
+  const r = wetteAuswertung(w);
+  const pill = (e) => e==="W" ? '<span class="pill go">✓ richtig</span>' : e==="L" ? '<span class="pill stop">✗ falsch</span>' : e==="V" ? '<span class="pill warn">ungültig</span>' : '<span class="pill no">offen</span>';
+  return `<tr class="kombi-d"><td colspan="9"><table class="kombi-t"><tbody>${w.beine.map((b, i) => { const x = r.beine[i];
+    const sel = ["auto","W","L","V","offen"].map(v => `<option value="${v}"${(b.erg||"auto")===v?" selected":""}>${{auto:"auto",W:"richtig",L:"falsch",V:"ungültig",offen:"offen"}[v]}</option>`).join("");
+    return `<tr><td>${i+1}.</td><td><b>${esc(b.spieler)}</b>${b.gegner?` <span class="time">vs ${esc(b.gegner)}</span>`:""}<div class="time">${esc(String(b.datum||"").slice(0,10).split("-").reverse().join("."))} · ${esc(marktText(b))}${b.quote?" @ "+fx(b.quote):""}</div></td>
+      <td class="time">${esc(x.text)}</td><td>${pill(x.e)}</td>
+      <td><select class="bein-erg" data-id="${esc(w.id)}" data-i="${i}" aria-label="Ergebnis der Auswahl ${i+1}">${sel}</select></td></tr>`; }).join("")}</tbody></table>
+    ${r.e==="W" && r.quote!==w.quote ? `<p class="time" style="margin:6px 0 0">Ausgezahlt mit Quote ${fx(r.quote)} (ungültige Auswahl zählt mit 1,00).</p>` : ""}</td></tr>`;
 }
 
 // ---- Abgleich über geheimen Gist
