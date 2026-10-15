@@ -128,6 +128,16 @@ jobs:
           ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
         run: python results.py
 
+      - name: Systemcheck (Telegram-Warnung bei Problemen)
+        if: always()
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SPORTSAPIPRO_KEY: ${{ secrets.SPORTSAPIPRO_KEY }}
+        run: python notify.py --system
+
       - name: Änderungen speichern
         if: always()
         run: |
