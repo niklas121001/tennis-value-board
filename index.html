@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<title>Tennis Value Board</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#17202b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tennis Value">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Kopfleiste mit Steuerung -> Kennzahlen -> Partien nach Turnier gruppiert; Zeile klappt Detailanalyse auf */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --fg:#17202b; --muted:#5d6b7a; --line:#dde3ea;
+  --accent:#1d4f91; --accent-soft:#e3ecf8;
+  --good:#17803d; --good-soft:#e2f4e7; --warn:#a15c00; --warn-soft:#fbefd9; --bad:#b42318; --bad-soft:#fbe6e4;
+  --hard:#2563b8; --clay:#c2552b; --grass:#2f7d32;
+  --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141a; --panel:#171e26; --fg:#e6ebf0; --muted:#93a1b0; --line:#2a3440;
+  --accent:#7fb0ef; --accent-soft:#1c2b3e;
+  --good:#5fcf85; --good-soft:#15301f; --warn:#f0b55c; --warn-soft:#33270f; --bad:#ff8a80; --bad-soft:#3a1c1a;
+  --hard:#6ea6ee; --clay:#ec8a5f; --grass:#73c276; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141a; --panel:#171e26; --fg:#e6ebf0; --muted:#93a1b0; --line:#2a3440;
+  --accent:#7fb0ef; --accent-soft:#1c2b3e;
+  --good:#5fcf85; --good-soft:#15301f; --warn:#f0b55c; --warn-soft:#33270f; --bad:#ff8a80; --bad-soft:#3a1c1a;
+  --hard:#6ea6ee; --clay:#ec8a5f; --grass:#73c276; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 var(--f-body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 48px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;border-bottom:2px solid var(--fg);padding-bottom:12px}
+h1{font:700 2.1rem/1 var(--f-display);letter-spacing:.01em;margin:0;text-transform:uppercase}
+h1 span{color:var(--accent)}
+.stand{font:12px/1.4 var(--f-mono);color:var(--muted);text-align:right}
+.banner{margin-top:14px;padding:10px 14px;border-radius:6px;background:var(--warn-soft);color:var(--warn);font-size:13px}
+nav.tabs{display:flex;gap:4px;margin-top:16px;overflow-x:auto;scrollbar-width:none}
+nav.tabs button{white-space:nowrap;flex:none}
+nav.tabs button{font:600 1rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:6px 10px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--accent)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end;margin-top:16px}
+.ctl{display:flex;flex-direction:column;gap:3px}
+.ctl label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+select,input[type=search]{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;min-width:0}
+#bm{font-weight:600;border-color:var(--accent);min-width:190px}
+.check{display:flex;align-items:center;gap:6px;padding-bottom:7px;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:18px}
+.kpi{background:var(--panel);padding:10px 14px}
+.kpi b{display:block;font:600 1.7rem/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.kpi span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.qpf{font-size:11px;color:var(--muted);margin-right:3px}.qpf.qgut{color:var(--good)}.qpf.qschlecht{color:var(--bad)}
+.kurvebox{margin-top:14px}
+.kurvebox:empty{display:none}
+.kurve{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px 6px;position:relative}
+.kurve h3{margin:0 0 4px;font:600 1rem var(--f-display);letter-spacing:.04em;text-transform:uppercase}
+.kurve .leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted)}
+.kurve .leg i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:5px}
+.kurve svg{display:block;width:100%;height:200px;overflow:visible}
+.kurve .tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:12px;padding:6px 8px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-100%);display:none}
+.kurve .stats{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;color:var(--muted);margin-top:4px}
+.kurve .stats b{color:var(--fg);font-family:var(--f-mono);font-weight:500}
+.profbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+dialog#profil{border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);padding:0;width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 32px)}
+dialog#profil::backdrop{background:rgba(10,15,20,.55)}
+#pr-inhalt{padding:16px 18px 20px}
+.prkopf{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:2px solid var(--fg);padding-bottom:8px;margin-bottom:12px}
+.prkopf h2{font:700 1.7rem/1.05 var(--f-display);text-transform:uppercase;margin:0}
+.prgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.prtab{width:100%;font-size:13px}.prtab th,.prtab td{padding:4px 6px;text-align:right;border-bottom:1px solid var(--line)}.prtab th:first-child,.prtab td:first-child{text-align:left}
+.prtab td.w{color:var(--good);font-weight:600}.prtab td.l{color:var(--bad)}
+.fz2{font-size:12px;margin-top:2px}.fz2 .k{display:block;color:var(--muted);font-size:13px}
+.kv .fz{font-family:var(--f-body);font-size:12px;white-space:normal}
+.kv.three{grid-template-columns:1fr auto auto}
+.kpi b .u{font-size:inherit;text-transform:none;letter-spacing:normal;color:inherit}
+.group{margin-top:22px}
+.group h2{display:flex;gap:10px;align-items:center;font:600 1.15rem/1.2 var(--f-display);letter-spacing:.04em;text-transform:uppercase;margin:0 0 6px}
+.surf{display:inline-block;font:500 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;padding:4px 7px;border-radius:3px;color:var(--panel)}
+.surf.hard{background:var(--hard)}.surf.clay{background:var(--clay)}.surf.grass{background:var(--grass)}
+.surf.geschaetzt{outline:1px dashed var(--fg);outline-offset:1px}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th{font:500 11px/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:nth-child(-n+2){text-align:left}
+td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;vertical-align:middle}
+td.l{text-align:left}
+tr.m{cursor:pointer}
+tr.m:hover td{background:var(--accent-soft)}
+tr.m.value td:first-child{box-shadow:inset 3px 0 0 var(--good)}
+tr.m:last-of-type td{border-bottom:0}
+.time{font-family:var(--f-mono);color:var(--muted);font-size:12px}
+.pl{display:flex;flex-direction:column;line-height:1.3}
+.pl .bet{font-weight:600}
+.pl .miss{color:var(--warn)}
+.num{font-family:var(--f-mono);font-size:13px}
+.pos{color:var(--good)}.neg{color:var(--muted)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.pill.go{background:var(--good-soft);color:var(--good)}
+.pill.no{background:transparent;color:var(--muted);font-weight:400}
+.pill.stop{background:var(--bad-soft);color:var(--bad)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+tr.detail td{background:var(--bg);white-space:normal;text-align:left;padding:14px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
+.box h3{font:600 .95rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:var(--accent)}
+.kv{display:grid;grid-template-columns:1fr auto auto;gap:2px 12px;font-size:13px}
+.kv.two{grid-template-columns:1fr auto}
+.kv span:nth-child(n){font-variant-numeric:tabular-nums}
+.kv .k{color:var(--muted)}
+.kv .v{font-family:var(--f-mono);text-align:right}
+.kv .h{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right}
+.warns{margin:10px 0 0;padding-left:18px;color:var(--warn);font-size:13px}
+.empty{padding:28px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:8px;margin-top:20px}
+.info{max-width:70ch}
+.info h2{font:600 1.3rem var(--f-display);text-transform:uppercase;letter-spacing:.04em;margin:24px 0 6px}
+.info code{font-family:var(--f-mono);font-size:12px;background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+footer{margin-top:32px;font-size:12px;color:var(--muted)}
+.show-s{display:none}
+@media (max-width:720px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  h1{font-size:1.7rem}.stand{text-align:left}
+  #bm{min-width:0;width:100%}.ctl.bmctl{flex-basis:100%}
+  .hide-s{display:none}.show-s{display:block}
+  td,th{padding-inline:7px}td{white-space:normal}td.num{white-space:nowrap}
+  .pill{font-size:11px}
+}
+.calc{display:grid;grid-template-columns:minmax(0,2fr) auto minmax(0,2fr) minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,.8fr) minmax(0,.8fr);gap:10px 12px;align-items:end;margin-top:16px}
+.calc .q{grid-column:span 1}
+.calc input,.calc select{width:100%;font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px}
+.calc .pa input,.calc .pb input{font-weight:600;border-color:var(--accent)}
+.swap{justify-self:center;width:auto;font:600 1.1rem var(--f-body);background:var(--panel);color:var(--accent);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+.result{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:stretch;margin-top:20px}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;min-width:0}
+.side.bet{border-color:var(--good);box-shadow:inset 0 0 0 1px var(--good)}
+.side .nm{font:600 1.35rem/1.15 var(--f-display);text-transform:uppercase;letter-spacing:.03em}
+.side .fair{display:flex;align-items:baseline;gap:10px}
+.side .fair b{font:700 2.6rem/1 var(--f-display);font-variant-numeric:tabular-nums;color:var(--accent)}
+.side .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.side .sub{font-size:13px;color:var(--muted)}
+.vs{align-self:center;font:600 1rem var(--f-display);text-transform:uppercase;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin:10px 0 14px;max-width:80ch}
+.sug{font:inherit;font-size:13px;background:var(--accent-soft);color:var(--accent);border:0;border-radius:4px;padding:2px 7px;margin:2px;cursor:pointer}
+@media (max-width:980px){
+  .calc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-flow:dense}
+  .calc .pa,.calc .pb,.calc .swap{grid-column:1 / -1}
+  .calc .swap{justify-self:start;padding:2px 12px}
+  .calc .ctl:has(#c-turnier){grid-column:1 / -1}
+  .result{grid-template-columns:minmax(0,1fr)}.vs{display:none}
+  .side .fair b{font-size:2.2rem}
+}
+@media (max-width:720px){nav.tabs button{padding:6px 7px;font-size:.95rem}}
+.dayh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font:700 1.6rem/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;margin:30px 0 0;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.dayh span{font:500 13px var(--f-body);text-transform:none;letter-spacing:0;color:var(--muted)}
+tr.m.past td{color:var(--muted)}
+.kpis6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.kpi b.pos{color:var(--good)}.kpi b.negv{color:var(--bad)}
+.kv.split{grid-template-columns:1fr auto auto auto auto}
+.kv small{color:var(--muted);font-size:11px}
+@media (max-width:980px){.kpis6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.kpis6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gesch{display:inline-block;color:var(--warn);font-weight:600;cursor:help}
+.prog{display:flex;flex-direction:column;line-height:1.3}
+.favm{color:var(--accent);margin-right:3px}
+@media (max-width:720px){.favm.show-s{display:inline}}
+th.l{text-align:left}
+.paus{font:500 10px var(--f-body);color:var(--warn);text-transform:uppercase;letter-spacing:.04em}
+.mform{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:end;margin-top:10px}
+.mform input,.mform select{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:100%;min-width:0}
+.mform .ctl{flex:1 1 130px}
+.btn{font:600 13px var(--f-body);background:var(--accent);color:var(--panel);border:0;border-radius:6px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+.btn.mini{padding:3px 8px;font-size:12px}
+details.box summary{cursor:pointer;list-style-position:outside}
+.wbox .mform .ctl{flex:1 1 90px}
+.gespeichert{color:var(--good);font-size:12px;margin-top:6px}
+select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
+.kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
+.u{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;white-space:nowrap}
+.u.klein{color:var(--muted,#888)}
+.uform{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:8px 0 4px}
+@media (prefers-reduced-motion:no-preference){tr.m td{transition:background .12s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Tennis <span>Value</span> Board</h1>
+    <div class="stand" id="stand">lädt …</div>
+  </header>
+  <div class="banner" id="banner" hidden></div>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-partien" aria-selected="true" data-tab="partien">Partien</button>
+    <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Rechner</button>
+    <button role="tab" id="tab-wetten" aria-selected="false" data-tab="wetten">Meine Wetten</button>
+    <button role="tab" id="tab-protokoll" aria-selected="false" data-tab="protokoll">Bilanz</button>
+    <button role="tab" id="tab-info" aria-selected="false" data-tab="info">Modell</button>
+  </nav>
+
+  <section id="v-partien">
+    <div class="controls">
+      <div class="ctl bmctl"><label for="bm">Buchmacher</label><select id="bm"></select></div>
+      <div class="ctl"><label for="f-tag">Tag</label>
+        <select id="f-tag"><option value="beide">Heute + Morgen</option><option value="heute">Heute</option><option value="morgen">Morgen</option></select></div>
+      <div class="ctl"><label for="f-art">Turniere</label>
+        <select id="f-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+      <div class="ctl"><label for="f-belag">Belag</label>
+        <select id="f-belag"><option value="alle">alle</option><option value="hard">Hard</option><option value="clay">Sand</option><option value="grass">Rasen</option></select></div>
+      <div class="ctl"><label for="f-suche">Spieler / Turnier</label><input type="search" id="f-suche" placeholder="z. B. Jodar"></div>
+      <label class="check" for="f-value"><input type="checkbox" id="f-value"> nur Value-Wetten</label>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b id="k-partien">–</b><span>Partien</span></div>
+      <div class="kpi"><b id="k-value">–</b><span>Value-Wetten</span></div>
+      <div class="kpi"><b id="k-kelly">–</b><span>Einsatz gesamt (Units)</span></div>
+      <div class="kpi"><b id="k-edge">–</b><span>Ø Edge der Tipps</span></div>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <section id="v-rechner" hidden>
+    <form class="calc" id="calc" autocomplete="off">
+      <div class="ctl pa"><label for="c-a">Spieler A</label><input id="c-a" list="c-players" placeholder="Name eintippen"></div>
+      <button type="button" class="swap" id="c-swap" title="Spieler tauschen" aria-label="Spieler tauschen">⇄</button>
+      <div class="ctl pb"><label for="c-b">Spieler B</label><input id="c-b" list="c-players" placeholder="Name eintippen"></div>
+      <div class="ctl"><label for="c-belag">Belag</label>
+        <select id="c-belag"><option value="hard">Hard</option><option value="clay">Sand</option><option value="grass">Rasen</option></select></div>
+      <div class="ctl"><label for="c-turnier">Turnier</label><input id="c-turnier" placeholder="optional, z. B. Madrid"></div>
+      <div class="ctl"><label for="c-modus">Modus</label>
+        <select id="c-modus"><option value="">auto</option><option value="3">Best of 3</option><option value="5">Best of 5</option></select></div>
+      <div class="ctl q"><label for="c-qa">Quote A</label><input id="c-qa" inputmode="decimal" placeholder="optional"></div>
+      <div class="ctl q"><label for="c-qb">Quote B</label><input id="c-qb" inputmode="decimal" placeholder="optional"></div>
+      <datalist id="c-players"></datalist>
+    </form>
+    <div id="c-out"></div>
+  </section>
+
+  <section id="v-protokoll" hidden>
+    <div class="controls">
+      <div class="ctl bmctl"><label for="b-bm">Buchmacher</label><select id="b-bm"></select></div>
+      <div class="ctl"><label for="b-art">Turniere</label>
+        <select id="b-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+      <div class="ctl"><label for="b-status">Tipps</label>
+        <select id="b-status"><option value="alle">alle</option><option value="fertig">abgeschlossen</option><option value="offen">offen</option></select></div>
+    </div>
+    <div class="kpis kpis6">
+      <div class="kpi"><b id="b-n">–</b><span>Tipps (gew.–verl.)</span></div>
+      <div class="kpi"><b id="b-hit">–</b><span>Trefferquote</span></div>
+      <div class="kpi"><b id="b-roi">–</b><span>ROI (1 U je Tipp)</span></div>
+      <div class="kpi"><b id="b-units">–</b><span>Gewinn flach (1 U je Tipp)</span></div>
+      <div class="kpi"><b id="b-kelly">–</b><span>Gewinn mit Unit-Einsatz</span></div>
+      <div class="kpi"><b id="b-clv">–</b><span>Ø CLV</span></div>
+    </div>
+    <div id="b-kurve" class="kurvebox"></div>
+    <div id="b-split"></div>
+    <div id="protokoll"></div>
+    <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt. Alle Partien mit Ergebnis und Satzstand: <a href="ergebnisse.html">Ergebnis-Archiv</a>.</p>
+  </section>
+
+  <section id="v-wetten" hidden>
+    <div class="kpis kpis6">
+      <div class="kpi"><b id="m-n">–</b><span>Wetten (gew.–verl.)</span></div>
+      <div class="kpi"><b id="m-einsatz">–</b><span>Einsatz abgerechnet</span></div>
+      <div class="kpi"><b id="m-gewinn">–</b><span>Gewinn / Verlust</span></div>
+      <div class="kpi"><b id="m-roi">–</b><span>ROI</span></div>
+      <div class="kpi"><b id="m-offen">–</b><span>offen (Einsatz)</span></div>
+      <div class="kpi"><b id="m-clv">–</b><span>Ø Quote</span></div>
+    </div>
+    <div id="m-kurve" class="kurvebox"></div>
+    <div class="controls">
+      <div class="ctl"><label for="m-filter">Anzeigen</label>
+        <select id="m-filter"><option value="alle">alle Wetten</option><option value="offen">offen</option><option value="fertig">abgerechnet</option></select></div>
+      <div class="ctl"><label for="m-monat">Monat</label><select id="m-monat"><option value="alle">alle</option></select></div>
+    </div>
+    <div id="m-liste"></div>
+    <details class="box" id="m-manuell-box" style="margin-top:16px"><summary><b>Wette manuell eintragen</b> <span class="time">(für Partien, die nicht auf der Seite stehen)</span></summary>
+      <form class="mform" id="m-form" autocomplete="off">
+        <div class="ctl"><label for="mf-spieler">Gewettet auf</label><input id="mf-spieler" required placeholder="Spieler"></div>
+        <div class="ctl"><label for="mf-gegner">Gegner</label><input id="mf-gegner" placeholder="Gegner"></div>
+        <div class="ctl"><label for="mf-datum">Datum</label><input id="mf-datum" type="date" required></div>
+        <div class="ctl"><label for="mf-turnier">Turnier</label><input id="mf-turnier" placeholder="optional"></div>
+        <div class="ctl"><label for="mf-bm">Buchmacher</label><input id="mf-bm" placeholder="z. B. winamax"></div>
+        <div class="ctl"><label for="mf-quote">Quote</label><input id="mf-quote" inputmode="decimal" required placeholder="1,85"></div>
+        <div class="ctl"><label for="mf-einsatz">Einsatz €</label><input id="mf-einsatz" inputmode="decimal" required placeholder="z. B. 10 = 1 U"></div>
+        <button type="submit" class="btn">Eintragen</button>
+      </form>
+    </details>
+    <details class="box" id="m-sync-box" style="margin-top:12px"><summary><b>Abgleich zwischen Geräten</b> <span class="time" id="m-sync-status">nicht eingerichtet – Wetten liegen nur in diesem Browser</span></summary>
+      <p class="note">Deine Wetten werden in einem <b>geheimen GitHub-Gist</b> gespeichert (nicht öffentlich gelistet, nur mit deinem Schlüssel beschreibbar) und so zwischen Handy und PC abgeglichen. Schlüssel anlegen: GitHub → Settings → Developer settings → Personal access tokens → <b>Tokens (classic)</b> → Generate new token (classic) → nur Haken bei <b>gist</b>. Der Schlüssel bleibt in diesem Browser gespeichert und wird nirgends veröffentlicht. Auf dem zweiten Gerät denselben Schlüssel eintragen – der Gist wird automatisch gefunden.</p>
+      <form class="mform" id="m-sync-form" autocomplete="off">
+        <div class="ctl" style="flex:1 1 260px"><label for="ms-token">GitHub-Schlüssel (Token)</label><input id="ms-token" type="password" placeholder="ghp_…"></div>
+        <button type="submit" class="btn">Verbinden &amp; abgleichen</button>
+        <button type="button" class="btn ghost" id="ms-trennen">Trennen</button>
+      </form>
+    </details>
+  </section>
+
+  <section id="v-info" class="info" hidden></section>
+
+  <dialog id="profil" aria-labelledby="pr-titel"><div id="pr-inhalt"></div></dialog>
+  <footer>Modell: Nachbau des Excel-Blatts MODELL (Analysetool_Belag.xlsx). Elo: Tennis Abstract. Quoten: OddsPapi. Ergebnisse, Belag, H2H: SportsAPIPro. Turnierkalender: Wikipedia (CC BY-SA). Keine Garantie, Wetten mit Verantwortung. · <a href="ergebnisse.html">Ergebnis-Archiv</a></footer>
+</div>
+
+<script src="model.js"></script>
+<script>
+(function(){
+"use strict";
+const $ = (s) => document.querySelector(s);
+const store = {get(k,d){try{const v=localStorage.getItem("tvb."+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+               set(k,v){try{localStorage.setItem("tvb."+k,JSON.stringify(v))}catch(e){}}};
+const BEST = "__best__";
+let D, M, META, LOG, ERG = {}, QV = {}, PROFCTX = {}, BEREIT = false, open = new Set();
+
+const fx = (x,d=2) => (typeof x==="number"&&isFinite(x)) ? x.toFixed(d).replace(".",",") : "–";
+const pc = (x,d=1) => (typeof x==="number"&&isFinite(x)) ? (x*100).toFixed(d).replace(".",",")+" %" : "–";
+const sg = (x) => (typeof x==="number"&&isFinite(x)) ? (x>0?"+":"")+(x*100).toFixed(1).replace(".",",")+" %" : "–";
+const eur = (x) => (typeof x==="number"&&isFinite(x)) ? x.toFixed(2).replace(".",",")+" €" : "–";
+// ---- Units: Einsätze und Beträge in Units (1 U = einstellbar, Standard 10 €), Klick zeigt den Euro-Betrag
+const UNIT_STD = 10, UNIT_MAX = 3;
+function unitCfg(){ const unit = +store.get("unit", UNIT_STD) || UNIT_STD; const bank = +store.get("bankroll", D?D.params.BANKROLL:500) || (D?D.params.BANKROLL:500); return {unit, bank}; }
+const kellyEur = (k) => (k && D) ? k * unitCfg().bank / D.params.BANKROLL : 0;   // Modell rechnet mit BANKROLL aus den Parametern
+function stakeU(e){                     // Kelly-Euro -> Einsatz in Units: 0,5er-Schritte, max. 3, unter 0,25 U "klein" (nicht aufrunden)
+  const u = e / unitCfg().unit;
+  if(!(u > 0)) return null;
+  if(u < 0.25) return {u, klein:true};
+  return {u: Math.min(UNIT_MAX, Math.max(0.5, Math.round(u*2)/2)), klein:false};
+}
+const fu = (u) => (typeof u==="number"&&isFinite(u)) ? (Math.abs(u-Math.round(u))<1e-9 ? String(Math.round(u)) : u.toFixed(Math.abs(u*2-Math.round(u*2))<1e-9?1:2).replace(".",",")) : "–";
+const uSpan = (txt, alt, cls="") => `<span class="u ${cls}" data-alt="${esc(alt)}" title="${esc(alt)}">${txt}</span>`;
+function stakeHtml(kelly){              // Einsatz-Anzeige für einen Tipp
+  const e = kellyEur(kelly), s = stakeU(e);
+  if(!s) return "–";
+  return s.klein ? uSpan("klein", `${fx(s.u)} U · Kelly ${eur(e)}`, "klein") : uSpan(fu(s.u)+" U", `${eur(s.u*unitCfg().unit)} · Kelly genau ${eur(e)}`);
+}
+const unitsOf = (kelly) => { const s = stakeU(kellyEur(kelly)); return s ? s.u : 0; };   // Einsatz in Units für Summen/Bilanz
+function betragU(eurV, vorzeichen=false){   // Euro-Betrag als Units, Klick -> Euro
+  if(!(typeof eurV==="number"&&isFinite(eurV))) return "–";
+  const u = eurV / unitCfg().unit, p = vorzeichen && u > 0 ? "+" : "";
+  return uSpan(p + fx(u,1) + " U", p + eur(eurV));
+}
+document.addEventListener("click", (ev) => {
+  const t = ev.target.closest && ev.target.closest(".u"); if(!t) return;
+  ev.stopPropagation(); const a = t.dataset.alt; t.dataset.alt = t.textContent; t.textContent = a;
+}, true);
+const esc = (s) => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const SURF = {hard:"Hard",clay:"Sand",grass:"Rasen"};
+
+async function j(f, d){ try{ const r = await fetch("data/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
+
+async function init(){
+  const [P, players, h2h, ps, bl, matches, meta, log, avg, erg, h2hw, h2ha, psw, svl, qv] = await Promise.all([
+    j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
+    j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {}), j("h2h_web.json", {}), j("h2h_api.json", {}), j("player_stats_web.json", {}), j("serve_live.json", {}), j("quoten_verlauf.json", {})]);
+  if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
+  D = {params:P.params, csi:P.csi, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
+  M = matches; META = meta||{}; LOG = log||{};
+  ERG = erg || {}; QV = qv || {};
+  setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten(); BEREIT = true;
+  if(!$("#v-protokoll").hidden) renderLog();
+}
+
+function setupHeader(){
+  const t = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "–";
+  const k = META.kontingent ? ` · API ${META.kontingent.verbraucht}/${META.kontingent.limit}` : "";
+  $("#stand").innerHTML = `Quoten: ${t(META.quoten_update || M.stand)} · Elo: ${t(META.elo_update)}${k}`;
+  const msgs = [];
+  if(M.demo) msgs.push("Demo-Daten: Partien und Quoten aus dem aktuellen DASHBOARD deiner Excel. Live-Quoten erscheinen, sobald der OddsPapi-Key hinterlegt ist.");
+  if(M.hinweis) msgs.push(M.hinweis);
+  if(META.quoten_hinweis) msgs.push(META.quoten_hinweis);
+  if(META.buchmacher_fehlen && META.buchmacher_fehlen.length) msgs.push("Bei OddsPapi nicht gefunden: "+META.buchmacher_fehlen.join(", "));
+  if(META.unbekannte_namen && META.unbekannte_namen.length) msgs.push(`${META.unbekannte_namen.length} Spielernamen nicht in der Spieler-DB (siehe Reiter Modell).`);
+  if(msgs.length){ $("#banner").hidden = false; $("#banner").innerHTML = msgs.map(esc).join("<br>"); }
+}
+
+function bookmakers(){
+  const s = new Set(); (M.partien||[]).forEach(p => Object.keys(p.quoten||{}).forEach(b => s.add(b)));
+  return [...s];
+}
+
+function setupControls(){
+  const bms = bookmakers();
+  const sel = $("#bm");
+  sel.innerHTML = (bms.length>1 ? `<option value="${BEST}">Beste Value-Quote (alle)</option>` : "") + bms.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+  const saved = store.get("bm", null);
+  if(saved && [...sel.options].some(o=>o.value===saved)) sel.value = saved;
+  for(const id of ["f-tag","f-art","f-belag"]) { const v = store.get(id,null); if(v) $("#"+id).value = v; }
+  $("#f-value").checked = store.get("f-value", false);
+  ["bm","f-tag","f-art","f-belag","f-value","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
+    const el = $("#"+id); store.set(id==="bm"?"bm":id, el.type==="checkbox"?el.checked:el.value); render(); }));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+  if(["partien","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
+}
+
+function showTab(t){
+  document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t));
+  ["partien","rechner","wetten","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
+  if(BEREIT && t==="protokoll") renderLog();          // Kurve braucht die sichtbare Breite
+  if(BEREIT && t==="wetten") renderWetten();
+}
+
+function belagFor(p){ const o = store.get("belag."+p.id, null); return o ? {belag:o, quelle:"manuell"} : {belag:p.belag, quelle:p.belagQuelle}; }
+
+function evalMatch(p){
+  const {belag, quelle} = belagFor(p);
+  const bm = $("#bm").value;
+  const books = bm===BEST ? Object.keys(p.quoten||{}) : [bm];
+  let best = null;
+  for(const b of books){
+    const q = (p.quoten||{})[b]; if(!q) continue;
+    const r = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
+    r.bm = b; r.qa = q[0]; r.qb = q[1];
+    const e = r.wette ? (r.wette==="A"?r.edgeA:r.edgeB) : -9;
+    if(!best || e > best._e) { r._e = e; best = r; }
+  }
+  if(!best) best = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b}, D);
+  best.belagQuelle = quelle; best.belagEff = belag;
+  return best;
+}
+
+const TZ = "Europe/Berlin";
+const dayKey = (d) => d.toLocaleDateString("sv-SE", {timeZone: TZ});
+const startOf = (p) => { const d = p.start ? new Date(String(p.start).replace(" ","T")) : null; return d && !isNaN(d) ? d : null; };
+
+function render(){
+  const now = new Date(), kHeute = dayKey(now), kMorgen = dayKey(new Date(now.getTime() + 864e5));
+  const tag = $("#f-tag").value;
+  const art = $("#f-art").value, fb = $("#f-belag").value, onlyV = $("#f-value").checked, q = $("#f-suche").value.trim().toLowerCase();
+  const rows = [];
+  const platzhalter = /\d|\b(tbd|tba|winner|sieger|gewinner|loser|qualifier|qualifikant|lucky|bye|match|round|runde|final|finale|semi|quarter)\b/i;
+  for(const p of (M.partien||[])){
+    if(platzhalter.test(p.aRoh||p.a||"") || platzhalter.test(p.bRoh||p.b||"")) continue;   // unbesetzte Paarung
+    const d = startOf(p), dk = d ? dayKey(d) : kHeute;
+    if(!M.demo){
+      if(dk !== kHeute && dk !== kMorgen) continue;              // nur heute + morgen
+      if(tag === "heute" && dk !== kHeute) continue;
+      if(tag === "morgen" && dk !== kMorgen) continue;
+    }
+    p._day = M.demo ? kHeute : dk;
+    const isCh = /challenger/i.test(p.turnier+" "+(p.kategorie||""));
+    if(art==="atp" && isCh) continue; if(art==="ch" && !isCh) continue;
+    const r = evalMatch(p);
+    if(fb!=="alle" && r.belagEff!==fb) continue;
+    if(onlyV && !r.wette) continue;
+    if(q && !(p.a+" "+p.b+" "+p.turnier).toLowerCase().includes(q)) continue;
+    rows.push({p, r});
+  }
+  const tips = rows.filter(x => x.r.wette && !String(x.r.empfehlung).startsWith("⛔"));
+  $("#k-partien").textContent = rows.length;
+  $("#k-value").textContent = tips.length;
+  { const su = tips.reduce((s,x)=>s+unitsOf(x.r.kelly),0); $("#k-kelly").innerHTML = tips.length ? uSpan(fu(Math.round(su*100)/100)+" U", eur(su*unitCfg().unit)) : "–"; }
+  $("#k-edge").textContent = tips.length ? sg(tips.reduce((s,x)=>s+(x.r.wette==="A"?x.r.edgeA:x.r.edgeB),0)/tips.length) : "–";
+
+  if(!rows.length){ $("#list").innerHTML = `<div class="empty">${(M.partien||[]).length ? "Keine Partie passt zu den Filtern." : "Für heute und morgen sind noch keine ATP- oder Challenger-Partien geladen. Das nächste automatische Update holt den Spielplan."}</div>`; return; }
+  rows.sort((x,y) => String(x.p.start).localeCompare(String(y.p.start)));
+  const days = new Map();
+  for(const x of rows){ const dk = x.p._day; if(!days.has(dk)) days.set(dk, new Map());
+    const g = days.get(dk); if(!g.has(x.p.turnier)) g.set(x.p.turnier, []); g.get(x.p.turnier).push(x); }
+  let html = "";
+  for(const dk of [...days.keys()].sort()){
+    const groups = days.get(dk), n = [...groups.values()].reduce((s,xs)=>s+xs.length,0);
+    const dd = new Date(dk+"T12:00:00");
+    html += `<h2 class="dayh">${dk===kHeute?"Heute":dk===kMorgen?"Morgen":""} <span>${dd.toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"2-digit"})} · ${n} ${n===1?"Partie":"Partien"}</span></h2>`;
+  for(const [t, xs] of groups){
+    const b = xs[0].r.belagEff, est = xs[0].r.belagQuelle==="standard";
+    html += `<div class="group"><h2>${esc(t)} <span class="surf ${b}${est?" geschaetzt":""}" title="${est?"Belag geschätzt – in den Details änderbar":"Belag"}">${SURF[b]||b}${est?" ?":""}</span></h2><div class="tablewrap"><table>
+      <thead><tr><th class="hide-s">Zeit</th><th>Partie</th><th class="hide-s l">Prognose</th><th>Quote</th><th class="hide-s">Fair</th><th>Edge</th><th>Empfehlung</th><th class="hide-s">Einsatz</th><th class="hide-s">Buchm.</th></tr></thead><tbody>`;
+    for(const {p, r} of xs) html += rowHtml(p, r);
+    html += `</tbody></table></div></div>`;
+  }}
+  $("#list").innerHTML = html;
+  document.querySelectorAll("tr.m").forEach(tr => tr.addEventListener("click", () => { const id = tr.dataset.id; open.has(id)?open.delete(id):open.add(id); render(); }));
+  document.querySelectorAll("select.belag-ovr").forEach(s => { s.addEventListener("click", e => e.stopPropagation()); s.addEventListener("change", e => {
+    const id = s.dataset.id; if(s.value==="auto") { try{localStorage.removeItem("tvb.belag."+id)}catch(_){} } else store.set("belag."+id, s.value); render(); }); });
+}
+
+function rowHtml(p, r){
+  const id = esc(p.id);
+  const d = startOf(p);
+  const laeuft = !M.demo && d && d <= new Date();
+  const time = p.zeit ? esc(p.zeit) : laeuft ? "läuft" : d ? d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
+  if(!r.ok){
+    return `<tr class="m" data-id="${id}"><td class="l time">${time}</td><td class="l"><div class="pl"><span class="${p.aInDb===false||!D.players[p.a]?"miss":""}">${esc(p.a)}</span><span class="${p.bInDb===false||!D.players[p.b]?"miss":""}">${esc(p.b)}</span></div></td>
+      <td colspan="7" class="l"><span class="pill warn">${esc(r.warnungen.join(" · "))}</span></td></tr>`;
+  }
+  const stop = String(r.empfehlung).startsWith("⛔"), beide = String(r.empfehlung).startsWith("⚠️");
+  const pill = r.wette ? `<span class="pill ${stop?"stop":"go"}">${stop?"Blacklist":`<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
+             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : `<span class="pill no">kein Value</span>`;
+  const e = r.wette==="A" ? r.edgeA : r.wette==="B" ? r.edgeB : Math.max(r.edgeA??-1, r.edgeB??-1);
+  const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
+  const favA = r.pFinal >= 0.5;   // Modell-Favorit = prognostizierter Sieger (wie Excel "Modell-Favorit")
+  const gs = (flag, name) => flag ? `<span class="gesch" title="Elo geschätzt aus Marktquoten und ersten Ergebnissen – noch kein Value-Tipp für die Bilanz">≈</span> ${esc(name)}` : esc(name);
+  let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
+    <td class="l time hide-s">${time}</td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warn}</span></div></td>
+    <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span></div></td>
+    <td class="num"><div class="pl"><span>${qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
+    <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
+    <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
+    <td>${pill}${r.kelly&&!stop?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
+    <td class="num hide-s">${r.kelly&&!stop?stakeHtml(r.kelly):"–"}</td>
+    <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
+  if(open.has(p.id)) html += `<tr class="detail"><td colspan="9">${detailHtml(p, r)}</td></tr>`;
+  return html;
+}
+
+// ---- Quotenverlauf: Pfeil, wenn sich die Quote seit der ersten Sichtung um mind. 0,02 bewegt hat
+// ---- Verlaufskurve in Units (Bilanz + Meine Wetten). serien: [{name, farbe, werte:[kumuliert]}], info: [{label, datum}]
+function kennKurve(werte, ergebnisse){   // größter Rückgang und längste Niederlagenserie
+  let peak = 0, dd = 0, serie = 0, max = 0;
+  for(const w of werte){ peak = Math.max(peak, w); dd = Math.max(dd, peak - w); }
+  for(const e of ergebnisse){ serie = e==="L" ? serie+1 : 0; max = Math.max(max, serie); }
+  return {dd, serie:max};
+}
+function kurveZeichnen(el, titel, serien, info, extra){
+  const n = info.length;
+  if(n < 2){ el.innerHTML = ""; return; }
+  el.innerHTML = `<div class="kurve"><h3>${esc(titel)}</h3>
+    ${serien.length>1?`<div class="leg">${serien.map(x=>`<span><i style="background:${x.farbe}"></i>${esc(x.name)}</span>`).join("")}</div>`:""}
+    <svg role="img" aria-label="${esc(titel)}"></svg><div class="tip"></div><div class="stats">${extra}</div></div>`;
+  const svg = el.querySelector("svg"), tip = el.querySelector(".tip");
+  const W = svg.clientWidth || 600, H = 200, pl = 40, pr = 56, pt = 10, pb = 22;
+  const alle = serien.flatMap(x => x.werte).concat([0]);
+  let lo = Math.min(...alle), hi = Math.max(...alle); if(hi - lo < 2){ hi += 1; lo -= 1; }
+  const pad = (hi-lo)*0.08; lo -= pad; hi += pad;
+  const X = (i) => pl + (W-pl-pr) * (n===1 ? 0 : i/(n-1)), Y = (v) => pt + (H-pt-pb) * (1 - (v-lo)/(hi-lo));
+  const schritt = Math.pow(10, Math.floor(Math.log10((hi-lo)/4))), st = [1,2,5,10].map(f=>f*schritt).find(x => (hi-lo)/x <= 5);
+  let g = "";
+  for(let v = Math.ceil(lo/st)*st; v <= hi; v += st){
+    g += `<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" stroke-width="${Math.abs(v)<1e-9?1.5:1}"/>`;
+    g += `<text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${fx(v, st<1?1:0)}</text>`;
+  }
+  const d0 = info[0].datum, d1 = info[n-1].datum;
+  g += `<text x="${pl}" y="${H-4}" font-size="11" fill="var(--muted)">${esc(d0)}</text><text x="${W-pr}" y="${H-4}" text-anchor="end" font-size="11" fill="var(--muted)">${esc(d1)}</text>`;
+  for(const x of serien){
+    g += `<polyline fill="none" stroke="${x.farbe}" stroke-width="2" stroke-linejoin="round" points="${x.werte.map((v,i)=>`${X(i)},${Y(v)}`).join(" ")}"/>`;
+    const v = x.werte[n-1];
+    g += `<text x="${W-pr+6}" y="${Y(v)+4}" font-size="12" fill="var(--fg)">${v>0?"+":""}${fx(v,1)}</text>`;
+  }
+  g += `<line class="cross" x1="0" x2="0" y1="${pt}" y2="${H-pb}" stroke="var(--muted)" stroke-width="1" visibility="hidden"/>`;
+  g += serien.map((x,k)=>`<circle class="dot${k}" r="4" fill="${x.farbe}" stroke="var(--panel)" stroke-width="2" visibility="hidden"/>`).join("");
+  g += `<rect x="${pl}" y="0" width="${W-pl-pr}" height="${H}" fill="transparent"/>`;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = g;
+  const cross = svg.querySelector(".cross"), rect = svg.querySelector("rect:last-of-type");
+  const zeige = (ev) => {
+    const b = svg.getBoundingClientRect(), mx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - b.left;
+    const i = Math.max(0, Math.min(n-1, Math.round((mx - pl) / ((W-pl-pr) / Math.max(1,n-1)))));
+    cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.setAttribute("visibility", "visible");
+    serien.forEach((x,k) => { const c = svg.querySelector(".dot"+k); c.setAttribute("cx", X(i)); c.setAttribute("cy", Y(x.werte[i])); c.setAttribute("visibility","visible"); });
+    tip.innerHTML = `${esc(info[i].label)}<br>${serien.map(x=>`${esc(x.name)}: ${x.werte[i]>0?"+":""}${fx(x.werte[i],1)} U`).join("<br>")}`;
+    tip.style.display = "block"; tip.style.left = (X(i) + 12) + "px"; tip.style.top = (Y(Math.max(...serien.map(x=>x.werte[i]))) + 34) + "px";
+  };
+  const weg = () => { tip.style.display = "none"; cross.setAttribute("visibility","hidden"); serien.forEach((x,k)=>svg.querySelector(".dot"+k).setAttribute("visibility","hidden")); };
+  rect.addEventListener("mousemove", zeige); rect.addEventListener("touchstart", zeige, {passive:true}); rect.addEventListener("touchmove", zeige, {passive:true});
+  rect.addEventListener("mouseleave", weg);
+}
+const kDatum = (s) => new Date(s).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ});
+
+// ---- Spielerprofil (Dialog)
+let ARCHIV = null;
+async function archivLaden(){
+  if(ARCHIV) return ARCHIV;
+  const idx = await j("archiv/index.json", {}), ms = Object.keys(idx).sort().slice(-3);
+  const teile = await Promise.all(ms.map(m => j("archiv/"+m+".json", {})));
+  ARCHIV = Object.assign({}, ...teile); return ARCHIV;
+}
+function rolleKombi(name, rolle){
+  const x = (D.playerStats||{})[name], w = (D.playerStatsWeb||{})[name];
+  const nX = x ? x[rolle+"_n"]||0 : 0, sX = x && x[rolle+"_pct"]!=null ? x[rolle+"_pct"]*nX : 0;
+  const [sW, lW] = (w && w[rolle]) || [0,0], n = nX+sW+lW;
+  return {n, s: Math.round(sX+sW), pct: n ? (sX+sW)/n : null};
+}
+const BAENDER = ["1.00-1.30","1.30-1.50","1.50-1.70","1.70-1.90","1.90-2.10","2.10-2.50","2.50-3.00","3.00-4.00","4.00+"];
+async function openProfil(name, ctx){
+  const dlg = $("#profil"), pl = D.players[name] || {}, live = (D.serveLive||{})[name] || {};
+  const gesch = pl.geschaetzt ? ` <span class="gesch" title="Elo geschätzt">≈</span>` : "";
+  const elo = (k) => pl[k] ? fx(pl[k],0) : "–";
+  const sv = ["hard","clay","grass"].map(b => {
+    const w = (k) => live[k] ?? pl[k], q = live["quelle_"+b];
+    const quelle = q==="excel+spieldaten" ? `Excel + ${live["n_"+b]} Sp.` : q==="spieldaten" ? `Spieldaten (${live["n_"+b]})` : (pl[b+"_1in"]!=null ? "Excel" : "Ø Challenger");
+    return `<tr><td>${SURF[b]}</td><td>${pc(w(b+"_1in"),0)}</td><td>${pc(w(b+"_1won"),0)}</td><td>${pc(w(b+"_2won"),0)}</td><td>${pc(w("ret_"+b),0)}</td><td class="time hide-s">${quelle}</td></tr>`; }).join("");
+  const fav = rolleKombi(name,"fav"), aus = rolleKombi(name,"aus");
+  const bx = ((D.playerStats||{})[name]||{}).baender||{}, bw = ((D.playerStatsWeb||{})[name]||{}).baender||{};
+  const bands = BAENDER.map(b => { const x = bx[b]||[0,0], y = bw[b]||[0,0], s_ = x[0]+y[0], n = s_+x[1]+y[1];
+    return n ? `<tr><td>${b.replace("-","–").replace(/\./g,",")}</td><td>${s_}–${n-s_}</td><td>${pc(s_/n,0)}</td></tr>` : ""; }).join("");
+  const h2h = ctx && ctx.r && ctx.r.h2h ? (ctx.seite==="A" ? [ctx.r.h2h.a, ctx.r.h2h.b] : [ctx.r.h2h.b, ctx.r.h2h.a]) : null;
+  const form = ctx && ctx.p && ctx.p.form ? ctx.p.form[ctx.seite==="A"?"a":"b"] : null;
+  const html = (letzte) => `<div class="prkopf"><div><h2 id="pr-titel">${esc(name)}${gesch}</h2>
+      <div class="time">yElo ${elo("elo")} · Hard ${elo("elo_hard")} · Sand ${elo("elo_clay")} · Rasen ${elo("elo_grass")}${pl.geschaetzt?` · geschätzt aus ${pl.n_markt||0} Quoten, ${pl.n_erg||0} Ergebnissen`:""}</div></div>
+      <button type="button" class="btn ghost mini" id="pr-zu" aria-label="Profil schließen">✕</button></div>
+    <div class="prgrid">
+      <div class="box" style="grid-column:1/-1"><h3>Aufschlag &amp; Return</h3><table class="prtab"><thead><tr><th>Belag</th><th title="1. Aufschlag im Feld">1. in</th><th title="Punkte nach 1. Aufschlag gewonnen">1. gew.</th><th title="Punkte nach 2. Aufschlag gewonnen">2. gew.</th><th title="Returnpunkte gewonnen">Return</th><th class="hide-s">Quelle</th></tr></thead><tbody>${sv}</tbody></table></div>
+      <div class="box"><h3>Als Favorit / Außenseiter</h3><div class="kv two">
+        <span class="k">als Favorit</span><span class="v">${fav.n?`${fav.s}–${fav.n-fav.s} (${pc(fav.pct,0)})`:"–"}</span>
+        <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span></div>
+        ${h2h?`<h3 style="margin-top:10px">H2H gegen ${esc(ctx.gegner)}</h3><div class="kv two"><span class="k">Bilanz${ctx.r.h2h.quelle==="spieldaten"?" (alle Duelle)":""}</span><span class="v">${h2h[0]}:${h2h[1]}</span></div>`:""}
+        ${form?`<h3 style="margin-top:10px">Form · 7 Tage</h3><div class="fz2">${formText(form, ctx.p.start)}</div>`:""}</div>
+      <div class="box"><h3>Nach Quotenbereich</h3>${bands?`<table class="prtab"><thead><tr><th>Quote</th><th>S–N</th><th>Quote gew.</th></tr></thead><tbody>${bands}</tbody></table>`:'<p class="time">Noch keine Spiele mit Quote.</p>'}</div>
+      <div class="box" style="grid-column:1/-1"><h3>Letzte Ergebnisse</h3>${letzte}</div>
+    </div>`;
+  $("#pr-inhalt").innerHTML = html('<p class="time">lädt …</p>');
+  if(!dlg.open) dlg.showModal();
+  const arc = await archivLaden();
+  const spiele = Object.values(arc).filter(x => x.a===name || x.b===name).sort((a,b) => String(b.start).localeCompare(String(a.start))).slice(0,12);
+  const letzte = spiele.length ? `<table class="prtab"><thead><tr><th>Datum</th><th>Gegner</th><th>Erg.</th><th>Sätze</th><th>Quote</th></tr></thead><tbody>${spiele.map(x => {
+      const ist = x.a===name ? "A" : "B", geg = ist==="A" ? x.b : x.a, q = ist==="A" ? x.qa : x.qb;
+      const erg = x.sieger==="V" ? "–" : (x.sieger===ist ? "S" : "N") + (x.aufgabe ? " (Aufg.)" : "");
+      const satz = (x.satz||[]).map(([u,v]) => ist==="A" ? `${u}:${v}` : `${v}:${u}`).join(" ");
+      return `<tr><td>${new Date(x.start).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td>${esc(geg)}<div class="time">${esc(x.turnier||"")}</div></td><td class="${x.aufgabe?"":erg==="S"?"w":erg==="N"?"l":""}">${erg}</td><td class="time">${satz||"–"}</td><td>${fx(q)}</td></tr>`; }).join("")}</tbody></table>`
+    : '<p class="time">Noch keine Ergebnisse im Archiv.</p>';
+  $("#pr-inhalt").innerHTML = html(letzte);
+}
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest && ev.target.closest(".prof");
+  if(b){ ev.stopPropagation(); const c = PROFCTX[b.dataset.id]; if(!c) return;
+    const seite = b.dataset.seite, name = seite==="A" ? c.p.a : c.p.b;
+    openProfil(name, {p:c.p, r:c.r, seite, gegner: seite==="A" ? c.p.b : c.p.a}); return; }
+  if(ev.target.id==="pr-zu" || ev.target.id==="profil") $("#profil").close();
+}, true);
+
+// ---- Form/Belastung (aus dem SportsAPIPro-Spielplan; nur ATP + Challenger)
+function formText(f, start){
+  if(!f) return "–";
+  if(!f.spiele7) return "kein Spiel";
+  const tage = f.letztes && start ? Math.max(0, Math.round((new Date(start) - new Date(f.letztes)) / 864e5)) : null;
+  return `${f.spiele7} Sp. (${f.siege7||0} S), ${f.saetze7} Sätze${f.dreisatz7?`, ${f.dreisatz7}× 3 Sätze`:""}${tage!=null?`, zuletzt vor ${tage===0?"<1":tage} T.`:""}${f.quali?", aus Quali":""}`;
+}
+function formHtml(p){
+  if(!p.form) return "";
+  return `<h3 style="margin-top:10px">Form · letzte 7 Tage</h3><div class="fz2"><span class="k">${esc(p.a)}</span>${formText(p.form.a, p.start)}</div><div class="fz2"><span class="k">${esc(p.b)}</span>${formText(p.form.b, p.start)}</div>`;
+}
+function qvReihe(p, bm){ const v = QV[p.id]; return v && v.bm && v.bm[bm] || []; }
+function qvPfeil(p, r, seite){
+  const reihe = qvReihe(p, r.bm); if(reihe.length < 2) return "";
+  const i = seite==="A" ? 1 : 2, erst = reihe[0][i], jetzt = seite==="A" ? r.qa : r.qb;
+  if(!erst || !jetzt || Math.abs(jetzt-erst) < 0.02) return "";
+  const faellt = jetzt < erst, gut = r.wette===seite ? (faellt ? " qgut" : " qschlecht") : "";
+  return `<span class="qpf${gut}" title="Erste Quote ${fx(erst)} – Markt ${faellt?"setzt auf diesen Spieler":"rückt von diesem Spieler ab"}">${faellt?"↓":"↑"}</span>`;
+}
+function qvHtml(p, r){
+  const reihe = qvReihe(p, r.bm); if(reihe.length < 2) return "";
+  const t = (s) => new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ});
+  return `<h3 style="margin-top:10px">Quotenverlauf ${esc(r.bm)}</h3><div class="kv three">${reihe.map(([ts,a,b]) => `<span class="k">${t(ts)}</span><span class="v">${fx(a)}</span><span class="v">${fx(b)}</span>`).join("")}</div>`;
+}
+
+function detailHtml(p, r){
+  const ab = (a,b,f) => `<span class="v">${f(a)}</span><span class="v">${f(b)}</span>`;
+  const s = r.saetze || {};
+  const scores = s.scores ? Object.entries(s.scores).map(([k,v]) => `<span class="k">${k}</span><span class="v">${pc(v)}</span><span class="v">${fx(1/v)}</span>`).join("") : "";
+  const allBooks = Object.entries(p.quoten||{}).map(([b,q]) => {
+    const x = TennisModel.analyse({turnier:p.turnier, belag:r.belagEff, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
+    return `<span class="k">${esc(b)}${x.wette?" ✓":""}</span><span class="v">${fx(q[0])} / ${fx(q[1])}</span><span class="v">${sg(x.edgeA)} / ${sg(x.edgeB)}</span>`; }).join("");
+  const chk = (c, rolle) => c ? `<span class="k">${esc(c.name)} (${rolle})</span><span class="v" title="${c.nWeb?c.nWeb+" Spiele seit dem Excel-Stand ergänzt":"Stand Excel"}">${c.n>=D.params.MIN_N_SIEGQUOTE&&c.pct!=null?pc(c.pct,0):"—"} · n ${c.n}</span>` : "";
+  const band = (x) => x ? `<span class="k">${esc(x.name)} bei Quote ${x.band.replace("-","–").replace(/\./g,",")}</span><span class="v">${x.n?`${x.siege}/${x.n} (${pc(x.pct,0)})`:"—"}</span>` : "";
+  const cur = store.get("belag."+p.id, null) || "auto";
+  PROFCTX[p.id] = {p, r};
+  return `<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
+  <div class="dgrid">
+    <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
+      <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
+      <span class="k">Elo</span><span class="v">${pc(r.pElo)}</span>
+      <span class="k">H2H ${r.h2h.a}:${r.h2h.b} (${r.h2h.quelle==="spieldaten"?"alle Duelle, ":""}Gewicht ${pc(r.h2h.gewicht,0)})</span><span class="v">${r.h2h.n?pc(r.h2h.pct):"–"}</span>
+      <span class="k">Kombiniert</span><span class="v">${pc(r.pKombi)}</span>
+      <span class="k">Kalibriert (k ${fx(D.params.K_KALIBRIERUNG,1)})</span><span class="v">${pc(r.pKal)}</span>
+      <span class="k">Markt (entvigt)</span><span class="v">${pc(r.pMarkt)}</span>
+      <span class="k"><b>Final (${pc(D.params.W_MODELL_BLEND,0)} Modell)</b></span><span class="v"><b>${pc(r.pFinal)}</b></span></div></div>
+    <div class="box"><h3>Spieler</h3><div class="kv">
+      <span></span><span class="h">A</span><span class="h">B</span>
+      <span class="k">Elo genutzt</span>${ab(r.eloA,r.eloB,x=>fx(x,0))}
+      <span class="k">yElo</span>${ab(r.yEloA,r.yEloB,x=>fx(x,0))}
+      <span class="k">p_srv</span>${ab(r.pSrvA,r.pSrvB,x=>pc(x))}
+      ${r.aufschlagQuelle?`<span class="k">Aufschlagwerte</span>${ab(["a",r.aufschlagQuelle.nA],["b",r.aufschlagQuelle.nB],([k,n])=>{const q=r.aufschlagQuelle[k];
+        return q==="excel+spieldaten"?`Excel + ${n} Sp.`:q==="spieldaten"?`Spieldaten (${n} Sp.)`:q==="excel"?"Excel":"Ø Challenger";})}`:""}
+      <span class="k">TB-Bilanz</span>${ab(r.tbA,r.tbB,x=>pc(x,0))}
+      <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
+      <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}</div></div>
+    <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
+      <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
+    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc?"":formHtml(p)+qvHtml(p, r)}
+      ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
+      <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
+        <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
+        ${["hard","clay","grass"].map(b=>`<option value="${b}"${cur===b?" selected":""}>${SURF[b]}</option>`).join("")}</select>`}
+      ${r.csi!=null?`<div class="kv two" style="margin-top:6px"><span class="k">Court Speed Index</span><span class="v">${fx(r.csi,1)}</span></div>`:""}</div>
+    ${p.calc||!r.ok?"":wetteBox(p, r)}
+    ${allBooks?`<div class="box"><h3>Alle Buchmacher</h3><div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}</div></div>`:""}
+  </div>${r.warnungen&&r.warnungen.length?`<ul class="warns">${r.warnungen.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:""}`;
+}
+
+// ---------------------------------------------------------------- Bilanz
+const isChTip = (x) => /challenger/i.test(String(x.turnier)+" "+(x.kategorie||""));
+function kennzahlen(xs){
+  const k = {n:xs.length, w:0, l:0, v:0, offen:0, units:0, einsatzK:0, kelly:0, clvS:0, clvN:0};
+  for(const x of xs){
+    if(x.clv!=null && x.ergebnis!=="V"){ k.clvS += x.clv; k.clvN++; }
+    if(!x.ergebnis){ k.offen++; continue; }
+    if(x.ergebnis==="V"){ k.v++; continue; }
+    const st = unitsOf(x.kelly); k.einsatzK += st;   // Einsatz in Units (gerundet wie angezeigt)
+    if(x.ergebnis==="W"){ k.w++; k.units += x.erstQuote-1; k.kelly += st*(x.erstQuote-1); }
+    else { k.l++; k.units -= 1; k.kelly -= st; }
+  }
+  const fertig = k.w+k.l;
+  k.hit = fertig ? k.w/fertig : null; k.roi = fertig ? k.units/fertig : null; k.clv = k.clvN ? k.clvS/k.clvN : null;
+  return k;
+}
+function renderLog(){
+  const all = Object.values(LOG||{});
+  const bms = [...new Set(all.map(x=>x.buchmacher))];
+  const sel = $("#b-bm");
+  if(!sel.options.length){
+    sel.innerHTML = `<option value="alle">alle Buchmacher</option>` + bms.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+    ["b-bm","b-art","b-status"].forEach(id => { const v = store.get(id,null); if(v && [...$("#"+id).options].some(o=>o.value===v)) $("#"+id).value = v;
+      $("#"+id).addEventListener("change", () => { store.set(id, $("#"+id).value); renderLog(); }); });
+  }
+  const bm = $("#b-bm").value, art = $("#b-art").value, stt = $("#b-status").value;
+  let xs = all.filter(x => (bm==="alle"||x.buchmacher===bm) && (art==="alle"||(art==="ch")===isChTip(x)));
+  const k = kennzahlen(xs);
+  $("#b-n").textContent = `${k.w+k.l} (${k.w}–${k.l})`;
+  $("#b-hit").textContent = pc(k.hit);
+  $("#b-roi").textContent = sg(k.roi); $("#b-roi").className = k.roi>0?"pos":k.roi<0?"negv":"";
+  $("#b-units").innerHTML = (k.w+k.l) ? betragU(k.units*unitCfg().unit, true) : "–";
+  $("#b-kelly").innerHTML = (k.w+k.l) ? betragU(k.kelly*unitCfg().unit, true) : "–";
+  $("#b-clv").textContent = sg(k.clv); $("#b-clv").className = k.clv>0?"pos":k.clv<0?"negv":"";
+  { // Verlauf in Units: Unit-Einsatz (gerundet wie angezeigt) und flach 1 U je Tipp
+    const fertig = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L").sort((a,b) => String(a.start).localeCompare(String(b.start)));
+    let su = 0, sf = 0; const wu = [], wf = [], info = [];
+    for(const x of fertig){ const st = unitsOf(x.kelly), w = x.ergebnis==="W";
+      su += w ? st*(x.erstQuote-1) : -st; sf += w ? x.erstQuote-1 : -1;
+      wu.push(Math.round(su*100)/100); wf.push(Math.round(sf*100)/100);
+      info.push({label: `${kDatum(x.start)} · ${x.wette==="A"?x.a:x.b} @ ${fx(x.erstQuote)} · ${w?"gewonnen":"verloren"}`, datum: kDatum(x.start)}); }
+    const kk = kennKurve(wu, fertig.map(x => x.ergebnis));
+    kurveZeichnen($("#b-kurve"), "Verlauf in Units", [{name:"Unit-Einsatz", farbe:"var(--accent)", werte:wu}, {name:"flach (1 U je Tipp)", farbe:"var(--muted)", werte:wf}], info,
+      `<span>Größter Rückgang <b>${fx(kk.dd,1)} U</b></span><span>Längste Niederlagenserie <b>${kk.serie}</b></span><span>Tipps <b>${fertig.length}</b></span>`);
+  }
+
+  // Aufschlüsselung
+  const gruppen = [["Monat", x=>String(x.start||"").slice(0,7)], ["Belag", x=>SURF[x.belag]||x.belag], ["Turniere", x=>isChTip(x)?"Challenger":"ATP"]];
+  let split = "";
+  for(const [titel, f] of gruppen){
+    const m = new Map(); xs.forEach(x => { const g=f(x); if(!m.has(g)) m.set(g,[]); m.get(g).push(x); });
+    split += `<div class="box"><h3>${titel}</h3><div class="kv split"><span></span><span class="h">Tipps</span><span class="h">Treffer</span><span class="h">ROI</span><span class="h">CLV</span>${
+      [...m.entries()].sort().map(([g,ys]) => { const z = kennzahlen(ys);
+        return `<span class="k">${esc(g||"–")}</span><span class="v">${z.w}–${z.l}${z.offen?` <small>+${z.offen}</small>`:""}</span><span class="v">${pc(z.hit,0)}</span><span class="v ${z.roi>0?"pos":""}">${sg(z.roi)}</span><span class="v ${z.clv>0?"pos":""}">${sg(z.clv)}</span>`; }).join("")}</div></div>`;
+  }
+  $("#b-split").innerHTML = xs.length ? `<div class="dgrid" style="margin-top:16px">${split}</div>` : "";
+
+  if(stt==="fertig") xs = xs.filter(x=>x.ergebnis); else if(stt==="offen") xs = xs.filter(x=>!x.ergebnis);
+  xs.sort((a,b) => String(b.start).localeCompare(String(a.start)));
+  if(!xs.length){ $("#protokoll").innerHTML = '<div class="empty">Noch keine Tipps in dieser Auswahl. Value-Tipps werden bei jedem Update automatisch gespeichert, Ergebnisse am Folgetag nachgetragen.</div>'; return; }
+  const ERG = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
+  $("#protokoll").innerHTML = `<div class="tablewrap" style="margin-top:16px"><table><thead><tr><th>Spiel</th><th>Tipp</th><th class="hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th class="hide-s">Schluss</th><th>CLV</th><th>Ergebnis</th><th class="hide-s">Einh.</th></tr></thead><tbody>${
+    xs.map(x => { const d = new Date(x.start); const u = x.ergebnis==="W" ? x.erstQuote-1 : x.ergebnis==="L" ? -1 : null;
+      return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
+      <td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td>
+      <td class="l hide-s">${esc(x.turnier)}</td><td class="time hide-s">${esc(x.buchmacher)}</td><td class="num">${fx(x.erstQuote)}</td>
+      <td class="num hide-s">${fx(x.schlussQuote)}</td><td class="num ${x.clv>0?"pos":"neg"}">${sg(x.clv)}</td>
+      <td>${x.aufgabe?'<span class="pill warn" title="Partie durch Aufgabe beendet – zählt nicht">Aufgabe</span>':ERG[x.ergebnis]||'<span class="pill no">offen</span>'}</td><td class="num hide-s ${u>0?"pos":""}">${u==null?"–":(u>0?"+":"")+fx(u)}</td></tr>`; }).join("")}</tbody></table></div>`;
+}
+
+function renderInfo(){
+  const P = D.params, n = Object.keys(D.players).length;
+  const ohne = Object.values(D.players).filter(p => p.hard_1in==null).length;
+  const gesch = Object.values(D.players).filter(p => p.geschaetzt).length;
+  const un = META.unbekannte_namen || [];
+  const uc = unitCfg();
+  $("#v-info").innerHTML = `
+  <h2>Units</h2>
+  <p>Einsätze und Beträge werden in Units angezeigt; ein Klick auf einen Wert zeigt den Euro-Betrag. Der Einsatz eines Tipps ist der Kelly-Einsatz (Bankroll × ${fx(P.KELLY_FRACTION,2)} Kelly), umgerechnet in Units und auf 0,5 gerundet, höchstens ${UNIT_MAX} U. Unter 0,25 U steht „klein“.</p>
+  <form class="uform" id="u-form" autocomplete="off">
+    <div class="ctl"><label for="u-bank">Bankroll €</label><input id="u-bank" inputmode="decimal" value="${fx(uc.bank,0)}"></div>
+    <div class="ctl"><label for="u-unit">1 Unit = €</label><input id="u-unit" inputmode="decimal" value="${fx(uc.unit,0)}"></div>
+    <button type="submit" class="btn">Übernehmen</button><span class="time">${pc(uc.unit/uc.bank,1)} der Bankroll je Unit</span>
+  </form>
+  <h2>So rechnet das Board</h2>
+  <p>Jede Partie läuft durch denselben Rechenweg wie das Blatt MODELL der Excel: Elo (Belags-Elo, ${pc(P.W_YELO_BLEND,0)} yElo beigemischt), Aufschlag-Markov über Spiel, Satz und Match, dynamisches H2H bis ${pc(P.H2H_MAX_WEIGHT,0)}, Belagsgewichtung samt Court Speed Index auf Sand, Kalibrierung mit k = ${fx(P.K_KALIBRIERUNG,1)} und Mischung mit der entvigten Quote des gewählten Buchmachers (${pc(P.W_MODELL_BLEND,0)} Modell).</p>
+  <p>Value heißt: Buchmacherquote über der fairen Quote und höchstens ${fx(P.MAX_QUOTE_VALUE,1)}. Empfohlen wird nur der Modell-Favorit. Kelly: ${fx(uc.bank,0)} € Bankroll × ${fx(P.KELLY_FRACTION,2)}, Einsatz in Units (1 U = ${fx(uc.unit,0)} €).</p>
+  <h2>Spieler-Datenbank</h2>
+  <p>${n} Spieler, davon ${ohne} ohne Aufschlagwerte auf Hard und ${gesch} mit geschätztem Elo (≈). Fehlen einem Spieler die Aufschlag- oder Returnwerte für den Belag, setzt das Board den Durchschnitt der Spieler auf Challenger-Niveau ein${D.statsAvg&&D.statsAvg.hard?` (Hard: 1st In ${pc(D.statsAvg.hard["1in"],0)}, 1st Won ${pc(D.statsAvg.hard["1won"],0)}, 2nd Won ${pc(D.statsAvg.hard["2won"],0)}, Return ${pc(D.statsAvg.hard.ret,0)}; aus ${D.statsAvg.hard.n} Spielern)`:""}. Die Excel würde dort mit 0 rechnen.</p>
+  <p>Spieler, die Tennis Abstract nicht führt (meist Challenger), bekommen ein geschätztes Elo: Startwert aus den Buchmacher-Quoten gegen einen bekannten Gegner, danach fortgeschrieben mit jedem Ergebnis. Solange ein geschätzter Spieler weniger als 5 Ergebnisse hat, erscheinen faire Quoten, aber keine Tipps in der Bilanz. Sobald Tennis Abstract den Spieler führt, werden die Schätzwerte automatisch ersetzt.</p>
+  ${un.length?`<h2>Unbekannte Namen beim letzten Update</h2><p>Zuordnung in <code>data/name_map.json</code> nachtragen, z. B. <code>{"${esc(un[0])}": "Vorname Nachname"}</code>:</p><p class="time">${un.map(esc).join(" · ")}</p>`:""}
+  ${META.abdeckung?`<h2>Quoten-Abdeckung beim letzten Update</h2><p>${Object.entries(META.abdeckung).map(([b,d])=>`<b>${esc(b)}</b>: ${d.mit_quote} von ${d.partien} Partien mit Siegquote${d.pausiert?` (${d.pausiert} pausiert)`:""}${d.ohne_siegermarkt?`, ${d.ohne_siegermarkt} ohne Siegermarkt`:""}`).join(" · ")}</p>`:""}
+  <h2>Parameter</h2>
+  <p>Alle Werte kommen aus dem Blatt PARAMETER. Nach Änderungen in der Excel einmal <code>scripts/excel_export.py</code> laufen lassen.</p>`;
+  $("#u-form").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const zahl = (id) => parseFloat(String($(id).value).replace(/\./g,"").replace(",", "."));
+    const bank = zahl("#u-bank"), unit = zahl("#u-unit");
+    if(bank > 0) store.set("bankroll", bank);
+    if(unit > 0) store.set("unit", unit);
+    render(); renderLog(); renderWetten(); renderInfo();
+  });
+}
+
+// ---------------------------------------------------------------- Rechner
+const CALC_IDS = ["c-a","c-b","c-belag","c-turnier","c-modus","c-qa","c-qb"];
+function num(v){ const x = parseFloat(String(v).replace(",",".")); return isFinite(x) && x > 1 ? x : undefined; }
+
+function setupCalc(){
+  const names = Object.keys(D.players).sort((a,b)=>a.localeCompare(b,"de"));
+  $("#c-players").innerHTML = names.map(n=>`<option value="${esc(n)}">`).join("");
+  const saved = store.get("calc", null);
+  if(saved) CALC_IDS.forEach(id => { if(saved[id]!=null) $("#"+id).value = saved[id]; });
+  else { $("#c-a").value = "Jannik Sinner"; $("#c-b").value = "Carlos Alcaraz"; }
+  CALC_IDS.forEach(id => $("#"+id).addEventListener(id.startsWith("c-a")||id.startsWith("c-b")||id==="c-turnier"||id.startsWith("c-q")?"input":"change", calc));
+  $("#c-swap").addEventListener("click", () => {
+    [[ "c-a","c-b"],["c-qa","c-qb"]].forEach(([x,y]) => { const t = $("#"+x).value; $("#"+x).value = $("#"+y).value; $("#"+y).value = t; });
+    calc(); });
+  $("#calc").addEventListener("submit", e => e.preventDefault());
+  calc();
+}
+
+function findPlayer(v){
+  v = v.trim(); if(!v) return null;
+  if(D.players[v]) return v;
+  const l = v.toLowerCase(), hits = Object.keys(D.players).filter(n => n.toLowerCase()===l);
+  return hits[0] || null;
+}
+function suggest(v){
+  const l = v.trim().toLowerCase(); if(l.length<2) return [];
+  return Object.keys(D.players).filter(n => n.toLowerCase().includes(l)).slice(0,6);
+}
+
+function calc(){
+  const val = {}; CALC_IDS.forEach(id => val[id] = $("#"+id).value); store.set("calc", val);
+  const a = findPlayer(val["c-a"]), b = findPlayer(val["c-b"]);
+  const out = $("#c-out");
+  const miss = [];
+  for(const [raw, hit, lab] of [[val["c-a"],a,"Spieler A"],[val["c-b"],b,"Spieler B"]]){
+    if(!hit){ const s = suggest(raw);
+      miss.push(raw.trim() ? `<b>${esc(raw)}</b> ist nicht in der Spieler-DB.${s.length?" Meintest du: "+s.map(x=>`<button type="button" class="sug" data-f="${lab==="Spieler A"?"c-a":"c-b"}" data-v="${esc(x)}">${esc(x)}</button>`).join(" "):""}` : `${lab} eintragen.`); }
+  }
+  if(miss.length){ out.innerHTML = `<div class="empty">${miss.join("<br>")}</div>`;
+    out.querySelectorAll(".sug").forEach(btn => btn.addEventListener("click", () => { $("#"+btn.dataset.f).value = btn.dataset.v; calc(); })); return; }
+  if(a===b){ out.innerHTML = `<div class="empty">Bitte zwei verschiedene Spieler wählen.</div>`; return; }
+  const qa = num(val["c-qa"]), qb = num(val["c-qb"]);
+  const turnier = val["c-turnier"].trim();
+  const r = TennisModel.analyse({turnier, belag:val["c-belag"], a, b, qa, qb, modus: val["c-modus"] ? +val["c-modus"] : undefined}, D);
+  if(!r.ok){ out.innerHTML = `<div class="empty">${esc(r.warnungen.join(" · "))}</div>`; return; }
+  r.belagEff = val["c-belag"];
+  const mitMarkt = qa && qb;
+  const stop = String(r.empfehlung).startsWith("⛔");
+  const card = (name, fair, q, edge, value, bet) => `<div class="side${bet?" bet":""}">
+      <div class="nm">${esc(name)}</div>
+      <div class="fair"><span class="lbl">Faire Quote</span><b>${fx(fair)}</b></div>
+      <div class="sub">${pc(1/fair)} Siegchance${mitMarkt?` · Buch ${fx(q)} · Edge <span class="${edge>0?"pos":"neg"}">${sg(edge)}</span>`:""}</div>
+      ${mitMarkt?(value?`<span class="pill ${bet&&!stop?"go":"warn"}">${bet?(stop?"Blacklist":"Value – setzen"):"Value, aber Außenseiter"}</span>`:`<span class="pill no">kein Value</span>`):""}
+    </div>`;
+  out.innerHTML = `<div class="result">
+      ${card(a, r.fairA, qa, r.edgeA, r.valueA, r.wette==="A")}
+      <div class="vs">vs</div>
+      ${card(b, r.fairB, qb, r.edgeB, r.valueB, r.wette==="B")}
+    </div>
+    <p class="note">${mitMarkt
+      ? `Faire Quote inkl. ${pc(1-D.params.W_MODELL_BLEND,0)} Marktanteil aus den eingegebenen Quoten. Reines Modell: ${fx(r.fairModellA)} / ${fx(r.fairModellB)}.${r.kelly&&!stop?` Einsatz: <b>${stakeHtml(r.kelly)}</b>.`:""}`
+      : `Reines Modell (kalibriert), ohne Marktquoten. Mit Quoten A und B rechnet der Rechner wie das DASHBOARD inkl. Markt-Mischung, Value und Kelly.`}
+      ${r.nurElo?" Aufschlagwerte fehlen, daher nur Elo und H2H.":""} Bo${r.modus}${r.csi!=null?`, CSI ${fx(r.csi,1)}`:""}.</p>
+    ${detailHtml({id:"rechner", calc:true, quoten:{}, belag:r.belagEff, a, b}, r)}`;
+}
+
+// ---------------------------------------------------------------- Meine Wetten
+const W_KEY = "wetten";            // localStorage: {items:{id:wette}, geloescht:{id:zeit}}
+const GIST_FILE = "meine_wetten.json";
+const nowIso = () => new Date().toISOString();
+function wLoad(){ const w = store.get(W_KEY, null); return w && w.items ? w : {items:{}, geloescht:{}}; }
+function wSave(w){ store.set(W_KEY, w); }
+const num2 = (v) => { const x = parseFloat(String(v).replace(",", ".")); return isFinite(x) ? x : null; };
+
+function wetteBox(p, r){
+  const seite = r.wette || (r.pFinal >= 0.5 ? "A" : "B");
+  const bms = Object.keys(p.quoten||{});
+  const bm = r.bm && bms.includes(r.bm) ? r.bm : bms[0] || "";
+  const q = bm ? p.quoten[bm][seite==="A"?0:1] : "";
+  const vorhanden = Object.values(wLoad().items).filter(w => w.fixtureId === p.id);
+  const id = esc(p.id);
+  return `<div class="box wbox"><h3>Als Wette speichern</h3>
+    <form class="mform w-form" data-id="${id}" autocomplete="off">
+      <div class="ctl"><label for="ws-s-${id}">Auf</label><select id="ws-s-${id}" name="seite">
+        <option value="A"${seite==="A"?" selected":""}>${esc(p.a)}</option><option value="B"${seite==="B"?" selected":""}>${esc(p.b)}</option></select></div>
+      <div class="ctl"><label for="ws-b-${id}">Buchmacher</label><select id="ws-b-${id}" name="bm">
+        ${bms.map(b=>`<option${b===bm?" selected":""}>${esc(b)}</option>`).join("")}<option value="andere">andere</option></select></div>
+      <div class="ctl"><label for="ws-q-${id}">Quote</label><input id="ws-q-${id}" name="quote" inputmode="decimal" value="${q?fx(q):""}"></div>
+      <div class="ctl"><label for="ws-e-${id}">Einsatz € (1 U = ${fx(unitCfg().unit,0)} €)</label><input id="ws-e-${id}" name="einsatz" inputmode="decimal" value="${(()=>{const s=stakeU(kellyEur(r.kelly)); return s ? fx(s.klein ? kellyEur(r.kelly) : s.u*unitCfg().unit) : fx(unitCfg().unit);})()}"></div>
+      <button type="submit" class="btn">Speichern</button>
+    </form>
+    ${vorhanden.length?`<div class="gespeichert">✓ ${vorhanden.length} Wette${vorhanden.length>1?"n":""} auf diese Partie gespeichert</div>`:""}</div>`;
+}
+
+function ergebnisVon(w){
+  if (w.manuell) return w.ergebnis || null;
+  const e = w.fixtureId && ERG[w.fixtureId];
+  if (!e) return null;
+  if (e.sieger === "V" || e.aufgabe) return "V";      // Aufgabe: nicht zu Ende gespielt -> ungültig (manuell änderbar)
+  return e.sieger === w.seite ? "W" : "L";
+}
+function gewinnVon(w, erg){ return erg==="W" ? w.einsatz*(w.quote-1) : erg==="L" ? -w.einsatz : 0; }
+
+function wetteNeu(daten){
+  const w = wLoad();
+  const id = "w" + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+  w.items[id] = Object.assign({id, erstellt: nowIso(), geaendert: nowIso()}, daten);
+  wSave(w); renderWetten(); syncPush();
+  return id;
+}
+function wetteAendern(id, felder){
+  const w = wLoad(); if(!w.items[id]) return;
+  Object.assign(w.items[id], felder, {geaendert: nowIso()}); wSave(w); renderWetten(); syncPush();
+}
+function wetteLoeschen(id){
+  const w = wLoad(); delete w.items[id]; w.geloescht[id] = nowIso(); wSave(w); renderWetten(); syncPush();
+}
+
+function setupWetten(){
+  // Speichern aus den Partien-Details (Event-Delegation, Details werden neu gerendert)
+  $("#list").addEventListener("submit", (e) => {
+    const f = e.target.closest(".w-form"); if(!f) return;
+    e.preventDefault();
+    const p = (M.partien||[]).find(x => x.id === f.dataset.id); if(!p) return;
+    const seite = f.seite.value, quote = num2(f.quote.value), einsatz = num2(f.einsatz.value);
+    if(!quote || quote <= 1 || !einsatz || einsatz <= 0){ f.quote.focus(); return; }
+    const r = evalMatch(p);
+    wetteNeu({fixtureId: p.id, start: p.start, turnier: p.turnier, belag: r.belagEff, a: p.a, b: p.b, seite,
+      spieler: seite==="A"?p.a:p.b, gegner: seite==="A"?p.b:p.a, buchmacher: f.bm.value, quote, einsatz,
+      modellP: seite==="A"?r.pFinal:1-r.pFinal, edge: seite==="A"?r.edgeA:r.edgeB, valueTipp: r.wette===seite});
+    render();
+  });
+  $("#list").addEventListener("click", (e) => { if(e.target.closest(".w-form")) e.stopPropagation(); });
+  // Manuell
+  $("#mf-datum").value = new Date().toISOString().slice(0,10);
+  $("#m-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const quote = num2($("#mf-quote").value), einsatz = num2($("#mf-einsatz").value);
+    if(!quote || quote <= 1 || !einsatz) return;
+    wetteNeu({fixtureId: null, start: $("#mf-datum").value + "T12:00:00Z", turnier: $("#mf-turnier").value.trim(),
+      a: $("#mf-spieler").value.trim(), b: $("#mf-gegner").value.trim(), seite: "A", spieler: $("#mf-spieler").value.trim(),
+      gegner: $("#mf-gegner").value.trim(), buchmacher: $("#mf-bm").value.trim(), quote, einsatz, manuell: true, ergebnis: null});
+    ["mf-spieler","mf-gegner","mf-quote","mf-einsatz","mf-turnier"].forEach(id => $("#"+id).value = "");
+  });
+  // Liste: Ergebnis korrigieren / löschen
+  $("#m-liste").addEventListener("change", (e) => {
+    const sel = e.target.closest("select.erg"); if(!sel) return;
+    const v = sel.value;
+    wetteAendern(sel.dataset.id, v==="auto" ? {manuell:false, ergebnis:null} : {manuell:true, ergebnis: v==="offen"?null:v});
+  });
+  $("#m-liste").addEventListener("click", (e) => {
+    const b = e.target.closest(".w-del"); if(!b) return;
+    if(b.dataset.sicher){ wetteLoeschen(b.dataset.id); return; }
+    b.dataset.sicher = "1"; b.textContent = "wirklich löschen?";
+    setTimeout(() => { if(b.isConnected){ delete b.dataset.sicher; b.textContent = "✕"; } }, 4000);
+  });
+  ["m-filter","m-monat"].forEach(id => $("#"+id).addEventListener("change", renderWetten));
+  // Abgleich
+  $("#m-sync-form").addEventListener("submit", (e) => { e.preventDefault();
+    const t = $("#ms-token").value.trim(); if(!t) return; store.set("gist.token", t); syncPull(true); });
+  $("#ms-trennen").addEventListener("click", () => { try{ localStorage.removeItem("tvb.gist.token"); localStorage.removeItem("tvb.gist.id"); }catch(_){}
+    $("#ms-token").value = ""; syncStatus("getrennt – Wetten liegen nur in diesem Browser"); });
+  if(store.get("gist.token", null)){ $("#ms-token").value = "••••••••"; syncPull(false); }
+  renderWetten();
+}
+
+function renderWetten(){
+  const all = Object.values(wLoad().items).sort((a,b) => String(b.start).localeCompare(String(a.start)));
+  const monate = [...new Set(all.map(w => String(w.start||"").slice(0,7)).filter(Boolean))].sort().reverse();
+  const ms = $("#m-monat"), cur = ms.value;
+  ms.innerHTML = `<option value="alle">alle</option>` + monate.map(m => `<option value="${m}">${m}</option>`).join("");
+  if([...ms.options].some(o => o.value===cur)) ms.value = cur;
+  const mon = ms.value, fil = $("#m-filter").value;
+  let xs = all.filter(w => mon==="alle" || String(w.start).startsWith(mon));
+  let n=0, g=0, l=0, einsatz=0, gewinn=0, offen=0, qs=0;
+  for(const w of xs){ const e = ergebnisVon(w);
+    if(!e){ offen += w.einsatz; continue; }
+    if(e==="V") continue;
+    n++; einsatz += w.einsatz; gewinn += gewinnVon(w, e); qs += w.quote; if(e==="W") g++; else l++; }
+  $("#m-n").textContent = n ? `${n} (${g}–${l})` : "–";
+  $("#m-einsatz").innerHTML = n ? betragU(einsatz) : "–";
+  $("#m-gewinn").innerHTML = n ? betragU(gewinn, true) : "–"; $("#m-gewinn").className = gewinn>0?"pos":gewinn<0?"negv":"";
+  $("#m-roi").textContent = einsatz ? sg(gewinn/einsatz) : "–"; $("#m-roi").className = gewinn>0?"pos":gewinn<0?"negv":"";
+  $("#m-offen").innerHTML = offen ? betragU(offen) : "–";
+  $("#m-clv").textContent = n ? fx(qs/n) : "–";
+  { const unit = unitCfg().unit, fertig = xs.map(w => ({w, e: ergebnisVon(w)})).filter(x => x.e==="W" || x.e==="L").sort((a,b) => String(a.w.start).localeCompare(String(b.w.start)));
+    let sum = 0; const werte = [], info = [];
+    for(const {w, e} of fertig){ sum += gewinnVon(w, e) / unit; werte.push(Math.round(sum*100)/100);
+      info.push({label: `${kDatum(w.start)} · ${w.spieler} @ ${fx(w.quote)} · ${e==="W"?"gewonnen":"verloren"}`, datum: kDatum(w.start)}); }
+    const kk = kennKurve(werte, fertig.map(x => x.e));
+    kurveZeichnen($("#m-kurve"), "Meine Bankroll in Units", [{name:"Gewinn", farbe:"var(--accent)", werte}], info,
+      `<span>Größter Rückgang <b>${fx(kk.dd,1)} U</b> (${eur(kk.dd*unit)})</span><span>Längste Niederlagenserie <b>${kk.serie}</b></span>`);
+  }
+  if(fil==="offen") xs = xs.filter(w => !ergebnisVon(w)); else if(fil==="fertig") xs = xs.filter(w => ergebnisVon(w));
+  if(!xs.length){ $("#m-liste").innerHTML = `<div class="empty">${all.length ? "Keine Wetten in dieser Auswahl." : "Noch keine Wetten gespeichert. Öffne eine Partie unter <b>Partien</b> und klicke bei „Als Wette speichern“ auf Speichern – oder trage unten eine Wette manuell ein."}</div>`; return; }
+  $("#m-liste").innerHTML = `<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Spiel</th><th>Wette</th><th class="hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th>Einsatz</th><th>Ergebnis</th><th>Gewinn</th><th></th></tr></thead><tbody>${
+    xs.map(w => { const e = ergebnisVon(w), d = new Date(w.start), gw = e ? gewinnVon(w, e) : null;
+      const opt = (v, t) => `<option value="${v}"${(w.manuell ? (w.ergebnis||"offen") : "auto")===v?" selected":""}>${t}</option>`;
+      const autoTxt = e ? (e==="V" && w.fixtureId && (ERG[w.fixtureId]||{}).aufgabe ? "Aufgabe (ungültig)" : ({W:"gewonnen",L:"verloren",V:"ungültig"})[e]) : "offen";
+      return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
+        <td class="l"><b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
+        <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
+        <td class="num">${fx(w.quote)}</td><td class="num">${betragU(w.einsatz)}</td>
+        <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${w.fixtureId?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}</select></td>
+        <td class="num ${gw>0?"pos":gw<0?"negv":""}">${gw==null?"–":betragU(gw, true)}</td>
+        <td><button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>`; }).join("")}</tbody></table></div>`;
+}
+
+// ---- Abgleich über geheimen Gist
+let syncTimer = null, syncLaeuft = false;
+function syncStatus(t){ $("#m-sync-status").textContent = t; }
+async function gh(method, url, body){
+  const token = store.get("gist.token", null);
+  const r = await fetch("https://api.github.com" + url, {method, headers: {"Authorization": "Bearer " + token,
+    "Accept": "application/vnd.github+json", "Content-Type": "application/json"}, body: body ? JSON.stringify(body) : undefined});
+  if(!r.ok) throw new Error(r.status === 401 ? "Schlüssel ungültig" : r.status === 403 || r.status === 404 ? "Schlüssel ohne gist-Recht" : "GitHub-Fehler " + r.status);
+  return r.json();
+}
+async function findeGist(){
+  let id = store.get("gist.id", null);
+  if(id) return id;
+  for(let page = 1; page <= 5; page++){
+    const liste = await gh("GET", `/gists?per_page=100&page=${page}`);
+    const hit = liste.find(g => g.files && g.files[GIST_FILE]);
+    if(hit){ store.set("gist.id", hit.id); return hit.id; }
+    if(liste.length < 100) break;
+  }
+  const neu = await gh("POST", "/gists", {description: "Tennis Value Board – Meine Wetten", public: false,
+    files: {[GIST_FILE]: {content: JSON.stringify(wLoad())}}});
+  store.set("gist.id", neu.id); return neu.id;
+}
+function zusammenfuehren(a, b){
+  const out = {items: {}, geloescht: Object.assign({}, a.geloescht||{}, b.geloescht||{})};
+  for(const src of [a.items||{}, b.items||{}]) for(const [id, w] of Object.entries(src))
+    if(!out.items[id] || String(w.geaendert) > String(out.items[id].geaendert)) out.items[id] = w;
+  for(const [id, t] of Object.entries(out.geloescht)) if(out.items[id] && String(out.items[id].geaendert) <= String(t)) delete out.items[id];
+  return out;
+}
+async function syncPull(meldung){
+  if(!store.get("gist.token", null) || syncLaeuft) return;
+  syncLaeuft = true; syncStatus("gleiche ab …");
+  try{
+    const id = await findeGist();
+    const g = await gh("GET", "/gists/" + id);
+    const f = g.files && g.files[GIST_FILE];
+    let remote = {items:{}, geloescht:{}};
+    if(f){ const txt = f.truncated ? await (await fetch(f.raw_url)).text() : f.content; try{ remote = JSON.parse(txt); }catch(_){} }
+    const merged = zusammenfuehren(wLoad(), remote);
+    wSave(merged); renderWetten(); render();
+    await gh("PATCH", "/gists/" + id, {files: {[GIST_FILE]: {content: JSON.stringify(merged)}}});
+    syncStatus("verbunden · zuletzt abgeglichen " + new Date().toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit"}));
+  }catch(err){ syncStatus("Abgleich fehlgeschlagen: " + err.message); }
+  finally{ syncLaeuft = false; }
+}
+function syncPush(){
+  if(!store.get("gist.token", null)) return;
+  clearTimeout(syncTimer); syncTimer = setTimeout(() => syncPull(false), 1200);
+}
+
+init();
+})();
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
