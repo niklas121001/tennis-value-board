@@ -2300,7 +2300,10 @@
 "zuletztGesehen": "2026-10-14T02:29Z",
 "clv_versucht": true,
 "schlussQuote": 1.33,
-"clv": -0.022556390977443663
+"clv": -0.022556390977443663,
+"ergebnis": "L",
+"sieger": "B",
+"ergebnisQuelle": "folgerunde"
 },
 "id1205207875371456|bet365": {
 "id": "id1205207875371456",
@@ -2325,7 +2328,10 @@
 "zuletztGesehen": "2026-10-14T02:29Z",
 "clv_versucht": true,
 "schlussQuote": 1.37,
-"clv": -0.02919708029197088
+"clv": -0.02919708029197088,
+"ergebnis": "L",
+"sieger": "B",
+"ergebnisQuelle": "folgerunde"
 },
 "id1205207875371460|tipico": {
 "id": "id1205207875371460",
@@ -2348,7 +2354,10 @@
 "letzteQuote": 1.6,
 "letzteP": 0.6596595742335767,
 "zuletztGesehen": "2026-10-14T02:29Z",
-"clv_versucht": true
+"clv_versucht": true,
+"ergebnis": "W",
+"sieger": "A",
+"ergebnisQuelle": "folgerunde"
 },
 "id1205207875371460|bet365": {
 "id": "id1205207875371460",
@@ -2371,7 +2380,10 @@
 "letzteQuote": 1.63,
 "letzteP": 0.6577803239428297,
 "zuletztGesehen": "2026-10-14T02:29Z",
-"clv_versucht": true
+"clv_versucht": true,
+"ergebnis": "W",
+"sieger": "A",
+"ergebnisQuelle": "folgerunde"
 },
 "id1201562875371568|winamax": {
 "id": "id1201562875371568",
@@ -2505,7 +2517,10 @@
 "zuletztGesehen": "2026-10-15T10:36Z",
 "clv_versucht": true,
 "schlussQuote": 1.39,
-"clv": -0.014388489208632893
+"clv": -0.014388489208632893,
+"ergebnis": "L",
+"sieger": "B",
+"ergebnisQuelle": "folgerunde"
 },
 "id1205207875371460|winamax": {
 "id": "id1205207875371460",
@@ -2528,7 +2543,10 @@
 "letzteQuote": 1.56,
 "letzteP": 0.6668793830329991,
 "zuletztGesehen": "2026-10-15T11:53Z",
-"clv_versucht": true
+"clv_versucht": true,
+"ergebnis": "W",
+"sieger": "A",
+"ergebnisQuelle": "folgerunde"
 },
 "id1200308575614834|winamax": {
 "id": "id1200308575614834",
@@ -2548,8 +2566,77 @@
 "edge": 0.022418012564885625,
 "kelly": 4.87,
 "erstGesehen": "2026-10-15T02:30Z",
+"letzteQuote": 1.8,
+"letzteP": 0.5732205170605021,
+"zuletztGesehen": "2026-10-16T02:29Z"
+},
+"id1203086975371360|winamax": {
+"id": "id1203086975371360",
+"start": "2026-10-16T14:00:00.000Z",
+"turnier": "Maia Challenger",
+"belag": "clay",
+"a": "Marco Trungelliti",
+"b": "Francesco Passaro",
+"tid": 30869,
+"p1Id": 38517,
+"p2Id": 353530,
+"kategorie": "Challenger",
+"buchmacher": "winamax",
+"wette": "A",
+"erstQuote": 1.82,
+"erstP": 0.6070867707685196,
+"edge": 0.10489792279870569,
+"kelly": 21.11,
+"erstGesehen": "2026-10-16T02:29Z",
+"warn": [],
+"letzteQuote": 1.82,
+"letzteP": 0.6070867707685196,
+"zuletztGesehen": "2026-10-16T02:29Z"
+},
+"id1205207875371444|winamax": {
+"id": "id1205207875371444",
+"start": "2026-10-16T15:00:00.000Z",
+"turnier": "Catania Challenger",
+"belag": "clay",
+"a": "Gianluca Cadenasso",
+"b": "Marvin Moeller",
+"tid": 52078,
+"p1Id": 927343,
+"p2Id": 269571,
+"kategorie": "Challenger",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.76,
+"erstP": 0.4150495756524223,
+"edge": 0.029512746851736882,
+"kelly": 6.41,
+"erstGesehen": "2026-10-16T02:29Z",
+"warn": [],
 "letzteQuote": 1.76,
-"letzteP": 0.5809193253209577,
-"zuletztGesehen": "2026-10-15T11:53Z"
+"letzteP": 0.4150495756524223,
+"zuletztGesehen": "2026-10-16T02:29Z"
+},
+"id1203543675371408|winamax": {
+"id": "id1203543675371408",
+"start": "2026-10-16T16:30:00.000Z",
+"turnier": "Roanne Challenger",
+"belag": "hard",
+"a": "Hugo Gaston",
+"b": "Nicolai Budkov Kjaer",
+"tid": 35436,
+"p1Id": 223874,
+"p2Id": 943619,
+"kategorie": "Challenger",
+"buchmacher": "winamax",
+"wette": "A",
+"erstQuote": 1.72,
+"erstP": 0.5915617037558262,
+"edge": 0.0174861304600209,
+"kelly": 4.01,
+"erstGesehen": "2026-10-16T02:29Z",
+"warn": [],
+"letzteQuote": 1.72,
+"letzteP": 0.5915617037558262,
+"zuletztGesehen": "2026-10-16T02:29Z"
 }
 }
