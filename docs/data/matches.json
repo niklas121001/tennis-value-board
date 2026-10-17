@@ -1,283 +1,6 @@
 {
-"stand": "2026-10-17T02:27:14Z",
+"stand": "2026-10-17T10:29:58Z",
 "partien": [
-{
-"id": "id1204195975696928",
-"start": "2026-10-17T06:00:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Omarkhanov, Amir",
-"b": "Rei Sakamoto",
-"aRoh": "Omarkhanov, Amir",
-"bRoh": "Sakamoto, Rei",
-"aInDb": false,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 1098327,
-"p2Id": 893391
-},
-{
-"id": "id1204195975696930",
-"start": "2026-10-17T06:00:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Gabriel Diallo",
-"b": "Harold Mayot",
-"aRoh": "Diallo, Gabriel",
-"bRoh": "Mayot, Harold",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 418213,
-"p2Id": 321667
-},
-{
-"id": "id1204195975696936",
-"start": "2026-10-17T07:10:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Taro Daniel",
-"b": "Nikoloz Basilashvili",
-"aRoh": "Daniel, Taro",
-"bRoh": "Basilashvili, Nikoloz",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 48632,
-"p2Id": 26204
-},
-{
-"id": "id1204195975696938",
-"start": "2026-10-17T07:10:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Adam Walton",
-"b": "Beibit Zhukayev",
-"aRoh": "Walton, Adam",
-"bRoh": "Zhukayev, Beibit",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 227358,
-"p2Id": 286541
-},
-{
-"id": "id1201562875371556",
-"start": "2026-10-17T07:30:00.000Z",
-"turnier": "Jinan Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Mattia Bellucci",
-"b": "Shintaro Mochizuki",
-"aRoh": "Bellucci, Mattia",
-"bRoh": "Mochizuki, Shintaro",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.28,
-3.25
-]
-},
-"pausiert": [],
-"tid": 15628,
-"p1Id": 472975,
-"p2Id": 503814,
-"sapId": 17274820,
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 6,
-"dreisatz7": 0,
-"siege7": 3,
-"letztes": "2026-10-16T04:00:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-10-16T04:00:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1204195975696940",
-"start": "2026-10-17T08:20:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Luka Pavlovic",
-"b": "Ilia Simakin",
-"aRoh": "Pavlovic, Luka",
-"bRoh": "Simakin, Ilia",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 266711,
-"p2Id": 686709
-},
-{
-"id": "id1200308575660770",
-"start": "2026-10-17T08:30:00.000Z",
-"turnier": "ATP Shanghai",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Alexander Zverev",
-"b": "Alejandro Davidovich Fokina",
-"aRoh": "Zverev, Alexander",
-"bRoh": "Davidovich Fokina, Alejandro",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.26,
-4.1
-]
-},
-"pausiert": [],
-"tid": 3085,
-"p1Id": 57163,
-"p2Id": 157456,
-"sapId": 17337470,
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 5,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-10-15T10:00:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"dreisatz7": 2,
-"siege7": 3,
-"letztes": "2026-10-15T06:30:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1201562875371544",
-"start": "2026-10-17T08:40:00.000Z",
-"turnier": "Jinan Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Martin Landaluce",
-"b": "Liam Draxl",
-"aRoh": "Landaluce, Martin",
-"bRoh": "Draxl, Liam",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.52,
-2.35
-]
-},
-"pausiert": [],
-"tid": 15628,
-"p1Id": 903987,
-"p2Id": 263917,
-"sapId": 17274821,
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 7,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-10-16T06:55:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 4,
-"saetze7": 11,
-"dreisatz7": 3,
-"siege7": 4,
-"letztes": "2026-10-16T05:35:00Z",
-"quali": true
-}
-}
-},
-{
-"id": "id1204195975696942",
-"start": "2026-10-17T09:00:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Roman Safiullin",
-"b": "Ilya Ivashka",
-"aRoh": "Safiullin, Roman",
-"bRoh": "Ivashka, Ilya",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 124930,
-"p2Id": 89320
-},
-{
-"id": "id1203086975371354",
-"start": "2026-10-17T10:00:00.000Z",
-"turnier": "Maia Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "kalender",
-"a": "Zsombor Piros",
-"b": "Alejo Sanchez Quilez",
-"aRoh": "Piros, Zsombor",
-"bRoh": "Sanchez Quilez, Alejo",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.35,
-2.9
-]
-},
-"pausiert": [],
-"tid": 30869,
-"p1Id": 223714,
-"p2Id": 951223
-},
 {
 "id": "id1204593575698292",
 "start": "2026-10-17T10:30:00.000Z",
@@ -335,7 +58,7 @@
 "quoten": {
 "winamax": [
 2.6,
-1.49
+1.52
 ]
 },
 "pausiert": [],
@@ -691,8 +414,13 @@
 "bRoh": "Dellien, Hugo",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+3.75,
+1.22
+]
+},
 "pausiert": [],
 "tid": 36093,
 "p1Id": 785974,
@@ -711,12 +439,57 @@
 "bRoh": "Seyboth Wild, Thiago",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.15,
+1.6
+]
+},
 "pausiert": [],
 "tid": 36093,
 "p1Id": 341192,
 "p2Id": 161262
+},
+{
+"id": "id1204195975713206",
+"start": "2026-10-18T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Gabriel Diallo",
+"b": "Rei Sakamoto",
+"aRoh": "Diallo, Gabriel",
+"bRoh": "Sakamoto, Rei",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 418213,
+"p2Id": 893391
+},
+{
+"id": "id1204195975717028",
+"start": "2026-10-18T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Adam Walton",
+"b": "Nikoloz Basilashvili",
+"aRoh": "Walton, Adam",
+"bRoh": "Basilashvili, Nikoloz",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 227358,
+"p2Id": 26204
 },
 {
 "id": "id1204593575698082",
@@ -784,8 +557,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.66,
-2.2
+1.62,
+2.3
 ]
 },
 "pausiert": [],
@@ -834,8 +607,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.64,
-2.25
+1.6,
+2.3
 ]
 },
 "pausiert": [],
@@ -859,8 +632,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.4,
-1.56
+2.55,
+1.5
 ]
 },
 "pausiert": [],
@@ -909,8 +682,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.52,
-2.5
+1.54,
+2.45
 ]
 },
 "pausiert": [],
