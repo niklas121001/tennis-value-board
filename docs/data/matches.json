@@ -1,455 +1,276 @@
 {
-"stand": "2026-10-17T10:29:58Z",
+"stand": "2026-10-18T02:26:57Z",
 "partien": [
 {
-"id": "id1204593575698292",
-"start": "2026-10-17T10:30:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Harry Wendelken",
-"b": "Gauthier Onclin",
-"aRoh": "Wendelken, Harry",
-"bRoh": "Onclin, Gauthier",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 45935,
-"p1Id": 381022,
-"p2Id": 289105
-},
-{
-"id": "id1204593575698300",
-"start": "2026-10-17T10:30:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Joel Schwärzler",
-"b": "Federico Cina",
-"aRoh": "Schwaerzler, Joel",
-"bRoh": "Cina, Federico",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 45935,
-"p1Id": 938667,
-"p2Id": 917921
-},
-{
-"id": "id1200308575695342",
-"start": "2026-10-17T11:00:00.000Z",
-"turnier": "ATP Shanghai",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Rafael Jodar",
-"b": "Daniil Medvedev",
-"aRoh": "Jodar, Rafael",
-"bRoh": "Medvedev, Daniil",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.6,
-1.52
-]
-},
-"pausiert": [],
-"tid": 3085,
-"p1Id": 972327,
-"p2Id": 163504
-},
-{
-"id": "id1204195975696932",
-"start": "2026-10-17T11:00:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Petr Bar Biryukov",
-"b": "Stefanos Sakellaridis",
-"aRoh": "Bar Biryukov, Petr",
-"bRoh": "Sakellaridis, Stefanos",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 768772,
-"p2Id": 515478
-},
-{
-"id": "id1205207875371466",
-"start": "2026-10-17T11:00:00.000Z",
-"turnier": "Catania Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "kalender",
-"a": "Felix Gill",
-"b": "Radu Mihai Papoe",
-"aRoh": "Gill, Felix",
-"bRoh": "Papoe, Radu Mihai",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.72,
-1.98
-]
-},
-"pausiert": [],
-"tid": 52078,
-"p1Id": 501414,
-"p2Id": 441496
-},
-{
-"id": "id1203086975371352",
-"start": "2026-10-17T11:10:00.000Z",
-"turnier": "Maia Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "kalender",
-"a": "Francesco Passaro",
-"b": "Matej Dodig",
-"aRoh": "Passaro, Francesco",
-"bRoh": "Dodig, Matej",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.15,
-1.6
-]
-},
-"pausiert": [],
-"tid": 30869,
-"p1Id": 353530,
-"p2Id": 915153
-},
-{
-"id": "id1204593575698294",
-"start": "2026-10-17T11:40:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Clement Chidekh",
-"b": "Gilles Arnaud Bailly",
-"aRoh": "Chidekh, Clement",
-"bRoh": "Bailly, Gilles Arnaud",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 45935,
-"p1Id": 283759,
-"p2Id": 870877
-},
-{
-"id": "id1204593575698302",
-"start": "2026-10-17T11:40:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Giovanni Mpetshi Perricard",
-"b": "Remy Bertola",
-"aRoh": "Mpetshi Perricard, Giovanni",
-"bRoh": "Bertola, Remy",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 45935,
-"p1Id": 450283,
-"p2Id": 145108
-},
-{
-"id": "id1204195975696934",
-"start": "2026-10-17T12:00:00.000Z",
-"turnier": "ATP Almaty",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Alexander Shevchenko",
-"b": "Daniil Glinka",
-"aRoh": "Shevchenko, Aleksandr",
-"bRoh": "Glinka, Daniil",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"tid": 41959,
-"p1Id": 371436,
-"p2Id": 233184
-},
-{
-"id": "id1203543675371418",
-"start": "2026-10-17T12:30:00.000Z",
-"turnier": "Roanne Challenger",
+"id": "id1200463175719666",
+"start": "2026-10-18T03:00:00.000Z",
+"turnier": "Guangzhou Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Jerome Kym",
-"b": "Mika Brunold",
-"aRoh": "Kym, Jerome",
-"bRoh": "Brunold, Mika",
-"aInDb": true,
+"belagQuelle": "spieldaten",
+"a": "Yang, Xiaoyin",
+"b": "Khumoun Sultanov",
+"aRoh": "Yang, Xiaoyin",
+"bRoh": "Sultanov, Khumoyun",
+"aInDb": false,
 "bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.41,
-2.65
-]
-},
+"hatQuoten": false,
+"quoten": {},
 "pausiert": [],
-"tid": 35436,
-"p1Id": 539343,
-"p2Id": 745797
+"tid": 4631,
+"p1Id": 1022355,
+"p2Id": 149100,
+"sapId": 17350423,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
-"id": "id1205207875371464",
-"start": "2026-10-17T12:30:00.000Z",
-"turnier": "Catania Challenger",
+"id": "id1200463175719670",
+"start": "2026-10-18T03:00:00.000Z",
+"turnier": "Guangzhou Challenger",
 "kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "kalender",
-"a": "Massimo Giunta",
-"b": "Gianluca Cadenasso",
-"aRoh": "Giunta, Massimo",
-"bRoh": "Cadenasso, Gianluca",
-"aInDb": true,
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Huang, Xi Cheng",
+"b": "Semen Pankin",
+"aRoh": "Huang, Xi Cheng",
+"bRoh": "Pankin, Semen",
+"aInDb": false,
 "bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.1,
-1.64
-]
-},
+"hatQuoten": false,
+"quoten": {},
 "pausiert": [],
-"tid": 52078,
-"p1Id": 904027,
-"p2Id": 927343
+"tid": 4631,
+"p1Id": 1339170,
+"p2Id": 312348,
+"sapId": 17350418,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
-"id": "id1204593575698298",
-"start": "2026-10-17T12:50:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
+"id": "id1200463175719672",
+"start": "2026-10-18T03:00:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Nishesh Basavareddy",
-"b": "Edas Butvilas",
-"aRoh": "Basavareddy, Nishesh",
-"bRoh": "Butvilas, Edas",
+"belagQuelle": "spieldaten",
+"a": "Arthur Weber",
+"b": "Dominik Palan",
+"aRoh": "Weber, Arthur",
+"bRoh": "Palan, Dominik",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": false,
 "quoten": {},
 "pausiert": [],
-"tid": 45935,
-"p1Id": 872497,
-"p2Id": 809320
+"tid": 4631,
+"p1Id": 313891,
+"p2Id": 459201,
+"sapId": 17350427,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
-"id": "id1204593575698304",
-"start": "2026-10-17T12:50:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
+"id": "id1200463175719662",
+"start": "2026-10-18T04:10:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Kimmer Coppejans",
-"b": "Andrea Guerrieri",
-"aRoh": "Coppejans, Kimmer",
-"bRoh": "Guerrieri, Andrea",
+"belagQuelle": "spieldaten",
+"a": "Hurrion, Millen",
+"b": "Koki Matsuda",
+"aRoh": "Hurrion, Millen",
+"bRoh": "Matsuda, Koki",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 614178,
+"p2Id": 948505,
+"sapId": 17350424,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200463175719664",
+"start": "2026-10-18T04:10:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Omar Jasika",
+"b": "Hiroki Moriya",
+"aRoh": "Jasika, Omar",
+"bRoh": "Moriya, Hiroki",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": false,
 "quoten": {},
 "pausiert": [],
-"tid": 45935,
-"p1Id": 54955,
-"p2Id": 193824
+"tid": 4631,
+"p1Id": 79467,
+"p2Id": 32466,
+"sapId": 17350422,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-13T03:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
-"id": "id1204070975371228",
-"start": "2026-10-17T13:00:00.000Z",
-"turnier": "Olbia Challenger",
+"id": "id1200463175719668",
+"start": "2026-10-18T04:10:00.000Z",
+"turnier": "Guangzhou Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Maks Kasnikowski",
-"b": "Damir Dzumhur",
-"aRoh": "Kasnikowski, Maks",
-"bRoh": "Dzumhur, Damir",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.94,
-1.74
-]
-},
-"pausiert": [],
-"tid": 40709,
-"p1Id": 685469,
-"p2Id": 49172
-},
-{
-"id": "id1204593575698296",
-"start": "2026-10-17T14:00:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Aziz Dougaz",
-"b": "Tom Gentzsch",
-"aRoh": "Dougaz, Aziz",
-"bRoh": "Gentzsch, Tom",
+"belagQuelle": "spieldaten",
+"a": "Masamichi Imamura",
+"b": "Saba Purtseladze",
+"aRoh": "Imamura, Masamichi",
+"bRoh": "Purtseladze, Saba",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": false,
 "quoten": {},
 "pausiert": [],
-"tid": 45935,
-"p1Id": 172482,
-"p2Id": 787144
+"tid": 4631,
+"p1Id": 207777,
+"p2Id": 350752,
+"sapId": 17350426,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
-"id": "id1204593575698306",
-"start": "2026-10-17T14:00:00.000Z",
-"turnier": "ATP Brussels",
-"kategorie": "ATP",
+"id": "id1200463175719676",
+"start": "2026-10-18T05:20:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Martin Damm",
-"b": "Buvaysar Gadamauri",
-"aRoh": "Damm Jr, Martin",
-"bRoh": "Gadamauri, Buvaysar",
+"belagQuelle": "spieldaten",
+"a": "Kasidit Samrej",
+"b": "Naoya Honda",
+"aRoh": "Samrej, Kasidit",
+"bRoh": "Honda, Naoya",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": false,
 "quoten": {},
 "pausiert": [],
-"tid": 45935,
-"p1Id": 51345,
-"p2Id": 268441
+"tid": 4631,
+"p1Id": 280449,
+"p2Id": 978607,
+"sapId": 17350421,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
-"id": "id1204070975371226",
-"start": "2026-10-17T14:10:00.000Z",
-"turnier": "Olbia Challenger",
+"id": "id1200463175719678",
+"start": "2026-10-18T05:20:00.000Z",
+"turnier": "Guangzhou Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Jacob Fearnley",
-"b": "Luca Nardi",
-"aRoh": "Fearnley, Jacob",
-"bRoh": "Nardi, Luca",
+"belagQuelle": "spieldaten",
+"a": "Yaojie Zeng",
+"b": "Zhu, Evan",
+"aRoh": "Zeng, Yaojie",
+"bRoh": "Zhu, Evan",
 "aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.37,
-2.8
-]
-},
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
 "pausiert": [],
-"tid": 40709,
-"p1Id": 407783,
-"p2Id": 450477
+"tid": 4631,
+"p1Id": 350440,
+"p2Id": 162144,
+"sapId": 17350429,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
-"id": "id1203543675371400",
-"start": "2026-10-17T14:30:00.000Z",
-"turnier": "Roanne Challenger",
+"id": "id1200463175719680",
+"start": "2026-10-18T05:20:00.000Z",
+"turnier": "Guangzhou Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
-"a": "Nicolai Budkov Kjaer",
-"b": "Matteo Martineau",
-"aRoh": "Budkov Kjaer, Nicolai",
-"bRoh": "Martineau, Matteo",
+"belagQuelle": "spieldaten",
+"a": "Yuta Shimizu",
+"b": "Alibek Kachmazov",
+"aRoh": "Shimizu, Yuta",
+"bRoh": "Kachmazov, Alibek",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.33,
-3.0
-]
-},
+"hatQuoten": false,
+"quoten": {},
 "pausiert": [],
-"tid": 35436,
-"p1Id": 943619,
-"p2Id": 145122
+"tid": 4631,
+"p1Id": 250231,
+"p2Id": 477182,
+"sapId": 17350419,
+"form": {
+"a": {
+"spiele7": 0
 },
-{
-"id": "id1203609375371504",
-"start": "2026-10-17T19:00:00.000Z",
-"turnier": "Santa Cruz 2 Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "kalender",
-"a": "Juan Manuel La Serna",
-"b": "Hugo Dellien",
-"aRoh": "La Serna, Juan Manuel",
-"bRoh": "Dellien, Hugo",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.75,
-1.22
-]
-},
-"pausiert": [],
-"tid": 36093,
-"p1Id": 785974,
-"p2Id": 57289
-},
-{
-"id": "id1203609375371502",
-"start": "2026-10-17T20:10:00.000Z",
-"turnier": "Santa Cruz 2 Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "kalender",
-"a": "Francisco Comesana",
-"b": "Thiago Seyboth Wild",
-"aRoh": "Comesana, Francisco",
-"bRoh": "Seyboth Wild, Thiago",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.15,
-1.6
-]
-},
-"pausiert": [],
-"tid": 36093,
-"p1Id": 341192,
-"p2Id": 161262
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-13T09:10:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1204195975713206",
@@ -457,7 +278,7 @@
 "turnier": "ATP Almaty",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Gabriel Diallo",
 "b": "Rei Sakamoto",
 "aRoh": "Diallo, Gabriel",
@@ -469,7 +290,26 @@
 "pausiert": [],
 "tid": 41959,
 "p1Id": 418213,
-"p2Id": 893391
+"p2Id": 893391,
+"sapId": 17349206,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-17T06:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-17T06:00:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1204195975717028",
@@ -477,7 +317,7 @@
 "turnier": "ATP Almaty",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Adam Walton",
 "b": "Nikoloz Basilashvili",
 "aRoh": "Walton, Adam",
@@ -489,15 +329,3978 @@
 "pausiert": [],
 "tid": 41959,
 "p1Id": 227358,
-"p2Id": 26204
+"p2Id": 26204,
+"sapId": 17349587,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-17T07:10:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-17T07:45:00Z",
+"quali": false
+}
+}
 },
 {
-"id": "id1204593575698082",
+"id": "id1200463175719658",
+"start": "2026-10-18T06:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Pleshivtsev, Egor",
+"b": "Luca Castelnuovo",
+"aRoh": "Pleshivtsev, Egor",
+"bRoh": "Castelnuovo, Luca",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 1085570,
+"p2Id": 92667,
+"sapId": 17350425,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200463175719660",
+"start": "2026-10-18T06:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Mitsuki Wei Kang Leong",
+"b": "Jiang, Fumin",
+"aRoh": "Leong, Mitsuki Wei Kang",
+"bRoh": "Jiang, Fumin",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 920893,
+"p2Id": 1058527,
+"sapId": 17350420,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200463175719674",
+"start": "2026-10-18T06:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Demin, Yaroslav",
+"b": "Alexandr Binda",
+"aRoh": "Demin, Yaroslav",
+"bRoh": "Binda, Alexander",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 762700,
+"p2Id": 494844,
+"sapId": 17350428,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1204195975719790",
+"start": "2026-10-18T07:10:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Roman Safiullin",
+"b": "Ilia Simakin",
+"aRoh": "Safiullin, Roman",
+"bRoh": "Simakin, Ilia",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 124930,
+"p2Id": 686709,
+"sapId": 17350442,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-17T09:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-17T09:25:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723518",
+"start": "2026-10-18T08:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Joao Lucas Reis Da Silva",
+"b": "Alexander Ritschard",
+"aRoh": "Silva, Joao",
+"bRoh": "Ritschard, Alexander",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 97785,
+"p2Id": 56017,
+"sapId": 17352430,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1201505375723534",
+"start": "2026-10-18T08:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Kielan, Szymon",
+"b": "Benjamin Hassan",
+"aRoh": "Kielan, Szymon",
+"bRoh": "Hassan, Benjamin",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 731833,
+"p2Id": 108767,
+"sapId": 17352424,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-13T10:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201562875371546",
+"start": "2026-10-18T08:00:00.000Z",
+"turnier": "Jinan Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Mattia Bellucci",
+"b": "Martin Landaluce",
+"aRoh": "Bellucci, Mattia",
+"bRoh": "Landaluce, Martin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.58,
+2.2
+]
+},
+"pausiert": [],
+"tid": 15628,
+"p1Id": 472975,
+"p2Id": 903987,
+"sapId": 17274815,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 8,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-10-17T07:55:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 9,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-10-17T10:20:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721926",
+"start": "2026-10-18T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Sciahbasi, Matteo",
+"b": "Daniel Siniakov",
+"aRoh": "Sciahbasi, Matteo",
+"bRoh": "Siniakov, Daniel",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 1047289,
+"p2Id": 588081,
+"sapId": 17351729,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-12T08:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721930",
+"start": "2026-10-18T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Nannelli, Mattia",
+"b": "Sakellaridis, Dimitris",
+"aRoh": "Nannelli, Mattia",
+"bRoh": "Sakellaridis, Dimitris",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 1202239,
+"p2Id": 759758,
+"sapId": 17351731,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-11T14:30:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721932",
+"start": "2026-10-18T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Perez Contri, Sergi",
+"b": "Sebastian Gima",
+"aRoh": "Perez Contri, Sergi",
+"bRoh": "Gima, Sebastian",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 108563,
+"p2Id": 375546,
+"sapId": 17351730,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-12T10:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T08:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200308575720868",
+"start": "2026-10-18T08:30:00.000Z",
+"turnier": "ATP Shanghai",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Alejandro Davidovich Fokina",
+"b": "Rafael Jodar",
+"aRoh": "Davidovich Fokina, Alejandro",
+"bRoh": "Jodar, Rafael",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.15,
+1.74
+]
+},
+"pausiert": [],
+"tid": 3085,
+"p1Id": 157456,
+"p2Id": 972327,
+"sapId": 17350837,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 10,
+"dreisatz7": 3,
+"siege7": 4,
+"letztes": "2026-10-17T08:30:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 11,
+"dreisatz7": 3,
+"siege7": 4,
+"letztes": "2026-10-17T11:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200309775722626",
+"start": "2026-10-18T09:00:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Jurji Rodionov",
+"b": "Pierre-Hugues Herbert",
+"aRoh": "Rodionov, Jurij",
+"bRoh": "Herbert, Pierre-Hugues",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 212004,
+"p2Id": 44553,
+"sapId": 17352245,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-14T18:40:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200309775722630",
+"start": "2026-10-18T09:00:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Otto Virtanen",
+"b": "Vitaliy Sachko",
+"aRoh": "Virtanen, Otto",
+"bRoh": "Sachko, Vitaliy",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 276563,
+"p2Id": 100069,
+"sapId": 17352248,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-15T10:35:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1205207875371468",
+"start": "2026-10-18T09:00:00.000Z",
+"turnier": "Catania Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Gianluca Cadenasso",
+"b": "Radu Mihai Papoe",
+"aRoh": "Cadenasso, Gianluca",
+"bRoh": "Papoe, Radu Mihai",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.74,
+1.96
+]
+},
+"pausiert": [],
+"tid": 52078,
+"p1Id": 927343,
+"p2Id": 441496
+},
+{
+"id": "id1201505375723520",
+"start": "2026-10-18T09:10:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Andrej Martin",
+"b": "Cacao, Tiago",
+"aRoh": "Martin, Andrej",
+"bRoh": "Cacao, Tiago",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 24415,
+"p2Id": 191336,
+"sapId": 17352065,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-13T15:45:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1201505375723536",
+"start": "2026-10-18T09:10:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Abedallah Shelbayh",
+"b": "Rodenas, Pedro",
+"aRoh": "Shelbayh, Abdullah",
+"bRoh": "Rodenas, Pedro",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 428657,
+"p2Id": 684579,
+"sapId": 17352066,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T12:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-12T08:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721928",
+"start": "2026-10-18T09:10:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Filip Misolic",
+"b": "Recek, Dominik",
+"aRoh": "Misolic, Filip",
+"bRoh": "Recek, Dominik",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 248779,
+"p2Id": 84659,
+"sapId": 17351718,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721934",
+"start": "2026-10-18T09:10:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Vrba, Jakub",
+"b": "Marti Pujolras, Alex",
+"aRoh": "Vrba, Jakub",
+"bRoh": "Marti Pujolras, Alex",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 1050617,
+"p2Id": 251025,
+"sapId": 17351712,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-12T08:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-12T09:55:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721936",
+"start": "2026-10-18T09:10:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Izan Almazan Valiente",
+"b": "Adrian Andreev",
+"aRoh": "Almazan Valiente, Izan",
+"bRoh": "Andreev, Adrian",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 978589,
+"p2Id": 230468,
+"sapId": 17351713,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-12T14:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1204195975721258",
+"start": "2026-10-18T10:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Alexander Shevchenko",
+"b": "Stefanos Sakellaridis",
+"aRoh": "Shevchenko, Aleksandr",
+"bRoh": "Sakellaridis, Stefanos",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 371436,
+"p2Id": 515478,
+"sapId": 17351022,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 9,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-10-17T12:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-17T11:35:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200309775722624",
+"start": "2026-10-18T10:10:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Maxim Mrva",
+"b": "Dusan Lajovic",
+"aRoh": "Mrva, Maxim",
+"bRoh": "Lajovic, Dusan",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 948185,
+"p2Id": 39234,
+"sapId": 17352242,
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 6,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-16T13:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722638",
+"start": "2026-10-18T10:10:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Kyrian Jacquet",
+"b": "Sascha Gueymard Wayenburg",
+"aRoh": "Jacquet, Kyrian",
+"bRoh": "Gueymard Wayenburg, Sascha",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 382058,
+"p2Id": 679701,
+"sapId": 17352246,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 3,
+"saetze7": 6,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-16T18:05:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723516",
+"start": "2026-10-18T10:20:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Olle Wallin",
+"b": "Leote Prata, Vasco",
+"aRoh": "Wallin, Olle",
+"bRoh": "Leote Prata, Vasco",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 617530,
+"p2Id": 777578,
+"sapId": 17352423,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 1,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-11T14:15:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-11T14:45:00Z",
+"quali": false
+}
+},
+"warnungen": [
+{
+"typ": "aufgabe",
+"text": "Aufgabe im letzten Spiel (11.10.)",
+"seite": "A"
+}
+]
+},
+{
+"id": "id1201505375723530",
+"start": "2026-10-18T10:20:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Liborio, Pedro",
+"b": "Oleksii Krutykh",
+"aRoh": "Liborio, Pedro",
+"bRoh": "Krutykh, Oleksii",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 600324,
+"p2Id": 286367,
+"sapId": 17352429,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-12T12:40:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721922",
+"start": "2026-10-18T10:20:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Federico Iannaccone",
+"b": "Pierluigi Basile",
+"aRoh": "Iannaccone, Federico",
+"bRoh": "Basile, Pierluigi",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 252249,
+"p2Id": 1147079,
+"sapId": 17351716,
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 7,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-13T09:35:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721924",
+"start": "2026-10-18T10:20:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Dmitry Popko",
+"b": "Rapagnetta, Daniele",
+"aRoh": "Popko, Dmitry",
+"bRoh": "Rapagnetta, Daniele",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 50901,
+"p2Id": 955447,
+"sapId": 17351717,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721942",
+"start": "2026-10-18T10:20:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Guidotti, Martino",
+"b": "Maximus Jones",
+"aRoh": "Guidotti, Martino",
+"bRoh": "Jones, Maximus",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 1401486,
+"p2Id": 663757,
+"sapId": 17351714,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1204593575721288",
 "start": "2026-10-18T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Remy Bertola",
+"b": "Federico Cina",
+"aRoh": "Bertola, Remy",
+"bRoh": "Cina, Federico",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 45935,
+"p1Id": 145108,
+"p2Id": 917921,
+"sapId": 17351132,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-17T12:25:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-17T10:40:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723514",
+"start": "2026-10-18T11:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Domingues, Joao",
+"b": "Ivan Gakhov",
+"aRoh": "Domingues, Joao",
+"bRoh": "Gakhov, Ivan",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 57327,
+"p2Id": 76515,
+"sapId": 17352427,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-12T13:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200309775722628",
+"start": "2026-10-18T11:20:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Francesco Maestrelli",
+"b": "Borna Gojo",
+"aRoh": "Maestrelli, Francesco",
+"bRoh": "Gojo, Borna",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 359608,
+"p2Id": 124916,
+"sapId": 17352243,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-15T15:25:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722634",
+"start": "2026-10-18T11:20:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Valentin Royer",
+"b": "Clement Tabur",
+"aRoh": "Royer, Valentin",
+"bRoh": "Tabur, Clement",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 341220,
+"p2Id": 225052,
+"sapId": 17352241,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-14T09:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-14T14:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723526",
+"start": "2026-10-18T11:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Yuzuki, Takeru",
+"b": "Svyatoslav Gulin",
+"aRoh": "Yuzuki, Takeru",
+"bRoh": "Gulin, Svyatoslav",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 548169,
+"p2Id": 863263,
+"sapId": 17352432,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-12T08:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723532",
+"start": "2026-10-18T11:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Carlos Taberner",
+"b": "Marques, Goncalo",
+"aRoh": "Taberner, Carlos",
+"bRoh": "Marques, Goncalo",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 108559,
+"p2Id": 962719,
+"sapId": 17352434,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-11T12:45:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721938",
+"start": "2026-10-18T11:30:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Landini, Jacopo",
+"b": "Javier Barranco Cosano",
+"aRoh": "Landini, Jacopo",
+"bRoh": "Barranco Cosano, Javier",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 632354,
+"p2Id": 177686,
+"sapId": 17351715,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-11T12:25:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204593575721260",
+"start": "2026-10-18T11:40:00.000Z",
+"turnier": "ATP Brussels",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Clement Chidekh",
+"b": "Gauthier Onclin",
+"aRoh": "Chidekh, Clement",
+"bRoh": "Onclin, Gauthier",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 45935,
+"p1Id": 283759,
+"p2Id": 289105,
+"sapId": 17351133,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-17T13:05:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 6,
+"dreisatz7": 2,
+"siege7": 1,
+"letztes": "2026-10-17T10:30:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1203086975371356",
+"start": "2026-10-18T12:00:00.000Z",
+"turnier": "Maia Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Francesco Passaro",
+"b": "Zsombor Piros",
+"aRoh": "Passaro, Francesco",
+"bRoh": "Piros, Zsombor",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.84,
+1.84
+]
+},
+"pausiert": [],
+"tid": 30869,
+"p1Id": 353530,
+"p2Id": 223714,
+"sapId": 17274659,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 10,
+"dreisatz7": 2,
+"siege7": 4,
+"letztes": "2026-10-17T12:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 9,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-10-17T10:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723528",
+"start": "2026-10-18T12:10:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Schoen, Patrick",
+"b": "Rocha, Francisco",
+"aRoh": "Schoen, Patrick",
+"bRoh": "Rocha, Francisco",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 938703,
+"p2Id": 273883,
+"sapId": 17352435,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-12T12:35:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T18:40:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200309775722632",
+"start": "2026-10-18T12:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Ugo Blanchet",
+"b": "Nicolai Budkov Kjaer",
+"aRoh": "Blanchet, Ugo",
+"bRoh": "Budkov Kjaer, Nicolai",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 213170,
+"p2Id": 943619,
+"sapId": 17352244,
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 6,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-15T12:35:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 8,
+"dreisatz7": 0,
+"siege7": 3,
+"letztes": "2026-10-17T14:45:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200309775722636",
+"start": "2026-10-18T12:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Jan Kumstat",
+"b": "Michael Mmoh",
+"aRoh": "Kumstat, Jan",
+"bRoh": "Mmoh, Michael",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 904033,
+"p2Id": 131442,
+"sapId": 17352247,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-15T13:45:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 3,
+"saetze7": 6,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-16T15:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723522",
+"start": "2026-10-18T12:40:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Wehnelt, Kai",
+"b": "Milos Karol",
+"aRoh": "Wehnelt, Kai",
+"bRoh": "Karol, Milos",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 77501,
+"p2Id": 628218,
+"sapId": 17352428,
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 7,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-13T09:50:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"dreisatz7": 2,
+"siege7": 3,
+"letztes": "2026-10-15T10:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723524",
+"start": "2026-10-18T12:40:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Alejo Sanchez Quilez",
+"b": "Lima Sanches, Duarte",
+"aRoh": "Sanchez Quilez, Alejo",
+"bRoh": "Lima Sanches, Duarte",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 951223,
+"p2Id": 1305292,
+"sapId": 17352431,
+"form": {
+"a": {
+"spiele7": 6,
+"saetze7": 14,
+"dreisatz7": 2,
+"siege7": 5,
+"letztes": "2026-10-17T10:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721940",
+"start": "2026-10-18T13:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Matthew William Donald",
+"b": "Pennaforti, Gabriele",
+"aRoh": "Donald, Matthew William",
+"bRoh": "Pennaforti, Gabriele",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 728235,
+"p2Id": 790404,
+"sapId": 17351732,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721944",
+"start": "2026-10-18T13:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Pavel Lagutin",
+"b": "Milev, Yanaki",
+"aRoh": "Lagutin, Pavel",
+"bRoh": "Milev, Yanaki",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 1218077,
+"p2Id": 644676,
+"sapId": 17351733,
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 7,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-10-13T08:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-12T10:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1203543675371420",
+"start": "2026-10-18T13:00:00.000Z",
+"turnier": "Roanne Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Matteo Martineau",
+"b": "Mika Brunold",
+"aRoh": "Martineau, Matteo",
+"bRoh": "Brunold, Mika",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.25,
+1.56
+]
+},
+"pausiert": [],
+"tid": 35436,
+"p1Id": 145122,
+"p2Id": 745797,
+"sapId": 17274689,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 9,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-10-17T14:45:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"dreisatz7": 2,
+"siege7": 4,
+"letztes": "2026-10-17T12:30:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204070975371216",
+"start": "2026-10-18T13:00:00.000Z",
+"turnier": "Olbia Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Jacob Fearnley",
+"b": "Damir Dzumhur",
+"aRoh": "Fearnley, Jacob",
+"bRoh": "Dzumhur, Damir",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.34,
+2.95
+]
+},
+"pausiert": [],
+"tid": 40709,
+"p1Id": 407783,
+"p2Id": 49172,
+"sapId": 17274455,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 8,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-10-17T14:50:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"dreisatz7": 2,
+"siege7": 4,
+"letztes": "2026-10-17T13:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204593575723598",
+"start": "2026-10-18T13:00:00.000Z",
+"turnier": "ATP Brussels",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Nishesh Basavareddy",
+"b": "Aziz Dougaz",
+"aRoh": "Basavareddy, Nishesh",
+"bRoh": "Dougaz, Aziz",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 45935,
+"p1Id": 872497,
+"p2Id": 172482,
+"sapId": 17352296,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-17T14:50:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 6,
+"dreisatz7": 2,
+"siege7": 1,
+"letztes": "2026-10-17T16:25:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204593575723596",
+"start": "2026-10-18T14:00:00.000Z",
+"turnier": "ATP Brussels",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Martin Damm",
+"b": "Andrea Guerrieri",
+"aRoh": "Damm Jr, Martin",
+"bRoh": "Guerrieri, Andrea",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 45935,
+"p1Id": 51345,
+"p2Id": 193824,
+"sapId": 17352297,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-17T16:55:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 3,
+"saetze7": 6,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-17T14:35:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200386175725386",
+"start": "2026-10-18T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Alan Magadan",
+"b": "Juan Miguel Bolivar Idarraga",
+"aRoh": "Magadan, Alan",
+"bRoh": "Juan Miguel Bolivar Idarraga",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 395890,
+"p2Id": 1401548,
+"sapId": 17354384,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200386175725400",
+"start": "2026-10-18T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Pereira, Jose",
+"b": "Tristan Mccormick",
+"aRoh": "Pereira, Jose",
+"bRoh": "McCormick, Tristan",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 16564,
+"p2Id": 345058,
+"sapId": 17354385,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200386175725404",
+"start": "2026-10-18T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Rengifo, Frazier",
+"b": "Nicolas Villalon",
+"aRoh": "Rengifo, Frazier",
+"bRoh": "Villalon Valdes, Nicolas",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 203831,
+"p2Id": 930583,
+"sapId": 17354386,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1205335275727902",
+"start": "2026-10-18T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
 "belagQuelle": "kalender",
+"a": "Karl Poling",
+"b": "Alex Rybakov",
+"aRoh": "Poling, Karl",
+"bRoh": "Rybakov, Alex",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 210636,
+"p2Id": 101157
+},
+{
+"id": "id1205335275727904",
+"start": "2026-10-18T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Keegan Rice",
+"b": "Jong, Sander",
+"aRoh": "Rice, Keegan",
+"bRoh": "Jong, Sander",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 958751,
+"p2Id": 739639
+},
+{
+"id": "id1200386175725384",
+"start": "2026-10-18T16:10:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Torrealba, Benjamin",
+"b": "Salazar Martinez, Daniel",
+"aRoh": "Torrealba, Benjamin",
+"bRoh": "Salazar Martinez, Daniel",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 881721,
+"p2Id": 205825,
+"sapId": 17354387,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200386175725388",
+"start": "2026-10-18T16:10:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Flores, Jesse",
+"b": "Ribero, Franco",
+"aRoh": "Flores, Jesse",
+"bRoh": "Ribero, Franco",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 157462,
+"p2Id": 170976,
+"sapId": 17354388,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-11T19:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200386175725398",
+"start": "2026-10-18T16:10:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Felipe Meligeni Alves",
+"b": "Claverie, Lorenzo",
+"aRoh": "Meligeni Alves, Felipe",
+"bRoh": "Claverie, Lorenzo",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 121668,
+"p2Id": 675177,
+"sapId": 17354389,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-14T22:20:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1205335275727896",
+"start": "2026-10-18T17:10:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Pascual Ferra, Roger",
+"b": "Duncan Chan",
+"aRoh": "Pascual Ferra, Roger",
+"bRoh": "Chan, Duncan",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 851493,
+"p2Id": 938097
+},
+{
+"id": "id1205335275727898",
+"start": "2026-10-18T17:10:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "James Trotter",
+"b": "Young, Gavin",
+"aRoh": "Trotter, James Kent",
+"bRoh": "Young, Gavin",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 342826,
+"p2Id": 1022799
+},
+{
+"id": "id1205335275727900",
+"start": "2026-10-18T17:10:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Woestendick, Cooper",
+"b": "Bor Artnak",
+"aRoh": "Woestendick, Cooper",
+"bRoh": "Artnak, Bor",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 908817,
+"p2Id": 813476
+},
+{
+"id": "id1200386175725392",
+"start": "2026-10-18T17:20:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Hernandez Ramirez, Sergio Luis",
+"b": "Leite, Wilson",
+"aRoh": "Hernandez Ramirez, Sergio Luis",
+"bRoh": "Leite, Wilson",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 169882,
+"p2Id": 54477,
+"sapId": 17354390,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T18:10:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200386175725402",
+"start": "2026-10-18T17:20:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Mateus Alves",
+"b": "Munk Mesa, Bernardo",
+"aRoh": "Alves, Mateus",
+"bRoh": "Munk Mesa, Bernardo",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 221556,
+"p2Id": 872245,
+"sapId": 17354391,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-14T00:25:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T22:10:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200386175725406",
+"start": "2026-10-18T17:20:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Diego Dedura",
+"b": "Adria Soriano Barrera",
+"aRoh": "Dedura, Diego",
+"bRoh": "Soriano Barrera, Adria",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 1034817,
+"p2Id": 228372,
+"sapId": 17354392,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T16:35:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1205335275727888",
+"start": "2026-10-18T18:20:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Pedrico Kravtsov, Albert",
+"b": "Daniil Ostapenkov",
+"aRoh": "Pedrico Kravtsov, Albert",
+"bRoh": "Ostapenkov, Daniil",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 898025,
+"p2Id": 685379
+},
+{
+"id": "id1205335275727890",
+"start": "2026-10-18T18:20:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Quinn Vandecasteele",
+"b": "Antonius, Michael",
+"aRoh": "Vandecasteele, Quinn",
+"bRoh": "Antonius, Michael",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 457061,
+"p2Id": 1276064
+},
+{
+"id": "id1205335275727892",
+"start": "2026-10-18T18:20:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Mitsui, Shunsuke",
+"b": "Patrick Zahraj",
+"aRoh": "Mitsui, Shunsuke",
+"bRoh": "Zahraj, Patrick",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 534031,
+"p2Id": 229024
+},
+{
+"id": "id1200386175725390",
+"start": "2026-10-18T18:30:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Hernandez, Alex",
+"b": "Covato, Matteo",
+"aRoh": "Hernandez, Alex",
+"bRoh": "Covato, Matteo",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 353548,
+"p2Id": 1036507,
+"sapId": 17354383,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200386175725394",
+"start": "2026-10-18T18:30:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Santiago Fa Rodriguez Taverna",
+"b": "Mariano Kestelboim",
+"aRoh": "Rodriguez Taverna, Santiago",
+"bRoh": "Kestelboim, Mariano",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 185434,
+"p2Id": 99377,
+"sapId": 17354393,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T20:30:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200386175725396",
+"start": "2026-10-18T18:30:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Del Pino, Mateo",
+"b": "Juan Sebastian Gomez",
+"aRoh": "Del Pino, Mateo",
+"bRoh": "Gomez, Juan Sebastian",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 833418,
+"p2Id": 25726,
+"sapId": 17354394,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1205335275727894",
+"start": "2026-10-18T19:30:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Andrew Fenty",
+"b": "Kaylan Bigun",
+"aRoh": "Fenty, Andrew",
+"bRoh": "Bigun, Kaylan",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 353586,
+"p2Id": 878709
+},
+{
+"id": "id1205335275727908",
+"start": "2026-10-18T19:30:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Sheehy, Joshua",
+"b": "McHugh, Aidan",
+"aRoh": "Sheehy, Joshua",
+"bRoh": "McHugh, Aidan",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 348308,
+"p2Id": 242556
+},
+{
+"id": "id1205335275728248",
+"start": "2026-10-18T19:30:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Spencer Johnson",
+"b": "Arutiunian, Erik",
+"aRoh": "Johnson, Spencer",
+"bRoh": "Arutiunian, Erik",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 1138465,
+"p2Id": 837590
+},
+{
+"id": "id1203609375371506",
+"start": "2026-10-18T20:30:00.000Z",
+"turnier": "Santa Cruz 2 Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Thiago Seyboth Wild",
+"b": "Hugo Dellien",
+"aRoh": "Seyboth Wild, Thiago",
+"bRoh": "Dellien, Hugo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 36093,
+"p1Id": 161262,
+"p2Id": 57289,
+"sapId": 17274765,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 9,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-10-17T20:45:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 8,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-10-17T19:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200463175719584",
+"start": "2026-10-19T02:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Yu Hsiou Hsu",
+"b": "Jie Cui",
+"aRoh": "Hsu, Yu Hsiou",
+"bRoh": "Cui, Jie",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 220588,
+"p2Id": 215492,
+"sapId": 17350431,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-14T04:50:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200463175719586",
+"start": "2026-10-19T02:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Sergey Fomin",
+"b": "Tristan Schoolkate",
+"aRoh": "Fomin, Sergey",
+"bRoh": "Schoolkate, Tristan",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 208165,
+"p2Id": 405977,
+"sapId": 17350432,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-14T04:35:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200463175719588",
+"start": "2026-10-19T02:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "historie",
+"a": "Cruz Hewitt",
+"b": "Rigele Te",
+"aRoh": "Hewitt, Cruz",
+"bRoh": "TE, Rigele",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 1055851,
+"p2Id": 156664
+},
+{
+"id": "id1200463175719590",
+"start": "2026-10-19T02:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Fajing Sun",
+"b": "Sun, Qian",
+"aRoh": "Sun, Fajing",
+"bRoh": "Sun, Qian",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 163438,
+"p2Id": 422973,
+"sapId": 17350434,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T06:10:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200463175719592",
+"start": "2026-10-19T02:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Mert Alkaya",
+"b": "Andre Ilagan",
+"aRoh": "Alkaya, Mert",
+"bRoh": "Ilagan, Andre",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 211992,
+"p2Id": 312088,
+"sapId": 17350435,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-14T04:25:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200463175719594",
+"start": "2026-10-19T02:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Zhizhen Zhang",
+"b": "Kaichi Uchida",
+"aRoh": "Zhang, Zhizhen",
+"bRoh": "Uchida, Kaichi",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 75813,
+"p2Id": 82579,
+"sapId": 17350436,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T04:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200463175719596",
+"start": "2026-10-19T02:30:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "James McCabe",
+"b": "Elias Ymer",
+"aRoh": "McCabe, James",
+"bRoh": "Ymer, Elias",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 675175,
+"p2Id": 83661,
+"sapId": 17350437,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T04:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T08:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200463175719582",
+"start": "2026-10-19T03:00:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Hayato Matsuoka",
+"b": "Yibing Wu",
+"aRoh": "Matsuoka, Hayato",
+"bRoh": "Wu, Yibing",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 915433,
+"p2Id": 200261,
+"sapId": 17350430,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-14T03:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200463175719598",
+"start": "2026-10-19T03:00:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Ognjen Milic",
+"b": "Jay Dylan Hara Friend",
+"aRoh": "Milic, Ognjen",
+"bRoh": "Friend, Jay",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 1021133,
+"p2Id": 839014,
+"sapId": 17350438,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-15T04:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200463175719600",
+"start": "2026-10-19T03:00:00.000Z",
+"turnier": "Guangzhou Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Coleman Wong",
+"b": "Jake Delaney",
+"aRoh": "Wong, Coleman",
+"bRoh": "Delaney, Jake",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 4631,
+"p1Id": 449767,
+"p2Id": 79223,
+"sapId": 17350439,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T03:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204195975716384",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Miomir Kecmanovic",
+"b": "James Duckworth",
+"aRoh": "Kecmanovic, Miomir",
+"bRoh": "Duckworth, James",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.49,
+2.25
+]
+},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 130398,
+"p2Id": 39711,
+"sapId": 17349911,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T11:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-14T03:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204195975716386",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Stefanos Tsitsipas",
+"b": "Aleksandar Kovacevic",
+"aRoh": "Tsitsipas, Stefanos",
+"bRoh": "Kovacevic, Aleksandar",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 122366,
+"p2Id": 188321,
+"sapId": 17349912,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-14T10:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1204195975716388",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Adrian Mannarino",
+"b": "Aleksandar Vukic",
+"aRoh": "Mannarino, Adrian",
+"bRoh": "Vukic, Aleksandar",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.49,
+2.6
+]
+},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 15894,
+"p2Id": 124656,
+"sapId": 17349913,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-15T07:25:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204195975716390",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Thiago Agustin Tirante",
+"b": "Facundo Diaz Acosta",
+"aRoh": "Tirante, Thiago Agustin",
+"bRoh": "Diaz Acosta, Facundo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 256875,
+"p2Id": 371476,
+"sapId": 17349914,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T07:05:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204195975716392",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Nurlanuly, Zangar",
+"b": "Tomas Machac",
+"aRoh": "Nurlanuly, Zangar",
+"bRoh": "Machac, Tomas",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+17.0,
+1.0
+]
+},
+"pausiert": [
+"winamax"
+],
+"tid": 41959,
+"p1Id": 1222975,
+"p2Id": 300540,
+"sapId": 17349915,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-16T05:35:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204195975716394",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Fabian Marozsan",
+"b": "Timofey Skatov",
+"aRoh": "Marozsan, Fabian",
+"bRoh": "Skatov, Timofey",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.22,
+4.3
+]
+},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 254383,
+"p2Id": 276685,
+"sapId": 17349917,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1204195975716396",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Mattia Bellucci",
+"b": "Tomas Martin Etcheverry",
+"aRoh": "Bellucci, Mattia",
+"bRoh": "Etcheverry, Tomas Martin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 472975,
+"p2Id": 169496,
+"sapId": 17349918,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 8,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-10-17T07:55:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1204195975716398",
+"start": "2026-10-19T06:00:00.000Z",
+"turnier": "ATP Almaty",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Terence Atmane",
+"b": "Rinky Hijikata",
+"aRoh": "Atmane, Terence",
+"bRoh": "Hijikata, Rinky",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.86,
+1.92
+]
+},
+"pausiert": [],
+"tid": 41959,
+"p1Id": 399633,
+"p2Id": 299130,
+"sapId": 17349919,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722446",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Lorenzo Sonego",
+"b": "Moise Kouame",
+"aRoh": "Sonego, Lorenzo",
+"bRoh": "Kouame, Moise",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 104847,
+"p2Id": 1141275,
+"sapId": 17351848,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-15T17:20:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723570",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Tristan Boyer",
+"b": "Elmer Moeller",
+"aRoh": "Boyer, Tristan",
+"bRoh": "Moller, Elmer",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 284801,
+"p2Id": 1084926,
+"sapId": 17352417,
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 7,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-16T17:10:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-14T10:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723582",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Morais, Diogo",
+"b": "Carlo Alberto Caniato",
+"aRoh": "Morais, Diogo",
+"bRoh": "Caniato, Carlo Alberto",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 777580,
+"p2Id": 861461,
+"sapId": 17352419,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721834",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Filippo Romano",
+"b": "Filip Cristian Jianu",
+"aRoh": "Romano, Filippo",
+"bRoh": "Jianu, Filip Cristian",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 853643,
+"p2Id": 279295,
+"sapId": 17351679,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T10:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-13T09:35:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721836",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Henry Searle",
+"b": "Massimo Giunta",
+"aRoh": "Searle, Henry",
+"bRoh": "Giunta, Massimo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 871807,
+"p2Id": 904027,
+"sapId": 17351490,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-13T08:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-13T08:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721838",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Sandro Kopp",
+"b": "Gianluca Cadenasso",
+"aRoh": "Kopp, Sandro",
+"bRoh": "Cadenasso, Gianluca",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 210502,
+"p2Id": 927343,
+"sapId": 17351494,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-12T11:35:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-13T09:50:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721840",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Miguel Damas",
+"b": "Samuele Pieri",
+"aRoh": "Damas, Miguel",
+"bRoh": "Pieri, Samuele",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 197674,
+"p2Id": 779248,
+"sapId": 17351680,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T08:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721842",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Andrej Nedic",
+"b": "Gabriele Piraino",
+"aRoh": "Nedic, Andrej",
+"bRoh": "Piraino, Gabriele",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 580167,
+"p2Id": 791648,
+"sapId": 17351678,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-14T15:05:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-12T13:45:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1202613875721844",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Franco Agamenone",
+"b": "Max Houkes",
+"aRoh": "Agamenone, Franco",
+"bRoh": "Houkes, Max",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 65606,
+"p2Id": 414501,
+"sapId": 17351491,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721846",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Michele Ribecai",
+"b": "Jacopo Vasami",
+"aRoh": "Ribecai, Michele",
+"bRoh": "Vasami, Jacopo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 983475,
+"p2Id": 1181751,
+"sapId": 17351493,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T08:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721848",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Ivan Ivanov",
+"b": "Enrico Dalla Valle",
+"aRoh": "Ivanov, Ivan",
+"bRoh": "Dalla Valle, Enrico",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 978611,
+"p2Id": 106153,
+"sapId": 17351492,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721850",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Radu Mihai Papoe",
+"b": "Oriol Roca Batalla",
+"aRoh": "Papoe, Radu Mihai",
+"bRoh": "Roca Batalla, Oriol",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 441496,
+"p2Id": 51100,
+"sapId": 17351683,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-13T08:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721852",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Francesco Forti",
+"b": "Jonas Forejtek",
+"aRoh": "Forti, Francesco",
+"bRoh": "Forejtek, Jonas",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 252239,
+"p2Id": 387066,
+"sapId": 17351682,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-12T15:10:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1202613875721854",
+"start": "2026-10-19T08:00:00.000Z",
+"turnier": "Florence Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Zdenek Kolar",
+"b": "Federico Bondioli",
+"aRoh": "Kolar, Zdenek",
+"bRoh": "Bondioli, Federico",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 26138,
+"p1Id": 132558,
+"p2Id": 873679,
+"sapId": 17351681,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-12T15:10:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722436",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Daniel Altmaier",
+"b": "Titouan Droguet",
+"aRoh": "Altmaier, Daniel",
+"bRoh": "Droguet, Titouan",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 127208,
+"p2Id": 309954,
+"sapId": 17351845,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722438",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Benjamin Bonzi",
+"b": "Cameron Norrie",
+"aRoh": "Bonzi, Benjamin",
+"bRoh": "Norrie, Cameron",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 94485,
+"p2Id": 95935,
+"sapId": 17351843,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 6,
+"dreisatz7": 2,
+"siege7": 1,
+"letztes": "2026-10-14T16:30:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722440",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Jaime Faria",
+"b": "Felix Balshaw",
+"aRoh": "Faria, Jaime",
+"bRoh": "Balshaw, Felix",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 682911,
+"p2Id": 1067542,
+"sapId": 17351844,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 3,
+"saetze7": 8,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-10-16T14:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200309775722442",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Ugo Humbert",
+"b": "Corentin Moutet",
+"aRoh": "Humbert, Ugo",
+"bRoh": "Moutet, Corentin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 185388,
+"p2Id": 175014,
+"sapId": 17351849,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722444",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Matteo Arnaldi",
+"b": "Lorenzo Musetti",
+"aRoh": "Arnaldi, Matteo",
+"bRoh": "Musetti, Lorenzo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 505550,
+"p2Id": 359602,
+"sapId": 17351846,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722448",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Hamad Medjedovic",
+"b": "Brandon Nakashima",
+"aRoh": "Medjedovic, Hamad",
+"bRoh": "Nakashima, Brandon",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 601146,
+"p2Id": 294300,
+"sapId": 17351850,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200309775722450",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"kategorie": "ATP",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Stan Wawrinka",
+"b": "Martin Landaluce",
+"aRoh": "Wawrinka, Stan",
+"bRoh": "Landaluce, Martin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3097,
+"p1Id": 14548,
+"p2Id": 903987,
+"sapId": 17351847,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 4,
+"saetze7": 9,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-10-17T10:20:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723568",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Thiago Monteiro",
+"b": "Alejandro Moro Canas",
+"aRoh": "Monteiro, Thiago",
+"bRoh": "Moro Canas, Alejandro",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 47603,
+"p2Id": 325737,
+"sapId": 17352422,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-13T15:40:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T13:55:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723572",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Max Alcala Gurri",
+"b": "Andres Andrade",
+"aRoh": "Alcala Gurri, Max",
+"bRoh": "Andrade, Andres",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 422993,
+"p2Id": 168420,
+"sapId": 17352418,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T12:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1201505375723574",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Francesco Passaro",
+"b": "Elias, Gastao",
+"aRoh": "Passaro, Francesco",
+"bRoh": "Elias, Gastao",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 353530,
+"p2Id": 15858,
+"sapId": 17352416,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 10,
+"dreisatz7": 2,
+"siege7": 4,
+"letztes": "2026-10-17T12:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1201505375723576",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Andrea Pellegrino",
+"b": "Pol Martin Tiffon",
+"aRoh": "Pellegrino, Andrea",
+"bRoh": "Martin Tiffon, Pol",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 93597,
+"p2Id": 251029,
+"sapId": 17352421,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-13T11:30:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-10-14T11:10:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723580",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Marco Cecchinato",
+"b": "Vilius Gaubas",
+"aRoh": "Cecchinato, Marco",
+"bRoh": "Gaubas, Vilius",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 44549,
+"p2Id": 604238,
+"sapId": 17352426,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-15T14:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723584",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Marco Trungelliti",
+"b": "Tiago Pereira",
+"aRoh": "Trungelliti, Marco",
+"bRoh": "Pereira, Tiago",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 38517,
+"p2Id": 880089,
+"sapId": 17352425,
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 8,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-10-16T14:10:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T14:15:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723566",
+"start": "2026-10-19T09:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Dali Blanch",
+"b": "Henrique Rocha",
+"aRoh": "Blanch, Dali",
+"bRoh": "Rocha, Henrique",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 588075,
+"p2Id": 682913,
+"sapId": 17352420,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-10-12T15:30:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201505375723578",
+"start": "2026-10-19T09:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Raul Brancaccio",
+"b": "Calvin Hemery",
+"aRoh": "Brancaccio, Raul",
+"bRoh": "Hemery, Calvin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 15053,
+"p1Id": 123694,
+"p2Id": 81271,
+"sapId": 17352433,
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T13:55:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1204593575698082",
+"start": "2026-10-19T10:30:00.000Z",
+"turnier": "ATP Brussels",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
 "a": "Holger Rune",
 "b": "Raphael Collignon",
 "aRoh": "Rune, Holger",
@@ -507,22 +4310,31 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.74,
-2.05
+1.7,
+2.1
 ]
 },
 "pausiert": [],
 "tid": 45935,
 "p1Id": 429603,
-"p2Id": 739641
+"p2Id": 739641,
+"sapId": 17345447,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
 "id": "id1204593575698084",
-"start": "2026-10-18T10:30:00.000Z",
+"start": "2026-10-19T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Tallon Griekspoor",
 "b": "Max Schoenhaus",
 "aRoh": "Griekspoor, Tallon",
@@ -539,15 +4351,29 @@
 "pausiert": [],
 "tid": 45935,
 "p1Id": 122368,
-"p2Id": 913185
+"p2Id": 913185,
+"sapId": 17345444,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-13T08:30:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1204593575698086",
-"start": "2026-10-18T10:30:00.000Z",
+"start": "2026-10-19T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Mariano Navone",
 "b": "Juan Manuel Cerundolo",
 "aRoh": "Navone, Mariano",
@@ -564,15 +4390,24 @@
 "pausiert": [],
 "tid": 45935,
 "p1Id": 392066,
-"p2Id": 258735
+"p2Id": 258735,
+"sapId": 17345446,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
 "id": "id1204593575698088",
-"start": "2026-10-18T10:30:00.000Z",
+"start": "2026-10-19T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Jacob Fearnley",
 "b": "Hugo Gaston",
 "aRoh": "Fearnley, Jacob",
@@ -582,22 +4417,41 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.38,
-3.0
+1.43,
+2.8
 ]
 },
 "pausiert": [],
 "tid": 45935,
 "p1Id": 407783,
-"p2Id": 223874
+"p2Id": 223874,
+"sapId": 17345450,
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 8,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-10-17T14:50:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-16T16:30:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1204593575698090",
-"start": "2026-10-18T10:30:00.000Z",
+"start": "2026-10-19T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Botic van de Zandschulp",
 "b": "Kamil Majchrzak",
 "aRoh": "Van de Zandschulp, Botic",
@@ -607,22 +4461,36 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.6,
-2.3
+1.56,
+2.4
 ]
 },
 "pausiert": [],
 "tid": 45935,
 "p1Id": 102339,
-"p2Id": 108709
+"p2Id": 108709,
+"sapId": 17345445,
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-10-14T04:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0
+}
+}
 },
 {
 "id": "id1204593575698092",
-"start": "2026-10-18T10:30:00.000Z",
+"start": "2026-10-19T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Toby Samuel",
 "b": "Zizou Bergs",
 "aRoh": "Samuel, Toby",
@@ -632,22 +4500,36 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.55,
-1.5
+2.75,
+1.44
 ]
 },
 "pausiert": [],
 "tid": 45935,
 "p1Id": 603106,
-"p2Id": 170946
+"p2Id": 170946,
+"sapId": 17345449,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-10-14T11:45:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1204593575698094",
-"start": "2026-10-18T10:30:00.000Z",
+"start": "2026-10-19T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Dino Prizmic",
 "b": "Damir Dzumhur",
 "aRoh": "Prizmic, Dino",
@@ -664,15 +4546,29 @@
 "pausiert": [],
 "tid": 45935,
 "p1Id": 722429,
-"p2Id": 49172
+"p2Id": 49172,
+"sapId": 17345451,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"dreisatz7": 2,
+"siege7": 4,
+"letztes": "2026-10-17T13:00:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1204593575698096",
-"start": "2026-10-18T10:30:00.000Z",
+"start": "2026-10-19T10:30:00.000Z",
 "turnier": "ATP Brussels",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Jan-Lennard Struff",
 "b": "Marcos Giron",
 "aRoh": "Struff, Jan-Lennard",
@@ -689,7 +4585,436 @@
 "pausiert": [],
 "tid": 45935,
 "p1Id": 46391,
-"p2Id": 42379
+"p2Id": 42379,
+"sapId": 17345448,
+"form": {
+"a": {
+"spiele7": 0
+},
+"b": {
+"spiele7": 0
+}
+}
+},
+{
+"id": "id1200386175727390",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Federico Coria",
+"b": "Nicolas Mejia",
+"aRoh": "Coria, Federico",
+"bRoh": "Mejia, Nicolas",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 54573,
+"p2Id": 138528
+},
+{
+"id": "id1200386175727392",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Gonzalo Villanueva",
+"b": "Miguel Tobon",
+"aRoh": "Villanueva, Gonzalo",
+"bRoh": "Tobon, Miguel",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 85877,
+"p2Id": 951299
+},
+{
+"id": "id1200386175727394",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Matias Soto",
+"b": "Samuel Heredia",
+"aRoh": "Soto, Matias",
+"bRoh": "Heredia, Samuel",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 305776,
+"p2Id": 855939
+},
+{
+"id": "id1200386175727396",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Facundo Mena",
+"b": "Valerio Aboian",
+"aRoh": "Mena, Facundo",
+"bRoh": "Aboian, Valerio",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 38180,
+"p2Id": 498580
+},
+{
+"id": "id1200386175727398",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Nick Hardt",
+"b": "Francisco Comesana",
+"aRoh": "Hardt, Nick",
+"bRoh": "Comesana, Francisco",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 186885,
+"p2Id": 341192
+},
+{
+"id": "id1200386175727400",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Thiago Seyboth Wild",
+"b": "Nicolas Kicker",
+"aRoh": "Seyboth Wild, Thiago",
+"bRoh": "Kicker, Nicolas",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 161262,
+"p2Id": 66086
+},
+{
+"id": "id1200386175727402",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Nicolas Jarry",
+"b": "Barrios Vera, Marcelo Tomas",
+"aRoh": "Jarry, Nicolas",
+"bRoh": "Barrios Vera, Marcelo Tomas",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 89632,
+"p2Id": 132834
+},
+{
+"id": "id1200386175727404",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Hugo Dellien",
+"b": "Juan Manuel La Serna",
+"aRoh": "Dellien, Hugo",
+"bRoh": "La Serna, Juan Manuel",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 57289,
+"p2Id": 785974
+},
+{
+"id": "id1200386175727406",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Hernan Casanova",
+"b": "Gonzalo Bueno",
+"aRoh": "Casanova, Hernan",
+"bRoh": "Bueno, Gonzalo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 54975,
+"p2Id": 506300
+},
+{
+"id": "id1200386175727408",
+"start": "2026-10-19T15:00:00.000Z",
+"turnier": "Cali Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "kalender",
+"a": "Daniel Elahi Galan",
+"b": "Juan Pablo Varillas",
+"aRoh": "Galan, Daniel Elahi",
+"bRoh": "Varillas, Juan Pablo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 3861,
+"p1Id": 92074,
+"p2Id": 72248
+},
+{
+"id": "id1205335275728592",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Daniel Milavsky",
+"b": "Nanda, Govind",
+"aRoh": "Milavsky, Daniel",
+"bRoh": "Nanda, Govind",
+"aInDb": true,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 660427,
+"p2Id": 224936
+},
+{
+"id": "id1205335275728594",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Rolland de Ravel, Cosme",
+"b": "Baris, Ozan",
+"aRoh": "Rolland de Ravel, Cosme",
+"bRoh": "Baris, Ozan",
+"aInDb": false,
+"bInDb": false,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 842598,
+"p2Id": 660423
+},
+{
+"id": "id1205335275728596",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Max Hans Rehberg",
+"b": "Mees Rottgering",
+"aRoh": "Rehberg, Max Hans",
+"bRoh": "Rottgering, Mees",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 508498,
+"p2Id": 930125
+},
+{
+"id": "id1205335275728598",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Aidan Mayo",
+"b": "Colton Smith",
+"aRoh": "Mayo, Aidan",
+"bRoh": "Smith, Colton",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 540271,
+"p2Id": 798876
+},
+{
+"id": "id1205335275728600",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Alastair Gray",
+"b": "Lui Maxted",
+"aRoh": "Gray, Alastair",
+"bRoh": "Maxted, Lui",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 262679,
+"p2Id": 605854
+},
+{
+"id": "id1205335275728602",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Wolf, Jeffrey John",
+"b": "Tyler Zink",
+"aRoh": "Wolf, Jeffrey John",
+"bRoh": "Zink, Tyler",
+"aInDb": false,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 234048,
+"p2Id": 373852
+},
+{
+"id": "id1205335275728604",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Sebastian Gorzny",
+"b": "Igor Ribeiro Marcondes",
+"aRoh": "Gorzny, Sebastian",
+"bRoh": "Marcondes, Igor",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 877067,
+"p2Id": 82157
+},
+{
+"id": "id1205335275728606",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Braden Shick",
+"b": "Gabriel Debru",
+"aRoh": "Shick, Braden",
+"bRoh": "Debru, Gabriel",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 809322,
+"p2Id": 774476
+},
+{
+"id": "id1205335275728608",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Luciano Emanuel Ambrogi",
+"b": "Patrick Maloney",
+"aRoh": "Ambrogi, Luciano Emanuel",
+"bRoh": "Maloney, Patrick",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 652290,
+"p2Id": 328985
+},
+{
+"id": "id1205335275728610",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Edward Winter",
+"b": "Timo Legout",
+"aRoh": "Winter, Edward",
+"bRoh": "Legout, Timo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 671229,
+"p2Id": 588073
+},
+{
+"id": "id1205335275728612",
+"start": "2026-10-19T16:00:00.000Z",
+"turnier": "Fort Worth Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Jenson Brooksby",
+"b": "Mitchell Krueger",
+"aRoh": "Brooksby, Jenson",
+"bRoh": "Krueger, Mitchell",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"tid": 53352,
+"p1Id": 195516,
+"p2Id": 52276
 }
 ]
 }
