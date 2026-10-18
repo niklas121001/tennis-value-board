@@ -2712,7 +2712,7 @@
 "zuletztGesehen": "2026-10-17T02:27Z",
 "clv_versucht": true,
 "schlussQuote": 1.35,
-"clv": 0.0,
+"clv": 0,
 "ergebnis": "W",
 "sieger": "A",
 "ergebnisQuelle": "spieldaten"
@@ -2765,7 +2765,7 @@
 "warn": [],
 "letzteQuote": 2.75,
 "letzteP": 0.5272587170312316,
-"zuletztGesehen": "2026-10-18T02:27Z"
+"zuletztGesehen": "2026-10-18T10:30Z"
 },
 "id1200308575720868|winamax": {
 "id": "id1200308575720868",
@@ -2788,7 +2788,10 @@
 "warn": [],
 "letzteQuote": 1.74,
 "letzteP": 0.4242872936698901,
-"zuletztGesehen": "2026-10-18T02:27Z"
+"zuletztGesehen": "2026-10-18T02:27Z",
+"clv_versucht": true,
+"schlussQuote": 1.8,
+"clv": -0.033333333333333326
 },
 "id1203086975371356|winamax": {
 "id": "id1203086975371356",
@@ -2809,8 +2812,54 @@
 "kelly": 30.59,
 "erstGesehen": "2026-10-18T02:27Z",
 "warn": [],
-"letzteQuote": 1.84,
-"letzteP": 0.3718811208140806,
-"zuletztGesehen": "2026-10-18T02:27Z"
+"letzteQuote": 1.7,
+"letzteP": 0.3549642344394305,
+"zuletztGesehen": "2026-10-18T10:30Z"
+},
+"id1203543675371420|winamax": {
+"id": "id1203543675371420",
+"start": "2026-10-18T13:00:00.000Z",
+"turnier": "Roanne Challenger",
+"belag": "hard",
+"a": "Matteo Martineau",
+"b": "Mika Brunold",
+"tid": 35436,
+"p1Id": 145122,
+"p2Id": 745797,
+"kategorie": "Challenger",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.62,
+"erstP": 0.3750397632685801,
+"edge": 0.012435583504900594,
+"kelly": 3.31,
+"erstGesehen": "2026-10-18T10:30Z",
+"warn": [],
+"letzteQuote": 1.62,
+"letzteP": 0.3750397632685801,
+"zuletztGesehen": "2026-10-18T10:30Z"
+},
+"id1200309775722446|winamax": {
+"id": "id1200309775722446",
+"start": "2026-10-19T08:30:00.000Z",
+"turnier": "ATP Lyon",
+"belag": "clay",
+"a": "Lorenzo Sonego",
+"b": "Moise Kouame",
+"tid": 3097,
+"p1Id": 104847,
+"p2Id": 1141275,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "A",
+"erstQuote": 1.58,
+"erstP": 0.6444803962646347,
+"edge": 0.01827902609812293,
+"kelly": 5.2,
+"erstGesehen": "2026-10-18T10:30Z",
+"warn": [],
+"letzteQuote": 1.58,
+"letzteP": 0.6444803962646347,
+"zuletztGesehen": "2026-10-18T10:30Z"
 }
 }
