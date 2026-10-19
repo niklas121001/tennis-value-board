@@ -229,6 +229,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <select id="f-belag"><option value="alle">alle</option><option value="hard">Hard</option><option value="clay">Sand</option><option value="grass">Rasen</option></select></div>
       <div class="ctl"><label for="f-suche">Spieler / Turnier</label><input type="search" id="f-suche" placeholder="z. B. Jodar"></div>
       <label class="check" for="f-value"><input type="checkbox" id="f-value"> nur Value-Wetten</label>
+      <label class="check" for="f-quali" title="Qualifikationspartien ohne Winamax-Quote"><input type="checkbox" id="f-quali"> Quali ohne Quote zeigen</label>
     </div>
     <div class="kpis">
       <div class="kpi"><b id="k-partien">–</b><span>Partien</span></div>
@@ -413,7 +414,8 @@ function setupControls(){
   if(saved && [...sel.options].some(o=>o.value===saved)) sel.value = saved;
   for(const id of ["f-tag","f-art","f-belag"]) { const v = store.get(id,null); if(v) $("#"+id).value = v; }
   $("#f-value").checked = store.get("f-value", false);
-  ["bm","f-tag","f-art","f-belag","f-value","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
+  $("#f-quali").checked = store.get("f-quali", false);
+  ["bm","f-tag","f-art","f-belag","f-value","f-quali","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
     const el = $("#"+id); store.set(id==="bm"?"bm":id, el.type==="checkbox"?el.checked:el.value); render(); }));
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
   if(["partien","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
@@ -514,6 +516,7 @@ function render(){
     if(fb!=="alle" && r.belagEff!==fb) continue;
     if(onlyV && !(r.wette && r.regelOk !== false)) continue;
     if(q && !(p.a+" "+p.b+" "+p.turnier).toLowerCase().includes(q)) continue;
+    if(p.quali && !Object.keys(p.quoten||{}).length && !$("#f-quali").checked) continue;   // Quali ohne Quote: bei Winamax nicht im Angebot
     rows.push({p, r});
   }
   const tips = rows.filter(x => x.r.wette && x.r.regelOk !== false && !String(x.r.empfehlung).startsWith("⛔"));
@@ -566,7 +569,7 @@ function rowHtml(p, r){
   const gs = (flag, name) => flag ? `<span class="gesch" title="Elo geschätzt aus Marktquoten und ersten Ergebnissen – noch kein Value-Tipp für die Bilanz">≈</span> ${esc(name)}` : esc(name);
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
-    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warnIcon(r.warn, "B", r.b)}${warn}</span></div></td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}</div></td>
     <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span></div></td>
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>

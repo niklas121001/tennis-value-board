@@ -275,6 +275,12 @@ def main():
         if not ev:
             continue
         m["sapId"] = ev["id"]
+        if "qualif" in str(ev.get("turnier", "")).lower() or "qualif" in str(ev.get("runde") or "").lower():
+            m["quali"] = True                # OddsPapi kennzeichnet Quali-Partien nicht – SportsAPIPro schon
+        else:
+            m.pop("quali", None)
+        if ev.get("runde"):
+            m["runde"] = ev["runde"]
         board_namen.update([ev["h"], ev["a"]])
         if ev.get("belag") and not mj.get("demo"):
             if m.get("belag") != ev["belag"]:

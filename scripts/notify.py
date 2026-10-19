@@ -216,7 +216,9 @@ def systemcheck():
     if os.environ.get("SPORTSAPIPRO_KEY") and (not l or jetzt - l > datetime.timedelta(hours=20)):
         probleme["sportsapipro"] = "SportsAPIPro lief seit über 20 Stunden nicht erfolgreich (Ergebnisse, Belag, H2H fehlen)."
     meta = load("meta.json", {}) or {}
-    un = meta.get("unbekannte_namen") or []
+    # unbekannte Spieler nur in Partien zählen, die relevant sind (keine Quali ohne Quote)
+    un = {n for x in (mj.get("partien") or []) if not (x.get("quali") and not x.get("quoten"))
+          for n, ok in ((x.get("a"), x.get("aInDb", True)), (x.get("b"), x.get("bInDb", True))) if not ok}
     if len(un) > 15:
         probleme["namen"] = f"{len(un)} Spielernamen konnten nicht zugeordnet werden (Modell-Reiter → Unbekannte Namen)."
     if meta.get("quoten_hinweis"):
