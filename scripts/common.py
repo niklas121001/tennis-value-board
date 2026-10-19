@@ -222,3 +222,47 @@ def spieler_bilanz_add(ziel, name, quote, gegen_quote, gewonnen):
     b = quoten_band(quote)
     if b:
         rec["baender"].setdefault(b, [0, 0])[i] += 1
+
+
+# ---------------------------------------------------------------- Doppelte Spieler (Mittelnamen)
+STAT_FELDER = ("hard_1in", "clay_1in", "grass_1in")
+
+
+def doppelte_zusammenfuehren(players, manual):
+    """Führt Einträge zusammen, die sich nur durch Mittelnamen unterscheiden, z. B. 'Thiago Agustin Tirante'
+    (Tennis Abstract, nur Elo) und 'Thiago Tirante' (Excel, mit Aufschlagwerten).
+    Behalten wird der Eintrag mit Aufschlagwerten; er bekommt die Elo-Werte des anderen. Der andere Name
+    wird in name_map.json auf den behaltenen abgebildet. Liefert die Liste der Zusammenführungen."""
+    def hat_stats(rec):
+        return any(isinstance(rec.get(f), (int, float)) for f in STAT_FELDER)
+
+    toks = {n: norm(n).split() for n in players}
+    nach_rand = {}
+    for n, t in toks.items():
+        if len(t) >= 2:
+            nach_rand.setdefault((t[0], t[-1]), []).append(n)
+    paare = []
+    for gruppe in nach_rand.values():
+        if len(gruppe) != 2:
+            continue                      # nur eindeutige Fälle
+        a, b = sorted(gruppe, key=lambda n: len(toks[n]))
+        if len(toks[a]) == len(toks[b]) or not set(toks[a]) <= set(toks[b]):
+            continue
+        ra, rb = players[a], players[b]
+        if ra.get("geschaetzt") or rb.get("geschaetzt"):
+            continue
+        if hat_stats(ra) and not hat_stats(rb):
+            behalten, weg = a, b
+        elif hat_stats(rb) and not hat_stats(ra):
+            behalten, weg = b, a
+        else:
+            continue
+        ziel, quelle = players[behalten], players[weg]
+        for f in ("elo", "elo_hard", "elo_clay", "elo_grass"):
+            if isinstance(quelle.get(f), (int, float)):
+                ziel[f] = quelle[f]
+        ziel.pop("neu", None)
+        players.pop(weg)
+        manual[weg] = behalten
+        paare.append((weg, behalten))
+    return paare

@@ -8,7 +8,7 @@ und mit "neu": true markiert. Aufschlag-/Returnwerte bleiben unverändert.
 """
 import sys, time, datetime, urllib.request
 from html.parser import HTMLParser
-from common import load, save, NameMatcher, norm
+from common import load, save, NameMatcher, norm, doppelte_zusammenfuehren
 
 URL_ELO = "https://tennisabstract.com/reports/atp_elo_ratings.html"
 URL_YELO = "https://tennisabstract.com/reports/atp_season_yelo_ratings.html"
@@ -139,6 +139,9 @@ def main():
         if key and f(r.get("yElo")):
             players[key]["elo"] = f(r.get("yElo"))
 
+    doppelt = doppelte_zusammenfuehren(players, manual)
+    for weg, behalten in doppelt:
+        print(f"  zusammengeführt: {weg} -> {behalten}")
     save("players.json", players)
     save("name_map.json", manual)
     meta = load("meta.json", {})
