@@ -70,6 +70,8 @@ select,input[type=search]{font:inherit;color:var(--fg);background:var(--panel);b
 .kurve .stats b{color:var(--fg);font-family:var(--f-mono);font-weight:500}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
 .co{margin-top:4px;font-size:12px;color:var(--muted)}.co input{width:80px;font:inherit;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
+.qman{color:var(--accent);font-size:11px;margin-right:3px}
+.qform{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:4px 0}.qform input{width:70px;font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg)}
 .profbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
 dialog#profil{border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);padding:0;width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 32px)}
 dialog#profil::backdrop{background:rgba(10,15,20,.55)}
@@ -450,9 +452,24 @@ function warnListe(p, r){
 const WARN_KURZ = {aufgabe:"Aufgabe zuletzt", pause:"lange Pause", belag:"Belagwechsel", quote:"Quote steigt"};
 const warnIcon = (ws, seite, name) => { const x = ws.filter(w => w.seite === seite); return x.length ? ` <span class="wwarn" title="${esc(name+": "+x.map(w=>w.text).join(" · "))}">⚠</span>` : ""; };
 
+// ---- Manuell angepasste Quote je Partie (nur in diesem Browser); verfällt mit dem nächsten automatischen Update
+function quoteOvr(p){
+  const o = store.get("quote."+p.id, null); if(!o) return null;
+  if(M && M.stand && new Date(M.stand) > new Date(o.zeit)){ try{ localStorage.removeItem("tvb.quote."+p.id); }catch(_){} return null; }
+  return o;
+}
 function evalMatch(p){
   const {belag, quelle} = belagFor(p);
   const bm = $("#bm").value;
+  const ovr = quoteOvr(p);
+  if(ovr){
+    const r = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b, qa:ovr.qa, qb:ovr.qb}, D);
+    r.bm = ovr.bm; r.qa = ovr.qa; r.qb = ovr.qb; r.manuellQ = ovr;
+    r.belagQuelle = quelle; r.belagEff = belag; r.warn = warnListe(p, r);
+    if(r.wette){ const e = r.wette==="A" ? r.edgeA : r.edgeB, q = r.wette==="A" ? r.qa : r.qb;
+      r.regelOk = regelOk(e, q, /challenger/i.test((p.turnier||"")+" "+(p.kategorie||"")), r.warn.filter(w => w.seite===r.wette).length); }
+    return r;
+  }
   const books = bm===BEST ? Object.keys(p.quoten||{}) : [bm];
   let best = null;
   for(const b of books){
@@ -551,7 +568,7 @@ function rowHtml(p, r){
     <td class="l time hide-s">${time}</td>
     <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warnIcon(r.warn, "B", r.b)}${warn}</span></div></td>
     <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span></div></td>
-    <td class="num"><div class="pl"><span>${qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
+    <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
     <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
     <td>${pill}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
@@ -682,6 +699,18 @@ function formText(f, start){
   const tage = f.letztes && start ? Math.max(0, Math.round((new Date(start) - new Date(f.letztes)) / 864e5)) : null;
   return `${f.spiele7} Sp. (${f.siege7||0} S), ${f.saetze7} Sätze${f.dreisatz7?`, ${f.dreisatz7}× 3 Sätze`:""}${tage!=null?`, zuletzt vor ${tage===0?"<1":tage} T.`:""}${f.quali?", aus Quali":""}`;
 }
+function quoteBox(p, r){
+  const bms = Object.keys(p.quoten||{}), bm = r.manuellQ ? r.manuellQ.bm : (r.bm || bms[0] || "winamax");
+  const orig = (p.quoten||{})[bm];
+  return `<h3 style="margin-top:10px">Quote anpassen</h3>
+    <div class="qform" data-id="${esc(p.id)}" data-bm="${esc(bm)}">
+      <input class="q-a" inputmode="decimal" aria-label="Quote ${esc(p.a)}" value="${fx(r.qa)}">
+      <input class="q-b" inputmode="decimal" aria-label="Quote ${esc(p.b)}" value="${fx(r.qb)}">
+      <button type="button" class="btn mini q-set">Übernehmen</button>
+      ${r.manuellQ?`<button type="button" class="btn ghost mini q-reset">Zurücksetzen</button>`:""}
+    </div>
+    <div class="time">${r.manuellQ?`Angepasst um ${new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ})} Uhr${orig?` · ${esc(bm)} beim letzten Update: ${fx(orig[0])} / ${fx(orig[1])}`:""}. `:""}Gilt nur in diesem Browser und bis zum nächsten automatischen Update.</div>`;
+}
 function warnHtml(p, r){
   const ws = r.warn || []; if(!ws.length) return "";
   return `<h3 style="margin-top:10px">⚠ Hinweise</h3><div class="fz2">${ws.map(w => `<div><b>${esc(w.seite==="A"?p.a:p.b)}:</b> ${esc(w.text)}</div>`).join("")}</div>`;
@@ -738,6 +767,7 @@ function detailHtml(p, r){
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc?"":warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
+      ${p.calc?"":quoteBox(p, r)}
       ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
         <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
@@ -957,7 +987,7 @@ function wetteBox(p, r){
   const seite = r.wette || (r.pFinal >= 0.5 ? "A" : "B");
   const bms = Object.keys(p.quoten||{});
   const bm = r.bm && bms.includes(r.bm) ? r.bm : bms[0] || "";
-  const q = bm ? p.quoten[bm][seite==="A"?0:1] : "";
+  const q = r.manuellQ ? (seite==="A" ? r.qa : r.qb) : bm ? p.quoten[bm][seite==="A"?0:1] : "";
   const vorhanden = Object.values(wLoad().items).filter(w => w.fixtureId === p.id);
   const id = esc(p.id);
   return `<div class="box wbox"><h3>Als Wette speichern</h3>
@@ -1126,6 +1156,12 @@ function setupWetten(){
     render();
   });
   $("#list").addEventListener("click", (e) => {
+    const qf = e.target.closest(".qform");
+    if(qf && e.target.closest(".q-set")){
+      const qa = num2(qf.querySelector(".q-a").value), qb = num2(qf.querySelector(".q-b").value);
+      if(qa > 1 && qb > 1){ store.set("quote."+qf.dataset.id, {qa, qb, bm: qf.dataset.bm, zeit: nowIso()}); render(); }
+      return; }
+    if(qf && e.target.closest(".q-reset")){ try{ localStorage.removeItem("tvb.quote."+qf.dataset.id); }catch(_){} render(); return; }
     const k = e.target.closest(".w-kombi");
     if(k){ const f = k.closest(".w-form"), p = (M.partien||[]).find(x => x.id === f.dataset.id); if(!p) return;
       const seite = f.seite.value, quote = num2(f.quote.value);

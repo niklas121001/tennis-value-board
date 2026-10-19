@@ -5,7 +5,7 @@ Anfragen pro Lauf: 1 (Spielplan) + 1 je 3 Buchmacher. Einmalig zusätzlich: spor
 Vor jedem Lauf wird das Kontingent über /v4/account geprüft (kostenlos).
 """
 import os, re, sys, json, time, math, datetime, urllib.request, urllib.parse
-from common import load, save, config, norm, NameMatcher, detect_surface, ist_platzhalter
+from common import load, save, config, norm, NameMatcher, detect_surface, ist_platzhalter, flip
 
 BASE = os.environ.get("ODDSPAPI_BASE", "https://api.oddspapi.io/v4")
 KEY = os.environ.get("ODDSPAPI_KEY", "")
@@ -366,7 +366,7 @@ def run(cfg, meta, state, n_books):
         out.append({
             "id": fx["fixtureId"], "start": fx.get("startTime"), "turnier": tn,
             "kategorie": fx.get("categoryName"), "belag": belag, "belagQuelle": quelle,
-            "a": a or ra, "b": b or rb, "aRoh": ra, "bRoh": rb,
+            "a": a or " ".join(flip(ra).split()), "b": b or " ".join(flip(rb).split()), "aRoh": ra, "bRoh": rb,   # Unbekannte: "Purcell, Max" -> "Max Purcell"
             "aInDb": bool(a), "bInDb": bool(b), "hatQuoten": bool(o),
             "quoten": {slug2name.get(s, s): q for s, q in o.items()},
             "pausiert": [slug2name.get(s, s) for s in pausiert.get(fx["fixtureId"], [])],
