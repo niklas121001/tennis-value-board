@@ -2,13 +2,13 @@ name: Daten aktualisieren
 
 on:
   schedule:
-    # Zeit in UTC: 02:07 UTC = 04:07 Uhr Sommerzeit, ab 25.10. (Winterzeit) 03:07 Uhr deutscher Zeit.
-    # Früh wegen der Asien-Turniere (Beginn ca. 6 Uhr deutscher Zeit). Für Europa-/Amerika-Wochen z. B. "15 7 * * *".
-    # GitHub startet geplante Läufe oft einige Minuten verspätet.
-    - cron: "7 2 * * *"
-    # Zweiter Lauf mittags (10:07 UTC = 12:07 Uhr Sommerzeit / 11:07 Winterzeit) für Europa-/Amerika-Partien:
-    # frischere Quoten näher am Spielbeginn. Nur Winamax -> passt ins OddsPapi-Kontingent (config.json: laeufe_pro_tag 2).
-    - cron: "7 10 * * *"
+    # Läufe um 08:05 und 14:05 Uhr deutscher Zeit – ganzjährig. GitHub rechnet in UTC, daher je zwei Zeiten:
+    # Sommerzeit (UTC+2): 06:05 und 12:05 UTC · Winterzeit (UTC+1): 07:05 und 13:05 UTC.
+    # Der Job "zeitpruefung" lässt nur die Variante laufen, die zur aktuellen deutschen Zeit passt.
+    - cron: "5 6 * * *"
+    - cron: "5 12 * * *"
+    - cron: "5 7 * * *"
+    - cron: "5 13 * * *"
   workflow_dispatch: {}   # manuell starten: Actions → Daten aktualisieren → Run workflow
 
 permissions:
@@ -19,7 +19,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  zeitpruefung:
+    runs-on: ubuntu-latest
+    outputs:
+      laufen: ${{ steps.p.outputs.laufen }}
+    steps:
+      - id: p
+        run: |
+          versatz=$(TZ=Europe/Berlin date +%z)          # +0200 Sommerzeit, +0100 Winterzeit
+          plan="${{ github.event.schedule }}"
+          laufen=true
+          case "$plan" in
+            "5 6 * * *"|"5 12 * * *") [ "$versatz" = "+0200" ] || laufen=false ;;
+            "5 7 * * *"|"5 13 * * *") [ "$versatz" = "+0100" ] || laufen=false ;;
+          esac
+          echo "Zeitplan '$plan', deutsche Zeit $versatz -> laufen=$laufen"
+          echo "laufen=$laufen" >> "$GITHUB_OUTPUT"
+
   update:
+    needs: zeitpruefung
+    if: needs.zeitpruefung.outputs.laufen == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
