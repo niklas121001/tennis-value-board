@@ -2,12 +2,12 @@ name: Daten aktualisieren
 
 on:
   schedule:
-    # Läufe um 08:05 und 14:05 Uhr deutscher Zeit – ganzjährig. GitHub rechnet in UTC, daher je zwei Zeiten:
-    # Sommerzeit (UTC+2): 06:05 und 12:05 UTC · Winterzeit (UTC+1): 07:05 und 13:05 UTC.
+    # Läufe um 07:30 und 14:05 Uhr deutscher Zeit – ganzjährig (GitHub startet oft 20–40 Min. später). GitHub rechnet in UTC, daher je zwei Zeiten:
+    # Sommerzeit (UTC+2): 05:30 und 12:05 UTC · Winterzeit (UTC+1): 06:30 und 13:05 UTC.
     # Der Job "zeitpruefung" lässt nur die Variante laufen, die zur aktuellen deutschen Zeit passt.
-    - cron: "5 6 * * *"
+    - cron: "30 5 * * *"
     - cron: "5 12 * * *"
-    - cron: "5 7 * * *"
+    - cron: "30 6 * * *"
     - cron: "5 13 * * *"
   workflow_dispatch: {}   # manuell starten: Actions → Daten aktualisieren → Run workflow
 
@@ -30,8 +30,8 @@ jobs:
           plan="${{ github.event.schedule }}"
           laufen=true
           case "$plan" in
-            "5 6 * * *"|"5 12 * * *") [ "$versatz" = "+0200" ] || laufen=false ;;
-            "5 7 * * *"|"5 13 * * *") [ "$versatz" = "+0100" ] || laufen=false ;;
+            "30 5 * * *"|"5 12 * * *") [ "$versatz" = "+0200" ] || laufen=false ;;
+            "30 6 * * *"|"5 13 * * *") [ "$versatz" = "+0100" ] || laufen=false ;;
           esac
           echo "Zeitplan '$plan', deutsche Zeit $versatz -> laufen=$laufen"
           echo "laufen=$laufen" >> "$GITHUB_OUTPUT"
