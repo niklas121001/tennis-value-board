@@ -736,6 +736,110 @@
 "qb": 1.34,
 "sieger": "A",
 "start": "2026-10-19T14:30:00.000Z"
+},
+"id1204593575698084": {
+"a": "Tallon Griekspoor",
+"b": "Max Schoenhaus",
+"qa": 1.22,
+"qb": 4.2,
+"sieger": "A",
+"start": "2026-10-20T09:30:00.000Z"
+},
+"id1204593575698086": {
+"a": "Mariano Navone",
+"b": "Juan Manuel Cerundolo",
+"qa": 1.66,
+"qb": 2.2,
+"sieger": "A",
+"start": "2026-10-20T09:30:00.000Z"
+},
+"id1200463175719590": {
+"a": "Fajing Sun",
+"b": "Qian Sun",
+"qa": 1.1,
+"qb": 5.6,
+"sieger": "A",
+"start": "2026-10-20T06:50:00.000Z"
+},
+"id1204195975716398": {
+"a": "Terence Atmane",
+"b": "Rinky Hijikata",
+"qa": 1.86,
+"qb": 1.92,
+"sieger": "A",
+"start": "2026-10-20T06:30:00.000Z"
+},
+"id1204195975754906": {
+"a": "Sho Shimabukuro",
+"b": "Roman Safiullin",
+"qa": 5.4,
+"qb": 1.15,
+"sieger": "A",
+"start": "2026-10-20T06:30:00.000Z"
+},
+"id1200463175794168": {
+"a": "Yaroslav Demin",
+"b": "Akira Santillan",
+"qa": 1.86,
+"qb": 1.82,
+"sieger": "B",
+"start": "2026-10-20T08:00:00.000Z"
+},
+"id1202613875800438": {
+"a": "Felix Gill",
+"b": "Filip Misolic",
+"qa": 1.8,
+"qb": 1.88,
+"sieger": "B",
+"start": "2026-10-20T08:00:00.000Z"
+},
+"id1201505375802214": {
+"a": "Matej Dodig",
+"b": "Joao Domingues",
+"qa": 1.04,
+"qb": 7.75,
+"sieger": "A",
+"start": "2026-10-20T09:00:00.000Z"
+},
+"id1202613875800436": {
+"a": "Dimitris Sakellaridis",
+"b": "Jay Clarke",
+"qa": 3.75,
+"qb": 1.22,
+"sieger": "A",
+"start": "2026-10-20T09:10:00.000Z"
+},
+"id1202613875800490": {
+"a": "Alex Marti Pujolras",
+"b": "Pierluigi Basile",
+"qa": 1.96,
+"qb": 1.74,
+"sieger": "A",
+"start": "2026-10-20T09:10:00.000Z"
+},
+"id1200309775800034": {
+"a": "Pierre-Hugues Herbert",
+"b": "Sebastian Baez",
+"qa": 1.7,
+"qb": 2.25,
+"sieger": "A",
+"start": "2026-10-20T10:00:00.000Z"
+},
+"id1201505375802204": {
+"a": "Patrick Schoen",
+"b": "Svyatoslav Gulin",
+"qa": 1.66,
+"qb": 2.05,
+"sieger": "B",
+"start": "2026-10-20T10:10:00.000Z"
+},
+"id1201505375802212": {
+"a": "Carlos Taberner",
+"b": "Alexander Ritschard",
+"qa": 2.3,
+"qb": 1.52,
+"sieger": "B",
+"start": "2026-10-20T10:10:00.000Z"
 }
 },
 "spieler": {
@@ -1093,7 +1197,7 @@
 },
 "Matej Dodig": {
 "fav": [
-3,
+4,
 1
 ],
 "aus": [
@@ -1108,6 +1212,10 @@
 "1.50-1.70": [
 0,
 1
+],
+"1.00-1.30": [
+1,
+0
 ]
 }
 },
@@ -1426,7 +1534,7 @@
 "Felix Gill": {
 "fav": [
 1,
-1
+2
 ],
 "aus": [
 0,
@@ -1439,7 +1547,7 @@
 ],
 "1.70-1.90": [
 0,
-1
+2
 ]
 }
 },
@@ -1537,7 +1645,7 @@
 },
 "Pierre-Hugues Herbert": {
 "fav": [
-0,
+1,
 0
 ],
 "aus": [
@@ -1548,6 +1656,10 @@
 "2.50-3.00": [
 0,
 1
+],
+"1.70-1.90": [
+1,
+0
 ]
 }
 },
@@ -2149,13 +2261,17 @@
 0
 ],
 "aus": [
-0,
+1,
 1
 ],
 "baender": {
 "2.10-2.50": [
 0,
 1
+],
+"1.90-2.10": [
+1,
+0
 ]
 }
 },
@@ -2812,6 +2928,358 @@
 "1.30-1.50": [
 0,
 1
+]
+}
+},
+"Tallon Griekspoor": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.00-1.30": [
+1,
+0
+]
+}
+},
+"Max Schoenhaus": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"4.00+": [
+0,
+1
+]
+}
+},
+"Mariano Navone": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.50-1.70": [
+1,
+0
+]
+}
+},
+"Juan Manuel Cerundolo": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"2.10-2.50": [
+0,
+1
+]
+}
+},
+"Fajing Sun": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.00-1.30": [
+1,
+0
+]
+}
+},
+"Qian Sun": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"4.00+": [
+0,
+1
+]
+}
+},
+"Terence Atmane": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.70-1.90": [
+1,
+0
+]
+}
+},
+"Rinky Hijikata": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"1.90-2.10": [
+0,
+1
+]
+}
+},
+"Sho Shimabukuro": {
+"fav": [
+0,
+0
+],
+"aus": [
+1,
+0
+],
+"baender": {
+"4.00+": [
+1,
+0
+]
+}
+},
+"Roman Safiullin": {
+"fav": [
+0,
+1
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.00-1.30": [
+0,
+1
+]
+}
+},
+"Yaroslav Demin": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"1.70-1.90": [
+0,
+1
+]
+}
+},
+"Akira Santillan": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.70-1.90": [
+1,
+0
+]
+}
+},
+"Filip Misolic": {
+"fav": [
+0,
+0
+],
+"aus": [
+1,
+0
+],
+"baender": {
+"1.70-1.90": [
+1,
+0
+]
+}
+},
+"Joao Domingues": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"4.00+": [
+0,
+1
+]
+}
+},
+"Dimitris Sakellaridis": {
+"fav": [
+0,
+0
+],
+"aus": [
+1,
+0
+],
+"baender": {
+"3.00-4.00": [
+1,
+0
+]
+}
+},
+"Jay Clarke": {
+"fav": [
+0,
+1
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.00-1.30": [
+0,
+1
+]
+}
+},
+"Alex Marti Pujolras": {
+"fav": [
+0,
+0
+],
+"aus": [
+1,
+0
+],
+"baender": {
+"1.90-2.10": [
+1,
+0
+]
+}
+},
+"Pierluigi Basile": {
+"fav": [
+0,
+1
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.70-1.90": [
+0,
+1
+]
+}
+},
+"Sebastian Baez": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"2.10-2.50": [
+0,
+1
+]
+}
+},
+"Patrick Schoen": {
+"fav": [
+0,
+1
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.50-1.70": [
+0,
+1
+]
+}
+},
+"Carlos Taberner": {
+"fav": [
+0,
+0
+],
+"aus": [
+0,
+1
+],
+"baender": {
+"2.10-2.50": [
+0,
+1
+]
+}
+},
+"Alexander Ritschard": {
+"fav": [
+1,
+0
+],
+"aus": [
+0,
+0
+],
+"baender": {
+"1.50-1.70": [
+1,
+0
 ]
 }
 }
