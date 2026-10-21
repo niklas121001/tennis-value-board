@@ -704,7 +704,7 @@ function assBilanzHtml(bm, art){
     ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Außenseiter</th><th>Quote</th><th>Fav. als Fav.</th><th>Außens. als Außens.</th><th>Modell / Markt</th><th>Ergebnis</th></tr></thead><tbody>${
       xs.slice(0, 50).map(x => { const d = new Date(x.start), aus = x.wette==="A" ? x.a : x.b, fav = x.wette==="A" ? x.b : x.a;
         return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(aus)}</b> <span class="time">vs ${esc(fav)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${pc(x.favPct,0)} <small>n ${x.favN}</small></td><td class="num">${pc(x.ausPct,0)} <small>n ${x.ausN}</small></td><td class="num">${pc(x.pModell,0)} / ${pc(x.pMarkt,0)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
-    <p class="note">Signal: Markt-Favorit gewinnt als Favorit unter 60 %, Außenseiter als Außenseiter über 40 % (je mind. 5 Spiele) und das Modell sieht den Außenseiter stärker als der Markt. Getrackt wird ein flacher Tipp auf den Außenseiter zur ersten gesehenen Quote.</p></div>`;
+    <p class="note">Signal: Markt-Favorit gewinnt als Favorit unter ${pc(D.params.AUSSENSEITER_FAV_MAX||0.65,0)}, Außenseiter als Außenseiter über ${pc(D.params.AUSSENSEITER_AUS_MIN||0.4,0)} (je mind. ${D.params.AUSSENSEITER_MIN_N||7} Spiele) und das Modell sieht den Außenseiter stärker als der Markt. Getrackt wird ein flacher Tipp auf den Außenseiter zur ersten gesehenen Quote.</p></div>`;
 }
 
 // ---- Spielerprofil (Dialog)

@@ -298,11 +298,11 @@
       favCheck = Object.assign({ name: fav }, spielerRolle(fav, "fav", D));
       ausCheck = Object.assign({ name: aus }, spielerRolle(aus, "aus", D));
     }
-    // Außenseiter-Signal: Markt-Favorit gewinnt als Favorit selten (< 60 %), Außenseiter als Außenseiter oft (> 40 %),
+    // Außenseiter-Signal: Markt-Favorit gewinnt als Favorit selten (< 65 %), Außenseiter als Außenseiter oft (> 40 %),
     // und das Modell sieht den Außenseiter stärker als der Markt. Wird separat getrackt (aussenseiter_tips.json).
     let aussenseiter = null;
     if (favCheck && ausCheck && match.qa !== match.qb) {
-      const minN = P.MIN_N_SIEGQUOTE || 5, favMax = P.AUSSENSEITER_FAV_MAX || 0.6, ausMin = P.AUSSENSEITER_AUS_MIN || 0.4;
+      const minN = P.AUSSENSEITER_MIN_N || 7, favMax = P.AUSSENSEITER_FAV_MAX || 0.65, ausMin = P.AUSSENSEITER_AUS_MIN || 0.4;
       const ausSeite = match.qa > match.qb ? "A" : "B";
       const pModellAus = ausSeite === "A" ? pFinal : 1 - pFinal, pMarktAus = ausSeite === "A" ? pMarkt : 1 - pMarkt;
       if (favCheck.n >= minN && favCheck.pct != null && favCheck.pct < favMax &&
