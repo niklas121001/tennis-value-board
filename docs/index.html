@@ -262,6 +262,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <div class="ctl bmctl"><label for="b-bm">Buchmacher</label><select id="b-bm"></select></div>
       <div class="ctl"><label for="b-art">Turniere</label>
         <select id="b-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+      <div class="ctl"><label for="b-turnier">Turnier</label><select id="b-turnier"><option value="">alle Turniere</option></select></div>
       <div class="ctl"><label for="b-status">Tipps</label>
         <select id="b-status"><option value="alle">alle</option><option value="fertig">abgeschlossen</option><option value="offen">offen</option></select></div>
       <label class="check" for="b-regeln"><input type="checkbox" id="b-regeln"> nur nach meinen Tipp-Regeln</label>
@@ -827,6 +828,7 @@ function detailHtml(p, r){
 }
 
 // ---------------------------------------------------------------- Bilanz
+const tName = (x) => String(x.turnier||"–").replace(/,?\s*(qualifying|quali)\b.*$/i, "").replace(/\s+Q$/, "").trim() || "–";
 const isChTip = (x) => /challenger/i.test(String(x.turnier)+" "+(x.kategorie||""));
 function kennzahlen(xs){
   const k = {n:xs.length, w:0, l:0, v:0, offen:0, units:0, einsatzK:0, kelly:0, clvS:0, clvN:0};
@@ -856,6 +858,13 @@ function renderLog(){
   const bm = $("#b-bm").value, art = $("#b-art").value, stt = $("#b-status").value;
   let xs = all.filter(x => (bm==="alle"||x.buchmacher===bm) && (art==="alle"||(art==="ch")===isChTip(x)));
   if($("#b-regeln").checked) xs = xs.filter(x => regelOk(x.edge, x.erstQuote, isChTip(x), (x.warn||[]).length));
+  { // Turnier-Auswahl (aus den Tipps der aktuellen Auswahl)
+    const sel = $("#b-turnier"), cur = sel.value, namen = [...new Set(xs.map(tName))].sort((a,b) => a.localeCompare(b, "de"));
+    sel.innerHTML = `<option value="">alle Turniere (${namen.length})</option>` + namen.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join("");
+    if(namen.includes(cur)) sel.value = cur;
+    if(sel.value) xs = xs.filter(x => tName(x) === sel.value);
+    if(!sel.dataset.ok){ sel.dataset.ok = "1"; sel.addEventListener("change", renderLog); }
+  }
   const k = kennzahlen(xs);
   $("#b-n").textContent = `${k.w+k.l} (${k.w}–${k.l})`;
   $("#b-hit").textContent = pc(k.hit);
@@ -884,11 +893,13 @@ function renderLog(){
   const lauf = (x) => { const h = new Date(x.erstGesehen||"").getUTCHours(); return isNaN(h) ? "–" : h < 8 ? "Frühlauf" : "Mittagslauf"; };
   const gruppen = [["Monat", x=>String(x.start||"").slice(0,7)], ["Belag", x=>SURF[x.belag]||x.belag], ["Turniere", x=>isChTip(x)?"Challenger":"ATP"],
     ["Edge beim Tipp", x=>edgeB(x.edge), EDGE_B], ["Quote", x=>qB(x.erstQuote), QB], ["Tipp gefunden im", lauf],
+    ["Turnier (Top 12 nach Tipps)", x=>tName(x), null, 12],
     ["Warnhinweis", x=>(x.warn||[]).length ? "mit ⚠ ("+(x.warn||[]).map(t=>WARN_KURZ[t]||t).join(", ")+")" : "ohne Warnung"]];
   let split = "";
-  for(const [titel, f, ordnung] of gruppen){
+  for(const [titel, f, ordnung, top] of gruppen){
     const m = new Map(); xs.forEach(x => { const g=f(x); if(!m.has(g)) m.set(g,[]); m.get(g).push(x); });
-    const sortiert = (a, b) => ordnung ? (ordnung.indexOf(a[0]) - ordnung.indexOf(b[0])) : String(a[0]).localeCompare(String(b[0]));
+    if(top){ const keep = [...m.entries()].sort((a,b) => b[1].length - a[1].length).slice(0, top).map(e => e[0]); for(const k of [...m.keys()]) if(!keep.includes(k)) m.delete(k); }
+    const sortiert = (a, b) => top ? b[1].length - a[1].length : ordnung ? (ordnung.indexOf(a[0]) - ordnung.indexOf(b[0])) : String(a[0]).localeCompare(String(b[0]));
     split += `<div class="box"><h3>${titel}</h3><div class="kv split"><span></span><span class="h">Tipps</span><span class="h">Treffer</span><span class="h">ROI</span><span class="h">CLV</span>${
       [...m.entries()].sort(sortiert).map(([g,ys]) => { const z = kennzahlen(ys);
         return `<span class="k">${esc(g||"–")}</span><span class="v">${z.w}–${z.l}${z.offen?` <small>+${z.offen}</small>`:""}</span><span class="v">${pc(z.hit,0)}</span><span class="v ${z.roi>0?"pos":""}">${sg(z.roi)}</span><span class="v ${z.clv>0?"pos":""}">${sg(z.clv)}</span>`; }).join("")}</div></div>`;

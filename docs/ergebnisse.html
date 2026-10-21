@@ -69,6 +69,8 @@ th.num{text-align:right}
 .pill.v{background:var(--accent-soft);color:var(--accent)}
 .surf{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:1px}
 .surf.hard{background:var(--hard)}.surf.clay{background:var(--clay)}.surf.grass{background:var(--grass)}
+.tbox{margin-top:18px}.tbox summary{cursor:pointer}
+tr.tz{cursor:pointer}tr.tz:hover td{background:var(--accent-soft)}
 .empty{margin-top:24px;padding:24px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:8px}
 .note{color:var(--muted);font-size:12px;margin-top:20px}
 @media (max-width:700px){.hide-s{display:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:1.7rem}}
@@ -83,6 +85,7 @@ th.num{text-align:right}
     <div class="ctl"><label for="f-monat">Monat</label><select id="f-monat"></select></div>
     <div class="ctl"><label for="f-art">Turniere</label>
       <select id="f-art"><option value="alle">ATP + Challenger</option><option value="atp">nur ATP</option><option value="ch">nur Challenger</option></select></div>
+    <div class="ctl"><label for="f-turnier">Turnier</label><select id="f-turnier"><option value="">alle Turniere</option></select></div>
     <div class="ctl"><label for="f-zeige">Partien</label>
       <select id="f-zeige"><option value="alle">alle</option><option value="prog">mit Prognose</option><option value="tipp">nur Value-Tipps</option><option value="falsch">Prognose falsch</option></select></div>
     <div class="ctl"><label for="f-suche">Spieler / Turnier</label><input type="search" id="f-suche" placeholder="z. B. Jodar"></div>
@@ -93,6 +96,7 @@ th.num{text-align:right}
     <div class="kpi"><b id="k-fav">–</b><span>Quoten-Favorit gewinnt</span></div>
     <div class="kpi"><b id="k-tipp">–</b><span>Value-Tipps (gew.–verl.)</span></div>
   </div>
+  <div id="turniere"></div>
   <div id="liste"></div>
   <p class="note">Alle Partien, die das Board gesehen hat, mit Sieger und Satzstand. Quote = Durchschnitt der Buchmacher vor Spielbeginn, Prognose = Siegchance des Modells vor Spielbeginn. „Value“ markiert Partien mit Value-Tipp in der Bilanz. Ungültig = Absage oder Walkover. Endet eine Partie durch Aufgabe, steht der Sieger mit „Aufgabe“ dabei; sie zählt weder bei der Prognose noch bei den Value-Tipps.</p>
 </div>
@@ -107,6 +111,8 @@ const store = {get(k,d){try{const v=localStorage.getItem("tvb.erg."+k);return v=
 const cache = {};
 async function j(f, d){ try{ const r = await fetch("data/archiv/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
 const isCh = (x) => /challenger/i.test((x.turnier||"")+" "+(x.kat||""));
+// Turniername ohne Quali-Zusatz, damit Quali und Hauptfeld zusammen zählen
+const tName = (x) => String(x.turnier||"–").replace(/,?\s*(qualifying|quali)\b.*$/i, "").replace(/\s+Q$/, "").trim() || "–";
 const MON = (m) => { const [y, mm] = m.split("-"); return new Date(+y, +mm-1, 1).toLocaleDateString("de-DE", {month:"long", year:"numeric"}); };
 
 async function init(){
@@ -114,20 +120,45 @@ async function init(){
   const monate = Object.keys(index).sort().reverse();
   const sel = $("#f-monat");
   if(!monate.length){ sel.innerHTML = `<option>–</option>`; $("#liste").innerHTML = `<div class="empty">Noch keine Ergebnisse archiviert. Das Archiv füllt sich mit dem nächsten täglichen Update.</div>`; return; }
-  sel.innerHTML = monate.map(m => `<option value="${m}">${MON(m)} (${index[m]})</option>`).join("");
+  sel.innerHTML = monate.map(m => `<option value="${m}">${MON(m)} (${index[m]})</option>`).join("")
+    + `<option value="alle">alle Monate (${Object.values(index).reduce((a,b)=>a+b,0)})</option>`;
+  MONATE = monate;
   for(const id of ["f-art","f-zeige"]){ const v = store.get(id, null); if(v) $("#"+id).value = v; }
   ["f-monat","f-art","f-zeige"].forEach(id => $("#"+id).addEventListener("change", () => { store.set(id, $("#"+id).value); render(); }));
+  $("#f-turnier").addEventListener("change", render);
+  $("#turniere").addEventListener("click", (e) => { const t = e.target.closest("[data-turnier]"); if(!t) return;
+    $("#f-turnier").value = t.dataset.turnier; render(); window.scrollTo({top: 0, behavior: "smooth"}); });
   $("#f-suche").addEventListener("input", render);
   render();
 }
 
+let MONATE = [];
+// Kennzahlen einer Partienmenge (Aufgabe/Absage zählen nicht)
+function kennzahlen(xs){
+  const ent = xs.filter(x => (x.sieger === "A" || x.sieger === "B") && !x.aufgabe);
+  const mitP = ent.filter(x => typeof x.p === "number" && x.p !== .5);
+  const richtig = mitP.filter(x => (x.p > .5) === (x.sieger === "A")).length;
+  const mitQ = ent.filter(x => x.qa && x.qb && x.qa !== x.qb);
+  const favSieg = mitQ.filter(x => (x.qa < x.qb) === (x.sieger === "A")).length;
+  const tipps = ent.filter(x => x.tipp), tw = tipps.filter(x => x.tipp === x.sieger).length;
+  return {n: ent.length, mitP: mitP.length, richtig, prog: mitP.length ? richtig/mitP.length : null,
+          fav: mitQ.length ? favSieg/mitQ.length : null, tipps: tipps.length, tw};
+}
 async function render(){
   const m = $("#f-monat").value;
-  if(!cache[m]) cache[m] = await j(m + ".json", {});
+  const ms = m === "alle" ? MONATE : [m];
+  for(const x of ms) if(!cache[x]) cache[x] = await j(x + ".json", {});
   const art = $("#f-art").value, zeige = $("#f-zeige").value, q = $("#f-suche").value.trim().toLowerCase();
-  let xs = Object.entries(cache[m]).map(([id, x]) => Object.assign({id}, x));
+  let xs = ms.flatMap(mm => Object.entries(cache[mm]).map(([id, x]) => Object.assign({id}, x)));
+  // Turnierliste (nach Monat und ATP/Challenger)
+  const basis = xs.filter(x => art === "alle" || (art === "ch") === isCh(x));
+  const tSel = $("#f-turnier"), tCur = tSel.value, namen = [...new Set(basis.map(tName))].sort((a,b) => a.localeCompare(b, "de"));
+  tSel.innerHTML = `<option value="">alle Turniere (${namen.length})</option>` + namen.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join("");
+  if(namen.includes(tCur)) tSel.value = tCur;
+  const tur = tSel.value;
   xs = xs.filter(x => {
     if(art !== "alle" && (art === "ch") !== isCh(x)) return false;
+    if(tur && tName(x) !== tur) return false;
     if(q && !`${x.a} ${x.b} ${x.turnier}`.toLowerCase().includes(q)) return false;
     const progOk = typeof x.p === "number" && x.sieger !== "V" && !x.aufgabe;
     if(zeige === "prog" && !progOk) return false;
@@ -137,17 +168,22 @@ async function render(){
   }).sort((a, b) => String(b.start).localeCompare(String(a.start)));
 
   // Kennzahlen
-  const ent = xs.filter(x => (x.sieger === "A" || x.sieger === "B") && !x.aufgabe);   // Aufgabe zählt nicht
-  const mitP = ent.filter(x => typeof x.p === "number" && x.p !== .5);
-  const richtig = mitP.filter(x => (x.p > .5) === (x.sieger === "A")).length;
-  const mitQ = ent.filter(x => x.qa && x.qb && x.qa !== x.qb);
-  const favSieg = mitQ.filter(x => (x.qa < x.qb) === (x.sieger === "A")).length;
-  const tipps = ent.filter(x => x.tipp), tw = tipps.filter(x => x.tipp === x.sieger).length;
-  $("#k-n").textContent = ent.length;
-  $("#k-prog").textContent = mitP.length ? `${pc(richtig/mitP.length)}` : "–";
-  $("#k-prog").title = `${richtig} von ${mitP.length}`;
-  $("#k-fav").textContent = mitQ.length ? pc(favSieg/mitQ.length) : "–";
-  $("#k-tipp").textContent = tipps.length ? `${tw}–${tipps.length - tw}` : "–";
+  const k = kennzahlen(xs);
+  $("#k-n").textContent = k.n;
+  $("#k-prog").textContent = pc(k.prog); $("#k-prog").title = `${k.richtig} von ${k.mitP}`;
+  $("#k-fav").textContent = pc(k.fav);
+  $("#k-tipp").textContent = k.tipps ? `${k.tw}–${k.tipps - k.tw}` : "–";
+
+  // Übersicht nach Turnier (nur ohne Turnierauswahl)
+  if(!tur){
+    const g = new Map(); xs.forEach(x => { const n = tName(x); if(!g.has(n)) g.set(n, []); g.get(n).push(x); });
+    const zeilen = [...g.entries()].map(([n, ys]) => [n, kennzahlen(ys), isCh(ys[0])]).filter(([, z]) => z.n).sort((a, b) => b[1].n - a[1].n);
+    $("#turniere").innerHTML = zeilen.length ? `<details class="tbox" ${store.get("tbox", true) ? "open" : ""}><summary><b>Nach Turnier</b> <span class="time">(${zeilen.length} Turniere – Zeile anklicken zum Filtern)</span></summary>
+      <div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Turnier</th><th class="num">Partien</th><th class="num">Prognose richtig</th><th class="num">Quoten-Favorit gewinnt</th><th class="num">Value-Tipps</th></tr></thead><tbody>${
+      zeilen.map(([n, z, ch]) => `<tr class="tz" data-turnier="${esc(n)}"><td><a href="#" onclick="return false">${esc(n)}</a> <span class="time">${ch ? "Challenger" : "ATP"}</span></td><td class="num">${z.n}</td><td class="num">${pc(z.prog)}</td><td class="num">${pc(z.fav)}</td><td class="num">${z.tipps ? `${z.tw}–${z.tipps - z.tw}` : "–"}</td></tr>`).join("")}</tbody></table></div></details>` : "";
+    const d = $("#turniere details"); if(d) d.addEventListener("toggle", () => store.set("tbox", d.open));
+  } else $("#turniere").innerHTML = `<p class="time" style="margin-top:12px">Turnier: <b>${esc(tur)}</b> · <a href="#" id="t-alle">alle Turniere anzeigen</a></p>`;
+  const ta = $("#t-alle"); if(ta) ta.addEventListener("click", (e) => { e.preventDefault(); $("#f-turnier").value = ""; render(); });
 
   if(!xs.length){ $("#liste").innerHTML = `<div class="empty">Keine Partie passt zu den Filtern.</div>`; return; }
   const tage = new Map();
