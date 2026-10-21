@@ -68,6 +68,9 @@ select,input[type=search]{font:inherit;color:var(--fg);background:var(--panel);b
 .kurve .tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:12px;padding:6px 8px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-100%);display:none}
 .kurve .stats{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;color:var(--muted);margin-top:4px}
 .kurve .stats b{color:var(--fg);font-family:var(--f-mono);font-weight:500}
+details.klapp>summary{cursor:pointer;list-style:none}details.klapp>summary::-webkit-details-marker{display:none}
+details.klapp>summary h3{display:inline-flex;gap:8px;align-items:baseline;margin:0}details.klapp>summary h3::before{content:"▸";color:var(--muted)}details.klapp[open]>summary h3::before{content:"▾"}
+details.klapp[open]>summary{margin-bottom:8px}
 .pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}
 .assbox{background:var(--warn-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:13px}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
@@ -570,7 +573,7 @@ function rowHtml(p, r){
   const tipWarn = r.wette ? r.warn.filter(w => w.seite===r.wette) : [];
   const pill = regelAus ? `<span class="pill no" title="Value, aber außerhalb deiner Tipp-Regeln (Modell-Reiter)">Value · außerhalb Regeln</span>`
              : r.wette ? `<span class="pill ${stop?"stop":"go"}"${tipWarn.length?` title="${esc(tipWarn.map(w=>w.text).join(" · "))}"`:""}>${stop?"Blacklist":`${tipWarn.length?"⚠ ":""}<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
-             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : `<span class="pill no">kein Value</span>`;
+             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : r.aussenseiter ? "" : `<span class="pill no">kein Value</span>`;
   const e = r.wette==="A" ? r.edgeA : r.wette==="B" ? r.edgeB : Math.max(r.edgeA??-1, r.edgeB??-1);
   const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
   const favA = r.pFinal >= 0.5;   // Modell-Favorit = prognostizierter Sieger (wie Excel "Modell-Favorit")
@@ -675,14 +678,14 @@ function variantenHtml(bm, art){
     return {t: t/res.length, ll: ll/res.length}; };
   const zeile = (name, beschr, k, x) => { const g = guete(k);
     return `<tr><td class="l"><b>${name}</b><div class="time">${beschr}</div></td><td class="num">${x?x.f+" ("+x.w+"–"+x.l+")":"–"}</td><td class="num ${x&&x.roi>0?"pos":x&&x.roi<0?"negv":""}">${x?sg(x.roi):"–"}</td><td class="num">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num">${pc(g.t)}</td><td class="num">${g.ll==null?"–":fx(g.ll,3)}</td></tr>`; };
-  return `<div class="box" style="margin-top:16px"><h3>Modell-Varianten im Test (seit ${TEST_START.split("-").reverse().join(".")} bis Jahresende) · ${art==="atp"?"nur ATP":art==="ch"?"nur Challenger":"ATP + Challenger"}</h3>
+  return `<details class="box klapp" data-k="var" style="margin-top:16px"${store.get("klapp.var", true)?" open":""}><summary><h3>Modell-Varianten im Test (seit ${TEST_START.split("-").reverse().join(".")} bis Jahresende) · ${art==="atp"?"nur ATP":art==="ch"?"nur Challenger":"ATP + Challenger"}</h3></summary>
     <div class="tablewrap"><table><thead><tr><th class="l">Variante</th><th>Tipps (gew.–verl.)</th><th>ROI flach</th><th>Units</th><th>CLV</th><th>Prognose richtig</th><th title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
     ${zeile("A · aktuell", `${Math.round(D.params.W_MODELL_BLEND*100)} % Modell, wie auf dem Board`, "A", kz(tips.A))}
     ${zeile("B · Test", "Elo gedämpft, Statistik nur mit echten Werten", "B", kz(tips.B))}
     ${zeile("C · Test", "wie B + gegnerbereinigte Aufschlag-/Returnwerte", "C", kz(tips.C))}
     ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}
     </tbody></table></div>
-    <p class="note">B und C tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></div>`;
+    <p class="note">B und C tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
 }
 
 function assBilanzHtml(bm, art){
@@ -693,7 +696,7 @@ function assBilanzHtml(bm, art){
   const gewinn = f.reduce((s,x) => s + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0);
   const c = xs.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
   const ERGP = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
-  return `<div class="box" style="margin-top:16px"><h3>⚡ Außenseiter-Signale</h3>
+  return `<details class="box klapp" data-k="ass" style="margin-top:16px"${store.get("klapp.ass", true)?" open":""}><summary><h3>⚡ Außenseiter-Signale <span class="time">${xs.length} Signale${f.length?` · ${w}–${f.length-w} · ${sg(gewinn/f.length)} ROI`:""}</span></h3></summary>
     <div class="kv two" style="max-width:520px">
       <span class="k">Signale · davon abgerechnet</span><span class="v">${xs.length} · ${f.length} (${w}–${f.length-w})</span>
       <span class="k">Trefferquote</span><span class="v">${f.length ? pc(w/f.length,0) : "–"}</span>
@@ -704,8 +707,10 @@ function assBilanzHtml(bm, art){
     ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Außenseiter</th><th>Quote</th><th>Fav. als Fav.</th><th>Außens. als Außens.</th><th>Modell / Markt</th><th>Ergebnis</th></tr></thead><tbody>${
       xs.slice(0, 50).map(x => { const d = new Date(x.start), aus = x.wette==="A" ? x.a : x.b, fav = x.wette==="A" ? x.b : x.a;
         return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(aus)}</b> <span class="time">vs ${esc(fav)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${pc(x.favPct,0)} <small>n ${x.favN}</small></td><td class="num">${pc(x.ausPct,0)} <small>n ${x.ausN}</small></td><td class="num">${pc(x.pModell,0)} / ${pc(x.pMarkt,0)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
-    <p class="note">Signal: Markt-Favorit gewinnt als Favorit unter ${pc(D.params.AUSSENSEITER_FAV_MAX||0.65,0)}, Außenseiter als Außenseiter über ${pc(D.params.AUSSENSEITER_AUS_MIN||0.4,0)} (je mind. ${D.params.AUSSENSEITER_MIN_N||7} Spiele) und das Modell sieht den Außenseiter stärker als der Markt. Getrackt wird ein flacher Tipp auf den Außenseiter zur ersten gesehenen Quote.</p></div>`;
+    <p class="note">Signal: Markt-Favorit gewinnt als Favorit unter ${pc(D.params.AUSSENSEITER_FAV_MAX||0.65,0)}, Außenseiter als Außenseiter über ${pc(D.params.AUSSENSEITER_AUS_MIN||0.4,0)} (je mind. ${D.params.AUSSENSEITER_MIN_N||7} Spiele) und das Modell sieht den Außenseiter stärker als der Markt. Getrackt wird ein flacher Tipp auf den Außenseiter zur ersten gesehenen Quote.</p></details>`;
 }
+
+document.addEventListener("toggle", (e) => { const d = e.target; if(d && d.classList && d.classList.contains("klapp")) store.set("klapp."+d.dataset.k, d.open); }, true);
 
 // ---- Spielerprofil (Dialog)
 let ARCHIV = null; const KOMBI_OFFEN = new Set();
