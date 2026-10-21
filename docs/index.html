@@ -68,6 +68,8 @@ select,input[type=search]{font:inherit;color:var(--fg);background:var(--panel);b
 .kurve .tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:12px;padding:6px 8px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-100%);display:none}
 .kurve .stats{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;color:var(--muted);margin-top:4px}
 .kurve .stats b{color:var(--fg);font-family:var(--f-mono);font-weight:500}
+.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}
+.assbox{background:var(--warn-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:13px}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
 .co{margin-top:4px;font-size:12px;color:var(--muted)}.co input{width:80px;font:inherit;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .qman{color:var(--accent);font-size:11px;margin-right:3px}
@@ -229,6 +231,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <select id="f-belag"><option value="alle">alle</option><option value="hard">Hard</option><option value="clay">Sand</option><option value="grass">Rasen</option></select></div>
       <div class="ctl"><label for="f-suche">Spieler / Turnier</label><input type="search" id="f-suche" placeholder="z. B. Jodar"></div>
       <label class="check" for="f-value"><input type="checkbox" id="f-value"> nur Value-Wetten</label>
+      <label class="check" for="f-ass"><input type="checkbox" id="f-ass"> nur Außenseiter-Signale</label>
       <label class="check" for="f-quali" title="Qualifikationspartien ohne Winamax-Quote"><input type="checkbox" id="f-quali"> Quali ohne Quote zeigen</label>
     </div>
     <div class="kpis">
@@ -277,6 +280,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     </div>
     <div id="b-kurve" class="kurvebox"></div>
     <div id="b-varianten"></div>
+    <div id="b-aussenseiter"></div>
     <div id="b-split"></div>
     <div id="protokoll"></div>
     <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt. Alle Partien mit Ergebnis und Satzstand: <a href="ergebnisse.html">Ergebnis-Archiv</a>.</p>
@@ -417,7 +421,8 @@ function setupControls(){
   for(const id of ["f-tag","f-art","f-belag"]) { const v = store.get(id,null); if(v) $("#"+id).value = v; }
   $("#f-value").checked = store.get("f-value", false);
   $("#f-quali").checked = store.get("f-quali", false);
-  ["bm","f-tag","f-art","f-belag","f-value","f-quali","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
+  $("#f-ass").checked = store.get("f-ass", false);
+  ["bm","f-tag","f-art","f-belag","f-value","f-ass","f-quali","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
     const el = $("#"+id); store.set(id==="bm"?"bm":id, el.type==="checkbox"?el.checked:el.value); render(); }));
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
   if(["partien","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
@@ -517,6 +522,7 @@ function render(){
     const r = evalMatch(p);
     if(fb!=="alle" && r.belagEff!==fb) continue;
     if(onlyV && !(r.wette && r.regelOk !== false)) continue;
+    if($("#f-ass").checked && !r.aussenseiter) continue;
     if(q && !(p.a+" "+p.b+" "+p.turnier).toLowerCase().includes(q)) continue;
     if(p.quali && !Object.keys(p.quoten||{}).length && !$("#f-quali").checked) continue;   // Quali ohne Quote: bei Winamax nicht im Angebot
     rows.push({p, r});
@@ -576,7 +582,7 @@ function rowHtml(p, r){
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
     <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
-    <td>${pill}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
+    <td>${pill}${r.aussenseiter?`<span class="pill ass" title="${esc(assText(r.aussenseiter))}">⚡ Außenseiter</span>`:""}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
     <td class="num hide-s">${r.kelly&&!stop&&!regelAus?stakeHtml(r.kelly):"–"}</td>
     <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
   if(open.has(p.id)) html += `<tr class="detail"><td colspan="9">${detailHtml(p, r)}</td></tr>`;
@@ -639,9 +645,9 @@ const kDatum = (s) => new Date(s).toLocaleDateString("de-DE",{day:"2-digit",mont
 let VAR = null; const TEST_START = "2026-10-21";   // ab hier vergleichbar (A mit 50 % Modell, B/C laufen mit gleichem Anteil)
 async function variantenLaden(){
   if(VAR) return VAR;
-  const [vt, prog] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {})]);
+  const [vt, prog, ass] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {}), j("aussenseiter_tips.json", {})]);
   await archivLaden();
-  return (VAR = {vt, prog});
+  return (VAR = {vt, prog, ass});
 }
 function variantenHtml(bm, art){
   if(!VAR) return "";
@@ -677,6 +683,28 @@ function variantenHtml(bm, art){
     ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}
     </tbody></table></div>
     <p class="note">B und C tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></div>`;
+}
+
+function assBilanzHtml(bm, art){
+  if(!VAR) return "";
+  const xs = Object.values(VAR.ass||{}).filter(x => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x)))
+    .sort((a,b) => String(b.start).localeCompare(String(a.start)));
+  const f = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
+  const gewinn = f.reduce((s,x) => s + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0);
+  const c = xs.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
+  const ERGP = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
+  return `<div class="box" style="margin-top:16px"><h3>⚡ Außenseiter-Signale</h3>
+    <div class="kv two" style="max-width:520px">
+      <span class="k">Signale · davon abgerechnet</span><span class="v">${xs.length} · ${f.length} (${w}–${f.length-w})</span>
+      <span class="k">Trefferquote</span><span class="v">${f.length ? pc(w/f.length,0) : "–"}</span>
+      <span class="k">Gewinn flach (1 U je Signal)</span><span class="v ${gewinn>0?"pos":gewinn<0?"negv":""}">${f.length ? (gewinn>0?"+":"")+fx(gewinn,1)+" U" : "–"}</span>
+      <span class="k">ROI</span><span class="v">${f.length ? sg(gewinn/f.length) : "–"}</span>
+      <span class="k">Ø Quote</span><span class="v">${xs.length ? fx(xs.reduce((s,x)=>s+x.erstQuote,0)/xs.length) : "–"}</span>
+      <span class="k">Ø CLV</span><span class="v">${c.length ? sg(c.reduce((a,b)=>a+b,0)/c.length) : "–"}</span></div>
+    ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Außenseiter</th><th>Quote</th><th>Fav. als Fav.</th><th>Außens. als Außens.</th><th>Modell / Markt</th><th>Ergebnis</th></tr></thead><tbody>${
+      xs.slice(0, 50).map(x => { const d = new Date(x.start), aus = x.wette==="A" ? x.a : x.b, fav = x.wette==="A" ? x.b : x.a;
+        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(aus)}</b> <span class="time">vs ${esc(fav)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${pc(x.favPct,0)} <small>n ${x.favN}</small></td><td class="num">${pc(x.ausPct,0)} <small>n ${x.ausN}</small></td><td class="num">${pc(x.pModell,0)} / ${pc(x.pMarkt,0)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
+    <p class="note">Signal: Markt-Favorit gewinnt als Favorit unter 60 %, Außenseiter als Außenseiter über 40 % (je mind. 5 Spiele) und das Modell sieht den Außenseiter stärker als der Markt. Getrackt wird ein flacher Tipp auf den Außenseiter zur ersten gesehenen Quote.</p></div>`;
 }
 
 // ---- Spielerprofil (Dialog)
@@ -760,6 +788,13 @@ function quoteBox(p, r){
     </div>
     <div class="time">${r.manuellQ?`Angepasst um ${new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ})} Uhr${orig?` · ${esc(bm)} beim letzten Update: ${fx(orig[0])} / ${fx(orig[1])}`:""}. `:""}Gilt nur in diesem Browser und bis zum nächsten automatischen Update.</div>`;
 }
+function assText(x){
+  return `${x.gegen} gewinnt als Favorit nur ${pc(x.favPct,0)} (n ${x.favN}), ${x.name} als Außenseiter ${pc(x.ausPct,0)} (n ${x.ausN}). Modell sieht ${x.name} bei ${pc(x.pModell,0)} (fair ${fx(x.fair)}), Markt bei ${pc(x.pMarkt,0)} (Quote ${fx(x.quote)}).`;
+}
+function assHtml(r){
+  const x = r.aussenseiter; if(!x) return "";
+  return `<div class="assbox"><b>⚡ Achtung Außenseiter-Signal:</b> ${esc(assText(x))} <span class="time">Wird separat getrackt (Bilanz → Außenseiter-Signale).</span></div>`;
+}
 function warnHtml(p, r){
   const ws = r.warn || []; if(!ws.length) return "";
   return `<h3 style="margin-top:10px">⚠ Hinweise</h3><div class="fz2">${ws.map(w => `<div><b>${esc(w.seite==="A"?p.a:p.b)}:</b> ${esc(w.text)}</div>`).join("")}</div>`;
@@ -793,7 +828,7 @@ function detailHtml(p, r){
   const band = (x) => x ? `<span class="k">${esc(x.name)} bei Quote ${x.band.replace("-","–").replace(/\./g,",")}</span><span class="v">${x.n?`${x.siege}/${x.n} (${pc(x.pct,0)})`:"—"}</span>` : "";
   const cur = store.get("belag."+p.id, null) || "auto";
   PROFCTX[p.id] = {p, r};
-  return `<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
+  return `${assHtml(r)}<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
   <div class="dgrid">
     <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
       <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
@@ -873,7 +908,9 @@ function renderLog(){
   $("#b-kelly").innerHTML = (k.w+k.l) ? betragU(k.kelly*unitCfg().unit, true) : "–";
   $("#b-clv").textContent = sg(k.clv); $("#b-clv").className = k.clv>0?"pos":k.clv<0?"negv":"";
   $("#b-varianten").innerHTML = variantenHtml(bm, art);
-  if(!VAR) variantenLaden().then(() => { $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value); });
+  $("#b-aussenseiter").innerHTML = assBilanzHtml(bm, art);
+  if(!VAR) variantenLaden().then(() => { $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value);
+    $("#b-aussenseiter").innerHTML = assBilanzHtml($("#b-bm").value, $("#b-art").value); });
   { // Verlauf in Units: Unit-Einsatz (gerundet wie angezeigt) und flach 1 U je Tipp
     const fertig = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L").sort((a,b) => String(a.start).localeCompare(String(b.start)));
     let su = 0, sf = 0; const wu = [], wf = [], info = [];

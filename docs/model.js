@@ -298,6 +298,20 @@
       favCheck = Object.assign({ name: fav }, spielerRolle(fav, "fav", D));
       ausCheck = Object.assign({ name: aus }, spielerRolle(aus, "aus", D));
     }
+    // Außenseiter-Signal: Markt-Favorit gewinnt als Favorit selten (< 60 %), Außenseiter als Außenseiter oft (> 40 %),
+    // und das Modell sieht den Außenseiter stärker als der Markt. Wird separat getrackt (aussenseiter_tips.json).
+    let aussenseiter = null;
+    if (favCheck && ausCheck && match.qa !== match.qb) {
+      const minN = P.MIN_N_SIEGQUOTE || 5, favMax = P.AUSSENSEITER_FAV_MAX || 0.6, ausMin = P.AUSSENSEITER_AUS_MIN || 0.4;
+      const ausSeite = match.qa > match.qb ? "A" : "B";
+      const pModellAus = ausSeite === "A" ? pFinal : 1 - pFinal, pMarktAus = ausSeite === "A" ? pMarkt : 1 - pMarkt;
+      if (favCheck.n >= minN && favCheck.pct != null && favCheck.pct < favMax &&
+          ausCheck.n >= minN && ausCheck.pct != null && ausCheck.pct > ausMin && pModellAus > pMarktAus) {
+        aussenseiter = { seite: ausSeite, name: ausCheck.name, gegen: favCheck.name, quote: ausSeite === "A" ? match.qa : match.qb,
+          favPct: favCheck.pct, favN: favCheck.n, ausPct: ausCheck.pct, ausN: ausCheck.n,
+          pModell: pModellAus, pMarkt: pMarktAus, fair: 1 / pModellAus };
+      }
+    }
     // Quotenbereich: wie oft hat der Spieler bei einer Quote in diesem Bereich gewonnen?
     const baender = haveOdds ? { a: spielerBand(match.a, match.qa, D), b: spielerBand(match.b, match.qb, D) } : null;
 
@@ -338,7 +352,7 @@
       fairA, fairB, fairModellA: 1 / pKal, fairModellB: 1 / (1 - pKal),
       fairMarktA: pMarkt ? 1 / pMarkt : null, fairMarktB: pMarkt ? 1 / (1 - pMarkt) : null,
       edgeA, edgeB, valueA, valueB, empfehlung, wette, kelly, buchQ,
-      favCheck, ausCheck, baender,
+      favCheck, ausCheck, baender, aussenseiter,
       saetze: setScores(pFinal, mode),
     });
   }

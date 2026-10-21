@@ -70,6 +70,28 @@ for (const m of matches) {
   }
 }
 fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
+
+// Außenseiter-Signale: separat tracken (Tipp auf den Markt-Außenseiter, flacher Einsatz)
+const alog = rd("aussenseiter_tips.json", {});
+let neuA = 0;
+for (const m of matches) {
+  if (!m.start || new Date(m.start) <= new Date()) continue;
+  for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
+    if ((m.pausiert || []).includes(bm)) continue;
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
+    const key = `${m.id}|${bm}`;
+    if (alog[key]) { const e = alog[key]; e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; continue; }
+    const x = r.ok && r.aussenseiter;
+    if (!x) continue;
+    alog[key] = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b,
+      buchmacher: bm, wette: x.seite, erstQuote: x.quote, letzteQuote: x.quote, pModell: r3(x.pModell), pMarkt: r3(x.pMarkt),
+      favPct: r3(x.favPct), favN: x.favN, ausPct: r3(x.ausPct), ausN: x.ausN, valueTipp: r.wette === x.seite,
+      erstGesehen: now, zuletztGesehen: now };
+    neuA++;
+  }
+}
+fs.writeFileSync(path.join(dir, "aussenseiter_tips.json"), JSON.stringify(alog));
+console.log(`Außenseiter-Signale: ${neuA} neu, insgesamt ${Object.keys(alog).length}`);
 console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B/C), insgesamt ${Object.keys(vlog).length}`);
 
 // Prognose-Protokoll: für JEDE Partie (nicht nur Tipps) die Einzelteile des Modells vor Spielbeginn einfrieren.
