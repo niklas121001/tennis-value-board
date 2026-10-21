@@ -275,6 +275,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <div class="kpi"><b id="b-clv">–</b><span>Ø CLV</span></div>
     </div>
     <div id="b-kurve" class="kurvebox"></div>
+    <div id="b-varianten"></div>
     <div id="b-split"></div>
     <div id="protokoll"></div>
     <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt. Alle Partien mit Ergebnis und Satzstand: <a href="ergebnisse.html">Ergebnis-Archiv</a>.</p>
@@ -633,6 +634,49 @@ function kurveZeichnen(el, titel, serien, info, extra){
 }
 const kDatum = (s) => new Date(s).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ});
 
+// ---- Modell-Varianten im Test (Hintergrund): A = aktuelles Modell, B/C = Testvarianten, Markt = nur Quote
+let VAR = null; const TEST_START = "2026-10-21";   // ab hier vergleichbar (A mit 40 % Modell, B/C laufen mit)
+async function variantenLaden(){
+  if(VAR) return VAR;
+  const [vt, prog] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {})]);
+  await archivLaden();
+  return (VAR = {vt, prog});
+}
+function variantenHtml(bm){
+  if(!VAR) return "";
+  const unit = unitCfg().unit;
+  const kz = (xs) => {
+    const f = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
+    let flat = 0, u = 0; for(const x of f){ const st = unitsOf(x.kelly); if(x.ergebnis==="W"){ flat += x.erstQuote-1; u += st*(x.erstQuote-1); } else { flat -= 1; u -= st; } }
+    const c = xs.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
+    return {n: xs.length, f: f.length, w, l: f.length-w, roi: f.length ? flat/f.length : null, u, clv: c.length ? c.reduce((a,b)=>a+b,0)/c.length : null};
+  };
+  const passt = (x) => bm==="alle" || x.buchmacher===bm;
+  const A = Object.values(LOG||{}).filter(x => passt(x) && String(x.erstGesehen||"") >= TEST_START);
+  const V = Object.values(VAR.vt).filter(passt);
+  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C")};
+  // Prognose-Güte auf denselben Partien (alle mit Quote, Ergebnis und allen drei Varianten)
+  const res = [];
+  for(const [id, p] of Object.entries(VAR.prog)){
+    const e = ERG[id] || (ARCHIV||{})[id];
+    if(!e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || p.pB==null || p.pC==null || p.pMarkt==null || p.pFinal==null) continue;
+    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, M: p.pMarkt});
+  }
+  const guete = (k) => { if(!res.length) return {t:null, ll:null};
+    let t = 0, ll = 0; for(const r of res){ const q = Math.min(Math.max(r[k],1e-4),1-1e-4); t += (q>0.5)===(r.y===1); ll -= r.y*Math.log(q)+(1-r.y)*Math.log(1-q); }
+    return {t: t/res.length, ll: ll/res.length}; };
+  const zeile = (name, beschr, k, x) => { const g = guete(k);
+    return `<tr><td class="l"><b>${name}</b><div class="time">${beschr}</div></td><td class="num">${x?x.f+" ("+x.w+"–"+x.l+")":"–"}</td><td class="num ${x&&x.roi>0?"pos":x&&x.roi<0?"negv":""}">${x?sg(x.roi):"–"}</td><td class="num">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num">${pc(g.t)}</td><td class="num">${g.ll==null?"–":fx(g.ll,3)}</td></tr>`; };
+  return `<div class="box" style="margin-top:16px"><h3>Modell-Varianten im Test (seit ${TEST_START.split("-").reverse().join(".")} bis Jahresende)</h3>
+    <div class="tablewrap"><table><thead><tr><th class="l">Variante</th><th>Tipps (gew.–verl.)</th><th>ROI flach</th><th>Units</th><th>CLV</th><th>Prognose richtig</th><th title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
+    ${zeile("A · aktuell", "40 % Modell, wie auf dem Board", "A", kz(tips.A))}
+    ${zeile("B · Test", "Elo gedämpft, Statistik nur mit echten Werten", "B", kz(tips.B))}
+    ${zeile("C · Test", "wie B + gegnerbereinigte Aufschlag-/Returnwerte", "C", kz(tips.C))}
+    ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}
+    </tbody></table></div>
+    <p class="note">B und C tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></div>`;
+}
+
 // ---- Spielerprofil (Dialog)
 let ARCHIV = null; const KOMBI_OFFEN = new Set();
 async function archivLaden(){
@@ -818,6 +862,8 @@ function renderLog(){
   $("#b-units").innerHTML = (k.w+k.l) ? betragU(k.units*unitCfg().unit, true) : "–";
   $("#b-kelly").innerHTML = (k.w+k.l) ? betragU(k.kelly*unitCfg().unit, true) : "–";
   $("#b-clv").textContent = sg(k.clv); $("#b-clv").className = k.clv>0?"pos":k.clv<0?"negv":"";
+  $("#b-varianten").innerHTML = variantenHtml(bm);
+  if(!VAR) variantenLaden().then(() => { $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value); });
   { // Verlauf in Units: Unit-Einsatz (gerundet wie angezeigt) und flach 1 U je Tipp
     const fertig = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L").sort((a,b) => String(a.start).localeCompare(String(b.start)));
     let su = 0, sf = 0; const wu = [], wf = [], info = [];

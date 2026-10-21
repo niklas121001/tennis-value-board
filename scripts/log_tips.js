@@ -13,6 +13,7 @@ if (mj.demo) { console.log("Demo-Daten – nichts protokolliert"); process.exit(
 const matches = mj.partien;
 const log = rd("tips_log.json", {});
 const now = new Date().toISOString().slice(0, 16) + "Z";
+const r3 = (x) => (typeof x === "number" && isFinite(x) ? Math.round(x * 1000) / 1000 : null);
 let neu = 0;
 
 for (const m of matches) {
@@ -41,12 +42,41 @@ for (const m of matches) {
 }
 fs.writeFileSync(path.join(dir, "tips_log.json"), JSON.stringify(log, null, 0));
 
+// Test-Varianten B und C (Hintergrund, Auswertung zum Jahresende): eigene Tipps mit derselben Value-Regel.
+// Erste Sichtung wird eingefroren, letzte Quote vor Spielbeginn dient als Schlussquote (CLV).
+const vlog = rd("varianten_tips.json", {});
+let neuV = 0;
+for (const m of matches) {
+  if (!m.start || new Date(m.start) <= new Date()) continue;
+  const MIN_ERG = 5, unsicher = (n) => D.players[n] && D.players[n].geschaetzt && (D.players[n].n_erg || 0) < MIN_ERG;
+  if (unsicher(m.a) || unsicher(m.b)) continue;
+  for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
+    if ((m.pausiert || []).includes(bm)) continue;
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
+    if (!r.ok || !r.varianten) continue;
+    for (const [v, x] of Object.entries(r.varianten)) {
+      const key = `${v}|${m.id}|${bm}`;
+      if (vlog[key]) {                       // schon getippt: nur letzte Quote nachführen
+        const e = vlog[key]; e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; continue;
+      }
+      if (!x.wette) continue;
+      const q = x.wette === "A" ? qa : qb;
+      vlog[key] = { variante: v, id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag,
+        a: m.a, b: m.b, buchmacher: bm, wette: x.wette, erstQuote: q, letzteQuote: q, erstP: r3(x.p), edge: r3(x.edge),
+        kelly: x.kelly, erstGesehen: now, zuletztGesehen: now,
+        warn: (m.warnungen || []).filter((w) => w.seite === x.wette).map((w) => w.typ) };
+      neuV++;
+    }
+  }
+}
+fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
+console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B/C), insgesamt ${Object.keys(vlog).length}`);
+
 // Prognose-Protokoll: für JEDE Partie (nicht nur Tipps) die Einzelteile des Modells vor Spielbeginn einfrieren.
 // Grundlage, um später Gewichte (Elo vs. Statistik je Belag, H2H, Kalibrierung, Markt-Anteil) aus echten
 // Ergebnissen zu schätzen – ohne Rückschau-Verzerrung. Ergebnisse kommen aus ergebnisse.json.
 const prog = rd("prognosen.json", {});
 let neuProg = 0;
-const r3 = (x) => (typeof x === "number" && isFinite(x) ? Math.round(x * 1000) / 1000 : null);
 for (const m of matches) {
   if (!m.start || new Date(m.start) <= new Date() || prog[m.id]) continue;
   const qs = Object.values(m.quoten || {}).filter((q) => q[0] > 1 && q[1] > 1);
@@ -61,7 +91,9 @@ for (const m of matches) {
     qa: qa || null, qb: qb || null,
     qaM: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null,   // Durchschnittsquote (Spieler-Check)
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
-    geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), modus: r.modus, csi: r.csi, gesehen: now };
+    geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), modus: r.modus, csi: r.csi, gesehen: now,
+    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null,
+    pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null };
   neuProg++;
 }
 const grenzeProg = new Date(Date.now() - 180 * 864e5).toISOString();

@@ -329,6 +329,23 @@ def main():
     erg_alle = {k: v for k, v in erg_alle.items() if str(v.get("start", "")) >= grenze}
     save("ergebnisse.json", erg_alle, indent=0)
 
+    # Test-Varianten (B/C) abrechnen – gleiche Regeln wie die Bilanz (Absage/Walkover/Aufgabe = ungültig)
+    vlog = load("varianten_tips.json", {})
+    neu_v = 0
+    for t in vlog.values():
+        if t.get("ergebnis"):
+            continue
+        e = erg_alle.get(t["id"])
+        if not e or e.get("sieger") not in ("A", "B", "V"):
+            continue
+        t["ergebnis"] = "V" if e["sieger"] == "V" or e.get("aufgabe") else ("W" if e["sieger"] == t["wette"] else "L")
+        if t.get("letzteQuote") and t.get("erstQuote"):
+            t["clv"] = round(t["erstQuote"] / t["letzteQuote"] - 1, 4)
+        neu_v += 1
+    if vlog:
+        save("varianten_tips.json", vlog, indent=0)
+        print(f"Varianten: {neu_v} Tipps abgerechnet, insgesamt {len(vlog)}")
+
     # H2H automatisch erweitern: jedes entschiedene Spiel NACH dem Excel-Stichtag (letztes Datum in ANALYSE)
     # einmal zählen. Ältere Spiele stecken bereits in h2h.json aus der Excel.
     hw = load("h2h_web.json", {"stand": H2H_STAND_STANDARD, "spiele": {}})

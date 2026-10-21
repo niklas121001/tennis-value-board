@@ -125,6 +125,34 @@
     return { name, band, quote: q, siege: s, n, pct: n ? s / n : null };
   }
 
+  // Tourschnitt Aufschlag-/Returnpunkte je Belag über alle Spieler mit Werten (einmal je Datensatz berechnet)
+  function tourSchnitt(D, s) {
+    D._tour = D._tour || {};
+    if (D._tour[s]) return D._tour[s];
+    let n = 0, srv = 0, ret = 0;
+    for (const p of Object.values(D.players || {})) {
+      const a = p[s + "_1in"], b = p[s + "_1won"], c = p[s + "_2won"], r = p["ret_" + s];
+      if ([a, b, c, r].every(isNum) && a > 0) { srv += a * b + (1 - a) * c; ret += r; n++; }
+    }
+    return (D._tour[s] = n ? { srv: srv / n, ret: ret / n, n } : { srv: 0.62, ret: 0.38, n: 0 });
+  }
+  // Value-Regel wie im Hauptmodell (Quote über fair, höchstens MAX_QUOTE_VALUE, nur Modell-Favorit) + Kelly
+  function bewerte(p, match, haveOdds, D, P) {
+    const fairA = 1 / p, fairB = 1 / (1 - p);
+    const r = { p, fairA, fairB, wette: null, edge: null, kelly: null };
+    if (!haveOdds) return r;
+    const vA = match.qa > fairA && match.qa <= P.MAX_QUOTE_VALUE && fairA < fairB;
+    const vB = match.qb > fairB && match.qb <= P.MAX_QUOTE_VALUE && fairB < fairA;
+    const fav = fairA < fairB ? match.a : match.b;
+    if ((vA || vB) && !(D.blacklist || []).includes(fav)) {
+      r.wette = vA ? "A" : "B";
+      const q = vA ? match.qa : match.qb, f = vA ? fairA : fairB;
+      r.edge = q / f - 1;
+      r.kelly = Math.round(P.BANKROLL * P.KELLY_FRACTION * Math.max(0, (1 / f - 1 / q) / (1 - 1 / q)) * 100) / 100;
+    }
+    return r;
+  }
+
   // Satzergebnis-Prognose (BY3..CM3): q so bestimmen, dass P(Match) = P(A) final
   function setScores(pFinal, mode) {
     const by = clip(pFinal, 0.05, 0.95);
@@ -273,7 +301,35 @@
     // Quotenbereich: wie oft hat der Spieler bei einer Quote in diesem Bereich gewonnen?
     const baender = haveOdds ? { a: spielerBand(match.a, match.qa, D), b: spielerBand(match.b, match.qb, D) } : null;
 
+    // ---- Test-Varianten (laufen im Hintergrund mit, Auswertung zum Jahresende) ----
+    // B: Elo gedämpft (Faktor 0,8), Statistik-Teil nur mit echten Spielerwerten, keine Zusatz-Kalibrierung
+    // C: wie B, aber Statistik-Teil gegnerbereinigt (Aufschlag A und Return B jeweils relativ zum Tourschnitt)
+    const VARIANTE_BLEND = 0.4, ELO_DAEMPFUNG = 0.8;
+    const pEloD = sigm(ELO_DAEMPFUNG * logit(clip(pElo, 1e-4, 1 - 1e-4)));
+    const echteStats = !out.statsFehlenA && !out.statsFehlenB;
+    const kombi = (pS, mitStats) => {
+      const ws = mitStats ? wS : 0;
+      return clip((ws * pS + wE * pEloD + h2hW * h2hPct) / (ws + wE + h2hW) + erf, 0.03, 0.97);
+    };
+    const mitMarkt = (p) => (pMarkt === null ? p : sigm(VARIANTE_BLEND * logit(p) + (1 - VARIANTE_BLEND) * logit(pMarkt)));
+    let pStatsC = null;
+    if (echteStats) {
+      const t = tourSchnitt(D, s);
+      const sv = (p) => p[s + "_1in"] * p[s + "_1won"] + (1 - p[s + "_1in"]) * p[s + "_2won"];
+      const qA = clip(t.srv + (sv(pa) - t.srv) - (pb[retKey] - t.ret), P.P_SRV_MIN, P.P_SRV_MAX);
+      const qB = clip(t.srv + (sv(pb) - t.srv) - (pa[retKey] - t.ret), P.P_SRV_MIN, P.P_SRV_MAX);
+      let sC = pSet(pGame(qA), pGame(qB), tbA, tbB, P.W_TB);
+      if (!isFinite(sC)) sC = 0.5;
+      pStatsC = pMatch(sC, mode);
+    }
+    const varianten = {
+      B: bewerte(mitMarkt(kombi(pStats, echteStats)), match, haveOdds, D, P),
+      C: bewerte(mitMarkt(kombi(pStatsC, echteStats)), match, haveOdds, D, P),
+    };
+    varianten.C.pStats = pStatsC;
+
     return Object.assign(out, {
+      varianten,
       ok: true, modus: mode, csi,
       eloA, eloB, yEloA: pa.elo, yEloB: pb.elo,
       pSrvA, pSrvB, pStats, pElo,
