@@ -74,6 +74,9 @@ details.klapp[open]>summary{margin-bottom:8px}
 .pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}
 .assbox{background:var(--warn-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:13px}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
+.notiz{font-size:12px;color:var(--muted);margin-top:2px;font-style:italic}
+.notizform{display:flex;gap:6px;align-items:center}.notizform input{flex:1;font:inherit;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg)}
+td.aktionen{white-space:nowrap}
 .co{margin-top:4px;font-size:12px;color:var(--muted)}.co input{width:80px;font:inherit;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .qman{color:var(--accent);font-size:11px;margin-right:3px}
 .qform{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:4px 0}.qform input{width:70px;font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg)}
@@ -317,6 +320,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <div class="mform">
           <div class="ctl"><label for="mf-quote">Gesamtquote</label><input id="mf-quote" inputmode="decimal" required placeholder="1,85"></div>
           <div class="ctl" id="mf-bonus-ctl" hidden><label for="mf-bonus" title="Winamax-Kombi-Bonus: Prozent auf den Reingewinn">Kombi-Bonus %</label><input id="mf-bonus" inputmode="decimal" placeholder="z. B. 12"></div>
+          <div class="ctl" style="flex:2 1 220px"><label for="mf-notiz">Notiz (optional)</label><input id="mf-notiz" maxlength="300" placeholder="z. B. Bauchgefühl, Livewette"></div>
           <div class="ctl"><label for="mf-einsatz">Einsatz €</label><input id="mf-einsatz" inputmode="decimal" required placeholder="z. B. 10 = 1 U"></div>
           <button type="submit" class="btn">Eintragen</button>
         </div>
@@ -719,7 +723,7 @@ function assBilanzHtml(bm, art){
 document.addEventListener("toggle", (e) => { const d = e.target; if(d && d.classList && d.classList.contains("klapp")) store.set("klapp."+d.dataset.k, d.open); }, true);
 
 // ---- Spielerprofil (Dialog)
-let ARCHIV = null; const KOMBI_OFFEN = new Set();
+let ARCHIV = null; const KOMBI_OFFEN = new Set(), NOTIZ_OFFEN = new Set();
 async function archivLaden(){
   if(ARCHIV) return ARCHIV;
   const idx = await j("archiv/index.json", {}), ms = Object.keys(idx).sort().slice(-3);
@@ -1316,8 +1320,8 @@ function setupWetten(){
       a: beine[0].spieler, b: beine[0].gegner, seite: beine[0].seite || "A",
       spieler: kombi ? `Kombi (${beine.length})` : beine[0].spieler, gegner: kombi ? "" : beine[0].gegner,
       buchmacher: $("#mf-bm").value.trim(), quote, einsatz, typ: kombi ? "kombi" : "einzel", beine, manuell: false, ergebnis: null,
-      bonus: kombi ? Math.max(0, num2($("#mf-bonus").value) || 0) : 0});
-    $("#mf-beine").innerHTML = ""; beinZeile({}); ["mf-quote","mf-einsatz","mf-turnier","mf-bonus"].forEach(id => $("#"+id).value = "");
+      bonus: kombi ? Math.max(0, num2($("#mf-bonus").value) || 0) : 0, notiz: $("#mf-notiz").value.trim()});
+    $("#mf-beine").innerHTML = ""; beinZeile({}); ["mf-quote","mf-einsatz","mf-turnier","mf-bonus","mf-notiz"].forEach(id => $("#"+id).value = "");
     $("#mf-art").value = "einzel"; artWechsel();
     try{ localStorage.removeItem("tvb.kombi.entwurf"); }catch(_){}
   });
@@ -1345,6 +1349,16 @@ function setupWetten(){
     $("#ms-token").value = ""; syncStatus("getrennt – Wetten liegen nur in diesem Browser"); });
   if(store.get("gist.token", null)){ $("#ms-token").value = "••••••••"; syncPull(false); }
   // Kombi ausklappen / Auswahl-Ergebnis setzen
+  $("#m-liste").addEventListener("click", (e) => {
+    const n = e.target.closest(".w-notiz");
+    if(n){ const id = n.dataset.id; NOTIZ_OFFEN.has(id) ? NOTIZ_OFFEN.delete(id) : NOTIZ_OFFEN.add(id); renderWetten();
+      const inp = document.querySelector(`.notiz-wert[data-id="${CSS.escape(id)}"]`); if(inp) inp.focus(); return; }
+    const ok = e.target.closest(".notiz-ok"), weg = e.target.closest(".notiz-weg");
+    if(ok || weg){ const id = (ok||weg).dataset.id, inp = document.querySelector(`.notiz-wert[data-id="${CSS.escape(id)}"]`);
+      NOTIZ_OFFEN.delete(id); wetteAendern(id, {notiz: weg ? "" : (inp ? inp.value.trim() : "")}); return; }
+  });
+  $("#m-liste").addEventListener("keydown", (e) => { const inp = e.target.closest(".notiz-wert"); if(!inp || e.key !== "Enter") return;
+    NOTIZ_OFFEN.delete(inp.dataset.id); wetteAendern(inp.dataset.id, {notiz: inp.value.trim()}); });
   $("#m-liste").addEventListener("click", (e) => { const t = e.target.closest(".ktog"); if(!t) return;
     const id = t.dataset.id; KOMBI_OFFEN.has(id) ? KOMBI_OFFEN.delete(id) : KOMBI_OFFEN.add(id); renderWetten(); });
   $("#m-liste").addEventListener("change", (e) => { const s_ = e.target.closest("select.bein-erg"); if(!s_) return;
@@ -1393,12 +1407,13 @@ function renderWetten(){
         : `<b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${hatBeine && w.beine[0].markt && w.beine[0].markt!=="sieg" ? ` <span class="pill">${esc(marktText(w.beine[0]))}</span>` : ""}`;
       const hatAuto = w.fixtureId || hatBeine;
       return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
-        <td class="l">${wetteTxt}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
+        <td class="l">${wetteTxt}${w.notiz?`<div class="notiz">📝 ${esc(w.notiz)}</div>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
         <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
         <td class="num">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${fx(w.bonus,0)} % Bonus</div>`:""}</td><td class="num">${betragU(w.einsatz)}</td>
         <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}${opt("C","Cashout")}</select>${e==="C"?`<div class="co"><label>Auszahlung € <input class="co-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.cashout!=null?fx(w.cashout):""}" placeholder="z. B. 14,50"></label></div>`:""}</td>
         <td class="num ${gw>0?"pos":gw<0?"negv":""}">${gw==null?"–":betragU(gw, true)}</td>
-        <td><button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${kombi && offenK ? kombiDetail(w) : ""}`; }).join("")}</tbody></table></div>`;
+        <td class="aktionen"><button type="button" class="btn ghost mini w-notiz" data-id="${esc(w.id)}" title="Notiz ${w.notiz?"bearbeiten":"hinzufügen"}">📝</button> <button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${
+          NOTIZ_OFFEN.has(w.id) ? `<tr class="kombi-d"><td colspan="9"><div class="notizform"><input class="notiz-wert" data-id="${esc(w.id)}" maxlength="300" placeholder="z. B. war knapp, Idee richtig, Verletzung im 2. Satz …" value="${esc(w.notiz||"")}"><button type="button" class="btn mini notiz-ok" data-id="${esc(w.id)}">Speichern</button>${w.notiz?`<button type="button" class="btn ghost mini notiz-weg" data-id="${esc(w.id)}">Löschen</button>`:""}</div></td></tr>` : ""}${kombi && offenK ? kombiDetail(w) : ""}`; }).join("")}</tbody></table></div>`;
 }
 
 function kombiDetail(w){
