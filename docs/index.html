@@ -452,8 +452,14 @@ function regelOk(edge, quote, istCh, warnAnzahl){
   if(g.ohneWarn && warnAnzahl) return false;
   return true;
 }
+function favWarnung(r){   // Markt-Favorit gewinnt als Favorit selten
+  const f = r.favCheck, P = D.params, minN = P.AUSSENSEITER_MIN_N || 7, max = P.FAV_WARN_MAX || 0.6;
+  if(!f || f.pct == null || f.n < minN || f.pct >= max || r.qa === r.qb) return null;
+  return {seite: r.qa < r.qb ? "A" : "B", typ: "favschwach", text: `Favorit gewinnt als Favorit nur ${pc(f.pct,0)} (${f.n} Spiele)`};
+}
 function warnListe(p, r){
   const ws = (p.warnungen || []).slice();
+  const fw = favWarnung(r); if(fw) ws.push(fw);
   if(r.wette){
     const reihe = qvReihe(p, r.bm), i = r.wette==="A" ? 1 : 2, jetzt = r.wette==="A" ? r.qa : r.qb;
     if(reihe.length >= 2 && reihe[0][i] && jetzt && jetzt/reihe[0][i] - 1 >= 0.08)
@@ -461,7 +467,7 @@ function warnListe(p, r){
   }
   return ws;
 }
-const WARN_KURZ = {aufgabe:"Aufgabe zuletzt", pause:"lange Pause", belag:"Belagwechsel", quote:"Quote steigt"};
+const WARN_KURZ = {aufgabe:"Aufgabe zuletzt", pause:"lange Pause", belag:"Belagwechsel", quote:"Quote steigt", favschwach:"Favorit schwach"};
 const warnIcon = (ws, seite, name) => { const x = ws.filter(w => w.seite === seite); return x.length ? ` <span class="wwarn" title="${esc(name+": "+x.map(w=>w.text).join(" · "))}">⚠</span>` : ""; };
 
 // ---- Manuell angepasste Quote je Partie (nur in diesem Browser); verfällt mit dem nächsten automatischen Update

@@ -19,7 +19,7 @@ CHAT = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 TZ = ZoneInfo("Europe/Berlin")
 TAGE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
 MONATE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
-WARN_KURZ = {"aufgabe": "Aufgabe zuletzt", "pause": "lange Pause", "belag": "Belagwechsel", "quote": "Quote steigt"}
+WARN_KURZ = {"aufgabe": "Aufgabe zuletzt", "pause": "lange Pause", "belag": "Belagwechsel", "quote": "Quote steigt", "favschwach": "Favorit schwach"}
 
 
 def regel_ok(t, r):

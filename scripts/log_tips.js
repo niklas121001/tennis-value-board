@@ -12,6 +12,14 @@ const mj = rd("matches.json", { partien: [] });
 if (mj.demo) { console.log("Demo-Daten – nichts protokolliert"); process.exit(0); }
 const matches = mj.partien;
 const log = rd("tips_log.json", {});
+// Warnhinweise je Seite: aus dem Spielplan (Aufgabe, Pause, Belagwechsel) + schwacher Favorit (Spieler-Check)
+function warnTypen(m, r, seite, qa, qb) {
+  const t = (m.warnungen || []).filter((w) => w.seite === seite).map((w) => w.typ);
+  const f = r.favCheck, minN = P.params.AUSSENSEITER_MIN_N || 7, max = P.params.FAV_WARN_MAX || 0.6;
+  const favSeite = qa < qb ? "A" : qb < qa ? "B" : null;
+  if (f && f.pct != null && f.n >= minN && f.pct < max && favSeite === seite) t.push("favschwach");
+  return t;
+}
 const now = new Date().toISOString().slice(0, 16) + "Z";
 const r3 = (x) => (typeof x === "number" && isFinite(x) ? Math.round(x * 1000) / 1000 : null);
 let neu = 0;
@@ -33,7 +41,7 @@ for (const m of matches) {
       tid: m.tid, p1Id: m.p1Id, p2Id: m.p2Id, kategorie: m.kategorie,
       buchmacher: bm, wette: r.wette, erstQuote: q, erstP: r.pFinal, edge: r.wette === "A" ? r.edgeA : r.edgeB,
       kelly: r.kelly, erstGesehen: now,
-      warn: (m.warnungen || []).filter((w) => w.seite === r.wette).map((w) => w.typ) };   // Warnhinweise beim Tipp (für die Auswertung)
+      warn: warnTypen(m, r, r.wette, qa, qb) };   // Warnhinweise beim Tipp (für die Auswertung)
     if (!log[key]) neu++;
     e.start = m.start;  // Ansetzung kann sich verschieben
     Object.assign(e, { letzteQuote: q, letzteP: r.pFinal, zuletztGesehen: now });
@@ -64,7 +72,7 @@ for (const m of matches) {
       vlog[key] = { variante: v, id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag,
         a: m.a, b: m.b, buchmacher: bm, wette: x.wette, erstQuote: q, letzteQuote: q, erstP: r3(x.p), edge: r3(x.edge),
         kelly: x.kelly, erstGesehen: now, zuletztGesehen: now,
-        warn: (m.warnungen || []).filter((w) => w.seite === x.wette).map((w) => w.typ) };
+        warn: warnTypen(m, r, x.wette, qa, qb) };
       neuV++;
     }
   }
