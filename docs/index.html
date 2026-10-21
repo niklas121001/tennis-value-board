@@ -1104,7 +1104,7 @@ function wetteBox(p, r){
   const vorhanden = Object.values(wLoad().items).filter(w => w.fixtureId === p.id);
   const id = esc(p.id);
   return `<div class="box wbox"><h3>Als Wette speichern</h3>
-    <form class="mform w-form" data-id="${id}" autocomplete="off">
+    <form class="mform w-form" data-id="${id}" data-quoten="${esc(JSON.stringify(r.manuellQ ? Object.assign({}, p.quoten, {[r.manuellQ.bm]: [r.qa, r.qb]}) : (p.quoten||{})))}" autocomplete="off">
       <div class="ctl"><label for="ws-s-${id}">Auf</label><select id="ws-s-${id}" name="seite">
         <option value="A"${seite==="A"?" selected":""}>${esc(p.a)}</option><option value="B"${seite==="B"?" selected":""}>${esc(p.b)}</option></select></div>
       <div class="ctl"><label for="ws-b-${id}">Buchmacher</label><select id="ws-b-${id}" name="bm">
@@ -1267,6 +1267,13 @@ function setupWetten(){
       beine: markt==="sieg" ? undefined : [bein], markt,
       modellP: seite==="A"?r.pFinal:1-r.pFinal, edge: seite==="A"?r.edgeA:r.edgeB, valueTipp: markt==="sieg" && r.wette===seite});
     render();
+  });
+  // Spieler oder Buchmacher gewechselt -> passende Quote eintragen (nur beim Markt "Sieg")
+  $("#list").addEventListener("change", (e) => {
+    const f = e.target.closest(".w-form"); if(!f || !["seite","bm","markt"].includes(e.target.name)) return;
+    if(f.markt.value !== "sieg") return;
+    let qs = {}; try{ qs = JSON.parse(f.dataset.quoten || "{}"); }catch(_){}
+    const q = qs[f.bm.value]; if(q) f.quote.value = fx(q[f.seite.value==="A" ? 0 : 1]);
   });
   $("#list").addEventListener("click", (e) => {
     const qf = e.target.closest(".qform");
