@@ -636,7 +636,7 @@ function kurveZeichnen(el, titel, serien, info, extra){
 const kDatum = (s) => new Date(s).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ});
 
 // ---- Modell-Varianten im Test (Hintergrund): A = aktuelles Modell, B/C = Testvarianten, Markt = nur Quote
-let VAR = null; const TEST_START = "2026-10-21";   // ab hier vergleichbar (A mit 40 % Modell, B/C laufen mit)
+let VAR = null; const TEST_START = "2026-10-21";   // ab hier vergleichbar (A mit 50 % Modell, B/C laufen mit gleichem Anteil)
 async function variantenLaden(){
   if(VAR) return VAR;
   const [vt, prog] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {})]);
@@ -671,7 +671,7 @@ function variantenHtml(bm, art){
     return `<tr><td class="l"><b>${name}</b><div class="time">${beschr}</div></td><td class="num">${x?x.f+" ("+x.w+"–"+x.l+")":"–"}</td><td class="num ${x&&x.roi>0?"pos":x&&x.roi<0?"negv":""}">${x?sg(x.roi):"–"}</td><td class="num">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num">${pc(g.t)}</td><td class="num">${g.ll==null?"–":fx(g.ll,3)}</td></tr>`; };
   return `<div class="box" style="margin-top:16px"><h3>Modell-Varianten im Test (seit ${TEST_START.split("-").reverse().join(".")} bis Jahresende) · ${art==="atp"?"nur ATP":art==="ch"?"nur Challenger":"ATP + Challenger"}</h3>
     <div class="tablewrap"><table><thead><tr><th class="l">Variante</th><th>Tipps (gew.–verl.)</th><th>ROI flach</th><th>Units</th><th>CLV</th><th>Prognose richtig</th><th title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
-    ${zeile("A · aktuell", "40 % Modell, wie auf dem Board", "A", kz(tips.A))}
+    ${zeile("A · aktuell", `${Math.round(D.params.W_MODELL_BLEND*100)} % Modell, wie auf dem Board`, "A", kz(tips.A))}
     ${zeile("B · Test", "Elo gedämpft, Statistik nur mit echten Werten", "B", kz(tips.B))}
     ${zeile("C · Test", "wie B + gegnerbereinigte Aufschlag-/Returnwerte", "C", kz(tips.C))}
     ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}

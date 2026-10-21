@@ -304,7 +304,7 @@
     // ---- Test-Varianten (laufen im Hintergrund mit, Auswertung zum Jahresende) ----
     // B: Elo gedämpft (Faktor 0,8), Statistik-Teil nur mit echten Spielerwerten, keine Zusatz-Kalibrierung
     // C: wie B, aber Statistik-Teil gegnerbereinigt (Aufschlag A und Return B jeweils relativ zum Tourschnitt)
-    const VARIANTE_BLEND = 0.4, ELO_DAEMPFUNG = 0.8;
+    const VARIANTE_BLEND = P.W_MODELL_BLEND, ELO_DAEMPFUNG = 0.8;   // gleicher Modellanteil wie das Hauptmodell
     const pEloD = sigm(ELO_DAEMPFUNG * logit(clip(pElo, 1e-4, 1 - 1e-4)));
     const echteStats = !out.statsFehlenA && !out.statsFehlenB;
     const kombi = (pS, mitStats) => {
