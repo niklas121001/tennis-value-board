@@ -108,8 +108,20 @@ console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B/C), insgesamt ${Object.k
 const prog = rd("prognosen.json", {});
 let neuProg = 0;
 for (const m of matches) {
-  if (!m.start || new Date(m.start) <= new Date() || prog[m.id]) continue;
+  if (!m.start || new Date(m.start) <= new Date()) continue;
   const qs = Object.values(m.quoten || {}).filter((q) => q[0] > 1 && q[1] > 1);
+  if (prog[m.id]) {
+    // Prognose bleibt eingefroren, die Quoten werden bis Spielbeginn aktualisiert (letzte Quote vor Start).
+    // So fehlen keine Quoten mehr, wenn die Partie schon vor dem Quotenstart des Buchmachers erfasst wurde.
+    if (qs.length) {
+      const e = prog[m.id];
+      e.qa = Math.max(...qs.map((q) => q[0])); e.qb = Math.max(...qs.map((q) => q[1]));
+      e.qaM = r3(qs.reduce((x, q) => x + q[0], 0) / qs.length); e.qbM = r3(qs.reduce((x, q) => x + q[1], 0) / qs.length);
+      e.pMarkt = r3(qs.reduce((s, q) => s + (1 / q[0]) / (1 / q[0] + 1 / q[1]), 0) / qs.length);
+      e.quoteStand = now;
+    }
+    continue;
+  }
   const qa = qs.length ? Math.max(...qs.map((q) => q[0])) : undefined;   // beste Quote je Seite
   const qb = qs.length ? Math.max(...qs.map((q) => q[1])) : undefined;
   const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);

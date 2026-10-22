@@ -179,6 +179,19 @@ def bilanz(log):
     return out
 
 
+def quote_aus_verlauf(verlauf, fid, start):
+    """Letzte Quote vor Spielbeginn aus quoten_verlauf.json, Durchschnitt über die Buchmacher -> (qa, qb) oder (None, None)."""
+    v = (verlauf or {}).get(fid) or {}
+    qs = []
+    for reihe in (v.get("bm") or {}).values():
+        vor = [r for r in reihe if len(r) >= 3 and r[1] and r[2] and (not start or str(r[0]) < str(start)[:16] + "Z")]
+        if vor:
+            qs.append(vor[-1][1:3])
+    if not qs:
+        return None, None
+    return round(sum(q[0] for q in qs) / len(qs), 3), round(sum(q[1] for q in qs) / len(qs), 3)
+
+
 def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
     """Ergebnis-Archiv aller entschiedenen Partien -> docs/data/archiv/JJJJ-MM.json (+ index.json).
     Einträge werden nur ergänzt bzw. um den Satzstand vervollständigt, nie gelöscht."""
@@ -189,13 +202,21 @@ def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
         x = tipps.setdefault(t["id"], {"seite": t.get("wette"), "bm": []})
         x["bm"].append(t.get("buchmacher"))
     nm = NameMatcher(load("players.json", {}).keys(), load("name_map.json", {}))
+    verlauf = load("quoten_verlauf.json", {})
     monate, neu = {}, 0
     # bestehende Monate laden und Namen vereinheitlichen ("Friend, Jay" -> "Jay Dylan Hara Friend")
     for pf in sorted(ordner.glob("????-??.json")):
         monate[pf.stem] = json.loads(pf.read_text(encoding="utf-8"))
-        for x in monate[pf.stem].values():
+        for fid, x in monate[pf.stem].items():
             for s in ("a", "b"):
                 x[s] = name_einheitlich(x.get(s), nm)
+            if not x.get("qa") or not x.get("qb"):      # Quote nachtragen, falls sie erst nach der Prognose kam
+                pr = prog.get(fid) or {}
+                qa, qb = pr.get("qaM") or pr.get("qa"), pr.get("qbM") or pr.get("qb")
+                if not (qa and qb):
+                    qa, qb = quote_aus_verlauf(verlauf, fid, x.get("start"))
+                if qa and qb:
+                    x["qa"], x["qb"] = qa, qb
     for fid, e in erg_alle.items():
         start = str(e.get("start") or "")
         if len(start) < 7 or e.get("sieger") not in ("A", "B", "V"):
@@ -214,10 +235,13 @@ def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
         if alt and (alt.get("satz") or not satz) and bool(alt.get("aufgabe")) == bool(e.get("aufgabe")):
             continue
         tp = tipps.get(fid)
+        qa, qb = pr.get("qaM") or pr.get("qa"), pr.get("qbM") or pr.get("qb")
+        if not (qa and qb):
+            qa, qb = quote_aus_verlauf(verlauf, fid, start)
         monate[m][fid] = {
             "start": start, "turnier": pr.get("turnier") or fx.get("turnier"), "kat": pr.get("kategorie"),
             "belag": pr.get("belag") or (ev or {}).get("belag"), "a": name_einheitlich(pr.get("a") or e.get("a"), nm), "b": name_einheitlich(pr.get("b") or e.get("b"), nm),
-            "qa": pr.get("qaM") or pr.get("qa"), "qb": pr.get("qbM") or pr.get("qb"), "p": pr.get("pFinal"),
+            "qa": qa, "qb": qb, "p": pr.get("pFinal"),
             "sieger": e["sieger"], "aufgabe": bool(e.get("aufgabe")) or None, "satz": satz, "runde": (ev or {}).get("runde"),
             "tipp": tp["seite"] if tp else None, "bm": sorted(set(tp["bm"])) if tp else None,
         }
@@ -392,6 +416,7 @@ def main():
     # Spieler-Check fortschreiben (Favorit/Außenseiter, Quotenbereiche): jedes entschiedene Spiel mit Quote NACH dem
     # Excel-Stichtag einmal zählen. Quote = Durchschnitt der Buchmacher vor Spielbeginn (prognosen.json).
     prog = load("prognosen.json", {})
+    verlauf_sc = load("quoten_verlauf.json", {})
     sw = {"stand": hw.get("stand"), "spiele": load("player_stats_web.json", {}).get("spiele", {})}
     sw["spiele"] = {k: v for k, v in sw["spiele"].items() if str(v.get("start", ""))[:10] > str(sw["stand"] or "")
                     and not (erg_alle.get(k) or {}).get("aufgabe")}
@@ -402,6 +427,8 @@ def main():
         if str(e.get("start", ""))[:10] <= str(sw.get("stand") or ""):
             continue
         qa, qb = pr.get("qaM") or pr.get("qa"), pr.get("qbM") or pr.get("qb")
+        if not qa or not qb:
+            qa, qb = quote_aus_verlauf(verlauf_sc, fid, e.get("start"))
         if not qa or not qb:
             continue
         # gleiche Partie -> gleiche Reihenfolge A/B; Namen aus der Prognose (Spieler-DB-Namen)
