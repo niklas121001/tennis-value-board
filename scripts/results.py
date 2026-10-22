@@ -377,19 +377,20 @@ def main():
         save("varianten_tips.json", vlog, indent=0)
         print(f"Varianten: {neu_v} Tipps abgerechnet, insgesamt {len(vlog)}")
 
-    # Außenseiter-Signale abrechnen (gleiche Regeln)
-    alog = load("aussenseiter_tips.json", {})
-    for t in alog.values():
-        if t.get("ergebnis"):
-            continue
-        e = erg_alle.get(t["id"])
-        if not e or e.get("sieger") not in ("A", "B", "V"):
-            continue
-        t["ergebnis"] = "V" if e["sieger"] == "V" or e.get("aufgabe") else ("W" if e["sieger"] == t["wette"] else "L")
-        if t.get("letzteQuote") and t.get("erstQuote"):
-            t["clv"] = round(t["erstQuote"] / t["letzteQuote"] - 1, 4)
-    if alog:
-        save("aussenseiter_tips.json", alog, indent=0)
+    # Außenseiter- und Bilanz-Signale abrechnen (gleiche Regeln)
+    for datei in ("aussenseiter_tips.json", "bilanz_tips.json"):
+        alog = load(datei, {})
+        for t in alog.values():
+            if t.get("ergebnis"):
+                continue
+            e = erg_alle.get(t["id"])
+            if not e or e.get("sieger") not in ("A", "B", "V"):
+                continue
+            t["ergebnis"] = "V" if e["sieger"] == "V" or e.get("aufgabe") else ("W" if e["sieger"] == t["wette"] else "L")
+            if t.get("letzteQuote") and t.get("erstQuote"):
+                t["clv"] = round(t["erstQuote"] / t["letzteQuote"] - 1, 4)
+        if alog:
+            save(datei, alog, indent=0)
 
     # H2H automatisch erweitern: jedes entschiedene Spiel NACH dem Excel-Stichtag (letztes Datum in ANALYSE)
     # einmal zählen. Ältere Spiele stecken bereits in h2h.json aus der Excel.

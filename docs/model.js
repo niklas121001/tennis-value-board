@@ -314,6 +314,23 @@
     }
     // Quotenbereich: wie oft hat der Spieler bei einer Quote in diesem Bereich gewonnen?
     const baender = haveOdds ? { a: spielerBand(match.a, match.qa, D), b: spielerBand(match.b, match.qb, D) } : null;
+    // Bilanz-Signal (Test): Siegquote des Spielers im Quotenbereich, zum Markt hin gezogen (je kleiner n, desto stärker).
+    // Nur für Seiten ohne Value-Tipp; kleiner Einsatz (Kelly-Anteil BILANZ_KELLY, max. 1 U). Separat getrackt (bilanz_tips.json).
+    let bilanzSignal = null;
+    if (baender && pMarkt !== null) {
+      const minN = P.BILANZ_MIN_N || 8, K = P.BILANZ_K || 15, minEdge = P.BILANZ_MIN_EDGE || 0.03, maxQ = P.BILANZ_MAX_QUOTE || 4;
+      for (const seite of ["A", "B"]) {
+        const bd = seite === "A" ? baender.a : baender.b, q = seite === "A" ? match.qa : match.qb;
+        if (!bd || bd.n < minN || seite === wette || !(q > 1) || q > maxQ) continue;
+        const pm = seite === "A" ? pMarkt : 1 - pMarkt;
+        const pEst = (bd.siege + K * pm) / (bd.n + K), edge = pEst * q - 1;
+        if (edge < minEdge || (bilanzSignal && bilanzSignal.edge >= edge)) continue;
+        const f = Math.max(0, edge / (q - 1)) * (P.BILANZ_KELLY || 0.25);
+        bilanzSignal = { seite, name: seite === "A" ? match.a : match.b, gegen: seite === "A" ? match.b : match.a, quote: q,
+          band: bd.band, siege: bd.siege, n: bd.n, pBand: bd.pct, pEst, pMarkt: pm, edge, fair: 1 / pEst,
+          kellyEur: Math.round(P.BANKROLL * f * 100) / 100 };
+      }
+    }
 
     // ---- Test-Varianten (laufen im Hintergrund mit, Auswertung zum Jahresende) ----
     // B: Elo gedämpft (Faktor 0,8), Statistik-Teil nur mit echten Spielerwerten, keine Zusatz-Kalibrierung
@@ -352,7 +369,7 @@
       fairA, fairB, fairModellA: 1 / pKal, fairModellB: 1 / (1 - pKal),
       fairMarktA: pMarkt ? 1 / pMarkt : null, fairMarktB: pMarkt ? 1 / (1 - pMarkt) : null,
       edgeA, edgeB, valueA, valueB, empfehlung, wette, kelly, buchQ,
-      favCheck, ausCheck, baender, aussenseiter,
+      favCheck, ausCheck, baender, aussenseiter, bilanzSignal,
       saetze: setScores(pFinal, mode),
     });
   }

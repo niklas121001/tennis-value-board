@@ -75,6 +75,7 @@ tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var
 .vliste{width:100%;font-size:13px;margin:4px 0 8px}.vliste th,.vliste td{padding:4px 6px;border-bottom:1px solid var(--line)}
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 .pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}
+.bilbox{background:var(--accent-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-top:10px;font-size:13px}
 .assbox{background:var(--warn-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:13px}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
 .notiz{font-size:12px;color:var(--muted);margin-top:2px;font-style:italic}
@@ -291,6 +292,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     <div id="b-kurve" class="kurvebox"></div>
     <div id="b-varianten"></div>
     <div id="b-aussenseiter"></div>
+    <div id="b-bilanzsig"></div>
     <div id="b-split"></div>
     <div id="protokoll"></div>
     <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt. Alle Partien mit Ergebnis und Satzstand: <a href="ergebnisse.html">Ergebnis-Archiv</a>.</p>
@@ -378,6 +380,9 @@ function stakeHtml(kelly){              // Einsatz-Anzeige für einen Tipp
   if(!s) return "–";
   return s.klein ? uSpan("klein", `${fx(s.u)} U · Kelly ${eur(e)}`, "klein") : uSpan(fu(s.u)+" U", `${eur(s.u*unitCfg().unit)} · Kelly genau ${eur(e)}`);
 }
+// Bilanz-Signal (Test): Einsatz wie bei Tipps berechnet, aber höchstens BILANZ_MAX_U (1 U)
+function bilanzU(kelly){ const s = stakeU(kellyEur(kelly)); if(!s) return null; const max = (D && D.params.BILANZ_MAX_U) || 1;
+  return s.klein ? s : {u: Math.min(max, s.u), klein:false}; }
 const unitsOf = (kelly) => { const s = stakeU(kellyEur(kelly)); return s ? s.u : 0; };   // Einsatz in Units für Summen/Bilanz
 function betragU(eurV, vorzeichen=false){   // Euro-Betrag als Units, Klick -> Euro
   if(!(typeof eurV==="number"&&isFinite(eurV))) return "–";
@@ -669,9 +674,9 @@ const kDatum = (s) => new Date(s).toLocaleDateString("de-DE",{day:"2-digit",mont
 let VAR = null, VAR_OFFEN = null; const TEST_START = "2026-10-21";   // ab hier vergleichbar (A mit 50 % Modell, B/C laufen mit gleichem Anteil)
 async function variantenLaden(){
   if(VAR) return VAR;
-  const [vt, prog, ass] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {}), j("aussenseiter_tips.json", {})]);
+  const [vt, prog, ass, bil] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {}), j("aussenseiter_tips.json", {}), j("bilanz_tips.json", {})]);
   await archivLaden();
-  return (VAR = {vt, prog, ass});
+  return (VAR = {vt, prog, ass, bil});
 }
 function variantenHtml(bm, art){
   if(!VAR) return "";
@@ -857,6 +862,7 @@ async function openProfil(name, ctx){
           <span class="k">als Favorit</span><span class="v">${einUnitText(e.fav)}</span>
           <span class="k">als Außenseiter</span><span class="v">${einUnitText(e.aus)}</span>
           ${e.alle.n?`<span class="k">in Euro (1 U = ${fx(unitCfg().unit, unitCfg().unit%1?2:0)} €)</span><span class="v">${(e.alle.u>0?"+":"")+eur(e.alle.u*unitCfg().unit)}</span>`:""}</div>`; })():""}
+        ${ctx && ctx.r && ctx.r.bilanzSignal && ctx.r.bilanzSignal.name===name ? bilanzHtml(ctx.r) : ""}
         ${h2h?`<h3 style="margin-top:10px">H2H gegen ${esc(ctx.gegner)}</h3><div class="kv two"><span class="k">Bilanz${ctx.r.h2h.quelle==="spieldaten"?" (alle Duelle)":""}</span><span class="v">${h2h[0]}:${h2h[1]}</span></div>`:""}
         ${form?`<h3 style="margin-top:10px">Form · 7 Tage</h3><div class="fz2">${formText(form, ctx.p.start)}</div>`:""}</div>
       <div class="box"><h3>Nach Quotenbereich</h3>${bands?`<table class="prtab"><thead><tr><th>Quote</th><th>S–N</th><th>Quote gew.</th></tr></thead><tbody>${bands}</tbody></table>`:'<p class="time">Noch keine Spiele mit Quote.</p>'}</div>
@@ -905,6 +911,38 @@ function quoteBox(p, r){
 }
 function assText(x){
   return `${x.gegen} gewinnt als Favorit nur ${pc(x.favPct,0)} (n ${x.favN}), ${x.name} als Außenseiter ${pc(x.ausPct,0)} (n ${x.ausN}). Modell sieht ${x.name} bei ${pc(x.pModell,0)} (fair ${fx(x.fair)}), Markt bei ${pc(x.pMarkt,0)} (Quote ${fx(x.quote)}).`;
+}
+function bilanzHtml(r){
+  const x = r.bilanzSignal; if(!x) return "";
+  const s = bilanzU(x.kellyEur), e = s ? (s.klein ? uSpan("klein", `${fx(s.u)} U`, "klein") : uSpan(fu(s.u)+" U", eur(s.u*unitCfg().unit))) : "–";
+  return `<div class="bilbox"><b>📊 Bilanz-Signal (Test):</b> ${esc(x.name)} @ ${fx(x.quote)} – gewinnt bei Quote ${x.band.replace("-","–").replace(/\./g,",")} ${x.siege} von ${x.n} (${pc(x.pBand,0)}).
+    Geschätzt ${pc(x.pEst)} statt Markt ${pc(x.pMarkt)} (faire Quote ${fx(x.fair)}), Edge ${sg(x.edge)}. <b>Einsatz ${e}</b>
+    <span class="time">Kein Modell-Value – nur aus der Spielerbilanz, zum Markt hin gezogen. Wird separat getrackt (Bilanz → Bilanz-Signale).</span></div>`;
+}
+function bilanzSigHtml(bm, art){
+  if(!VAR) return "";
+  const xs = Object.values(VAR.bil||{}).filter(x => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x)))
+    .sort((a,b) => String(b.start).localeCompare(String(a.start)));
+  const f = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
+  const flach = f.reduce((s,x) => s + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0);
+  let einsatz = 0, mitU = 0;
+  for(const x of f){ const st = (bilanzU(x.kellyEur)||{u:0}).u; einsatz += st; mitU += x.ergebnis==="W" ? st*(x.erstQuote-1) : -st; }
+  const c = xs.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
+  const ERGP = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
+  const P_ = D.params;
+  return `<details class="box klapp" data-k="bil" style="margin-top:16px"${store.get("klapp.bil", true)?" open":""}><summary><h3>📊 Bilanz-Signale (Test) <span class="time">${xs.length} Signale${f.length?` · ${w}–${f.length-w} · ${sg(flach/f.length)} ROI`:""}</span></h3></summary>
+    <div class="kv two" style="max-width:520px">
+      <span class="k">Signale · davon abgerechnet</span><span class="v">${xs.length} · ${f.length} (${w}–${f.length-w})</span>
+      <span class="k">Trefferquote</span><span class="v">${f.length ? pc(w/f.length,0) : "–"}</span>
+      <span class="k">Gewinn flach (1 U je Signal)</span><span class="v ${flach>0?"pos":flach<0?"negv":""}">${f.length ? (flach>0?"+":"")+fx(flach,1)+" U" : "–"}</span>
+      <span class="k">ROI flach</span><span class="v">${f.length ? sg(flach/f.length) : "–"}</span>
+      <span class="k">Gewinn mit empfohlenem Einsatz</span><span class="v ${mitU>0?"pos":mitU<0?"negv":""}">${f.length ? (mitU>0?"+":"")+fx(mitU,1)+" U" : "–"}</span>
+      <span class="k">ROI mit empf. Einsatz</span><span class="v">${einsatz ? sg(mitU/einsatz) : "–"}</span>
+      <span class="k">Ø Quote · Ø CLV</span><span class="v">${xs.length ? fx(xs.reduce((s,x)=>s+x.erstQuote,0)/xs.length) : "–"} · ${c.length ? sg(c.reduce((a,b)=>a+b,0)/c.length) : "–"}</span></div>
+    ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th>Quote</th><th>Bilanz im Bereich</th><th>Geschätzt / Markt</th><th>Einsatz</th><th>Ergebnis</th></tr></thead><tbody>${
+      xs.slice(0, 50).map(x => { const d = new Date(x.start), sp = x.wette==="A" ? x.a : x.b, geg = x.wette==="A" ? x.b : x.a, st = bilanzU(x.kellyEur);
+        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(sp)}</b> <span class="time">vs ${esc(geg)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${x.siege}/${x.n} <small>${String(x.band).replace("-","–").replace(/\./g,",")}</small></td><td class="num">${pc(x.pEst,0)} / ${pc(x.pMarkt,0)}</td><td class="num">${st ? (st.klein ? "klein" : fu(st.u)+" U") : "–"}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
+    <p class="note">Test bis Jahresende. Signal: Der Spieler hat im Quotenbereich der aktuellen Quote mind. ${P_.BILANZ_MIN_N||8} Spiele (Excel + Archiv). Seine Siegquote wird zum Markt hin gezogen (wie ${P_.BILANZ_K||15} zusätzliche Spiele zur Marktwahrscheinlichkeit). Liegt das um mind. ${pc(P_.BILANZ_MIN_EDGE||0.03,0)} über der Quote und gibt es auf dieser Seite keinen Value-Tipp, entsteht ein Signal. Einsatz: Kelly × ${fx(P_.BILANZ_KELLY||0.25,2)}, höchstens ${fu(P_.BILANZ_MAX_U||1)} U. Quote bis ${fx(P_.BILANZ_MAX_QUOTE||4,1)}.</p></details>`;
 }
 function assHtml(r){
   const x = r.aussenseiter; if(!x) return "";
@@ -967,7 +1005,7 @@ function detailHtml(p, r){
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc||!ARCHIV?"":`
       <h3 style="margin-top:10px" title="Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div class="kv two">${
-        [p.a, p.b].map(n => `<span class="k">${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span>`).join("")}</div>`}${p.calc?"":warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
+        [p.a, p.b].map(n => `<span class="k">${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span>`).join("")}</div>`}${p.calc?"":bilanzHtml(r)}${p.calc?"":warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
       ${p.calc?"":quoteBox(p, r)}
       ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
@@ -1029,8 +1067,10 @@ function renderLog(){
     $("#b-varianten").addEventListener("click", (e) => { const t = e.target.closest("tr.vz"); if(!t) return;
       VAR_OFFEN = VAR_OFFEN === t.dataset.v ? null : t.dataset.v; $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value); }); }
   $("#b-aussenseiter").innerHTML = assBilanzHtml(bm, art);
+  $("#b-bilanzsig").innerHTML = bilanzSigHtml(bm, art);
   if(!VAR) variantenLaden().then(() => { $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value);
-    $("#b-aussenseiter").innerHTML = assBilanzHtml($("#b-bm").value, $("#b-art").value); });
+    $("#b-aussenseiter").innerHTML = assBilanzHtml($("#b-bm").value, $("#b-art").value);
+    $("#b-bilanzsig").innerHTML = bilanzSigHtml($("#b-bm").value, $("#b-art").value); });
   { // Verlauf in Units: Unit-Einsatz (gerundet wie angezeigt) und flach 1 U je Tipp
     const fertig = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L").sort((a,b) => String(a.start).localeCompare(String(b.start)));
     let su = 0, sf = 0; const wu = [], wf = [], info = [];

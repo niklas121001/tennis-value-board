@@ -99,6 +99,28 @@ for (const m of matches) {
   }
 }
 fs.writeFileSync(path.join(dir, "aussenseiter_tips.json"), JSON.stringify(alog));
+
+// Bilanz-Signale (Test): Siegquote im Quotenbereich spricht für den Spieler, ohne Modell-Value. Separat getrackt.
+const blog = rd("bilanz_tips.json", {});
+let neuB = 0;
+for (const m of matches) {
+  if (!m.start || new Date(m.start) <= new Date()) continue;
+  for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
+    if ((m.pausiert || []).includes(bm)) continue;
+    const key = `${m.id}|${bm}`;
+    if (blog[key]) { const e = blog[key]; e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; continue; }
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
+    const x = r.ok && r.bilanzSignal;
+    if (!x) continue;
+    blog[key] = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b,
+      buchmacher: bm, wette: x.seite, erstQuote: x.quote, letzteQuote: x.quote, band: x.band, siege: x.siege, n: x.n,
+      pBand: r3(x.pBand), pEst: r3(x.pEst), pMarkt: r3(x.pMarkt), edge: r3(x.edge), kellyEur: x.kellyEur,
+      erstGesehen: now, zuletztGesehen: now };
+    neuB++;
+  }
+}
+fs.writeFileSync(path.join(dir, "bilanz_tips.json"), JSON.stringify(blog));
+console.log(`Bilanz-Signale (Test): ${neuB} neu, insgesamt ${Object.keys(blog).length}`);
 console.log(`Außenseiter-Signale: ${neuA} neu, insgesamt ${Object.keys(alog).length}`);
 console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B/C), insgesamt ${Object.keys(vlog).length}`);
 
