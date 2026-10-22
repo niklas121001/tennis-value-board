@@ -125,7 +125,7 @@ dialog#spd::backdrop{background:rgba(10,15,20,.55)}
   <div id="spieler"></div>
   <div id="liste"></div>
   <dialog id="spd" aria-labelledby="spd-titel"><div id="spd-inhalt"></div></dialog>
-  <p class="note">Alle Partien, die das Board gesehen hat, mit Sieger und Satzstand. Quote = Durchschnitt der Buchmacher vor Spielbeginn, Prognose = Siegchance des Modells vor Spielbeginn. „Value“ markiert Partien mit Value-Tipp in der Bilanz. Ungültig = Absage oder Walkover. Endet eine Partie durch Aufgabe, steht der Sieger mit „Aufgabe“ dabei; sie zählt weder bei der Prognose noch bei den Value-Tipps.</p>
+  <p class="note">Alle Partien, die das Board gesehen hat, mit Sieger und Satzstand. Quote = Durchschnitt der Buchmacher vor Spielbeginn, Prognose = Siegchance des Modells vor Spielbeginn. „Value“ markiert Partien mit Value-Tipp in der Bilanz. Ungültig = Absage oder Walkover. Endet eine Partie durch Aufgabe, steht der Sieger mit „Aufgabe“ dabei; sie zählt weder bei der Prognose noch bei den Value-Tipps. Qualifikationsspiele ohne Quote zählen in keiner Auswertung (Prognose, Quoten-Favorit, Tipps, 1 Unit auf Sieg).</p>
 </div>
 <script>
 const $ = (s) => document.querySelector(s);
@@ -137,6 +137,9 @@ const store = {get(k,d){try{const v=localStorage.getItem("tvb.erg."+k);return v=
                set(k,v){try{localStorage.setItem("tvb.erg."+k,JSON.stringify(v))}catch(e){}}};
 const cache = {};
 async function j(f, d){ try{ const r = await fetch("data/archiv/"+f, {cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return d; } }
+// Quali-Partien ohne Quote zählen in keiner Wett-/Prognose-Auswertung
+const isQuali = (x) => /qualif/i.test((x.runde||"")+" "+(x.turnier||""));
+const zaehlt = (x) => !(isQuali(x) && !(x.qa > 1 && x.qb > 1));
 const isCh = (x) => /challenger/i.test((x.turnier||"")+" "+(x.kat||""));
 // Turniername ohne Quali-Zusatz, damit Quali und Hauptfeld zusammen zählen
 const tName = (x) => String(x.turnier||"–").replace(/,?\s*(qualifying|quali)\b.*$/i, "").replace(/\s+Q$/, "").trim() || "–";
@@ -261,7 +264,7 @@ function spielerHtml(xs){
 }
 // Kennzahlen einer Partienmenge (Aufgabe/Absage zählen nicht)
 function kennzahlen(xs){
-  const ent = xs.filter(x => (x.sieger === "A" || x.sieger === "B") && !x.aufgabe);
+  const ent = xs.filter(x => (x.sieger === "A" || x.sieger === "B") && !x.aufgabe && zaehlt(x));
   const mitP = ent.filter(x => typeof x.p === "number" && x.p !== .5);
   const richtig = mitP.filter(x => (x.p > .5) === (x.sieger === "A")).length;
   const mitQ = ent.filter(x => x.qa && x.qb && x.qa !== x.qb);
@@ -287,7 +290,7 @@ async function render(){
     if(art !== "alle" && (art === "ch") !== isCh(x)) return false;
     if(tur && tName(x) !== tur) return false;
     if(q && !`${x.a} ${x.b} ${x.turnier}`.toLowerCase().includes(q)) return false;
-    const progOk = typeof x.p === "number" && x.sieger !== "V" && !x.aufgabe;
+    const progOk = typeof x.p === "number" && x.sieger !== "V" && !x.aufgabe && zaehlt(x);
     if(zeige === "prog" && !progOk) return false;
     if(zeige === "tipp" && !x.tipp) return false;
     if(zeige === "falsch" && !(progOk && ((x.p >= .5) !== (x.sieger === "A")))) return false;
@@ -341,8 +344,8 @@ function zeile(x){
     : (x.aufgabe ? `<span class="pill v" title="Partie nicht zu Ende gespielt – zählt nicht als richtig oder falsch">Aufgabe</span> ` : "") + (x.satz && x.satz.length ? `<span class="score">${x.satz.map(([a, b]) => `${a}:${b}`).join(" ")}</span>` : `<span class="time">${x.sieger === "A" ? esc(x.a) : esc(x.b)} gewinnt</span>`);
   let prog = `<span class="time">–</span>`;
   if(typeof x.p === "number"){
-    const favA = x.p >= .5, name = favA ? x.a : x.b, ok = (x.sieger === "V" || x.aufgabe) ? null : favA === (x.sieger === "A");
-    prog = `<div class="pl"><span>${esc(name)} <span class="time">${pc(favA ? x.p : 1 - x.p)}</span></span>${ok == null ? "" : `<span><span class="pill ${ok ? "ok" : "no"}">${ok ? "richtig" : "falsch"}</span></span>`}</div>`;
+    const favA = x.p >= .5, name = favA ? x.a : x.b, ok = (x.sieger === "V" || x.aufgabe || !zaehlt(x)) ? null : favA === (x.sieger === "A");
+    prog = `<div class="pl"><span>${esc(name)} <span class="time">${pc(favA ? x.p : 1 - x.p)}</span></span>${!zaehlt(x) ? `<span class="time" title="Quali ohne Quote – zählt nicht in der Auswertung">Quali o. Quote</span>` : ""}${ok == null ? "" : `<span><span class="pill ${ok ? "ok" : "no"}">${ok ? "richtig" : "falsch"}</span></span>`}</div>`;
   }
   const tipp = x.tipp ? `<div><span class="pill ${x.sieger === "V" || x.aufgabe ? "v" : x.tipp === x.sieger ? "ok" : "no"}" title="Value-Tipp auf ${esc(x.tipp === "A" ? x.a : x.b)}${x.bm ? " (" + esc(x.bm.join(", ")) + ")" : ""}">Value: ${esc(x.tipp === "A" ? x.a : x.b)}</span></div>` : "";
   return `<tr>

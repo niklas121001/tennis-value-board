@@ -133,7 +133,7 @@ for (const m of matches) {
     qa: qa || null, qb: qb || null,
     qaM: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null,   // Durchschnittsquote (Spieler-Check)
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
-    geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), modus: r.modus, csi: r.csi, gesehen: now,
+    geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), quali: !!m.quali, modus: r.modus, csi: r.csi, gesehen: now,
     pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null,
     pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null };
   neuProg++;
