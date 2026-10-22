@@ -117,7 +117,7 @@ tr.m:last-of-type td{border-bottom:0}
 .pl .bet{font-weight:600}
 .pl .miss{color:var(--warn)}
 .num{font-family:var(--f-mono);font-size:13px}
-.pos{color:var(--good)}.neg{color:var(--muted)}
+.pos{color:var(--good)}.neg{color:var(--muted)}.negv{color:var(--bad)}
 .pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
 .pill.go{background:var(--good-soft);color:var(--good)}
 .pill.no{background:transparent;color:var(--muted);font-weight:400}
@@ -408,6 +408,7 @@ async function init(){
         if(D.serveLive && D.serveLive[name]) delete D.serveLive[name][k]; } }
     if(n){ D._tour = null; render(); } });
   setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten(); BEREIT = true;
+  archivLaden().then(() => render());   // für „1 U auf Sieg“ im Spieler-Check
   if(!$("#v-protokoll").hidden) renderLog();
 }
 
@@ -806,6 +807,24 @@ function rolleKombi(name, rolle){
   const [sW, lW] = (w && w[rolle]) || [0,0], n = nX+sW+lW;
   return {n, s: Math.round(sX+sW), pct: n ? (sX+sW)/n : null};
 }
+// Flach 1 Unit auf Sieg des Spielers über alle archivierten Partien mit Quote (Ø Buchmacher vor Spielbeginn).
+// Nicht gewertet: Absage/Walkover, Aufgabe, Partien ohne Quote (z. B. Quali ohne Winamax-Quote).
+function einUnit(name){
+  if(!ARCHIV || !name) return null;
+  const leer = () => ({n:0, w:0, u:0});
+  const k = {alle: leer(), fav: leer(), aus: leer()};
+  for(const x of Object.values(ARCHIV)){
+    const seite = x.a===name ? "A" : x.b===name ? "B" : null;
+    if(!seite || !(x.sieger==="A" || x.sieger==="B") || x.aufgabe) continue;
+    const q = seite==="A" ? x.qa : x.qb, qg = seite==="A" ? x.qb : x.qa;
+    if(!(q > 1)) continue;
+    const w = x.sieger===seite, u = w ? q-1 : -1;
+    for(const g of ["alle", qg > 1 ? (q < qg ? "fav" : "aus") : null]) if(g && (g==="alle" || q !== qg)){ k[g].n++; k[g].w += w; k[g].u += u; }
+  }
+  for(const g of Object.values(k)) g.roi = g.n ? g.u/g.n : null;
+  return k;
+}
+const einUnitText = (z) => z && z.n ? `${z.w}–${z.n-z.w} · <span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> · ROI ${sg(z.roi)}` : "–";
 const BAENDER = ["1.00-1.30","1.30-1.50","1.50-1.70","1.70-1.90","1.90-2.10","2.10-2.50","2.50-3.00","3.00-4.00","4.00+"];
 async function openProfil(name, ctx){
   const dlg = $("#profil"), pl = D.players[name] || {}, live = (D.serveLive||{})[name] || {};
@@ -833,6 +852,11 @@ async function openProfil(name, ctx){
       <div class="box"><h3>Als Favorit / Außenseiter</h3><div class="kv two">
         <span class="k">als Favorit</span><span class="v">${fav.n?`${fav.s}–${fav.n-fav.s} (${pc(fav.pct,0)})`:"–"}</span>
         <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span></div>
+        ${ARCHIV?(() => { const e = einUnit(name); return `<h3 style="margin-top:10px" title="Immer 1 Unit auf Sieg, Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div class="kv two">
+          <span class="k">gesamt</span><span class="v">${einUnitText(e.alle)}</span>
+          <span class="k">als Favorit</span><span class="v">${einUnitText(e.fav)}</span>
+          <span class="k">als Außenseiter</span><span class="v">${einUnitText(e.aus)}</span>
+          ${e.alle.n?`<span class="k">in Euro (1 U = ${fx(unitCfg().unit, unitCfg().unit%1?2:0)} €)</span><span class="v">${(e.alle.u>0?"+":"")+eur(e.alle.u*unitCfg().unit)}</span>`:""}</div>`; })():""}
         ${h2h?`<h3 style="margin-top:10px">H2H gegen ${esc(ctx.gegner)}</h3><div class="kv two"><span class="k">Bilanz${ctx.r.h2h.quelle==="spieldaten"?" (alle Duelle)":""}</span><span class="v">${h2h[0]}:${h2h[1]}</span></div>`:""}
         ${form?`<h3 style="margin-top:10px">Form · 7 Tage</h3><div class="fz2">${formText(form, ctx.p.start)}</div>`:""}</div>
       <div class="box"><h3>Nach Quotenbereich</h3>${bands?`<table class="prtab"><thead><tr><th>Quote</th><th>S–N</th><th>Quote gew.</th></tr></thead><tbody>${bands}</tbody></table>`:'<p class="time">Noch keine Spiele mit Quote.</p>'}</div>
@@ -941,7 +965,9 @@ function detailHtml(p, r){
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}</div></div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
-    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc?"":warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
+    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc||!ARCHIV?"":`
+      <h3 style="margin-top:10px" title="Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div class="kv two">${
+        [p.a, p.b].map(n => `<span class="k">${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span>`).join("")}</div>`}${p.calc?"":warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
       ${p.calc?"":quoteBox(p, r)}
       ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
