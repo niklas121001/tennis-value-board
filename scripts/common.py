@@ -113,6 +113,13 @@ class NameMatcher:
             kand = {n for n in self.db if len(norm(n).split()) == len(f) - 1 and norm(n).split() == f[:-1]}
             if len(kand) == 1:
                 return kand.pop()
+            # Initialen-Vorname in der DB ("JJ Wolf" ~ "Jeffrey John Wolf"), nur wenn eindeutig
+            for i in range(2, len(f)):
+                vor, nach = f[:i], " ".join(f[i:])
+                kuerzel = "".join(t[0] for t in vor)
+                kand = {n for n in self.by_last.get(nach, []) if norm(n).split()[0] == kuerzel}
+                if len(kand) == 1:
+                    return kand.pop()
             # Doppelter Nachname nur teilweise geschrieben ("Pedro Martinez" ~ "Pedro Martinez Portero")
             kand = {n for n in self.db if norm(n).split()[:2] == f[:2] and len(norm(n).split()) > len(f) == 2}
             if len(kand) == 1:
