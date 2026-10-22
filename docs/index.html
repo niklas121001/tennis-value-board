@@ -83,6 +83,7 @@ td.aktionen{white-space:nowrap}
 .co{margin-top:4px;font-size:12px;color:var(--muted)}.co input{width:80px;font:inherit;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .qman{color:var(--accent);font-size:11px;margin-right:3px}
 .qform{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:4px 0}.qform input{width:70px;font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg)}
+.pedit input{width:64px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg);text-align:right}
 .profbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
 dialog#profil{border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);padding:0;width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 32px)}
 dialog#profil::backdrop{background:rgba(10,15,20,.55)}
@@ -400,6 +401,12 @@ async function init(){
   D = {params:P.params, csi:P.csi, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   ERG = erg || {}; QV = qv || {};
+  // Manuelle Spielerwerte sofort berücksichtigen (das nächste Update schreibt sie fest in players.json)
+  j("manuelle_werte.json", {}).then(man => { let n = 0;
+    for(const [name, w] of Object.entries(man||{})){ const r = D.players[name]; if(!r) continue;
+      for(const [k, v] of Object.entries(w)) if(!k.startsWith("_") && typeof v === "number" && r[k] !== v){ r[k] = v; n++;
+        if(D.serveLive && D.serveLive[name]) delete D.serveLive[name][k]; } }
+    if(n){ D._tour = null; render(); } });
   setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten(); BEREIT = true;
   if(!$("#v-protokoll").hidden) renderLog();
 }
@@ -736,6 +743,55 @@ function assBilanzHtml(bm, art){
 
 document.addEventListener("toggle", (e) => { const d = e.target; if(d && d.classList && d.classList.contains("klapp")) store.set("klapp."+d.dataset.k, d.open); }, true);
 
+// ---- Manuelle Spielerwerte: im Profil eintragen, sofort wirksam, dauerhaft in docs/data/manuelle_werte.json (GitHub)
+const MAN_FELDER = [["1in","1. in"],["1won","1. gew."],["2won","2. gew."],["ret","Return"]];
+const manKey = (b, f) => f === "ret" ? "ret_"+b : b+"_"+f;
+function editForm(name){
+  const pl = D.players[name] || {};
+  const zelle = (b, f) => { const k = manKey(b, f), v = pl[k], alt = (pl.unplausibel||{})[k];
+    return `<td><input name="${k}" inputmode="decimal" value="${v!=null ? fx(v*100,1) : ""}" placeholder="${alt!=null ? fx(alt*100,1)+" ⚠" : "–"}" aria-label="${k}"></td>`; };
+  return `<form id="pr-edit-form" autocomplete="off"><table class="prtab pedit"><thead><tr><th>Belag</th>${MAN_FELDER.map(([,t]) => `<th>${t} %</th>`).join("")}</tr></thead><tbody>${
+    ["hard","clay","grass"].map(b => `<tr><td>${SURF[b]}</td>${MAN_FELDER.map(([f]) => zelle(b, f)).join("")}</tr>`).join("")}</tbody></table>
+    <div class="qform"><button type="submit" class="btn mini">Speichern</button><span class="time" id="pr-edit-status">Werte in Prozent, z. B. 63,7. Leere Felder bleiben unverändert.</span></div></form>`;
+}
+function ghZiel(){   // Repo aus der Seitenadresse: <besitzer>.github.io/<repo>/
+  const owner = location.hostname.split(".")[0], repo = location.pathname.split("/").filter(Boolean)[0] || "";
+  return {owner, repo};
+}
+async function manuellSpeichern(name, form, ctx){
+  const st = (t) => { const e = $("#pr-edit-status"); if(e) e.textContent = t; };
+  const neu = {};
+  for(const inp of form.querySelectorAll("input")){
+    const v = num2(inp.value); if(v == null || inp.value.trim() === "") continue;
+    if(!(v > 5 && v < 100)){ st(`Ungültiger Wert bei ${inp.name}: bitte Prozent zwischen 5 und 100.`); return; }
+    neu[inp.name] = Math.round(v * 10) / 1000;
+  }
+  if(!Object.keys(neu).length){ st("Keine Werte eingetragen."); return; }
+  // sofort im Browser wirksam
+  Object.assign(D.players[name] = D.players[name] || {}, neu);
+  const mk = D.players[name].manuell = D.players[name].manuell || {}; for(const k of Object.keys(neu)) mk[k] = "manuell";
+  if(D.serveLive && D.serveLive[name]) for(const k of Object.keys(neu)) delete D.serveLive[name][k];
+  D._tour = null; render();
+  await openProfil(name, ctx); $("#pr-edit").hidden = false;     // Profil mit den neuen Werten neu zeichnen
+  const token = store.get("gh.repo.token", null);
+  if(!token){ st("Im Browser übernommen. Für dauerhaftes Speichern im Modell-Reiter einen GitHub-Schlüssel hinterlegen."); return; }
+  st("Speichere dauerhaft …");
+  try{
+    const {owner, repo} = ghZiel(), pfad = "docs/data/manuelle_werte.json";
+    const url = `/repos/${owner}/${repo}/contents/${pfad}`;
+    let sha = null, daten = {};
+    const r0 = await fetch("https://api.github.com"+url, {headers: {"Authorization":"Bearer "+token, "Accept":"application/vnd.github+json"}, cache:"no-store"});
+    if(r0.ok){ const j0 = await r0.json(); sha = j0.sha; daten = JSON.parse(decodeURIComponent(escape(atob(j0.content.replace(/\n/g,""))))); }
+    else if(r0.status !== 404) throw new Error(r0.status===401?"Schlüssel ungültig":r0.status===403?"Schlüssel ohne Schreibrecht":"GitHub-Fehler "+r0.status);
+    daten[name] = Object.assign(daten[name] || {}, neu, {_zeit: new Date().toISOString().slice(0,16)});
+    const inhalt = btoa(unescape(encodeURIComponent(JSON.stringify(daten, null, 1))));
+    const r1 = await fetch("https://api.github.com"+url, {method:"PUT", headers: {"Authorization":"Bearer "+token, "Accept":"application/vnd.github+json", "Content-Type":"application/json"},
+      body: JSON.stringify({message: `Manuelle Spielerwerte: ${name}`, content: inhalt, sha: sha || undefined})});
+    if(!r1.ok) throw new Error(r1.status===401?"Schlüssel ungültig":r1.status===403||r1.status===404?"Schlüssel ohne Schreibrecht für das Repo":r1.status===409?"gleichzeitige Änderung – bitte nochmal speichern":"GitHub-Fehler "+r1.status);
+    st("✓ Gespeichert. Gilt ab sofort hier und ab dem nächsten Update überall (Bilanz, Tipps, Telegram).");
+  }catch(e){ st("Im Browser übernommen, aber nicht dauerhaft gespeichert: " + e.message); }
+}
+
 // ---- Spielerprofil (Dialog)
 let ARCHIV = null; const KOMBI_OFFEN = new Set(), NOTIZ_OFFEN = new Set();
 async function archivLaden(){
@@ -758,7 +814,8 @@ async function openProfil(name, ctx){
   const sv = ["hard","clay","grass"].map(b => {
     const w = (k) => live[k] ?? pl[k], q = live["quelle_"+b];
     const unpl = Object.keys(pl.unplausibel||{}).some(k => k.includes(b));
-    const quelle = (q==="excel+spieldaten" ? `Excel + ${live["n_"+b]} Sp.` : q==="spieldaten" ? `Spieldaten (${live["n_"+b]})` : q==="gemischt" ? `Excel/Spieldaten (${live["n_"+b]})` : (pl[b+"_1in"]!=null ? "Excel" : "Ø Challenger")) + (unpl ? " ⚠" : "");
+    const manu = Object.keys(pl.manuell||{}).some(k => k.includes(b));
+    const quelle = (q==="excel+spieldaten" ? `Excel + ${live["n_"+b]} Sp.` : q==="spieldaten" ? `Spieldaten (${live["n_"+b]})` : q==="gemischt" ? `Excel/Spieldaten (${live["n_"+b]})` : (pl[b+"_1in"]!=null ? (manu ? "manuell" : "Excel") : "Ø Challenger")) + (manu && q ? " (manuell)" : "") + (unpl ? " ⚠" : "");
     return `<tr><td>${SURF[b]}</td><td>${pc(w(b+"_1in"),0)}</td><td>${pc(w(b+"_1won"),0)}</td><td>${pc(w(b+"_2won"),0)}</td><td>${pc(w("ret_"+b),0)}</td><td class="time hide-s">${quelle}</td></tr>`; }).join("");
   const fav = rolleKombi(name,"fav"), aus = rolleKombi(name,"aus");
   const bx = ((D.playerStats||{})[name]||{}).baender||{}, bw = ((D.playerStatsWeb||{})[name]||{}).baender||{};
@@ -770,7 +827,9 @@ async function openProfil(name, ctx){
       <div class="time">yElo ${elo("elo")} · Hard ${elo("elo_hard")} · Sand ${elo("elo_clay")} · Rasen ${elo("elo_grass")}${pl.geschaetzt?` · geschätzt aus ${pl.n_markt||0} Quoten, ${pl.n_erg||0} Ergebnissen`:""}</div></div>
       <button type="button" class="btn ghost mini" id="pr-zu" aria-label="Profil schließen">✕</button></div>
     <div class="prgrid">
-      <div class="box" style="grid-column:1/-1"><h3>Aufschlag &amp; Return</h3><table class="prtab"><thead><tr><th>Belag</th><th title="1. Aufschlag im Feld">1. in</th><th title="Punkte nach 1. Aufschlag gewonnen">1. gew.</th><th title="Punkte nach 2. Aufschlag gewonnen">2. gew.</th><th title="Returnpunkte gewonnen">Return</th><th class="hide-s">Quelle</th></tr></thead><tbody>${sv}</tbody></table></div>
+      <div class="box" style="grid-column:1/-1"><h3>Aufschlag &amp; Return</h3><table class="prtab"><thead><tr><th>Belag</th><th title="1. Aufschlag im Feld">1. in</th><th title="Punkte nach 1. Aufschlag gewonnen">1. gew.</th><th title="Punkte nach 2. Aufschlag gewonnen">2. gew.</th><th title="Returnpunkte gewonnen">Return</th><th class="hide-s">Quelle</th></tr></thead><tbody>${sv}</tbody></table>
+        <button type="button" class="btn ghost mini" id="pr-edit-btn" style="margin-top:8px">✎ Werte eintragen / korrigieren</button>
+        <div id="pr-edit" hidden>${editForm(name)}</div></div>
       <div class="box"><h3>Als Favorit / Außenseiter</h3><div class="kv two">
         <span class="k">als Favorit</span><span class="v">${fav.n?`${fav.s}–${fav.n-fav.s} (${pc(fav.pct,0)})`:"–"}</span>
         <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span></div>
@@ -790,6 +849,8 @@ async function openProfil(name, ctx){
       return `<tr><td>${new Date(x.start).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td>${esc(geg)}<div class="time">${esc(x.turnier||"")}</div></td><td class="${x.aufgabe?"":erg==="S"?"w":erg==="N"?"l":""}">${erg}</td><td class="time">${satz||"–"}</td><td>${fx(q)}</td></tr>`; }).join("")}</tbody></table>`
     : '<p class="time">Noch keine Ergebnisse im Archiv.</p>';
   $("#pr-inhalt").innerHTML = html(letzte);
+  $("#pr-edit-btn").addEventListener("click", () => { $("#pr-edit").hidden = !$("#pr-edit").hidden; });
+  $("#pr-edit-form").addEventListener("submit", (ev) => { ev.preventDefault(); manuellSpeichern(name, ev.target, ctx); });
 }
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest && ev.target.closest(".prof");
@@ -996,6 +1057,12 @@ function renderInfo(){
   const un = META.unbekannte_namen || [];
   const uc = unitCfg();
   $("#v-info").innerHTML = `
+  <h2>Spielerwerte von Hand speichern</h2>
+  <p>Im Spielerprofil kannst du Aufschlag- und Returnwerte eintragen. Damit sie dauerhaft in der Datenbank landen, braucht die Seite einmalig einen GitHub-Schlüssel mit Schreibrecht für dieses Repo: GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token → Repository access: <b>Only select repositories</b> → ${esc(ghZiel().repo || "dein Repo")} → Permissions → <b>Contents: Read and write</b>. Der Schlüssel bleibt nur in diesem Browser.</p>
+  <form class="uform" id="gh-form" autocomplete="off">
+    <div class="ctl" style="flex:1 1 280px"><label for="gh-token">GitHub-Schlüssel (Schreiben)</label><input id="gh-token" type="password" placeholder="${store.get("gh.repo.token", null) ? "•••••••• (hinterlegt)" : "github_pat_…"}"></div>
+    <button type="submit" class="btn">Speichern</button>${store.get("gh.repo.token", null) ? `<button type="button" class="btn ghost" id="gh-weg">Entfernen</button>` : ""}
+  </form>
   <h2>Units</h2>
   <p>Einsätze und Beträge werden in Units angezeigt; ein Klick auf einen Wert zeigt den Euro-Betrag. Der Einsatz eines Tipps ist der Kelly-Einsatz (Bankroll × ${fx(P.KELLY_FRACTION,2)} Kelly), umgerechnet in Units und auf 0,5 gerundet, höchstens ${UNIT_MAX} U. Unter 0,25 U steht „klein“.</p>
   <form class="uform" id="u-form" autocomplete="off">
@@ -1023,6 +1090,8 @@ function renderInfo(){
   ${META.abdeckung?`<h2>Quoten-Abdeckung beim letzten Update</h2><p>${Object.entries(META.abdeckung).map(([b,d])=>`<b>${esc(b)}</b>: ${d.mit_quote} von ${d.partien} Partien mit Siegquote${d.pausiert?` (${d.pausiert} pausiert)`:""}${d.ohne_siegermarkt?`, ${d.ohne_siegermarkt} ohne Siegermarkt`:""}`).join(" · ")}</p>`:""}
   <h2>Parameter</h2>
   <p>Alle Werte kommen aus dem Blatt PARAMETER. Nach Änderungen in der Excel einmal <code>scripts/excel_export.py</code> laufen lassen.</p>`;
+  $("#gh-form").addEventListener("submit", (ev) => { ev.preventDefault(); const t = $("#gh-token").value.trim(); if(t){ store.set("gh.repo.token", t); renderInfo(); } });
+  if($("#gh-weg")) $("#gh-weg").addEventListener("click", () => { try{ localStorage.removeItem("tvb.gh.repo.token"); }catch(_){} renderInfo(); });
   $("#r-art").value = regeln().art;
   $("#r-form").addEventListener("submit", (ev) => {
     ev.preventDefault();

@@ -28,9 +28,26 @@ def main():
     if not stats or not players:
         print("Aufschlagwerte: keine Daten")
         return 0
+    # Von Hand auf der Website eingetragene Werte (docs/data/manuelle_werte.json) übernehmen – sie ersetzen den Excel-Wert
+    man = load("manuelle_werte.json", {}) or {}
+    n_man = 0
+    for name, werte in man.items():
+        r = players.get(name)
+        if not r:
+            continue
+        for k, v in werte.items():
+            if k.startswith("_") or not isinstance(v, (int, float)):
+                continue
+            if r.get(k) != v:
+                r[k] = v
+                n_man += 1
+            r.setdefault("manuell", {})[k] = werte.get("_zeit", "manuell")
+            (r.get("unplausibel") or {}).pop(k, None)
+    if n_man:
+        print(f"Manuelle Werte: {n_man} Werte übernommen")
     # Offensichtlich falsche Excel-Werte (z. B. 1st In 44 %) entfernen – gilt für Modell und Fortschreibung
     n_weg = unplausible_entfernen(players)
-    if n_weg:
+    if n_weg or n_man:
         save("players.json", players)
         print(f"Plausibilitätsprüfung: {n_weg} unplausible Excel-Werte entfernt (Original unter 'unplausibel')")
     nm = NameMatcher(players.keys(), load("name_map.json", {}))

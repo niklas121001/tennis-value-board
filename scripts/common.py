@@ -282,12 +282,16 @@ def unplausible_entfernen(players):
         for s in ("hard", "clay", "grass"):
             keys = {"1in": f"{s}_1in", "1won": f"{s}_1won", "2won": f"{s}_2won", "ret": f"ret_{s}"}
             weg = set()
+            manuell = r.get("manuell") or {}
             for f, k in keys.items():
                 v = r.get(k)
+                if k in manuell:
+                    continue                       # von Hand eingetragen: nicht anfassen
                 if isinstance(v, (int, float)) and not (PLAUSIBEL[f][0] <= v <= PLAUSIBEL[f][1]):
                     weg.add(f)
             w1, w2 = r.get(keys["1won"]), r.get(keys["2won"])
-            if isinstance(w1, (int, float)) and isinstance(w2, (int, float)) and w1 <= w2 and not ({"1won", "2won"} & weg):
+            if isinstance(w1, (int, float)) and isinstance(w2, (int, float)) and w1 <= w2 and not ({"1won", "2won"} & weg) \
+                    and keys["1won"] not in manuell and keys["2won"] not in manuell:
                 weg |= {"1won", "2won"}
             for f in weg:
                 alt[keys[f]] = r[keys[f]]
