@@ -10,7 +10,7 @@ Ergebnis (Reihenfolge):
 Schlussquote (CLV): /v4/historical-odds (laut OddsPapi kontingentfrei), letzte Quote vor Spielbeginn.
 """
 import os, sys, json, datetime
-from common import load, save, config, norm, spieler_bilanz_add, DATA
+from common import load, save, config, norm, spieler_bilanz_add, DATA, NameMatcher, name_einheitlich
 import fetch_odds as fo
 from sportsapipro import ergebnis as sap_ergebnis, aufgabe as sap_aufgabe
 
@@ -188,7 +188,14 @@ def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
     for t in log.values():
         x = tipps.setdefault(t["id"], {"seite": t.get("wette"), "bm": []})
         x["bm"].append(t.get("buchmacher"))
+    nm = NameMatcher(load("players.json", {}).keys(), load("name_map.json", {}))
     monate, neu = {}, 0
+    # bestehende Monate laden und Namen vereinheitlichen ("Friend, Jay" -> "Jay Dylan Hara Friend")
+    for pf in sorted(ordner.glob("????-??.json")):
+        monate[pf.stem] = json.loads(pf.read_text(encoding="utf-8"))
+        for x in monate[pf.stem].values():
+            for s in ("a", "b"):
+                x[s] = name_einheitlich(x.get(s), nm)
     for fid, e in erg_alle.items():
         start = str(e.get("start") or "")
         if len(start) < 7 or e.get("sieger") not in ("A", "B", "V"):
@@ -209,7 +216,7 @@ def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
         tp = tipps.get(fid)
         monate[m][fid] = {
             "start": start, "turnier": pr.get("turnier") or fx.get("turnier"), "kat": pr.get("kategorie"),
-            "belag": pr.get("belag") or (ev or {}).get("belag"), "a": pr.get("a") or e.get("a"), "b": pr.get("b") or e.get("b"),
+            "belag": pr.get("belag") or (ev or {}).get("belag"), "a": name_einheitlich(pr.get("a") or e.get("a"), nm), "b": name_einheitlich(pr.get("b") or e.get("b"), nm),
             "qa": pr.get("qaM") or pr.get("qa"), "qb": pr.get("qbM") or pr.get("qb"), "p": pr.get("pFinal"),
             "sieger": e["sieger"], "aufgabe": bool(e.get("aufgabe")) or None, "satz": satz, "runde": (ev or {}).get("runde"),
             "tipp": tp["seite"] if tp else None, "bm": sorted(set(tp["bm"])) if tp else None,
@@ -399,6 +406,9 @@ def main():
             continue
         # gleiche Partie -> gleiche Reihenfolge A/B; Namen aus der Prognose (Spieler-DB-Namen)
         sw["spiele"][fid] = {"a": pr.get("a") or e["a"], "b": pr.get("b") or e["b"], "qa": qa, "qb": qb, "sieger": e["sieger"], "start": e.get("start")}
+    nm = NameMatcher(load("players.json", {}).keys(), load("name_map.json", {}))
+    for sp in sw["spiele"].values():
+        sp["a"], sp["b"] = name_einheitlich(sp["a"], nm), name_einheitlich(sp["b"], nm)
     spieler = {}
     for sp in sw["spiele"].values():
         spieler_bilanz_add(spieler, sp["a"], sp["qa"], sp["qb"], sp["sieger"] == "A")

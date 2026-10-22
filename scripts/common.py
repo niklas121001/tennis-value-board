@@ -42,6 +42,13 @@ def ist_platzhalter(name):
     return not n or bool(PLATZHALTER.search(n))
 
 
+def name_einheitlich(raw, nm=None):
+    """Anzeigename: DB-Name, wenn zuordenbar, sonst 'Nachname, Vorname' -> 'Vorname Nachname'."""
+    if not raw:
+        return raw
+    return (nm.match(raw) if nm else None) or flip(str(raw)).strip()
+
+
 def flip(s):
     """'Sinner, Jannik' -> 'Jannik Sinner'"""
     if "," in s:
@@ -120,6 +127,10 @@ class NameMatcher:
                 kand = {n for n in self.by_last.get(nach, []) if norm(n).split()[0] == kuerzel}
                 if len(kand) == 1:
                     return kand.pop()
+            # Mittelnamen fehlen ("Jay Friend" ~ "Jay Dylan Hara Friend"), nur wenn eindeutig
+            kand = {n for n in self.by_last.get(f[-1], []) if len(norm(n).split()) > len(f) == 2 and norm(n).split()[0] == f[0]}
+            if len(kand) == 1:
+                return kand.pop()
             # Doppelter Nachname nur teilweise geschrieben ("Pedro Martinez" ~ "Pedro Martinez Portero")
             kand = {n for n in self.db if norm(n).split()[:2] == f[:2] and len(norm(n).split()) > len(f) == 2}
             if len(kand) == 1:
