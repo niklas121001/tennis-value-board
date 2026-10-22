@@ -72,6 +72,11 @@ th.num{text-align:right}
 .tbox{margin-top:18px}.tbox summary{cursor:pointer}
 tr.tz{cursor:pointer}tr.tz:hover td{background:var(--accent-soft)}
 .empty{margin-top:24px;padding:24px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:8px}
+.sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:8px}
+.sgrid h3{font:600 1rem/1.2 var(--f-display);letter-spacing:.04em;text-transform:uppercase;margin:0 0 4px}
+.sgrid p{margin:0 0 6px;font-size:12px;color:var(--muted)}
+.mehr{font:12px var(--f-body);background:none;border:0;color:var(--accent);cursor:pointer;padding:6px 0}
+@media (max-width:820px){.sgrid{grid-template-columns:minmax(0,1fr)}}
 .note{color:var(--muted);font-size:12px;margin-top:20px}
 @media (max-width:700px){.hide-s{display:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:1.7rem}}
 </style>
@@ -97,6 +102,7 @@ tr.tz{cursor:pointer}tr.tz:hover td{background:var(--accent-soft)}
     <div class="kpi"><b id="k-tipp">–</b><span>Value-Tipps (gew.–verl.)</span></div>
   </div>
   <div id="turniere"></div>
+  <div id="spieler"></div>
   <div id="liste"></div>
   <p class="note">Alle Partien, die das Board gesehen hat, mit Sieger und Satzstand. Quote = Durchschnitt der Buchmacher vor Spielbeginn, Prognose = Siegchance des Modells vor Spielbeginn. „Value“ markiert Partien mit Value-Tipp in der Bilanz. Ungültig = Absage oder Walkover. Endet eine Partie durch Aufgabe, steht der Sieger mit „Aufgabe“ dabei; sie zählt weder bei der Prognose noch bei den Value-Tipps.</p>
 </div>
@@ -129,10 +135,53 @@ async function init(){
   $("#turniere").addEventListener("click", (e) => { const t = e.target.closest("[data-turnier]"); if(!t) return;
     $("#f-turnier").value = t.dataset.turnier; render(); window.scrollTo({top: 0, behavior: "smooth"}); });
   $("#f-suche").addEventListener("input", render);
+  $("#spieler").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-mehr]"); if(b){ MEHR[b.dataset.mehr] = !MEHR[b.dataset.mehr]; render(); return; }
+    const t = e.target.closest("[data-spieler]"); if(!t) return;
+    e.preventDefault(); $("#f-suche").value = t.dataset.spieler; render(); });
   render();
 }
 
 let MONATE = [];
+const MEHR = {};
+// Satzauswertung je Spieler: 3-Satz-Spiele und Siege nach Satzrückstand (nur zu Ende gespielte Partien mit Satzstand)
+function spielerSaetze(xs){
+  const s = new Map(), get = (n) => { if(!s.has(n)) s.set(n, {n:0, drei:0, rueck:0, comeback:0, entsch:0, entschW:0}); return s.get(n); };
+  for(const x of xs){
+    if(!(x.sieger === "A" || x.sieger === "B") || x.aufgabe || !Array.isArray(x.satz) || x.satz.length < 2) continue;
+    const saetze = x.satz.filter(z => Array.isArray(z) && z[0] !== z[1]);
+    if(saetze.length < 2) continue;
+    const voll = saetze.length === 3 || saetze.length === 5;   // Entscheidungssatz gespielt
+    for(const [seite, name] of [["A", x.a], ["B", x.b]]){
+      const z = get(name), gew = x.sieger === seite;
+      const ersterVerloren = seite === "A" ? saetze[0][0] < saetze[0][1] : saetze[0][0] > saetze[0][1];
+      z.n++;
+      if(voll){ z.drei++; z.entsch++; if(gew) z.entschW++; }
+      if(ersterVerloren){ z.rueck++; if(gew) z.comeback++; }
+    }
+  }
+  return s;
+}
+function spielerTabelle(id, titel, info, zeilen, kopf, zelle){
+  const alle = MEHR[id], zeig = alle ? zeilen : zeilen.slice(0, 15);
+  return `<div><h3>${titel}</h3><p>${info}</p><div class="tablewrap"><table><thead><tr><th>Spieler</th>${kopf}</tr></thead><tbody>${
+    zeig.length ? zeig.map(([n, z]) => `<tr><td><a href="#" data-spieler="${esc(n)}">${esc(n)}</a></td>${zelle(z)}</tr>`).join("")
+               : `<tr><td colspan="5" class="time">Noch keine Daten</td></tr>`}</tbody></table></div>${
+    zeilen.length > 15 ? `<button class="mehr" data-mehr="${id}">${alle ? "nur Top 15" : `alle ${zeilen.length} anzeigen`}</button>` : ""}</div>`;
+}
+function spielerHtml(xs){
+  const s = [...spielerSaetze(xs).entries()];
+  const drei = s.filter(([, z]) => z.drei).sort((a, b) => b[1].drei - a[1].drei || b[1].drei/b[1].n - a[1].drei/a[1].n);
+  const comeback = s.filter(([, z]) => z.comeback).sort((a, b) => b[1].comeback - a[1].comeback || b[1].comeback/b[1].rueck - a[1].comeback/a[1].rueck);
+  if(!drei.length && !comeback.length) return "";
+  const t1 = spielerTabelle("drei", "Meiste 3-Satz-Spiele", "Partien über die volle Distanz – Anteil an allen gewerteten Partien des Spielers, dazu die Bilanz im Entscheidungssatz.", drei,
+    `<th class="num">3-Satz</th><th class="num">Partien</th><th class="num">Anteil</th><th class="num">Entsch.-Satz</th>`,
+    (z) => `<td class="num">${z.drei}</td><td class="num">${z.n}</td><td class="num">${pc(z.drei/z.n)}</td><td class="num">${z.entschW}–${z.entsch - z.entschW}</td>`);
+  const t2 = spielerTabelle("comeback", "Siege nach Satzrückstand", "1. Satz verloren und das Match trotzdem gewonnen – im Verhältnis zu allen Partien mit verlorenem 1. Satz.", comeback,
+    `<th class="num">Siege</th><th class="num">1. Satz verl.</th><th class="num">Quote</th>`,
+    (z) => `<td class="num">${z.comeback}</td><td class="num">${z.rueck}</td><td class="num">${pc(z.comeback/z.rueck)}</td>`);
+  return `<details class="tbox" ${store.get("sbox", false) ? "open" : ""}><summary><b>Spieler: 3-Satz-Spiele &amp; Comebacks</b> <span class="time">(Name anklicken zum Filtern · ohne Aufgaben)</span></summary><div class="sgrid">${t1}${t2}</div></details>`;
+}
 // Kennzahlen einer Partienmenge (Aufgabe/Absage zählen nicht)
 function kennzahlen(xs){
   const ent = xs.filter(x => (x.sieger === "A" || x.sieger === "B") && !x.aufgabe);
@@ -150,6 +199,7 @@ async function render(){
   for(const x of ms) if(!cache[x]) cache[x] = await j(x + ".json", {});
   const art = $("#f-art").value, zeige = $("#f-zeige").value, q = $("#f-suche").value.trim().toLowerCase();
   let xs = ms.flatMap(mm => Object.entries(cache[mm]).map(([id, x]) => Object.assign({id}, x)));
+  let alleXs = xs;
   // Turnierliste (nach Monat und ATP/Challenger)
   const basis = xs.filter(x => art === "alle" || (art === "ch") === isCh(x));
   const tSel = $("#f-turnier"), tCur = tSel.value, namen = [...new Set(basis.map(tName))].sort((a,b) => a.localeCompare(b, "de"));
@@ -166,6 +216,11 @@ async function render(){
     if(zeige === "falsch" && !(progOk && ((x.p >= .5) !== (x.sieger === "A")))) return false;
     return true;
   }).sort((a, b) => String(b.start).localeCompare(String(a.start)));
+  // Spielerübersicht: Monat, ATP/Challenger, Turnier und Suche gelten – der Filter „Partien“ nicht
+  const sx = alleXs.filter(x => (art === "alle" || (art === "ch") === isCh(x)) && (!tur || tName(x) === tur)
+    && (!q || `${x.a} ${x.b} ${x.turnier}`.toLowerCase().includes(q)));
+  $("#spieler").innerHTML = spielerHtml(sx);
+  const sd = $("#spieler details"); if(sd) sd.addEventListener("toggle", () => store.set("sbox", sd.open));
 
   // Kennzahlen
   const k = kennzahlen(xs);
