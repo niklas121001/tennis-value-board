@@ -266,3 +266,33 @@ def doppelte_zusammenfuehren(players, manual):
         manual[weg] = behalten
         paare.append((weg, behalten))
     return paare
+
+
+# ---------------------------------------------------------------- Plausibilitätsprüfung Aufschlagwerte (Excel-Basis)
+PLAUSIBEL = {"1in": (0.50, 0.78), "1won": (0.55, 0.88), "2won": (0.35, 0.62), "ret": (0.22, 0.52)}
+
+
+def unplausible_entfernen(players):
+    """Setzt offensichtlich falsche Excel-Aufschlag-/Returnwerte auf leer (Original bleibt unter 'unplausibel').
+    Regeln je Wert: außerhalb der Spanne in PLAUSIBEL; zusätzlich 1st Won <= 2nd Won -> beide leer.
+    Leere Werte füllt das Modell mit dem Challenger-Durchschnitt bzw. serve_stats.py mit echten Spieldaten."""
+    n = 0
+    for name, r in players.items():
+        alt = r.get("unplausibel", {})
+        for s in ("hard", "clay", "grass"):
+            keys = {"1in": f"{s}_1in", "1won": f"{s}_1won", "2won": f"{s}_2won", "ret": f"ret_{s}"}
+            weg = set()
+            for f, k in keys.items():
+                v = r.get(k)
+                if isinstance(v, (int, float)) and not (PLAUSIBEL[f][0] <= v <= PLAUSIBEL[f][1]):
+                    weg.add(f)
+            w1, w2 = r.get(keys["1won"]), r.get(keys["2won"])
+            if isinstance(w1, (int, float)) and isinstance(w2, (int, float)) and w1 <= w2 and not ({"1won", "2won"} & weg):
+                weg |= {"1won", "2won"}
+            for f in weg:
+                alt[keys[f]] = r[keys[f]]
+                r[keys[f]] = None
+                n += 1
+        if alt:
+            r["unplausibel"] = alt
+    return n

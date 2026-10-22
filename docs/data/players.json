@@ -217,7 +217,7 @@
   "clay_1won": 0.767,
   "clay_2won": 0.513,
   "grass_1in": 0.682,
-  "grass_1won": 0.889,
+  "grass_1won": null,
   "grass_2won": 0.571,
   "ret_hard": 0.301,
   "ret_clay": 0.36,
@@ -225,7 +225,10 @@
   "tb": 0.5,
   "elo_hard": 1841.8,
   "elo_clay": 1812.1,
-  "elo_grass": 1768.3
+  "elo_grass": 1768.3,
+  "unplausibel": {
+   "grass_1won": 0.889
+  }
  },
  "Stefanos Tsitsipas": {
   "elo": 1945.7,
@@ -807,14 +810,17 @@
   "clay_2won": 0.546,
   "grass_1in": 0.744,
   "grass_1won": 0.734,
-  "grass_2won": 0.707,
+  "grass_2won": null,
   "ret_hard": 0.384,
   "ret_clay": 0.472,
   "ret_grass": 0.386,
   "tb": 0.5,
   "elo_hard": 1686.7,
   "elo_clay": 1718.4,
-  "elo_grass": 1641.7
+  "elo_grass": 1641.7,
+  "unplausibel": {
+   "grass_2won": 0.707
+  }
  },
  "Jan-Lennard Struff": {
   "elo": 1772.8,
@@ -1168,14 +1174,17 @@
   "clay_2won": 0.514,
   "grass_1in": 0.704,
   "grass_1won": 0.842,
-  "grass_2won": 0.75,
+  "grass_2won": null,
   "ret_hard": 0.341,
   "ret_clay": 0.433,
   "ret_grass": 0.373,
   "tb": 0.5,
   "elo_hard": 1830.8,
   "elo_clay": 1767.9,
-  "elo_grass": 1592.6
+  "elo_grass": 1592.6,
+  "unplausibel": {
+   "grass_2won": 0.75
+  }
  },
  "Edas Butvilas": {
   "elo": 1559.5,
@@ -1187,14 +1196,17 @@
   "clay_2won": 0.512,
   "grass_1in": 0.673,
   "grass_1won": 0.559,
-  "grass_2won": 0.769,
+  "grass_2won": null,
   "ret_hard": 0.404,
   "ret_clay": 0.382,
   "ret_grass": 0.32,
   "tb": 0.5,
   "elo_hard": 1527.5,
   "elo_clay": 1467.3,
-  "elo_grass": 1434.6
+  "elo_grass": 1434.6,
+  "unplausibel": {
+   "grass_2won": 0.769
+  }
  },
  "Matteo Arnaldi": {
   "elo": 1740.2,
@@ -1317,7 +1329,7 @@
   "hard_2won": 0.47,
   "clay_1in": 0.6,
   "clay_1won": 0.705,
-  "clay_2won": 0.717,
+  "clay_2won": null,
   "grass_1in": 0.602,
   "grass_1won": 0.717,
   "grass_2won": 0.466,
@@ -1327,7 +1339,10 @@
   "tb": 0.5,
   "elo_hard": 1771.6,
   "elo_clay": 1681.6,
-  "elo_grass": 1648.4
+  "elo_grass": 1648.4,
+  "unplausibel": {
+   "clay_2won": 0.717
+  }
  },
  "Daniel Altmaier": {
   "elo": 1672.3,
@@ -1356,16 +1371,20 @@
   "clay_1in": 0.583,
   "clay_1won": 0.669,
   "clay_2won": 0.573,
-  "grass_1in": 0.492,
+  "grass_1in": null,
   "grass_1won": 0.645,
-  "grass_2won": 0.344,
+  "grass_2won": null,
   "ret_hard": 0.371,
   "ret_clay": 0.362,
   "ret_grass": 0.3,
   "tb": 0.5,
   "elo_hard": 1600.8,
   "elo_clay": 1622.7,
-  "elo_grass": 1617.5
+  "elo_grass": 1617.5,
+  "unplausibel": {
+   "grass_1in": 0.492,
+   "grass_2won": 0.344
+  }
  },
  "Aleksandar Vukic": {
   "elo": 1607.2,
@@ -2004,14 +2023,17 @@
   "clay_2won": 0.505,
   "grass_1in": 0.729,
   "grass_1won": 0.715,
-  "grass_2won": 0.654,
+  "grass_2won": null,
   "ret_hard": 0.377,
   "ret_clay": 0.409,
   "ret_grass": 0.379,
   "tb": 0.5,
   "elo_hard": 1530.7,
   "elo_clay": 1532.4,
-  "elo_grass": 1537.6
+  "elo_grass": 1537.6,
+  "unplausibel": {
+   "grass_2won": 0.654
+  }
  },
  "Learner Tien": {
   "elo": 1898.3,
@@ -2267,7 +2289,7 @@
   "hard_2won": 0.541,
   "clay_1in": 0.675,
   "clay_1won": 0.553,
-  "clay_2won": 0.803,
+  "clay_2won": null,
   "grass_1in": 0.667,
   "grass_1won": 0.644,
   "grass_2won": 0.523,
@@ -2277,7 +2299,10 @@
   "tb": 0.5,
   "elo_hard": 1468.1,
   "elo_clay": 1455.0,
-  "elo_grass": 1408.6
+  "elo_grass": 1408.6,
+  "unplausibel": {
+   "clay_2won": 0.803
+  }
  },
  "Thiago Seyboth Wild": {
   "elo": 1735.9,
@@ -2514,7 +2539,7 @@
   "hard_2won": 0.531,
   "clay_1in": 0.682,
   "clay_1won": 0.614,
-  "clay_2won": 0.293,
+  "clay_2won": null,
   "grass_1in": 0.605,
   "grass_1won": 0.702,
   "grass_2won": 0.543,
@@ -2524,7 +2549,10 @@
   "tb": 0.52,
   "elo_hard": 1541.6,
   "elo_clay": 1347.7,
-  "elo_grass": 1454.8
+  "elo_grass": 1454.8,
+  "unplausibel": {
+   "clay_2won": 0.293
+  }
  },
  "Marc-Andrea Huesler": {
   "elo": 1565.5,
@@ -2747,12 +2775,15 @@
   "grass_1won": 0.758,
   "grass_2won": 0.532,
   "ret_hard": 0.378,
-  "ret_clay": 0.6,
+  "ret_clay": null,
   "ret_grass": 0.355,
   "tb": 0.5,
   "elo_hard": 1606.7,
   "elo_clay": 1507.7,
-  "elo_grass": 1530.8
+  "elo_grass": 1530.8,
+  "unplausibel": {
+   "ret_clay": 0.6
+  }
  },
  "Giulio Zeppieri": {
   "elo": 1490.9,
@@ -3216,7 +3247,7 @@
   "hard_1won": 0.683,
   "hard_2won": 0.584,
   "clay_1in": 0.696,
-  "clay_1won": 0.067,
+  "clay_1won": null,
   "clay_2won": 0.476,
   "grass_1in": 0.585,
   "grass_1won": 0.604,
@@ -3227,7 +3258,10 @@
   "tb": 0.5,
   "elo_hard": 1446.7,
   "elo_clay": 1506.9,
-  "elo_grass": 1387.2
+  "elo_grass": 1387.2,
+  "unplausibel": {
+   "clay_1won": 0.067
+  }
  },
  "Camilo Ugo Carabelli": {
   "elo": 1618.8,
@@ -3714,14 +3748,18 @@
   "clay_2won": 0.509,
   "grass_1in": 0.75,
   "grass_1won": 0.667,
-  "grass_2won": 0.25,
+  "grass_2won": null,
   "ret_hard": 0.364,
   "ret_clay": 0.416,
-  "ret_grass": 0.2,
+  "ret_grass": null,
   "tb": 0.5,
   "elo_hard": 1466.7,
   "elo_clay": 1551.6,
-  "elo_grass": 1417.4
+  "elo_grass": 1417.4,
+  "unplausibel": {
+   "grass_2won": 0.25,
+   "ret_grass": 0.2
+  }
  },
  "Duncan Chan": {
   "elo": 1300.0,
@@ -3904,14 +3942,17 @@
   "clay_2won": 0.512,
   "grass_1in": 0.738,
   "grass_1won": 0.616,
-  "grass_2won": 0.182,
+  "grass_2won": null,
   "ret_hard": 0.4,
   "ret_clay": 0.416,
   "ret_grass": 0.263,
   "tb": 0.5,
   "elo_hard": 1322.1,
   "elo_clay": 1478.1,
-  "elo_grass": 1384.1
+  "elo_grass": 1384.1,
+  "unplausibel": {
+   "grass_2won": 0.182
+  }
  },
  "Pierre-Hugues Herbert": {
   "elo": 1481.1,
@@ -4002,11 +4043,14 @@
   "grass_2won": 0.5,
   "ret_hard": 0.419,
   "ret_clay": 0.404,
-  "ret_grass": 0.6,
+  "ret_grass": null,
   "tb": 0.5,
   "elo_hard": 1463.5,
   "elo_clay": 1392.5,
-  "elo_grass": 1422.4
+  "elo_grass": 1422.4,
+  "unplausibel": {
+   "ret_grass": 0.6
+  }
  },
  "Gabriel Debru": {
   "elo": 1617.2,
@@ -4206,7 +4250,7 @@
   "clay_1in": 0.619,
   "clay_1won": 0.617,
   "clay_2won": 0.468,
-  "grass_1in": 0.415,
+  "grass_1in": null,
   "grass_1won": 0.706,
   "grass_2won": 0.5,
   "ret_hard": 0.336,
@@ -4215,7 +4259,10 @@
   "tb": 0.5,
   "elo_hard": 1432.2,
   "elo_clay": 1538.9,
-  "elo_grass": 1499.9
+  "elo_grass": 1499.9,
+  "unplausibel": {
+   "grass_1in": 0.415
+  }
  },
  "Tristan Schoolkate": {
   "elo": 1548.0,
@@ -4434,7 +4481,7 @@
   "clay_1in": 0.622,
   "clay_1won": 0.711,
   "clay_2won": 0.47,
-  "grass_1in": 0.442,
+  "grass_1in": null,
   "grass_1won": 0.696,
   "grass_2won": 0.483,
   "ret_hard": 0.359,
@@ -4443,7 +4490,10 @@
   "tb": 0.5,
   "elo_hard": 1463.5,
   "elo_clay": 1428.5,
-  "elo_grass": 1348.8
+  "elo_grass": 1348.8,
+  "unplausibel": {
+   "grass_1in": 0.442
+  }
  },
  "Nicolai Kjaer": {
   "elo": 1587.2,
@@ -4930,14 +4980,17 @@
   "clay_2won": 0.422,
   "grass_1in": 0.579,
   "grass_1won": 0.673,
-  "grass_2won": 0.325,
+  "grass_2won": null,
   "ret_hard": 0.395,
   "ret_clay": 0.359,
   "ret_grass": 0.406,
   "tb": 0.5,
   "elo_hard": 1574.5,
   "elo_clay": 1497.7,
-  "elo_grass": 1477.3
+  "elo_grass": 1477.3,
+  "unplausibel": {
+   "grass_2won": 0.325
+  }
  },
  "Dhakshineswar Suresh": {
   "elo": 1596.8,
@@ -5094,7 +5147,7 @@
  "Max Alcala Gurri": {
   "elo": 1585.8,
   "hard_1in": 0.667,
-  "hard_1won": 0.429,
+  "hard_1won": null,
   "hard_2won": 0.429,
   "clay_1in": 0.704,
   "clay_1won": 0.645,
@@ -5108,7 +5161,10 @@
   "tb": 0.5,
   "elo_hard": 1377.1,
   "elo_clay": 1551.7,
-  "elo_grass": 1485.4
+  "elo_grass": 1485.4,
+  "unplausibel": {
+   "hard_1won": 0.429
+  }
  },
  "Harold Mayot": {
   "elo": 1665.4,
@@ -6219,7 +6275,7 @@
   "hard_2won": 0.506,
   "clay_1in": 0.653,
   "clay_1won": 0.561,
-  "clay_2won": 0.314,
+  "clay_2won": null,
   "grass_1in": 0.678,
   "grass_1won": 0.65,
   "grass_2won": 0.566,
@@ -6229,7 +6285,10 @@
   "tb": 0.5,
   "elo_hard": 1464.6,
   "elo_clay": 1317.7,
-  "elo_grass": 1492.9
+  "elo_grass": 1492.9,
+  "unplausibel": {
+   "clay_2won": 0.314
+  }
  },
  "Andrej Martin": {
   "elo": 1330.0,
@@ -6765,22 +6824,28 @@
  },
  "Guido Ivan Justo": {
   "elo": 1537.7,
-  "hard_1in": 0.469,
-  "hard_1won": 0.4,
-  "hard_2won": 0.235,
+  "hard_1in": null,
+  "hard_1won": null,
+  "hard_2won": null,
   "clay_1in": 0.647,
   "clay_1won": 0.639,
   "clay_2won": 0.514,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
-  "ret_hard": 0.176,
+  "ret_hard": null,
   "ret_clay": 0.453,
   "ret_grass": null,
   "tb": 0.4,
   "elo_hard": 1344.0,
   "elo_clay": 1512.7,
-  "elo_grass": 1462.8
+  "elo_grass": 1462.8,
+  "unplausibel": {
+   "hard_1in": 0.469,
+   "hard_1won": 0.4,
+   "hard_2won": 0.235,
+   "ret_hard": 0.176
+  }
  },
  "Johannus Monday": {
   "elo": 1422.2,
@@ -9182,18 +9247,24 @@
   "hard_1won": 0.69,
   "hard_2won": 0.498,
   "clay_1in": 0.63,
-  "clay_1won": 0.495,
-  "clay_2won": 0.659,
+  "clay_1won": null,
+  "clay_2won": null,
   "grass_1in": 0.757,
-  "grass_1won": 0.529,
-  "grass_2won": 0.85,
+  "grass_1won": null,
+  "grass_2won": null,
   "ret_hard": 0.375,
   "ret_clay": 0.41,
   "ret_grass": 0.367,
   "tb": 0.75,
   "elo_hard": 1473.7,
   "elo_clay": 1358.6,
-  "elo_grass": 1448.6
+  "elo_grass": 1448.6,
+  "unplausibel": {
+   "clay_1won": 0.495,
+   "clay_2won": 0.659,
+   "grass_1won": 0.529,
+   "grass_2won": 0.85
+  }
  },
  "Tsung Hao Huang": {
   "elo": 1299.5,
@@ -10642,11 +10713,11 @@
  "Samuele Pieri": {
   "elo": 1473.6,
   "hard_1in": 0.62,
-  "hard_1won": 0.59,
-  "hard_2won": 0.6,
-  "clay_1in": 0.443,
+  "hard_1won": null,
+  "hard_2won": null,
+  "clay_1in": 0.637,
   "clay_1won": 0.64,
-  "clay_2won": 0.673,
+  "clay_2won": null,
   "grass_1in": 0.524,
   "grass_1won": null,
   "grass_2won": null,
@@ -10656,7 +10727,15 @@
   "tb": 0.5,
   "elo_hard": 1324.4,
   "elo_clay": 1445.3,
-  "elo_grass": 1425.6
+  "elo_grass": 1425.6,
+  "manuell": {
+   "clay_1in": "0.637 (Tennis Abstract, Niklas 22.10.)"
+  },
+  "unplausibel": {
+   "hard_1won": 0.59,
+   "hard_2won": 0.6,
+   "clay_2won": 0.673
+  }
  },
  "Maxime Chazal": {
   "elo": 1359.9,
@@ -10874,7 +10953,7 @@
   "hard_2won": 0.469,
   "clay_1in": 0.59,
   "clay_1won": 0.692,
-  "clay_2won": 0.765,
+  "clay_2won": null,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
@@ -10884,7 +10963,10 @@
   "tb": 0.5,
   "elo_hard": 1288.4,
   "elo_clay": 1336.9,
-  "elo_grass": 1375.5
+  "elo_grass": 1375.5,
+  "unplausibel": {
+   "clay_2won": 0.765
+  }
  },
  "Rigele Te": {
   "elo": 1200.0,
@@ -11426,8 +11508,8 @@
   "hard_1in": 0.542,
   "hard_1won": 0.781,
   "hard_2won": 0.515,
-  "clay_1in": 0.429,
-  "clay_1won": 0.5,
+  "clay_1in": null,
+  "clay_1won": null,
   "clay_2won": 0.469,
   "grass_1in": null,
   "grass_1won": null,
@@ -11438,7 +11520,11 @@
   "tb": 0.5,
   "elo_hard": null,
   "elo_clay": null,
-  "elo_grass": null
+  "elo_grass": null,
+  "unplausibel": {
+   "clay_1in": 0.429,
+   "clay_1won": 0.5
+  }
  },
  "Simone Massellani": {
   "geschaetzt": true,

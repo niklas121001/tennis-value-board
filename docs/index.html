@@ -757,7 +757,8 @@ async function openProfil(name, ctx){
   const elo = (k) => pl[k] ? fx(pl[k],0) : "–";
   const sv = ["hard","clay","grass"].map(b => {
     const w = (k) => live[k] ?? pl[k], q = live["quelle_"+b];
-    const quelle = q==="excel+spieldaten" ? `Excel + ${live["n_"+b]} Sp.` : q==="spieldaten" ? `Spieldaten (${live["n_"+b]})` : (pl[b+"_1in"]!=null ? "Excel" : "Ø Challenger");
+    const unpl = Object.keys(pl.unplausibel||{}).some(k => k.includes(b));
+    const quelle = (q==="excel+spieldaten" ? `Excel + ${live["n_"+b]} Sp.` : q==="spieldaten" ? `Spieldaten (${live["n_"+b]})` : q==="gemischt" ? `Excel/Spieldaten (${live["n_"+b]})` : (pl[b+"_1in"]!=null ? "Excel" : "Ø Challenger")) + (unpl ? " ⚠" : "");
     return `<tr><td>${SURF[b]}</td><td>${pc(w(b+"_1in"),0)}</td><td>${pc(w(b+"_1won"),0)}</td><td>${pc(w(b+"_2won"),0)}</td><td>${pc(w("ret_"+b),0)}</td><td class="time hide-s">${quelle}</td></tr>`; }).join("");
   const fav = rolleKombi(name,"fav"), aus = rolleKombi(name,"aus");
   const bx = ((D.playerStats||{})[name]||{}).baender||{}, bw = ((D.playerStatsWeb||{})[name]||{}).baender||{};
@@ -873,7 +874,7 @@ function detailHtml(p, r){
       <span class="k">yElo</span>${ab(r.yEloA,r.yEloB,x=>fx(x,0))}
       <span class="k">p_srv</span>${ab(r.pSrvA,r.pSrvB,x=>pc(x))}
       ${r.aufschlagQuelle?`<span class="k">Aufschlagwerte</span>${ab(["a",r.aufschlagQuelle.nA],["b",r.aufschlagQuelle.nB],([k,n])=>{const q=r.aufschlagQuelle[k];
-        return q==="excel+spieldaten"?`Excel + ${n} Sp.`:q==="spieldaten"?`Spieldaten (${n} Sp.)`:q==="excel"?"Excel":"Ø Challenger";})}`:""}
+        return q==="excel+spieldaten"?`Excel + ${n} Sp.`:q==="spieldaten"?`Spieldaten (${n} Sp.)`:q==="gemischt"?`Excel/Spieldaten (${n} Sp.)`:q==="excel"?"Excel":"Ø Challenger";})}`:""}
       <span class="k">TB-Bilanz</span>${ab(r.tbA,r.tbB,x=>pc(x,0))}
       <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}</div></div>

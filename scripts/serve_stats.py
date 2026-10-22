@@ -12,7 +12,7 @@ players.json bleibt unverändert (Excel-Stand); das Modell legt serve_live.json 
 Einstellungen in config.json unter "aufschlag_fortschreibung".
 """
 import sys
-from common import load, save, config, NameMatcher
+from common import load, save, config, NameMatcher, unplausible_entfernen
 
 FELDER = ("1in", "1won", "2won", "ret")
 
@@ -28,6 +28,11 @@ def main():
     if not stats or not players:
         print("Aufschlagwerte: keine Daten")
         return 0
+    # Offensichtlich falsche Excel-Werte (z. B. 1st In 44 %) entfernen – gilt für Modell und Fortschreibung
+    n_weg = unplausible_entfernen(players)
+    if n_weg:
+        save("players.json", players)
+        print(f"Plausibilitätsprüfung: {n_weg} unplausible Excel-Werte entfernt (Original unter 'unplausibel')")
     nm = NameMatcher(players.keys(), load("name_map.json", {}))
 
     summen = {}          # (name, belag) -> Zähler
@@ -65,23 +70,34 @@ def main():
     for (name, b), z in summen.items():
         p = players.get(name, {})
         excel = {f: p.get(f"{b}_{f}" if f != "ret" else f"ret_{b}") for f in FELDER}
-        hat_excel = all(isinstance(v, (int, float)) for v in excel.values())
-        if hat_excel:
-            x1 = excel["1in"]
-            werte = {
-                "1in": (excel["1in"] * gewicht + z["in"]) / (gewicht + z["svpt"]),
-                "1won": (excel["1won"] * gewicht * x1 + z["fw"]) / (gewicht * x1 + z["in"]),
-                "2won": (excel["2won"] * gewicht * (1 - x1) + z["sw"]) / (gewicht * (1 - x1) + z["s2"]),
-                "ret": (excel["ret"] * gewicht + z["rw"]) / (gewicht + z["rp"]) if z["rp"] else excel["ret"],
-            }
-            quelle = "excel+spieldaten"
-            n_fort += 1
-        else:
-            if z["n"] < min_spiele or not z["in"] or not z["s2"] or not z["rp"]:
-                continue
-            werte = {"1in": z["in"] / z["svpt"], "1won": z["fw"] / z["in"], "2won": z["sw"] / z["s2"], "ret": z["rw"] / z["rp"]}
-            quelle = "spieldaten"
+        gueltig = {f: isinstance(v, (int, float)) for f, v in excel.items()}
+        genug = z["n"] >= min_spiele
+        live_wert = {
+            "1in": z["in"] / z["svpt"] if z["svpt"] else None,
+            "1won": z["fw"] / z["in"] if z["in"] else None,
+            "2won": z["sw"] / z["s2"] if z["s2"] else None,
+            "ret": z["rw"] / z["rp"] if z["rp"] else None,
+        }
+        x1 = excel["1in"] if gueltig["1in"] else (live_wert["1in"] or 0.62)
+        misch = {   # Excel-Wert zählt wie `gewicht` Punkte, neue Spiele mit ihren echten Punkten
+            "1in": lambda: (excel["1in"] * gewicht + z["in"]) / (gewicht + z["svpt"]),
+            "1won": lambda: (excel["1won"] * gewicht * x1 + z["fw"]) / (gewicht * x1 + z["in"]),
+            "2won": lambda: (excel["2won"] * gewicht * (1 - x1) + z["sw"]) / (gewicht * (1 - x1) + z["s2"]),
+            "ret": lambda: (excel["ret"] * gewicht + z["rw"]) / (gewicht + z["rp"]) if z["rp"] else excel["ret"],
+        }
+        werte = {}
+        for f in FELDER:
+            if gueltig[f]:
+                werte[f] = misch[f]()
+            elif genug and live_wert[f] is not None:
+                werte[f] = live_wert[f]          # Excel fehlt/unplausibel: nur echte Spieldaten
+        if not werte:
+            continue
+        quelle = "excel+spieldaten" if all(gueltig.values()) else ("spieldaten" if not any(gueltig.values()) else "gemischt")
+        if quelle == "spieldaten":
             n_neu += 1
+        else:
+            n_fort += 1
         rec = live.setdefault(name, {})
         for f, v in werte.items():
             rec[f"{b}_{f}" if f != "ret" else f"ret_{b}"] = round(v, 4)
