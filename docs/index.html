@@ -75,6 +75,7 @@ tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var
 .vliste{width:100%;font-size:13px;margin:4px 0 8px}.vliste th,.vliste td{padding:4px 6px;border-bottom:1px solid var(--line)}
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 .pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}
+.cbbox{background:var(--good-soft);color:var(--fg);border-radius:6px;padding:8px 10px;margin-top:10px;font-size:12.5px;line-height:1.45}
 .bilbox{background:var(--accent-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-top:10px;font-size:13px}
 .assbox{background:var(--warn-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:13px}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
@@ -848,6 +849,39 @@ function saetzeBilanz(name){
   }
   return z;
 }
+// Comebacks: 1. Satz verloren und trotzdem gewonnen (Archiv, ohne Aufgaben). Auffällig ab 2 Comebacks bei mind. 3 Rückständen
+// und mind. 50 % – Vergleich mit dem Schnitt aller Spieler im Archiv.
+function comebackInfo(name){
+  if(!ARCHIV || !name) return null;
+  const z = {rueck:0, cb:0};
+  for(const x of Object.values(ARCHIV)){
+    const seite = x.a===name ? "A" : x.b===name ? "B" : null;
+    if(!seite || !(x.sieger==="A" || x.sieger==="B") || x.aufgabe) continue;
+    const s = (x.satz||[]).filter(t => Array.isArray(t) && t[0] !== t[1]);
+    if(s.length < 2) continue;
+    if(seite==="A" ? s[0][0] < s[0][1] : s[0][0] > s[0][1]){ z.rueck++; if(x.sieger===seite) z.cb++; }
+  }
+  return z;
+}
+let CB_SCHNITT = null;
+function comebackSchnitt(){
+  if(CB_SCHNITT || !ARCHIV) return CB_SCHNITT;
+  let r = 0, c = 0;
+  for(const x of Object.values(ARCHIV)){
+    if(!(x.sieger==="A" || x.sieger==="B") || x.aufgabe) continue;
+    const s = (x.satz||[]).filter(t => Array.isArray(t) && t[0] !== t[1]);
+    if(s.length < 2) continue;
+    r++; if((s[0][0] > s[0][1]) !== (x.sieger==="A")) c++;   // Satz-1-Verlierer gewinnt das Match
+  }
+  return (CB_SCHNITT = r ? {p: c/r, n: r} : null);
+}
+function comebackHinweis(namen){
+  const sch = comebackSchnitt();
+  const auff = namen.map(n => [n, comebackInfo(n)]).filter(([, z]) => z && z.rueck >= 3 && z.cb >= 2 && z.cb/z.rueck >= 0.5);
+  if(!auff.length) return "";
+  return `<div class="cbbox">${auff.map(([n, z]) => `<b>↻ ${esc(n)}</b> gewinnt oft nach Satzrückstand: ${z.cb} von ${z.rueck} Spielen nach verlorenem 1. Satz (${pc(z.cb/z.rueck,0)})`).join("<br>")}${
+    sch ? ` <span class="time">Schnitt aller Spieler im Archiv: ${pc(sch.p,0)}.</span>` : ""}</div>`;
+}
 const STAENDE_BO3 = [["Sieg 2:0","2:0"], ["Sieg 2:1","2:1"], ["Niederlage 1:2","1:2"], ["Niederlage 0:2","0:2"]];
 const STAENDE_BO5 = [["Sieg 3:0","3:0"], ["Sieg 3:1","3:1"], ["Sieg 3:2","3:2"], ["Niederlage 2:3","2:3"], ["Niederlage 1:3","1:3"], ["Niederlage 0:3","0:3"]];
 // Grand-Slam-Zeilen nur bei Grand-Slam-Partien (Best of 5)
@@ -1039,7 +1073,7 @@ function detailHtml(p, r){
       <span class="k">TB-Bilanz</span>${ab(r.tbA,r.tbB,x=>pc(x,0))}
       <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}
-      ${p.calc||!ARCHIV?"":`<span class="k" style="grid-column:1/-1;margin-top:6px;font-weight:600" title="Partien im Ergebnis-Archiv (seit Mitte Oktober). Absagen zählen nicht.">Getrackt (Archiv)</span>`+saetzeZeilen(saetzeBilanz(p.a), saetzeBilanz(p.b), (a,b) => ab(a,b,x => x==null?"–":String(x)), r.modus===5)}</div></div>
+      ${p.calc||!ARCHIV?"":`<span class="k" style="grid-column:1/-1;margin-top:6px;font-weight:600" title="Partien im Ergebnis-Archiv (seit Mitte Oktober). Absagen zählen nicht.">Getrackt (Archiv)</span>`+saetzeZeilen(saetzeBilanz(p.a), saetzeBilanz(p.b), (a,b) => ab(a,b,x => x==null?"–":String(x)), r.modus===5)}</div>${p.calc||!ARCHIV?"":comebackHinweis([p.a, p.b])}</div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc||!ARCHIV?"":`
