@@ -14,7 +14,9 @@ import sys, math, datetime
 from common import load, save, norm, flip, ist_platzhalter
 from results import runden_sieger, ts
 
-MAX_MARKT = 5           # so viele Quoten-Beobachtungen fließen in den Start-Wert
+MAX_MARKT = 5           # Elo aus dem Markt = Mittel der letzten so vielen Quoten-Beobachtungen (laufend aktualisiert)
+K_ERGEBNIS = 40         # Ergebnis-Korrektur auf den Marktwert (klein, weil die Quote Form/Ergebnisse schon einpreist)
+ERG_DELTA_MAX = 120     # Ergebnis-Korrektur höchstens ± so viele Punkte
 BASIS_ELO = 1500        # Mittelpunkt für zwei unbekannte Spieler (Obergrenze; Tennis-Abstract-Skala)
 ELO_NIVEAU_MAX = 1650   # Spieler unter diesem yElo bilden den "Challenger-Durchschnitt"
 FELDER = ("1in", "1won", "2won")
@@ -44,6 +46,16 @@ def clean_name(raw):
 
 def k_faktor(n):
     return 250 / ((n + 5) ** 0.4)
+
+
+def neu_berechnen(rec):
+    """Elo = Mittel der letzten Markt-Beobachtungen + Ergebnis-Korrektur."""
+    werte = rec.get("markt_werte") or []
+    if werte:
+        rec["elo_markt"] = round(sum(werte) / len(werte), 1)
+    basis = rec.get("elo_markt", rec.get("elo"))
+    if basis is not None:
+        setze_elo(rec, basis + rec.get("erg_delta", 0))
 
 
 def setze_elo(rec, wert):
@@ -113,8 +125,8 @@ def main():
 
     def unbekannt(m, seite):
         rec = players.get(key_fuer(m, seite))
-        return rec is None or (rec.get("geschaetzt") and rec.get("n_markt", 0) < MAX_MARKT
-                               and m.get("id") not in rec.get("markt_ids", []))
+        # geschätzte Spieler bekommen mit jeder neuen Partie eine neue Markt-Beobachtung (gleitendes Mittel)
+        return rec is None or (rec.get("geschaetzt") and m.get("id") not in rec.get("markt_ids", []))
 
     def beobachte(m, seite, r_impl, anker):
         nonlocal neu, markt
@@ -127,11 +139,9 @@ def main():
             neu += 1
         if m.get("id") in rec.setdefault("markt_ids", []):
             return
-        rec["markt_ids"] = (rec["markt_ids"] + [m.get("id")])[-MAX_MARKT:]
-        if rec.get("n_erg", 0) == 0:
-            n = rec.get("n_markt", 0)
-            alt = rec.get("elo") if n else r_impl
-            setze_elo(rec, (alt * n + r_impl) / (n + 1))
+        rec["markt_ids"] = (rec["markt_ids"] + [m.get("id")])[-20:]
+        rec["markt_werte"] = (rec.get("markt_werte", []) + [round(r_impl, 1)])[-MAX_MARKT:]
+        neu_berechnen(rec)
         # beste Ankerqualität merken (direkt > indirekt > basis)
         rang = {"direkt": 0, "indirekt": 1, "basis": 2}
         if rang.get(anker, 3) < rang.get(rec.get("anker"), 3):
@@ -168,8 +178,13 @@ def main():
     ch_elos = sorted(e for m in matches if "challenger" in norm(f"{m.get('turnier')} {m.get('kategorie') or ''}")
                      for s_ in ("a", "b") for r in [players.get(m.get(s_))] if r and not r.get("geschaetzt")
                      for e in [used_elo(r, m.get("belag"), P)] if e)
-    # unteres Viertel der bekannten Challenger-Spieler, höchstens BASIS_ELO (Unbekannte stehen meist darunter)
-    basis = min(ch_elos[len(ch_elos) // 4], BASIS_ELO) if len(ch_elos) >= 8 else BASIS_ELO
+    # Unbekannte stehen meist unter den bekannten Challenger-Spielern: Mittel der direkt geschätzten Spieler
+    # (Markt gegen bekannten Gegner), sonst unteres Zehntel der bekannten Challenger-Spieler; höchstens BASIS_ELO
+    direkt = sorted(r["elo"] for r in players.values() if r.get("geschaetzt") and r.get("anker") == "direkt" and r.get("elo"))
+    if len(direkt) >= 8:
+        basis = min(direkt[len(direkt) // 2], BASIS_ELO)
+    else:
+        basis = min(ch_elos[len(ch_elos) // 10], BASIS_ELO) if len(ch_elos) >= 8 else BASIS_ELO
     for m in matches:
         if not m.get("quoten") or players.get(key_fuer(m, "a")) or players.get(key_fuer(m, "b")):
             continue
@@ -225,9 +240,11 @@ def main():
         sa = 1.0 if sieger == "A" else 0.0
         for rec, s_, p_ in ((ra, sa, pa), (rb, 1 - sa, 1 - pa)):
             if rec.get("geschaetzt"):
-                n = rec.get("n_erg", 0)
-                setze_elo(rec, rec["elo"] + k_faktor(n) * (s_ - p_))
-                rec["n_erg"] = n + 1
+                rec.setdefault("elo_markt", rec["elo"] - rec.get("erg_delta", 0))
+                d = rec.get("erg_delta", 0) + K_ERGEBNIS * (s_ - p_)
+                rec["erg_delta"] = round(max(-ERG_DELTA_MAX, min(ERG_DELTA_MAX, d)), 1)
+                neu_berechnen(rec)
+                rec["n_erg"] = rec.get("n_erg", 0) + 1
         verarbeitet.add(fid)
         erg += 1
 
