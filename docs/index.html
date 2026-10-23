@@ -833,21 +833,24 @@ function einUnit(name){
 // Absagen/Walkover zählen nicht, Aufgaben separat.
 function saetzeBilanz(name){
   if(!ARCHIV || !name) return null;
-  const z = {n:0, glatt:0, lang:0, verl:0, aufg:0};
+  const z = {n:0, glatt:0, lang:0, verl:0, verlGlatt:0, verlLang:0, aufg:0};
   for(const x of Object.values(ARCHIV)){
     const seite = x.a===name ? "A" : x.b===name ? "B" : null;
     if(!seite || !(x.sieger==="A" || x.sieger==="B")) continue;
     z.n++;
     if(x.aufgabe){ z.aufg++; continue; }
-    if(x.sieger !== seite){ z.verl++; continue; }
     const s = (x.satz||[]).filter(t => Array.isArray(t) && t[0] !== t[1]);
     const verloren = s.filter(t => seite==="A" ? t[0] < t[1] : t[0] > t[1]).length;
+    if(x.sieger !== seite){ z.verl++;
+      if(s.length && verloren === s.length) z.verlGlatt++; else if(s.length) z.verlLang++; else z.verlOhne = (z.verlOhne||0) + 1;
+      continue; }
     if(s.length && verloren === 0) z.glatt++; else if(s.length) z.lang++; else z.ohne = (z.ohne||0) + 1;
   }
   return z;
 }
-const saetzeZeilen = (za, zb, ab) => [["Spiele", "n"], ["Sieg 2:0", "glatt"], ["Sieg 2:1", "lang"], ["Niederlage", "verl"]]
+const saetzeZeilen = (za, zb, ab) => [["Spiele", "n"], ["Sieg 2:0", "glatt"], ["Sieg 2:1", "lang"], ["Niederlage 1:2", "verlLang"], ["Niederlage 0:2", "verlGlatt"]]
   .map(([t, k]) => `<span class="k">${t}</span>${ab(za ? za[k] : null, zb ? zb[k] : null)}`).join("")
+  + ((za && za.verlOhne) || (zb && zb.verlOhne) ? `<span class="k">Niederl. o. Satzst.</span>${ab(za ? za.verlOhne||0 : null, zb ? zb.verlOhne||0 : null)}` : "")
   + ((za && za.ohne) || (zb && zb.ohne) ? `<span class="k">Sieg o. Satzst.</span>${ab(za ? za.ohne||0 : null, zb ? zb.ohne||0 : null)}` : "")
   + ((za && za.aufg) || (zb && zb.aufg) ? `<span class="k" title="nicht gewertet">Aufgabe</span>${ab(za ? za.aufg : null, zb ? zb.aufg : null)}` : "");
 const einUnitText = (z) => z && z.n ? `${z.w}–${z.n-z.w} · <span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> · ROI ${sg(z.roi)}` : "–";
@@ -880,9 +883,11 @@ async function openProfil(name, ctx){
         <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span></div>
         ${ARCHIV?(() => { const z = saetzeBilanz(name); return z && z.n ? `<h3 style="margin-top:10px" title="Partien im Ergebnis-Archiv. Absagen zählen nicht.">Getrackte Spiele (Archiv)</h3><div class="kv two">
           <span class="k">gesamt</span><span class="v">${z.n}</span>
-          <span class="k">Sieg in 2 Sätzen</span><span class="v">${z.glatt}${z.n?` <small>(${pc(z.glatt/z.n,0)})</small>`:""}</span>
-          <span class="k">Sieg in 3 Sätzen</span><span class="v">${z.lang}${z.n?` <small>(${pc(z.lang/z.n,0)})</small>`:""}</span>
-          <span class="k">Niederlage</span><span class="v">${z.verl}${z.n?` <small>(${pc(z.verl/z.n,0)})</small>`:""}</span>
+          <span class="k">Sieg 2:0</span><span class="v">${z.glatt}${z.n?` <small>(${pc(z.glatt/z.n,0)})</small>`:""}</span>
+          <span class="k">Sieg 2:1</span><span class="v">${z.lang}${z.n?` <small>(${pc(z.lang/z.n,0)})</small>`:""}</span>
+          <span class="k">Niederlage 1:2</span><span class="v">${z.verlLang}${z.n?` <small>(${pc(z.verlLang/z.n,0)})</small>`:""}</span>
+          <span class="k">Niederlage 0:2</span><span class="v">${z.verlGlatt}${z.n?` <small>(${pc(z.verlGlatt/z.n,0)})</small>`:""}</span>
+          ${z.verlOhne?`<span class="k">Niederlage ohne Satzstand</span><span class="v">${z.verlOhne}</span>`:""}
           ${z.ohne?`<span class="k">Sieg ohne Satzstand</span><span class="v">${z.ohne}</span>`:""}
           ${z.aufg?`<span class="k">Aufgabe (nicht gewertet)</span><span class="v">${z.aufg}</span>`:""}</div>` : ""; })():""}
         ${ARCHIV?(() => { const e = einUnit(name); return `<h3 style="margin-top:10px" title="Immer 1 Unit auf Sieg, Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div class="kv two">
