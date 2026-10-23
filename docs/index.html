@@ -309,6 +309,12 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <div class="kpi"><b id="m-clv">–</b><span>Ø Quote</span></div>
     </div>
     <div id="m-kurve" class="kurvebox"></div>
+    <form id="m-bank" class="controls" autocomplete="off" style="margin-top:10px">
+      <div class="ctl"><label for="m-start" title="Startkapital für „Meine Wetten“ in Units – Kurve und Kontostand gehen davon aus">Start-Bankroll (U)</label><input id="m-start" inputmode="decimal" placeholder="z. B. 50" style="width:110px"></div>
+      <div class="ctl"><label for="m-unit" title="Gilt überall auf der Seite (auch Tipps und Bilanz)">1 Unit = €</label><input id="m-unit" inputmode="decimal" style="width:90px"></div>
+      <button type="submit" class="btn ghost mini">Übernehmen</button>
+      <span class="time" id="m-stand"></span>
+    </form>
     <div class="controls">
       <div class="ctl"><label for="m-filter">Anzeigen</label>
         <select id="m-filter"><option value="alle">alle Wetten</option><option value="offen">offen</option><option value="fertig">abgerechnet</option></select></div>
@@ -627,7 +633,8 @@ function kennKurve(werte, ergebnisse){   // größter Rückgang und längste Nie
   for(const e of ergebnisse){ serie = e==="L" ? serie+1 : 0; max = Math.max(max, serie); }
   return {dd, serie:max};
 }
-function kurveZeichnen(el, titel, serien, info, extra){
+function kurveZeichnen(el, titel, serien, info, extra, basis=0){   // basis: Nulllinie (z. B. Start-Bankroll), dann absolute Werte
+  const vz = (v) => basis ? "" : (v>0?"+":"");
   const n = info.length;
   if(n < 2){ el.innerHTML = ""; return; }
   el.innerHTML = `<div class="kurve"><h3>${esc(titel)}</h3>
@@ -635,22 +642,24 @@ function kurveZeichnen(el, titel, serien, info, extra){
     <svg role="img" aria-label="${esc(titel)}"></svg><div class="tip"></div><div class="stats">${extra}</div></div>`;
   const svg = el.querySelector("svg"), tip = el.querySelector(".tip");
   const W = svg.clientWidth || 600, H = 200, pl = 40, pr = 56, pt = 10, pb = 22;
-  const alle = serien.flatMap(x => x.werte).concat([0]);
+  const alle = serien.flatMap(x => x.werte).concat([basis]);
   let lo = Math.min(...alle), hi = Math.max(...alle); if(hi - lo < 2){ hi += 1; lo -= 1; }
   const pad = (hi-lo)*0.08; lo -= pad; hi += pad;
   const X = (i) => pl + (W-pl-pr) * (n===1 ? 0 : i/(n-1)), Y = (v) => pt + (H-pt-pb) * (1 - (v-lo)/(hi-lo));
   const schritt = Math.pow(10, Math.floor(Math.log10((hi-lo)/4))), st = [1,2,5,10].map(f=>f*schritt).find(x => (hi-lo)/x <= 5);
   let g = "";
   for(let v = Math.ceil(lo/st)*st; v <= hi; v += st){
-    g += `<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" stroke-width="${Math.abs(v)<1e-9?1.5:1}"/>`;
+    g += `<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" stroke-width="${Math.abs(v-basis)<1e-9?1.5:1}"/>`;
     g += `<text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${fx(v, st<1?1:0)}</text>`;
   }
+  if(basis && !(Math.ceil(lo/st)*st <= basis && basis <= hi && Math.abs((basis/st) - Math.round(basis/st)) < 1e-9))
+    g += `<line x1="${pl}" x2="${W-pr}" y1="${Y(basis)}" y2="${Y(basis)}" stroke="var(--muted)" stroke-dasharray="4 3" stroke-width="1"/>`;
   const d0 = info[0].datum, d1 = info[n-1].datum;
   g += `<text x="${pl}" y="${H-4}" font-size="11" fill="var(--muted)">${esc(d0)}</text><text x="${W-pr}" y="${H-4}" text-anchor="end" font-size="11" fill="var(--muted)">${esc(d1)}</text>`;
   for(const x of serien){
     g += `<polyline fill="none" stroke="${x.farbe}" stroke-width="2" stroke-linejoin="round" points="${x.werte.map((v,i)=>`${X(i)},${Y(v)}`).join(" ")}"/>`;
     const v = x.werte[n-1];
-    g += `<text x="${W-pr+6}" y="${Y(v)+4}" font-size="12" fill="var(--fg)">${v>0?"+":""}${fx(v,1)}</text>`;
+    g += `<text x="${W-pr+6}" y="${Y(v)+4}" font-size="12" fill="var(--fg)">${vz(v)}${fx(v,1)}</text>`;
   }
   g += `<line class="cross" x1="0" x2="0" y1="${pt}" y2="${H-pb}" stroke="var(--muted)" stroke-width="1" visibility="hidden"/>`;
   g += serien.map((x,k)=>`<circle class="dot${k}" r="4" fill="${x.farbe}" stroke="var(--panel)" stroke-width="2" visibility="hidden"/>`).join("");
@@ -662,7 +671,7 @@ function kurveZeichnen(el, titel, serien, info, extra){
     const i = Math.max(0, Math.min(n-1, Math.round((mx - pl) / ((W-pl-pr) / Math.max(1,n-1)))));
     cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.setAttribute("visibility", "visible");
     serien.forEach((x,k) => { const c = svg.querySelector(".dot"+k); c.setAttribute("cx", X(i)); c.setAttribute("cy", Y(x.werte[i])); c.setAttribute("visibility","visible"); });
-    tip.innerHTML = `${esc(info[i].label)}<br>${serien.map(x=>`${esc(x.name)}: ${x.werte[i]>0?"+":""}${fx(x.werte[i],1)} U`).join("<br>")}`;
+    tip.innerHTML = `${esc(info[i].label)}<br>${serien.map(x=>`${esc(x.name)}: ${vz(x.werte[i])}${fx(x.werte[i],1)} U`).join("<br>")}`;
     tip.style.display = "block"; tip.style.left = (X(i) + 12) + "px"; tip.style.top = (Y(Math.max(...serien.map(x=>x.werte[i]))) + 34) + "px";
   };
   const weg = () => { tip.style.display = "none"; cross.setAttribute("visibility","hidden"); serien.forEach((x,k)=>svg.querySelector(".dot"+k).setAttribute("visibility","hidden")); };
@@ -1479,6 +1488,12 @@ function gesamtQuote(){       // Produkt der Einzelquoten vorschlagen (Feld blei
 function entwurfSichern(){ store.set("kombi.entwurf", {art: $("#mf-art").value, beine: beineLesen()}); }
 
 function setupWetten(){
+  $("#m-bank").addEventListener("submit", (e) => { e.preventDefault();
+    const z = (v) => +String(v).trim().replace(",", ".");
+    const st = $("#m-start").value.trim() === "" ? 0 : z($("#m-start").value), un = z($("#m-unit").value);
+    if(st >= 0) store.set("w.start", st);
+    if(un > 0) store.set("unit", un);
+    renderWetten(); render(); renderLog(); renderInfo(); });
   // Speichern aus den Partien-Details (Event-Delegation, Details werden neu gerendert)
   $("#list").addEventListener("submit", (e) => {
     const f = e.target.closest(".w-form"); if(!f) return;
@@ -1626,8 +1641,18 @@ function renderWetten(){
     for(const {w, e} of fertig){ sum += gewinnVon(w, e) / unit; werte.push(Math.round(sum*100)/100);
       info.push({label: `${kDatum(w.start)} · ${w.spieler} @ ${fx(w.quote)} · ${e==="W"?"gewonnen":e==="C"?"Cashout "+eur(w.cashout||0):"verloren"}`, datum: kDatum(w.start)}); }
     const kk = kennKurve(werte, fertig.map(x => x.e==="C" ? (gewinnVon(x.w,"C") < 0 ? "L" : "W") : x.e));
-    kurveZeichnen($("#m-kurve"), "Meine Bankroll in Units", [{name:"Gewinn", farbe:"var(--accent)", werte}], info,
-      `<span>Größter Rückgang <b>${fx(kk.dd,1)} U</b> (${eur(kk.dd*unit)})</span><span>Längste Niederlagenserie <b>${kk.serie}</b></span>`);
+    const start = +store.get("w.start", 0) || 0;
+    if(!$("#m-start").matches(":focus")) $("#m-start").value = start ? fu(start) : "";
+    if(!$("#m-unit").matches(":focus")) $("#m-unit").value = fx(unit, unit%1?2:0);
+    // Kontostand: Start + Gewinn aller abgerechneten Wetten (alle Monate), offene Einsätze sind schon „gebunden“
+    { let gAlle = 0, offenAlle = 0;
+      for(const w of all){ const e = ergebnisVon(w); if(!e) offenAlle += w.einsatz; else if(e!=="V") gAlle += gewinnVon(w, e); }
+      const stand = start + gAlle/unit;
+      $("#m-stand").innerHTML = start ? `Kontostand <b class="${stand>start?"pos":stand<start?"negv":""}">${fu(Math.round(stand*100)/100)} U</b> (${eur(stand*unit)}) · Start ${fu(start)} U (${eur(start*unit)})${offenAlle?` · davon offen ${fx(offenAlle/unit,1)} U`:""}` : `Start-Bankroll eintragen, dann zeigt die Kurve deinen Kontostand.`; }
+    const mitStart = start ? [start, ...werte.map(v => Math.round((start+v)*100)/100)] : werte;
+    const infoK = start ? [{label: `Start · ${fu(start)} U`, datum: fertig.length ? kDatum(fertig[0].w.start) : ""}, ...info] : info;
+    kurveZeichnen($("#m-kurve"), start ? "Meine Bankroll in Units (Kontostand)" : "Meine Bankroll in Units", [{name: start ? "Kontostand" : "Gewinn", farbe:"var(--accent)", werte: mitStart}], infoK,
+      `<span>Größter Rückgang <b>${fx(kk.dd,1)} U</b> (${eur(kk.dd*unit)})</span><span>Längste Niederlagenserie <b>${kk.serie}</b></span>${start?`<span>Tiefster Stand <b>${fx(Math.min(...mitStart),1)} U</b></span>`:""}`, start);
   }
   if(fil==="offen") xs = xs.filter(w => !ergebnisVon(w)); else if(fil==="fertig") xs = xs.filter(w => ergebnisVon(w));
   if(!xs.length){ $("#m-liste").innerHTML = `<div class="empty">${all.length ? "Keine Wetten in dieser Auswahl." : "Noch keine Wetten gespeichert. Öffne eine Partie unter <b>Partien</b> und klicke bei „Als Wette speichern“ auf Speichern – oder trage unten eine Wette manuell ein."}</div>`; return; }
