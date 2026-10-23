@@ -802,7 +802,7 @@ async function manuellSpeichern(name, form, ctx){
 let ARCHIV = null; const KOMBI_OFFEN = new Set(), NOTIZ_OFFEN = new Set();
 async function archivLaden(){
   if(ARCHIV) return ARCHIV;
-  const idx = await j("archiv/index.json", {}), ms = Object.keys(idx).sort().slice(-3);
+  const idx = await j("archiv/index.json", {}), ms = Object.keys(idx).sort().slice(-12);
   const teile = await Promise.all(ms.map(m => j("archiv/"+m+".json", {})));
   ARCHIV = Object.assign({}, ...teile); return ARCHIV;
 }
@@ -829,6 +829,27 @@ function einUnit(name){
   for(const g of Object.values(k)) g.roi = g.n ? g.u/g.n : null;
   return k;
 }
+// Getrackte Partien eines Spielers aus dem Archiv: Siege glatt (2:0 / 3:0), Siege über mehr Sätze (2:1 / 3:1 / 3:2), Niederlagen.
+// Absagen/Walkover zählen nicht, Aufgaben separat.
+function saetzeBilanz(name){
+  if(!ARCHIV || !name) return null;
+  const z = {n:0, glatt:0, lang:0, verl:0, aufg:0};
+  for(const x of Object.values(ARCHIV)){
+    const seite = x.a===name ? "A" : x.b===name ? "B" : null;
+    if(!seite || !(x.sieger==="A" || x.sieger==="B")) continue;
+    z.n++;
+    if(x.aufgabe){ z.aufg++; continue; }
+    if(x.sieger !== seite){ z.verl++; continue; }
+    const s = (x.satz||[]).filter(t => Array.isArray(t) && t[0] !== t[1]);
+    const verloren = s.filter(t => seite==="A" ? t[0] < t[1] : t[0] > t[1]).length;
+    if(s.length && verloren === 0) z.glatt++; else if(s.length) z.lang++; else z.ohne = (z.ohne||0) + 1;
+  }
+  return z;
+}
+const saetzeZeilen = (za, zb, ab) => [["Spiele", "n"], ["Sieg 2:0", "glatt"], ["Sieg 2:1", "lang"], ["Niederlage", "verl"]]
+  .map(([t, k]) => `<span class="k">${t}</span>${ab(za ? za[k] : null, zb ? zb[k] : null)}`).join("")
+  + ((za && za.ohne) || (zb && zb.ohne) ? `<span class="k">Sieg o. Satzst.</span>${ab(za ? za.ohne||0 : null, zb ? zb.ohne||0 : null)}` : "")
+  + ((za && za.aufg) || (zb && zb.aufg) ? `<span class="k" title="nicht gewertet">Aufgabe</span>${ab(za ? za.aufg : null, zb ? zb.aufg : null)}` : "");
 const einUnitText = (z) => z && z.n ? `${z.w}–${z.n-z.w} · <span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> · ROI ${sg(z.roi)}` : "–";
 const BAENDER = ["1.00-1.30","1.30-1.50","1.50-1.70","1.70-1.90","1.90-2.10","2.10-2.50","2.50-3.00","3.00-4.00","4.00+"];
 async function openProfil(name, ctx){
@@ -857,6 +878,13 @@ async function openProfil(name, ctx){
       <div class="box"><h3>Als Favorit / Außenseiter</h3><div class="kv two">
         <span class="k">als Favorit</span><span class="v">${fav.n?`${fav.s}–${fav.n-fav.s} (${pc(fav.pct,0)})`:"–"}</span>
         <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span></div>
+        ${ARCHIV?(() => { const z = saetzeBilanz(name); return z && z.n ? `<h3 style="margin-top:10px" title="Partien im Ergebnis-Archiv. Absagen zählen nicht.">Getrackte Spiele (Archiv)</h3><div class="kv two">
+          <span class="k">gesamt</span><span class="v">${z.n}</span>
+          <span class="k">Sieg in 2 Sätzen</span><span class="v">${z.glatt}${z.n?` <small>(${pc(z.glatt/z.n,0)})</small>`:""}</span>
+          <span class="k">Sieg in 3 Sätzen</span><span class="v">${z.lang}${z.n?` <small>(${pc(z.lang/z.n,0)})</small>`:""}</span>
+          <span class="k">Niederlage</span><span class="v">${z.verl}${z.n?` <small>(${pc(z.verl/z.n,0)})</small>`:""}</span>
+          ${z.ohne?`<span class="k">Sieg ohne Satzstand</span><span class="v">${z.ohne}</span>`:""}
+          ${z.aufg?`<span class="k">Aufgabe (nicht gewertet)</span><span class="v">${z.aufg}</span>`:""}</div>` : ""; })():""}
         ${ARCHIV?(() => { const e = einUnit(name); return `<h3 style="margin-top:10px" title="Immer 1 Unit auf Sieg, Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div class="kv two">
           <span class="k">gesamt</span><span class="v">${einUnitText(e.alle)}</span>
           <span class="k">als Favorit</span><span class="v">${einUnitText(e.fav)}</span>
@@ -1000,7 +1028,8 @@ function detailHtml(p, r){
         return q==="excel+spieldaten"?`Excel + ${n} Sp.`:q==="spieldaten"?`Spieldaten (${n} Sp.)`:q==="gemischt"?`Excel/Spieldaten (${n} Sp.)`:q==="excel"?"Excel":"Ø Challenger";})}`:""}
       <span class="k">TB-Bilanz</span>${ab(r.tbA,r.tbB,x=>pc(x,0))}
       <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
-      <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}</div></div>
+      <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}
+      ${p.calc||!ARCHIV?"":`<span class="k" style="grid-column:1/-1;margin-top:6px;font-weight:600" title="Partien im Ergebnis-Archiv (seit Mitte Oktober). Absagen zählen nicht.">Getrackt (Archiv)</span>`+saetzeZeilen(saetzeBilanz(p.a), saetzeBilanz(p.b), (a,b) => ab(a,b,x => x==null?"–":String(x)))}</div></div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc||!ARCHIV?"":`
