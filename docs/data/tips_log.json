@@ -3866,7 +3866,13 @@
 "warn": [],
 "letzteQuote": 2.15,
 "letzteP": 0.5137632840499644,
-"zuletztGesehen": "2026-10-23T12:41Z"
+"zuletztGesehen": "2026-10-23T12:41Z",
+"clv_versucht": true,
+"schlussQuote": 2.15,
+"clv": -0.06976744186046513,
+"ergebnis": "L",
+"sieger": "B",
+"ergebnisQuelle": "folgerunde"
 },
 "id1202613875655572|winamax": {
 "id": "id1202613875655572",
@@ -3948,7 +3954,7 @@
 "zuletztGesehen": "2026-10-23T05:57Z",
 "clv_versucht": true,
 "schlussQuote": 1.64,
-"clv": 0.0,
+"clv": 0,
 "ergebnis": "L",
 "sieger": "B",
 "ergebnisQuelle": "spieldaten"
@@ -3974,7 +3980,11 @@
 "warn": [],
 "letzteQuote": 1.38,
 "letzteP": 0.27232194293031614,
-"zuletztGesehen": "2026-10-23T05:57Z"
+"zuletztGesehen": "2026-10-23T05:57Z",
+"clv_versucht": true,
+"ergebnis": "L",
+"sieger": "A",
+"ergebnisQuelle": "spieldaten"
 },
 "id1201505375653582|winamax": {
 "id": "id1201505375653582",
@@ -3997,7 +4007,13 @@
 "warn": [],
 "letzteQuote": 1.47,
 "letzteP": 0.7003284473912299,
-"zuletztGesehen": "2026-10-23T12:41Z"
+"zuletztGesehen": "2026-10-23T12:41Z",
+"clv_versucht": true,
+"schlussQuote": 1.46,
+"clv": 0.006849315068493178,
+"ergebnis": "L",
+"sieger": "B",
+"ergebnisQuelle": "spieldaten"
 },
 "id1204195975620028|winamax": {
 "id": "id1204195975620028",
@@ -4021,5 +4037,76 @@
 "letzteQuote": 1.43,
 "letzteP": 0.2865882443064698,
 "zuletztGesehen": "2026-10-23T12:41Z"
+},
+"id1201505375653570|winamax": {
+"id": "id1201505375653570",
+"start": "2026-10-24T10:00:00.000Z",
+"turnier": "Lisbon Challenger",
+"belag": "clay",
+"a": "Marco Trungelliti",
+"b": "Alexander Ritschard",
+"tid": 15053,
+"p1Id": 38517,
+"p2Id": 56017,
+"kategorie": "Challenger",
+"buchmacher": "winamax",
+"wette": "A",
+"erstQuote": 1.74,
+"erstP": 0.5832893513136965,
+"edge": 0.014923471285831935,
+"kelly": 3.33,
+"erstGesehen": "2026-10-24T05:55Z",
+"warn": [
+"favschwach"
+],
+"letzteQuote": 1.74,
+"letzteP": 0.5832893513136965,
+"zuletztGesehen": "2026-10-24T05:55Z"
+},
+"id1204195975620040|winamax": {
+"id": "id1204195975620040",
+"start": "2026-10-24T13:00:00.000Z",
+"turnier": "ATP Almaty",
+"belag": "hard",
+"a": "Daniil Medvedev",
+"b": "Alexander Bublik",
+"tid": 41959,
+"p1Id": 163504,
+"p2Id": 163480,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "A",
+"erstQuote": 1.5,
+"erstP": 0.6709425578711954,
+"edge": 0.006413836806792972,
+"kelly": 2.12,
+"erstGesehen": "2026-10-24T05:55Z",
+"warn": [],
+"letzteQuote": 1.5,
+"letzteP": 0.6709425578711954,
+"zuletztGesehen": "2026-10-24T05:55Z"
+},
+"id1200309775620258|winamax": {
+"id": "id1200309775620258",
+"start": "2026-10-24T14:00:00.000Z",
+"turnier": "ATP Lyon",
+"belag": "hard",
+"a": "Flavio Cobolli",
+"b": "Lorenzo Musetti",
+"tid": 3097,
+"p1Id": 399637,
+"p2Id": 359602,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 2,
+"erstP": 0.47803587042186857,
+"edge": 0.04392825915626286,
+"kelly": 7.25,
+"erstGesehen": "2026-10-24T05:55Z",
+"warn": [],
+"letzteQuote": 2,
+"letzteP": 0.47803587042186857,
+"zuletztGesehen": "2026-10-24T05:55Z"
 }
 }
