@@ -4180,7 +4180,13 @@
 "warn": [],
 "letzteQuote": 1.66,
 "letzteP": 0.6391773477719565,
-"zuletztGesehen": "2026-10-25T13:33Z"
+"zuletztGesehen": "2026-10-25T13:33Z",
+"clv_versucht": true,
+"schlussQuote": 1.66,
+"clv": -0.0843373493975903,
+"ergebnis": "V",
+"sieger": "V",
+"ergebnisQuelle": "abgesagt"
 },
 "id1200261375991582|winamax": {
 "id": "id1200261375991582",
@@ -4203,7 +4209,8 @@
 "warn": [],
 "letzteQuote": 2,
 "letzteP": 0.4975377546701422,
-"zuletztGesehen": "2026-10-25T13:33Z"
+"zuletztGesehen": "2026-10-25T13:33Z",
+"clv_versucht": true
 },
 "id1200310375989932|winamax": {
 "id": "id1200310375989932",
@@ -4226,11 +4233,14 @@
 "warn": [],
 "letzteQuote": 1.88,
 "letzteP": 0.4551787054857354,
-"zuletztGesehen": "2026-10-25T07:13Z"
+"zuletztGesehen": "2026-10-25T07:13Z",
+"clv_versucht": true,
+"schlussQuote": 1.86,
+"clv": 0.010752688172043001
 },
 "id1200261375991578|winamax": {
 "id": "id1200261375991578",
-"start": "2026-10-27T11:00:00.000Z",
+"start": "2026-10-27T22:00:00.000Z",
 "turnier": "ATP Basel",
 "belag": "hard",
 "a": "Novak Djokovic",
@@ -4247,9 +4257,9 @@
 "kelly": 2.45,
 "erstGesehen": "2026-10-25T13:33Z",
 "warn": [],
-"letzteQuote": 1.39,
-"letzteP": 0.7209442631460448,
-"zuletztGesehen": "2026-10-26T07:25Z"
+"letzteQuote": 1.4,
+"letzteP": 0.7301012698851591,
+"zuletztGesehen": "2026-10-26T15:06Z"
 },
 "id1200261375991572|winamax": {
 "id": "id1200261375991572",
@@ -4316,9 +4326,9 @@
 "kelly": 11.39,
 "erstGesehen": "2026-10-26T07:25Z",
 "warn": [],
-"letzteQuote": 1.88,
-"letzteP": 0.564219796482843,
-"zuletztGesehen": "2026-10-26T07:25Z"
+"letzteQuote": 2.1,
+"letzteP": 0.5283901992129385,
+"zuletztGesehen": "2026-10-26T15:06Z"
 },
 "id1200310375989918|winamax": {
 "id": "id1200310375989918",
@@ -4340,8 +4350,8 @@
 "erstGesehen": "2026-10-26T07:25Z",
 "warn": [],
 "letzteQuote": 2.1,
-"letzteP": 0.508216012810789,
-"zuletztGesehen": "2026-10-26T07:25Z"
+"letzteP": 0.5011366036680206,
+"zuletztGesehen": "2026-10-26T15:06Z"
 },
 "id1204350376003532|winamax": {
 "id": "id1204350376003532",
@@ -4362,9 +4372,9 @@
 "kelly": 11.1,
 "erstGesehen": "2026-10-26T07:25Z",
 "warn": [],
-"letzteQuote": 1.86,
-"letzteP": 0.43127248700150733,
-"zuletztGesehen": "2026-10-26T07:25Z"
+"letzteQuote": 1.84,
+"letzteP": 0.44528606846451896,
+"zuletztGesehen": "2026-10-26T15:06Z"
 },
 "id1200611175987272|winamax": {
 "id": "id1200611175987272",
@@ -4411,5 +4421,74 @@
 "letzteQuote": 2.05,
 "letzteP": 0.5089694212417011,
 "zuletztGesehen": "2026-10-26T07:25Z"
+},
+"id1200261375992890|winamax": {
+"id": "id1200261375992890",
+"start": "2026-10-26T19:00:00.000Z",
+"turnier": "ATP Basel",
+"belag": "hard",
+"a": "Dominic Stricker",
+"b": "Casper Ruud",
+"tid": 2613,
+"p1Id": 496346,
+"p2Id": 119248,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.41,
+"erstP": 0.2844971382999671,
+"edge": 0.008859034997046544,
+"kelly": 3.57,
+"erstGesehen": "2026-10-26T15:06Z",
+"warn": [],
+"letzteQuote": 1.41,
+"letzteP": 0.2844971382999671,
+"zuletztGesehen": "2026-10-26T15:06Z"
+},
+"id1200579776070788|winamax": {
+"id": "id1200579776070788",
+"start": "2026-10-27T04:10:00.000Z",
+"turnier": "Ningbo Challenger",
+"belag": "hard",
+"a": "Jake Delaney",
+"b": "Alexandr Binda",
+"tid": 5797,
+"p1Id": 79223,
+"p2Id": 494844,
+"kategorie": "Challenger",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 2.05,
+"erstP": 0.44741361749162084,
+"edge": 0.1328020841421773,
+"kelly": 20.87,
+"erstGesehen": "2026-10-26T15:06Z",
+"warn": [],
+"letzteQuote": 2.05,
+"letzteP": 0.44741361749162084,
+"zuletztGesehen": "2026-10-26T15:06Z"
+},
+"id1200310375989916|winamax": {
+"id": "id1200310375989916",
+"start": "2026-10-27T10:46:00.000Z",
+"turnier": "ATP Vienna",
+"belag": "hard",
+"a": "Jurji Rodionov",
+"b": "Nikoloz Basilashvili",
+"tid": 3103,
+"p1Id": 212004,
+"p2Id": 26204,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.74,
+"erstP": 0.41339469788725375,
+"edge": 0.020693225676178262,
+"kelly": 4.61,
+"erstGesehen": "2026-10-26T15:06Z",
+"warn": [],
+"letzteQuote": 1.74,
+"letzteP": 0.41339469788725375,
+"zuletztGesehen": "2026-10-26T15:06Z"
 }
 }

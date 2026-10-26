@@ -457,7 +457,9 @@
 "kelly": 0.25,
 "erstGesehen": "2026-10-25T13:33Z",
 "zuletztGesehen": "2026-10-25T13:33Z",
-"warn": []
+"warn": [],
+"ergebnis": "V",
+"clv": 0.0
 },
 "C|id1200261375991574|winamax": {
 "variante": "C",
@@ -477,7 +479,9 @@
 "kelly": 2.45,
 "erstGesehen": "2026-10-25T13:33Z",
 "zuletztGesehen": "2026-10-25T13:33Z",
-"warn": []
+"warn": [],
+"ergebnis": "V",
+"clv": 0.0
 },
 "C|id1200261376034544|winamax": {
 "variante": "C",
@@ -511,12 +515,12 @@
 "buchmacher": "winamax",
 "wette": "A",
 "erstQuote": 1.88,
-"letzteQuote": 1.88,
+"letzteQuote": 2.1,
 "erstP": 0.545,
 "edge": 0.024,
 "kelly": 4.52,
 "erstGesehen": "2026-10-26T07:25Z",
-"zuletztGesehen": "2026-10-26T07:25Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
 "warn": []
 },
 "C|id1200310376031924|winamax": {
@@ -531,12 +535,12 @@
 "buchmacher": "winamax",
 "wette": "A",
 "erstQuote": 1.88,
-"letzteQuote": 1.88,
+"letzteQuote": 2.1,
 "erstP": 0.567,
 "edge": 0.067,
 "kelly": 12.51,
 "erstGesehen": "2026-10-26T07:25Z",
-"zuletztGesehen": "2026-10-26T07:25Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
 "warn": []
 },
 "B|id1204350376003532|winamax": {
@@ -551,12 +555,12 @@
 "buchmacher": "winamax",
 "wette": "B",
 "erstQuote": 1.86,
-"letzteQuote": 1.86,
+"letzteQuote": 1.84,
 "erstP": 0.457,
 "edge": 0.01,
 "kelly": 1.98,
 "erstGesehen": "2026-10-26T07:25Z",
-"zuletztGesehen": "2026-10-26T07:25Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
 "warn": []
 },
 "C|id1204350376003532|winamax": {
@@ -571,12 +575,12 @@
 "buchmacher": "winamax",
 "wette": "B",
 "erstQuote": 1.86,
-"letzteQuote": 1.86,
+"letzteQuote": 1.84,
 "erstP": 0.449,
 "edge": 0.025,
 "kelly": 4.78,
 "erstGesehen": "2026-10-26T07:25Z",
-"zuletztGesehen": "2026-10-26T07:25Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
 "warn": []
 },
 "B|id1200611175987272|winamax": {
@@ -591,12 +595,12 @@
 "buchmacher": "winamax",
 "wette": "B",
 "erstQuote": 1.98,
-"letzteQuote": 1.98,
+"letzteQuote": 2.05,
 "erstP": 0.478,
 "edge": 0.033,
 "kelly": 5.56,
 "erstGesehen": "2026-10-26T07:25Z",
-"zuletztGesehen": "2026-10-26T07:25Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
 "warn": []
 },
 "C|id1200611175987272|winamax": {
@@ -611,18 +615,18 @@
 "buchmacher": "winamax",
 "wette": "B",
 "erstQuote": 1.98,
-"letzteQuote": 1.98,
+"letzteQuote": 2.05,
 "erstP": 0.478,
 "edge": 0.033,
 "kelly": 5.56,
 "erstGesehen": "2026-10-26T07:25Z",
-"zuletztGesehen": "2026-10-26T07:25Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
 "warn": []
 },
 "C|id1200261376034542|winamax": {
 "variante": "C",
 "id": "id1200261376034542",
-"start": "2026-10-27T10:00:00.000Z",
+"start": "2026-10-27T11:00:00.000Z",
 "turnier": "ATP Basel",
 "kategorie": "ATP",
 "belag": "hard",
@@ -636,7 +640,47 @@
 "edge": 0.031,
 "kelly": 4.86,
 "erstGesehen": "2026-10-26T07:25Z",
-"zuletztGesehen": "2026-10-26T07:25Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
+"warn": []
+},
+"B|id1200579776070788|winamax": {
+"variante": "B",
+"id": "id1200579776070788",
+"start": "2026-10-27T04:10:00.000Z",
+"turnier": "Ningbo Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"a": "Jake Delaney",
+"b": "Alexandr Binda",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 2.05,
+"letzteQuote": 2.05,
+"erstP": 0.477,
+"edge": 0.073,
+"kelly": 11.47,
+"erstGesehen": "2026-10-26T15:06Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
+"warn": []
+},
+"C|id1200579776070788|winamax": {
+"variante": "C",
+"id": "id1200579776070788",
+"start": "2026-10-27T04:10:00.000Z",
+"turnier": "Ningbo Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"a": "Jake Delaney",
+"b": "Alexandr Binda",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 2.05,
+"letzteQuote": 2.05,
+"erstP": 0.478,
+"edge": 0.069,
+"kelly": 10.9,
+"erstGesehen": "2026-10-26T15:06Z",
+"zuletztGesehen": "2026-10-26T15:06Z",
 "warn": []
 }
 }
