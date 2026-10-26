@@ -713,7 +713,8 @@ function heuteHtml(){
       <div class="hbox"><h3>Value-Tipps heute</h3>${liste(tipps, tippTxt, "Heute (noch) keine Value-Tipps nach deinen Regeln.")}</div>
       <div class="hbox"><h3>Signale</h3>${sig.length ? `<ul>${sig.sort((a,b) => a[0].d - b[0].d).slice(0, 10).map(([it, t]) => zeile(it, t)).join("")}</ul>` : `<p class="time">Keine Signale für heute.</p>`}</div>
       <div class="hbox"><h3>Meine offenen Wetten</h3>${offen.length ? `<ul>${offen.slice(0, 8).map(({w, d}) => `<li>${(() => { const zeit = `<span class="time">${dayKey(d)===kHeute ? uhr(d) : d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</span>`;
-        if(!(w.beine && w.beine.length > 1)) return `${zeit} <b>${esc(w.spieler)}</b> @ ${fx(w.quote)} <span class="time">${betragU(w.einsatz)}</span>`;
+        if(!(w.beine && w.beine.length > 1)){ const bn = (w.beine && w.beine[0]) || {markt: w.markt};
+          return `${zeit} <b>${esc(w.spieler)}</b> ${esc(marktText(bn))}${w.gegner ? ` <span class="time">vs ${esc(w.gegner)}</span>` : ""} @ ${fx(w.quote)} <span class="time">${betragU(w.einsatz)}</span>`; }
         // Kombi aufklappbar: jede Auswahl mit Stand (richtig / falsch / offen)
         const ra = wetteAuswertung(w), sym = {W:"✓", L:"✗", V:"–"};
         const fertig = ra.beine.filter(x => x.e).length;
