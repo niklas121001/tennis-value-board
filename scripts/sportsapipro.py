@@ -114,7 +114,11 @@ def kompakt(e):
         k = f"period{i}"
         if k in hs and k in as_:
             satz.append([hs[k], as_[k]])
-    return {"id": e.get("id"), "start": iso(e["startTimestamp"]) if e.get("startTimestamp") else None,
+    # Spieldauer: Sofascore liefert je Satz die Dauer in Sekunden unter time.period1..5 (nicht immer vorhanden)
+    tm = e.get("time") or {}
+    sek = [tm.get(f"period{i}") for i in range(1, 6) if isinstance(tm.get(f"period{i}"), (int, float))]
+    dauer = round(sum(sek) / 60) if sek and len(sek) >= len(satz) and sum(sek) > 600 else None
+    return {"id": e.get("id"), "start": iso(e["startTimestamp"]) if e.get("startTimestamp") else None, "min": dauer,
             "kat": kat, "turnier": tn, "belag": belag_von(e.get("groundType")), "gt": e.get("groundType"),
             "h": hn, "a": an, "hId": h.get("id"), "aId": a.get("id"),
             "st": str(st.get("type", "")).lower(), "desc": str(st.get("description", "")),
@@ -299,7 +303,11 @@ def main():
         quali = any("qualif" in e.get("turnier", "").lower() and e["turnier"].lower().startswith(basis) for e in spiele) \
             and "qualif" not in ev_jetzt.get("turnier", "").lower()
         siege = sum(1 for e in spiele if (ergebnis(e) == "H") == (e.get("hId") == pid))
+        mins = [e.get("min") for e in spiele if isinstance(e.get("min"), (int, float))]
         return {"spiele7": len(spiele), "saetze7": sum(len(e.get("satz") or []) for e in spiele),
+                "games7": sum(int(x) + int(y) for e in spiele for x, y in (e.get("satz") or []) if isinstance(x, (int, float)) and isinstance(y, (int, float))),
+                "min7": sum(mins) if mins else None, "minN": len(mins),
+                "letztesMin": letzte.get("min"), "letztesGames": sum(int(x) + int(y) for x, y in (letzte.get("satz") or []) if isinstance(x, (int, float)) and isinstance(y, (int, float))),
                 "dreisatz7": sum(1 for e in spiele if len(e.get("satz") or []) >= 3), "siege7": siege,
                 "letztes": letzte["start"], "quali": quali}
     # Spielerverlauf (dauerhaft): letztes Spiel, Aufgabe im letzten Spiel, letztes Spiel je Belag

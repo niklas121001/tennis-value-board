@@ -76,6 +76,17 @@ tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 .pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}
 .cbbox{background:var(--good-soft);color:var(--fg);border-radius:6px;padding:8px 10px;margin-top:10px;font-size:12.5px;line-height:1.45}
+.pill.sturz{background:var(--bad-soft);color:var(--bad);margin-left:4px}
+details.heute{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:14px 0 4px}
+details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem var(--f-display);text-transform:uppercase;letter-spacing:.04em}
+.hgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+.hbox h3{margin:0 0 6px}.hbox ul{list-style:none;margin:0;padding:0}.hbox li{padding:3px 0;border-bottom:1px solid var(--line);font-size:13px}.hbox li:last-child{border-bottom:0}
+.hbox a.hz{color:inherit;text-decoration:none}.hbox a.hz:hover{color:var(--accent)}
+.hkombi{grid-column:1/-1}.hkombi li{line-height:1.7}
+@media (max-width:1000px){.hgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.hgrid{grid-template-columns:minmax(0,1fr)}}
+.kalib{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:760px){.kalib{grid-template-columns:minmax(0,1fr)}}
 .bilbox{background:var(--accent-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-top:10px;font-size:13px}
 .assbox{background:var(--warn-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:13px}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
@@ -233,6 +244,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
   </nav>
 
   <section id="v-partien">
+    <div id="heute"></div>
     <div class="controls">
       <div class="ctl bmctl"><label for="bm">Buchmacher</label><select id="bm"></select></div>
       <div class="ctl"><label for="f-tag">Tag</label>
@@ -292,6 +304,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     </div>
     <div id="b-kurve" class="kurvebox"></div>
     <div id="b-varianten"></div>
+    <div id="b-kalib"></div>
     <div id="b-aussenseiter"></div>
     <div id="b-bilanzsig"></div>
     <div id="b-split"></div>
@@ -309,6 +322,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <div class="kpi"><b id="m-clv">–</b><span>Ø Quote</span></div>
     </div>
     <div id="m-kurve" class="kurvebox"></div>
+    <div id="m-arten"></div>
     <form id="m-bank" class="controls" autocomplete="off" style="margin-top:10px">
       <div class="ctl"><label for="m-start" title="Startkapital für „Meine Wetten“ in Units – Kurve und Kontostand gehen davon aus">Start-Bankroll (U)</label><input id="m-start" inputmode="decimal" placeholder="z. B. 50" style="width:110px"></div>
       <div class="ctl"><label for="m-unit" title="Gilt überall auf der Seite (auch Tipps und Bilanz)">1 Unit = €</label><input id="m-unit" inputmode="decimal" style="width:90px"></div>
@@ -421,6 +435,19 @@ async function init(){
     if(n){ D._tour = null; render(); } });
   setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten(); BEREIT = true;
   Promise.all([j("aussenseiter_tips.json", {}), j("bilanz_tips.json", {})]).then(([ass, bil]) => { SIGLOG = {ass: ass||{}, bil: bil||{}}; render(); });
+  $("#heute").addEventListener("toggle", (e) => { if(e.target.matches("details.heute")) store.set("heute.offen", e.target.open); }, true);
+  $("#heute").addEventListener("click", (e) => {
+    const hk = e.target.closest(".hk");
+    if(hk){ let beine = []; try{ beine = JSON.parse(hk.dataset.beine); }catch(_){}
+      $("#mf-beine").innerHTML = "";
+      for(const b of beine){ const p = (M.partien||[]).find(x => x.id === b.id); if(!p) continue;
+        beinZeile({fixtureId: p.id, seite: b.seite, spieler: b.seite==="A"?p.a:p.b, gegner: b.seite==="A"?p.b:p.a, datum: String(p.start).slice(0,10), markt: "sieg", quote: b.q}); }
+      $("#mf-art").value = "kombi"; artWechsel(); entwurfSichern(); gesamtQuote();
+      $("#tab-wetten").click(); const box = $("#m-manuell-box"); if(box){ box.open = true; box.scrollIntoView({behavior:"smooth"}); }
+      return; }
+    const a = e.target.closest("a.hz"); if(!a) return; e.preventDefault();
+    open.add(a.dataset.id); ["f-value","f-ass"].forEach(id => $("#"+id).checked = false); $("#f-suche").value = ""; render();
+    const tr = document.querySelector(`tr.m[data-id="${CSS.escape(a.dataset.id)}"]`); if(tr) tr.scrollIntoView({behavior:"smooth", block:"start"}); });
   archivLaden().then(() => render());   // für „1 U auf Sieg“ im Spieler-Check
   if(!$("#v-protokoll").hidden) renderLog();
 }
@@ -524,7 +551,26 @@ function evalMatch(p){
     if(x){ r.bilanzSignal = {seite:x.wette, name: x.wette==="A" ? p.a : p.b, gegen: x.wette==="A" ? p.b : p.a, quote:x.erstQuote, band:x.band,
       siege:x.siege, n:x.n, pBand:x.pBand, pEst:x.pEst, pMarkt:x.pMarkt, edge:x.edge, fair: x.pEst ? 1/x.pEst : null, kellyEur:x.kellyEur,
       ausLog:true, erstGesehen:x.erstGesehen, quoteJetzt: jetztQ(x)}; } }
+  // Value verpasst: Tipp wurde protokolliert, ist mit der aktuellen Quote aber kein Value mehr
+  { const t = LOG && LOG[p.id + "|" + r.bm];
+    if(t && t.wette && r.wette !== t.wette) r.verpasst = {seite: t.wette, name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote,
+      jetzt: jetztQ(t), edge: t.edge, erstGesehen: t.erstGesehen}; }
+  // Quotensturz: Quote eines Spielers seit der ersten Sichtung um mind. 10 % gefallen ("der Markt weiß was")
+  { const reihe = qvReihe(p, r.bm);
+    if(reihe.length >= 2){ let best = null;
+      for(const [seite, i] of [["A", 1], ["B", 2]]){ const erst = reihe[0][i], jetzt = seite==="A" ? r.qa : r.qb;
+        if(!(erst > 1 && jetzt > 1)) continue; const fall = 1 - jetzt/erst;
+        if(fall >= 0.10 && erst - jetzt >= 0.10 && (!best || fall > best.fall)) best = {seite, name: seite==="A" ? p.a : p.b, erst, jetzt, fall, seit: reihe[0][0]}; }
+      r.sturz = best; } }
   return r;
+}
+function signalInfoHtml(r){
+  let h = "";
+  if(r.verpasst){ const v = r.verpasst;
+    h += `<div class="assbox"><b>⏱ Value verpasst:</b> Tipp auf ${esc(v.name)} am ${kDatum(v.erstGesehen)} bei Quote ${fx(v.erstQuote)} (Edge ${sg(v.edge)}). Aktuell ${fx(v.jetzt)} – zu diesem Preis kein Value mehr. <span class="time">Die Bilanz rechnet mit der ersten Quote.</span></div>`; }
+  if(r.sturz){ const x = r.sturz;
+    h += `<div class="assbox"><b>📉 Quotensturz:</b> ${esc(x.name)} von ${fx(x.erst)} auf ${fx(x.jetzt)} (−${fx(x.fall*100,0)} %) seit ${kDatum(x.seit)}. <span class="time">Viel Geld auf ${esc(x.name)} – oft eine Info, die das Modell nicht kennt (Verletzung, Form, Bedingungen).</span></div>`; }
+  return h;
 }
 const logHinweis = (x) => x && x.ausLog ? ` <span class="time">Signal vom ${kDatum(x.erstGesehen)}, ${new Date(x.erstGesehen).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ})} Uhr bei Quote ${fx(x.quote)}${x.quoteJetzt && Math.abs(x.quoteJetzt - x.quote) > 1e-9 ? ` – aktuell ${fx(x.quoteJetzt)}, die Bedingungen sind gerade nicht mehr erfüllt` : ""}. Wird trotzdem getrackt.</span>` : "";
 function evalMatchRoh(p){
@@ -562,8 +608,84 @@ const TZ = "Europe/Berlin";
 const dayKey = (d) => d.toLocaleDateString("sv-SE", {timeZone: TZ});
 const startOf = (p) => { const d = p.start ? new Date(String(p.start).replace(" ","T")) : null; return d && !isNaN(d) ? d : null; };
 
+// ---- „Heute auf einen Blick“: unabhängig von den Filtern, nur Partien von heute, die noch nicht begonnen haben
+function heuteHtml(){
+  if(!M || M.demo) return "";
+  const now = new Date(), kHeute = dayKey(now), kGestern = dayKey(new Date(now.getTime() - 864e5));
+  const uhr = (d) => d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ});
+  const tipps = [], ass = [], bil = [], verp = [], sturz = [];
+  for(const p of (M.partien||[])){
+    const d = startOf(p); if(!d || dayKey(d) !== kHeute || d <= now) continue;
+    const r = evalMatch(p); if(!r || !r.ok) continue;
+    const it = {p, r, d};
+    if(r.wette && r.regelOk !== false && !String(r.empfehlung).startsWith("⛔")) tipps.push(it);
+    if(r.aussenseiter) ass.push(it);
+    if(r.bilanzSignal) bil.push(it);
+    if(r.verpasst) verp.push(it);
+    if(r.sturz) sturz.push(it);
+  }
+  const link = (it, txt) => `<a href="#" class="hz" data-id="${esc(it.p.id)}">${txt}</a>`;
+  const zeile = (it, txt) => `<li><span class="time">${uhr(it.d)}</span> ${link(it, txt)}</li>`;
+  const tippTxt = (it) => { const r = it.r, n = r.wette==="A" ? r.a : r.b, q = r.wette==="A" ? r.qa : r.qb, e = r.wette==="A" ? r.edgeA : r.edgeB;
+    return `<b>${esc(n)}</b> @ ${fx(q)} <span class="time">Edge ${sg(e)} · ${stakeHtml(r.kelly)}</span>`; };
+  const liste = (xs, f, leer) => xs.length ? `<ul>${xs.sort((a,b) => a.d - b.d).slice(0, 8).map(it => zeile(it, f(it))).join("")}</ul>${xs.length > 8 ? `<div class="time">+ ${xs.length-8} weitere</div>` : ""}` : `<p class="time">${leer}</p>`;
+  const sig = [...ass.map(it => [it, `⚡ <b>${esc(it.r.aussenseiter.name)}</b> @ ${fx(it.r.aussenseiter.quoteJetzt || it.r.aussenseiter.quote)} <span class="time">Außenseiter</span>`]),
+               ...bil.map(it => [it, `📊 <b>${esc(it.r.bilanzSignal.name)}</b> @ ${fx(it.r.bilanzSignal.quote)} <span class="time">Bilanz-Signal</span>`]),
+               ...sturz.map(it => [it, `📉 <b>${esc(it.r.sturz.name)}</b> ${fx(it.r.sturz.erst)} → ${fx(it.r.sturz.jetzt)} <span class="time">Quotensturz</span>`]),
+               ...verp.map(it => [it, `⏱ <b>${esc(it.r.verpasst.name)}</b> ${fx(it.r.verpasst.erstQuote)} → ${fx(it.r.verpasst.jetzt)} <span class="time">Value verpasst</span>`])];
+  // Meine Wetten: offen (heute und später) + Kontostand
+  let offen = [], gW = 0, gN = 0, gU = 0, stand = null;
+  const unit = unitCfg().unit, start = +store.get("w.start", 0) || 0;
+  try{
+    let gAlle = 0;
+    for(const w of Object.values(wLoad().items)){
+      const e = ergebnisVon(w), d = new Date(w.start);
+      if(!e){ if(!isNaN(d)) offen.push({w, d}); continue; }
+      if(e !== "V") gAlle += gewinnVon(w, e);
+      if(!isNaN(d) && dayKey(d) === kGestern && e !== "V"){ gN++; if(e==="W" || (e==="C" && gewinnVon(w,e) > 0)) gW++; gU += gewinnVon(w, e)/unit; }
+    }
+    if(start) stand = start + gAlle/unit;
+  }catch(_){}
+  offen.sort((a,b) => a.d - b.d);
+  // Value-Tipps von gestern (Bilanz)
+  const gt = Object.values(LOG||{}).filter(t => { const d = new Date(t.start); return !isNaN(d) && dayKey(d) === kGestern && (t.ergebnis==="W" || t.ergebnis==="L"); });
+  const gtW = gt.filter(t => t.ergebnis==="W").length, gtU = gt.reduce((s,t) => s + (t.ergebnis==="W" ? unitsOf(t.kelly)*(t.erstQuote-1) : -unitsOf(t.kelly)), 0);
+  const fu2 = (u) => `<span class="${u>0?"pos":u<0?"negv":""}">${u>0?"+":""}${fx(u,1)} U</span>`;
+  const offen_ = store.get("heute.offen", true);
+  // Kombi-Vorschlag: aus den Value-Tipps von heute + morgen (noch nicht begonnen) die Kombis mit dem höchsten Erwartungswert
+  const kand = [];
+  for(const p of (M.partien||[])){
+    const d = startOf(p); if(!d || d <= now || (dayKey(d) !== kHeute && dayKey(d) !== dayKey(new Date(now.getTime() + 864e5)))) continue;
+    const r = evalMatch(p); if(!r || !r.ok || !r.wette || r.regelOk === false || String(r.empfehlung).startsWith("⛔")) continue;
+    const q = r.wette==="A" ? r.qa : r.qb, pm = r.wette==="A" ? r.pFinal : 1 - r.pFinal;
+    if(q > 1 && pm > 0) kand.push({p, r, q, pm, name: r.wette==="A" ? r.a : r.b, d});
+  }
+  const kombis = [];
+  const ev = (xs) => xs.reduce((s,x)=>s*x.pm,1) * xs.reduce((s,x)=>s*x.q,1) - 1;
+  for(let i = 0; i < kand.length; i++) for(let j = i+1; j < kand.length; j++){
+    kombis.push([kand[i], kand[j]]);
+    for(let k = j+1; k < kand.length; k++) kombis.push([kand[i], kand[j], kand[k]]); }
+  const top = (n) => kombis.filter(x => x.length === n).map(x => ({x, ev: ev(x), q: x.reduce((s,y)=>s*y.q,1), p: x.reduce((s,y)=>s*y.pm,1)})).filter(k => k.ev > 0).sort((a,b) => b.ev - a.ev);
+  const vors = [...top(2).slice(0, 2), ...top(3).slice(0, 1)];
+  const kombiHtml = vors.length ? `<div class="hbox hkombi"><h3>Kombi-Vorschlag <span class="time">(heute + morgen)</span></h3><ul>${vors.map(k => `<li><b>${k.x.length}er</b> · ${k.x.map(y => `${link(y, esc(y.name))} <span class="time">@ ${fx(y.q)}</span>`).join(" + ")}
+      <span class="time">→ Quote ${fx(k.q)} · Modell ${pc(k.p,0)} · EV ${sg(k.ev)}</span>
+      <button type="button" class="btn ghost mini hk" data-beine="${esc(JSON.stringify(k.x.map(y => ({id: y.p.id, seite: y.r.wette, q: y.q}))))}">in Kombi übernehmen</button></li>`).join("")}</ul>
+      <p class="time" style="margin:4px 0 0">Annahme: Spiele unabhängig, Modell-Wahrscheinlichkeiten stimmen. Fehler des Modells multiplizieren sich in der Kombi – daher kleiner Einsatz. Ein Winamax-Kombi-Bonus kommt noch obendrauf.</p></div>` : "";
+  return `<details class="heute" ${offen_?"open":""}><summary><b>Heute auf einen Blick</b> <span class="time">${tipps.length} Value-Tipp${tipps.length===1?"":"s"} · ${sig.length} Signal${sig.length===1?"":"e"} · ${offen.length} offene Wette${offen.length===1?"":"n"}${stand!=null?` · Kontostand ${fx(stand,1)} U`:""}</span></summary>
+    <div class="hgrid">
+      <div class="hbox"><h3>Value-Tipps heute</h3>${liste(tipps, tippTxt, "Heute (noch) keine Value-Tipps nach deinen Regeln.")}</div>
+      <div class="hbox"><h3>Signale</h3>${sig.length ? `<ul>${sig.sort((a,b) => a[0].d - b[0].d).slice(0, 10).map(([it, t]) => zeile(it, t)).join("")}</ul>` : `<p class="time">Keine Signale für heute.</p>`}</div>
+      <div class="hbox"><h3>Meine offenen Wetten</h3>${offen.length ? `<ul>${offen.slice(0, 8).map(({w, d}) => `<li><span class="time">${dayKey(d)===kHeute ? uhr(d) : d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</span> <b>${esc(w.beine && w.beine.length > 1 ? `Kombi (${w.beine.length})` : w.spieler)}</b> @ ${fx(w.quote)} <span class="time">${betragU(w.einsatz)}</span></li>`).join("")}</ul>` : `<p class="time">Keine offenen Wetten.</p>`}
+        ${stand!=null ? `<p style="margin:6px 0 0">Kontostand <b>${fx(stand,1)} U</b> <span class="time">(${eur(stand*unit)})</span></p>` : ""}</div>
+      <div class="hbox"><h3>Gestern</h3><div class="kv two">
+        <span class="k">Value-Tipps</span><span class="v">${gt.length ? `${gtW}–${gt.length-gtW} · ${fu2(gtU)}` : "–"}</span>
+        <span class="k">Meine Wetten</span><span class="v">${gN ? `${gW}–${gN-gW} · ${fu2(gU)}` : "–"}</span></div></div>
+      ${kombiHtml}
+    </div></details>`;
+}
 function render(){
   const now = new Date(), kHeute = dayKey(now), kMorgen = dayKey(new Date(now.getTime() + 864e5));
+  try{ $("#heute").innerHTML = heuteHtml(); }catch(e){ console.error(e); }
   const tag = $("#f-tag").value;
   const art = $("#f-art").value, fb = $("#f-belag").value, onlyV = $("#f-value").checked, q = $("#f-suche").value.trim().toLowerCase();
   const rows = [];
@@ -630,7 +752,7 @@ function rowHtml(p, r){
   const tipWarn = r.wette ? r.warn.filter(w => w.seite===r.wette) : [];
   const pill = regelAus ? `<span class="pill no" title="Value, aber außerhalb deiner Tipp-Regeln (Modell-Reiter)">Value · außerhalb Regeln</span>`
              : r.wette ? `<span class="pill ${stop?"stop":"go"}"${tipWarn.length?` title="${esc(tipWarn.map(w=>w.text).join(" · "))}"`:""}>${stop?"Blacklist":`${tipWarn.length?"⚠ ":""}<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
-             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : r.aussenseiter ? "" : `<span class="pill no">kein Value</span>`;
+             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : r.verpasst ? `<span class="pill warn" title="Tipp auf ${esc(r.verpasst.name)} bei ${fx(r.verpasst.erstQuote)} – jetzt ${fx(r.verpasst.jetzt)}">Value verpasst</span>` : r.aussenseiter ? "" : `<span class="pill no">kein Value</span>`;
   const e = r.wette==="A" ? r.edgeA : r.wette==="B" ? r.edgeB : Math.max(r.edgeA??-1, r.edgeB??-1);
   const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
   const favA = r.pFinal >= 0.5;   // Modell-Favorit = prognostizierter Sieger (wie Excel "Modell-Favorit")
@@ -642,7 +764,7 @@ function rowHtml(p, r){
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
     <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
-    <td>${pill}${r.aussenseiter?`<span class="pill ass" title="${esc(assText(r.aussenseiter))}">⚡ Außenseiter</span>`:""}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
+    <td>${pill}${r.sturz?`<span class="pill sturz" title="${esc(r.sturz.name)}: ${fx(r.sturz.erst)} → ${fx(r.sturz.jetzt)}">📉 <span class="hide-s">Quotensturz</span></span>`:""}${r.aussenseiter?`<span class="pill ass" title="${esc(assText(r.aussenseiter))}">⚡ Außenseiter</span>`:""}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
     <td class="num hide-s">${r.kelly&&!stop&&!regelAus?stakeHtml(r.kelly):"–"}</td>
     <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
   if(open.has(p.id)) html += `<tr class="detail"><td colspan="9">${detailHtml(p, r)}</td></tr>`;
@@ -759,6 +881,40 @@ function variantenHtml(bm, art){
     <p class="note">B und C tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Zeile anklicken, um die zugehörigen Tipps und Partien zu sehen. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
 }
 
+// Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
+function kalibHtml(art){
+  if(!VAR) return "";
+  const BER = [[.5,.55],[.55,.6],[.6,.65],[.65,.7],[.7,.8],[.8,1.01]];
+  const xs = [];
+  for(const [id, p] of Object.entries(VAR.prog||{})){
+    const e = ERG[id] || (ARCHIV||{})[id];
+    if(!e || !(e.sieger==="A" || e.sieger==="B") || e.aufgabe || p.pMarkt==null || p.pFinal==null) continue;
+    if(art!=="alle" && (art==="ch") !== isChTip(p)) continue;
+    xs.push({y: e.sieger==="A" ? 1 : 0, M: p.pFinal, K: p.pMarkt});
+  }
+  if(xs.length < 20) return xs.length ? `<details class="box klapp" data-k="kalib" style="margin-top:16px"><summary><h3>🎯 Kalibrierung <span class="time">noch zu wenig Partien (${xs.length})</span></h3></summary></details>` : "";
+  const tab = (k) => BER.map(([lo, hi]) => {
+    const t = xs.map(x => ({p: Math.max(x[k], 1-x[k]), w: (x[k] >= .5) === (x.y === 1)})).filter(x => x.p >= lo && x.p < hi);
+    return {lo, hi, n: t.length, p: t.length ? t.reduce((s,x)=>s+x.p,0)/t.length : null, w: t.length ? t.filter(x=>x.w).length/t.length : null};
+  });
+  const tm = tab("M"), tk = tab("K");
+  const brier = (k) => xs.reduce((s,x) => s + (x[k]-x.y)**2, 0) / xs.length;
+  // kleines Diagramm: x = vorhergesagt, y = tatsächlich, Diagonale = perfekt
+  const W = 300, H = 220, pl = 34, pb = 26, pt = 8, pr = 8, X = (v) => pl + (W-pl-pr)*(v-.5)/.5, Y = (v) => pt + (H-pt-pb)*(1-(v-.3)/.7);
+  const punkte = (t, farbe) => t.filter(b => b.n >= 3).map(b => `<circle cx="${X(b.p)}" cy="${Y(Math.max(.3, b.w))}" r="${Math.min(9, 3 + Math.sqrt(b.n))}" fill="${farbe}" fill-opacity=".75"><title>${pc(b.lo,0)}–${pc(Math.min(b.hi,1),0)}: vorhergesagt ${pc(b.p,0)}, gewonnen ${pc(b.w,0)} (n ${b.n})</title></circle>`).join("");
+  const achsen = [.5,.6,.7,.8,.9,1].map(v => `<text x="${X(v)}" y="${H-8}" font-size="10" text-anchor="middle" fill="var(--muted)">${fx(v*100,0)}</text>`).join("")
+    + [.3,.5,.7,.9].map(v => `<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-4}" y="${Y(v)+3}" font-size="10" text-anchor="end" fill="var(--muted)">${fx(v*100,0)}</text>`).join("");
+  const svg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:380px" role="img" aria-label="Kalibrierung">${achsen}
+    <line x1="${X(.5)}" y1="${Y(.5)}" x2="${X(1)}" y2="${Y(1)}" stroke="var(--muted)" stroke-dasharray="4 3"/>${punkte(tk, "var(--muted)")}${punkte(tm, "var(--accent)")}</svg>`;
+  const zeilen = BER.map((b, i) => `<tr><td class="l">${pc(b[0],0)}–${b[1] > 1 ? "100 %" : pc(b[1],0)}</td>
+    <td class="num">${tm[i].n}</td><td class="num">${pc(tm[i].p,0)}</td><td class="num ${tm[i].n>=5 && Math.abs(tm[i].w-tm[i].p) > .08 ? "negv" : ""}">${pc(tm[i].w,0)}</td>
+    <td class="num">${tk[i].n}</td><td class="num">${pc(tk[i].p,0)}</td><td class="num">${pc(tk[i].w,0)}</td></tr>`).join("");
+  return `<details class="box klapp" data-k="kalib" style="margin-top:16px"${store.get("klapp.kalib", false)?" open":""}><summary><h3>🎯 Kalibrierung <span class="time">${xs.length} Partien · Brier Modell ${fx(brier("M"),3)} / Markt ${fx(brier("K"),3)}</span></h3></summary>
+    <div class="kalib"><div>${svg}<div class="time"><span style="color:var(--accent)">●</span> Modell · <span style="color:var(--muted)">●</span> Markt · gestrichelt = perfekt kalibriert</div></div>
+    <div class="tablewrap"><table><thead><tr><th class="l" rowspan="2">Favorit bei</th><th colspan="3" style="text-align:center">Modell</th><th colspan="3" style="text-align:center">Markt</th></tr>
+      <tr><th class="num">n</th><th class="num">sagt</th><th class="num">gewinnt</th><th class="num">n</th><th class="num">sagt</th><th class="num">gewinnt</th></tr></thead><tbody>${zeilen}</tbody></table></div></div>
+    <p class="note">Gleiche Partien für Modell und Markt (mit Quote und Ergebnis, ohne Aufgaben). Liegt „gewinnt“ unter „sagt“, ist das Modell in diesem Bereich zu selbstsicher, liegt es darüber, zu vorsichtig. Rot: Abweichung über 8 Punkte bei mind. 5 Partien. Brier-Score: kleiner ist besser. Folgt dem Filter „Turniere“.</p></details>`;
+}
 function assBilanzHtml(bm, art){
   if(!VAR) return "";
   const xs = Object.values(VAR.ass||{}).filter(x => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x)))
@@ -1000,7 +1156,12 @@ function formText(f, start){
   if(!f) return "–";
   if(!f.spiele7) return "kein Spiel";
   const tage = f.letztes && start ? Math.max(0, Math.round((new Date(start) - new Date(f.letztes)) / 864e5)) : null;
-  return `${f.spiele7} Sp. (${f.siege7||0} S), ${f.saetze7} Sätze${f.dreisatz7?`, ${f.dreisatz7}× 3 Sätze`:""}${tage!=null?`, zuletzt vor ${tage===0?"<1":tage} T.`:""}${f.quali?", aus Quali":""}`;
+  // Belastung: Spielminuten (wenn geliefert, sonst Games als Ersatz) – letztes Spiel extra
+  const h = (m) => m >= 60 ? `${Math.floor(m/60)}:${String(m%60).padStart(2,"0")} h` : `${m} min`;
+  const last = f.letztesMin ? `letztes ${h(f.letztesMin)}` : f.letztesGames ? `letztes ${f.letztesGames} Games` : "";
+  const bel = f.min7 && f.minN === f.spiele7 ? `${h(f.min7)} Spielzeit` : f.games7 ? `${f.games7} Games${f.min7 ? ` (${h(f.min7)} in ${f.minN} Sp.)` : ""}` : "";
+  const schwer = (f.letztesMin && f.letztesMin >= 150) || (!f.letztesMin && f.letztesGames >= 33);
+  return `${f.spiele7} Sp. (${f.siege7||0} S), ${f.saetze7} Sätze${f.dreisatz7?`, ${f.dreisatz7}× 3 Sätze`:""}${tage!=null?`, zuletzt vor ${tage===0?"<1":tage} T.`:""}${f.quali?", aus Quali":""}${bel ? `<br><span class="time">Belastung: ${bel}${last ? ` · ${last}` : ""}${schwer && tage!=null && tage <= 1 ? ` · <b>langes Match am Vortag</b>` : ""}</span>` : ""}`;
 }
 function quoteBox(p, r){
   const bms = Object.keys(p.quoten||{}), bm = r.manuellQ ? r.manuellQ.bm : (r.bm || bms[0] || "winamax");
@@ -1111,7 +1272,7 @@ function detailHtml(p, r){
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc||!ARCHIV?"":`
       <h3 style="margin-top:10px" title="Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div class="kv two">${
-        [p.a, p.b].map(n => `<span class="k">${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span>`).join("")}</div>`}${p.calc?"":bilanzHtml(r)}${p.calc?"":warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
+        [p.a, p.b].map(n => `<span class="k">${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span>`).join("")}</div>`}${p.calc?"":bilanzHtml(r)}${p.calc?"":signalInfoHtml(r)+warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
       ${p.calc?"":quoteBox(p, r)}
       ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
@@ -1174,9 +1335,11 @@ function renderLog(){
       VAR_OFFEN = VAR_OFFEN === t.dataset.v ? null : t.dataset.v; $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value); }); }
   $("#b-aussenseiter").innerHTML = assBilanzHtml(bm, art);
   $("#b-bilanzsig").innerHTML = bilanzSigHtml(bm, art);
+  $("#b-kalib").innerHTML = kalibHtml(art);
   if(!VAR) variantenLaden().then(() => { $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value);
     $("#b-aussenseiter").innerHTML = assBilanzHtml($("#b-bm").value, $("#b-art").value);
-    $("#b-bilanzsig").innerHTML = bilanzSigHtml($("#b-bm").value, $("#b-art").value); });
+    $("#b-bilanzsig").innerHTML = bilanzSigHtml($("#b-bm").value, $("#b-art").value);
+    $("#b-kalib").innerHTML = kalibHtml($("#b-art").value); });
   { // Verlauf in Units: Unit-Einsatz (gerundet wie angezeigt) und flach 1 U je Tipp
     const fertig = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L").sort((a,b) => String(a.start).localeCompare(String(b.start)));
     let su = 0, sf = 0; const wu = [], wf = [], info = [];
@@ -1532,7 +1695,8 @@ function setupWetten(){
     wetteNeu({fixtureId: p.id, start: p.start, turnier: p.turnier, belag: r.belagEff, a: p.a, b: p.b, seite,
       spieler: seite==="A"?p.a:p.b, gegner: seite==="A"?p.b:p.a, buchmacher: f.bm.value, quote, einsatz,
       beine: markt==="sieg" ? undefined : [bein], markt,
-      modellP: seite==="A"?r.pFinal:1-r.pFinal, edge: seite==="A"?r.edgeA:r.edgeB, valueTipp: markt==="sieg" && r.wette===seite});
+      modellP: seite==="A"?r.pFinal:1-r.pFinal, edge: seite==="A"?r.edgeA:r.edgeB, valueTipp: markt==="sieg" && r.wette===seite,
+      signal: markt==="sieg" && r.wette!==seite ? (r.aussenseiter && r.aussenseiter.seite===seite ? "ass" : r.bilanzSignal && r.bilanzSignal.seite===seite ? "bil" : undefined) : undefined});
     render();
   });
   // Spieler oder Buchmacher gewechselt -> passende Quote eintragen (nur beim Markt "Sieg")
@@ -1662,6 +1826,23 @@ function renderWetten(){
   $("#m-roi").textContent = einsatz ? sg(gewinn/einsatz) : "–"; $("#m-roi").className = gewinn>0?"pos":gewinn<0?"negv":"";
   $("#m-offen").innerHTML = offen ? betragU(offen) : "–";
   $("#m-clv").textContent = n ? fx(qs/n) : "–";
+  { // Auswertung nach Art der Wette: Value-Tipp / Signal / eigene Idee (Einzel) / Kombi, dazu „gegen die Modell-Prognose“
+    const unit = unitCfg().unit;
+    const art = (w) => w.beine && w.beine.length > 1 ? "kombi" : w.valueTipp ? "value" : w.signal ? "signal" : "eigen";
+    const NAMEN = {value:"Value-Tipps des Modells", signal:"Signale (Außenseiter / Bilanz)", eigen:"Eigene Ideen (Einzelwetten)", kombi:"Kombis"};
+    const g = {}; const neu = () => ({n:0, w:0, l:0, e:0, gw:0, offen:0});
+    const gegen = neu();
+    for(const w of xs){ const e = ergebnisVon(w), k = art(w), z = g[k] || (g[k] = neu());
+      if(!e){ z.offen++; continue; } if(e==="V") continue;
+      const gv = gewinnVon(w, e); z.n++; z.e += w.einsatz; z.gw += gv; if(gv > 0) z.w++; else z.l++;
+      if(k==="eigen" && typeof w.modellP==="number" && w.modellP < .5 && (!w.markt || w.markt==="sieg")){ gegen.n++; gegen.e += w.einsatz; gegen.gw += gv; if(gv > 0) gegen.w++; else gegen.l++; }
+    }
+    const zeile = (t, z, ein) => `<tr><td class="l">${ein?"&nbsp;&nbsp;↳ ":""}${t}</td><td class="num">${z.n}${z.offen?` <small>+${z.offen} offen</small>`:""}</td><td class="num">${z.n?`${z.w}–${z.l}`:"–"}</td><td class="num">${z.n?fx(z.e/unit,1)+" U":"–"}</td><td class="num ${z.gw>0?"pos":z.gw<0?"negv":""}">${z.n?(z.gw>0?"+":"")+fx(z.gw/unit,1)+" U":"–"}</td><td class="num">${z.e?sg(z.gw/z.e):"–"}</td></tr>`;
+    const reihen = ["value","signal","eigen","kombi"].filter(k => g[k]).map(k => zeile(NAMEN[k], g[k]) + (k==="eigen" && gegen.n ? zeile("davon gegen die Modell-Prognose", gegen, true) : "")).join("");
+    $("#m-arten").innerHTML = reihen ? `<details class="box klapp" data-k="marten" style="margin-top:12px"${store.get("klapp.marten", true)?" open":""}><summary><h3>Nach Art der Wette</h3></summary>
+      <div class="tablewrap"><table><thead><tr><th class="l">Art</th><th class="num">Wetten</th><th class="num">gew.–verl.</th><th class="num">Einsatz</th><th class="num">Gewinn</th><th class="num">ROI</th></tr></thead><tbody>${reihen}</tbody></table></div>
+      <p class="note">Value-Tipp = beim Speichern war es der Value-Tipp des Modells. Signal = Außenseiter- oder Bilanz-Signal auf diesen Spieler. Gegen die Modell-Prognose = Einzelwette auf den Spieler, den das Modell unter 50 % sieht. Cashout zählt nach Gewinn/Verlust. Folgt dem Monatsfilter.</p></details>` : "";
+  }
   { const unit = unitCfg().unit, fertig = xs.map(w => ({w, e: ergebnisVon(w)})).filter(x => x.e==="W" || x.e==="L" || x.e==="C").sort((a,b) => String(a.w.start).localeCompare(String(b.w.start)));
     let sum = 0; const werte = [], info = [];
     for(const {w, e} of fertig){ sum += gewinnVon(w, e) / unit; werte.push(Math.round(sum*100)/100);
