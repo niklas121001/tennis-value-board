@@ -212,7 +212,9 @@ def main():
                         seen[m["id"]][seite] = k
                     m[seite], m[seite + "InDb"] = k, True
                     umbenannt += 1
-    unbekannt_rest = sorted({m.get(s_) for m in matches for s_ in ("a", "b") if m.get(s_) not in players})
+    # Quali-Partien ohne Quote zählen nicht (bei Winamax nicht im Angebot, Spieler meist ohne Daten)
+    unbekannt_rest = sorted({m.get(s_) for m in matches for s_ in ("a", "b") if m.get(s_) not in players
+                             and not (m.get("quali") and not m.get("quoten"))})
 
     # 2) Elo aus Ergebnissen (nur für geschätzte Spieler; Tennis-Abstract-Spieler pflegt Tennis Abstract)
     jetzt = datetime.datetime.now(datetime.timezone.utc)
