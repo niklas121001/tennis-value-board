@@ -420,6 +420,7 @@ async function init(){
         if(D.serveLive && D.serveLive[name]) delete D.serveLive[name][k]; } }
     if(n){ D._tour = null; render(); } });
   setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten(); BEREIT = true;
+  Promise.all([j("aussenseiter_tips.json", {}), j("bilanz_tips.json", {})]).then(([ass, bil]) => { SIGLOG = {ass: ass||{}, bil: bil||{}}; render(); });
   archivLaden().then(() => render());   // für „1 U auf Sieg“ im Spieler-Check
   if(!$("#v-protokoll").hidden) renderLog();
 }
@@ -503,7 +504,30 @@ function quoteOvr(p){
   if(M && M.stand && new Date(M.stand) > new Date(o.zeit)){ try{ localStorage.removeItem("tvb.quote."+p.id); }catch(_){} return null; }
   return o;
 }
+// Getrackte Signale (Außenseiter / Bilanz) bleiben sichtbar, auch wenn sich die Quote seitdem so bewegt hat,
+// dass die Bedingungen gerade nicht mehr erfüllt sind – Board und Bilanz zeigen dann dasselbe.
+let SIGLOG = {ass: {}, bil: {}};
+function sigAusLog(log, p, bm){
+  const keys = Object.keys(log).filter(k => k.startsWith(p.id + "|"));
+  const k = keys.find(k => k.endsWith("|" + bm)) || keys[0];
+  return k ? log[k] : null;
+}
 function evalMatch(p){
+  const r = evalMatchRoh(p);
+  if(!r || !r.ok) return r;
+  const jetztQ = (x) => x.wette==="A" ? r.qa : r.qb;
+  if(!r.aussenseiter){ const x = sigAusLog(SIGLOG.ass, p, r.bm);
+    if(x){ const name = x.wette==="A" ? p.a : p.b, gegen = x.wette==="A" ? p.b : p.a;
+      r.aussenseiter = {seite:x.wette, name, gegen, quote:x.erstQuote, favPct:x.favPct, favN:x.favN, ausPct:x.ausPct, ausN:x.ausN,
+        pModell:x.pModell, pMarkt:x.pMarkt, fair: x.pModell ? 1/x.pModell : null, ausLog:true, erstGesehen:x.erstGesehen, quoteJetzt: jetztQ(x)}; } }
+  if(!r.bilanzSignal){ const x = sigAusLog(SIGLOG.bil, p, r.bm);
+    if(x){ r.bilanzSignal = {seite:x.wette, name: x.wette==="A" ? p.a : p.b, gegen: x.wette==="A" ? p.b : p.a, quote:x.erstQuote, band:x.band,
+      siege:x.siege, n:x.n, pBand:x.pBand, pEst:x.pEst, pMarkt:x.pMarkt, edge:x.edge, fair: x.pEst ? 1/x.pEst : null, kellyEur:x.kellyEur,
+      ausLog:true, erstGesehen:x.erstGesehen, quoteJetzt: jetztQ(x)}; } }
+  return r;
+}
+const logHinweis = (x) => x && x.ausLog ? ` <span class="time">Signal vom ${kDatum(x.erstGesehen)}, ${new Date(x.erstGesehen).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ})} Uhr bei Quote ${fx(x.quote)}${x.quoteJetzt && Math.abs(x.quoteJetzt - x.quote) > 1e-9 ? ` – aktuell ${fx(x.quoteJetzt)}, die Bedingungen sind gerade nicht mehr erfüllt` : ""}. Wird trotzdem getrackt.</span>` : "";
+function evalMatchRoh(p){
   const {belag, quelle} = belagFor(p);
   const bm = $("#bm").value;
   const ovr = quoteOvr(p);
@@ -998,7 +1022,7 @@ function bilanzHtml(r){
   const s = bilanzU(x.kellyEur), e = s ? (s.klein ? uSpan("klein", `${fx(s.u)} U`, "klein") : uSpan(fu(s.u)+" U", eur(s.u*unitCfg().unit))) : "–";
   return `<div class="bilbox"><b>📊 Bilanz-Signal (Test):</b> ${esc(x.name)} @ ${fx(x.quote)} – gewinnt bei Quote ${x.band.replace("-","–").replace(/\./g,",")} ${x.siege} von ${x.n} (${pc(x.pBand,0)}).
     Geschätzt ${pc(x.pEst)} statt Markt ${pc(x.pMarkt)} (faire Quote ${fx(x.fair)}), Edge ${sg(x.edge)}. <b>Einsatz ${e}</b>
-    <span class="time">Kein Modell-Value – nur aus der Spielerbilanz, zum Markt hin gezogen. Wird separat getrackt (Bilanz → Bilanz-Signale).</span></div>`;
+    <span class="time">Kein Modell-Value – nur aus der Spielerbilanz, zum Markt hin gezogen.${x.ausLog ? "" : " Wird separat getrackt (Bilanz → Bilanz-Signale)."}</span>${logHinweis(x)}</div>`;
 }
 function bilanzSigHtml(bm, art){
   if(!VAR) return "";
@@ -1027,7 +1051,7 @@ function bilanzSigHtml(bm, art){
 }
 function assHtml(r){
   const x = r.aussenseiter; if(!x) return "";
-  return `<div class="assbox"><b>⚡ Achtung Außenseiter-Signal:</b> ${esc(assText(x))} <span class="time">Wird separat getrackt (Bilanz → Außenseiter-Signale).</span></div>`;
+  return `<div class="assbox"><b>⚡ Achtung Außenseiter-Signal:</b> ${esc(assText(x))} ${x.ausLog ? logHinweis(x) : `<span class="time">Wird separat getrackt (Bilanz → Außenseiter-Signale).</span>`}</div>`;
 }
 function warnHtml(p, r){
   const ws = r.warn || []; if(!ws.length) return "";
