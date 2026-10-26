@@ -127,6 +127,14 @@ class NameMatcher:
                 kand = {n for n in self.by_last.get(nach, []) if norm(n).split()[0] == kuerzel}
                 if len(kand) == 1:
                     return kand.pop()
+            # Voller Name im Spielplan, Kurzform in der DB ("Marcelo Tomas Barrios Vera" ~ "Tomas Vera"):
+            # alle DB-Teile kommen in derselben Reihenfolge im Spielplan-Namen vor, letzter Teil gleich – nur wenn eindeutig
+            def teilfolge(kurz, lang):
+                it = iter(lang)
+                return all(t in it for t in kurz)
+            kand = {n for n in self.by_last.get(f[-1], []) if 2 <= len(norm(n).split()) < len(f) and teilfolge(norm(n).split(), f)}
+            if len(kand) == 1:
+                return kand.pop()
             # Mittelnamen fehlen ("Jay Friend" ~ "Jay Dylan Hara Friend"), nur wenn eindeutig
             kand = {n for n in self.by_last.get(f[-1], []) if len(norm(n).split()) > len(f) == 2 and norm(n).split()[0] == f[0]}
             if len(kand) == 1:
