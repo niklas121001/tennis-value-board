@@ -1390,10 +1390,12 @@ function nameGleich(x, y){       // "Sinner", "J. Sinner", "Jannik Sinner" passe
 }
 function archivSuche(bein){
   if(bein.fixtureId && ARCHIV && ARCHIV[bein.fixtureId]) return ARCHIV[bein.fixtureId];
-  if(!ARCHIV) return null;
+  // Partie bekannt, aber noch nicht im Archiv -> noch kein Ergebnis. Nicht über Namen suchen, sonst wird z. B. das
+  // Quali-Duell vom Vortag gegen denselben Gegner gefunden (Altmaier – Cerundolo in Basel).
+  if(!ARCHIV || bein.fixtureId) return null;
   const d = new Date(String(bein.datum||"").slice(0,10)+"T12:00:00Z");
   const treffer = Object.values(ARCHIV).filter(x => {
-    const dd = Math.abs(new Date(x.start) - d) / 864e5; if(!(dd <= 1.6)) return false;
+    const dd = Math.abs(new Date(x.start) - d) / 864e5; if(!(dd <= 0.75)) return false;   // nur derselbe Spieltag
     const pa = nameGleich(bein.spieler, x.a), pb = nameGleich(bein.spieler, x.b);
     if(!pa && !pb) return false;
     return !bein.gegner || nameGleich(bein.gegner, pa ? x.b : x.a);
