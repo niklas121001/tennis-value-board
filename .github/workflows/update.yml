@@ -4,11 +4,16 @@ on:
   schedule:
     # Läufe um 07:30 und 14:05 Uhr deutscher Zeit – ganzjährig (GitHub startet oft 20–40 Min. später). GitHub rechnet in UTC, daher je zwei Zeiten:
     # Sommerzeit (UTC+2): 05:30 und 12:05 UTC · Winterzeit (UTC+1): 06:30 und 13:05 UTC.
-    # Der Job "zeitpruefung" lässt nur die Variante laufen, die zur aktuellen deutschen Zeit passt.
+    # GitHub verzögert geplante Läufe teils um Stunden oder lässt sie ausfallen. Deshalb gibt es Ersatz-Zeiten,
+    # und der Job "zeitpruefung" entscheidet nach deutscher Uhrzeit und docs/data/lauf_status.json:
+    # Frühlauf ab 07:15 Uhr, Mittagslauf ab 13:50 Uhr – jeweils einmal pro Tag, egal welcher Zeitplan ihn auslöst.
     - cron: "30 5 * * *"
     - cron: "5 12 * * *"
     - cron: "30 6 * * *"
     - cron: "5 13 * * *"
+    - cron: "45 7 * * *"     # Ersatz Frühlauf
+    - cron: "15 14 * * *"    # Ersatz Mittagslauf
+    - cron: "45 15 * * *"    # Ersatz Mittagslauf
   workflow_dispatch: {}   # manuell starten: Actions → Daten aktualisieren → Run workflow
 
 permissions:
@@ -23,18 +28,25 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       laufen: ${{ steps.p.outputs.laufen }}
+      slot: ${{ steps.p.outputs.slot }}
     steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: docs/data/lauf_status.json
+          sparse-checkout-cone-mode: false
       - id: p
         run: |
-          versatz=$(TZ=Europe/Berlin date +%z)          # +0200 Sommerzeit, +0100 Winterzeit
-          plan="${{ github.event.schedule }}"
+          hm=$(TZ=Europe/Berlin date +%H%M); heute=$(TZ=Europe/Berlin date +%F)
+          if [ "$hm" -ge 1350 ]; then slot=mittag; elif [ "$hm" -ge 715 ]; then slot=frueh; else slot=""; fi
+          erledigt=$(python3 -c "import json,sys; d=json.load(open('docs/data/lauf_status.json')) if __import__('os').path.exists('docs/data/lauf_status.json') else {}; print(d.get('$slot',''))" 2>/dev/null || true)
           laufen=true
-          case "$plan" in
-            "30 5 * * *"|"5 12 * * *") [ "$versatz" = "+0200" ] || laufen=false ;;
-            "30 6 * * *"|"5 13 * * *") [ "$versatz" = "+0100" ] || laufen=false ;;
-          esac
-          echo "Zeitplan '$plan', deutsche Zeit $versatz -> laufen=$laufen"
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ -z "$slot" ] || [ "$erledigt" = "$heute" ]; then laufen=false; fi
+          fi
+          [ -z "$slot" ] && slot=manuell
+          echo "Zeitplan '${{ github.event.schedule }}', deutsche Zeit $hm, Lauf '$slot' heute schon: '$erledigt' -> laufen=$laufen"
           echo "laufen=$laufen" >> "$GITHUB_OUTPUT"
+          echo "slot=$slot" >> "$GITHUB_OUTPUT"
 
   update:
     needs: zeitpruefung
@@ -162,6 +174,8 @@ jobs:
         run: |
           git config user.name "tennis-bot"
           git config user.email "tennis-bot@users.noreply.github.com"
+          # Lauf als erledigt merken (Früh-/Mittagslauf je einmal pro Tag)
+          python3 -c "import json,os; p='docs/data/lauf_status.json'; d=json.load(open(p)) if os.path.exists(p) else {}; d['${{ needs.zeitpruefung.outputs.slot }}']=os.popen('TZ=Europe/Berlin date +%F').read().strip(); json.dump(d,open(p,'w'))"
           git add -A docs/data
           git diff --cached --quiet || git commit -m "Daten-Update $(date -u +'%Y-%m-%d %H:%M') UTC"
           # Während des Laufs auf der Website gespeicherte Änderungen (z. B. manuelle Spielerwerte) zuerst einholen
