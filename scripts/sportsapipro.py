@@ -121,6 +121,7 @@ def kompakt(e):
     return {"id": e.get("id"), "start": iso(e["startTimestamp"]) if e.get("startTimestamp") else None, "min": dauer,
             "kat": kat, "turnier": tn, "belag": belag_von(e.get("groundType")), "gt": e.get("groundType"),
             "h": hn, "a": an, "hId": h.get("id"), "aId": a.get("id"),
+            "hL": (h.get("country") or {}).get("alpha2"), "aL": (a.get("country") or {}).get("alpha2"),
             "st": str(st.get("type", "")).lower(), "desc": str(st.get("description", "")),
             "w": e.get("winnerCode"), "runde": (e.get("roundInfo") or {}).get("name"), "satz": satz}
 
@@ -273,12 +274,18 @@ def main():
     # Belag je Partie + sapId in matches.json
     n_belag = 0
     board_namen = set()
+    laender = load("laender.json", {})        # DB-Name -> Ländercode (ISO alpha2), für Flaggen auf der Website
     for m in mj.get("partien", []):
         z = smap.get(m["id"])
         ev = cache.get(str(z["sap"])) if z else None
         if not ev:
             continue
         m["sapId"] = ev["id"]
+        la, lb = (ev.get("aL"), ev.get("hL")) if z.get("tausch") else (ev.get("hL"), ev.get("aL"))
+        for seite, land in (("a", la), ("b", lb)):
+            if land and len(str(land)) == 2:
+                m["land" + seite.upper()] = str(land).upper()
+                laender[m[seite]] = str(land).upper()
         if "qualif" in str(ev.get("turnier", "")).lower() or "qualif" in str(ev.get("runde") or "").lower():
             m["quali"] = True                # OddsPapi kennzeichnet Quali-Partien nicht – SportsAPIPro schon
         else:
@@ -369,6 +376,8 @@ def main():
 
     if not mj.get("demo"):
         save("matches.json", mj, indent=0)
+        if laender:
+            save("laender.json", laender, indent=0)
 
     # 3) H2H für kommende Board-Partien mit Quoten – je Partie einmal
     h2h = load("h2h_api.json", {"paare": {}, "abrufe": {}})

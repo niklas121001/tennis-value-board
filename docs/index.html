@@ -87,6 +87,15 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 @media (max-width:620px){.hgrid{grid-template-columns:minmax(0,1fr)}}
 .kalib{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:16px;align-items:start}
 @media (max-width:760px){.kalib{grid-template-columns:minmax(0,1fr)}}
+/* Prognose-Balken: Modell-Anteil Spieler A (Farbe), Strich = Markt */
+.pbar{position:relative;height:6px;width:100%;max-width:120px;background:var(--line);border-radius:3px;margin-top:4px;overflow:visible}
+.pbar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:3px 0 0 3px;opacity:.85}
+.pbar b{position:absolute;top:-3px;width:2px;height:12px;background:var(--fg);margin-left:-1px;border-radius:1px}
+.sym{font-size:12px;margin-left:3px;cursor:help}
+.flag{margin-right:4px;font-size:13px}
+.tabpunkt{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--warn);vertical-align:3px;margin-left:3px}
+tr.m.value td{background:color-mix(in srgb, var(--good-soft) 70%, transparent)}
+tr.m.value .kel, tr.m.value td.einsatz-z{font-weight:700}
 .bilbox{background:var(--accent-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-top:10px;font-size:13px}
 .assbox{background:var(--warn-soft);color:var(--fg);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:13px}
 .wwarn{color:var(--warn);cursor:help;font-size:12px}
@@ -434,7 +443,7 @@ async function init(){
         if(D.serveLive && D.serveLive[name]) delete D.serveLive[name][k]; } }
     if(n){ D._tour = null; render(); } });
   setupHeader(); setupControls(); render(); renderLog(); renderInfo(); setupCalc(); setupWetten(); BEREIT = true;
-  Promise.all([j("aussenseiter_tips.json", {}), j("bilanz_tips.json", {})]).then(([ass, bil]) => { SIGLOG = {ass: ass||{}, bil: bil||{}}; render(); });
+  Promise.all([j("aussenseiter_tips.json", {}), j("bilanz_tips.json", {}), j("laender.json", {})]).then(([ass, bil, la]) => { SIGLOG = {ass: ass||{}, bil: bil||{}}; LAENDER = la||{}; render(); });
   $("#heute").addEventListener("toggle", (e) => { if(e.target.matches("details.heute")) store.set("heute.offen", e.target.open); }, true);
   $("#heute").addEventListener("click", (e) => {
     const hk = e.target.closest(".hk");
@@ -454,14 +463,15 @@ async function init(){
 
 function setupHeader(){
   const t = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "–";
-  const k = META.kontingent ? ` · API ${META.kontingent.verbraucht}/${META.kontingent.limit}` : "";
-  $("#stand").innerHTML = `Quoten: ${t(META.quoten_update || M.stand)} · Elo: ${t(META.elo_update)}${k}`;
+  $("#stand").innerHTML = `Stand ${t(META.quoten_update || M.stand)}`;
+  $("#stand").title = `Quoten: ${t(META.quoten_update || M.stand)} · Elo: ${t(META.elo_update)} – Details im Reiter Modell`;
+  // Technische Hinweise gehören in den Modell-Reiter; dort ein Punkt am Reiter, wenn etwas zu tun ist
+  const todo = (META.unbekannte_namen||[]).length + (META.buchmacher_fehlen||[]).length;
+  if(todo) $("#tab-info").innerHTML = `Modell <span class="tabpunkt" title="${todo} Hinweis${todo>1?"e":""} im Reiter Modell"></span>`;
   const msgs = [];
   if(M.demo) msgs.push("Demo-Daten: Partien und Quoten aus dem aktuellen DASHBOARD deiner Excel. Live-Quoten erscheinen, sobald der OddsPapi-Key hinterlegt ist.");
   if(M.hinweis) msgs.push(M.hinweis);
   if(META.quoten_hinweis) msgs.push(META.quoten_hinweis);
-  if(META.buchmacher_fehlen && META.buchmacher_fehlen.length) msgs.push("Bei OddsPapi nicht gefunden: "+META.buchmacher_fehlen.join(", "));
-  if(META.unbekannte_namen && META.unbekannte_namen.length) msgs.push(`${META.unbekannte_namen.length} Spielernamen nicht in der Spieler-DB (siehe Reiter Modell).`);
   if(msgs.length){ $("#banner").hidden = false; $("#banner").innerHTML = msgs.map(esc).join("<br>"); }
 }
 
@@ -533,7 +543,13 @@ function quoteOvr(p){
 }
 // Getrackte Signale (Außenseiter / Bilanz) bleiben sichtbar, auch wenn sich die Quote seitdem so bewegt hat,
 // dass die Bedingungen gerade nicht mehr erfüllt sind – Board und Bilanz zeigen dann dasselbe.
-let SIGLOG = {ass: {}, bil: {}};
+let SIGLOG = {ass: {}, bil: {}}, LAENDER = {};
+// Länderflagge aus ISO-Code (Emoji aus Regional-Indicator-Buchstaben); leer, wenn unbekannt
+function flagge(code){
+  const c = String(code||"").toUpperCase(); if(!/^[A-Z]{2}$/.test(c)) return "";
+  return `<span class="flag" title="${c}">${String.fromCodePoint(...[...c].map(x => 0x1F1E6 + x.charCodeAt(0) - 65))}</span>`;
+}
+const landVon = (p, seite) => (seite==="A" ? p.landA : p.landB) || LAENDER[seite==="A" ? p.a : p.b];
 function sigAusLog(log, p, bm){
   const keys = Object.keys(log).filter(k => k.startsWith(p.id + "|"));
   const k = keys.find(k => k.endsWith("|" + bm)) || keys[0];
@@ -757,15 +773,26 @@ function rowHtml(p, r){
   const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
   const favA = r.pFinal >= 0.5;   // Modell-Favorit = prognostizierter Sieger (wie Excel "Modell-Favorit")
   const gs = (flag, name) => flag ? `<span class="gesch" title="Elo geschätzt aus Marktquoten und ersten Ergebnissen – noch kein Value-Tipp für die Bilanz">≈</span> ${esc(name)}` : esc(name);
+  // Signale als kleine Symbole direkt am Spieler
+  const sym = (seite) => [
+    r.aussenseiter && r.aussenseiter.seite===seite ? `<span class="sym" title="Außenseiter-Signal">⚡</span>` : "",
+    r.bilanzSignal && r.bilanzSignal.seite===seite ? `<span class="sym" title="Bilanz-Signal (Test)">📊</span>` : "",
+    r.sturz && r.sturz.seite===seite ? `<span class="sym" title="Quotensturz ${fx(r.sturz.erst)} → ${fx(r.sturz.jetzt)}">📉</span>` : "",
+    r.verpasst && r.verpasst.seite===seite ? `<span class="sym" title="Value verpasst: Tipp bei ${fx(r.verpasst.erstQuote)}">⏱</span>` : ""].join("");
+  // Prognose-Balken für den Modell-Favoriten: Füllung = Modell, Strich = Markt (gleicher Spieler)
+  const balken = (() => { if(r.pFinal==null) return "";
+    const fA = r.pFinal >= .5, m = Math.round((fA ? r.pFinal : 1-r.pFinal)*100), k = r.pMarkt!=null ? Math.round((fA ? r.pMarkt : 1-r.pMarkt)*100) : null;
+    const name = fA ? r.a : r.b;
+    return `<div class="pbar" title="${esc(name)}: Modell ${m} %${k!=null?` · Markt ${k} %`:""}"><i style="width:${m}%"></i>${k!=null?`<b style="left:${k}%"></b>`:""}</div>`; })();
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
-    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${gs(r.eloGeschaetztA, r.a)}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${gs(r.eloGeschaetztB, r.b)}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}</div></td>
-    <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span></div></td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}<span class="show-s">${balken}</span></div></td>
+    <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span>${balken}</div></td>
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
     <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
-    <td>${pill}${r.sturz?`<span class="pill sturz" title="${esc(r.sturz.name)}: ${fx(r.sturz.erst)} → ${fx(r.sturz.jetzt)}">📉 <span class="hide-s">Quotensturz</span></span>`:""}${r.aussenseiter?`<span class="pill ass" title="${esc(assText(r.aussenseiter))}">⚡ Außenseiter</span>`:""}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
-    <td class="num hide-s">${r.kelly&&!stop&&!regelAus?stakeHtml(r.kelly):"–"}</td>
+    <td>${pill}${r.aussenseiter?`<span class="pill ass" title="${esc(assText(r.aussenseiter))}">⚡ Außenseiter</span>`:""}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
+    <td class="num hide-s einsatz-z">${r.kelly&&!stop&&!regelAus?stakeHtml(r.kelly):"–"}</td>
     <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
   if(open.has(p.id)) html += `<tr class="detail"><td colspan="9">${detailHtml(p, r)}</td></tr>`;
   return html;
@@ -1100,7 +1127,7 @@ async function openProfil(name, ctx){
     return n ? `<tr><td>${b.replace("-","–").replace(/\./g,",")}</td><td>${s_}–${n-s_}</td><td>${pc(s_/n,0)}</td></tr>` : ""; }).join("");
   const h2h = ctx && ctx.r && ctx.r.h2h ? (ctx.seite==="A" ? [ctx.r.h2h.a, ctx.r.h2h.b] : [ctx.r.h2h.b, ctx.r.h2h.a]) : null;
   const form = ctx && ctx.p && ctx.p.form ? ctx.p.form[ctx.seite==="A"?"a":"b"] : null;
-  const html = (letzte) => `<div class="prkopf"><div><h2 id="pr-titel">${esc(name)}${gesch}</h2>
+  const html = (letzte) => `<div class="prkopf"><div><h2 id="pr-titel">${flagge((ctx && ctx.p ? landVon(ctx.p, ctx.seite) : null) || LAENDER[name])}${esc(name)}${gesch}</h2>
       <div class="time">yElo ${elo("elo")} · Hard ${elo("elo_hard")} · Sand ${elo("elo_clay")} · Rasen ${elo("elo_grass")}${pl.geschaetzt?` · geschätzt aus ${pl.n_markt||0} Quoten, ${pl.n_erg||0} Ergebnissen`:""}</div></div>
       <button type="button" class="btn ghost mini" id="pr-zu" aria-label="Profil schließen">✕</button></div>
     <div class="prgrid">
@@ -1391,7 +1418,15 @@ function renderInfo(){
   const gesch = Object.values(D.players).filter(p => p.geschaetzt).length;
   const un = META.unbekannte_namen || [];
   const uc = unitCfg();
+  const tt = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "–";
   $("#v-info").innerHTML = `
+  <h2>Systemstatus</h2>
+  <div class="kv two" style="max-width:560px">
+    <span class="k">Quoten zuletzt</span><span class="v">${tt(META.quoten_update || M.stand)}</span>
+    <span class="k">Elo zuletzt</span><span class="v">${tt(META.elo_update)}</span>
+    ${META.kontingent ? `<span class="k">OddsPapi diesen Monat</span><span class="v">${META.kontingent.verbraucht} / ${META.kontingent.limit} Anfragen</span>` : ""}
+    ${(META.buchmacher_fehlen||[]).length ? `<span class="k">Bei OddsPapi nicht gefunden</span><span class="v">${esc(META.buchmacher_fehlen.join(", "))}</span>` : ""}
+    <span class="k">Unbekannte Spielernamen</span><span class="v">${un.length || "keine"}</span></div>
   <h2>Spielerwerte von Hand speichern</h2>
   <p>Im Spielerprofil kannst du Aufschlag- und Returnwerte eintragen. Damit sie dauerhaft in der Datenbank landen, braucht die Seite einmalig einen GitHub-Schlüssel mit Schreibrecht für dieses Repo: GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token → Repository access: <b>Only select repositories</b> → ${esc(ghZiel().repo || "dein Repo")} → Permissions → <b>Contents: Read and write</b>. Der Schlüssel bleibt nur in diesem Browser.</p>
   <form class="uform" id="gh-form" autocomplete="off">
