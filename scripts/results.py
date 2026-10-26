@@ -157,6 +157,8 @@ def bilanz(log):
             g["gewinn_kelly"] -= k
 
     for t in log.values():
+        if t.get("storniert"):                  # Daten korrigiert, danach kein Value mehr -> zählt nicht
+            continue
         ch = "Challenger" if "challenger" in norm(f"{t.get('turnier')} {t.get('kategorie') or ''}") else "ATP"
         monat = str(t.get("start", ""))[:7]
         for bm in ("alle", t["buchmacher"]):
@@ -199,6 +201,8 @@ def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
     ordner.mkdir(exist_ok=True)
     tipps = {}
     for t in log.values():
+        if t.get("storniert"):
+            continue
         x = tipps.setdefault(t["id"], {"seite": t.get("wette"), "bm": []})
         x["bm"].append(t.get("buchmacher"))
     nm = NameMatcher(load("players.json", {}).keys(), load("name_map.json", {}))
@@ -208,6 +212,8 @@ def archiv_schreiben(erg_alle, seen, prog, smap, sap, log):
     for pf in sorted(ordner.glob("????-??.json")):
         monate[pf.stem] = json.loads(pf.read_text(encoding="utf-8"))
         for fid, x in monate[pf.stem].items():
+            if x.get("tipp") and fid not in tipps:      # Tipp inzwischen storniert
+                x["tipp"], x["bm"] = None, None
             for s in ("a", "b"):
                 x[s] = name_einheitlich(x.get(s), nm)
             if not x.get("qa") or not x.get("qb"):      # Quote nachtragen, falls sie erst nach der Prognose kam

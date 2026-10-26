@@ -48,6 +48,49 @@ for (const m of matches) {
     log[key] = e;
   }
 }
+// Korrekturen vor Spielbeginn: Spielerwerte von Hand korrigiert (manuelle_werte.json) oder Quote angepasst
+// (manuelle_quoten.json, von der Website gespeichert). Offene Tipps dieser Partien werden mit den korrigierten Daten
+// neu gerechnet: kein Value mehr -> "storniert" (zählt nicht in der Bilanz), sonst bleibt der Tipp (bei angepasster
+// Quote mit dieser Quote). Wird die Korrektur zurückgenommen, gilt der Tipp wieder wie protokolliert.
+{
+  const manQ = rd("manuelle_quoten.json", {}), manW = rd("manuelle_werte.json", {}), qv = rd("quoten_verlauf.json", {});
+  const z16 = (x) => String(x || "").slice(0, 16);
+  const byId = Object.fromEntries(matches.map((m) => [m.id, m]));
+  let storno = 0;
+  for (const t of Object.values(log)) {
+    if (t.ergebnis || !t.start || new Date(t.start) <= new Date()) continue;
+    const m = byId[t.id]; if (!m) continue;
+    const q = manQ[t.id], qOk = q && q.bm === t.buchmacher && z16(q.zeit) > z16(t.erstGesehen) && z16(q.zeit) < z16(t.start);
+    const wOk = [m.a, m.b].some((n) => manW[n] && z16(manW[n]._zeit) > z16(t.erstGesehen) && z16(manW[n]._zeit) < z16(t.start));
+    if (!qOk && !wOk) {
+      if (t.storniert) { delete t.storniert; delete t.stornoInfo; }
+      if (t.erstQuoteOrig) { t.erstQuote = t.erstQuoteOrig; delete t.erstQuoteOrig; }
+      continue;
+    }
+    // Nur Spielerwerte korrigiert: mit den Quoten zum Tipp-Zeitpunkt rechnen (sonst würde eine Marktbewegung storniert)
+    let qa, qb;
+    if (qOk) [qa, qb] = [q.qa, q.qb];
+    else {
+      const reihe = ((qv[t.id] || {}).bm || {})[t.buchmacher] || [];
+      const vor = reihe.filter((x) => z16(x[0]) <= z16(t.erstGesehen)), e0 = vor[vor.length - 1] || reihe[0];
+      [qa, qb] = e0 ? [e0[1], e0[2]] : ((m.quoten || {})[t.buchmacher] || []);
+      if (t.wette === "A") qa = t.erstQuote; else qb = t.erstQuote;
+    }
+    if (!(qa > 1 && qb > 1)) continue;
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
+    if (!r.ok) continue;
+    const pS = t.wette === "A" ? r.pFinal : 1 - r.pFinal, qS = t.wette === "A" ? qa : qb;
+    if (r.wette !== t.wette) {
+      if (!t.storniert) storno++;
+      t.storniert = wOk ? "werte" : "quote";
+      t.stornoInfo = `Modell ${Math.round(pS * 1000) / 10} % (fair ${(1 / pS).toFixed(2)}) bei Quote ${qS.toFixed(2)} – kein Value`;
+    } else {
+      delete t.storniert; delete t.stornoInfo;
+      if (qOk && Math.abs(qS - t.erstQuote) > 1e-9) { t.erstQuoteOrig = t.erstQuoteOrig || t.erstQuote; t.erstQuote = qS; }
+    }
+  }
+  if (storno) console.log(`Tipps storniert (Daten korrigiert, kein Value mehr): ${storno}`);
+}
 fs.writeFileSync(path.join(dir, "tips_log.json"), JSON.stringify(log, null, 0));
 
 // Test-Varianten B und C (Hintergrund, Auswertung zum Jahresende): eigene Tipps mit derselben Value-Regel.

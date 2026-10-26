@@ -322,6 +322,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     <div id="b-bilanzsig"></div>
     <div id="b-split"></div>
     <div id="protokoll"></div>
+    <div id="b-storno"></div>
     <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt. Alle Partien mit Ergebnis und Satzstand: <a href="ergebnisse.html">Ergebnis-Archiv</a>.</p>
   </section>
 
@@ -573,7 +574,7 @@ function evalMatch(p){
       ausLog:true, erstGesehen:x.erstGesehen, quoteJetzt: jetztQ(x)}; } }
   // Value verpasst: Tipp wurde protokolliert, ist mit der aktuellen Quote aber kein Value mehr
   { const t = LOG && LOG[p.id + "|" + r.bm];
-    if(t && t.wette && r.wette !== t.wette) r.verpasst = {seite: t.wette, name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote,
+    if(t && t.wette && !t.storniert && r.wette !== t.wette) r.verpasst = {seite: t.wette, name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote,
       jetzt: jetztQ(t), edge: t.edge, erstGesehen: t.erstGesehen}; }
   // Quotensturz: Quote eines Spielers seit der ersten Sichtung um mind. 10 % gefallen ("der Markt weiß was")
   { const reihe = qvReihe(p, r.bm);
@@ -685,7 +686,7 @@ function heuteHtml(){
   }catch(_){}
   offen.sort((a,b) => a.d - b.d);
   // Value-Tipps von gestern (Bilanz)
-  const gt = Object.values(LOG||{}).filter(t => { const d = new Date(t.start); return !isNaN(d) && dayKey(d) === kGestern && (t.ergebnis==="W" || t.ergebnis==="L"); });
+  const gt = Object.values(LOG||{}).filter(t => { const d = new Date(t.start); return !t.storniert && !isNaN(d) && dayKey(d) === kGestern && (t.ergebnis==="W" || t.ergebnis==="L"); });
   const gtW = gt.filter(t => t.ergebnis==="W").length, gtU = gt.reduce((s,t) => s + (t.ergebnis==="W" ? unitsOf(t.kelly)*(t.erstQuote-1) : -unitsOf(t.kelly)), 0);
   const fu2 = (u) => `<span class="${u>0?"pos":u<0?"negv":""}">${u>0?"+":""}${fx(u,1)} U</span>`;
   const offen_ = store.get("heute.offen", true);
@@ -1011,6 +1012,35 @@ function ghZiel(){   // Repo aus der Seitenadresse: <besitzer>.github.io/<repo>/
   const owner = location.hostname.split(".")[0], repo = location.pathname.split("/").filter(Boolean)[0] || "";
   return {owner, repo};
 }
+// JSON-Datei im Repo ändern (GitHub-Schlüssel aus dem Modell-Reiter). aendern(daten) ändert das Objekt direkt.
+async function ghJsonAendern(pfad, nachricht, aendern){
+  const token = store.get("gh.repo.token", null); if(!token) throw new Error("kein GitHub-Schlüssel");
+  const {owner, repo} = ghZiel(), url = `https://api.github.com/repos/${owner}/${repo}/contents/${pfad}`;
+  const h = {"Authorization":"Bearer "+token, "Accept":"application/vnd.github+json"};
+  for(let versuch = 0; versuch < 2; versuch++){
+    let sha = null, daten = {};
+    const r0 = await fetch(url, {headers: h, cache:"no-store"});
+    if(r0.ok){ const j0 = await r0.json(); sha = j0.sha; daten = JSON.parse(decodeURIComponent(escape(atob(j0.content.replace(/\n/g,""))))); }
+    else if(r0.status !== 404) throw new Error(r0.status===401?"Schlüssel ungültig":r0.status===403?"Schlüssel ohne Schreibrecht":"GitHub-Fehler "+r0.status);
+    aendern(daten);
+    const inhalt = btoa(unescape(encodeURIComponent(JSON.stringify(daten, null, 1))));
+    const r1 = await fetch(url, {method:"PUT", headers: Object.assign({"Content-Type":"application/json"}, h), body: JSON.stringify({message: nachricht, content: inhalt, sha: sha || undefined})});
+    if(r1.ok) return true;
+    if(r1.status !== 409) throw new Error(r1.status===401?"Schlüssel ungültig":r1.status===403||r1.status===404?"Schlüssel ohne Schreibrecht für das Repo":"GitHub-Fehler "+r1.status);
+  }
+  throw new Error("gleichzeitige Änderung – bitte nochmal");
+}
+// Angepasste Quote zusätzlich im Repo merken: das nächste Update prüft damit die offenen Value-Tipps dieser Partie
+async function quoteRepo(id, eintrag){
+  const el = document.querySelector(`.qform[data-id="${CSS.escape(id)}"] ~ .qstatus`);
+  const st = (t) => { if(el) el.textContent = t; };
+  if(!store.get("gh.repo.token", null)){ st("Nur in diesem Browser. Mit GitHub-Schlüssel (Modell-Reiter) prüft das Update damit auch die Bilanz."); return; }
+  st("Speichere für die Bilanz …");
+  try{ await ghJsonAendern("docs/data/manuelle_quoten.json", eintrag ? `Quote angepasst: ${id}` : `Quote zurückgesetzt: ${id}`,
+         (d) => { if(eintrag) d[id] = eintrag; else delete d[id]; });
+       st(eintrag ? "✓ Gespeichert – das nächste Update prüft damit die Value-Tipps dieser Partie." : "✓ Zurückgesetzt.");
+  }catch(e){ st("Nicht gespeichert: " + e.message); }
+}
 async function manuellSpeichern(name, form, ctx){
   const st = (t) => { const e = $("#pr-edit-status"); if(e) e.textContent = t; };
   const neu = {};
@@ -1230,7 +1260,7 @@ function quoteBox(p, r){
       <button type="button" class="btn mini q-set">Übernehmen</button>
       ${r.manuellQ?`<button type="button" class="btn ghost mini q-reset">Zurücksetzen</button>`:""}
     </div>
-    <div class="time">${r.manuellQ?`Angepasst um ${new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ})} Uhr${orig?` · ${esc(bm)} beim letzten Update: ${fx(orig[0])} / ${fx(orig[1])}`:""}. `:""}Gilt nur in diesem Browser und bis zum nächsten automatischen Update.</div>`;
+    <div class="time">${r.manuellQ?`Angepasst um ${new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ})} Uhr${orig?` · ${esc(bm)} beim letzten Update: ${fx(orig[0])} / ${fx(orig[1])}`:""}. `:""}Gilt auf dem Board bis zum nächsten automatischen Update. Ist der Value damit weg, wird ein schon protokollierter Tipp storniert (zählt nicht in der Bilanz).</div><div class="time qstatus"></div>`;
 }
 function assText(x){
   return `${x.gegen} gewinnt als Favorit nur ${pc(x.favPct,0)} (n ${x.favN}), ${x.name} als Außenseiter ${pc(x.ausPct,0)} (n ${x.ausN}). Modell sieht ${x.name} bei ${pc(x.pModell,0)} (fair ${fx(x.fair)}), Markt bei ${pc(x.pMarkt,0)} (Quote ${fx(x.quote)}).`;
@@ -1370,7 +1400,8 @@ function renderLog(){
       $("#"+id).addEventListener("change", () => { store.set(id, $("#"+id).value); renderLog(); }); });
   }
   const bm = $("#b-bm").value, art = $("#b-art").value, stt = $("#b-status").value;
-  let xs = all.filter(x => (bm==="alle"||x.buchmacher===bm) && (art==="alle"||(art==="ch")===isChTip(x)));
+  const storniert = all.filter(x => x.storniert && (bm==="alle"||x.buchmacher===bm));
+  let xs = all.filter(x => !x.storniert && (bm==="alle"||x.buchmacher===bm) && (art==="alle"||(art==="ch")===isChTip(x)));
   if($("#b-regeln").checked) xs = xs.filter(x => regelOk(x.edge, x.erstQuote, isChTip(x), (x.warn||[]).length));
   { // Turnier-Auswahl (aus den Tipps der aktuellen Auswahl)
     const sel = $("#b-turnier"), cur = sel.value, namen = [...new Set(xs.map(tName))].sort((a,b) => a.localeCompare(b, "de"));
@@ -1379,6 +1410,13 @@ function renderLog(){
     if(sel.value) xs = xs.filter(x => tName(x) === sel.value);
     if(!sel.dataset.ok){ sel.dataset.ok = "1"; sel.addEventListener("change", renderLog); }
   }
+  { // Stornierte Tipps (Daten korrigiert, danach kein Value mehr) – sichtbar, aber ohne Wertung
+    const GR = {werte: "Spielerwerte korrigiert", quote: "Quote angepasst"};
+    $("#b-storno").innerHTML = storniert.length ? `<details class="box klapp" data-k="storno" style="margin-top:16px"><summary><h3>Stornierte Tipps <span class="time">${storniert.length} · zählen nicht in der Bilanz</span></h3></summary>
+      <div class="tablewrap"><table><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th>Quote</th><th class="l">Grund</th><th class="l">Neu gerechnet</th></tr></thead><tbody>${
+      storniert.sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => `<tr><td class="l time">${kDatum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="num">${fx(x.erstQuote)}</td>
+        <td class="l">${esc(GR[x.storniert] || x.storniert)}</td><td class="l time">${x.stornoInfo ? esc(x.stornoInfo) : "–"}</td></tr>`).join("")}</tbody></table></div>
+      <p class="note">Ein Value-Tipp wird storniert, wenn du vor Spielbeginn die Spielerwerte eines Beteiligten korrigierst oder die Quote anpasst (mit GitHub-Schlüssel gespeichert) und das Modell mit den korrigierten Daten keinen Value mehr sieht. Bleibt der Value, zählt der Tipp normal – bei angepasster Quote mit deiner Quote.</p></details>` : ""; }
   const k = kennzahlen(xs);
   $("#b-n").textContent = `${k.w+k.l} (${k.w}–${k.l})`;
   $("#b-hit").textContent = pc(k.hit);
@@ -1775,9 +1813,9 @@ function setupWetten(){
     const qf = e.target.closest(".qform");
     if(qf && e.target.closest(".q-set")){
       const qa = num2(qf.querySelector(".q-a").value), qb = num2(qf.querySelector(".q-b").value);
-      if(qa > 1 && qb > 1){ store.set("quote."+qf.dataset.id, {qa, qb, bm: qf.dataset.bm, zeit: nowIso()}); render(); }
+      if(qa > 1 && qb > 1){ const ein = {qa, qb, bm: qf.dataset.bm, zeit: nowIso()}; store.set("quote."+qf.dataset.id, ein); render(); quoteRepo(qf.dataset.id, ein); }
       return; }
-    if(qf && e.target.closest(".q-reset")){ try{ localStorage.removeItem("tvb.quote."+qf.dataset.id); }catch(_){} render(); return; }
+    if(qf && e.target.closest(".q-reset")){ const id = qf.dataset.id; try{ localStorage.removeItem("tvb.quote."+id); }catch(_){} render(); quoteRepo(id, null); return; }
     const k = e.target.closest(".w-kombi");
     if(k){ const f = k.closest(".w-form"), p = (M.partien||[]).find(x => x.id === f.dataset.id); if(!p) return;
       const seite = f.seite.value, quote = num2(f.quote.value);
