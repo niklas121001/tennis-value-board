@@ -96,7 +96,7 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .pbar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:3px 0 0 3px;opacity:.85}
 .pbar b{position:absolute;top:-3px;width:2px;height:12px;background:var(--fg);margin-left:-1px;border-radius:1px}
 .sym{font-size:12px;margin-left:3px;cursor:help}
-.flag{margin-right:4px;font-size:13px}
+.flag{margin-right:5px;width:16px;height:12px;vertical-align:-1px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12);object-fit:cover}
 .tabpunkt{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--warn);vertical-align:3px;margin-left:3px}
 tr.m.value td{background:color-mix(in srgb, var(--good-soft) 70%, transparent)}
 tr.m.value .kel, tr.m.value td.einsatz-z{font-weight:700}
@@ -552,7 +552,8 @@ let SIGLOG = {ass: {}, bil: {}}, LAENDER = {};
 // Länderflagge aus ISO-Code (Emoji aus Regional-Indicator-Buchstaben); leer, wenn unbekannt
 function flagge(code){
   const c = String(code||"").toUpperCase(); if(!/^[A-Z]{2}$/.test(c)) return "";
-  return `<span class="flag" title="${c}">${String.fromCodePoint(...[...c].map(x => 0x1F1E6 + x.charCodeAt(0) - 65))}</span>`;
+  // Bild statt Emoji: Windows-Browser zeigen Flaggen-Emojis nur als Buchstaben (Flaggen: flag-icons, MIT, in docs/flags)
+  return `<img class="flag" src="flags/${c.toLowerCase()}.svg" alt="${c}" title="${c}" width="16" height="12" loading="lazy" onerror="this.remove()">`;
 }
 const landVon = (p, seite) => (seite==="A" ? p.landA : p.landB) || LAENDER[seite==="A" ? p.a : p.b];
 function sigAusLog(log, p, bm){
