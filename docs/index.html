@@ -253,7 +253,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
 
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-partien" aria-selected="true" data-tab="partien">Partien</button>
-    <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Rechner</button>
+    <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Tagesziel</button>
     <button role="tab" id="tab-wetten" aria-selected="false" data-tab="wetten">Meine Wetten</button>
     <button role="tab" id="tab-protokoll" aria-selected="false" data-tab="protokoll">Bilanz</button>
     <button role="tab" id="tab-info" aria-selected="false" data-tab="info">Modell</button>
@@ -284,6 +284,8 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
   </section>
 
   <section id="v-rechner" hidden>
+    <div id="tz"></div>
+    <details class="box" id="c-alt" style="margin-top:18px"><summary><b>Faire Quote für zwei Spieler berechnen</b> <span class="time">(alter Rechner)</span></summary>
     <form class="calc" id="calc" autocomplete="off">
       <div class="ctl pa"><label for="c-a">Spieler A</label><input id="c-a" list="c-players" placeholder="Name eintippen"></div>
       <button type="button" class="swap" id="c-swap" title="Spieler tauschen" aria-label="Spieler tauschen">⇄</button>
@@ -298,6 +300,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <datalist id="c-players"></datalist>
     </form>
     <div id="c-out"></div>
+    </details>
   </section>
 
   <section id="v-protokoll" hidden>
@@ -510,6 +513,75 @@ function showTab(t){
   ["partien","rechner","wetten","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
   if(BEREIT && t==="protokoll") renderLog();          // Kurve braucht die sichtbare Breite
   if(BEREIT && t==="wetten") renderWetten();
+  if(BEREIT && t==="rechner") renderTagesziel();
+}
+
+// ---- Tagesziel: sichere Favoriten-Vorschläge + Rechner „wie viele Units für X U Gewinn?“
+// Siegchance = Mittel aus Modell und Markt (entvigt). Keine Value-Logik: Erwartungswert wird ehrlich mit angezeigt.
+function tzEinsatz(ziel, q){ return q > 1 ? ziel / (q - 1) : null; }
+function renderTagesziel(){
+  const el = $("#tz"); if(!el || !M) return;
+  const cfg = Object.assign({ziel: 1, maxU: 3, minP: 0.7}, store.get("tz", {}));
+  const now = new Date(), kHeute = dayKey(now), kMorgen = dayKey(new Date(now.getTime() + 864e5));
+  const bm = $("#bm") ? $("#bm").value : "winamax";
+  const vors = [];
+  for(const p of (M.partien||[])){
+    const d = startOf(p); if(!d || d <= now) continue;
+    const dk = dayKey(d); if(dk !== kHeute && dk !== kMorgen) continue;
+    const r = evalMatch(p); if(!r || !r.ok || r.pMarkt == null || r.pFinal == null) continue;
+    for(const seite of ["A", "B"]){
+      const q = seite==="A" ? r.qa : r.qb; if(!(q > 1)) continue;
+      const pm = seite==="A" ? r.pFinal : 1 - r.pFinal, pk = seite==="A" ? r.pMarkt : 1 - r.pMarkt, pz = (pm + pk) / 2;
+      if(pz < cfg.minP) continue;
+      const e = tzEinsatz(cfg.ziel, q); if(!(e > 0) || e > cfg.maxU) continue;
+      const ev = (pz * (q - 1) - (1 - pz)) * e;     // erwarteter Gewinn in U bei dieser Siegchance
+      vors.push({p, r, seite, name: seite==="A" ? p.a : p.b, gegner: seite==="A" ? p.b : p.a, q, pm, pk, pz, e, ev, d, dk,
+        warn: r.warn.filter(w => w.seite===seite), signal: (r.sturz && r.sturz.seite!==seite) ? "Quote des Gegners fällt" : ""});
+    }
+  }
+  vors.sort((a,b) => b.pz - a.pz);
+  const zt = (v) => v.dk===kHeute ? v.d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "morgen";
+  const uE = (u) => `${fu(Math.round(u*2)/2)} U <span class="time">(${eur(u*unitCfg().unit)})</span>`;
+  const zeilen = vors.slice(0, 12).map((v, i) => `<tr>
+      <td class="l time hide-s">${zt(v)}</td>
+      <td class="l"><span class="time show-s">${zt(v)}</span>${flagge(landVon(v.p, v.seite))}<b>${esc(v.name)}</b> <span class="time">vs ${esc(v.gegner)} · ${esc(tName(v.p))}</span>${v.warn.length ? ` <span class="wwarn" title="${esc(v.warn.map(w=>w.text).join(" · "))}">⚠</span>` : ""}${v.signal ? ` <span class="time" style="color:var(--bad)">${v.signal}</span>` : ""}</td>
+      <td class="num">${fx(v.q)}</td><td class="num"><b>${pc(v.pz,0)}</b><div class="time">M ${pc(v.pm,0)} · Q ${pc(v.pk,0)}</div></td>
+      <td class="num"><b>${fx(v.e,2)} U</b><div class="time">${eur(v.e*unitCfg().unit)}</div></td>
+      <td class="num hide-s ${v.ev>0?"pos":"negv"}">${v.ev>0?"+":""}${fx(v.ev,2)} U</td></tr>`).join("");
+  // Rückblick: Wie oft gewinnen Favoriten in diesen Quotenbereichen wirklich (Archiv, 1 U flach)?
+  const BER = [[1.01,1.2],[1.2,1.35],[1.35,1.5],[1.5,1.7],[1.7,1.9]];
+  const rb = BER.map(([lo,hi]) => { let n=0, w=0, u=0;
+    for(const x of Object.values(ARCHIV||{})){ if(!(x.sieger==="A"||x.sieger==="B") || x.aufgabe || !(x.qa>1 && x.qb>1)) continue;
+      const favA = x.qa < x.qb, q = favA ? x.qa : x.qb; if(q < lo || q >= hi) continue;
+      n++; const g = (x.sieger==="A") === favA; if(g){ w++; u += q-1; } else u -= 1; }
+    return {lo, hi, n, w, u}; });
+  const kombi = vors.length >= 2 ? (() => { const a = vors[0], b = vors[1], q = a.q*b.q, pz = a.pz*b.pz, e = tzEinsatz(cfg.ziel, q);
+    return `<p style="margin:8px 0 0">Als 2er-Kombi <b>${esc(a.name)} + ${esc(b.name)}</b>: Quote ${fx(q)}, Chance ca. ${pc(pz,0)}, Einsatz für ${fu(cfg.ziel)} U Gewinn: <b>${fx(e,2)} U</b> <span class="time">– kleinerer Einsatz, aber beide müssen gewinnen.</span></p>`; })() : "";
+  el.innerHTML = `
+    <div class="box"><h3>Rechner: Wie viel setzen für mein Ziel?</h3>
+      <form class="uform" id="tz-rechner" autocomplete="off">
+        <div class="ctl"><label for="tz-ziel">Gewinnziel (U)</label><input id="tz-ziel" inputmode="decimal" value="${fx(cfg.ziel, cfg.ziel%1?1:0)}" style="width:90px"></div>
+        <div class="ctl"><label for="tz-quote">Quote</label><input id="tz-quote" inputmode="decimal" placeholder="z. B. 1,50" style="width:100px"></div>
+        <div class="ctl" style="align-self:end;padding-bottom:6px" id="tz-erg"><span class="time">Quote eintragen …</span></div>
+      </form>
+      <p class="time" style="margin:6px 0 0">Einsatz = Ziel ÷ (Quote − 1). Beispiel: 1 U Gewinn bei Quote 1,50 braucht 2 U Einsatz, bei 1,25 schon 4 U.</p></div>
+    <div class="box" style="margin-top:14px"><h3>Sichere Favoriten für heute und morgen</h3>
+      <form class="uform" id="tz-filter" autocomplete="off">
+        <div class="ctl"><label for="tz-minp">Mindest-Siegchance</label><select id="tz-minp">${[0.6,0.65,0.7,0.75,0.8,0.85].map(v => `<option value="${v}"${Math.abs(v-cfg.minP)<1e-9?" selected":""}>${pc(v,0)}</option>`).join("")}</select></div>
+        <div class="ctl"><label for="tz-max">Max. Einsatz (U)</label><select id="tz-max">${[1,2,3,4,5].map(v => `<option value="${v}"${v===cfg.maxU?" selected":""}>${v} U</option>`).join("")}</select></div>
+      </form>
+      ${zeilen ? `<div class="tablewrap" style="margin-top:8px"><table><thead><tr><th class="l hide-s">Zeit</th><th class="l">Tipp</th><th class="num">Quote</th><th class="num" title="Mittel aus Modell (M) und Markt (Q)">Chance</th><th class="num">Einsatz für ${fu(cfg.ziel)} U</th><th class="num hide-s" title="Erwarteter Gewinn: Chance × Gewinn − Gegenchance × Einsatz">Erwartung</th></tr></thead><tbody>${zeilen}</tbody></table></div>${kombi}`
+        : `<p class="time">Keine Partie mit dieser Siegchance und diesem Höchsteinsatz. Mindest-Chance senken oder Höchsteinsatz erhöhen.</p>`}
+      <p class="note">Siegchance = Mittel aus Modell und Markt. „Erwartung“ zeigt ehrlich, ob der Tipp auf Dauer Plus macht: Bei den meisten Favoriten ist sie leicht negativ, weil die Buchmacher-Marge drinsteckt – „sicher“ heißt hier nur „wahrscheinlich“. Eine Niederlage mit ${fu(cfg.maxU)} U Einsatz kostet ${fu(cfg.maxU)} Tagesziele. Nach einer Niederlage den Einsatz nicht erhöhen, um sie zurückzuholen.</p></div>
+    <div class="box" style="margin-top:14px"><h3>Rückblick: Wie sicher sind Favoriten wirklich?</h3>
+      <div class="tablewrap"><table><thead><tr><th class="l">Favoritenquote</th><th class="num">Partien</th><th class="num">Favorit gewinnt</th><th class="num">nötig (Break-even)</th><th class="num">1 U flach</th></tr></thead><tbody>${
+        rb.map(b => `<tr><td class="l">${fx(b.lo)}–${fx(b.hi)}</td><td class="num">${b.n}</td><td class="num">${b.n ? pc(b.w/b.n,0) : "–"}</td><td class="num">${pc(1/((b.lo+b.hi)/2),0)}</td><td class="num ${b.u>0?"pos":b.u<0?"negv":""}">${b.n ? (b.u>0?"+":"")+fx(b.u,1)+" U" : "–"}</td></tr>`).join("")}</tbody></table></div>
+      <p class="note">Alle Partien im Ergebnis-Archiv mit Quote (Ø der Buchmacher vor Start), ohne Aufgaben. Liegt „Favorit gewinnt“ unter „nötig“, verliert man mit diesen Favoriten auf Dauer Geld.</p></div>`;
+  const rech = () => { const z = num2($("#tz-ziel").value), q = num2($("#tz-quote").value), e = tzEinsatz(z, q);
+    $("#tz-erg").innerHTML = z > 0 && q > 1 ? `Einsatz: <b>${fx(e,2)} U</b> (${eur(e*unitCfg().unit)}) → Gewinn ${fx(z,2)} U bei Sieg, Verlust ${fx(e,2)} U bei Niederlage · nötige Trefferquote ${pc(1/q,0)}` : `<span class="time">Quote eintragen …</span>`; };
+  $("#tz-rechner").addEventListener("input", rech); $("#tz-rechner").addEventListener("submit", (e) => e.preventDefault());
+  $("#tz-ziel").addEventListener("change", () => { const z = num2($("#tz-ziel").value); if(z > 0){ store.set("tz", Object.assign(cfg, {ziel: z})); renderTagesziel(); } });
+  $("#tz-filter").addEventListener("change", () => { store.set("tz", Object.assign(cfg, {minP: +$("#tz-minp").value, maxU: +$("#tz-max").value})); renderTagesziel(); });
 }
 
 function belagFor(p){ const o = store.get("belag."+p.id, null); return o ? {belag:o, quelle:"manuell"} : {belag:p.belag, quelle:p.belagQuelle}; }
