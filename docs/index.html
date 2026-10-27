@@ -1029,7 +1029,14 @@ function variantenHtml(bm, art){
     ${zeile("B · Test", "Elo gedämpft, Statistik nur mit echten Werten", "B", kz(tips.B))}
     ${zeile("C · Test", "wie B + gegnerbereinigte Aufschlag-/Returnwerte", "C", kz(tips.C))}
     ${zeile("D · Test", `Statistik-Gewicht Hard ${pc(D.params.D_W_STATS_HARD??0.15,0)}, Sand ${pc(D.params.D_W_STATS_CLAY??0.4,0)} (seit 27.10.)${(() => { const gd = guete("D"), ga = guete("A","D"), gm = guete("M","D");
-      return gd.n ? ` · gleiche ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)}, Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}` : ""; })()}`, "D", kz(tips.D))}
+      return gd.n ? ` · gleiche ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)}, Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}` : ""; })()}${(() => {
+      // Rückrechnung mit den eingefrorenen Modellteilen vor Spielbeginn (pAR/pDR/pMR, beide mit 50 % Modellanteil)
+      const rs = []; for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
+        if(p.pDR == null || p.pAR == null || p.pMR == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
+        rs.push({y: e.sieger==="A" ? 1 : 0, A: p.pAR, D: p.pDR, M: p.pMR}); }
+      if(!rs.length) return "";
+      const g = (k) => { let t=0, ll=0; for(const r of rs){ const q=Math.min(Math.max(r[k],1e-4),1-1e-4); t+=(q>.5)===(r.y===1); ll-=r.y*Math.log(q)+(1-r.y)*Math.log(1-q); } return `${pc(t/rs.length,0)} / ${fx(ll/rs.length,3)}`; };
+      return `<br>Rückrechnung ${rs.length} Partien seit 13.10.: D ${g("D")} · A ${g("A")} · Markt ${g("M")}`; })()}`, "D", kz(tips.D))}
     ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}
     </tbody></table></div>
     <p class="note">B, C und D tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Zeile anklicken, um die zugehörigen Tipps und Partien zu sehen. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
