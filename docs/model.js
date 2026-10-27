@@ -386,8 +386,24 @@
       const pKalE = sigm(P.K_KALIBRIERUNG * logit(clip(pKombiE, 0.02, 0.98)));
       pE = pMarkt === null ? pKalE : sigm(P.W_MODELL_BLEND * logit(pKalE) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
     }
+    // F (seit 27.10.2026): wie A, aber auf Hart Statistik-Gewicht nach Platztempo: langsam (≤ 0,8) 25 % … sehr schnell (≥ 1,4) 10 %.
+    // Ohne Tempo-Wert (Challenger, unbekannt) wie A.
+    const tempoF = lookupTempo(match.turnier, match.belag, D.tempo);
+    let pF = null;
+    {
+      let [wsF, weF] = [wS, wE];
+      if (sk === "hard" && isNum(tempoF)) {
+        const lo = P.F_TEMPO_LANGSAM ?? 0.8, hi = P.F_TEMPO_SCHNELL ?? 1.4, a = P.F_W_STATS_LANGSAM ?? 0.25, b = P.F_W_STATS_SCHNELL ?? 0.10;
+        const t = clip((tempoF - lo) / (hi - lo), 0, 1);
+        wsF = out.nurElo ? 0 : a + (b - a) * t; weF = 1 - (a + (b - a) * t);
+      }
+      const pKombiF = clip((wsF * pStats + weF * pElo + h2hW * h2hPct) / (wsF + weF + h2hW) + erf, 0.05, 0.95);
+      const pKalF = sigm(P.K_KALIBRIERUNG * logit(clip(pKombiF, 0.02, 0.98)));
+      pF = pMarkt === null ? pKalF : sigm(P.W_MODELL_BLEND * logit(pKalF) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
+    }
     const varianten = {
       D: bewerte(pD, match, haveOdds, D, P),
+      F: bewerte(pF, match, haveOdds, D, P),
       ...(pE !== null ? { E: bewerte(pE, match, haveOdds, D, P) } : {}),
       B: bewerte(mitMarkt(kombi(pStats, echteStats)), match, haveOdds, D, P),
       C: bewerte(mitMarkt(kombi(pStatsC, echteStats)), match, haveOdds, D, P),

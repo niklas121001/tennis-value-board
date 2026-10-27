@@ -243,7 +243,7 @@ for (const m of matches) {
 fs.writeFileSync(path.join(dir, "bilanz_tips.json"), JSON.stringify(blog));
 console.log(`Bilanz-Signale (Test): ${neuB} neu, insgesamt ${Object.keys(blog).length}`);
 console.log(`Außenseiter-Signale: ${neuA} neu, insgesamt ${Object.keys(alog).length}`);
-console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B/C/D/E), insgesamt ${Object.keys(vlog).length}`);
+console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B–F), insgesamt ${Object.keys(vlog).length}`);
 
 // Prognose-Protokoll: für JEDE Partie (nicht nur Tipps) die Einzelteile des Modells vor Spielbeginn einfrieren.
 // Grundlage, um später Gewichte (Elo vs. Statistik je Belag, H2H, Kalibrierung, Markt-Anteil) aus echten
@@ -284,6 +284,7 @@ for (const m of matches) {
       e.merkmale = merkmale(m, rNow, qs);
       if (e.pD == null && rNow.ok && rNow.varianten && rNow.varianten.D) e.pD = r3(rNow.varianten.D.p);   // Variante D (ab 27.10.) nachtragen
       if (e.pE == null && rNow.ok && rNow.varianten && rNow.varianten.E) e.pE = r3(rNow.varianten.E.p);   // Variante E = alte Gewichte
+      if (e.pF == null && rNow.ok && rNow.varianten && rNow.varianten.F) e.pF = r3(rNow.varianten.F.p);   // Variante F = Tempo-Gewicht Hart
     }
     continue;
   }
@@ -299,7 +300,7 @@ for (const m of matches) {
     qaM: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null,   // Durchschnittsquote (Spieler-Check)
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
     geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), quali: !!m.quali, modus: r.modus, csi: r.csi, gesehen: now,
-    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null,
+    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null,
     pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null,
     qaErst: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null, qbErst: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null,
     quoteErstZeit: qs.length ? now : null, merkmale: merkmale(m, r, qs) };

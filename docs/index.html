@@ -998,13 +998,13 @@ function variantenHtml(bm, art){
   const passt = (x) => (bm==="alle" || x.buchmacher===bm) && artOk(x);
   const A = Object.values(LOG||{}).filter(x => passt(x) && String(x.erstGesehen||"") >= TEST_START);
   const V = Object.values(VAR.vt).filter(passt);
-  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: V.filter(x => x.variante==="E")};
+  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: V.filter(x => x.variante==="E"), F: V.filter(x => x.variante==="F")};
   // Prognose-Güte auf denselben Partien (alle mit Quote, Ergebnis und allen drei Varianten)
   const res = [];
   for(const [id, p] of Object.entries(VAR.prog)){
     const e = ERG[id] || (ARCHIV||{})[id];
     if(!artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || p.pB==null || p.pC==null || p.pMarkt==null || p.pFinal==null) continue;
-    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, D: p.pD, E: p.pE, M: p.pMarkt, p, e});
+    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, D: p.pD, E: p.pE, F: p.pF, M: p.pMarkt, p, e});
   }
   // Güte über die Partien, für die die Variante eine Prognose hat (D erst seit 27.10. – eigener, kleinerer Ausschnitt)
   const guete = (k, nur) => { const rs = res.filter(r => r[k] != null && (!nur || r[nur] != null)); if(!rs.length) return {t:null, ll:null, n:0};
@@ -1032,15 +1032,22 @@ function variantenHtml(bm, art){
       return gd.n ? ` · gleiche ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)}, Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}` : ""; })()}${(() => {
       // Rückrechnung mit den eingefrorenen Modellteilen vor Spielbeginn (pAR/pDR/pMR, beide mit 50 % Modellanteil)
       const rs = []; for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
-        if(p.pDR == null || p.pAR == null || p.pMR == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
-        rs.push({y: e.sieger==="A" ? 1 : 0, A: p.pAR, D: p.pDR, M: p.pMR}); }
+        if(p.pDR == null || p.pER == null || p.pMR == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
+        rs.push({y: e.sieger==="A" ? 1 : 0, A: p.pER, D: p.pDR, M: p.pMR}); }
       if(!rs.length) return "";
       const g = (k) => { let t=0, ll=0; for(const r of rs){ const q=Math.min(Math.max(r[k],1e-4),1-1e-4); t+=(q>.5)===(r.y===1); ll-=r.y*Math.log(q)+(1-r.y)*Math.log(1-q); } return `${pc(t/rs.length,0)} / ${fx(ll/rs.length,3)}`; };
-      return `<br>Rückrechnung ${rs.length} Partien seit 13.10.: D ${g("D")} · A ${g("A")} · Markt ${g("M")}`; })()}`, "D", kz(tips.D))}
+      return `<br>Rückrechnung ${rs.length} Partien seit 13.10.: D ${g("D")} · E/bisheriges A ${g("A")} · Markt ${g("M")}`; })()}`, "D", kz(tips.D))}
     ${D.params.E_W_STATS_HARD != null ? zeile("E · bisheriges A", `alte Excel-Gewichte (Hard ${pc(D.params.E_W_STATS_HARD,0)} Statistik), läuft seit 27.10. zum Vergleich weiter`, "E", kz(tips.E)) : ""}
+    ${zeile("F · Test", `Hart: Statistik nach Platztempo, langsam ${pc(D.params.F_W_STATS_LANGSAM??0.25,0)} … sehr schnell ${pc(D.params.F_W_STATS_SCHNELL??0.1,0)} (nur ATP mit Tempo-Wert, sonst wie A; seit 27.10.)${(() => {
+      const rs = []; for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
+        if(p.pFR == null || p.pAR == null || p.pMR == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
+        rs.push({y: e.sieger==="A" ? 1 : 0, A: p.pAR, F: p.pFR, M: p.pMR}); }
+      if(!rs.length) return "";
+      const g = (k) => { let t=0, ll=0; for(const r of rs){ const q=Math.min(Math.max(r[k],1e-4),1-1e-4); t+=(q>.5)===(r.y===1); ll-=r.y*Math.log(q)+(1-r.y)*Math.log(1-q); } return `${pc(t/rs.length,0)} / ${fx(ll/rs.length,3)}`; };
+      return `<br>Rückrechnung ${rs.length} ATP-Hartplatzpartien mit Tempo: F ${g("F")} · A (aktuell) ${g("A")} · Markt ${g("M")}`; })()}`, "F", kz(tips.F))}
     ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}
     </tbody></table></div>
-    <p class="note">B, C, D und E tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Zeile anklicken, um die zugehörigen Tipps und Partien zu sehen. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
+    <p class="note">B bis F tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Zeile anklicken, um die zugehörigen Tipps und Partien zu sehen. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
