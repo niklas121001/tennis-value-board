@@ -292,6 +292,8 @@ def main():
             m.pop("quali", None)
         if ev.get("runde"):
             m["runde"] = ev["runde"]
+        if ev.get("gt"):
+            m["gt"] = ev["gt"]                 # z. B. "Hardcourt indoor" – Halle/draußen für die Musteranalyse
         board_namen.update([ev["h"], ev["a"]])
         if ev.get("belag") and not mj.get("demo"):
             if m.get("belag") != ev["belag"]:

@@ -237,6 +237,23 @@ console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B/C), insgesamt ${Object.k
 // Prognose-Protokoll: für JEDE Partie (nicht nur Tipps) die Einzelteile des Modells vor Spielbeginn einfrieren.
 // Grundlage, um später Gewichte (Elo vs. Statistik je Belag, H2H, Kalibrierung, Markt-Anteil) aus echten
 // Ergebnissen zu schätzen – ohne Rückschau-Verzerrung. Ergebnisse kommen aus ergebnisse.json.
+// Merkmale je Partie für die Jahresend-Suche nach Mustern (was wir noch nicht gezielt tracken):
+// Halle/draußen, Runde, Quali, Uhrzeit, Länder (Heimspiel), Form/Belastung, Warnhinweise, Signale. Wird bis Spielbeginn aktualisiert.
+const r0 = (m) => { const q = Object.values(m.quoten || {})[0] || []; return M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa: q[0], qb: q[1] }, D); };
+function merkmale(m, r, qs) {
+  const fo = (f) => f ? { sp: f.spiele7 || 0, s: f.siege7 || 0, saetze: f.saetze7 || 0, games: f.games7 || 0, min: f.min7 || null,
+    letztes: f.letztes || null, lMin: f.letztesMin || null, lGames: f.letztesGames || null, quali: !!f.quali } : null;
+  const qa = qs && qs.length ? qs[0][0] : null, qb = qs && qs.length ? qs[0][1] : null;
+  const std = m.start ? parseInt(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", hourCycle: "h23", timeZone: "Europe/Berlin" }).format(new Date(m.start)), 10) : null;
+  return {
+    gt: m.gt || null, halle: m.gt ? /indoor/i.test(m.gt) : null, runde: m.runde || null, quali: !!m.quali, stunde: std,
+    landA: m.landA || null, landB: m.landB || null, formA: fo(m.form && m.form.a), formB: fo(m.form && m.form.b),
+    warnA: r && r.ok && qa ? warnTypen(m, r, "A", qa, qb) : [], warnB: r && r.ok && qa ? warnTypen(m, r, "B", qa, qb) : [],
+    aussenseiter: !!(r && r.aussenseiter), bilanzSignal: r && r.bilanzSignal ? r.bilanzSignal.seite : null,
+    favCheck: r && r.favCheck ? { name: r.favCheck.name, pct: r3(r.favCheck.pct), n: r.favCheck.n } : null,
+    ausCheck: r && r.ausCheck ? { name: r.ausCheck.name, pct: r3(r.ausCheck.pct), n: r.ausCheck.n } : null,
+    h2h: r && r.h2h ? [r.h2h.a, r.h2h.b] : null, nurElo: !!(r && r.nurElo), geschaetzt: !!(r && (r.eloGeschaetztA || r.eloGeschaetztB)) };
+}
 const prog = rd("prognosen.json", {});
 let neuProg = 0;
 for (const m of matches) {
@@ -251,6 +268,8 @@ for (const m of matches) {
       e.qaM = r3(qs.reduce((x, q) => x + q[0], 0) / qs.length); e.qbM = r3(qs.reduce((x, q) => x + q[1], 0) / qs.length);
       e.pMarkt = r3(qs.reduce((s, q) => s + (1 / q[0]) / (1 / q[0] + 1 / q[1]), 0) / qs.length);
       e.quoteStand = now;
+      if (!e.qaErst) { e.qaErst = e.qaM; e.qbErst = e.qbM; e.quoteErstZeit = now; }   // Eröffnungsquote (erste gesehene)
+      e.merkmale = merkmale(m, r0(m), qs);
     }
     continue;
   }
@@ -267,7 +286,9 @@ for (const m of matches) {
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
     geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), quali: !!m.quali, modus: r.modus, csi: r.csi, gesehen: now,
     pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null,
-    pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null };
+    pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null,
+    qaErst: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null, qbErst: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null,
+    quoteErstZeit: qs.length ? now : null, merkmale: merkmale(m, r, qs) };
   neuProg++;
 }
 const grenzeProg = new Date(Date.now() - 180 * 864e5).toISOString();
