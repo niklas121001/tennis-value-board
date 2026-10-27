@@ -157,7 +157,11 @@ tr.m:last-of-type td{border-bottom:0}
 .pill.stop{background:var(--bad-soft);color:var(--bad)}
 .pill.warn{background:var(--warn-soft);color:var(--warn)}
 tr.detail td{background:var(--bg);white-space:normal;text-align:left;padding:14px}
-.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.dgrid .wbox{grid-column:1/-1}.dgrid .wbox .mform .ctl{flex:1 1 140px}
+.dgrid .box{min-width:0}.dgrid select{max-width:100%}
+.dsig>div{margin-bottom:8px}
+.eu{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:2px 0;font-size:13px}.eu>span:first-child{color:var(--muted)}.eu .v{font-family:var(--f-mono);font-size:12.5px}
 .box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
 .box h3{font:600 .95rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:var(--accent)}
 .kv{display:grid;grid-template-columns:1fr auto auto;gap:2px 12px;font-size:13px}
@@ -1418,7 +1422,7 @@ function assHtml(r){
 }
 function warnHtml(p, r){
   const ws = r.warn || []; if(!ws.length) return "";
-  return `<h3 style="margin-top:10px">⚠ Hinweise</h3><div class="fz2">${ws.map(w => `<div><b>${esc(w.seite==="A"?p.a:p.b)}:</b> ${esc(w.text)}</div>`).join("")}</div>`;
+  return `<div class="assbox"><b>⚠ Hinweise</b>${ws.map(w => `<div><b>${esc(w.seite==="A"?p.a:p.b)}:</b> ${esc(w.text)}</div>`).join("")}</div>`;
 }
 function formHtml(p){
   if(!p.form) return "";
@@ -1449,7 +1453,7 @@ function detailHtml(p, r){
   const band = (x) => x ? `<span class="k">${esc(x.name)} bei Quote ${x.band.replace("-","–").replace(/\./g,",")}</span><span class="v">${x.n?`${x.siege}/${x.n} (${pc(x.pct,0)})`:"—"}</span>` : "";
   const cur = store.get("belag."+p.id, null) || "auto";
   PROFCTX[p.id] = {p, r};
-  return `${assHtml(r)}<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
+  return `${assHtml(r)}${p.calc?"":`<div class="dsig">${bilanzHtml(r)}${signalInfoHtml(r)}${warnHtml(p, r)}</div>`}<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
   <div class="dgrid">
     <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
       <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
@@ -1473,16 +1477,17 @@ function detailHtml(p, r){
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}</div>${p.calc||!ARCHIV?"":`
-      <h3 style="margin-top:10px" title="Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div class="kv two">${
-        [p.a, p.b].map(n => `<span class="k">${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span>`).join("")}</div>`}${p.calc?"":bilanzHtml(r)}${p.calc?"":signalInfoHtml(r)+warnHtml(p, r)+formHtml(p)+qvHtml(p, r)}
-      ${p.calc?"":quoteBox(p, r)}
-      ${p.calc?"":`<h3 style="margin-top:10px">Belag</h3>
+      <h3 style="margin-top:10px" title="Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div>${
+        [p.a, p.b].map(n => `<div class="eu"><span>${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span></div>`).join("")}</div>`}</div>
+    ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
+    ${p.calc?"":`<div class="box"><h3>Quoten</h3>${allBooks?`<div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}</div>`:""}${qvHtml(p, r)}
+      ${quoteBox(p, r)}
+      <h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
         <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
-        ${["hard","clay","grass"].map(b=>`<option value="${b}"${cur===b?" selected":""}>${SURF[b]}</option>`).join("")}</select>`}
-      ${r.csi!=null?`<div class="kv two" style="margin-top:6px"><span class="k">Court Speed Index</span><span class="v">${fx(r.csi,1)}</span></div>`:""}</div>
+        ${["hard","clay","grass"].map(b=>`<option value="${b}"${cur===b?" selected":""}>${SURF[b]}</option>`).join("")}</select>
+      ${r.csi!=null?`<div class="kv two" style="margin-top:6px"><span class="k">Court Speed Index</span><span class="v">${fx(r.csi,1)}</span></div>`:""}</div>`}
     ${p.calc||!r.ok?"":wetteBox(p, r)}
-    ${allBooks?`<div class="box"><h3>Alle Buchmacher</h3><div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}</div></div>`:""}
   </div>${r.warnungen&&r.warnungen.length?`<ul class="warns">${r.warnungen.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:""}`;
 }
 
