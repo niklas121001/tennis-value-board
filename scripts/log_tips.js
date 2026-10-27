@@ -126,7 +126,7 @@ for (const m of matches) {
 }
 fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
 
-// Weitere Signale (Test, Auswertung zum Jahresende) -> signale_log.json, flach 1 U je Signal:
+// Weitere Signale (Test, Auswertung zum Jahresende) -> signale_log.json, flach 1 U je Signal (Tagesziel: Einsatz für 1 U Gewinn):
 //  sturz     – Quote eines Spielers seit erster Sichtung um mind. 10 % (und 0,10) gefallen: Tipp auf diesen Spieler
 //  comeback  – Spieler gewinnt auffällig oft nach verlorenem 1. Satz (Archiv, mind. 2 von 3, >= 50 %): Tipp auf Sieg
 // Außerdem in tips_log.json: valueWeg (Value-Tipp ist vor Spielbeginn mit der aktuellen Quote kein Value mehr)
@@ -157,7 +157,7 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       if ((m.pausiert || []).includes(bm)) continue;
       const basis = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b, buchmacher: bm };
       // laufende Signale: letzte Quote mitschreiben (CLV)
-      for (const typ of ["sturz", "comeback"]) {
+      for (const typ of ["sturz", "comeback", "tagesziel"]) {
         const e = slog[`${typ}|${m.id}|${bm}`];
         if (e) { e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; }
       }
@@ -173,6 +173,17 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
         if (z.rueck >= 3 && z.cb >= 2 && z.cb / z.rueck >= 0.5) {
           const q = seite === "A" ? qa : qb;
           neuSignal(`comeback|${m.id}|${bm}`, Object.assign({ typ: "comeback", wette: seite, erstQuote: q, letzteQuote: q, rueck: z.rueck, cb: z.cb }, basis));
+        }
+      }
+      // Tagesziel (Reiter „Tagesziel“, Standard-Einstellung): Siegchance (Mittel Modell/Markt) >= 70 % und
+      // Einsatz für 1 U Gewinn <= 3 U. Getrackt mit dem Einsatz für 1 U Gewinn (= 1 / (Quote − 1)).
+      {
+        const rr = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
+        if (rr.ok && rr.pMarkt != null && rr.pFinal != null) for (const seite of ["A", "B"]) {
+          const q = seite === "A" ? qa : qb, pz = seite === "A" ? (rr.pFinal + rr.pMarkt) / 2 : 1 - (rr.pFinal + rr.pMarkt) / 2;
+          if (q > 1 && pz >= 0.7 && 1 / (q - 1) <= 3)
+            neuSignal(`tagesziel|${m.id}|${bm}`, Object.assign({ typ: "tagesziel", wette: seite, erstQuote: q, letzteQuote: q, pz: r3(pz),
+              einsatzU: r3(1 / (q - 1)) }, basis));
         }
       }
       // Value-Tipp weg? (Tipp protokolliert, mit der aktuellen Quote kein Value mehr)
