@@ -82,7 +82,7 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .hgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
 .hbox h3{margin:0 0 6px}.hbox ul{list-style:none;margin:0;padding:0}.hbox li{padding:3px 0;border-bottom:1px solid var(--line);font-size:13px}.hbox li:last-child{border-bottom:0}
 .hbox a.hz{color:inherit;text-decoration:none}.hbox a.hz:hover{color:var(--accent)}
-.meinew{display:inline-block;margin-top:3px;font-size:12px;background:var(--accent-soft);color:var(--fg);border-radius:4px;padding:1px 6px}
+.meinew{font-size:13px;background:var(--accent-soft);color:var(--fg);border-radius:6px;padding:8px 12px}
 .lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
 .leiter{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg)}.leiter.zu{opacity:.85}
 .lstufen{margin:6px 0 0 18px;padding:0;font-size:13px}.lstufen li{padding:2px 0}.laktion{display:flex;gap:6px;margin-top:8px}
@@ -910,7 +910,7 @@ function rowHtml(p, r){
     return `<div class="pbar" title="${esc(name)}: Modell ${m} %${k!=null?` · Markt ${k} %`:""} (Skala 50–100 %)"><i style="width:${x(m)}%"></i>${gap}${k!=null?`<b style="left:${x(k)}%"></b>`:""}</div>${diffTxt}`; })();
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
-    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}${(() => { const mw = meineWettenFuer(p); return mw.length ? `<span class="meinew" title="Deine Wette${mw.length>1?"n":""} (Meine Wetten)">🎫 ${mw.map(meineWetteText).join(" · ")}</span>` : ""; })()}<span class="show-s">${balken}</span></div></td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}<span class="show-s">${balken}</span></div></td>
     <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span>${balken}</div></td>
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
@@ -1453,7 +1453,7 @@ function detailHtml(p, r){
   const band = (x) => x ? `<span class="k">${esc(x.name)} bei Quote ${x.band.replace("-","–").replace(/\./g,",")}</span><span class="v">${x.n?`${x.siege}/${x.n} (${pc(x.pct,0)})`:"—"}</span>` : "";
   const cur = store.get("belag."+p.id, null) || "auto";
   PROFCTX[p.id] = {p, r};
-  return `${assHtml(r)}${p.calc?"":`<div class="dsig">${bilanzHtml(r)}${signalInfoHtml(r)}${warnHtml(p, r)}</div>`}<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
+  return `${assHtml(r)}${p.calc?"":`<div class="dsig">${(() => { const mw = meineWettenFuer(p); return mw.length ? `<div class="meinew">🎫 <b>Deine Wette${mw.length>1?"n":""}:</b> ${mw.map(meineWetteText).join(" · ")}</div>` : ""; })()}${bilanzHtml(r)}${signalInfoHtml(r)}${warnHtml(p, r)}</div>`}<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
   <div class="dgrid">
     <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
       <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
