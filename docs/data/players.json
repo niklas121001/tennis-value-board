@@ -7772,22 +7772,28 @@
  },
  "Michael Geerts": {
   "elo": 1221.7,
-  "hard_1in": null,
-  "hard_1won": null,
-  "hard_2won": null,
+  "hard_1in": 0.567,
+  "hard_1won": 0.725,
+  "hard_2won": 0.522,
   "clay_1in": null,
   "clay_1won": null,
   "clay_2won": null,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
-  "ret_hard": null,
+  "ret_hard": 0.394,
   "ret_clay": null,
   "ret_grass": null,
   "tb": 0.5,
   "elo_hard": 1330.8,
   "elo_clay": 1280.0,
-  "elo_grass": 1306.6
+  "elo_grass": 1306.6,
+  "manuell": {
+   "hard_1in": "2026-10-27T09:14",
+   "hard_1won": "2026-10-27T09:14",
+   "hard_2won": "2026-10-27T09:14",
+   "ret_hard": "2026-10-27T09:14"
+  }
  },
  "Maks Kasnikowski": {
   "elo": 1537.1,
@@ -11824,7 +11830,7 @@
   "markt_ids": [
    "id1205335275728594"
   ],
-  "elo": 1389.3,
+  "elo": 1366.3,
   "elo_hard": 1389.3,
   "elo_clay": 1389.3,
   "elo_grass": 1389.3,
@@ -11885,25 +11891,27 @@
  },
  "Yaroslav Demin": {
   "geschaetzt": true,
-  "n_markt": 2,
-  "n_erg": 2,
+  "n_markt": 3,
+  "n_erg": 3,
   "quelle": "markt",
   "anker": "direkt",
   "erstellt": "2026-10-20",
   "markt_ids": [
    "id1200463175794168",
-   "id1200579776070784"
+   "id1200579776070784",
+   "id1200579775837978"
   ],
-  "elo": 1292.3,
-  "elo_hard": 1292.3,
-  "elo_clay": 1292.3,
-  "elo_grass": 1292.3,
+  "elo": 1338.9,
+  "elo_hard": 1338.9,
+  "elo_clay": 1338.9,
+  "elo_grass": 1338.9,
   "markt_werte": [
    1349.0,
-   1245.4
+   1245.4,
+   1389.6
   ],
-  "erg_delta": -4.9,
-  "elo_markt": 1297.2
+  "erg_delta": 10.9,
+  "elo_markt": 1328.0
  },
  "Joao Domingues": {
   "geschaetzt": true,
@@ -12310,22 +12318,24 @@
  },
  "Yun Seong Chung": {
   "geschaetzt": true,
-  "n_markt": 1,
+  "n_markt": 2,
   "n_erg": 2,
   "quelle": "markt",
-  "anker": "basis",
+  "anker": "direkt",
   "erstellt": "2026-10-26",
   "markt_ids": [
-   "id1200611176059522"
+   "id1200611176059522",
+   "id1200611175837722"
   ],
   "markt_werte": [
-   1314.2
+   1314.2,
+   1344.5
   ],
-  "elo_markt": 1314.2,
-  "elo": 1356.5,
-  "elo_hard": 1356.5,
-  "elo_clay": 1356.5,
-  "elo_grass": 1356.5,
+  "elo_markt": 1329.3,
+  "elo": 1371.6,
+  "elo_hard": 1371.6,
+  "elo_clay": 1371.6,
+  "elo_grass": 1371.6,
   "erg_delta": 42.3
  },
  "Robin Catry": {

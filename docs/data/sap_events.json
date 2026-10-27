@@ -5913,7 +5913,7 @@
 },
 "17403260": {
 "id": 17403260,
-"start": "2026-10-28T10:30:00Z",
+"start": "2026-10-28T12:30:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
@@ -5953,7 +5953,7 @@
 },
 "17403257": {
 "id": 17403257,
-"start": "2026-10-28T10:30:00Z",
+"start": "2026-10-28T16:30:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
@@ -5993,7 +5993,7 @@
 },
 "17403265": {
 "id": 17403265,
-"start": "2026-10-28T10:30:00Z",
+"start": "2026-10-28T13:40:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
@@ -6100,7 +6100,7 @@
 },
 "17403266": {
 "id": 17403266,
-"start": "2026-10-28T10:30:00Z",
+"start": "2026-10-28T12:30:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
@@ -6132,11 +6132,16 @@
 "aId": 106755,
 "hL": "US",
 "aL": "RU",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+3
+]
+]
 },
 "17336042": {
 "id": 17336042,
@@ -7167,7 +7172,7 @@
 "17403150": {
 "id": 17403150,
 "start": "2026-10-27T06:45:00Z",
-"min": null,
+"min": 61,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
 "belag": "hard",
@@ -7178,13 +7183,17 @@
 "aId": 229275,
 "hL": "GR",
 "aL": "KZ",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
-3,
+6,
+2
+],
+[
+6,
 2
 ]
 ]
@@ -8760,8 +8769,8 @@
 },
 "17404918": {
 "id": 17404918,
-"start": "2026-10-27T10:00:00Z",
-"min": null,
+"start": "2026-10-27T10:15:00Z",
+"min": 141,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -8772,16 +8781,29 @@
 "aId": 450685,
 "hL": "SE",
 "aL": "CN",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+6,
+7
+],
+[
+4,
+6
+]
+]
 },
 "17404919": {
 "id": 17404919,
 "start": "2026-10-27T05:30:00Z",
-"min": null,
+"min": 158,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -8792,9 +8814,9 @@
 "aId": 420914,
 "hL": "CN",
 "aL": "JP",
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -8806,15 +8828,15 @@
 3
 ],
 [
-0,
-0
+7,
+5
 ]
 ]
 },
 "17404921": {
 "id": 17404921,
-"start": "2026-10-27T06:20:00Z",
-"min": null,
+"start": "2026-10-27T08:25:00Z",
+"min": 93,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -8825,11 +8847,20 @@
 "aId": 201681,
 "hL": "CN",
 "aL": "CN",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17404909": {
 "id": 17404909,
@@ -8895,8 +8926,8 @@
 },
 "17404917": {
 "id": 17404917,
-"start": "2026-10-27T05:20:00Z",
-"min": null,
+"start": "2026-10-27T10:30:00Z",
+"min": 154,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -8907,11 +8938,24 @@
 "aId": 47764,
 "hL": "UZ",
 "aL": "GB",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+6,
+7
+],
+[
+2,
+6
+]
+]
 },
 "17404911": {
 "id": 17404911,
@@ -8973,7 +9017,7 @@
 },
 "17404922": {
 "id": 17404922,
-"start": "2026-10-27T07:00:00Z",
+"start": "2026-10-27T12:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
@@ -8985,11 +9029,20 @@
 "aId": 197935,
 "hL": "AU",
 "aL": "JP",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+2,
+1
+]
+]
 },
 "17404907": {
 "id": 17404907,
@@ -9135,7 +9188,7 @@
 },
 "17406479": {
 "id": 17406479,
-"start": "2026-10-27T13:30:00Z",
+"start": "2026-10-27T14:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -9196,8 +9249,8 @@
 "aId": 483188,
 "hL": "IT",
 "aL": "NO",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 32",
 "satz": []
@@ -9257,7 +9310,7 @@
 },
 "17406482": {
 "id": 17406482,
-"start": "2026-10-27T13:30:00Z",
+"start": "2026-10-27T14:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -9317,7 +9370,7 @@
 },
 "17404034": {
 "id": 17404034,
-"start": "2026-10-27T13:20:00Z",
+"start": "2026-10-27T13:40:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
@@ -9423,7 +9476,7 @@
 },
 "17404043": {
 "id": 17404043,
-"start": "2026-10-27T12:10:00Z",
+"start": "2026-10-27T13:10:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
@@ -10444,7 +10497,7 @@
 "17410955": {
 "id": 17410955,
 "start": "2026-10-27T11:00:00Z",
-"min": null,
+"min": 112,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
 "belag": "hard",
@@ -10455,11 +10508,24 @@
 "aId": 170946,
 "hL": "PL",
 "aL": "BE",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+6,
+3
+],
+[
+6,
+4
+]
+]
 },
 "17410747": {
 "id": 17410747,
@@ -11207,7 +11273,7 @@
 },
 "17377348": {
 "id": 17377348,
-"start": "2026-10-28T02:00:00Z",
+"start": "2026-10-28T03:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
@@ -11348,7 +11414,7 @@
 "17415955": {
 "id": 17415955,
 "start": "2026-10-27T04:15:00Z",
-"min": null,
+"min": 129,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -11359,9 +11425,9 @@
 "aId": 295881,
 "hL": "AU",
 "aL": "IT",
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -11373,15 +11439,15 @@
 6
 ],
 [
-5,
-3
+6,
+4
 ]
 ]
 },
 "17415957": {
 "id": 17415957,
 "start": "2026-10-27T05:45:00Z",
-"min": null,
+"min": 124,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -11392,9 +11458,9 @@
 "aId": 32466,
 "hL": "AU",
 "aL": "JP",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -11402,15 +11468,19 @@
 6
 ],
 [
-0,
-0
+6,
+2
+],
+[
+6,
+7
 ]
 ]
 },
 "17415954": {
 "id": 17415954,
 "start": "2026-10-27T05:25:00Z",
-"min": null,
+"min": 72,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -11421,9 +11491,9 @@
 "aId": 330452,
 "hL": "RU",
 "aL": "DK",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -11431,8 +11501,8 @@
 4
 ],
 [
-1,
-1
+6,
+4
 ]
 ]
 },
@@ -11472,7 +11542,7 @@
 "17415538": {
 "id": 17415538,
 "start": "2026-10-27T06:35:00Z",
-"min": null,
+"min": 88,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
 "belag": "hard",
@@ -11483,14 +11553,18 @@
 "aId": 217464,
 "hL": "RU",
 "aL": "JP",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
-4,
+6,
 3
+],
+[
+6,
+1
 ]
 ]
 },
@@ -11508,15 +11582,15 @@
 "aId": 289106,
 "hL": "KZ",
 "aL": "HK",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 32",
 "satz": []
 },
 "17415956": {
 "id": 17415956,
-"start": "2026-10-27T08:10:00Z",
+"start": "2026-10-27T11:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
@@ -11528,15 +11602,28 @@
 "aId": 49660,
 "hL": "JP",
 "aL": "PL",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+6,
+3
+],
+[
+4,
+3
+]
+]
 },
 "17377258": {
 "id": 17377258,
-"start": "2026-10-28T04:40:00Z",
+"start": "2026-10-28T04:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
@@ -11582,11 +11669,11 @@
 "turnier": "Ningbo, China",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "R16P13",
+"h": "Hiroki Moriya",
 "a": "Mert Alkaya",
-"hId": 393288,
+"hId": 32466,
 "aId": 200150,
-"hL": null,
+"hL": "JP",
 "aL": "TR",
 "st": "notstarted",
 "desc": "Not started",
@@ -11677,7 +11764,7 @@
 "17421010": {
 "id": 17421010,
 "start": "2026-10-27T06:35:00Z",
-"min": null,
+"min": 91,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
 "belag": "hard",
@@ -11688,21 +11775,25 @@
 "aId": 289106,
 "hL": "KR",
 "aL": "HK",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
-3,
-5
+4,
+6
+],
+[
+4,
+6
 ]
 ]
 },
 "17417959": {
 "id": 17417959,
 "start": "2026-10-27T10:00:00Z",
-"min": null,
+"min": 104,
 "kat": "Challenger",
 "turnier": "Brest, France",
 "belag": "hard",
@@ -11713,16 +11804,25 @@
 "aId": 261017,
 "hL": "TN",
 "aL": "IT",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+7
+],
+[
+3,
+6
+]
+]
 },
 "17417958": {
 "id": 17417958,
 "start": "2026-10-27T10:00:00Z",
-"min": null,
+"min": 96,
 "kat": "Challenger",
 "turnier": "Brest, France",
 "belag": "hard",
@@ -11733,15 +11833,24 @@
 "aId": 349089,
 "hL": "FR",
 "aL": "HR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17417957": {
 "id": 17417957,
-"start": "2026-10-27T11:10:00Z",
+"start": "2026-10-27T12:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -11753,15 +11862,20 @@
 "aId": 103625,
 "hL": "FR",
 "aL": "BE",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+6
+]
+]
 },
 "17417960": {
 "id": 17417960,
-"start": "2026-10-27T11:10:00Z",
+"start": "2026-10-27T11:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -11773,15 +11887,28 @@
 "aId": 124916,
 "hL": "FR",
 "aL": "HR",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+4,
+6
+],
+[
+1,
+1
+]
+]
 },
 "17417961": {
 "id": 17417961,
-"start": "2026-10-27T12:20:00Z",
+"start": "2026-10-27T13:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -11901,7 +12028,7 @@
 },
 "17377289": {
 "id": 17377289,
-"start": "2026-10-28T02:00:00Z",
+"start": "2026-10-29T02:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
@@ -11928,11 +12055,11 @@
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Charles Broom",
-"a": "R16P10",
+"a": "Yaroslav Demin",
 "hId": 202181,
-"aId": 393285,
+"aId": 371863,
 "hL": "GB",
-"aL": null,
+"aL": "RU",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -11948,11 +12075,11 @@
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Petr Bar Biryukov",
-"a": "R16P4",
+"a": "Fajing Sun",
 "hId": 373829,
-"aId": 393279,
+"aId": 163438,
 "hL": "RU",
-"aL": null,
+"aL": "CN",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -11987,11 +12114,11 @@
 "turnier": "Brest, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "R16P3",
+"h": "Francesco Maestrelli",
 "a": "Gabriel Diallo",
-"hId": 393278,
+"hId": 261017,
 "aId": 280151,
-"hL": null,
+"hL": "IT",
 "aL": "CA",
 "st": "notstarted",
 "desc": "Not started",
@@ -12021,7 +12148,7 @@
 },
 "17377290": {
 "id": 17377290,
-"start": "2026-10-28T10:30:00Z",
+"start": "2026-10-28T19:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
@@ -12061,7 +12188,7 @@
 },
 "17377282": {
 "id": 17377282,
-"start": "2026-10-28T12:30:00Z",
+"start": "2026-10-28T14:50:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
@@ -12261,18 +12388,138 @@
 },
 "17377230": {
 "id": 17377230,
-"start": "2026-10-29T05:00:00Z",
+"start": "2026-10-29T02:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "R16P7",
+"h": "Alibek Kachmazov",
 "a": "Seongchan Hong",
-"hId": 393282,
+"hId": 295178,
 "aId": 97977,
-"hL": null,
+"hL": "RU",
 "aL": "KR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17422104": {
+"id": 17422104,
+"start": "2026-10-27T13:15:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Brest, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Kilian Feldbausch",
+"a": "Nicolai Budkov Kjaer",
+"hId": 377489,
+"aId": 483188,
+"hL": "CH",
+"aL": "NO",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17377369": {
+"id": 17377369,
+"start": "2026-10-28T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ningbo, China",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "R16P7",
+"a": "Liam Broady",
+"hId": 393282,
+"aId": 47764,
+"hL": null,
+"aL": "GB",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17377375": {
+"id": 17377375,
+"start": "2026-10-28T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ningbo, China",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "R16P1",
+"a": "Jie Cui",
+"hId": 393276,
+"aId": 201681,
+"hL": null,
+"aL": "CN",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17377371": {
+"id": 17377371,
+"start": "2026-10-28T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ningbo, China",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Yi Zhou",
+"a": "Jake Delaney",
+"hId": 450685,
+"aId": 79223,
+"hL": "CN",
+"aL": "AU",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17377326": {
+"id": 17377326,
+"start": "2026-10-28T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Brest, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P15",
+"a": "Dino Prižmić",
+"hId": 393290,
+"aId": 349089,
+"hL": null,
+"aL": "HR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17377279": {
+"id": 17377279,
+"start": "2026-10-29T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Seoul, Korea Republic",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Stefanos Sakellaridis",
+"a": "Coleman Wong",
+"hId": 302567,
+"aId": 289106,
+"hL": "GR",
+"aL": "HK",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
