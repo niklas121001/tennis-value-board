@@ -55,6 +55,16 @@
     return P.MODUS_SAETZE;
   }
 
+  // Platztempo Hart/Rasen (ATP-Turniere, Tennis Abstract Surface Speed: 1,00 = Tour-Schnitt). Nur ATP, Challenger ohne Wert.
+  function lookupTempo(turnier, belag, tabelle) {
+    const t = String(turnier || "").toLowerCase(), sk = surfKey(belag);
+    if (!tabelle || /challenger/.test(t) || (sk !== "hard" && sk !== "grass")) return null;
+    for (const row of tabelle) {
+      if (row.belag !== sk) continue;
+      for (const n of [row.name, ...(row.alias || [])]) if (n && t.includes(String(n).toLowerCase())) return row.speed;
+    }
+    return null;
+  }
   // DASHBOARD AJ: Court Speed Index (nur Sand)
   function lookupCSI(turnier, belag, csiTable) {
     if (surfKey(belag) !== "clay") return null;
@@ -386,7 +396,7 @@
 
     return Object.assign(out, {
       varianten,
-      ok: true, modus: mode, csi,
+      ok: true, modus: mode, csi, tempo: lookupTempo(match.turnier, match.belag, D.tempo),
       eloA, eloB, yEloA: pa.elo, yEloB: pb.elo,
       pSrvA, pSrvB, pStats, pElo,
       h2h: { a: hA, b: hB, n: hN, quelle: hQuelle, pct: hN > 0 ? h2hPct : null, gewicht: h2hW },

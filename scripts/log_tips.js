@@ -6,7 +6,7 @@ const dir = path.join(__dirname, "..", "docs", "data");
 const rd = (f, d) => (fs.existsSync(path.join(dir, f)) ? JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) : d);
 
 const P = rd("params.json");
-const D = { params: P.params, csi: P.csi, players: rd("players.json"), h2h: rd("h2h.json"), playerStats: rd("player_stats.json"), blacklist: rd("blacklist.json", []), statsAvg: rd("stats_avg.json", null), h2hWeb: (rd("h2h_web.json", {}) || {}).paare || {}, h2hApi: (rd("h2h_api.json", {}) || {}).paare || {},
+const D = { params: P.params, csi: P.csi, tempo: (rd("tempo.json", {}) || {}).turniere || [], players: rd("players.json"), h2h: rd("h2h.json"), playerStats: rd("player_stats.json"), blacklist: rd("blacklist.json", []), statsAvg: rd("stats_avg.json", null), h2hWeb: (rd("h2h_web.json", {}) || {}).paare || {}, h2hApi: (rd("h2h_api.json", {}) || {}).paare || {},
   playerStatsWeb: (rd("player_stats_web.json", {}) || {}).spieler || {}, serveLive: (rd("serve_live.json", {}) || {}).spieler || {} };
 const mj = rd("matches.json", { partien: [] });
 if (mj.demo) { console.log("Demo-Daten – nichts protokolliert"); process.exit(0); }
@@ -257,7 +257,7 @@ function merkmale(m, r, qs) {
   const qa = qs && qs.length ? qs[0][0] : null, qb = qs && qs.length ? qs[0][1] : null;
   const std = m.start ? parseInt(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", hourCycle: "h23", timeZone: "Europe/Berlin" }).format(new Date(m.start)), 10) : null;
   return {
-    gt: m.gt || null, halle: m.gt ? /indoor/i.test(m.gt) : null, runde: m.runde || null, quali: !!m.quali, stunde: std,
+    gt: m.gt || null, halle: m.gt ? /indoor/i.test(m.gt) : null, tempo: r && r.ok ? (r.tempo ?? null) : null, runde: m.runde || null, quali: !!m.quali, stunde: std,
     landA: m.landA || null, landB: m.landB || null, formA: fo(m.form && m.form.a), formB: fo(m.form && m.form.b),
     warnA: r && r.ok && qa ? warnTypen(m, r, "A", qa, qb) : [], warnB: r && r.ok && qa ? warnTypen(m, r, "B", qa, qb) : [],
     aussenseiter: !!(r && r.aussenseiter), bilanzSignal: r && r.bilanzSignal ? r.bilanzSignal.seite : null,

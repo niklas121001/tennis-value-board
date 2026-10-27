@@ -455,7 +455,7 @@ async function init(){
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
     j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {}), j("h2h_web.json", {}), j("h2h_api.json", {}), j("player_stats_web.json", {}), j("serve_live.json", {}), j("quoten_verlauf.json", {})]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
-  D = {params:P.params, csi:P.csi, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
+  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   ERG = erg || {}; QV = qv || {};
   // Manuelle Spielerwerte sofort berücksichtigen (das nächste Update schreibt sie fest in players.json)
@@ -1497,7 +1497,8 @@ function detailHtml(p, r){
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
         <option value="auto"${cur==="auto"?" selected":""}>automatisch (${SURF[p.belag]||p.belag}, ${p.belagQuelle==="standard"?"geschätzt":p.belagQuelle})</option>
         ${["hard","clay","grass"].map(b=>`<option value="${b}"${cur===b?" selected":""}>${SURF[b]}</option>`).join("")}</select>
-      ${r.csi!=null?`<div class="kv two" style="margin-top:6px"><span class="k">Court Speed Index</span><span class="v">${fx(r.csi,1)}</span></div>`:""}</div>`}
+      ${r.csi!=null?`<div class="kv two" style="margin-top:6px"><span class="k">Court Speed Index</span><span class="v">${fx(r.csi,1)}</span></div>`:""}
+      ${r.tempo!=null?`<div class="kv two" style="margin-top:6px"><span class="k" title="Tennis Abstract Surface Speed 2025: Asse im Vergleich zum Tour-Schnitt (1,00), bereinigt um die Spieler">Platztempo</span><span class="v">${fx(r.tempo,2)} · ${r.tempo>=1.2?"sehr schnell":r.tempo>=1.05?"schnell":r.tempo>=0.95?"mittel":r.tempo>=0.85?"eher langsam":"langsam"}</span></div>`:""}</div>`}
     ${p.calc||!r.ok?"":wetteBox(p, r)}
   </div>${r.warnungen&&r.warnungen.length?`<ul class="warns">${r.warnungen.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:""}`;
 }
