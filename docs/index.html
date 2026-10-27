@@ -998,25 +998,26 @@ function variantenHtml(bm, art){
   const passt = (x) => (bm==="alle" || x.buchmacher===bm) && artOk(x);
   const A = Object.values(LOG||{}).filter(x => passt(x) && String(x.erstGesehen||"") >= TEST_START);
   const V = Object.values(VAR.vt).filter(passt);
-  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C")};
+  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D")};
   // Prognose-Güte auf denselben Partien (alle mit Quote, Ergebnis und allen drei Varianten)
   const res = [];
   for(const [id, p] of Object.entries(VAR.prog)){
     const e = ERG[id] || (ARCHIV||{})[id];
     if(!artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || p.pB==null || p.pC==null || p.pMarkt==null || p.pFinal==null) continue;
-    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, M: p.pMarkt, p, e});
+    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, D: p.pD, M: p.pMarkt, p, e});
   }
-  const guete = (k) => { if(!res.length) return {t:null, ll:null};
-    let t = 0, ll = 0; for(const r of res){ const q = Math.min(Math.max(r[k],1e-4),1-1e-4); t += (q>0.5)===(r.y===1); ll -= r.y*Math.log(q)+(1-r.y)*Math.log(1-q); }
-    return {t: t/res.length, ll: ll/res.length}; };
+  // Güte über die Partien, für die die Variante eine Prognose hat (D erst seit 27.10. – eigener, kleinerer Ausschnitt)
+  const guete = (k, nur) => { const rs = res.filter(r => r[k] != null && (!nur || r[nur] != null)); if(!rs.length) return {t:null, ll:null, n:0};
+    let t = 0, ll = 0; for(const r of rs){ const q = Math.min(Math.max(r[k],1e-4),1-1e-4); t += (q>0.5)===(r.y===1); ll -= r.y*Math.log(q)+(1-r.y)*Math.log(1-q); }
+    return {t: t/rs.length, ll: ll/rs.length, n: rs.length}; };
   const datum = (s) => { const d = new Date(s); return isNaN(d) ? "–" : d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ}); };
   const ERGP = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
   const tippListe = (xs) => xs.length ? `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th class="l hide-s">Turnier</th><th>Quote</th><th>letzte</th><th>Edge</th><th>Ergebnis</th></tr></thead><tbody>${
       xs.slice().sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => `<tr><td class="l time">${datum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="l hide-s time">${esc(tName(x))}</td><td class="num">${fx(x.erstQuote)}</td><td class="num">${fx(x.letzteQuote)}</td><td class="num">${sg(x.edge)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`).join("")}</tbody></table>`
     : `<p class="time">Noch keine Tipps dieser Variante.</p>`;
-  const progListe = () => res.length ? `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Partie (Sieger fett)</th><th title="Siegchance Spieler 1">Markt</th><th>A</th><th>B</th><th>C</th></tr></thead><tbody>${
+  const progListe = () => res.length ? `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Partie (Sieger fett)</th><th title="Siegchance Spieler 1">Markt</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody>${
       res.slice().sort((a,b) => String(b.p.start).localeCompare(String(a.p.start))).map(r => { const z = (v) => `<span class="${(v>0.5)===(r.y===1)?"pos":"negv"}">${pc(v,0)}</span>`;
-        return `<tr><td class="l time">${datum(r.p.start)}</td><td class="l">${r.y===1?`<b>${esc(r.p.a)}</b>`:esc(r.p.a)} – ${r.y===0?`<b>${esc(r.p.b)}</b>`:esc(r.p.b)} <span class="time">${esc(tName(r.p))}</span></td><td class="num">${z(r.M)}</td><td class="num">${z(r.A)}</td><td class="num">${z(r.B)}</td><td class="num">${z(r.C)}</td></tr>`; }).join("")}</tbody></table>
+        return `<tr><td class="l time">${datum(r.p.start)}</td><td class="l">${r.y===1?`<b>${esc(r.p.a)}</b>`:esc(r.p.a)} – ${r.y===0?`<b>${esc(r.p.b)}</b>`:esc(r.p.b)} <span class="time">${esc(tName(r.p))}</span></td><td class="num">${z(r.M)}</td><td class="num">${z(r.A)}</td><td class="num">${z(r.B)}</td><td class="num">${z(r.C)}</td><td class="num">${r.D==null?"–":z(r.D)}</td></tr>`; }).join("")}</tbody></table>
       <p class="time">Siegchance für den erstgenannten Spieler; grün = Prognose lag richtig, rot = falsch.</p>`
     : `<p class="time">Noch keine abgeschlossenen Partien mit Prognosen aller Varianten.</p>`;
   const zeile = (name, beschr, k, x) => { const g = guete(k), offen = VAR_OFFEN === k;
@@ -1027,9 +1028,11 @@ function variantenHtml(bm, art){
     ${zeile("A · aktuell", `${Math.round(D.params.W_MODELL_BLEND*100)} % Modell, wie auf dem Board`, "A", kz(tips.A))}
     ${zeile("B · Test", "Elo gedämpft, Statistik nur mit echten Werten", "B", kz(tips.B))}
     ${zeile("C · Test", "wie B + gegnerbereinigte Aufschlag-/Returnwerte", "C", kz(tips.C))}
+    ${zeile("D · Test", `Statistik-Gewicht Hard ${pc(D.params.D_W_STATS_HARD??0.15,0)}, Sand ${pc(D.params.D_W_STATS_CLAY??0.4,0)} (seit 27.10.)${(() => { const gd = guete("D"), ga = guete("A","D"), gm = guete("M","D");
+      return gd.n ? ` · gleiche ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)}, Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}` : ""; })()}`, "D", kz(tips.D))}
     ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}
     </tbody></table></div>
-    <p class="note">B und C tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Zeile anklicken, um die zugehörigen Tipps und Partien zu sehen. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
+    <p class="note">B, C und D tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Zeile anklicken, um die zugehörigen Tipps und Partien zu sehen. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt

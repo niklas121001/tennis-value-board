@@ -353,7 +353,19 @@
       if (!isFinite(sC)) sC = 0.5;
       pStatsC = pMatch(sC, mode);
     }
+    // D (seit 27.10.2026): wie A, aber Statistik-Gewicht je Belag neu – Hard weniger (Statistik-Teil traf dort ~50 %),
+    // Sand mehr (dort stärkster Teil). Rasen unverändert. Kalibrierung und Markt-Blend wie A.
+    let pD = null;
+    {
+      const wsH = isNum(P.D_W_STATS_HARD) ? P.D_W_STATS_HARD : 0.15, wsC = isNum(P.D_W_STATS_CLAY) ? P.D_W_STATS_CLAY : 0.40;
+      let [wsD, weD] = sk === "hard" ? [wsH, 1 - wsH] : sk === "clay" ? [wsC, 1 - wsC] : [wS, wE];
+      if (out.nurElo) wsD = 0;
+      const pKombiD = clip((wsD * pStats + weD * pElo + h2hW * h2hPct) / (wsD + weD + h2hW) + erf, 0.05, 0.95);
+      const pKalD = sigm(P.K_KALIBRIERUNG * logit(clip(pKombiD, 0.02, 0.98)));
+      pD = pMarkt === null ? pKalD : sigm(P.W_MODELL_BLEND * logit(pKalD) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
+    }
     const varianten = {
+      D: bewerte(pD, match, haveOdds, D, P),
       B: bewerte(mitMarkt(kombi(pStats, echteStats)), match, haveOdds, D, P),
       C: bewerte(mitMarkt(kombi(pStatsC, echteStats)), match, haveOdds, D, P),
     };
