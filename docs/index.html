@@ -93,8 +93,11 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 @media (max-width:760px){.kalib{grid-template-columns:minmax(0,1fr)}}
 /* Prognose-Balken: Modell-Anteil Spieler A (Farbe), Strich = Markt */
 .pbar{position:relative;height:6px;width:100%;max-width:120px;background:var(--line);border-radius:3px;margin-top:4px;overflow:visible}
-.pbar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:3px 0 0 3px;opacity:.85}
+.pbar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:3px 0 0 3px;opacity:.55}
+.pbar u{position:absolute;top:0;bottom:0;text-decoration:none}
+.pbar u.plus{background:var(--good)}.pbar u.minus{background:var(--bad)}
 .pbar b{position:absolute;top:-3px;width:2px;height:12px;background:var(--fg);margin-left:-1px;border-radius:1px}
+.pdiff{display:block;font:11px var(--f-mono);color:var(--muted);margin-top:2px}.pdiff.plus{color:var(--good)}.pdiff.minus{color:var(--bad)}
 .sym{font-size:12px;margin-left:3px;cursor:help}
 .flag{margin-right:5px;width:16px;height:12px;vertical-align:-1px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12);object-fit:cover}
 .tabpunkt{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--warn);vertical-align:3px;margin-left:3px}
@@ -815,7 +818,13 @@ function rowHtml(p, r){
   const balken = (() => { if(r.pFinal==null) return "";
     const fA = r.pFinal >= .5, m = Math.round((fA ? r.pFinal : 1-r.pFinal)*100), k = r.pMarkt!=null ? Math.round((fA ? r.pMarkt : 1-r.pMarkt)*100) : null;
     const name = fA ? r.a : r.b;
-    return `<div class="pbar" title="${esc(name)}: Modell ${m} %${k!=null?` · Markt ${k} %`:""}"><i style="width:${m}%"></i>${k!=null?`<b style="left:${k}%"></b>`:""}</div>`; })();
+    // Skala 50–100 % (doppelt so fein wie 0–100), Abstand Modell↔Markt farbig: grün = Modell sieht den Spieler stärker
+    const x = (v) => Math.max(0, Math.min(100, (v - 50) * 2));
+    let gap = "", diffTxt = "";
+    if(k != null){ const d = m - k, lo = Math.min(m, k), hi = Math.max(m, k);
+      if(Math.abs(d) >= 1) gap = `<u class="${d > 0 ? "plus" : "minus"}" style="left:${x(lo)}%;width:${x(hi) - x(lo)}%"></u>`;
+      diffTxt = `<span class="pdiff ${d >= 2 ? "plus" : d <= -2 ? "minus" : ""}">Markt ${k} %${Math.abs(d) >= 1 ? ` · ${d > 0 ? "+" : "−"}${Math.abs(d)}` : ""}</span>`; }
+    return `<div class="pbar" title="${esc(name)}: Modell ${m} %${k!=null?` · Markt ${k} %`:""} (Skala 50–100 %)"><i style="width:${x(m)}%"></i>${gap}${k!=null?`<b style="left:${x(k)}%"></b>`:""}</div>${diffTxt}`; })();
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
     <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}${(() => { const mw = meineWettenFuer(p); return mw.length ? `<span class="meinew" title="Deine Wette${mw.length>1?"n":""} (Meine Wetten)">🎫 ${mw.map(meineWetteText).join(" · ")}</span>` : ""; })()}<span class="show-s">${balken}</span></div></td>
