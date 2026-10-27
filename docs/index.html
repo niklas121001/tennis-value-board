@@ -321,6 +321,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     <div id="b-kurve" class="kurvebox"></div>
     <div id="b-varianten"></div>
     <div id="b-kalib"></div>
+    <div id="b-sigall"></div>
     <div id="b-aussenseiter"></div>
     <div id="b-bilanzsig"></div>
     <div id="b-split"></div>
@@ -540,7 +541,7 @@ function warnListe(p, r){
   }
   return ws;
 }
-const WARN_KURZ = {aufgabe:"Aufgabe zuletzt", pause:"lange Pause", belag:"Belagwechsel", quote:"Quote steigt", favschwach:"Favorit schwach"};
+const WARN_KURZ = {aufgabe:"Aufgabe zuletzt", pause:"lange Pause", belag:"Belagwechsel", quote:"Quote steigt", favschwach:"Favorit schwach", langesmatch:"langes Match am Vortag"};
 const warnIcon = (ws, seite, name) => { const x = ws.filter(w => w.seite === seite); return x.length ? ` <span class="wwarn" title="${esc(name+": "+x.map(w=>w.text).join(" · "))}">⚠</span>` : ""; };
 
 // ---- Manuell angepasste Quote je Partie (nur in diesem Browser); verfällt mit dem nächsten automatischen Update
@@ -898,9 +899,9 @@ const kDatum = (s) => new Date(s).toLocaleDateString("de-DE",{day:"2-digit",mont
 let VAR = null, VAR_OFFEN = null; const TEST_START = "2026-10-21";   // ab hier vergleichbar (A mit 50 % Modell, B/C laufen mit gleichem Anteil)
 async function variantenLaden(){
   if(VAR) return VAR;
-  const [vt, prog, ass, bil] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {}), j("aussenseiter_tips.json", {}), j("bilanz_tips.json", {})]);
+  const [vt, prog, ass, bil, sig] = await Promise.all([j("varianten_tips.json", {}), j("prognosen.json", {}), j("aussenseiter_tips.json", {}), j("bilanz_tips.json", {}), j("signale_log.json", {})]);
   await archivLaden();
-  return (VAR = {vt, prog, ass, bil});
+  return (VAR = {vt, prog, ass, bil, sig});
 }
 function variantenHtml(bm, art){
   if(!VAR) return "";
@@ -950,6 +951,28 @@ function variantenHtml(bm, art){
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
+// Alle Signale im Überblick (Test bis Jahresende): flach 1 U je Signal zur ersten Quote, CLV gegen die letzte Quote
+function signalUebersichtHtml(bm, art){
+  if(!VAR) return "";
+  const ok = (x) => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x));
+  const gruppen = [
+    ["⚡ Außenseiter-Signal", Object.values(VAR.ass||{})],
+    ["📊 Bilanz-Signal", Object.values(VAR.bil||{})],
+    ["📉 Quotensturz (Tipp auf den Spieler mit fallender Quote)", Object.values(VAR.sig||{}).filter(x => x.typ==="sturz")],
+    ["↻ Comeback-Spieler (Tipp auf Sieg)", Object.values(VAR.sig||{}).filter(x => x.typ==="comeback")],
+    ["⏱ Value-Tipp, Value vor Start weg", Object.values(LOG||{}).filter(x => x.valueWeg && !x.storniert && String(x.erstGesehen) >= "2026-10-27")],
+    ["✓ Value-Tipp, Value bis Start gehalten", Object.values(LOG||{}).filter(x => !x.valueWeg && !x.storniert && String(x.erstGesehen) >= "2026-10-27")],
+  ];
+  const zeile = ([titel, xs]) => { xs = xs.filter(ok);
+    const f = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
+    const u = f.reduce((s,x) => s + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0);
+    const c = xs.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
+    return `<tr><td class="l">${titel}</td><td class="num">${xs.length}</td><td class="num">${f.length ? `${w}–${f.length-w}` : "–"}</td><td class="num">${f.length ? pc(w/f.length,0) : "–"}</td>
+      <td class="num ${u>0?"pos":u<0?"negv":""}">${f.length ? (u>0?"+":"")+fx(u,1)+" U" : "–"}</td><td class="num">${f.length ? sg(u/f.length) : "–"}</td><td class="num">${c.length ? sg(c.reduce((a,b)=>a+b,0)/c.length) : "–"}</td></tr>`; };
+  return `<details class="box klapp" data-k="sigall" style="margin-top:16px"${store.get("klapp.sigall", true)?" open":""}><summary><h3>📋 Alle Signale im Überblick <span class="time">Test bis Jahresende</span></h3></summary>
+    <div class="tablewrap"><table><thead><tr><th class="l">Signal</th><th class="num">Signale</th><th class="num">gew.–verl.</th><th class="num">Treffer</th><th class="num">Gewinn (1 U)</th><th class="num">ROI</th><th class="num">Ø CLV</th></tr></thead><tbody>${gruppen.map(zeile).join("")}</tbody></table></div>
+    <p class="note">Jedes Signal wird beim ersten Auftreten vor Spielbeginn mit der Quote zu diesem Zeitpunkt gespeichert und flach mit 1 U bewertet (Aufgabe/Absage = ungültig). CLV: Quote beim Signal ÷ letzte Quote vor Start − 1. Quotensturz, Comeback und „Value vor Start weg“ werden seit dem 27.10. getrackt. Warnhinweise (Aufgabe zuletzt, lange Pause, Belagwechsel, Favorit schwach, langes Match am Vortag) stehen bei den Tipps und in der Aufschlüsselung unter „Warnhinweis“. Folgt den Filtern Buchmacher und Turniere.</p></details>`;
+}
 function kalibHtml(art){
   if(!VAR) return "";
   const BER = [[.5,.55],[.55,.6],[.6,.65],[.65,.7],[.7,.8],[.8,1.01]];
@@ -1441,10 +1464,12 @@ function renderLog(){
   $("#b-aussenseiter").innerHTML = assBilanzHtml(bm, art);
   $("#b-bilanzsig").innerHTML = bilanzSigHtml(bm, art);
   $("#b-kalib").innerHTML = kalibHtml(art);
+  $("#b-sigall").innerHTML = signalUebersichtHtml(bm, art);
   if(!VAR) variantenLaden().then(() => { $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value);
     $("#b-aussenseiter").innerHTML = assBilanzHtml($("#b-bm").value, $("#b-art").value);
     $("#b-bilanzsig").innerHTML = bilanzSigHtml($("#b-bm").value, $("#b-art").value);
-    $("#b-kalib").innerHTML = kalibHtml($("#b-art").value); });
+    $("#b-kalib").innerHTML = kalibHtml($("#b-art").value);
+    $("#b-sigall").innerHTML = signalUebersichtHtml($("#b-bm").value, $("#b-art").value); });
   { // Verlauf in Units: Unit-Einsatz (gerundet wie angezeigt) und flach 1 U je Tipp
     const fertig = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L").sort((a,b) => String(a.start).localeCompare(String(b.start)));
     let su = 0, sf = 0; const wu = [], wf = [], info = [];
@@ -1465,6 +1490,7 @@ function renderLog(){
   const gruppen = [["Monat", x=>String(x.start||"").slice(0,7)], ["Belag", x=>SURF[x.belag]||x.belag], ["Turniere", x=>isChTip(x)?"Challenger":"ATP"],
     ["Edge beim Tipp", x=>edgeB(x.edge), EDGE_B], ["Quote", x=>qB(x.erstQuote), QB], ["Tipp gefunden im", lauf],
     ["Turnier (Top 12 nach Tipps)", x=>tName(x), null, 12],
+    ["Value bis Spielbeginn", x=>String(x.erstGesehen) < "2026-10-27" ? "nicht erfasst (vor 27.10.)" : x.valueWeg ? "vor Start weg" : "gehalten", null],
     ["Warnhinweis", x=>(x.warn||[]).length ? "mit ⚠ ("+(x.warn||[]).map(t=>WARN_KURZ[t]||t).join(", ")+")" : "ohne Warnung"]];
   let split = "";
   for(const [titel, f, ordnung, top] of gruppen){

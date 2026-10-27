@@ -384,7 +384,7 @@ def main():
         print(f"Varianten: {neu_v} Tipps abgerechnet, insgesamt {len(vlog)}")
 
     # Außenseiter- und Bilanz-Signale abrechnen (gleiche Regeln)
-    for datei in ("aussenseiter_tips.json", "bilanz_tips.json"):
+    for datei in ("aussenseiter_tips.json", "bilanz_tips.json", "signale_log.json"):
         alog = load(datei, {})
         for t in alog.values():
             if t.get("ergebnis"):

@@ -18,6 +18,10 @@ function warnTypen(m, r, seite, qa, qb) {
   const f = r.favCheck, minN = P.params.AUSSENSEITER_MIN_N || 7, max = P.params.FAV_WARN_MAX || 0.6;
   const favSeite = qa < qb ? "A" : qb < qa ? "B" : null;
   if (f && f.pct != null && f.n >= minN && f.pct < max && favSeite === seite) t.push("favschwach");
+  // langes Match am Vortag (ab 150 Min. bzw. 33 Games, letztes Spiel höchstens 1 Tag vor dieser Partie)
+  const fo = m.form && m.form[seite === "A" ? "a" : "b"];
+  if (fo && fo.letztes && m.start && (new Date(m.start) - new Date(fo.letztes)) / 864e5 <= 1.5
+      && ((fo.letztesMin && fo.letztesMin >= 150) || (!fo.letztesMin && fo.letztesGames >= 33))) t.push("langesmatch");
   return t;
 }
 const now = new Date().toISOString().slice(0, 16) + "Z";
@@ -121,6 +125,69 @@ for (const m of matches) {
   }
 }
 fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
+
+// Weitere Signale (Test, Auswertung zum Jahresende) -> signale_log.json, flach 1 U je Signal:
+//  sturz     – Quote eines Spielers seit erster Sichtung um mind. 10 % (und 0,10) gefallen: Tipp auf diesen Spieler
+//  comeback  – Spieler gewinnt auffällig oft nach verlorenem 1. Satz (Archiv, mind. 2 von 3, >= 50 %): Tipp auf Sieg
+// Außerdem in tips_log.json: valueWeg (Value-Tipp ist vor Spielbeginn mit der aktuellen Quote kein Value mehr)
+{
+  const slog = rd("signale_log.json", {}), qv = rd("quoten_verlauf.json", {});
+  // Archiv der letzten 12 Monate für die Comeback-Auswertung
+  const adir = path.join(dir, "archiv"), arch = [];
+  if (fs.existsSync(adir)) for (const f of fs.readdirSync(adir).filter((f) => /^\d{4}-\d{2}\.json$/.test(f)).sort().slice(-12))
+    arch.push(...Object.values(JSON.parse(fs.readFileSync(path.join(adir, f), "utf8"))));
+  const cbCache = {};
+  const comeback = (name) => {
+    if (cbCache[name]) return cbCache[name];
+    let rueck = 0, cb = 0;
+    for (const x of arch) {
+      const seite = x.a === name ? "A" : x.b === name ? "B" : null;
+      if (!seite || !(x.sieger === "A" || x.sieger === "B") || x.aufgabe) continue;
+      const st = (x.satz || []).filter((t) => Array.isArray(t) && t[0] !== t[1]);
+      if (st.length < 2) continue;
+      if (seite === "A" ? st[0][0] < st[0][1] : st[0][0] > st[0][1]) { rueck++; if (x.sieger === seite) cb++; }
+    }
+    return (cbCache[name] = { rueck, cb });
+  };
+  let neuS = 0;
+  const neuSignal = (key, obj) => { if (slog[key]) return; slog[key] = Object.assign({ erstGesehen: now, zuletztGesehen: now }, obj); neuS++; };
+  for (const m of matches) {
+    if (!m.start || new Date(m.start) <= new Date()) continue;
+    for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
+      if ((m.pausiert || []).includes(bm)) continue;
+      const basis = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b, buchmacher: bm };
+      // laufende Signale: letzte Quote mitschreiben (CLV)
+      for (const typ of ["sturz", "comeback"]) {
+        const e = slog[`${typ}|${m.id}|${bm}`];
+        if (e) { e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; }
+      }
+      const reihe = ((qv[m.id] || {}).bm || {})[bm] || [];
+      if (reihe.length >= 2) for (const [seite, i] of [["A", 1], ["B", 2]]) {
+        const erst = reihe[0][i], jetzt = seite === "A" ? qa : qb;
+        if (erst > 1 && jetzt > 1 && 1 - jetzt / erst >= 0.10 && erst - jetzt >= 0.10)
+          neuSignal(`sturz|${m.id}|${bm}`, Object.assign({ typ: "sturz", wette: seite, erstQuote: jetzt, letzteQuote: jetzt, anfangsQuote: erst,
+            fall: r3(1 - jetzt / erst) }, basis));
+      }
+      for (const seite of ["A", "B"]) {
+        const z = comeback(seite === "A" ? m.a : m.b);
+        if (z.rueck >= 3 && z.cb >= 2 && z.cb / z.rueck >= 0.5) {
+          const q = seite === "A" ? qa : qb;
+          neuSignal(`comeback|${m.id}|${bm}`, Object.assign({ typ: "comeback", wette: seite, erstQuote: q, letzteQuote: q, rueck: z.rueck, cb: z.cb }, basis));
+        }
+      }
+      // Value-Tipp weg? (Tipp protokolliert, mit der aktuellen Quote kein Value mehr)
+      const t = log[`${m.id}|${bm}`];
+      if (t && !t.ergebnis) {
+        const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
+        if (r.ok && r.wette !== t.wette && !t.valueWeg) { t.valueWeg = now; t.valueWegQuote = t.wette === "A" ? qa : qb; }
+        else if (r.ok && r.wette === t.wette && t.valueWeg) { delete t.valueWeg; delete t.valueWegQuote; }
+      }
+    }
+  }
+  fs.writeFileSync(path.join(dir, "signale_log.json"), JSON.stringify(slog));
+  fs.writeFileSync(path.join(dir, "tips_log.json"), JSON.stringify(log, null, 0));
+  console.log(`Weitere Signale (Quotensturz/Comeback): ${neuS} neu, insgesamt ${Object.keys(slog).length}`);
+}
 
 // Außenseiter-Signale: separat tracken (Tipp auf den Markt-Außenseiter, flacher Einsatz)
 const alog = rd("aussenseiter_tips.json", {});
