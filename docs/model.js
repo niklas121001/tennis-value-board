@@ -364,8 +364,21 @@
       const pKalD = sigm(P.K_KALIBRIERUNG * logit(clip(pKombiD, 0.02, 0.98)));
       pD = pMarkt === null ? pKalD : sigm(P.W_MODELL_BLEND * logit(pKalD) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
     }
+    // E (seit 27.10.2026): bisheriges Modell A mit den alten Excel-Gewichten – damit der Vergleich bis Jahresende weiterläuft
+    let pE = null;
+    if (isNum(P.E_W_STATS_HARD)) {
+      const PE = { W_STATS_CLAY: P.E_W_STATS_CLAY, W_ELO_CLAY: P.E_W_ELO_CLAY, W_STATS_CLAY_SLOW: P.E_W_STATS_CLAY_SLOW, W_ELO_CLAY_SLOW: P.E_W_ELO_CLAY_SLOW,
+        W_STATS_CLAY_FAST: P.E_W_STATS_CLAY_FAST, W_ELO_CLAY_FAST: P.E_W_ELO_CLAY_FAST, W_STATS_GRASS: P.W_STATS_GRASS, W_ELO_GRASS: P.W_ELO_GRASS,
+        W_STATS_HARD: P.E_W_STATS_HARD, W_ELO_HARD: P.E_W_ELO_HARD, W_STATS: P.W_STATS, W_ELO: P.W_ELO };
+      let [wsE, weE] = weights(sk, csi, PE);
+      if (out.nurElo) wsE = 0;
+      const pKombiE = clip((wsE * pStats + weE * pElo + h2hW * h2hPct) / (wsE + weE + h2hW) + erf, 0.05, 0.95);
+      const pKalE = sigm(P.K_KALIBRIERUNG * logit(clip(pKombiE, 0.02, 0.98)));
+      pE = pMarkt === null ? pKalE : sigm(P.W_MODELL_BLEND * logit(pKalE) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
+    }
     const varianten = {
       D: bewerte(pD, match, haveOdds, D, P),
+      ...(pE !== null ? { E: bewerte(pE, match, haveOdds, D, P) } : {}),
       B: bewerte(mitMarkt(kombi(pStats, echteStats)), match, haveOdds, D, P),
       C: bewerte(mitMarkt(kombi(pStatsC, echteStats)), match, haveOdds, D, P),
     };
