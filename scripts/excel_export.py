@@ -128,6 +128,8 @@ def main(path, merge=False, tests=False):
     for name, rec in bilanz.items():
         ziel = pstats.setdefault(name, {"fav_pct": None, "fav_n": 0, "aus_pct": None, "aus_n": 0})
         ziel["baender"] = rec["baender"]
+        if rec.get("gbaender"):
+            ziel["gbaender"] = rec["gbaender"]
 
     # ---- BLACKLIST ----
     ws = wb["BLACKLIST"]

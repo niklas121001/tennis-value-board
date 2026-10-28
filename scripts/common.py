@@ -248,6 +248,10 @@ def spieler_bilanz_add(ziel, name, quote, gegen_quote, gewonnen):
     b = quoten_band(quote)
     if b:
         rec["baender"].setdefault(b, [0, 0])[i] += 1
+    # Bilanz gegen Gegner nach deren Quote, getrennt nach Rolle: gbaender = {fav|aus: {band der Gegnerquote: [S,N]}}
+    gb = quoten_band(gegen_quote)
+    if rolle and gb:
+        rec.setdefault("gbaender", {}).setdefault(rolle, {}).setdefault(gb, [0, 0])[i] += 1
 
 
 # ---------------------------------------------------------------- Doppelte Spieler (Mittelnamen)

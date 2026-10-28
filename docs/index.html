@@ -1314,19 +1314,18 @@ const saetzeZeilen = (za, zb, ab, gs) => {
     + ((za && za.aufg) || (zb && zb.aufg) ? `<span class="k" title="nicht gewertet">Aufgabe</span>${ab(za ? za.aufg : null, zb ? zb.aufg : null)}` : "");
 };
 // Wie oft hat der Spieler in seiner Rolle (Favorit/Außenseiter) gegen Gegner im gleichen Quotenbereich wie der aktuelle Gegner
-// gewonnen? Quelle: Ergebnis-Archiv (Ø-Quote vor Start), ohne Aufgaben.
+// gewonnen? Quelle: Excel (ANALYSE, gbaender in player_stats.json) + Website-Spiele seit dem Excel-Stand (player_stats_web.json).
+function gegnerBaender(name){
+  const out = {fav:{}, aus:{}};
+  for(const src of [(D.playerStats||{})[name], (D.playerStatsWeb||{})[name]]){
+    const g = src && src.gbaender; if(!g) continue;
+    for(const rolle of ["fav","aus"]) for(const [b, [w, l]] of Object.entries(g[rolle]||{})){ const e = out[rolle][b] = out[rolle][b] || [0,0]; e[0] += w; e[1] += l; } }
+  return out;
+}
 function gegnerBand(name, rolle, qGegner){
-  const band = TennisModel.quotenBand(qGegner); if(!ARCHIV || !band) return null;
-  let s = 0, n = 0;
-  for(const x of Object.values(ARCHIV)){
-    const seite = x.a===name ? "A" : x.b===name ? "B" : null;
-    if(!seite || !(x.sieger==="A"||x.sieger==="B") || x.aufgabe || !(x.qa>1 && x.qb>1)) continue;
-    const qE = seite==="A" ? x.qa : x.qb, qG = seite==="A" ? x.qb : x.qa;
-    if((rolle==="fav") !== (qE < qG) || qE === qG) continue;
-    if(TennisModel.quotenBand(qG) !== band) continue;
-    n++; if(x.sieger===seite) s++;
-  }
-  return {name, rolle, band, s, n};
+  const band = TennisModel.quotenBand(qGegner); if(!band) return null;
+  const [s, l] = gegnerBaender(name)[rolle][band] || [0,0];
+  return {name, rolle, band, s, n: s + l};
 }
 const einUnitText = (z) => z && z.n ? `${z.w}–${z.n-z.w} · <span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> · ROI ${sg(z.roi)}` : "–";
 const BAENDER = ["1.00-1.30","1.30-1.50","1.50-1.70","1.70-1.90","1.90-2.10","2.10-2.50","2.50-3.00","3.00-4.00","4.00+"];
@@ -1372,18 +1371,14 @@ async function openProfil(name, ctx){
         ${ctx && ctx.r && ctx.r.bilanzSignal && ctx.r.bilanzSignal.name===name ? bilanzHtml(ctx.r) : ""}
         ${h2h?`<h3 style="margin-top:10px">H2H gegen ${esc(ctx.gegner)}</h3><div class="kv two"><span class="k">Bilanz${ctx.r.h2h.quelle==="spieldaten"?" (alle Duelle)":""}</span><span class="v">${h2h[0]}:${h2h[1]}</span></div>`:""}
         ${form?`<h3 style="margin-top:10px">Form · 7 Tage</h3><div class="fz2">${formText(form, ctx.p.start)}</div>`:""}</div>
-      ${ARCHIV ? (() => { // Bilanz gegen Gegner nach deren Quote (Archiv)
-        const z = {fav:{}, aus:{}};
-        for(const x of Object.values(ARCHIV)){ const seite = x.a===name ? "A" : x.b===name ? "B" : null;
-          if(!seite || !(x.sieger==="A"||x.sieger==="B") || x.aufgabe || !(x.qa>1 && x.qb>1) || x.qa===x.qb) continue;
-          const qE = seite==="A" ? x.qa : x.qb, qG = seite==="A" ? x.qb : x.qa, rolle = qE < qG ? "fav" : "aus", b = TennisModel.quotenBand(qG);
-          const e = z[rolle][b] = z[rolle][b] || [0,0]; e[1]++; if(x.sieger===seite) e[0]++; }
-        const tab = (rolle) => BAENDER.filter(b => z[rolle][b]).map(b => { const [w,n] = z[rolle][b]; return `<tr><td>${b.replace("-","–").replace(/\./g,",")}</td><td>${w}–${n-w}</td><td>${pc(w/n,0)}</td></tr>`; }).join("");
+      ${(() => { // Bilanz gegen Gegner nach deren Quote (Excel + Website-Spiele)
+        const z = gegnerBaender(name);
+        const tab = (rolle) => BAENDER.filter(b => z[rolle][b]).map(b => { const [w,l] = z[rolle][b], n = w + l; return `<tr><td>${b.replace("-","–").replace(/\./g,",")}</td><td>${w}–${l}</td><td>${pc(w/n,0)}</td></tr>`; }).join("");
         const tf = tab("fav"), ta = tab("aus");
         return (tf||ta) ? `<div class="box"><h3>Gegen Gegner nach Quote</h3>
           ${tf?`<div class="time">als Favorit, Quote des Gegners</div><table class="prtab"><tbody>${tf}</tbody></table>`:""}
           ${ta?`<div class="time" style="margin-top:6px">als Außenseiter, Quote des Favoriten</div><table class="prtab"><tbody>${ta}</tbody></table>`:""}
-          <p class="time" style="margin:6px 0 0">Aus dem Ergebnis-Archiv (seit Mitte Oktober), ohne Aufgaben.</p></div>` : ""; })() : ""}
+          <p class="time" style="margin:6px 0 0">Excel (getrackte Spiele) + Website-Spiele seit dem Excel-Stand.</p></div>` : ""; })()}
       <div class="box"><h3>Nach Quotenbereich</h3>${bands?`<table class="prtab"><thead><tr><th>Quote</th><th>S–N</th><th>Quote gew.</th></tr></thead><tbody>${bands}</tbody></table>`:'<p class="time">Noch keine Spiele mit Quote.</p>'}</div>
       <div class="box" style="grid-column:1/-1"><h3>Letzte Ergebnisse</h3>${letzte}</div>
     </div>`;
@@ -1505,7 +1500,7 @@ function detailHtml(p, r){
   const band = (x) => x ? `<span class="k">${esc(x.name)} bei Quote ${x.band.replace("-","–").replace(/\./g,",")}</span><span class="v">${x.n?`${x.siege}/${x.n} (${pc(x.pct,0)})`:"—"}</span>` : "";
   const bandTxt = (b) => b.replace("-","–").replace(/\./g,",");
   const gband = (x) => x ? `<span class="k">${esc(x.name)} als ${x.rolle==="fav"?"Fav.":"Außens."} gg. Gegnerquote ${bandTxt(x.band)}</span><span class="v">${x.n?`${x.s}–${x.n-x.s} (${pc(x.s/x.n,0)})`:"—"}</span>` : "";
-  const gegner = (() => { if(p.calc || !ARCHIV || !(r.qa>1 && r.qb>1) || r.qa===r.qb) return "";
+  const gegner = (() => { if(p.calc || !(r.qa>1 && r.qb>1) || r.qa===r.qb) return "";
     const favA = r.qa < r.qb;
     return gband(gegnerBand(favA ? p.a : p.b, "fav", favA ? r.qb : r.qa)) + gband(gegnerBand(favA ? p.b : p.a, "aus", favA ? r.qa : r.qb)); })();
   const cur = store.get("belag."+p.id, null) || "auto";
