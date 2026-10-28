@@ -359,13 +359,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <button type="submit" class="btn ghost mini">Übernehmen</button>
       <span class="time" id="m-stand"></span>
     </form>
-    <div class="controls">
-      <div class="ctl"><label for="m-filter">Anzeigen</label>
-        <select id="m-filter"><option value="alle">alle Wetten</option><option value="offen">offen</option><option value="fertig">abgerechnet</option></select></div>
-      <div class="ctl"><label for="m-monat">Monat</label><select id="m-monat"><option value="alle">alle</option></select></div>
-    </div>
-    <div id="m-liste"></div>
-    <details class="box" id="m-manuell-box" style="margin-top:16px"><summary><b>Wette manuell eintragen</b> <span class="time">(Einzelwette oder Kombi, auch genaues Ergebnis)</span></summary>
+    <details class="box" id="m-manuell-box" style="margin-top:12px"><summary><b>Wette manuell eintragen</b> <span class="time">(Einzelwette oder Kombi, auch genaues Ergebnis)</span></summary>
       <form id="m-form" autocomplete="off">
         <div class="mform">
           <div class="ctl"><label for="mf-art">Art</label><select id="mf-art"><option value="einzel">Einzelwette</option><option value="kombi">Kombi</option></select></div>
@@ -385,6 +379,13 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <p class="note" style="margin:6px 0 0">Die Auswertung läuft automatisch über das Ergebnis-Archiv (Spieler, Gegner und Datum ±1 Tag). Bei „genaues Ergebnis“ zählt der Satzstand aus Sicht des gewählten Spielers. Was nicht gefunden wird, kannst du je Auswahl selbst setzen.</p>
       </form>
     </details>
+    <div class="controls">
+      <div class="ctl"><label for="m-filter">Anzeigen</label>
+        <select id="m-filter"><option value="alle">alle Wetten</option><option value="offen">offen</option><option value="fertig">abgerechnet</option></select></div>
+      <div class="ctl"><label for="m-monat">Monat</label><select id="m-monat"><option value="alle">alle</option></select></div>
+    </div>
+    <div id="m-liste"></div>
+
     <details class="box" id="m-sync-box" style="margin-top:12px"><summary><b>Abgleich zwischen Geräten</b> <span class="time" id="m-sync-status">nicht eingerichtet – Wetten liegen nur in diesem Browser</span></summary>
       <p class="note">Deine Wetten werden in einem <b>geheimen GitHub-Gist</b> gespeichert (nicht öffentlich gelistet, nur mit deinem Schlüssel beschreibbar) und so zwischen Handy und PC abgeglichen. Schlüssel anlegen: GitHub → Settings → Developer settings → Personal access tokens → <b>Tokens (classic)</b> → Generate new token (classic) → nur Haken bei <b>gist</b>. Der Schlüssel bleibt in diesem Browser gespeichert und wird nirgends veröffentlicht. Auf dem zweiten Gerät denselben Schlüssel eintragen – der Gist wird automatisch gefunden.</p>
       <form class="mform" id="m-sync-form" autocomplete="off">
