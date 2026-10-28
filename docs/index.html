@@ -90,7 +90,11 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .vdet{max-height:460px;overflow:auto;padding-right:4px}.vrueck{margin:4px 0 8px;font-size:12.5px}
 .vtab .vbeschr{max-width:340px}
 @media (max-width:700px){.vdet{max-height:380px;max-width:calc(100vw - 64px);overflow:auto}.vrueck{font-size:12px}.vtab td,.vtab th{padding:6px 6px}}
-.tdet{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:4px 2px 8px;text-align:left}
+.tdet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:6px 2px 10px;text-align:left}
+.tdet>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-width:0}
+.tdet .vh{margin:0 0 6px}
+.tdet .kv{grid-template-columns:minmax(0,auto) minmax(0,1fr);column-gap:14px;row-gap:3px}
+.tdet .kv .v{text-align:right;white-space:normal;overflow-wrap:anywhere}
 tr.bz{cursor:pointer}
 @media (max-width:700px){.tdet{grid-template-columns:minmax(0,1fr);max-width:calc(100vw - 56px)}#protokoll td,#protokoll th{padding:6px 5px}#protokoll .bz td:first-child{font-size:11px}}tr.bz:hover td,tr.bz.auf td{background:var(--accent-soft)}
 .hkdet summary{cursor:pointer;list-style:none}.hkdet summary::-webkit-details-marker{display:none}
@@ -327,7 +331,8 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <select id="b-status"><option value="alle">alle</option><option value="fertig">abgeschlossen</option><option value="offen">offen</option></select></div>
       <label class="check" for="b-regeln"><input type="checkbox" id="b-regeln"> nur nach meinen Tipp-Regeln</label>
     </div>
-    <div class="kpis kpis6">
+    <details class="box klapp" data-k="bkpi" open style="margin-top:14px"><summary><h3>Value-Tipps: Kennzahlen &amp; Verlauf</h3></summary>
+    <div class="kpis kpis6" style="margin-top:0">
       <div class="kpi"><b id="b-n">–</b><span>Tipps (gew.–verl.)</span></div>
       <div class="kpi"><b id="b-hit">–</b><span>Trefferquote</span></div>
       <div class="kpi"><b id="b-roi">–</b><span>ROI (1 U je Tipp)</span></div>
@@ -336,13 +341,14 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <div class="kpi"><b id="b-clv">–</b><span>Ø CLV</span></div>
     </div>
     <div id="b-kurve" class="kurvebox"></div>
+    </details>
     <div id="b-varianten"></div>
     <div id="b-kalib"></div>
     <div id="b-sigall"></div>
     <div id="b-aussenseiter"></div>
     <div id="b-bilanzsig"></div>
-    <div id="b-split"></div>
-    <div id="protokoll"></div>
+    <details class="box klapp" data-k="bsplit" style="margin-top:16px"><summary><h3>Aufschlüsselung der Value-Tipps</h3></summary><div id="b-split"></div></details>
+    <details class="box klapp" data-k="bliste" open style="margin-top:16px"><summary><h3>Alle Value-Tipps</h3></summary><div id="protokoll"></div></details>
     <div id="b-storno"></div>
     <p class="note">Jeder Tipp wird beim ersten Erscheinen <b>vor Spielbeginn</b> mit Zeitstempel und Quote gespeichert und danach nicht mehr verändert. Ergebnisse werden automatisch nachgetragen (Folgerunde im Turnier bzw. Abrechnung von OddsPapi), Schlussquote = letzte Quote des Buchmachers vor Spielbeginn. CLV = Tippquote ÷ Schlussquote − 1: Positiv heißt, der Markt hat sich nach dem Tipp in deine Richtung bewegt. Alle Partien mit Ergebnis und Satzstand: <a href="ergebnisse.html">Ergebnis-Archiv</a>.</p>
   </section>
@@ -1021,7 +1027,7 @@ function variantenHtml(bm, art){
   const datum = (s) => { const d = new Date(s); return isNaN(d) ? "–" : d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ}); };
   const ERGP = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
   const tippListe = (xs) => xs.length ? `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th class="l hide-s">Turnier</th><th>Quote</th><th class="hide-s">letzte</th><th class="hide-s">Edge</th><th>Ergebnis</th></tr></thead><tbody>${
-      xs.slice().sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => `<tr><td class="l time">${datum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="l hide-s time">${esc(tName(x))}</td><td class="num">${fx(x.erstQuote)}</td><td class="num hide-s">${fx(x.letzteQuote)}</td><td class="num hide-s">${sg(x.edge)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`).join("")}</tbody></table>`
+      xs.slice().sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => szZeile(`v|${x.variante||"A"}|${x.id}|${x.buchmacher}`, `<td class="l time">${datum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="l hide-s time">${esc(tName(x))}</td><td class="num">${fx(x.erstQuote)}</td><td class="num hide-s">${fx(x.letzteQuote)}</td><td class="num hide-s">${sg(x.edge)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td>`, x, 7)).join("")}</tbody></table>`
     : `<p class="time">Noch keine Tipps dieser Variante.</p>`;
   // Prognosen-Liste: nur Markt, A und die geöffnete Variante; die letzten 40 Partien
   const progListe = (k) => { const zeigK = k && !["A","M"].includes(k);
@@ -1149,9 +1155,9 @@ function assBilanzHtml(bm, art){
       <span class="k">ROI</span><span class="v">${f.length ? sg(gewinn/f.length) : "–"}</span>
       <span class="k">Ø Quote</span><span class="v">${xs.length ? fx(xs.reduce((s,x)=>s+x.erstQuote,0)/xs.length) : "–"}</span>
       <span class="k">Ø CLV</span><span class="v">${c.length ? sg(c.reduce((a,b)=>a+b,0)/c.length) : "–"}</span></div>
-    ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Außenseiter</th><th>Quote</th><th>Fav. als Fav.</th><th>Außens. als Außens.</th><th>Modell / Markt</th><th>Ergebnis</th></tr></thead><tbody>${
+    ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Außenseiter</th><th>Quote</th><th class="hide-s">Fav. als Fav.</th><th class="hide-s">Außens. als Außens.</th><th>Modell / Markt</th><th>Ergebnis</th></tr></thead><tbody>${
       xs.slice(0, 50).map(x => { const d = new Date(x.start), aus = x.wette==="A" ? x.a : x.b, fav = x.wette==="A" ? x.b : x.a;
-        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(aus)}</b> <span class="time">vs ${esc(fav)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${pc(x.favPct,0)} <small>n ${x.favN}</small></td><td class="num">${pc(x.ausPct,0)} <small>n ${x.ausN}</small></td><td class="num">${pc(x.pModell,0)} / ${pc(x.pMarkt,0)}</td><td>${ERGP[x.ergebnis]||(x.live?'<span class="pill no" title="Wird beim nächsten Update protokolliert">offen · neu</span>':'<span class="pill no">offen</span>')}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
+        return szZeile(`a|${x.id}|${x.buchmacher}`, `<td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(aus)}</b> <span class="time">vs ${esc(fav)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num hide-s">${pc(x.favPct,0)} <small>n ${x.favN}</small></td><td class="num hide-s">${pc(x.ausPct,0)} <small>n ${x.ausN}</small></td><td class="num">${pc(x.pModell,0)} / ${pc(x.pMarkt,0)}</td><td>${ERGP[x.ergebnis]||(x.live?'<span class="pill no" title="Wird beim nächsten Update protokolliert">offen · neu</span>':'<span class="pill no">offen</span>')}</td>`, x, 7); }).join("")}</tbody></table></div>` : ""}
     <p class="note">Signal: Markt-Favorit gewinnt als Favorit unter ${pc(D.params.AUSSENSEITER_FAV_MAX||0.65,0)}, Außenseiter als Außenseiter über ${pc(D.params.AUSSENSEITER_AUS_MIN||0.4,0)} (je mind. ${D.params.AUSSENSEITER_MIN_N||7} Spiele) und das Modell sieht den Außenseiter stärker als der Markt. Getrackt wird ein flacher Tipp auf den Außenseiter zur ersten gesehenen Quote.</p></details>`;
 }
 
@@ -1474,9 +1480,9 @@ function bilanzSigHtml(bm, art){
       <span class="k">Gewinn mit empfohlenem Einsatz</span><span class="v ${mitU>0?"pos":mitU<0?"negv":""}">${f.length ? (mitU>0?"+":"")+fx(mitU,1)+" U" : "–"}</span>
       <span class="k">ROI mit empf. Einsatz</span><span class="v">${einsatz ? sg(mitU/einsatz) : "–"}</span>
       <span class="k">Ø Quote · Ø CLV</span><span class="v">${xs.length ? fx(xs.reduce((s,x)=>s+x.erstQuote,0)/xs.length) : "–"} · ${c.length ? sg(c.reduce((a,b)=>a+b,0)/c.length) : "–"}</span></div>
-    ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th>Quote</th><th>Bilanz im Bereich</th><th>Geschätzt / Markt</th><th>Einsatz</th><th>Ergebnis</th></tr></thead><tbody>${
+    ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th>Quote</th><th class="hide-s">Bilanz im Bereich</th><th class="hide-s">Geschätzt / Markt</th><th>Einsatz</th><th>Ergebnis</th></tr></thead><tbody>${
       xs.slice(0, 50).map(x => { const d = new Date(x.start), sp = x.wette==="A" ? x.a : x.b, geg = x.wette==="A" ? x.b : x.a, st = bilanzU(x.kellyEur);
-        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(sp)}</b> <span class="time">vs ${esc(geg)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${x.siege}/${x.n} <small>${String(x.band).replace("-","–").replace(/\./g,",")}</small></td><td class="num">${pc(x.pEst,0)} / ${pc(x.pMarkt,0)}</td><td class="num">${st ? (st.klein ? "klein" : fu(st.u)+" U") : "–"}</td><td>${ERGP[x.ergebnis]||(x.live?'<span class="pill no" title="Wird beim nächsten Update protokolliert">offen · neu</span>':'<span class="pill no">offen</span>')}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
+        return szZeile(`b|${x.id}|${x.buchmacher}`, `<td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(sp)}</b> <span class="time">vs ${esc(geg)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num hide-s">${x.siege}/${x.n} <small>${String(x.band).replace("-","–").replace(/\./g,",")}</small></td><td class="num hide-s">${pc(x.pEst,0)} / ${pc(x.pMarkt,0)}</td><td class="num">${st ? (st.klein ? "klein" : fu(st.u)+" U") : "–"}</td><td>${ERGP[x.ergebnis]||(x.live?'<span class="pill no" title="Wird beim nächsten Update protokolliert">offen · neu</span>':'<span class="pill no">offen</span>')}</td>`, x, 7); }).join("")}</tbody></table></div>` : ""}
     <p class="note">Test bis Jahresende. Signal: Der Spieler hat im Quotenbereich der aktuellen Quote mind. ${P_.BILANZ_MIN_N||8} Spiele (Excel + Archiv). Seine Siegquote wird zum Markt hin gezogen (wie ${P_.BILANZ_K||15} zusätzliche Spiele zur Marktwahrscheinlichkeit). Liegt das um mind. ${pc(P_.BILANZ_MIN_EDGE||0.03,0)} über der Quote und gibt es auf dieser Seite keinen Value-Tipp, entsteht ein Signal. Einsatz: Kelly × ${fx(P_.BILANZ_KELLY||0.25,2)}, höchstens ${fu(P_.BILANZ_MAX_U||1)} U. Quote bis ${fx(P_.BILANZ_MAX_QUOTE||4,1)}.</p></details>`;
 }
 function assHtml(r){
@@ -1578,6 +1584,10 @@ function kennzahlen(xs){
   return k;
 }
 function renderLog(){
+  // gespeicherten Auf/Zu-Zustand der festen Bilanz-Kästen übernehmen (einmalig); Kurve neu zeichnen, wenn aufgeklappt
+  for(const d of document.querySelectorAll("#v-protokoll > details.klapp")){ if(d.dataset.init) continue; d.dataset.init = "1";
+    const v = store.get("klapp." + d.dataset.k, null); if(v !== null) d.open = v;
+    if(d.dataset.k === "bkpi") d.addEventListener("toggle", () => { if(d.open) renderLog(); }); }
   const all = Object.values(LOG||{});
   const bms = [...new Set(all.map(x=>x.buchmacher))];
   const sel = $("#b-bm");
@@ -1602,9 +1612,9 @@ function renderLog(){
   { // Stornierte Tipps (Daten korrigiert, danach kein Value mehr) – sichtbar, aber ohne Wertung
     const GR = {werte: "Spielerwerte korrigiert", quote: "Quote angepasst"};
     $("#b-storno").innerHTML = storniert.length ? `<details class="box klapp" data-k="storno" style="margin-top:16px"><summary><h3>Stornierte Tipps <span class="time">${storniert.length} · zählen nicht in der Bilanz</span></h3></summary>
-      <div class="tablewrap"><table><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th>Quote</th><th class="l">Grund</th><th class="l">Neu gerechnet</th></tr></thead><tbody>${
-      storniert.sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => `<tr><td class="l time">${kDatum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="num">${fx(x.erstQuote)}</td>
-        <td class="l">${esc(GR[x.storniert] || x.storniert)}</td><td class="l time">${x.stornoInfo ? esc(x.stornoInfo) : "–"}</td></tr>`).join("")}</tbody></table></div>
+      <div class="tablewrap"><table><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th>Quote</th><th class="l">Grund</th><th class="l hide-s">Neu gerechnet</th></tr></thead><tbody>${
+      storniert.sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => szZeile(`s|${x.id}|${x.buchmacher}`, `<td class="l time">${kDatum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="num">${fx(x.erstQuote)}</td>
+        <td class="l">${esc(GR[x.storniert] || x.storniert)}</td><td class="l time hide-s">${x.stornoInfo ? esc(x.stornoInfo) : "–"}</td>`, x, 5)).join("")}</tbody></table></div>
       <p class="note">Ein Value-Tipp wird storniert, wenn du vor Spielbeginn die Spielerwerte eines Beteiligten korrigierst oder die Quote anpasst (mit GitHub-Schlüssel gespeichert) und das Modell mit den korrigierten Daten keinen Value mehr sieht. Bleibt der Value, zählt der Tipp normal – bei angepasster Quote mit deiner Quote.</p></details>` : ""; }
   const k = kennzahlen(xs);
   $("#b-n").textContent = `${k.w+k.l} (${k.w}–${k.l})`;
@@ -1679,15 +1689,21 @@ function renderLog(){
       BIL_OFFEN.has(t.dataset.k) ? BIL_OFFEN.delete(t.dataset.k) : BIL_OFFEN.add(t.dataset.k); renderLog(); }); }
 }
 const BIL_OFFEN = new Set();
+// Klickbare Zeile + Detail für Listen in der Bilanz (Varianten, Signale, Stornos)
+const szZeile = (key, inhalt, x, spalten) => `<tr class="bz${BIL_OFFEN.has(key)?" auf":""}" data-k="${esc(key)}" title="Antippen für Details">${inhalt}</tr>${BIL_OFFEN.has(key) ? `<tr class="kombi-d"><td colspan="${spalten}">${tippDetail(x)}</td></tr>` : ""}`;
+document.addEventListener("click", (e) => { const t = e.target.closest && e.target.closest("#v-protokoll tr.bz"); if(!t || t.closest("#protokoll")) return;
+  BIL_OFFEN.has(t.dataset.k) ? BIL_OFFEN.delete(t.dataset.k) : BIL_OFFEN.add(t.dataset.k); renderLog(); });
 // Alle Infos zu einem Bilanz-Tipp (aufgeklappt)
 function tippDetail(x){
   const uC = unitCfg().unit, pr = (VAR && VAR.prog || {})[x.id] || {}, ar = (ARCHIV || {})[x.id] || {}, A = x.wette === "A";
   const name = A ? x.a : x.b, gegner = A ? x.b : x.a;
   const qG = A ? (pr.qbErst || pr.qbM || pr.qb) : (pr.qaErst || pr.qaM || pr.qa);
-  const pT = typeof x.erstP === "number" ? (A ? x.erstP : 1 - x.erstP) : null;
-  const pMk = typeof pr.pMarkt === "number" ? (A ? pr.pMarkt : 1 - pr.pMarkt) : null;
+  const pT = typeof x.erstP === "number" ? (A ? x.erstP : 1 - x.erstP) : typeof x.pModell === "number" ? x.pModell : typeof x.pEst === "number" ? x.pEst : null;
+  const pMk = typeof x.pMarkt === "number" && (x.pModell != null || x.pEst != null) ? x.pMarkt : typeof pr.pMarkt === "number" ? (A ? pr.pMarkt : 1 - pr.pMarkt) : null;
   const seite = (v) => typeof v === "number" ? (A ? v : 1 - v) : null;
-  const st = unitsOf(x.kelly), e = x.ergebnis, gw = e==="W" ? x.erstQuote-1 : e==="L" ? -1 : null;
+  const st = x.kellyEur != null ? ((bilanzU(x.kellyEur)||{}).u || 0) : unitsOf(x.kelly), e = x.ergebnis, gw = e==="W" ? x.erstQuote-1 : e==="L" ? -1 : null;
+  const sig = x.favPct != null ? `Fav. als Fav. ${pc(x.favPct,0)} (n ${x.favN}) · Außens. als Außens. ${pc(x.ausPct,0)} (n ${x.ausN})`
+    : x.band ? `${x.siege}/${x.n} bei Quote ${String(x.band).replace("-","–").replace(/\./g,",")} · geschätzt ${pc(x.pEst,0)}` : x.variante ? `Variante ${x.variante}` : null;
   const satz = ar.satz && ar.satz.length ? ar.satz.map(([u,v]) => A ? `${u}:${v}` : `${v}:${u}`).join(" ") : "";
   const vars = ["B","C","D","E","F"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
   const zeit = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
@@ -1699,7 +1715,10 @@ function tippDetail(x){
       ${kv("Rolle", qG ? (x.erstQuote < qG ? "Favorit" : x.erstQuote > qG ? "Außenseiter" : "ausgeglichen") : null)}
       ${kv("Turnier", `${esc(x.turnier||"")}${x.belag ? ` · ${SURF[x.belag]||x.belag}` : ""}${ar.runde ? ` · ${esc(ar.runde)}` : ""}`)}
       ${kv("Tipp gefunden", zeit(x.erstGesehen))}
-      ${kv("Empfohlener Einsatz", (stakeU(kellyEur(x.kelly))||{}).klein ? `klein (unter 0,25 U) · Kelly ${eur(kellyEur(x.kelly))}` : st ? `${fu(st)} U (${eur(st*uC)}) · Kelly ${eur(kellyEur(x.kelly))}` : "–")}</div></div>
+      ${kv("Signal", sig)}
+      ${x.kelly == null && x.kellyEur == null ? kv("Einsatz", "flach 1 U (Test)") : ""}
+      ${x.kelly == null ? "" : kv("Empfohlener Einsatz", (stakeU(kellyEur(x.kelly))||{}).klein ? `klein (unter 0,25 U) · Kelly ${eur(kellyEur(x.kelly))}` : st ? `${fu(st)} U (${eur(st*uC)}) · Kelly ${eur(kellyEur(x.kelly))}` : "–")}
+      ${x.kellyEur != null ? kv("Empfohlener Einsatz", st ? `${fu(st)} U (${eur(st*uC)})` : "klein") : ""}</div></div>
     <div><h4 class="vh">Modell beim Tipp</h4><div class="kv two">
       ${kv("Siegchance Modell", pT != null ? `${pc(pT)} · fair ${fx(1/pT)}` : null)}
       ${kv("Markt (entvigt)", pMk != null ? pc(pMk) : null)}
