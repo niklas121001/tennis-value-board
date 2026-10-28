@@ -90,6 +90,9 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .vdet{max-height:460px;overflow:auto;padding-right:4px}.vrueck{margin:4px 0 8px;font-size:12.5px}
 .vtab .vbeschr{max-width:340px}
 @media (max-width:700px){.vdet{max-height:380px;max-width:calc(100vw - 64px);overflow:auto}.vrueck{font-size:12px}.vtab td,.vtab th{padding:6px 6px}}
+.tdet{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:4px 2px 8px;text-align:left}
+tr.bz{cursor:pointer}
+@media (max-width:700px){.tdet{grid-template-columns:minmax(0,1fr);max-width:calc(100vw - 56px)}#protokoll td,#protokoll th{padding:6px 5px}#protokoll .bz td:first-child{font-size:11px}}tr.bz:hover td,tr.bz.auf td{background:var(--accent-soft)}
 .hkdet summary{cursor:pointer;list-style:none}.hkdet summary::-webkit-details-marker{display:none}
 .hkdet summary::before{content:"▸ ";color:var(--muted)}.hkdet[open] summary::before{content:"▾ "}
 .hkdet ul{margin:4px 0 2px 14px}.hkdet li{border-bottom:0;padding:2px 0;font-size:12.5px}.hksym{display:inline-block;width:12px;text-align:center}
@@ -1647,13 +1650,60 @@ function renderLog(){
   xs.sort((a,b) => String(b.start).localeCompare(String(a.start)));
   if(!xs.length){ $("#protokoll").innerHTML = '<div class="empty">Noch keine Tipps in dieser Auswahl. Value-Tipps werden bei jedem Update automatisch gespeichert, Ergebnisse am Folgetag nachgetragen.</div>'; return; }
   const ERG = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
-  $("#protokoll").innerHTML = `<div class="tablewrap" style="margin-top:16px"><table><thead><tr><th>Spiel</th><th>Tipp</th><th class="hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th class="hide-s">Schluss</th><th>CLV</th><th>Ergebnis</th><th class="hide-s">Einh.</th></tr></thead><tbody>${
-    xs.map(x => { const d = new Date(x.start); const u = x.ergebnis==="W" ? x.erstQuote-1 : x.ergebnis==="L" ? -1 : null;
-      return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
-      <td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b>${(x.warn||[]).length?` <span class="wwarn" title="${esc((x.warn||[]).map(t=>WARN_KURZ[t]||t).join(", "))}">⚠</span>`:""} <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td>
-      <td class="l hide-s">${esc(x.turnier)}</td><td class="time hide-s">${esc(x.buchmacher)}</td><td class="num">${fx(x.erstQuote)}</td>
-      <td class="num hide-s">${fx(x.schlussQuote)}</td><td class="num ${x.clv>0?"pos":"neg"}">${sg(x.clv)}</td>
-      <td>${x.aufgabe?'<span class="pill warn" title="Partie durch Aufgabe beendet – zählt nicht">Aufgabe</span>':ERG[x.ergebnis]||'<span class="pill no">offen</span>'}</td><td class="num hide-s ${u>0?"pos":""}">${u==null?"–":(u>0?"+":"")+fx(u)}</td></tr>`; }).join("")}</tbody></table></div>`;
+  const uC = unitCfg().unit;
+  const zeilen = xs.map(x => { const d = new Date(x.start), key = x.id + "|" + x.buchmacher, offen = BIL_OFFEN.has(key);
+    const st = unitsOf(x.kelly), w = x.ergebnis==="W", l = x.ergebnis==="L", gU = w ? st*(x.erstQuote-1) : l ? -st : null;
+    const dt = isNaN(d) ? "–" : d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ});
+    return `<tr class="bz${offen?" auf":""}" data-k="${esc(key)}" title="Antippen für Details"><td class="l time hide-s">${dt}</td>
+      <td class="l"><span class="vpf">${offen?"▾":"▸"}</span> <b>${esc(x.wette==="A"?x.a:x.b)}</b>${(x.warn||[]).length?` <span class="wwarn">⚠</span>`:""} <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span><div class="time show-s">${dt}</div></td>
+      <td class="num">${fx(x.erstQuote)}</td><td class="num">${(stakeU(kellyEur(x.kelly))||{}).klein ? "klein" : st ? fu(st)+" U" : "–"}</td>
+      <td>${x.aufgabe?'<span class="pill warn">Aufgabe</span>':ERG[x.ergebnis]||'<span class="pill no">offen</span>'}</td>
+      <td class="num ${gU>0?"pos":gU<0?"negv":""}">${gU==null?"–":(gU>0?"+":"")+fx(gU,2)+" U"}</td></tr>${offen ? `<tr class="kombi-d"><td colspan="6">${tippDetail(x)}</td></tr>` : ""}`; }).join("");
+  $("#protokoll").innerHTML = `<div class="tablewrap" style="margin-top:16px"><table><thead><tr><th class="hide-s">Spiel</th><th>Tipp</th><th>Quote</th><th title="empfohlener Einsatz beim Tipp">Einsatz</th><th>Ergebnis</th><th>Gewinn</th></tr></thead><tbody>${zeilen}</tbody></table></div>
+    <p class="time">Zeile antippen für alle Infos zum Tipp (Gegnerquote, Modell, Einsatz, Verlauf, Ergebnis).</p>`;
+  if(!$("#protokoll").dataset.ok){ $("#protokoll").dataset.ok = "1";
+    $("#protokoll").addEventListener("click", (e) => { const t = e.target.closest("tr.bz"); if(!t) return;
+      BIL_OFFEN.has(t.dataset.k) ? BIL_OFFEN.delete(t.dataset.k) : BIL_OFFEN.add(t.dataset.k); renderLog(); }); }
+}
+const BIL_OFFEN = new Set();
+// Alle Infos zu einem Bilanz-Tipp (aufgeklappt)
+function tippDetail(x){
+  const uC = unitCfg().unit, pr = (VAR && VAR.prog || {})[x.id] || {}, ar = (ARCHIV || {})[x.id] || {}, A = x.wette === "A";
+  const name = A ? x.a : x.b, gegner = A ? x.b : x.a;
+  const qG = A ? (pr.qbErst || pr.qbM || pr.qb) : (pr.qaErst || pr.qaM || pr.qa);
+  const pT = typeof x.erstP === "number" ? (A ? x.erstP : 1 - x.erstP) : null;
+  const pMk = typeof pr.pMarkt === "number" ? (A ? pr.pMarkt : 1 - pr.pMarkt) : null;
+  const seite = (v) => typeof v === "number" ? (A ? v : 1 - v) : null;
+  const st = unitsOf(x.kelly), e = x.ergebnis, gw = e==="W" ? x.erstQuote-1 : e==="L" ? -1 : null;
+  const satz = ar.satz && ar.satz.length ? ar.satz.map(([u,v]) => A ? `${u}:${v}` : `${v}:${u}`).join(" ") : "";
+  const vars = ["B","C","D","E","F"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
+  const zeit = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
+  const kv = (k, v) => v == null || v === "" ? "" : `<span class="k">${k}</span><span class="v">${v}</span>`;
+  return `<div class="tdet">
+    <div><h4 class="vh">Tipp</h4><div class="kv two">
+      ${kv("Tipp", `<b>${esc(name)}</b> @ ${fx(x.erstQuote)} <span class="time">(${esc(x.buchmacher)})</span>`)}
+      ${kv("Gegner", `${esc(gegner)}${qG ? ` @ ${fx(qG)}` : ""}`)}
+      ${kv("Rolle", qG ? (x.erstQuote < qG ? "Favorit" : x.erstQuote > qG ? "Außenseiter" : "ausgeglichen") : null)}
+      ${kv("Turnier", `${esc(x.turnier||"")}${x.belag ? ` · ${SURF[x.belag]||x.belag}` : ""}${ar.runde ? ` · ${esc(ar.runde)}` : ""}`)}
+      ${kv("Tipp gefunden", zeit(x.erstGesehen))}
+      ${kv("Empfohlener Einsatz", (stakeU(kellyEur(x.kelly))||{}).klein ? `klein (unter 0,25 U) · Kelly ${eur(kellyEur(x.kelly))}` : st ? `${fu(st)} U (${eur(st*uC)}) · Kelly ${eur(kellyEur(x.kelly))}` : "–")}</div></div>
+    <div><h4 class="vh">Modell beim Tipp</h4><div class="kv two">
+      ${kv("Siegchance Modell", pT != null ? `${pc(pT)} · fair ${fx(1/pT)}` : null)}
+      ${kv("Markt (entvigt)", pMk != null ? pc(pMk) : null)}
+      ${kv("Edge", sg(x.edge))}
+      ${kv("Statistik / Elo", pr.pStats != null ? `${pc(seite(pr.pStats),0)} / ${pc(seite(pr.pElo),0)}` : null)}
+      ${kv("H2H", pr.h2hA != null ? (A ? `${pr.h2hA}:${pr.h2hB}` : `${pr.h2hB}:${pr.h2hA}`) : null)}
+      ${kv("Platztempo", pr.merkmale && pr.merkmale.tempo != null ? fx(pr.merkmale.tempo,2) : null)}
+      ${kv("Auch getippt von", vars.length ? vars.join(", ") : null)}</div></div>
+    <div><h4 class="vh">Verlauf &amp; Ergebnis</h4><div class="kv two">
+      ${kv("Letzte Quote vor Start", x.letzteQuote ? fx(x.letzteQuote) : null)}
+      ${kv("Schlussquote / CLV", x.schlussQuote ? `${fx(x.schlussQuote)} / ${sg(x.clv)}` : (x.clv != null ? sg(x.clv) : null))}
+      ${kv("Value vor Start", x.valueWeg ? `weg (Quote ${fx(x.valueWegQuote)})` : (String(x.erstGesehen) >= "2026-10-27" ? "gehalten" : null))}
+      ${kv("Warnhinweise", (x.warn||[]).length ? esc((x.warn||[]).map(t => WARN_KURZ[t]||t).join(", ")) : null)}
+      ${kv("Ergebnis", e ? `${e==="W"?"gewonnen":e==="L"?"verloren":"ungültig"}${x.aufgabe?" (Aufgabe)":""}${satz ? ` · ${satz}` : ""}` : "offen")}
+      ${kv("Gewinn", gw != null ? `${gw>0?"+":""}${fx(gw,2)} U flach · ${gw>0?"+":""}${fx(e==="W"?st*(x.erstQuote-1):-st,2)} U mit Einsatz (${eur((e==="W"?st*(x.erstQuote-1):-st)*uC)})` : null)}
+      ${kv("Storniert", x.storniert ? esc(x.stornoInfo || x.storniert) : null)}</div></div>
+  </div>`;
 }
 
 function renderInfo(){
