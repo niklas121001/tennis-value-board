@@ -1120,9 +1120,22 @@ function kalibHtml(art){
       <tr><th class="num">n</th><th class="num">sagt</th><th class="num">gewinnt</th><th class="num">n</th><th class="num">sagt</th><th class="num">gewinnt</th></tr></thead><tbody>${zeilen}</tbody></table></div></div>
     <p class="note">Gleiche Partien für Modell und Markt (mit Quote und Ergebnis, ohne Aufgaben). Liegt „gewinnt“ unter „sagt“, ist das Modell in diesem Bereich zu selbstsicher, liegt es darüber, zu vorsichtig. Rot: Abweichung über 8 Punkte bei mind. 5 Partien. Brier-Score: kleiner ist besser. Folgt dem Filter „Turniere“.</p></details>`;
 }
+// Signale, die das Board gerade zeigt, aber noch nicht protokolliert sind (Protokoll läuft beim nächsten Update)
+function liveSignale(typ){
+  const out = [], log = typ === "ass" ? (VAR && VAR.ass || {}) : (VAR && VAR.bil || {}), now = new Date();
+  for(const p of (M && M.partien || [])){
+    const d = startOf(p); if(!d || d <= now) continue;
+    const r = evalMatch(p); if(!r || !r.ok) continue;
+    const x = typ === "ass" ? r.aussenseiter : r.bilanzSignal; if(!x || x.ausLog || log[p.id + "|" + r.bm]) continue;
+    const basis = {id: p.id, start: p.start, turnier: p.turnier, kategorie: p.kategorie, a: p.a, b: p.b, buchmacher: r.bm, wette: x.seite, erstQuote: x.quote, letzteQuote: x.quote, live: true};
+    out.push(typ === "ass" ? Object.assign(basis, {favPct: x.favPct, favN: x.favN, ausPct: x.ausPct, ausN: x.ausN, pModell: x.pModell, pMarkt: x.pMarkt})
+                           : Object.assign(basis, {band: x.band, siege: x.siege, n: x.n, pEst: x.pEst, pMarkt: x.pMarkt, kellyEur: x.kellyEur}));
+  }
+  return out;
+}
 function assBilanzHtml(bm, art){
   if(!VAR) return "";
-  const xs = Object.values(VAR.ass||{}).filter(x => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x)))
+  const xs = [...Object.values(VAR.ass||{}), ...liveSignale("ass")].filter(x => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x)))
     .sort((a,b) => String(b.start).localeCompare(String(a.start)));
   const f = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
   const gewinn = f.reduce((s,x) => s + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0);
@@ -1138,7 +1151,7 @@ function assBilanzHtml(bm, art){
       <span class="k">Ø CLV</span><span class="v">${c.length ? sg(c.reduce((a,b)=>a+b,0)/c.length) : "–"}</span></div>
     ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Außenseiter</th><th>Quote</th><th>Fav. als Fav.</th><th>Außens. als Außens.</th><th>Modell / Markt</th><th>Ergebnis</th></tr></thead><tbody>${
       xs.slice(0, 50).map(x => { const d = new Date(x.start), aus = x.wette==="A" ? x.a : x.b, fav = x.wette==="A" ? x.b : x.a;
-        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(aus)}</b> <span class="time">vs ${esc(fav)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${pc(x.favPct,0)} <small>n ${x.favN}</small></td><td class="num">${pc(x.ausPct,0)} <small>n ${x.ausN}</small></td><td class="num">${pc(x.pModell,0)} / ${pc(x.pMarkt,0)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
+        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(aus)}</b> <span class="time">vs ${esc(fav)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${pc(x.favPct,0)} <small>n ${x.favN}</small></td><td class="num">${pc(x.ausPct,0)} <small>n ${x.ausN}</small></td><td class="num">${pc(x.pModell,0)} / ${pc(x.pMarkt,0)}</td><td>${ERGP[x.ergebnis]||(x.live?'<span class="pill no" title="Wird beim nächsten Update protokolliert">offen · neu</span>':'<span class="pill no">offen</span>')}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
     <p class="note">Signal: Markt-Favorit gewinnt als Favorit unter ${pc(D.params.AUSSENSEITER_FAV_MAX||0.65,0)}, Außenseiter als Außenseiter über ${pc(D.params.AUSSENSEITER_AUS_MIN||0.4,0)} (je mind. ${D.params.AUSSENSEITER_MIN_N||7} Spiele) und das Modell sieht den Außenseiter stärker als der Markt. Getrackt wird ein flacher Tipp auf den Außenseiter zur ersten gesehenen Quote.</p></details>`;
 }
 
@@ -1443,7 +1456,7 @@ function bilanzHtml(r){
 }
 function bilanzSigHtml(bm, art){
   if(!VAR) return "";
-  const xs = Object.values(VAR.bil||{}).filter(x => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x)))
+  const xs = [...Object.values(VAR.bil||{}), ...liveSignale("bil")].filter(x => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x)))
     .sort((a,b) => String(b.start).localeCompare(String(a.start)));
   const f = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
   const flach = f.reduce((s,x) => s + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0);
@@ -1463,7 +1476,7 @@ function bilanzSigHtml(bm, art){
       <span class="k">Ø Quote · Ø CLV</span><span class="v">${xs.length ? fx(xs.reduce((s,x)=>s+x.erstQuote,0)/xs.length) : "–"} · ${c.length ? sg(c.reduce((a,b)=>a+b,0)/c.length) : "–"}</span></div>
     ${xs.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th>Quote</th><th>Bilanz im Bereich</th><th>Geschätzt / Markt</th><th>Einsatz</th><th>Ergebnis</th></tr></thead><tbody>${
       xs.slice(0, 50).map(x => { const d = new Date(x.start), sp = x.wette==="A" ? x.a : x.b, geg = x.wette==="A" ? x.b : x.a, st = bilanzU(x.kellyEur);
-        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(sp)}</b> <span class="time">vs ${esc(geg)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${x.siege}/${x.n} <small>${String(x.band).replace("-","–").replace(/\./g,",")}</small></td><td class="num">${pc(x.pEst,0)} / ${pc(x.pMarkt,0)}</td><td class="num">${st ? (st.klein ? "klein" : fu(st.u)+" U") : "–"}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
+        return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l"><b>${esc(sp)}</b> <span class="time">vs ${esc(geg)}</span></td><td class="num">${fx(x.erstQuote)}</td><td class="num">${x.siege}/${x.n} <small>${String(x.band).replace("-","–").replace(/\./g,",")}</small></td><td class="num">${pc(x.pEst,0)} / ${pc(x.pMarkt,0)}</td><td class="num">${st ? (st.klein ? "klein" : fu(st.u)+" U") : "–"}</td><td>${ERGP[x.ergebnis]||(x.live?'<span class="pill no" title="Wird beim nächsten Update protokolliert">offen · neu</span>':'<span class="pill no">offen</span>')}</td></tr>`; }).join("")}</tbody></table></div>` : ""}
     <p class="note">Test bis Jahresende. Signal: Der Spieler hat im Quotenbereich der aktuellen Quote mind. ${P_.BILANZ_MIN_N||8} Spiele (Excel + Archiv). Seine Siegquote wird zum Markt hin gezogen (wie ${P_.BILANZ_K||15} zusätzliche Spiele zur Marktwahrscheinlichkeit). Liegt das um mind. ${pc(P_.BILANZ_MIN_EDGE||0.03,0)} über der Quote und gibt es auf dieser Seite keinen Value-Tipp, entsteht ein Signal. Einsatz: Kelly × ${fx(P_.BILANZ_KELLY||0.25,2)}, höchstens ${fu(P_.BILANZ_MAX_U||1)} U. Quote bis ${fx(P_.BILANZ_MAX_QUOTE||4,1)}.</p></details>`;
 }
 function assHtml(r){
