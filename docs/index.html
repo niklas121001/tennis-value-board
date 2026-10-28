@@ -83,6 +83,7 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .hbox h3{margin:0 0 6px}.hbox ul{list-style:none;margin:0;padding:0}.hbox li{padding:3px 0;border-bottom:1px solid var(--line);font-size:13px}.hbox li:last-child{border-bottom:0}
 .hbox a.hz{color:inherit;text-decoration:none}.hbox a.hz:hover{color:var(--accent)}
 .meinew{font-size:13px;background:var(--accent-soft);color:var(--fg);border-radius:6px;padding:8px 12px}
+.lh{display:inline-block;font:600 10px/1 var(--f-body);color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 3px;margin-left:4px;vertical-align:1px}
 .lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
 .leiter{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg)}.leiter.zu{opacity:.85}
 .lstufen{margin:6px 0 0 18px;padding:0;font-size:13px}.lstufen li{padding:2px 0}.laktion{display:flex;gap:6px;margin-top:8px}
@@ -468,7 +469,7 @@ async function init(){
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
     j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {}), j("h2h_web.json", {}), j("h2h_api.json", {}), j("player_stats_web.json", {}), j("serve_live.json", {}), j("quoten_verlauf.json", {})]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
-  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
+  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], haende: ((await j("haende.json", {})) || {}).spieler || {}, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   ERG = erg || {}; QV = qv || {};
   // Manuelle Spielerwerte sofort berücksichtigen (das nächste Update schreibt sie fest in players.json)
@@ -924,7 +925,7 @@ function rowHtml(p, r){
     return `<div class="pbar" title="${esc(name)}: Modell ${m} %${k!=null?` · Markt ${k} %`:""} (Skala 50–100 %)"><i style="width:${x(m)}%"></i>${gap}${k!=null?`<b style="left:${x(k)}%"></b>`:""}</div>${diffTxt}`; })();
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
-    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}<span class="show-s">${balken}</span></div></td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${linksBadge(r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${linksBadge(r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}<span class="show-s">${balken}</span></div></td>
     <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span>${balken}</div></td>
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
@@ -1349,6 +1350,14 @@ function gegnerBand(name, rolle, qGegner){
   const [s, l] = gegnerBaender(name)[rolle][band] || [0,0];
   return {name, rolle, band, s, n: s + l};
 }
+// Schlaghand (TML-Database, nur privat): "L"-Kennzeichen und Bilanz gegen Linkshänder
+const hand = (name) => ((D && D.haende || {})[name] || {}).h || null;
+const linksBadge = (name) => hand(name) === "L" ? `<span class="lh" title="Linkshänder">L</span>` : "";
+function handBilanzText(name, gegnerHand){
+  const x = (D.haende || {})[name]; if(!x) return "—";
+  const b = x["vs" + gegnerHand] || [0,0], n = b[0] + b[1], o = x[gegnerHand === "L" ? "vsR" : "vsL"] || [0,0], m = o[0] + o[1];
+  return n ? `${b[0]}–${b[1]} (${pc(b[0]/n,0)})${m ? ` <span class="time">· gg. ${gegnerHand==="L"?"Rechts":"Links"}: ${pc(o[0]/m,0)}</span>` : ""}` : "—";
+}
 const einUnitText = (z) => z && z.n ? `${z.w}–${z.n-z.w} · <span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> · ROI ${sg(z.roi)}` : "–";
 const BAENDER = ["1.00-1.30","1.30-1.50","1.50-1.70","1.70-1.90","1.90-2.10","2.10-2.50","2.50-3.00","3.00-4.00","4.00+"];
 async function openProfil(name, ctx){
@@ -1367,7 +1376,7 @@ async function openProfil(name, ctx){
     return n ? `<tr><td>${b.replace("-","–").replace(/\./g,",")}</td><td>${s_}–${n-s_}</td><td>${pc(s_/n,0)}</td></tr>` : ""; }).join("");
   const h2h = ctx && ctx.r && ctx.r.h2h ? (ctx.seite==="A" ? [ctx.r.h2h.a, ctx.r.h2h.b] : [ctx.r.h2h.b, ctx.r.h2h.a]) : null;
   const form = ctx && ctx.p && ctx.p.form ? ctx.p.form[ctx.seite==="A"?"a":"b"] : null;
-  const html = (letzte) => `<div class="prkopf"><div><h2 id="pr-titel">${flagge((ctx && ctx.p ? landVon(ctx.p, ctx.seite) : null) || LAENDER[name])}${esc(name)}${gesch}</h2>
+  const html = (letzte) => `<div class="prkopf"><div><h2 id="pr-titel">${flagge((ctx && ctx.p ? landVon(ctx.p, ctx.seite) : null) || LAENDER[name])}${esc(name)}${gesch}${linksBadge(name)}</h2>
       <div class="time">yElo ${elo("elo")} · Hard ${elo("elo_hard")} · Sand ${elo("elo_clay")} · Rasen ${elo("elo_grass")}${pl.geschaetzt?` · geschätzt aus ${pl.n_markt||0} Quoten, ${pl.n_erg||0} Ergebnissen`:""}</div></div>
       <button type="button" class="btn ghost mini" id="pr-zu" aria-label="Profil schließen">✕</button></div>
     <div class="prgrid">
@@ -1376,7 +1385,9 @@ async function openProfil(name, ctx){
         <div id="pr-edit" hidden>${editForm(name)}</div></div>
       <div class="box"><h3>Als Favorit / Außenseiter</h3><div class="kv two">
         <span class="k">als Favorit</span><span class="v">${fav.n?`${fav.s}–${fav.n-fav.s} (${pc(fav.pct,0)})`:"–"}</span>
-        <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span></div>
+        <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span>
+        ${hand(name) ? `<span class="k">Schlaghand</span><span class="v">${hand(name)==="L"?"Links":"Rechts"}</span>
+        <span class="k">gegen Linkshänder <span class="time">(seit 2023)</span></span><span class="v">${handBilanzText(name, "L")}</span>` : ""}</div>
         ${ARCHIV?(() => { const z = saetzeBilanz(name); if(!z || !z.n) return "";
           const gs = z.bo5 > 0 || (ctx && ctx.r && ctx.r.modus===5);
           const zl = (t, w) => w ? `<span class="k">${t}</span><span class="v">${w}${z.n?` <small>(${pc(w/z.n,0)})</small>`:""}</span>` : "";
@@ -1550,7 +1561,7 @@ function detailHtml(p, r){
       ${p.calc||!ARCHIV?"":`<span class="k" style="grid-column:1/-1;margin-top:6px;font-weight:600" title="Partien im Ergebnis-Archiv (seit Mitte Oktober). Absagen zählen nicht.">Getrackt (Archiv)</span>`+saetzeZeilen(saetzeBilanz(p.a), saetzeBilanz(p.b), (a,b) => ab(a,b,x => x==null?"–":String(x)), r.modus===5)}</div>${p.calc||!ARCHIV?"":comebackHinweis([p.a, p.b])}</div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
-    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}${gegner}</div>${p.calc||!ARCHIV?"":`
+    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}${gegner}${p.calc ? "" : [[p.a, p.b], [p.b, p.a]].filter(([, g]) => hand(g) === "L").map(([me]) => `<span class="k">${esc(me)} gegen Linkshänder <span class="time">(seit 2023, ATP)</span></span><span class="v">${handBilanzText(me, "L")}</span>`).join("")}</div>${p.calc||!ARCHIV?"":`
       <h3 style="margin-top:10px" title="Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div>${
         [p.a, p.b].map(n => `<div class="eu"><span>${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span></div>`).join("")}</div>`}</div>
     ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
