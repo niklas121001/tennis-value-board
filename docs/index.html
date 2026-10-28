@@ -87,6 +87,9 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .leiter{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg)}.leiter.zu{opacity:.85}
 .lstufen{margin:6px 0 0 18px;padding:0;font-size:13px}.lstufen li{padding:2px 0}.laktion{display:flex;gap:6px;margin-top:8px}
 .pill.ltag{background:var(--accent-soft);color:var(--accent)}
+.vdet{max-height:460px;overflow:auto;padding-right:4px}.vrueck{margin:4px 0 8px;font-size:12.5px}
+.vtab .vbeschr{max-width:340px}
+@media (max-width:700px){.vdet{max-height:380px;max-width:calc(100vw - 64px);overflow:auto}.vrueck{font-size:12px}.vtab td,.vtab th{padding:6px 6px}}
 .hkdet summary{cursor:pointer;list-style:none}.hkdet summary::-webkit-details-marker{display:none}
 .hkdet summary::before{content:"▸ ";color:var(--muted)}.hkdet[open] summary::before{content:"▾ "}
 .hkdet ul{margin:4px 0 2px 14px}.hkdet li{border-bottom:0;padding:2px 0;font-size:12.5px}.hksym{display:inline-block;width:12px;text-align:center}
@@ -1014,42 +1017,44 @@ function variantenHtml(bm, art){
     return {t: t/rs.length, ll: ll/rs.length, n: rs.length}; };
   const datum = (s) => { const d = new Date(s); return isNaN(d) ? "–" : d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ}); };
   const ERGP = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
-  const tippListe = (xs) => xs.length ? `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th class="l hide-s">Turnier</th><th>Quote</th><th>letzte</th><th>Edge</th><th>Ergebnis</th></tr></thead><tbody>${
-      xs.slice().sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => `<tr><td class="l time">${datum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="l hide-s time">${esc(tName(x))}</td><td class="num">${fx(x.erstQuote)}</td><td class="num">${fx(x.letzteQuote)}</td><td class="num">${sg(x.edge)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`).join("")}</tbody></table>`
+  const tippListe = (xs) => xs.length ? `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Tipp</th><th class="l hide-s">Turnier</th><th>Quote</th><th class="hide-s">letzte</th><th class="hide-s">Edge</th><th>Ergebnis</th></tr></thead><tbody>${
+      xs.slice().sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => `<tr><td class="l time">${datum(x.start)}</td><td class="l"><b>${esc(x.wette==="A"?x.a:x.b)}</b> <span class="time">vs ${esc(x.wette==="A"?x.b:x.a)}</span></td><td class="l hide-s time">${esc(tName(x))}</td><td class="num">${fx(x.erstQuote)}</td><td class="num hide-s">${fx(x.letzteQuote)}</td><td class="num hide-s">${sg(x.edge)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`).join("")}</tbody></table>`
     : `<p class="time">Noch keine Tipps dieser Variante.</p>`;
-  const progListe = () => res.length ? `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Partie (Sieger fett)</th><th title="Siegchance Spieler 1">Markt</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody>${
-      res.slice().sort((a,b) => String(b.p.start).localeCompare(String(a.p.start))).map(r => { const z = (v) => `<span class="${(v>0.5)===(r.y===1)?"pos":"negv"}">${pc(v,0)}</span>`;
-        return `<tr><td class="l time">${datum(r.p.start)}</td><td class="l">${r.y===1?`<b>${esc(r.p.a)}</b>`:esc(r.p.a)} – ${r.y===0?`<b>${esc(r.p.b)}</b>`:esc(r.p.b)} <span class="time">${esc(tName(r.p))}</span></td><td class="num">${z(r.M)}</td><td class="num">${z(r.A)}</td><td class="num">${z(r.B)}</td><td class="num">${z(r.C)}</td><td class="num">${r.D==null?"–":z(r.D)}</td></tr>`; }).join("")}</tbody></table>
-      <p class="time">Siegchance für den erstgenannten Spieler; grün = Prognose lag richtig, rot = falsch.</p>`
-    : `<p class="time">Noch keine abgeschlossenen Partien mit Prognosen aller Varianten.</p>`;
+  // Prognosen-Liste: nur Markt, A und die geöffnete Variante; die letzten 40 Partien
+  const progListe = (k) => { const zeigK = k && !["A","M"].includes(k);
+    const rs = res.filter(r => !zeigK || r[k] != null).sort((a,b) => String(b.p.start).localeCompare(String(a.p.start)));
+    if(!rs.length) return `<p class="time">Noch keine abgeschlossenen Partien mit dieser Prognose.</p>`;
+    const z = (r, v) => v == null ? "–" : `<span class="${(v>0.5)===(r.y===1)?"pos":"negv"}">${pc(v,0)}</span>`;
+    return `<table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Partie (Sieger fett)</th><th>Markt</th><th>A</th>${zeigK?`<th>${k}</th>`:""}</tr></thead><tbody>${
+      rs.slice(0, 40).map(r => `<tr><td class="l time">${datum(r.p.start)}</td><td class="l">${r.y===1?`<b>${esc(r.p.a)}</b>`:esc(r.p.a)} – ${r.y===0?`<b>${esc(r.p.b)}</b>`:esc(r.p.b)}<div class="time">${esc(tName(r.p))}</div></td><td class="num">${z(r, r.M)}</td><td class="num">${z(r, r.A)}</td>${zeigK?`<td class="num">${z(r, r[k])}</td>`:""}</tr>`).join("")}</tbody></table>
+      <p class="time">Siegchance für den erstgenannten Spieler; grün = richtig, rot = falsch.${rs.length > 40 ? ` Die letzten 40 von ${rs.length} Partien.` : ""}</p>`; };
+  // Rückrechnung mit den eingefrorenen Modellteilen vor Spielbeginn (pAR aktuelles A, pER bisheriges A = E, pDR, pFR, pMR Markt)
+  const rueck = (feld, vergl, vLabel, text) => { const rs = [];
+    for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
+      if(p[feld] == null || p[vergl] == null || p.pMR == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
+      rs.push({y: e.sieger==="A" ? 1 : 0, X: p[feld], V: p[vergl], M: p.pMR}); }
+    if(!rs.length) return "";
+    const g = (k) => { let t=0, ll=0; for(const r of rs){ const q=Math.min(Math.max(r[k],1e-4),1-1e-4); t+=(q>.5)===(r.y===1); ll-=r.y*Math.log(q)+(1-r.y)*Math.log(1-q); } return `<b>${pc(t/rs.length,0)}</b> / ${fx(ll/rs.length,3)}`; };
+    return `<p class="vrueck">Rückrechnung ${rs.length} ${text}: diese Variante ${g("X")} · ${vLabel} ${g("V")} · Markt ${g("M")} <span class="time">(Treffer / Fehlermaß)</span></p>`; };
+  const extra = {
+    D: () => { const gd = guete("D"), ga = guete("A","D"), gm = guete("M","D");
+      return (gd.n ? `<p class="vrueck">Seit 27.10. auf denselben ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)} · Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}</p>` : "") + rueck("pDR", "pER", "E (bisheriges A)", "Partien seit 13.10."); },
+    F: () => rueck("pFR", "pAR", "A (aktuell)", "ATP-Hartplatzpartien mit Tempo-Wert"),
+  };
   const zeile = (name, beschr, k, x) => { const g = guete(k), offen = VAR_OFFEN === k;
-    return `<tr class="vz" data-v="${k}" title="Klicken für die Partien"><td class="l"><span class="vpf">${offen?"▾":"▸"}</span> <b>${name}</b><div class="time">${beschr}</div></td><td class="num">${x?x.f+" ("+x.w+"–"+x.l+")":"–"}</td><td class="num ${x&&x.roi>0?"pos":x&&x.roi<0?"negv":""}">${x?sg(x.roi):"–"}</td><td class="num">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num">${pc(g.t)}</td><td class="num">${g.ll==null?"–":fx(g.ll,3)}</td></tr>${
-      offen ? `<tr class="kombi-d"><td colspan="7" style="text-align:left">${k==="M" ? progListe() : `<h4 class="vh">Tipps von ${name}</h4>${tippListe(tips[k])}<h4 class="vh">Prognosen aller Varianten</h4>${progListe()}`}</td></tr>` : ""}`; };
-  return `<details class="box klapp" data-k="var" style="margin-top:16px"${store.get("klapp.var", true)?" open":""}><summary><h3>Modell-Varianten im Test (seit ${TEST_START.split("-").reverse().join(".")} bis Jahresende) · ${art==="atp"?"nur ATP":art==="ch"?"nur Challenger":"ATP + Challenger"}</h3></summary>
-    <div class="tablewrap"><table><thead><tr><th class="l">Variante</th><th>Tipps (gew.–verl.)</th><th>ROI flach</th><th>Units</th><th>CLV</th><th>Prognose richtig</th><th title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
-    ${zeile("A · aktuell", `${Math.round(D.params.W_MODELL_BLEND*100)} % Modell, wie auf dem Board${D.params.GEWICHTE_UMSTELLUNG ? ` · seit ${D.params.GEWICHTE_UMSTELLUNG.split("-").reverse().join(".")} mit den Gewichten von D (vorher Excel-Gewichte = E)` : ""}`, "A", kz(tips.A))}
-    ${zeile("B · Test", "Elo gedämpft, Statistik nur mit echten Werten", "B", kz(tips.B))}
-    ${zeile("C · Test", "wie B + gegnerbereinigte Aufschlag-/Returnwerte", "C", kz(tips.C))}
-    ${zeile("D · Test", `Statistik-Gewicht Hard ${pc(D.params.D_W_STATS_HARD??0.15,0)}, Sand ${pc(D.params.D_W_STATS_CLAY??0.4,0)} (seit 27.10.)${(() => { const gd = guete("D"), ga = guete("A","D"), gm = guete("M","D");
-      return gd.n ? ` · gleiche ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)}, Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}` : ""; })()}${(() => {
-      // Rückrechnung mit den eingefrorenen Modellteilen vor Spielbeginn (pAR/pDR/pMR, beide mit 50 % Modellanteil)
-      const rs = []; for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
-        if(p.pDR == null || p.pER == null || p.pMR == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
-        rs.push({y: e.sieger==="A" ? 1 : 0, A: p.pER, D: p.pDR, M: p.pMR}); }
-      if(!rs.length) return "";
-      const g = (k) => { let t=0, ll=0; for(const r of rs){ const q=Math.min(Math.max(r[k],1e-4),1-1e-4); t+=(q>.5)===(r.y===1); ll-=r.y*Math.log(q)+(1-r.y)*Math.log(1-q); } return `${pc(t/rs.length,0)} / ${fx(ll/rs.length,3)}`; };
-      return `<br>Rückrechnung ${rs.length} Partien seit 13.10.: D ${g("D")} · E/bisheriges A ${g("A")} · Markt ${g("M")}`; })()}`, "D", kz(tips.D))}
-    ${D.params.E_W_STATS_HARD != null ? zeile("E · bisheriges A", `alte Excel-Gewichte (Hard ${pc(D.params.E_W_STATS_HARD,0)} Statistik), läuft seit 27.10. zum Vergleich weiter`, "E", kz(tips.E)) : ""}
-    ${zeile("F · Test", `Hart: Statistik nach Platztempo, langsam ${pc(D.params.F_W_STATS_LANGSAM??0.25,0)} … sehr schnell ${pc(D.params.F_W_STATS_SCHNELL??0.1,0)} (nur ATP mit Tempo-Wert, sonst wie A; seit 27.10.)${(() => {
-      const rs = []; for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
-        if(p.pFR == null || p.pAR == null || p.pMR == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
-        rs.push({y: e.sieger==="A" ? 1 : 0, A: p.pAR, F: p.pFR, M: p.pMR}); }
-      if(!rs.length) return "";
-      const g = (k) => { let t=0, ll=0; for(const r of rs){ const q=Math.min(Math.max(r[k],1e-4),1-1e-4); t+=(q>.5)===(r.y===1); ll-=r.y*Math.log(q)+(1-r.y)*Math.log(1-q); } return `${pc(t/rs.length,0)} / ${fx(ll/rs.length,3)}`; };
-      return `<br>Rückrechnung ${rs.length} ATP-Hartplatzpartien mit Tempo: F ${g("F")} · A (aktuell) ${g("A")} · Markt ${g("M")}`; })()}`, "F", kz(tips.F))}
-    ${zeile("Markt", "nur Winamax-Quote (Vergleich)", "M", null)}
+    return `<tr class="vz" data-v="${k}" title="Klicken für Details"><td class="l"><span class="vpf">${offen?"▾":"▸"}</span> <b>${name}</b><div class="time vbeschr hide-s">${beschr}</div></td><td class="num">${x?`${x.f}<span class="hide-s"> (${x.w}–${x.l})</span><div class="time show-s">${x.w}–${x.l}</div>`:"–"}</td><td class="num ${x&&x.roi>0?"pos":x&&x.roi<0?"negv":""}">${x?sg(x.roi):"–"}</td><td class="num hide-s">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num hide-s ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num">${pc(g.t,0)}</td><td class="num hide-s">${g.ll==null?"–":fx(g.ll,3)}</td></tr>${
+      offen ? `<tr class="kombi-d"><td colspan="7" style="text-align:left"><div class="vdet">${extra[k] ? extra[k]() : ""}${k==="M" ? progListe("M") : `<h4 class="vh">Tipps von ${name}</h4>${tippListe(tips[k])}<h4 class="vh">Prognosen</h4>${progListe(k)}`}</div></td></tr>` : ""}`; };
+  return `<details class="box klapp" data-k="var" style="margin-top:16px"${store.get("klapp.var", true)?" open":""}><summary><h3>Modell-Varianten im Test <span class="time">seit ${TEST_START.split("-").reverse().join(".")} · ${art==="atp"?"nur ATP":art==="ch"?"nur Challenger":"ATP + Challenger"}</span></h3></summary>
+    <div class="tablewrap"><table class="vtab"><thead><tr><th class="l">Variante</th><th>Tipps</th><th>ROI</th><th class="hide-s">Units</th><th class="hide-s">CLV</th><th>Treffer</th><th class="hide-s" title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
+    ${zeile("A · aktuell", `Board-Modell, ${Math.round(D.params.W_MODELL_BLEND*100)} % Modell${D.params.GEWICHTE_UMSTELLUNG ? `, seit ${D.params.GEWICHTE_UMSTELLUNG.split("-").reverse().join(".").slice(0,6)} neue Gewichte` : ""}`, "A", kz(tips.A))}
+    ${zeile("B · Test", "Elo gedämpft, Statistik nur echte Werte", "B", kz(tips.B))}
+    ${zeile("C · Test", "wie B + gegnerbereinigt", "C", kz(tips.C))}
+    ${zeile("D · Test", `Statistik Hard ${pc(D.params.D_W_STATS_HARD??0.15,0)}, Sand ${pc(D.params.D_W_STATS_CLAY??0.4,0)}`, "D", kz(tips.D))}
+    ${D.params.E_W_STATS_HARD != null ? zeile("E · bisheriges A", `alte Excel-Gewichte (Hard ${pc(D.params.E_W_STATS_HARD,0)})`, "E", kz(tips.E)) : ""}
+    ${zeile("F · Test", `Hard-Statistik nach Platztempo ${pc(D.params.F_W_STATS_LANGSAM??0.25,0)}–${pc(D.params.F_W_STATS_SCHNELL??0.1,0)}`, "F", kz(tips.F))}
+    ${zeile("Markt", "nur Winamax-Quote", "M", null)}
     </tbody></table></div>
-    <p class="note">B bis F tippen unsichtbar im Hintergrund mit derselben Value-Regel. CLV hier = erste ÷ letzte gesehene Quote − 1. Prognose-Güte über ${res.length} Partien, für die alle Varianten eine Prognose hatten. Zeile anklicken, um die zugehörigen Tipps und Partien zu sehen. Oben bei „Turniere“ auf „nur ATP“ bzw. „nur Challenger“ stellen, um beide getrennt zu sehen. Fehlermaß (Log-Loss): je kleiner, desto besser; liegt eine Variante dauerhaft unter „Markt“, weiß sie mehr als die Quote.</p></details>`;
+    <p class="note">B bis F tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10.). Zeile antippen für Tipps, Prognosen und – bei D und F – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
