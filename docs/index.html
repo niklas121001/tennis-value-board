@@ -661,7 +661,8 @@ function evalMatch(p){
       ausLog:true, erstGesehen:x.erstGesehen, quoteJetzt: jetztQ(x)}; } }
   // Value verpasst: Tipp wurde protokolliert, ist mit der aktuellen Quote aber kein Value mehr
   { const t = LOG && LOG[p.id + "|" + r.bm];
-    if(t && t.wette && !t.storniert && r.wette !== t.wette) r.verpasst = {seite: t.wette, name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote,
+    // nur wenn die Quote auf den getippten Spieler gefallen ist – nicht, wenn sich das Modell geändert hat
+    if(t && t.wette && !t.storniert && r.wette !== t.wette && jetztQ(t) < t.erstQuote - 1e-9) r.verpasst = {seite: t.wette, name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote,
       jetzt: jetztQ(t), edge: t.edge, erstGesehen: t.erstGesehen}; }
   // Quotensturz: Quote eines Spielers seit der ersten Sichtung um mind. 10 % gefallen ("der Markt weiß was")
   { const reihe = qvReihe(p, r.bm);

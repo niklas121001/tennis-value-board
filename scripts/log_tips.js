@@ -190,8 +190,10 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       const t = log[`${m.id}|${bm}`];
       if (t && !t.ergebnis) {
         const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
-        if (r.ok && r.wette !== t.wette && !t.valueWeg) { t.valueWeg = now; t.valueWegQuote = t.wette === "A" ? qa : qb; }
-        else if (r.ok && r.wette === t.wette && t.valueWeg) { delete t.valueWeg; delete t.valueWegQuote; }
+        // "Value weg" nur durch Marktbewegung: Quote auf den getippten Spieler gefallen und jetzt kein Value mehr
+        const qT = t.wette === "A" ? qa : qb, gefallen = qT < t.erstQuote - 1e-9;
+        if (r.ok && r.wette !== t.wette && gefallen && !t.valueWeg) { t.valueWeg = now; t.valueWegQuote = qT; }
+        else if (t.valueWeg && (!gefallen || (r.ok && r.wette === t.wette))) { delete t.valueWeg; delete t.valueWegQuote; }
       }
     }
   }
