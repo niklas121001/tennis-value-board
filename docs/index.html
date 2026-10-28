@@ -87,7 +87,7 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .leiter{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg)}.leiter.zu{opacity:.85}
 .lstufen{margin:6px 0 0 18px;padding:0;font-size:13px}.lstufen li{padding:2px 0}.laktion{display:flex;gap:6px;margin-top:8px}
 .pill.ltag{background:var(--accent-soft);color:var(--accent)}
-.vdet{max-height:460px;overflow:auto;padding-right:4px}.vrueck{margin:4px 0 8px;font-size:12.5px}
+.vdet{max-height:460px;overflow:auto;padding-right:4px}.vrueck{margin:4px 0 8px;font-size:12.5px;overflow-wrap:anywhere}
 .vtab .vbeschr{max-width:340px}
 @media (max-width:700px){.vdet{max-height:380px;max-width:calc(100vw - 64px);overflow:auto}.vrueck{font-size:12px}.vtab td,.vtab th{padding:6px 6px}}
 .tdet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:6px 2px 10px;text-align:left}
@@ -1006,7 +1006,7 @@ function variantenHtml(bm, art){
     const f = xs.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
     let flat = 0, u = 0; for(const x of f){ const st = unitsOf(x.kelly); if(x.ergebnis==="W"){ flat += x.erstQuote-1; u += st*(x.erstQuote-1); } else { flat -= 1; u -= st; } }
     const c = xs.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
-    return {n: xs.length, f: f.length, w, l: f.length-w, roi: f.length ? flat/f.length : null, u, clv: c.length ? c.reduce((a,b)=>a+b,0)/c.length : null};
+    return {n: xs.length, f: f.length, w, l: f.length-w, roi: f.length ? flat/f.length : null, u, flat, clv: c.length ? c.reduce((a,b)=>a+b,0)/c.length : null};
   };
   const artOk = (x) => art==="alle" || (art==="ch") === isChTip(x);
   const passt = (x) => (bm==="alle" || x.buchmacher===bm) && artOk(x);
@@ -1051,10 +1051,10 @@ function variantenHtml(bm, art){
     F: () => rueck("pFR", "pAR", "A (aktuell)", "ATP-Hartplatzpartien mit Tempo-Wert"),
   };
   const zeile = (name, beschr, k, x) => { const g = guete(k), offen = VAR_OFFEN === k;
-    return `<tr class="vz" data-v="${k}" title="Klicken für Details"><td class="l"><span class="vpf">${offen?"▾":"▸"}</span> <b>${name}</b><div class="time vbeschr hide-s">${beschr}</div></td><td class="num">${x?`${x.f}<span class="hide-s"> (${x.w}–${x.l})</span><div class="time show-s">${x.w}–${x.l}</div>`:"–"}</td><td class="num ${x&&x.roi>0?"pos":x&&x.roi<0?"negv":""}">${x?sg(x.roi):"–"}</td><td class="num hide-s">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num hide-s ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num">${pc(g.t,0)}</td><td class="num hide-s">${g.ll==null?"–":fx(g.ll,3)}</td></tr>${
+    return `<tr class="vz" data-v="${k}" title="Klicken für Details"><td class="l"><span class="vpf">${offen?"▾":"▸"}</span> <b>${name}</b><div class="time vbeschr hide-s">${beschr}</div></td><td class="num">${x?`${x.f}<span class="hide-s"> (${x.w}–${x.l})</span><div class="time show-s">${x.w}–${x.l}</div>`:"–"}</td><td class="num ${x&&x.flat>0?"pos":x&&x.flat<0?"negv":""}">${x&&x.f?`${x.flat>0?"+":""}${fx(x.flat,1)} U<div class="time">${sg(x.roi)}</div>`:"–"}</td><td class="num ${x&&x.u>0?"pos":x&&x.u<0?"negv":""}">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num hide-s ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num hide-s">${pc(g.t,0)}</td><td class="num hide-s">${g.ll==null?"–":fx(g.ll,3)}</td></tr>${
       offen ? `<tr class="kombi-d"><td colspan="7" style="text-align:left"><div class="vdet">${extra[k] ? extra[k]() : ""}${k==="M" ? progListe("M") : `<h4 class="vh">Tipps von ${name}</h4>${tippListe(tips[k])}<h4 class="vh">Prognosen</h4>${progListe(k)}`}</div></td></tr>` : ""}`; };
   return `<details class="box klapp" data-k="var" style="margin-top:16px"${store.get("klapp.var", true)?" open":""}><summary><h3>Modell-Varianten im Test <span class="time">seit ${TEST_START.split("-").reverse().join(".")} · ${art==="atp"?"nur ATP":art==="ch"?"nur Challenger":"ATP + Challenger"}</span></h3></summary>
-    <div class="tablewrap"><table class="vtab"><thead><tr><th class="l">Variante</th><th>Tipps</th><th>ROI</th><th class="hide-s">Units</th><th class="hide-s">CLV</th><th>Treffer</th><th class="hide-s" title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
+    <div class="tablewrap"><table class="vtab"><thead><tr><th class="l">Variante</th><th>Tipps</th><th title="1 U je Tipp, darunter ROI">flach</th><th title="mit dem empfohlenen Unit-Einsatz">mit Einsatz</th><th class="hide-s">CLV</th><th class="hide-s">Treffer</th><th class="hide-s" title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
     ${zeile("A · aktuell", `Board-Modell, ${Math.round(D.params.W_MODELL_BLEND*100)} % Modell${D.params.GEWICHTE_UMSTELLUNG ? `, seit ${D.params.GEWICHTE_UMSTELLUNG.split("-").reverse().join(".").slice(0,6)} neue Gewichte` : ""}`, "A", kz(tips.A))}
     ${zeile("B · Test", "Elo gedämpft, Statistik nur echte Werte", "B", kz(tips.B))}
     ${zeile("C · Test", "wie B + gegnerbereinigt", "C", kz(tips.C))}
