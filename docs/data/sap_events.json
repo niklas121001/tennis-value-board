@@ -7120,7 +7120,7 @@
 },
 "17406478": {
 "id": 17406478,
-"start": "2026-10-28T12:20:00Z",
+"start": "2026-10-28T13:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -7219,7 +7219,7 @@
 "17406477": {
 "id": 17406477,
 "start": "2026-10-28T10:00:00Z",
-"min": null,
+"min": 85,
 "kat": "Challenger",
 "turnier": "Brest, France",
 "belag": "hard",
@@ -7230,11 +7230,20 @@
 "aId": 321791,
 "hL": "ES",
 "aL": "GB",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17406479": {
 "id": 17406479,
@@ -9522,7 +9531,7 @@
 },
 "17411701": {
 "id": 17411701,
-"start": "2026-10-28T12:20:00Z",
+"start": "2026-10-28T12:40:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
@@ -9562,8 +9571,8 @@
 },
 "17411704": {
 "id": 17411704,
-"start": "2026-10-28T11:10:00Z",
-"min": null,
+"start": "2026-10-28T11:35:00Z",
+"min": 70,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
 "belag": "hard",
@@ -9574,11 +9583,20 @@
 "aId": 46391,
 "hL": "DE",
 "aL": "DE",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17411408": {
 "id": 17411408,
@@ -10033,7 +10051,7 @@
 "17377377": {
 "id": 17377377,
 "start": "2026-10-28T05:30:00Z",
-"min": null,
+"min": 128,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -10044,9 +10062,9 @@
 "aId": 200150,
 "hL": "JP",
 "aL": "TR",
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -10058,8 +10076,8 @@
 3
 ],
 [
-2,
-3
+4,
+6
 ]
 ]
 },
@@ -10515,7 +10533,7 @@
 "17377365": {
 "id": 17377365,
 "start": "2026-10-28T06:25:00Z",
-"min": null,
+"min": 66,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -10526,9 +10544,9 @@
 "aId": 371863,
 "hL": "GB",
 "aL": "RU",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -10536,14 +10554,14 @@
 6
 ],
 [
-2,
-3
+3,
+6
 ]
 ]
 },
 "17377376": {
 "id": 17377376,
-"start": "2026-10-29T04:00:00Z",
+"start": "2026-10-29T05:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
@@ -10563,7 +10581,7 @@
 },
 "17377339": {
 "id": 17377339,
-"start": "2026-10-28T12:40:00Z",
+"start": "2026-10-28T12:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -10916,7 +10934,7 @@
 },
 "17377369": {
 "id": 17377369,
-"start": "2026-10-29T04:00:00Z",
+"start": "2026-10-29T06:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
@@ -10936,7 +10954,7 @@
 },
 "17377375": {
 "id": 17377375,
-"start": "2026-10-29T04:00:00Z",
+"start": "2026-10-29T06:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
@@ -10956,7 +10974,7 @@
 },
 "17377371": {
 "id": 17377371,
-"start": "2026-10-29T04:00:00Z",
+"start": "2026-10-29T06:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
@@ -10976,7 +10994,7 @@
 },
 "17377326": {
 "id": 17377326,
-"start": "2026-10-28T11:10:00Z",
+"start": "2026-10-28T12:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -11591,11 +11609,11 @@
 "turnier": "Ningbo, China",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "Qf5",
+"h": "Yaroslav Demin",
 "a": "Harold Mayot",
-"hId": 393296,
+"hId": 371863,
 "aId": 248846,
-"hL": null,
+"hL": "RU",
 "aL": "FR",
 "st": "notstarted",
 "desc": "Not started",
@@ -11611,16 +11629,36 @@
 "turnier": "Ningbo, China",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "Qf7",
+"h": "Mert Alkaya",
 "a": "Yu Hsiou Hsu",
-"hId": 393298,
+"hId": 200150,
 "aId": 204329,
-"hL": null,
+"hL": "TR",
 "aL": "TW",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
 "runde": "Quarterfinals",
+"satz": []
+},
+"17377338": {
+"id": 17377338,
+"start": "2026-10-29T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Brest, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P11",
+"a": "Toby Samuel",
+"hId": 393286,
+"aId": 321791,
+"hL": null,
+"aL": "GB",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
 "satz": []
 }
 }
