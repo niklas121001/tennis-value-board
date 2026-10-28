@@ -177,6 +177,7 @@ tr.detail td{background:var(--bg);white-space:normal;text-align:left;padding:14p
 .box h3{font:600 .95rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:var(--accent)}
 .kv{display:grid;grid-template-columns:1fr auto auto;gap:2px 12px;font-size:13px}
 .kv.two{grid-template-columns:1fr auto}
+.scblock+.scblock{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}.scname{font-weight:600;font-size:13.5px;margin-bottom:3px}.scblock .kv .v .time{margin-left:4px}
 .kv span:nth-child(n){font-variant-numeric:tabular-nums}
 .kv .k{color:var(--muted)}
 .kv .v{font-family:var(--f-mono);text-align:right}
@@ -1360,6 +1361,30 @@ function handBilanzText(name, gegnerHand){
 }
 const einUnitText = (z) => z && z.n ? `${z.w}–${z.n-z.w} · <span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> · ROI ${sg(z.roi)}` : "–";
 const BAENDER = ["1.00-1.30","1.30-1.50","1.50-1.70","1.70-1.90","1.90-2.10","2.10-2.50","2.50-3.00","3.00-4.00","4.00+"];
+// Spieler-Check: je Spieler ein Block mit kurzen Zeilen (statt Name in jeder Zeile)
+function spielerCheckHtml(p, r){
+  const bandTxt = (b) => b.replace("-","–").replace(/\./g,",");
+  const zeilen = {[p.a]: [], [p.b]: []};
+  const add = (name, k, v, title) => { if(zeilen[name]) zeilen[name].push(`<span class="k"${title?` title="${esc(title)}"`:""}>${k}</span><span class="v">${v}</span>`); };
+  const favA = r.qa > 1 && r.qb > 1 ? r.qa <= r.qb : true;
+  const reihe = favA ? [p.a, p.b] : [p.b, p.a];
+  for(const [c, rolle] of [[r.favCheck, "Siegquote als Favorit"], [r.ausCheck, "Siegquote als Außenseiter"]]) if(c)
+    add(c.name, rolle, `${c.n>=D.params.MIN_N_SIEGQUOTE&&c.pct!=null?pc(c.pct,0):"—"} <span class="time">n ${c.n}</span>`, c.nWeb ? c.nWeb+" Spiele seit dem Excel-Stand ergänzt" : "Stand Excel");
+  if(r.baender) for(const x of [r.baender.a, r.baender.b]) if(x)
+    add(x.name, `bei eigener Quote ${bandTxt(x.band)}`, x.n ? `${x.siege}/${x.n} <span class="time">${pc(x.pct,0)}</span>` : "—");
+  if(!p.calc && r.qa > 1 && r.qb > 1 && r.qa !== r.qb){
+    const f = r.qa < r.qb;
+    for(const x of [gegnerBand(f ? p.a : p.b, "fav", f ? r.qb : r.qa), gegnerBand(f ? p.b : p.a, "aus", f ? r.qa : r.qb)]) if(x)
+      add(x.name, `bei Gegnerquote ${bandTxt(x.band)}`, x.n ? `${x.s}–${x.n-x.s} <span class="time">${pc(x.s/x.n,0)}</span>` : "—");
+  }
+  if(!p.calc) for(const [me, g] of [[p.a, p.b], [p.b, p.a]]) if(hand(g) === "L"){
+    const x = (D.haende || {})[me], b = x && x.vsL || [0,0], o = x && x.vsR || [0,0], n = b[0]+b[1], m = o[0]+o[1];
+    add(me, `gegen Linkshänder <span class="lh" title="Linkshänder">L</span>`, n ? `${b[0]}–${b[1]} <span class="time">${pc(b[0]/n,0)}</span>` : "—", "Seit 2023, ATP-Ebene" + (m ? ` · gegen Rechtshänder ${o[0]}–${o[1]} (${pc(o[0]/m,0)})` : ""));
+  }
+  if(!p.calc && ARCHIV) for(const n of [p.a, p.b]){ const z = (einUnit(n)||{}).alle;
+    add(n, "1 U auf Sieg (Archiv)", z && z.n ? `<span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> <span class="time">${z.w}–${z.n-z.w}</span>` : "—", "Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote." + (z && z.n ? ` ROI ${sg(z.roi)}` : "")); }
+  return reihe.map(n => `<div class="scblock"><div class="scname">${esc(n)}${linksBadge(n)}${n === reihe[0] && r.qa !== r.qb ? ` <span class="time">Favorit</span>` : ""}</div><div class="kv two">${zeilen[n].join("") || `<span class="k">keine Daten</span><span class="v">—</span>`}</div></div>`).join("");
+}
 async function openProfil(name, ctx){
   const dlg = $("#profil"), pl = D.players[name] || {}, live = (D.serveLive||{})[name] || {};
   const gesch = pl.geschaetzt ? ` <span class="gesch" title="Elo geschätzt">≈</span>` : "";
@@ -1529,13 +1554,6 @@ function detailHtml(p, r){
   const allBooks = Object.entries(p.quoten||{}).map(([b,q]) => {
     const x = TennisModel.analyse({turnier:p.turnier, belag:r.belagEff, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
     return `<span class="k">${esc(b)}${x.wette?" ✓":""}</span><span class="v">${fx(q[0])} / ${fx(q[1])}</span><span class="v">${sg(x.edgeA)} / ${sg(x.edgeB)}</span>`; }).join("");
-  const chk = (c, rolle) => c ? `<span class="k">${esc(c.name)} (${rolle})</span><span class="v" title="${c.nWeb?c.nWeb+" Spiele seit dem Excel-Stand ergänzt":"Stand Excel"}">${c.n>=D.params.MIN_N_SIEGQUOTE&&c.pct!=null?pc(c.pct,0):"—"} · n ${c.n}</span>` : "";
-  const band = (x) => x ? `<span class="k">${esc(x.name)} bei Quote ${x.band.replace("-","–").replace(/\./g,",")}</span><span class="v">${x.n?`${x.siege}/${x.n} (${pc(x.pct,0)})`:"—"}</span>` : "";
-  const bandTxt = (b) => b.replace("-","–").replace(/\./g,",");
-  const gband = (x) => x ? `<span class="k">${esc(x.name)} als ${x.rolle==="fav"?"Fav.":"Außens."} gg. Gegnerquote ${bandTxt(x.band)}</span><span class="v">${x.n?`${x.s}–${x.n-x.s} (${pc(x.s/x.n,0)})`:"—"}</span>` : "";
-  const gegner = (() => { if(p.calc || !(r.qa>1 && r.qb>1) || r.qa===r.qb) return "";
-    const favA = r.qa < r.qb;
-    return gband(gegnerBand(favA ? p.a : p.b, "fav", favA ? r.qb : r.qa)) + gband(gegnerBand(favA ? p.b : p.a, "aus", favA ? r.qa : r.qb)); })();
   const cur = store.get("belag."+p.id, null) || "auto";
   PROFCTX[p.id] = {p, r};
   return `${assHtml(r)}${p.calc?"":`<div class="dsig">${(() => { const mw = meineWettenFuer(p); return mw.length ? `<div class="meinew">🎫 <b>Deine Wette${mw.length>1?"n":""}:</b> ${mw.map(meineWetteText).join(" · ")}</div>` : ""; })()}${bilanzHtml(r)}${signalInfoHtml(r)}${warnHtml(p, r)}</div>`}<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
@@ -1561,9 +1579,7 @@ function detailHtml(p, r){
       ${p.calc||!ARCHIV?"":`<span class="k" style="grid-column:1/-1;margin-top:6px;font-weight:600" title="Partien im Ergebnis-Archiv (seit Mitte Oktober). Absagen zählen nicht.">Getrackt (Archiv)</span>`+saetzeZeilen(saetzeBilanz(p.a), saetzeBilanz(p.b), (a,b) => ab(a,b,x => x==null?"–":String(x)), r.modus===5)}</div>${p.calc||!ARCHIV?"":comebackHinweis([p.a, p.b])}</div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
-    <div class="box"><h3>Spieler-Check</h3><div class="kv two">${chk(r.favCheck,"als Fav.")}${chk(r.ausCheck,"als Aus.")}${r.baender?band(r.baender.a)+band(r.baender.b):""}${gegner}${p.calc ? "" : [[p.a, p.b], [p.b, p.a]].filter(([, g]) => hand(g) === "L").map(([me]) => `<span class="k">${esc(me)} gegen Linkshänder <span class="time">(seit 2023, ATP)</span></span><span class="v">${handBilanzText(me, "L")}</span>`).join("")}</div>${p.calc||!ARCHIV?"":`
-      <h3 style="margin-top:10px" title="Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote.">1 U auf Sieg (Archiv)</h3><div>${
-        [p.a, p.b].map(n => `<div class="eu"><span>${esc(n)}</span><span class="v">${einUnitText((einUnit(n)||{}).alle)}</span></div>`).join("")}</div>`}</div>
+    <div class="box"><h3>Spieler-Check</h3>${spielerCheckHtml(p, r)}</div>
     ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
     ${p.calc?"":`<div class="box"><h3>Quoten</h3>${allBooks?`<div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}</div>`:""}${qvHtml(p, r)}
       ${quoteBox(p, r)}
