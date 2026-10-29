@@ -31,7 +31,7 @@ def api(path, **params):
         raise SystemExit(f"OddsPapi {path}: Verbindungsfehler – {e}")
     finally:
         _last_call[0] = time.time()
-    if path != "account":
+    if path not in ("account", "historical-odds"):     # historical-odds zählt laut OddsPapi nicht aufs Kontingent
         calls.append(path)
     return json.loads(body)
 
@@ -214,6 +214,9 @@ def letzter_preis(outcome):
     return float(e["price"]), e.get("active", True) is not False
 
 
+HIST_FEHLER = []
+
+
 def quoten_historisch(fixtures, slugs, meta, cfg, diag):
     """Quoten je Partie über /historical-odds (zählt laut OddsPapi nicht aufs Monatskontingent, Cooldown 5 s).
     Holt die Buchmacher aus config.json plus Pinnacle (scharfe Referenz) in einem Abruf (max. 3 Buchmacher).
@@ -234,7 +237,10 @@ def quoten_historisch(fixtures, slugs, meta, cfg, diag):
             res = api("historical-odds", fixtureId=fx["fixtureId"], bookmakers=",".join(books))
         except SystemExit as e:
             fehler += 1
+            HIST_FEHLER.append(str(e)[:160])
             print(f"  historical-odds {fx['fixtureId']}: {e}")
+            if "429" in str(e):
+                _t.sleep(8)
             if fehler >= 5 and not odds:
                 raise
             continue
@@ -476,6 +482,8 @@ def run(cfg, meta, state, n_books):
     state.update(quoten_update=iso(now_utc()), quoten_hinweis=None,
                  kontingent={"verbraucht": v, "limit": l},
                  unbekannte_namen=sorted(unbekannt), buchmacher_fehlen=meta.get("buchmacher_fehlen", []),
+                 historisch={"partien": len(fixtures), "mit_quote": len(odds), "mit_pinnacle": len(pin), "fehler": len(HIST_FEHLER),
+                             "fehler_beispiele": sorted(set(HIST_FEHLER))[:3]},
                  abdeckung={slug2name.get(k, k): {x: v[x] for x in ("partien", "mit_quote", "pausiert", "ohne_siegermarkt")}
                             for k, v in diag.items()})
     save("meta.json", state)

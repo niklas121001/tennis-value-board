@@ -99,7 +99,7 @@ def settlement_sieger(tip, meta):
 def schlussquoten(fixture_id, start, slugs, meta):
     """{slug: (quote_spieler1, quote_spieler2)} – letzte Quote vor Spielbeginn je Buchmacher."""
     import time
-    time.sleep(4)  # Cooldown dieses Endpunkts: 5000 ms
+    time.sleep(max(0, 5.5 - (time.time() - fo._last_call[0])))  # Cooldown dieses Endpunkts: 5000 ms
     res = fo.api("historical-odds", fixtureId=fixture_id, bookmakers=",".join(slugs[:3]))
     out = {}
     for slug, bo in (res.get("bookmakers") or {}).items():
@@ -459,19 +459,28 @@ def main():
         offen_pin = sorted((fid for fid, pr in prog.items() if pr.get("pinSchluss") is None and not pr.get("pinVersucht")
                             and ts(pr.get("start")) and jetzt - datetime.timedelta(days=3) < ts(pr.get("start")) < jetzt - datetime.timedelta(hours=1)),
                            key=lambda f: (prog[f].get("kategorie") != "ATP", prog[f].get("start")))
+        pin_fehler = []
         for fid in offen_pin:
-            if n_pin >= 150 or _t.time() - t0 > 600:
+            if n_pin >= 150 or _t.time() - t0 > 600 or len(pin_fehler) >= 6:
                 break
             try:
                 sq = schlussquoten(fid, ts(prog[fid]["start"]), [scharf], meta)
             except SystemExit as e:
+                pin_fehler.append(str(e)[:160])
                 print("  Pinnacle-Schlussquote nicht abrufbar:", e)
-                break
+                _t.sleep(8 if "429" in str(e) else 1)
+                if "404" in str(e):
+                    prog[fid]["pinVersucht"] = True
+                continue
             n_pin += 1
             prog[fid]["pinVersucht"] = True
             if sq.get(scharf):
                 prog[fid]["pinSchluss"] = list(sq[scharf])
-        if n_pin:
+        st_ = load("meta.json", {})
+        st_["pin_schluss"] = {"stand": jetzt.strftime("%Y-%m-%dT%H:%MZ"), "abgerufen": n_pin, "offen": len(offen_pin),
+                              "fehler": len(pin_fehler), "fehler_beispiele": sorted(set(pin_fehler))[:3]}
+        save("meta.json", st_)
+        if n_pin or pin_fehler:
             (DATA / "prognosen.json").write_text(json.dumps(prog, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
             print(f"Pinnacle-Schlussquoten: {sum(1 for f in offen_pin[:n_pin] if prog[f].get('pinSchluss'))} von {n_pin} Partien")
         # Signale: CLV gegen die Pinnacle-Schlussquote
