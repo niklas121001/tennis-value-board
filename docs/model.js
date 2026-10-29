@@ -291,6 +291,12 @@
     } else if (valueA && fairA < fairB) wette = "A";
     else if (valueB && fairB < fairA) wette = "B";
     if (wette) empfehlung = "👉 Auf " + (wette === "A" ? match.a : match.b) + " setzen";
+    // Seit 29.10.2026: keine Value-Tipps, wenn ein Spieler nur eine geschätzte Elo hat (Modell dort nachweislich schwach)
+    const eloGeschaetzt = (out.eloGeschaetztA || out.eloGeschaetztB) && P.TIPP_BEI_GESCHAETZT !== true;
+    if (wette && eloGeschaetzt) {
+      empfehlung = "Kein Tipp – Elo geschätzt (" + [out.eloGeschaetztA && match.a, out.eloGeschaetztB && match.b].filter(Boolean).join(", ") + ")";
+      wette = null;
+    }
 
     // Kelly (AG..AI) – nur wenn Value auf Modell-Favorit (unabhängig von Blacklist, wie in der Excel)
     let kelly = null, buchQ = null;
@@ -423,6 +429,7 @@
       G: bewerte(pG, match, haveOdds, D, P),
     };
     varianten.C.pStats = pStatsC;
+    if (eloGeschaetzt) for (const v of Object.values(varianten)) { v.wette = null; v.edge = null; v.kelly = null; }   // gleiche Regel für alle Varianten
 
     return Object.assign(out, {
       varianten,
