@@ -9717,22 +9717,32 @@
  },
  "Juan Alejandro Hernandez Serrano": {
   "elo": 1279.9,
-  "hard_1in": null,
-  "hard_1won": null,
-  "hard_2won": null,
-  "clay_1in": null,
-  "clay_1won": null,
-  "clay_2won": null,
+  "hard_1in": 0.664,
+  "hard_1won": 0.67,
+  "hard_2won": 0.453,
+  "clay_1in": 0.609,
+  "clay_1won": 0.647,
+  "clay_2won": 0.476,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
-  "ret_hard": null,
-  "ret_clay": null,
+  "ret_hard": 0.414,
+  "ret_clay": 0.39,
   "ret_grass": null,
   "tb": 0.5,
   "elo_hard": 1260.2,
   "elo_clay": 1210.0,
-  "elo_grass": 1331.7
+  "elo_grass": 1331.7,
+  "manuell": {
+   "hard_1in": "2026-10-28T10:06",
+   "hard_1won": "2026-10-28T10:06",
+   "hard_2won": "2026-10-28T10:06",
+   "ret_hard": "2026-10-28T10:06",
+   "clay_1in": "2026-10-28T10:06",
+   "clay_1won": "2026-10-28T10:06",
+   "clay_2won": "2026-10-28T10:06",
+   "ret_clay": "2026-10-28T10:06"
+  }
  },
  "Alan Magadan": {
   "elo": 1442.7,
@@ -12088,48 +12098,6 @@
   ],
   "erg_delta": -21.5,
   "elo_markt": 1185.4
- },
- "Alex Hernandez": {
-  "geschaetzt": true,
-  "n_markt": 3,
-  "n_erg": 4,
-  "quelle": "markt",
-  "anker": "direkt",
-  "erstellt": "2026-10-20",
-  "markt_ids": [
-   "id1200386175804606",
-   "id1200394576124318",
-   "id1200394575837862"
-  ],
-  "elo": 1317.7,
-  "elo_hard": 1317.7,
-  "elo_clay": 1317.7,
-  "elo_grass": 1317.7,
-  "markt_werte": [
-   1243.0,
-   1243.5,
-   1298.4
-  ],
-  "erg_delta": 56.1,
-  "elo_markt": 1261.6,
-  "hard_1in": 0.664,
-  "manuell": {
-   "hard_1in": "2026-10-28T10:06",
-   "hard_1won": "2026-10-28T10:06",
-   "hard_2won": "2026-10-28T10:06",
-   "ret_hard": "2026-10-28T10:06",
-   "clay_1in": "2026-10-28T10:06",
-   "clay_1won": "2026-10-28T10:06",
-   "clay_2won": "2026-10-28T10:06",
-   "ret_clay": "2026-10-28T10:06"
-  },
-  "hard_1won": 0.67,
-  "hard_2won": 0.453,
-  "ret_hard": 0.414,
-  "clay_1in": 0.609,
-  "clay_1won": 0.647,
-  "clay_2won": 0.476,
-  "ret_clay": 0.39
  },
  "Albert Pedrico Kravtsov": {
   "geschaetzt": true,
