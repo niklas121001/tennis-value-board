@@ -170,7 +170,9 @@
 "edge": 0.071,
 "kellyEur": 21.76,
 "erstGesehen": "2026-10-25T07:13Z",
-"zuletztGesehen": "2026-10-28T10:08Z"
+"zuletztGesehen": "2026-10-28T10:08Z",
+"ergebnis": "L",
+"clv": -0.0208
 },
 "id1200261375991562|winamax": {
 "id": "id1200261375991562",
@@ -318,7 +320,9 @@
 "edge": 0.041,
 "kellyEur": 11.95,
 "erstGesehen": "2026-10-27T08:59Z",
-"zuletztGesehen": "2026-10-28T12:55Z"
+"zuletztGesehen": "2026-10-28T12:55Z",
+"ergebnis": "L",
+"clv": -0.0592
 },
 "id1200310375837634|winamax": {
 "id": "id1200310375837634",
@@ -341,11 +345,13 @@
 "edge": 0.033,
 "kellyEur": 23.26,
 "erstGesehen": "2026-10-28T07:32Z",
-"zuletztGesehen": "2026-10-28T12:55Z"
+"zuletztGesehen": "2026-10-28T12:55Z",
+"ergebnis": "L",
+"clv": -0.0084
 },
 "id1200310375837638|winamax": {
 "id": "id1200310375837638",
-"start": "2026-10-29T10:30:00.000Z",
+"start": "2026-10-29T12:30:00.000Z",
 "turnier": "ATP Vienna",
 "kategorie": "ATP",
 "belag": "hard",
@@ -354,7 +360,7 @@
 "buchmacher": "winamax",
 "wette": "A",
 "erstQuote": 1.27,
-"letzteQuote": 1.25,
+"letzteQuote": 1.22,
 "band": "1.00-1.30",
 "siege": 11,
 "n": 12,
@@ -364,6 +370,52 @@
 "edge": 0.053,
 "kellyEur": 24.51,
 "erstGesehen": "2026-10-28T07:32Z",
-"zuletztGesehen": "2026-10-28T12:55Z"
+"zuletztGesehen": "2026-10-29T07:34Z"
+},
+"id1200310375837644|winamax": {
+"id": "id1200310375837644",
+"start": "2026-10-29T16:00:00.000Z",
+"turnier": "ATP Vienna",
+"kategorie": "ATP",
+"belag": "hard",
+"a": "Arthur Fery",
+"b": "Lorenzo Musetti",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.36,
+"letzteQuote": 1.36,
+"band": "1.30-1.50",
+"siege": 7,
+"n": 7,
+"pBand": 1,
+"pEst": 0.792,
+"pMarkt": 0.695,
+"edge": 0.077,
+"kellyEur": 26.82,
+"erstGesehen": "2026-10-29T07:34Z",
+"zuletztGesehen": "2026-10-29T07:34Z"
+},
+"id1200310375837642|winamax": {
+"id": "id1200310375837642",
+"start": "2026-10-29T16:30:00.000Z",
+"turnier": "ATP Vienna",
+"kategorie": "ATP",
+"belag": "hard",
+"a": "Alexander Zverev",
+"b": "Tallon Griekspoor",
+"buchmacher": "winamax",
+"wette": "A",
+"erstQuote": 1.22,
+"letzteQuote": 1.22,
+"band": "1.00-1.30",
+"siege": 29,
+"n": 32,
+"pBand": 0.906,
+"pEst": 0.864,
+"pMarkt": 0.775,
+"edge": 0.054,
+"kellyEur": 30.96,
+"erstGesehen": "2026-10-29T07:34Z",
+"zuletztGesehen": "2026-10-29T07:34Z"
 }
 }
