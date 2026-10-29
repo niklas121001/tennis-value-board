@@ -1015,13 +1015,13 @@ function variantenHtml(bm, art){
   const passt = (x) => (bm==="alle" || x.buchmacher===bm) && artOk(x);
   const A = Object.values(LOG||{}).filter(x => passt(x) && String(x.erstGesehen||"") >= TEST_START);
   const V = Object.values(VAR.vt).filter(passt);
-  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: V.filter(x => x.variante==="E"), F: V.filter(x => x.variante==="F")};
+  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: V.filter(x => x.variante==="E"), F: V.filter(x => x.variante==="F"), G: V.filter(x => x.variante==="G")};
   // Prognose-Güte auf denselben Partien (alle mit Quote, Ergebnis und allen drei Varianten)
   const res = [];
   for(const [id, p] of Object.entries(VAR.prog)){
     const e = ERG[id] || (ARCHIV||{})[id];
     if(!artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || p.pB==null || p.pC==null || p.pMarkt==null || p.pFinal==null) continue;
-    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, D: p.pD, E: p.pE, F: p.pF, M: p.pMarkt, p, e});
+    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, D: p.pD, E: p.pE, F: p.pF, G: p.pG, M: p.pMarkt, p, e});
   }
   // Güte über die Partien, für die die Variante eine Prognose hat (D erst seit 27.10. – eigener, kleinerer Ausschnitt)
   const guete = (k, nur) => { const rs = res.filter(r => r[k] != null && (!nur || r[nur] != null)); if(!rs.length) return {t:null, ll:null, n:0};
@@ -1052,6 +1052,7 @@ function variantenHtml(bm, art){
     D: () => { const gd = guete("D"), ga = guete("A","D"), gm = guete("M","D");
       return (gd.n ? `<p class="vrueck">Seit 27.10. auf denselben ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)} · Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}</p>` : "") + rueck("pDR", "pER", "E (bisheriges A)", "Partien seit 13.10."); },
     F: () => rueck("pFR", "pAR", "A (aktuell)", "ATP-Hartplatzpartien mit Tempo-Wert"),
+    G: () => rueck("pGR", "pCR", "C", "ATP-Hartplatzpartien mit Tempo-Wert"),
   };
   const zeile = (name, beschr, k, x) => { const g = guete(k), offen = VAR_OFFEN === k;
     return `<tr class="vz" data-v="${k}" title="Klicken für Details"><td class="l"><span class="vpf">${offen?"▾":"▸"}</span> <b>${name}</b><div class="time vbeschr hide-s">${beschr}</div></td><td class="num">${x?`${x.f}<span class="hide-s"> (${x.w}–${x.l})</span><div class="time show-s">${x.w}–${x.l}</div>`:"–"}</td><td class="num ${x&&x.flat>0?"pos":x&&x.flat<0?"negv":""}">${x&&x.f?`${x.flat>0?"+":""}${fx(x.flat,1)} U<div class="time">${sg(x.roi)}</div>`:"–"}</td><td class="num ${x&&x.u>0?"pos":x&&x.u<0?"negv":""}">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num hide-s ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num hide-s">${pc(g.t,0)}</td><td class="num hide-s">${g.ll==null?"–":fx(g.ll,3)}</td></tr>${
@@ -1064,9 +1065,10 @@ function variantenHtml(bm, art){
     ${zeile("D · Test", `Statistik Hard ${pc(D.params.D_W_STATS_HARD??0.15,0)}, Sand ${pc(D.params.D_W_STATS_CLAY??0.4,0)}`, "D", kz(tips.D))}
     ${D.params.E_W_STATS_HARD != null ? zeile("E · bisheriges A", `alte Excel-Gewichte (Hard ${pc(D.params.E_W_STATS_HARD,0)})`, "E", kz(tips.E)) : ""}
     ${zeile("F · Test", `Hard-Statistik nach Platztempo ${pc(D.params.F_W_STATS_LANGSAM??0.25,0)}–${pc(D.params.F_W_STATS_SCHNELL??0.1,0)}`, "F", kz(tips.F))}
+    ${zeile("G · Test", "C + F: gegnerbereinigt, Elo gedämpft, Hard-Statistik nach Platztempo", "G", kz(tips.G))}
     ${zeile("Markt", "nur Winamax-Quote", "M", null)}
     </tbody></table></div>
-    <p class="note">B bis F tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10.). Zeile antippen für Tipps, Prognosen und – bei D und F – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
+    <p class="note">B bis G tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10.). Zeile antippen für Tipps, Prognosen und – bei D, F und G – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
@@ -1733,7 +1735,7 @@ function tippDetail(x){
   const sig = x.favPct != null ? `Fav. als Fav. ${pc(x.favPct,0)} (n ${x.favN}) · Außens. als Außens. ${pc(x.ausPct,0)} (n ${x.ausN})`
     : x.band ? `${x.siege}/${x.n} bei Quote ${String(x.band).replace("-","–").replace(/\./g,",")} · geschätzt ${pc(x.pEst,0)}` : x.variante ? `Variante ${x.variante}` : null;
   const satz = ar.satz && ar.satz.length ? ar.satz.map(([u,v]) => A ? `${u}:${v}` : `${v}:${u}`).join(" ") : "";
-  const vars = ["B","C","D","E","F"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
+  const vars = ["B","C","D","E","F","G"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
   const zeit = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
   const kv = (k, v) => v == null || v === "" ? "" : `<span class="k">${k}</span><span class="v">${v}</span>`;
   return `<div class="tdet">

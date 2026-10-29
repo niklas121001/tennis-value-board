@@ -401,12 +401,26 @@
       const pKalF = sigm(P.K_KALIBRIERUNG * logit(clip(pKombiF, 0.02, 0.98)));
       pF = pMarkt === null ? pKalF : sigm(P.W_MODELL_BLEND * logit(pKalF) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
     }
+    // G (seit 29.10.2026): Mischung aus C und F – Elo gedämpft, Statistik gegnerbereinigt (nur echte Werte), keine
+    // Zusatz-Kalibrierung, dazu auf Hart das Statistik-Gewicht nach Platztempo wie F. Ohne Tempo-Wert = C.
+    let pG = null;
+    {
+      let [wsG, weG] = [wS, wE];
+      if (sk === "hard" && isNum(tempoF)) {
+        const lo = P.F_TEMPO_LANGSAM ?? 0.8, hi = P.F_TEMPO_SCHNELL ?? 1.4, a = P.F_W_STATS_LANGSAM ?? 0.25, b = P.F_W_STATS_SCHNELL ?? 0.10;
+        const t = clip((tempoF - lo) / (hi - lo), 0, 1);
+        wsG = a + (b - a) * t; weG = 1 - wsG;
+      }
+      if (!echteStats || pStatsC === null) wsG = 0;
+      pG = mitMarkt(clip((wsG * (pStatsC ?? 0.5) + weG * pEloD + h2hW * h2hPct) / (wsG + weG + h2hW) + erf, 0.03, 0.97));
+    }
     const varianten = {
       D: bewerte(pD, match, haveOdds, D, P),
       F: bewerte(pF, match, haveOdds, D, P),
       ...(pE !== null ? { E: bewerte(pE, match, haveOdds, D, P) } : {}),
       B: bewerte(mitMarkt(kombi(pStats, echteStats)), match, haveOdds, D, P),
       C: bewerte(mitMarkt(kombi(pStatsC, echteStats)), match, haveOdds, D, P),
+      G: bewerte(pG, match, haveOdds, D, P),
     };
     varianten.C.pStats = pStatsC;
 
@@ -425,7 +439,7 @@
     });
   }
 
-  const api = { analyse, pGame, pSet, pMatch, detectMode, lookupCSI, setScores, quotenBand };
+  const api = { analyse, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.TennisModel = api;
 })(typeof self !== "undefined" ? self : this);

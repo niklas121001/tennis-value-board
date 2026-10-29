@@ -288,6 +288,7 @@ for (const m of matches) {
       if (e.pD == null && rNow.ok && rNow.varianten && rNow.varianten.D) e.pD = r3(rNow.varianten.D.p);   // Variante D (ab 27.10.) nachtragen
       if (e.pE == null && rNow.ok && rNow.varianten && rNow.varianten.E) e.pE = r3(rNow.varianten.E.p);   // Variante E = alte Gewichte
       if (e.pF == null && rNow.ok && rNow.varianten && rNow.varianten.F) e.pF = r3(rNow.varianten.F.p);   // Variante F = Tempo-Gewicht Hart
+      if (e.pG == null && rNow.ok && rNow.varianten && rNow.varianten.G) e.pG = r3(rNow.varianten.G.p);   // Variante G = C + F (ab 29.10.)
     }
     continue;
   }
@@ -303,7 +304,7 @@ for (const m of matches) {
     qaM: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null,   // Durchschnittsquote (Spieler-Check)
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
     geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), quali: !!m.quali, modus: r.modus, csi: r.csi, gesehen: now,
-    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null,
+    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null,
     pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null,
     qaErst: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null, qbErst: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null,
     quoteErstZeit: qs.length ? now : null, merkmale: merkmale(m, r, qs) };
