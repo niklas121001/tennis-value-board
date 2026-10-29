@@ -254,7 +254,7 @@ details.box summary{cursor:pointer;list-style-position:outside}
 .bein .nr{font:600 13px var(--f-display);color:var(--muted);align-self:center;min-width:18px}
 tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 .kombi-t{width:100%;font-size:13px}.kombi-t td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
-.ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
+.tagtog{white-space:nowrap}.ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
@@ -366,6 +366,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     </div>
     <div id="m-kurve" class="kurvebox"></div>
     <div id="m-leitern"></div>
+    <div id="m-tage"></div>
     <div id="m-arten"></div>
     <form id="m-bank" class="controls" autocomplete="off" style="margin-top:10px">
       <div class="ctl"><label for="m-start" title="Startkapital für „Meine Wetten“ in Units – Kurve und Kontostand gehen davon aus">Start-Bankroll (U)</label><input id="m-start" inputmode="decimal" placeholder="z. B. 50" style="width:110px"></div>
@@ -1244,7 +1245,7 @@ async function manuellSpeichern(name, form, ctx){
 }
 
 // ---- Spielerprofil (Dialog)
-let ARCHIV = null; const KOMBI_OFFEN = new Set(), NOTIZ_OFFEN = new Set();
+let ARCHIV = null; const KOMBI_OFFEN = new Set(), NOTIZ_OFFEN = new Set(), TAG_OFFEN = new Set();
 async function archivLaden(){
   if(ARCHIV) return ARCHIV;
   const idx = await j("archiv/index.json", {}), ms = Object.keys(idx).sort().slice(-12);
@@ -2261,6 +2262,8 @@ function setupWetten(){
   });
   $("#m-liste").addEventListener("keydown", (e) => { const inp = e.target.closest(".notiz-wert"); if(!inp || e.key !== "Enter") return;
     NOTIZ_OFFEN.delete(inp.dataset.id); wetteAendern(inp.dataset.id, {notiz: inp.value.trim()}); });
+  $("#m-tage").addEventListener("click", (e) => { const t = e.target.closest(".tagtog"); if(!t) return; e.preventDefault();
+    const k = t.dataset.tag; TAG_OFFEN.has(k) ? TAG_OFFEN.delete(k) : TAG_OFFEN.add(k); renderWetten(); });
   $("#m-liste").addEventListener("click", (e) => { const t = e.target.closest(".ktog"); if(!t) return;
     const id = t.dataset.id; KOMBI_OFFEN.has(id) ? KOMBI_OFFEN.delete(id) : KOMBI_OFFEN.add(id); renderWetten(); });
   $("#m-liste").addEventListener("change", (e) => { const s_ = e.target.closest("select.bein-erg"); if(!s_) return;
@@ -2271,6 +2274,30 @@ function setupWetten(){
   archivLaden().then(renderWetten);
 }
 
+// Tagesübersicht „Meine Wetten“: je Tag (Spielbeginn, deutsche Zeit) Bilanz in Units, Tag aufklappbar
+const tagKey = (s) => new Date(s).toLocaleDateString("sv-SE", {timeZone: TZ});
+function tagesHtml(xs){
+  const unit = unitCfg().unit, tage = {};
+  for(const w of xs){ if(!w.start || isNaN(new Date(w.start))) continue; const k = tagKey(w.start), z = tage[k] || (tage[k] = {ws: [], n:0, w:0, l:0, e:0, gw:0, offen:0, offenE:0});
+    z.ws.push(w); const e = ergebnisVon(w);
+    if(!e){ z.offen++; z.offenE += w.einsatz; continue; } if(e==="V") continue;
+    const gv = gewinnVon(w, e); z.n++; z.e += w.einsatz; z.gw += gv; if(gv > 0) z.w++; else z.l++; }
+  const keys = Object.keys(tage).sort().reverse(); if(!keys.length) return "";
+  const heute = tagKey(new Date());
+  const fertigeTage = keys.filter(k => tage[k].n), plus = fertigeTage.filter(k => tage[k].gw > 0).length, minus = fertigeTage.filter(k => tage[k].gw < 0).length;
+  const uTxt = (v) => `${v>0?"+":""}${fx(v/unit, 2)} U`;
+  const pillTag = (z) => z.offen && !z.n ? `<span class="pill no">offen</span>` : z.gw > 0 ? `<span class="pill go">Plus</span>` : z.gw < 0 ? `<span class="pill stop">Minus</span>` : `<span class="pill no">±0</span>`;
+  const reihen = keys.map(k => { const z = tage[k], d = new Date(k + "T12:00:00Z"), auf = TAG_OFFEN.has(k);
+    const datum = d.toLocaleDateString("de-DE", {weekday:"short", timeZone:"UTC"}).replace(".","") + " " + d.toLocaleDateString("de-DE", {day:"2-digit", month:"2-digit", timeZone:"UTC"}) + (k===heute ? ` <span class="time">heute</span>` : "");
+    const detail = auf ? `<tr class="kombi-d"><td colspan="6"><table class="kombi-t"><tbody>${z.ws.sort((a,b) => String(a.start).localeCompare(String(b.start))).map(w => { const e = ergebnisVon(w), gv = e && e!=="V" ? gewinnVon(w, e) : null;
+        const was = w.beine && w.beine.length > 1 ? `<b>Kombi</b> · ${w.beine.length} Auswahlen` : `<b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${w.beine && w.beine[0] && w.beine[0].markt && w.beine[0].markt!=="sieg" ? ` <span class="pill">${esc(marktText(w.beine[0]))}</span>` : ""}`;
+        const st = !e ? `<span class="pill no">offen</span>` : e==="W" ? `<span class="pill go">gewonnen</span>` : e==="C" ? `<span class="pill warn">Cashout</span>` : e==="V" ? `<span class="pill no">ungültig</span>` : `<span class="pill stop">verloren</span>`;
+        return `<tr><td>${was}</td><td class="num">@ ${fx(w.quote)}</td><td class="num">${fx(w.einsatz/unit, 2)} U</td><td>${st}</td><td class="num ${gv>0?"pos":gv<0?"negv":""}">${gv==null?"–":uTxt(gv)}</td></tr>`; }).join("")}</tbody></table></td></tr>` : "";
+    return `<tr><td class="l"><button type="button" class="ktog tagtog" data-tag="${k}" aria-expanded="${auf}">${auf?"▾":"▸"} ${datum}</button></td><td class="num">${z.n + z.offen}${z.offen?`<div class="time">${z.offen} offen</div>`:""}</td><td class="num">${z.n?`${z.w}–${z.l}`:"–"}</td><td class="num hide-s">${z.n?fx(z.e/unit,2)+" U":"–"}</td><td class="num ${z.gw>0?"pos":z.gw<0?"negv":""}"><b>${z.n?uTxt(z.gw):"–"}</b></td><td class="hide-s">${pillTag(z)}</td></tr>${detail}`; }).join("");
+  return `<details class="box klapp" data-k="mtage" style="margin-top:12px"${store.get("klapp.mtage", true)?" open":""}><summary><h3>Tagesübersicht</h3> <span class="time">${plus} Plus · ${minus} Minus</span></summary>
+    <div class="tablewrap" style="max-height:420px;overflow:auto"><table><thead><tr><th class="l">Tag</th><th class="num">Wetten</th><th class="num" title="gewonnen–verloren">S–N</th><th class="num hide-s">Einsatz</th><th class="num">Ergebnis</th><th class="hide-s"></th></tr></thead><tbody>${reihen}</tbody></table></div>
+    <p class="note">Tag = Spielbeginn (bei Kombis die erste Auswahl). Ungültige Wetten zählen nicht, Cashout nach Gewinn/Verlust. Tag anklicken für die einzelnen Wetten. Folgt dem Monatsfilter.</p></details>`;
+}
 function renderWetten(){
   const all = Object.values(wLoad().items).sort((a,b) => String(b.start).localeCompare(String(a.start)));
   try{ $("#m-leitern").innerHTML = leiternHtml(); }catch(e){ console.error(e); }
@@ -2312,6 +2339,7 @@ function renderWetten(){
       <div class="tablewrap"><table><thead><tr><th class="l">Art</th><th class="num">Wetten</th><th class="num">gew.–verl.</th><th class="num">Einsatz</th><th class="num">Gewinn</th><th class="num">ROI</th></tr></thead><tbody>${reihen}</tbody></table></div>
       <p class="note">Value-Tipp = beim Speichern war es der Value-Tipp des Modells. Signal = Außenseiter- oder Bilanz-Signal auf diesen Spieler. Gegen die Modell-Prognose = Einzelwette auf den Spieler, den das Modell unter 50 % sieht. Cashout zählt nach Gewinn/Verlust. Folgt dem Monatsfilter.</p></details>` : "";
   }
+  try{ $("#m-tage").innerHTML = tagesHtml(xs); }catch(e){ console.error(e); }
   { const unit = unitCfg().unit, fertig = xs.map(w => ({w, e: ergebnisVon(w)})).filter(x => x.e==="W" || x.e==="L" || x.e==="C").sort((a,b) => String(a.w.start).localeCompare(String(b.w.start)));
     let sum = 0; const werte = [], info = [];
     for(const {w, e} of fertig){ sum += gewinnVon(w, e) / unit; werte.push(Math.round(sum*100)/100);
