@@ -573,7 +573,7 @@
 },
 "sturz|id1200261375837570|winamax": {
 "erstGesehen": "2026-10-28T12:55Z",
-"zuletztGesehen": "2026-10-29T16:16Z",
+"zuletztGesehen": "2026-10-29T19:28Z",
 "typ": "sturz",
 "wette": "B",
 "erstQuote": 3.65,
@@ -581,14 +581,14 @@
 "anfangsQuote": 4.1,
 "fall": 0.11,
 "id": "id1200261375837570",
-"start": "2026-10-29T18:40:00.000Z",
+"start": "2026-10-29T19:35:00.000Z",
 "turnier": "ATP Basel",
 "kategorie": "ATP",
 "belag": "hard",
 "a": "Ben Shelton",
 "b": "Jerome Kym",
 "buchmacher": "winamax",
-"pinLetzt": 3.77,
+"pinLetzt": 3.85,
 "pinSchluss": 3.74
 },
 "comeback|id1200310375837642|winamax": {
@@ -608,7 +608,8 @@
 "a": "Alexander Zverev",
 "b": "Tallon Griekspoor",
 "buchmacher": "winamax",
-"pinLetzt": 3.79
+"pinLetzt": 3.79,
+"pinSchluss": 3.68
 },
 "comeback|id1200394575837886|winamax": {
 "erstGesehen": "2026-10-29T12:55Z",
@@ -666,7 +667,8 @@
 "a": "Hugo Gaston",
 "b": "Moise Kouame",
 "buchmacher": "winamax",
-"pinLetzt": 1.819
+"pinLetzt": 1.819,
+"pinSchluss": 1.819
 },
 "sturz|id1200394575837862|winamax": {
 "erstGesehen": "2026-10-29T12:55Z",
@@ -685,11 +687,12 @@
 "a": "Camilo Ugo Carabelli",
 "b": "Juan Alejandro Hernandez Serrano",
 "buchmacher": "winamax",
-"pinLetzt": 8.66
+"pinLetzt": 8.66,
+"pinSchluss": 8.84
 },
 "comeback|id1200611175837726|winamax": {
 "erstGesehen": "2026-10-29T12:55Z",
-"zuletztGesehen": "2026-10-29T16:16Z",
+"zuletztGesehen": "2026-10-29T19:28Z",
 "typ": "comeback",
 "wette": "A",
 "erstQuote": 1.33,
@@ -697,53 +700,56 @@
 "rueck": 3,
 "cb": 2,
 "id": "id1200611175837726",
-"start": "2026-10-30T04:40:00.000Z",
+"start": "2026-10-30T05:00:00.000Z",
 "turnier": "Seoul Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
 "a": "Terence Atmane",
 "b": "Seong Chang Hong",
-"buchmacher": "winamax"
+"buchmacher": "winamax",
+"pinLetzt": 1.37
 },
 "comeback|id1200579775837972|winamax": {
 "erstGesehen": "2026-10-29T12:55Z",
-"zuletztGesehen": "2026-10-29T16:16Z",
+"zuletztGesehen": "2026-10-29T19:28Z",
 "typ": "comeback",
 "wette": "B",
 "erstQuote": 1.36,
-"letzteQuote": 1.43,
+"letzteQuote": 1.34,
 "rueck": 3,
 "cb": 2,
 "id": "id1200579775837972",
-"start": "2026-10-30T06:20:00.000Z",
+"start": "2026-10-30T06:40:00.000Z",
 "turnier": "Ningbo Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
 "a": "Jake Delaney",
 "b": "Liam Broady",
-"buchmacher": "winamax"
+"buchmacher": "winamax",
+"pinLetzt": 1.358
 },
 "tagesziel|id1200579775837972|winamax": {
 "erstGesehen": "2026-10-29T12:55Z",
-"zuletztGesehen": "2026-10-29T16:16Z",
+"zuletztGesehen": "2026-10-29T19:28Z",
 "typ": "tagesziel",
 "wette": "B",
 "erstQuote": 1.36,
-"letzteQuote": 1.43,
+"letzteQuote": 1.34,
 "pz": 0.714,
 "einsatzU": 2.778,
 "id": "id1200579775837972",
-"start": "2026-10-30T06:20:00.000Z",
+"start": "2026-10-30T06:40:00.000Z",
 "turnier": "Ningbo Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
 "a": "Jake Delaney",
 "b": "Liam Broady",
-"buchmacher": "winamax"
+"buchmacher": "winamax",
+"pinLetzt": 1.358
 },
 "sturz|id1204350375837942|winamax": {
 "erstGesehen": "2026-10-29T16:11Z",
-"zuletztGesehen": "2026-10-29T16:16Z",
+"zuletztGesehen": "2026-10-29T19:28Z",
 "typ": "sturz",
 "wette": "A",
 "erstQuote": 3.4,
@@ -778,7 +784,9 @@
 "a": "Taylor Fritz",
 "b": "Denis Shapovalov",
 "buchmacher": "winamax",
-"pinSchluss": 2.76
+"pinSchluss": 2.76,
+"ergebnis": "L",
+"clv": 0.0
 },
 "pinnacle|id1200310375837642|winamax": {
 "erstGesehen": "2026-10-29T16:16Z",
@@ -799,6 +807,25 @@
 "belag": "hard",
 "a": "Alexander Zverev",
 "b": "Tallon Griekspoor",
+"buchmacher": "winamax",
+"pinSchluss": 3.68
+},
+"comeback|id1200579775837970|winamax": {
+"erstGesehen": "2026-10-29T19:28Z",
+"zuletztGesehen": "2026-10-29T19:28Z",
+"typ": "comeback",
+"wette": "B",
+"erstQuote": 3,
+"letzteQuote": 3,
+"rueck": 3,
+"cb": 2,
+"id": "id1200579775837970",
+"start": "2026-10-30T09:00:00.000Z",
+"turnier": "Ningbo Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"a": "Jie Cui",
+"b": "Petr Bar Biryukov",
 "buchmacher": "winamax"
 }
 }
