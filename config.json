@@ -5,7 +5,11 @@
   "tage": 2,
   "anfragen_limit_monat": 250,
   "anfragen_reserve": 20,
-  "laeufe_pro_tag": 2,
+  "laeufe_pro_tag": 3,
+  "quoten_quelle": "historisch",
+  "scharf_buchmacher": "pinnacle",
+  "historisch_max_partien": 160,
+  "historisch_max_sekunden": 900,
   "turnier_filter": {
     "einschliessen": [
       "atp",

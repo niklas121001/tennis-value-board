@@ -451,6 +451,38 @@ def main():
     save("player_stats_web.json", sw, indent=0)
     print(f"Spieler-Check: {len(sw['spiele'])} Spiele seit Excel-Stand {sw.get('stand')}, {len(spieler)} Spieler fortgeschrieben")
 
+    # Pinnacle-Schlussquote je Partie (kostenlos über historical-odds, 5 s je Abruf): scharfe Referenz für CLV und
+    # die Jahresauswertung aller Varianten/Signale. Nur Partien, die seit mind. 1 Std. laufen, max. 3 Tage zurück.
+    if hat_key:
+        import time as _t
+        t0, n_pin, scharf = _t.time(), 0, cfg.get("scharf_buchmacher", "pinnacle")
+        offen_pin = sorted((fid for fid, pr in prog.items() if pr.get("pinSchluss") is None and not pr.get("pinVersucht")
+                            and ts(pr.get("start")) and jetzt - datetime.timedelta(days=3) < ts(pr.get("start")) < jetzt - datetime.timedelta(hours=1)),
+                           key=lambda f: (prog[f].get("kategorie") != "ATP", prog[f].get("start")))
+        for fid in offen_pin:
+            if n_pin >= 150 or _t.time() - t0 > 600:
+                break
+            try:
+                sq = schlussquoten(fid, ts(prog[fid]["start"]), [scharf], meta)
+            except SystemExit as e:
+                print("  Pinnacle-Schlussquote nicht abrufbar:", e)
+                break
+            n_pin += 1
+            prog[fid]["pinVersucht"] = True
+            if sq.get(scharf):
+                prog[fid]["pinSchluss"] = list(sq[scharf])
+        if n_pin:
+            (DATA / "prognosen.json").write_text(json.dumps(prog, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+            print(f"Pinnacle-Schlussquoten: {sum(1 for f in offen_pin[:n_pin] if prog[f].get('pinSchluss'))} von {n_pin} Partien")
+        # Signale: CLV gegen die Pinnacle-Schlussquote
+        for datei in ("signale_log.json",):
+            sl = load(datei, {})
+            for x in sl.values():
+                pr = prog.get(x.get("id")) or {}
+                if pr.get("pinSchluss") and x.get("pinSchluss") is None:
+                    x["pinSchluss"] = pr["pinSchluss"][0] if x.get("wette") == "A" else pr["pinSchluss"][1]
+            save(datei, sl, indent=0)
+
     try:
         archiv_schreiben(erg_alle, seen, prog, smap, sap, log)
     except Exception as ex:                      # Archiv darf das Update nie blockieren

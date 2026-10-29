@@ -157,9 +157,21 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       if ((m.pausiert || []).includes(bm)) continue;
       const basis = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b, buchmacher: bm };
       // laufende Signale: letzte Quote mitschreiben (CLV)
-      for (const typ of ["sturz", "comeback", "tagesziel"]) {
+      for (const typ of ["sturz", "comeback", "tagesziel", "pinnacle"]) {
         const e = slog[`${typ}|${m.id}|${bm}`];
-        if (e) { e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; }
+        if (e) { e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start;
+          if (m.pinnacle) e.pinLetzt = e.wette === "A" ? m.pinnacle[0] : m.pinnacle[1]; }
+      }
+      // Pinnacle-Value (seit 29.10.2026): Buchmacher-Quote liegt mind. PIN_MIN_EDGE über der fairen Pinnacle-Quote (ohne Marge)
+      if (m.pinnacle && m.pinnacle[0] > 1 && m.pinnacle[1] > 1) {
+        const [pa, pb] = m.pinnacle, pA = (1 / pa) / (1 / pa + 1 / pb);
+        const minE = P.params.PIN_MIN_EDGE ?? 0.02, maxQ = P.params.PIN_MAX_QUOTE ?? 5;
+        for (const seite of ["A", "B"]) {
+          const q = seite === "A" ? qa : qb, pp = seite === "A" ? pA : 1 - pA, edge = q * pp - 1;
+          if (q > 1 && q <= maxQ && edge >= minE)
+            neuSignal(`pinnacle|${m.id}|${bm}`, Object.assign({ typ: "pinnacle", wette: seite, erstQuote: q, letzteQuote: q,
+              pinQuote: seite === "A" ? pa : pb, pinFair: r3(1 / pp), pPin: r3(pp), edge: r3(edge), pinLetzt: seite === "A" ? pa : pb }, basis));
+        }
       }
       const reihe = ((qv[m.id] || {}).bm || {})[bm] || [];
       if (reihe.length >= 2) for (const [seite, i] of [["A", 1], ["B", 2]]) {
@@ -285,6 +297,7 @@ for (const m of matches) {
       if (!e.qaErst) { e.qaErst = e.qaM; e.qbErst = e.qbM; e.quoteErstZeit = now; }   // Eröffnungsquote (erste gesehene)
       const rNow = r0(m);
       e.merkmale = merkmale(m, rNow, qs);
+      if (m.pinnacle) { e.pin = m.pinnacle; if (!e.pinErst) e.pinErst = m.pinnacle; e.pPin = r3((1 / m.pinnacle[0]) / (1 / m.pinnacle[0] + 1 / m.pinnacle[1])); }
       if (e.pD == null && rNow.ok && rNow.varianten && rNow.varianten.D) e.pD = r3(rNow.varianten.D.p);   // Variante D (ab 27.10.) nachtragen
       if (e.pE == null && rNow.ok && rNow.varianten && rNow.varianten.E) e.pE = r3(rNow.varianten.E.p);   // Variante E = alte Gewichte
       if (e.pF == null && rNow.ok && rNow.varianten && rNow.varianten.F) e.pF = r3(rNow.varianten.F.p);   // Variante F = Tempo-Gewicht Hart
@@ -307,7 +320,8 @@ for (const m of matches) {
     pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null,
     pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null,
     qaErst: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null, qbErst: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null,
-    quoteErstZeit: qs.length ? now : null, merkmale: merkmale(m, r, qs) };
+    quoteErstZeit: qs.length ? now : null, merkmale: merkmale(m, r, qs),
+    pin: m.pinnacle || null, pinErst: m.pinnacle || null, pPin: m.pinnacle ? r3((1 / m.pinnacle[0]) / (1 / m.pinnacle[0] + 1 / m.pinnacle[1])) : null };
   neuProg++;
 }
 const grenzeProg = new Date(Date.now() - 180 * 864e5).toISOString();

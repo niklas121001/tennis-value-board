@@ -1,7 +1,8 @@
 """Holt Spielplan + Siegwetten-Quoten (ATP & Challenger) von OddsPapi -> docs/data/matches.json
 
 Benötigt die Umgebungsvariable ODDSPAPI_KEY.
-Anfragen pro Lauf: 1 (Spielplan) + 1 je 3 Buchmacher. Einmalig zusätzlich: sports, bookmakers, markets.
+Anfragen pro Lauf: 1 (Spielplan); Quoten kostenlos über historical-odds (Winamax + Pinnacle, 5 s je Partie).
+Rückfall/alt (quoten_quelle != "historisch"): 1 je 5 Turniere und Buchmacher. Einmalig zusätzlich: sports, bookmakers, markets.
 Vor jedem Lauf wird das Kontingent über /v4/account geprüft (kostenlos).
 """
 import os, re, sys, json, time, math, datetime, urllib.request, urllib.parse
@@ -201,6 +202,64 @@ def extract(bm_odds, meta):
     return None, None
 
 
+def letzter_preis(outcome):
+    """Letzter Eintrag eines Ausgangs aus historical-odds: (Preis, aktiv)."""
+    ein = []
+    for es in ((outcome or {}).get("players") or {}).values():
+        ein.extend(es if isinstance(es, list) else [es])
+    ein = [e for e in ein if isinstance(e, dict) and e.get("price")]
+    if not ein:
+        return None, True
+    e = max(ein, key=lambda x: str(x.get("createdAt", "")))
+    return float(e["price"]), e.get("active", True) is not False
+
+
+def quoten_historisch(fixtures, slugs, meta, cfg, diag):
+    """Quoten je Partie über /historical-odds (zählt laut OddsPapi nicht aufs Monatskontingent, Cooldown 5 s).
+    Holt die Buchmacher aus config.json plus Pinnacle (scharfe Referenz) in einem Abruf (max. 3 Buchmacher).
+    Liefert ({fixtureId: {slug: [qa, qb]}}, {fixtureId: [pausierte slugs]}, {fixtureId: [pin_a, pin_b]})."""
+    import time as _t
+    scharf = cfg.get("scharf_buchmacher", "pinnacle")
+    books = (slugs + ([scharf] if scharf and scharf not in slugs else []))[:3]
+    max_n, max_s = cfg.get("historisch_max_partien", 160), cfg.get("historisch_max_sekunden", 900)
+    reihe = sorted(fixtures, key=lambda fx: ("challenger" in norm(f"{fx.get('categoryName', '')} {fx.get('tournamentName', '')}"), fx.get("startTime", "")))
+    odds, pausiert, pin, fehler, t0 = {}, {}, {}, 0, _t.time()
+    mid, o1, o2 = str(meta.get("marketId")), str(meta.get("outcome1")), str(meta.get("outcome2"))
+    for i, fx in enumerate(reihe):
+        if i >= max_n or _t.time() - t0 > max_s:
+            print(f"historical-odds: Zeit-/Mengengrenze erreicht nach {i} von {len(reihe)} Partien")
+            break
+        _t.sleep(max(0, 5.2 - (_t.time() - _last_call[0])))
+        try:
+            res = api("historical-odds", fixtureId=fx["fixtureId"], bookmakers=",".join(books))
+        except SystemExit as e:
+            fehler += 1
+            print(f"  historical-odds {fx['fixtureId']}: {e}")
+            if fehler >= 5 and not odds:
+                raise
+            continue
+        for slug, bo in (res.get("bookmakers") or {}).items():
+            mk = (bo.get("markets") or {}).get(mid) or {}
+            (qa, aa), (qb, ab) = letzter_preis((mk.get("outcomes") or {}).get(o1)), letzter_preis((mk.get("outcomes") or {}).get(o2))
+            if not (qa and qb):
+                continue
+            if slug == scharf and slug not in slugs:
+                pin[fx["fixtureId"]] = [qa, qb]
+                continue
+            d = diag.setdefault(slug, {"partien": 0, "geliefert": 0, "mit_quote": 0, "pausiert": 0, "ohne_siegermarkt": 0, "beispiele": []})
+            d["mit_quote"] += 1
+            odds.setdefault(fx["fixtureId"], {})[slug] = [qa, qb]
+            if not (aa and ab):
+                d["pausiert"] += 1
+                pausiert.setdefault(fx["fixtureId"], []).append(slug)
+        for slug in slugs:
+            d = diag.setdefault(slug, {"partien": 0, "geliefert": 0, "mit_quote": 0, "pausiert": 0, "ohne_siegermarkt": 0, "beispiele": []})
+            d["partien"] += 1
+    print(f"historical-odds: {len(odds)} Partien mit Buchmacher-Quote, {len(pin)} mit {scharf}, {fehler} Fehler, "
+          f"{round(_t.time() - t0)} s")
+    return odds, pausiert, pin
+
+
 def relevant(fx, cfg):
     t = norm(f"{fx.get('categoryName', '')} {fx.get('tournamentName', '')}")
     f = cfg["turnier_filter"]
@@ -255,7 +314,10 @@ def main():
     n_books = max(0, budget - 1)  # Anfragen für Quoten (1 geht an den Spielplan)
     print(f"Kontingent: {used}/{limit} verbraucht (API: {used_api}, eigener Zähler: {eigen}), "
           f"Budget dieses Laufs: 1 Spielplan + bis zu {n_books} Quoten-Anfragen")
-    if n_books == 0:
+    if cfg.get("quoten_quelle", "historisch") == "historisch" and budget >= 1:
+        n_books = max(n_books, 0)
+        print("Quoten über historical-odds (ohne Kontingent) – nur der Spielplan zählt")
+    elif n_books == 0:
         state["quoten_hinweis"] = f"Kontingent fast aufgebraucht ({used}/{limit}) – Update übersprungen"
         save("meta.json", state)
         print(state["quoten_hinweis"])
@@ -300,8 +362,8 @@ def run(cfg, meta, state, n_books):
         ist_ch[t] = "challenger" in norm(f"{fx.get('categoryName', '')} {fx.get('tournamentName', '')}")
     tids = sorted(tids, key=lambda t: (ist_ch[t], -anz[t]))
     gruppen = [tids[i:i + cfg.get("turniere_pro_anfrage", 5)] for i in range(0, len(tids), cfg.get("turniere_pro_anfrage", 5))]
-    auftraege = [(g, s) for g in gruppen for s in slugs][:n_books]
-    if len(auftraege) < len(gruppen) * len(slugs):
+    auftraege = [] if cfg.get("quoten_quelle", "historisch") == "historisch" else [(g, s) for g in gruppen for s in slugs][:n_books]
+    if auftraege and len(auftraege) < len(gruppen) * len(slugs):
         print(f"Budget reicht für {len(auftraege)} von {len(gruppen) * len(slugs)} Quoten-Anfragen "
               f"({len(gruppen)} Turniergruppen × {len(slugs)} Buchmacher) – hintere Challenger/Buchmacher fehlen heute")
     odds, pausiert = {}, {}
@@ -340,6 +402,26 @@ def run(cfg, meta, state, n_books):
                             mk = {str(m.get("marketId")): m for m in mk}
                         d["beispiele"].append({"fixture": f"{fx.get('participant1Id')}-{fx.get('participant2Id')}",
                                                "maerkte": {k: str(v.get("bookmakerMarketId", ""))[:40] for k, v in list(mk.items())[:8]}})
+    pin = {}
+    if cfg.get("quoten_quelle", "historisch") == "historisch":
+        try:
+            odds, pausiert, pin = quoten_historisch(fixtures, slugs, meta, cfg, diag)
+        except SystemExit as e:   # Notfall: klassischer Abruf über das Kontingent
+            print("historical-odds nicht nutzbar – Rückfall auf odds-by-tournaments:", e)
+            for gruppe, slug in [(g, s) for g in gruppen for s in slugs][:n_books]:
+                try:
+                    res = api("odds-by-tournaments", tournamentIds=",".join(map(str, gruppe)), bookmaker=slug)
+                except SystemExit as e2:
+                    print(f"  {slug}: Abruf fehlgeschlagen – {e2}"); continue
+                if isinstance(res, dict):
+                    res = res.get("data") or list(res.values())
+                for fx in res:
+                    if fx.get("fixtureId") not in relevant_ids:
+                        continue
+                    for s_, bo in (fx.get("bookmakerOdds") or {}).items():
+                        qa, qb = extract(bo, meta)
+                        if qa and qb:
+                            odds.setdefault(fx["fixtureId"], {})[s_] = [qa, qb]
     for slug_, d in diag.items():
         print(f"Abdeckung {slug_}: {d['partien']} Partien angefragt, {d['geliefert']} geliefert, {d['mit_quote']} mit Siegquote "
               f"(davon {d['pausiert']} pausiert), {d['ohne_siegermarkt']} ohne Siegermarkt")
@@ -370,6 +452,7 @@ def run(cfg, meta, state, n_books):
             "aInDb": bool(a), "bInDb": bool(b), "hatQuoten": bool(o),
             "quoten": {slug2name.get(s, s): q for s, q in o.items()},
             "pausiert": [slug2name.get(s, s) for s in pausiert.get(fx["fixtureId"], [])],
+            "pinnacle": pin.get(fx["fixtureId"]),
             "tid": fx.get("tournamentId"), "p1Id": fx.get("participant1Id"), "p2Id": fx.get("participant2Id"),
         })
 

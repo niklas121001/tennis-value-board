@@ -23,7 +23,7 @@ TAGESLIMIT = 100
 RESERVE = 5
 CACHE_TAGE = 7          # beendete/alte Partien so lange im Cache halten
 STATS_TAGE = 3          # Statistiken nur für Spiele der letzten Tage nachholen
-MITTAG_RESERVE = 30     # so viele Abfragen bleiben nach dem Frühlauf für den Mittagslauf
+MITTAG_RESERVE = 25     # so viele Abfragen bleiben je späterem Lauf (Mittag, Abend) übrig
 KATEGORIEN = {"atp", "challenger"}
 
 jetzt = datetime.datetime.now(datetime.timezone.utc)
@@ -420,8 +420,10 @@ def main():
             p += 1
         return (-p, e["start"])
     n_stats, fehler = 0, 0
-    # Frühlauf: Kontingent für den Mittagslauf übrig lassen (Spielplan + H2H neuer Partien)
-    fuer_spaeter = MITTAG_RESERVE if jetzt.hour < 8 else 0
+    # Früh- und Mittagslauf: Kontingent für die späteren Läufe übrig lassen (Spielplan + H2H neuer Partien)
+    from zoneinfo import ZoneInfo
+    std_de = jetzt.astimezone(ZoneInfo("Europe/Berlin")).hour
+    fuer_spaeter = 2 * MITTAG_RESERVE if std_de < 13 else MITTAG_RESERVE if std_de < 19 else 0
     for e in sorted(fertig, key=prio):
         if frei() - fuer_spaeter <= 0:
             break

@@ -687,6 +687,13 @@ function evalMatch(p){
         if(!(erst > 1 && jetzt > 1)) continue; const fall = 1 - jetzt/erst;
         if(fall >= 0.10 && erst - jetzt >= 0.10 && (!best || fall > best.fall)) best = {seite, name: seite==="A" ? p.a : p.b, erst, jetzt, fall, seit: reihe[0][0]}; }
       r.sturz = best; } }
+  // Pinnacle-Vergleich (seit 29.10.): faire Pinnacle-Quote ohne Marge; Signal, wenn die Buchmacher-Quote deutlich darüber liegt
+  if(p.pinnacle && p.pinnacle[0] > 1 && p.pinnacle[1] > 1 && r.qa > 1 && r.qb > 1){
+    const [pa, pb] = p.pinnacle, pA = (1/pa)/(1/pa + 1/pb), minE = D.params.PIN_MIN_EDGE ?? 0.02, maxQ = D.params.PIN_MAX_QUOTE ?? 5;
+    r.pin = {qa: pa, qb: pb, pA, fairA: 1/pA, fairB: 1/(1-pA), edgeA: r.qa*pA - 1, edgeB: r.qb*(1-pA) - 1};
+    for(const seite of ["A","B"]){ const e = seite==="A" ? r.pin.edgeA : r.pin.edgeB, q = seite==="A" ? r.qa : r.qb;
+      if(e >= minE && q <= maxQ && (!r.pinSig || e > r.pinSig.edge)) r.pinSig = {seite, name: seite==="A" ? p.a : p.b, quote: q, fair: seite==="A" ? r.pin.fairA : r.pin.fairB, pinQ: seite==="A" ? pa : pb, edge: e}; }
+  }
   return r;
 }
 // Meine Wetten zu einer Board-Partie: Einzelwetten und Kombi-Auswahlen (über fixtureId, sonst Namen + Spieltag)
@@ -710,6 +717,8 @@ function signalInfoHtml(r){
   let h = "";
   if(r.verpasst){ const v = r.verpasst;
     h += `<div class="assbox"><b>⏱ Value verpasst:</b> Tipp auf ${esc(v.name)} am ${kDatum(v.erstGesehen)} bei Quote ${fx(v.erstQuote)} (Edge ${sg(v.edge)}). Aktuell ${fx(v.jetzt)} – zu diesem Preis kein Value mehr. <span class="time">Die Bilanz rechnet mit der ersten Quote.</span></div>`; }
+  if(r.pinSig){ const x = r.pinSig;
+    h += `<div class="assbox"><b>📌 Pinnacle-Value:</b> ${esc(x.name)} @ ${fx(x.quote)} – faire Pinnacle-Quote ${fx(x.fair)} (Pinnacle ${fx(x.pinQ)}), also ${sg(x.edge)} über dem schärfsten Markt. <span class="time">Test-Signal, wird getrackt (Bilanz → Alle Signale).</span></div>`; }
   if(r.sturz){ const x = r.sturz;
     h += `<div class="assbox"><b>📉 Quotensturz:</b> ${esc(x.name)} von ${fx(x.erst)} auf ${fx(x.jetzt)} (−${fx(x.fall*100,0)} %) seit ${kDatum(x.seit)}. <span class="time">Viel Geld auf ${esc(x.name)} – oft eine Info, die das Modell nicht kennt (Verletzung, Form, Bedingungen).</span></div>`; }
   return h;
@@ -912,6 +921,7 @@ function rowHtml(p, r){
   const sym = (seite) => [
     r.aussenseiter && r.aussenseiter.seite===seite ? `<span class="sym" title="Außenseiter-Signal">⚡</span>` : "",
     r.bilanzSignal && r.bilanzSignal.seite===seite ? `<span class="sym" title="Bilanz-Signal (Test)">📊</span>` : "",
+    r.pinSig && r.pinSig.seite===seite ? `<span class="sym" title="Pinnacle-Value: ${fx(r.pinSig.quote)} vs. fair ${fx(r.pinSig.fair)} (${sg(r.pinSig.edge)})">📌</span>` : "",
     r.sturz && r.sturz.seite===seite ? `<span class="sym" title="Quotensturz ${fx(r.sturz.erst)} → ${fx(r.sturz.jetzt)}">📉</span>` : "",
     r.verpasst && r.verpasst.seite===seite ? `<span class="sym" title="Value verpasst: Tipp bei ${fx(r.verpasst.erstQuote)}">⏱</span>` : ""].join("");
   // Prognose-Balken für den Modell-Favoriten: Füllung = Modell, Strich = Markt (gleicher Spieler)
@@ -1085,6 +1095,7 @@ function signalUebersichtHtml(bm, art){
     ["⚡ Außenseiter-Signal", Object.values(VAR.ass||{})],
     ["📊 Bilanz-Signal", Object.values(VAR.bil||{})],
     ["📉 Quotensturz (Tipp auf den Spieler mit fallender Quote)", Object.values(VAR.sig||{}).filter(x => x.typ==="sturz")],
+    ["📌 Pinnacle-Value (Quote über fairer Pinnacle-Quote)", Object.values(VAR.sig||{}).filter(x => x.typ==="pinnacle")],
     ["↻ Comeback-Spieler (Tipp auf Sieg)", Object.values(VAR.sig||{}).filter(x => x.typ==="comeback")],
     ["🎯 Tagesziel-Favorit (≥ 70 %, max. 3 U für 1 U Gewinn)", Object.values(VAR.sig||{}).filter(x => x.typ==="tagesziel"), true],
     ["⏱ Value-Tipp, Value vor Start weg", Object.values(LOG||{}).filter(x => x.valueWeg && !x.storniert && String(x.erstGesehen) >= "2026-10-27")],
@@ -1589,7 +1600,7 @@ function detailHtml(p, r){
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3>${spielerCheckHtml(p, r)}</div>
     ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
-    ${p.calc?"":`<div class="box"><h3>Quoten</h3>${allBooks?`<div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}</div>`:""}${qvHtml(p, r)}
+    ${p.calc?"":`<div class="box"><h3>Quoten</h3>${allBooks?`<div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}${r.pin?`<span class="k" title="Pinnacle gilt als schärfster Markt. Fair = ohne Marge. Edge = deine Quote gegen die faire Pinnacle-Quote.">Pinnacle (fair)</span><span class="v">${fx(r.pin.qa)} / ${fx(r.pin.qb)}<div class="time">${fx(r.pin.fairA)} / ${fx(r.pin.fairB)}</div></span><span class="v"><span class="${r.pin.edgeA>0?"pos":""}">${sg(r.pin.edgeA)}</span> / <span class="${r.pin.edgeB>0?"pos":""}">${sg(r.pin.edgeB)}</span></span>`:""}</div>`:""}${qvHtml(p, r)}
       ${quoteBox(p, r)}
       <h3 style="margin-top:10px">Belag</h3>
       <select class="belag-ovr" data-id="${esc(p.id)}" id="belag-${esc(p.id)}" aria-label="Belag für diese Partie">
