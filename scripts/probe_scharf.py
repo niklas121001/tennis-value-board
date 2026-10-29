@@ -7,7 +7,7 @@ from common import load
 
 if not fo.KEY:
     raise SystemExit("kein ODDSPAPI_KEY")
-books = fo.api("bookmakers")
+books = json.load(open("/dev/null")) if False else fo.api("bookmakers")
 if isinstance(books, dict):
     books = books.get("data") or list(books.values())
 scharf = [b for b in books if re.search(r"pinnacle|betfair|sbobet|matchbook|smarkets|betdaq|circa|bookmaker\.eu", str(b.get("slug", "")) + " " + str(b.get("bookmakerName", "")), re.I)]
@@ -17,7 +17,7 @@ meta = load("oddspapi.json", {})
 jetzt = datetime.datetime.now(datetime.timezone.utc)
 partien = [m for m in load("matches.json", {}).get("partien", []) if m.get("start") and datetime.datetime.fromisoformat(m["start"].replace("Z", "+00:00")) > jetzt]
 partien.sort(key=lambda m: (m.get("kategorie") != "ATP", m["start"]))
-slugs = [b.get("slug") for b in scharf][:2] + ["winamax.de"]
+slugs = ["pinnacle", "winamax.de"]
 print("Teste mit:", slugs)
 for m in partien[:4]:
     time.sleep(5)
@@ -37,4 +37,17 @@ for m in partien[:4]:
             ein.sort(key=lambda e: str(e.get("createdAt")))
             q.append((len(ein), ein[-1].get("price") if ein else None, str(ein[-1].get("createdAt"))[:16] if ein else None))
         print("  ", slug, q)
+# Betfair-Börse nur einzeln mit einer outcomeId
+for m in partien[:2]:
+    time.sleep(5)
+    try:
+        res = fo.api("historical-odds", fixtureId=m["id"], bookmakers="betfair-ex", outcomeId=str(meta.get("outcome1")))
+        bo = (res.get("bookmakers") or {}).get("betfair-ex") or {}
+        mk = (bo.get("markets") or {}).get(str(meta.get("marketId"))) or {}
+        o = (mk.get("outcomes") or {}).get(str(meta.get("outcome1"))) or {}
+        ein = [e for es in (o.get("players") or {}).values() for e in (es if isinstance(es, list) else [es])]
+        ein.sort(key=lambda e: str(e.get("createdAt")))
+        print("betfair-ex", m["a"], len(ein), ein[-1] if ein else None)
+    except SystemExit as e:
+        print("betfair-ex Fehler:", e)
 print("\nAnfragen mit Kontingent (vermutlich):", fo.calls)
