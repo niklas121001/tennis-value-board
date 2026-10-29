@@ -1013,15 +1013,20 @@ function variantenHtml(bm, art){
   };
   const artOk = (x) => art==="alle" || (art==="ch") === isChTip(x);
   const passt = (x) => (bm==="alle" || x.buchmacher===bm) && artOk(x);
-  const A = Object.values(LOG||{}).filter(x => passt(x) && String(x.erstGesehen||"") >= TEST_START);
+  // A zählt erst ab der Gewichts-Umstellung; die Board-Tipps davor (alte Excel-Gewichte) gehören zu E
+  const UMST = D.params.GEWICHTE_UMSTELLUNG || "2026-10-27";
+  const LOGT = Object.values(LOG||{}).filter(x => passt(x) && !x.storniert && String(x.erstGesehen||"") >= TEST_START);
+  const A = LOGT.filter(x => String(x.erstGesehen) >= UMST);
+  const altA = LOGT.filter(x => String(x.erstGesehen) < UMST).map(x => Object.assign({}, x, {variante: "E", altA: true}));
   const V = Object.values(VAR.vt).filter(passt);
-  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: V.filter(x => x.variante==="E"), F: V.filter(x => x.variante==="F"), G: V.filter(x => x.variante==="G")};
+  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: [...altA, ...V.filter(x => x.variante==="E")], F: V.filter(x => x.variante==="F"), G: V.filter(x => x.variante==="G")};
   // Prognose-Güte auf denselben Partien (alle mit Quote, Ergebnis und allen drei Varianten)
   const res = [];
   for(const [id, p] of Object.entries(VAR.prog)){
     const e = ERG[id] || (ARCHIV||{})[id];
     if(!artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || p.pB==null || p.pC==null || p.pMarkt==null || p.pFinal==null) continue;
-    res.push({y: e.sieger==="A" ? 1 : 0, A: p.pFinal, B: p.pB, C: p.pC, D: p.pD, E: p.pE, F: p.pF, G: p.pG, M: p.pMarkt, p, e});
+    const neuA = String(p.gesehen || p.start || "") >= UMST;   // Prognose vor/nach der Umstellung eingefroren
+    res.push({y: e.sieger==="A" ? 1 : 0, A: neuA ? p.pFinal : null, B: p.pB, C: p.pC, D: p.pD, E: p.pE ?? (neuA ? null : p.pFinal), F: p.pF, G: p.pG, M: p.pMarkt, p, e});
   }
   // Güte über die Partien, für die die Variante eine Prognose hat (D erst seit 27.10. – eigener, kleinerer Ausschnitt)
   const guete = (k, nur) => { const rs = res.filter(r => r[k] != null && (!nur || r[nur] != null)); if(!rs.length) return {t:null, ll:null, n:0};
@@ -1059,16 +1064,16 @@ function variantenHtml(bm, art){
       offen ? `<tr class="kombi-d"><td colspan="7" style="text-align:left"><div class="vdet">${extra[k] ? extra[k]() : ""}${k==="M" ? progListe("M") : `<h4 class="vh">Tipps von ${name}</h4>${tippListe(tips[k])}<h4 class="vh">Prognosen</h4>${progListe(k)}`}</div></td></tr>` : ""}`; };
   return `<details class="box klapp" data-k="var" style="margin-top:16px"${store.get("klapp.var", true)?" open":""}><summary><h3>Modell-Varianten im Test <span class="time">seit ${TEST_START.split("-").reverse().join(".")} · ${art==="atp"?"nur ATP":art==="ch"?"nur Challenger":"ATP + Challenger"}</span></h3></summary>
     <div class="tablewrap"><table class="vtab"><thead><tr><th class="l">Variante</th><th>Tipps</th><th title="1 U je Tipp, darunter ROI">flach</th><th title="mit dem empfohlenen Unit-Einsatz">mit Einsatz</th><th class="hide-s">CLV</th><th class="hide-s">Treffer</th><th class="hide-s" title="Log-Loss: kleiner ist besser">Fehlermaß</th></tr></thead><tbody>
-    ${zeile("A · aktuell", `Board-Modell, ${Math.round(D.params.W_MODELL_BLEND*100)} % Modell${D.params.GEWICHTE_UMSTELLUNG ? `, seit ${D.params.GEWICHTE_UMSTELLUNG.split("-").reverse().join(".").slice(0,6)} neue Gewichte` : ""}`, "A", kz(tips.A))}
+    ${zeile("A · aktuell", `Board-Modell, ${Math.round(D.params.W_MODELL_BLEND*100)} % Modell · gezählt ab ${UMST.split("-").reverse().join(".").slice(0,6)} (neue Gewichte)`, "A", kz(tips.A))}
     ${zeile("B · Test", "Elo gedämpft, Statistik nur echte Werte", "B", kz(tips.B))}
     ${zeile("C · Test", "wie B + gegnerbereinigt", "C", kz(tips.C))}
     ${zeile("D · Test", `Statistik Hard ${pc(D.params.D_W_STATS_HARD??0.15,0)}, Sand ${pc(D.params.D_W_STATS_CLAY??0.4,0)}`, "D", kz(tips.D))}
-    ${D.params.E_W_STATS_HARD != null ? zeile("E · bisheriges A", `alte Excel-Gewichte (Hard ${pc(D.params.E_W_STATS_HARD,0)})`, "E", kz(tips.E)) : ""}
+    ${D.params.E_W_STATS_HARD != null ? zeile("E · bisheriges A", `alte Excel-Gewichte · bis ${(() => { const d = new Date(UMST + "T12:00:00Z"); d.setUTCDate(d.getUTCDate()-1); return d.toISOString().slice(5,10).split("-").reverse().join(".") + "."; })()} = A`, "E", kz(tips.E)) : ""}
     ${zeile("F · Test", `Hard-Statistik nach Platztempo ${pc(D.params.F_W_STATS_LANGSAM??0.25,0)}–${pc(D.params.F_W_STATS_SCHNELL??0.1,0)}`, "F", kz(tips.F))}
     ${zeile("G · Test", "C + F: gegnerbereinigt, Elo gedämpft, Hard-Statistik nach Platztempo", "G", kz(tips.G))}
     ${zeile("Markt", "nur Winamax-Quote", "M", null)}
     </tbody></table></div>
-    <p class="note">B bis G tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10.). Zeile antippen für Tipps, Prognosen und – bei D, F und G – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
+    <p class="note">B bis G tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10.). A zählt erst seit der Gewichts-Umstellung; alle Board-Tipps davor stehen bei E, weil sie mit den alten Gewichten entstanden sind. Fairer Vergleich: Zeiträume beachten. Zeile antippen für Tipps, Prognosen und – bei D, F und G – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
