@@ -139,6 +139,11 @@ def main():
         if key and f(r.get("yElo")):
             players[key]["elo"] = f(r.get("yElo"))
 
+    # Reine Tennis-Abstract-Werte merken: Basis für die eigene, täglich fortgeschriebene Elo (elo_eigen.py)
+    for key in seen:
+        if key in players:
+            players[key]["ta"] = {k: players[key].get(k) for k in ("elo", "elo_hard", "elo_clay", "elo_grass")}
+
     doppelt = doppelte_zusammenfuehren(players, manual)
     for weg, behalten in doppelt:
         print(f"  zusammengeführt: {weg} -> {behalten}")

@@ -117,6 +117,11 @@ jobs:
         working-directory: scripts
         run: python update_elo.py
 
+      - name: Eigene Elo (Tennis Abstract + Ergebnisse seit dessen Stand)
+        continue-on-error: true
+        working-directory: scripts
+        run: python elo_eigen.py
+
       - name: Spielplan und Quoten von OddsPapi
         if: ${{ env.ODDSPAPI_KEY != '' }}
         working-directory: scripts
@@ -162,6 +167,11 @@ jobs:
         env:
           ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
         run: python results.py
+
+      - name: Eigene Elo mit den neuen Ergebnissen fortschreiben
+        continue-on-error: true
+        working-directory: scripts
+        run: python elo_eigen.py
 
       - name: Systemcheck (Telegram-Warnung bei Problemen)
         if: always()
