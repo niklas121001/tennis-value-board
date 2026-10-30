@@ -1,0 +1,22 @@
+name: Test H2H (einmalig)
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: |
+          python scripts/probe_h2h.py > out.txt 2>&1 || true
+          python - <<'PY'
+          t = open("out.txt").read().replace("%", "%25").replace("\r", "").replace("\n", "%0A")
+          for i in range(0, len(t), 3000):
+              print("::notice title=probe" + str(i // 3000) + "::" + t[i:i+3000])
+          PY
+        env:
+          SPORTSAPIPRO_KEY: ${{ secrets.SPORTSAPIPRO_KEY }}
