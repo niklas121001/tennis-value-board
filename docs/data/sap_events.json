@@ -8993,7 +8993,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Mees Rottgering",
 "a": "Kaylan Bigun",
 "hId": 445470,
@@ -9022,7 +9022,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Jenson Brooksby",
 "a": "Dylan Dietrich",
 "hId": 191873,
@@ -9051,7 +9051,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Jeffrey John Wolf",
 "a": "Daniel Milavsky",
 "hId": 210479,
@@ -9659,7 +9659,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Aidan Mayo",
 "a": "Maks Kasnikowski",
 "hId": 309157,
@@ -9687,7 +9687,7 @@
 },
 "17377257": {
 "id": 17377257,
-"start": "2026-10-30T16:00:00Z",
+"start": "2026-10-30T18:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Guayaquil, Ecuador",
@@ -9699,8 +9699,8 @@
 "aId": 212762,
 "hL": "EC",
 "aL": "BR",
-"st": "interrupted",
-"desc": "Interrupted",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 16",
 "satz": [
@@ -9710,6 +9710,10 @@
 ],
 [
 4,
+6
+],
+[
+0,
 3
 ]
 ]
@@ -9994,7 +9998,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Liam Draxl",
 "a": "Daniil Ostapenkov",
 "hId": 223513,
@@ -10019,7 +10023,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Max Hans Rehberg",
 "a": "Stefan Kozlov",
 "hId": 300293,
@@ -10048,7 +10052,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Mitchell Krueger",
 "a": "Darwin Blanch",
 "hId": 52276,
@@ -10081,7 +10085,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Sebastian Dominko",
 "a": "Valentin Royer",
 "hId": 384145,
@@ -10395,8 +10399,8 @@
 },
 "17377346": {
 "id": 17377346,
-"start": "2026-10-30T12:40:00Z",
-"min": null,
+"start": "2026-10-30T13:10:00Z",
+"min": 78,
 "kat": "Challenger",
 "turnier": "Brest, France",
 "belag": "hard",
@@ -10407,16 +10411,25 @@
 "aId": 349089,
 "hL": "IT",
 "aL": "HR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+1,
+6
+]
+]
 },
 "17377324": {
 "id": 17377324,
 "start": "2026-10-30T17:30:00Z",
-"min": null,
+"min": 84,
 "kat": "Challenger",
 "turnier": "Brest, France",
 "belag": "hard",
@@ -10427,15 +10440,24 @@
 "aId": 261017,
 "hL": "FR",
 "aL": "IT",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+4
+]
+]
 },
 "17377337": {
 "id": 17377337,
-"start": "2026-10-30T18:40:00Z",
+"start": "2026-10-30T19:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brest, France",
@@ -10456,7 +10478,7 @@
 "17377280": {
 "id": 17377280,
 "start": "2026-10-30T12:40:00Z",
-"min": null,
+"min": 95,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
 "belag": "hard",
@@ -10467,14 +10489,18 @@
 "aId": 163504,
 "hL": "FR",
 "aL": "RU",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
 "satz": [
 [
-0,
-1
+2,
+6
+],
+[
+3,
+6
 ]
 ]
 },
@@ -10492,16 +10518,21 @@
 "aId": 201239,
 "hL": "IT",
 "aL": "AU",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+1,
+0
+]
+]
 },
 "17377325": {
 "id": 17377325,
 "start": "2026-10-30T13:00:00Z",
-"min": null,
+"min": 123,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
 "belag": "hard",
@@ -10512,15 +10543,28 @@
 "aId": 158912,
 "hL": "DK",
 "aL": "MC",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+6,
+3
+],
+[
+3,
+6
+]
+]
 },
 "17377314": {
 "id": 17377314,
-"start": "2026-10-30T18:10:00Z",
+"start": "2026-10-30T18:40:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
@@ -10532,51 +10576,78 @@
 "aId": 125006,
 "hL": "DE",
 "aL": "PT",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+1,
+0
+]
+]
 },
 "17377273": {
 "id": 17377273,
-"start": "2026-10-30T18:10:00Z",
+"start": "2026-10-30T18:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Dylan Dietrich",
 "a": "Jeffrey John Wolf",
 "hId": 377488,
 "aId": 210479,
 "hL": "CH",
 "aL": "US",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+0,
+0
+]
+]
 },
 "17377269": {
 "id": 17377269,
 "start": "2026-10-30T17:00:00Z",
-"min": null,
+"min": 79,
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Mees Rottgering",
 "a": "Aidan Mayo",
 "hId": 445470,
 "aId": 309157,
 "hL": "NL",
 "aL": "US",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17377366": {
 "id": 17377366,
@@ -10642,8 +10713,8 @@
 },
 "17377344": {
 "id": 17377344,
-"start": "2026-10-30T13:50:00Z",
-"min": null,
+"start": "2026-10-30T14:45:00Z",
+"min": 108,
 "kat": "Challenger",
 "turnier": "Brest, France",
 "belag": "hard",
@@ -10654,16 +10725,25 @@
 "aId": 206602,
 "hL": "US",
 "aL": "FR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+7,
+6
+]
+]
 },
 "17377281": {
 "id": 17377281,
-"start": "2026-10-30T14:00:00Z",
-"min": null,
+"start": "2026-10-30T14:35:00Z",
+"min": 110,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
 "belag": "hard",
@@ -10674,16 +10754,25 @@
 "aId": 275923,
 "hL": "US",
 "aL": "ES",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+6,
+7
+]
+]
 },
 "17377313": {
 "id": 17377313,
-"start": "2026-10-30T14:10:00Z",
-"min": null,
+"start": "2026-10-30T15:35:00Z",
+"min": 45,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
 "belag": "hard",
@@ -10694,15 +10783,24 @@
 "aId": 338500,
 "hL": "US",
 "aL": "FR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+2,
+0
+]
+]
 },
 "17377238": {
 "id": 17377238,
-"start": "2026-10-30T16:20:00Z",
+"start": "2026-10-30T19:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Guayaquil, Ecuador",
@@ -10722,8 +10820,8 @@
 },
 "17377308": {
 "id": 17377308,
-"start": "2026-10-30T16:30:00Z",
-"min": null,
+"start": "2026-10-30T16:55:00Z",
+"min": 59,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
 "belag": "hard",
@@ -10734,16 +10832,25 @@
 "aId": 321789,
 "hL": "DE",
 "aL": "GB",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+0
+],
+[
+6,
+2
+]
+]
 },
 "17377304": {
 "id": 17377304,
 "start": "2026-10-30T17:00:00Z",
-"min": null,
+"min": 84,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
 "belag": "hard",
@@ -10754,15 +10861,24 @@
 "aId": 254742,
 "hL": "CH",
 "aL": "CZ",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17377243": {
 "id": 17377243,
-"start": "2026-10-30T17:30:00Z",
+"start": "2026-10-30T19:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Guayaquil, Ecuador",
@@ -10782,7 +10898,7 @@
 },
 "17377239": {
 "id": 17377239,
-"start": "2026-10-30T18:40:00Z",
+"start": "2026-10-30T19:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Guayaquil, Ecuador",
@@ -10802,7 +10918,7 @@
 },
 "17377244": {
 "id": 17377244,
-"start": "2026-10-30T19:00:00Z",
+"start": "2026-10-30T19:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Guayaquil, Ecuador",
@@ -10827,7 +10943,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Max Hans Rehberg",
 "a": "Sebastian Dominko",
 "hId": 300293,
@@ -10847,7 +10963,7 @@
 "kat": "Challenger",
 "turnier": "Sioux Falls, USA",
 "belag": "hard",
-"gt": "Hardcourt indoor",
+"gt": "Hardcourt outdoor",
 "h": "Liam Draxl",
 "a": "Darwin Blanch",
 "hId": 223513,
@@ -10934,6 +11050,106 @@
 "aId": 47764,
 "hL": "RU",
 "aL": "GB",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17377341": {
+"id": 17377341,
+"start": "2026-10-31T11:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Brest, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Martin Damm Jr",
+"a": "Dino Prižmić",
+"hId": 51345,
+"aId": 349089,
+"hL": "US",
+"aL": "HR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17377318": {
+"id": 17377318,
+"start": "2026-10-31T14:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Basel, Switzerland",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Valentin Vacherot",
+"a": "Taylor Fritz",
+"hId": 158912,
+"aId": 136042,
+"hL": "MC",
+"aL": "US",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17377305": {
+"id": 17377305,
+"start": "2026-10-31T14:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Vienna, Austria",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Daniil Medvedev",
+"a": "Carlos Alcaraz",
+"hId": 163504,
+"aId": 275923,
+"hL": "RU",
+"aL": "ES",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17377319": {
+"id": 17377319,
+"start": "2026-10-31T15:30:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Vienna, Austria",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Alexander Zverev",
+"a": "WQF2",
+"hId": 57163,
+"aId": 393301,
+"hL": "DE",
+"aL": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17377307": {
+"id": 17377307,
+"start": "2026-10-31T16:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Basel, Switzerland",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Jiri Lehečka",
+"a": "WQF2",
+"hId": 254742,
+"aId": 393301,
+"hL": "CZ",
+"aL": null,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
