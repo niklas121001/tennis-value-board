@@ -1,5 +1,5 @@
 {
-"stand": "2026-10-30T12:20:20Z",
+"stand": "2026-10-30T12:24:33Z",
 "partien": [
 {
 "id": "id1200310375837630",
@@ -23,8 +23,8 @@
 },
 "pausiert": [],
 "pinnacle": [
-4.69,
-1.233
+4.3,
+1.263
 ],
 "tid": 3103,
 "p1Id": 15894,
@@ -59,6 +59,68 @@
 "dreisatz7": 2,
 "siege7": 4,
 "letztes": "2026-10-29T12:30:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201312575837816",
+"start": "2026-10-30T12:40:00.000Z",
+"turnier": "Brest Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Federico Cina",
+"b": "Dino Prizmic",
+"aRoh": "Cina, Federico",
+"bRoh": "Prizmic, Dino",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.75,
+1.39
+]
+},
+"pausiert": [],
+"pinnacle": [
+3.02,
+1.432
+],
+"tid": 13125,
+"p1Id": 917921,
+"p2Id": 722429,
+"sapId": 17377346,
+"landA": "IT",
+"landB": "HR",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 43,
+"min7": 173,
+"minN": 2,
+"letztesMin": 67,
+"letztesGames": 18,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-28T12:40:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 38,
+"min7": 181,
+"minN": 2,
+"letztesMin": 85,
+"letztesGames": 19,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-28T12:05:00Z",
 "quali": false
 }
 }
@@ -126,63 +188,63 @@
 }
 },
 {
-"id": "id1201312575837816",
-"start": "2026-10-30T13:00:00.000Z",
+"id": "id1201312575837814",
+"start": "2026-10-30T13:50:00.000Z",
 "turnier": "Brest Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
 "belagQuelle": "spieldaten",
-"a": "Federico Cina",
-"b": "Dino Prizmic",
-"aRoh": "Cina, Federico",
-"bRoh": "Prizmic, Dino",
+"a": "Martin Damm",
+"b": "Clement Tabur",
+"aRoh": "Damm Jr, Martin",
+"bRoh": "Tabur, Clement",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.75,
-1.39
+1.46,
+2.5
 ]
 },
 "pausiert": [],
 "pinnacle": [
-3.02,
-1.432
+1.507,
+2.73
 ],
 "tid": 13125,
-"p1Id": 917921,
-"p2Id": 722429,
-"sapId": 17377346,
-"landA": "IT",
-"landB": "HR",
+"p1Id": 51345,
+"p2Id": 225052,
+"sapId": 17377344,
+"landA": "US",
+"landB": "FR",
 "runde": "Quarterfinals",
 "gt": "Hardcourt indoor",
 "form": {
 "a": {
 "spiele7": 2,
-"saetze7": 5,
+"saetze7": 4,
 "games7": 43,
-"min7": 173,
+"min7": 153,
 "minN": 2,
-"letztesMin": 67,
-"letztesGames": 18,
-"dreisatz7": 1,
+"letztesMin": 91,
+"letztesGames": 23,
+"dreisatz7": 0,
 "siege7": 2,
-"letztes": "2026-10-28T12:40:00Z",
+"letztes": "2026-10-29T13:20:00Z",
 "quali": false
 },
 "b": {
 "spiele7": 2,
 "saetze7": 4,
-"games7": 38,
-"min7": 181,
+"games7": 39,
+"min7": 150,
 "minN": 2,
-"letztesMin": 85,
-"letztesGames": 19,
+"letztesMin": 79,
+"letztesGames": 20,
 "dreisatz7": 0,
 "siege7": 2,
-"letztes": "2026-10-28T12:05:00Z",
+"letztes": "2026-10-29T15:10:00Z",
 "quali": false
 }
 }
@@ -251,7 +313,7 @@
 },
 {
 "id": "id1200261375837576",
-"start": "2026-10-30T14:30:00.000Z",
+"start": "2026-10-30T14:10:00.000Z",
 "turnier": "ATP Basel",
 "kategorie": "ATP",
 "belag": "hard",
@@ -307,68 +369,6 @@
 "dreisatz7": 2,
 "siege7": 3,
 "letztes": "2026-10-29T14:00:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1201312575837814",
-"start": "2026-10-30T14:30:00.000Z",
-"turnier": "Brest Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Martin Damm",
-"b": "Clement Tabur",
-"aRoh": "Damm Jr, Martin",
-"bRoh": "Tabur, Clement",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.46,
-2.5
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.507,
-2.73
-],
-"tid": 13125,
-"p1Id": 51345,
-"p2Id": 225052,
-"sapId": 17377344,
-"landA": "US",
-"landB": "FR",
-"runde": "Quarterfinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 43,
-"min7": 153,
-"minN": 2,
-"letztesMin": 91,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-29T13:20:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 39,
-"min7": 150,
-"minN": 2,
-"letztesMin": 79,
-"letztesGames": 20,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-29T15:10:00Z",
 "quali": false
 }
 }
@@ -560,68 +560,6 @@
 }
 },
 {
-"id": "id1200261375837588",
-"start": "2026-10-30T17:00:00.000Z",
-"turnier": "ATP Basel",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Jan-Lennard Struff",
-"b": "Nuno Borges",
-"aRoh": "Struff, Jan-Lennard",
-"bRoh": "Borges, Nuno",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.8,
-2.05
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.813,
-2.1
-],
-"tid": 2613,
-"p1Id": 46391,
-"p2Id": 125006,
-"sapId": 17377314,
-"landA": "DE",
-"landB": "PT",
-"runde": "Quarterfinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 5,
-"saetze7": 13,
-"games7": 144,
-"min7": 585,
-"minN": 5,
-"letztesMin": 156,
-"letztesGames": 38,
-"dreisatz7": 3,
-"siege7": 4,
-"letztes": "2026-10-29T18:20:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 42,
-"min7": 170,
-"minN": 2,
-"letztesMin": 108,
-"letztesGames": 26,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-10-28T13:00:00Z",
-"quali": false
-}
-}
-},
-{
 "id": "id1204350375837934",
 "start": "2026-10-30T17:00:00.000Z",
 "turnier": "Sioux Falls Challenger",
@@ -746,6 +684,68 @@
 }
 },
 {
+"id": "id1200261375837588",
+"start": "2026-10-30T18:10:00.000Z",
+"turnier": "ATP Basel",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Jan-Lennard Struff",
+"b": "Nuno Borges",
+"aRoh": "Struff, Jan-Lennard",
+"bRoh": "Borges, Nuno",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.8,
+2.05
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.813,
+2.1
+],
+"tid": 2613,
+"p1Id": 46391,
+"p2Id": 125006,
+"sapId": 17377314,
+"landA": "DE",
+"landB": "PT",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 5,
+"saetze7": 13,
+"games7": 144,
+"min7": 585,
+"minN": 5,
+"letztesMin": 156,
+"letztesGames": 38,
+"dreisatz7": 3,
+"siege7": 4,
+"letztes": "2026-10-29T18:20:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 42,
+"min7": 170,
+"minN": 2,
+"letztesMin": 108,
+"letztesGames": 26,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-28T13:00:00Z",
+"quali": false
+}
+}
+},
+{
 "id": "id1204350375837932",
 "start": "2026-10-30T18:10:00.000Z",
 "turnier": "Sioux Falls Challenger",
@@ -809,7 +809,7 @@
 },
 {
 "id": "id1200394575837868",
-"start": "2026-10-30T18:50:00.000Z",
+"start": "2026-10-30T18:40:00.000Z",
 "turnier": "Guayaquil Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
@@ -865,6 +865,68 @@
 "dreisatz7": 0,
 "siege7": 2,
 "letztes": "2026-10-29T16:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201312575837812",
+"start": "2026-10-30T18:40:00.000Z",
+"turnier": "Brest Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Stefano Travaglia",
+"b": "Otto Virtanen",
+"aRoh": "Travaglia, Stefano",
+"bRoh": "Virtanen, Otto",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+3.45,
+1.26
+]
+},
+"pausiert": [],
+"pinnacle": [
+3.72,
+1.306
+],
+"tid": 13125,
+"p1Id": 36300,
+"p2Id": 276563,
+"sapId": 17377337,
+"landA": "IT",
+"landB": "FI",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 59,
+"min7": 258,
+"minN": 2,
+"letztesMin": 91,
+"letztesGames": 20,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T18:55:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 46,
+"min7": 165,
+"minN": 2,
+"letztesMin": 91,
+"letztesGames": 23,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-28T15:15:00Z",
 "quali": false
 }
 }
@@ -989,68 +1051,6 @@
 "dreisatz7": 1,
 "siege7": 2,
 "letztes": "2026-10-29T20:15:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1201312575837812",
-"start": "2026-10-30T19:00:00.000Z",
-"turnier": "Brest Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Stefano Travaglia",
-"b": "Otto Virtanen",
-"aRoh": "Travaglia, Stefano",
-"bRoh": "Virtanen, Otto",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.45,
-1.26
-]
-},
-"pausiert": [],
-"pinnacle": [
-3.72,
-1.306
-],
-"tid": 13125,
-"p1Id": 36300,
-"p2Id": 276563,
-"sapId": 17377337,
-"landA": "IT",
-"landB": "FI",
-"runde": "Quarterfinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 59,
-"min7": 258,
-"minN": 2,
-"letztesMin": 91,
-"letztesGames": 20,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-10-29T18:55:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 46,
-"min7": 165,
-"minN": 2,
-"letztesMin": 91,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-28T15:15:00Z",
 "quali": false
 }
 }
