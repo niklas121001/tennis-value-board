@@ -10193,7 +10193,7 @@
 "17377364": {
 "id": 17377364,
 "start": "2026-10-30T06:00:00Z",
-"min": null,
+"min": 91,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -10204,9 +10204,9 @@
 "aId": 204329,
 "hL": "TR",
 "aL": "TW",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -10215,7 +10215,7 @@
 ],
 [
 3,
-4
+6
 ]
 ]
 },
@@ -10575,8 +10575,8 @@
 },
 "17377366": {
 "id": 17377366,
-"start": "2026-10-30T06:30:00Z",
-"min": null,
+"start": "2026-10-30T07:45:00Z",
+"min": 88,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -10587,11 +10587,20 @@
 "aId": 47764,
 "hL": "AU",
 "aL": "GB",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+6,
+7
+]
+]
 },
 "17377368": {
 "id": 17377368,
@@ -10607,11 +10616,24 @@
 "aId": 373829,
 "hL": "CN",
 "aL": "RU",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+4,
+6
+],
+[
+1,
+5
+]
+]
 },
 "17377344": {
 "id": 17377344,
@@ -10835,7 +10857,7 @@
 },
 "17377328": {
 "id": 17377328,
-"start": "2026-10-31T02:00:00Z",
+"start": "2026-10-31T04:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
@@ -10855,18 +10877,18 @@
 },
 "17377370": {
 "id": 17377370,
-"start": "2026-10-31T02:00:00Z",
+"start": "2026-10-31T06:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Yaroslav Demin",
-"a": "WQF4",
+"a": "Yu Hsiou Hsu",
 "hId": 371863,
-"aId": 393303,
+"aId": 204329,
 "hL": "RU",
-"aL": null,
+"aL": "TW",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -10875,18 +10897,38 @@
 },
 "17377253": {
 "id": 17377253,
-"start": "2026-10-31T06:00:00Z",
+"start": "2026-10-31T05:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Billy Harris",
-"a": "WQF2",
+"a": "Terence Atmane",
 "hId": 111837,
-"aId": 393301,
+"aId": 273679,
 "hL": "GB",
-"aL": null,
+"aL": "FR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17377367": {
+"id": 17377367,
+"start": "2026-10-31T07:50:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ningbo, China",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "WQF1",
+"a": "Liam Broady",
+"hId": 393300,
+"aId": 47764,
+"hL": null,
+"aL": "GB",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
