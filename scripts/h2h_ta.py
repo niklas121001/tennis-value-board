@@ -16,6 +16,7 @@ from common import load, save, NameMatcher
 
 UA = {"User-Agent": "Mozilla/5.0 (TennisValueApp; private use)"}
 MAX_ABRUFE = 60          # Seiten je Lauf (je ca. 0,5 MB)
+PAUSE = 4                # Sekunden zwischen zwei Seiten (Tennis Abstract nicht überlasten)
 MONATE = {m: i + 1 for i, m in enumerate(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}
 
 
@@ -23,13 +24,20 @@ def ta_name(name):
     return re.sub(r"[^A-Za-z]", "", html.unescape(name))
 
 
-def laden(name):
+LETZTER_FEHLER = [""]
+
+
+def laden(name, versuche=2):
     url = f"https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p={ta_name(name)}"
-    try:
-        return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read().decode("utf-8", "replace")
-    except Exception as e:                       # noqa – Spieler ohne Seite o. Ä.
-        print(f"  {name}: {e}")
-        return None
+    for v in range(versuche):
+        try:
+            return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read().decode("utf-8", "replace")
+        except Exception as e:                       # noqa – Spieler ohne Seite, Drosselung o. Ä.
+            LETZTER_FEHLER[0] = str(e)[:80]
+            print(f"  {name}: {e}")
+            if v + 1 < versuche:
+                time.sleep(20)
+    return None
 
 
 def zeilen(txt):
@@ -93,12 +101,15 @@ def main():
             return seiten[name]
         if abrufe >= MAX_ABRUFE:
             return None
-        time.sleep(1.5)
+        time.sleep(PAUSE)
+        LETZTER_FEHLER[0] = ""
         txt = laden(name)
         abrufe += 1
         roh = zeilen(txt)
         ok = bool(roh)
         st["spieler"][name] = {"datum": heute, "ok": ok}
+        if not ok:
+            st["spieler"][name]["grund"] = LETZTER_FEHLER[0] or (f"keine Matchliste (Seite {len(txt)} Zeichen)" if txt else "leer")
         if eigene_hand(txt):
             st.setdefault("haende", {})[name] = eigene_hand(txt)
         z = [(d, t, b, r, gew, nm.match(geg), erg, h) for d, t, b, r, gew, geg, erg, h in roh] if ok else None
