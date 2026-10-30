@@ -1,691 +1,9 @@
 {
-"stand": "2026-10-29T19:28:14Z",
+"stand": "2026-10-30T07:35:14Z",
 "partien": [
 {
-"id": "id1200310375837648",
-"start": "2026-10-29T19:30:00.000Z",
-"turnier": "ATP Vienna",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Flavio Cobolli",
-"b": "Matteo Berrettini",
-"aRoh": "Cobolli, Flavio",
-"bRoh": "Berrettini, Matteo",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.94,
-1.92
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.909,
-2.0
-],
-"tid": 3103,
-"p1Id": 399637,
-"p2Id": 112783,
-"sapId": 17377288,
-"landA": "IT",
-"landB": "IT",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 9,
-"games7": 88,
-"min7": 427,
-"minN": 3,
-"letztesMin": 136,
-"letztesGames": 28,
-"dreisatz7": 3,
-"siege7": 2,
-"letztes": "2026-10-27T20:25:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 19,
-"min7": 84,
-"minN": 1,
-"letztesMin": 84,
-"letztesGames": 19,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-26T12:30:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1200261375837570",
-"start": "2026-10-29T19:35:00.000Z",
-"turnier": "ATP Basel",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Ben Shelton",
-"b": "Jerome Kym",
-"aRoh": "Shelton, Ben",
-"bRoh": "Kym, Jerome",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.29,
-3.8
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.307,
-3.85
-],
-"tid": 2613,
-"p1Id": 808628,
-"p2Id": 539343,
-"sapId": 17377317,
-"landA": "US",
-"landB": "CH",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 39,
-"min7": 152,
-"minN": 1,
-"letztesMin": 152,
-"letztesGames": 39,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-10-27T17:00:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 23,
-"min7": 102,
-"minN": 1,
-"letztesMin": 102,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-27T13:15:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1200394575837880",
-"start": "2026-10-29T20:30:00.000Z",
-"turnier": "Guayaquil Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Emilio Camacho",
-"b": "Joao Lucas Reis Da Silva",
-"aRoh": "Camacho, Emilio",
-"bRoh": "Reis Da Silva, Joao Lucas",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-10.0,
-1.01
-]
-},
-"pausiert": [],
-"pinnacle": [
-17.49,
-1.022
-],
-"tid": 3945,
-"p1Id": 1202375,
-"p2Id": 240264,
-"sapId": 17377257,
-"landA": "EC",
-"landB": "BR",
-"runde": "Round of 16",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 26,
-"min7": 153,
-"minN": 1,
-"letztesMin": 153,
-"letztesGames": 26,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-28T00:25:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 18,
-"min7": 98,
-"minN": 1,
-"letztesMin": 98,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-28T17:00:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1204350375837940",
-"start": "2026-10-29T22:00:00.000Z",
-"turnier": "Sioux Falls Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Liam Draxl",
-"b": "Daniil Ostapenkov",
-"aRoh": "Draxl, Liam",
-"bRoh": "Ostapenkov, Daniil",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.24,
-3.55
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.307,
-3.71
-],
-"tid": 43503,
-"p1Id": 263917,
-"p2Id": 685379,
-"sapId": 17377271,
-"landA": "CA",
-"landB": "BY",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 26,
-"min7": 122,
-"minN": 1,
-"letztesMin": 122,
-"letztesGames": 26,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-27T19:15:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 60,
-"min7": 255,
-"minN": 3,
-"letztesMin": 51,
-"letztesGames": 14,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-10-27T23:20:00Z",
-"quali": true
-}
-}
-},
-{
-"id": "id1204350375837942",
-"start": "2026-10-29T23:10:00.000Z",
-"turnier": "Sioux Falls Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Mitchell Krueger",
-"b": "Darwin Blanch",
-"aRoh": "Krueger, Mitchell",
-"bRoh": "Blanch, Darwin",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.4,
-1.27
-]
-},
-"pausiert": [],
-"pinnacle": [
-3.54,
-1.322
-],
-"tid": 43503,
-"p1Id": 52276,
-"p2Id": 873695,
-"sapId": 17377272,
-"landA": "US",
-"landB": "US",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 15,
-"min7": 67,
-"minN": 1,
-"letztesMin": 67,
-"letztesGames": 15,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-27T20:05:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 18,
-"min7": 58,
-"minN": 1,
-"letztesMin": 58,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-10-27T23:20:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1200611175837728",
-"start": "2026-10-30T02:00:00.000Z",
-"turnier": "Seoul Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Sho Shimabukuro",
-"b": "Coleman Wong",
-"aRoh": "Shimabukuro, Sho",
-"bRoh": "Wong, Coleman",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.55,
-1.44
-]
-},
-"pausiert": [],
-"pinnacle": [
-2.64,
-1.526
-],
-"tid": 6111,
-"p1Id": 247607,
-"p2Id": 449767,
-"sapId": 17377336,
-"landA": "JP",
-"landB": "HK",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 32,
-"min7": 136,
-"minN": 2,
-"letztesMin": 76,
-"letztesGames": 16,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-29T02:00:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 5,
-"saetze7": 11,
-"games7": 111,
-"min7": 442,
-"minN": 5,
-"letztesMin": 58,
-"letztesGames": 16,
-"dreisatz7": 1,
-"siege7": 4,
-"letztes": "2026-10-29T03:20:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1200611175837714",
-"start": "2026-10-30T03:20:00.000Z",
-"turnier": "Seoul Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Omar Jasika",
-"b": "Yun Seong Chung",
-"aRoh": "Jasika, Omar",
-"bRoh": "Chung, Yun Seong",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.5,
-2.4
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.571,
-2.55
-],
-"tid": 6111,
-"p1Id": 79467,
-"p2Id": 99587,
-"sapId": 17377327,
-"landA": "AU",
-"landB": "KR",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 4,
-"saetze7": 8,
-"games7": 65,
-"min7": 273,
-"minN": 4,
-"letztesMin": 60,
-"letztesGames": 16,
-"dreisatz7": 0,
-"siege7": 4,
-"letztes": "2026-10-28T02:00:00Z",
-"quali": true
-},
-"b": {
-"spiele7": 4,
-"saetze7": 9,
-"games7": 92,
-"min7": 353,
-"minN": 4,
-"letztesMin": 90,
-"letztesGames": 22,
-"dreisatz7": 1,
-"siege7": 4,
-"letztes": "2026-10-28T03:15:00Z",
-"quali": true
-}
-}
-},
-{
-"id": "id1200611175837724",
-"start": "2026-10-30T03:30:00.000Z",
-"turnier": "Seoul Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Rei Sakamoto",
-"b": "Billy Harris",
-"aRoh": "Sakamoto, Rei",
-"bRoh": "Harris, Billy",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.22,
-3.75
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.246,
-4.4
-],
-"tid": 6111,
-"p1Id": 893391,
-"p2Id": 111837,
-"sapId": 17377334,
-"landA": "JP",
-"landB": "GB",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 35,
-"min7": 135,
-"minN": 2,
-"letztesMin": 54,
-"letztesGames": 16,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-28T05:00:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 39,
-"min7": 181,
-"minN": 2,
-"letztesMin": 89,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-28T03:40:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1200579775837974",
-"start": "2026-10-30T04:00:00.000Z",
-"turnier": "Ningbo Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Yaroslav Demin",
-"b": "Harold Mayot",
-"aRoh": "Demin, Yaroslav",
-"bRoh": "Mayot, Harold",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.4,
-1.26
-]
-},
-"pausiert": [],
-"pinnacle": [
-3.95,
-1.28
-],
-"tid": 5797,
-"p1Id": 762700,
-"p2Id": 321667,
-"sapId": 17377374,
-"landA": "RU",
-"landB": "FR",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 4,
-"saetze7": 8,
-"games7": 74,
-"min7": 348,
-"minN": 4,
-"letztesMin": 66,
-"letztesGames": 16,
-"dreisatz7": 0,
-"siege7": 4,
-"letztes": "2026-10-28T06:25:00Z",
-"quali": true
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 36,
-"min7": 133,
-"minN": 2,
-"letztesMin": 62,
-"letztesGames": 17,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-10-28T04:00:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1200611175837726",
-"start": "2026-10-30T05:00:00.000Z",
-"turnier": "Seoul Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Terence Atmane",
-"b": "Seong Chang Hong",
-"aRoh": "Atmane, Terence",
-"bRoh": "Hong, Seongchan",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.32,
-3.05
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.37,
-3.29
-],
-"tid": 6111,
-"p1Id": 399633,
-"p2Id": 97977,
-"sapId": 17377330,
-"landA": "FR",
-"landB": "KR",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 67,
-"min7": 278,
-"minN": 3,
-"letztesMin": 91,
-"letztesGames": 22,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-10-29T02:00:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 48,
-"min7": 252,
-"minN": 2,
-"letztesMin": 160,
-"letztesGames": 29,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-10-29T04:50:00Z",
-"quali": false
-}
-}
-},
-{
-"id": "id1200579775837960",
-"start": "2026-10-30T05:30:00.000Z",
-"turnier": "Ningbo Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Mert Alkaya",
-"b": "Yu Hsiou Hsu",
-"aRoh": "Alkaya, Mert",
-"bRoh": "Hsu, Yu Hsiou",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.1,
-1.64
-]
-},
-"pausiert": [],
-"pinnacle": [
-2.18,
-1.729
-],
-"tid": 5797,
-"p1Id": 211992,
-"p2Id": 220588,
-"sapId": 17377364,
-"landA": "TR",
-"landB": "TW",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 51,
-"min7": 222,
-"minN": 2,
-"letztesMin": 128,
-"letztesGames": 28,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-10-28T05:30:00Z",
-"quali": false
-},
-"b": {
-"spiele7": 2,
-"saetze7": 6,
-"games7": 66,
-"min7": 276,
-"minN": 2,
-"letztesMin": 131,
-"letztesGames": 31,
-"dreisatz7": 2,
-"siege7": 2,
-"letztes": "2026-10-28T04:00:00Z",
-"quali": false
-}
-}
-},
-{
 "id": "id1200579775837972",
-"start": "2026-10-30T06:40:00.000Z",
+"start": "2026-10-30T07:40:00.000Z",
 "turnier": "Ningbo Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -699,14 +17,14 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.95,
-1.34
+2.8,
+1.37
 ]
 },
 "pausiert": [],
 "pinnacle": [
-3.31,
-1.358
+3.06,
+1.414
 ],
 "tid": 5797,
 "p1Id": 79223,
@@ -747,7 +65,7 @@
 },
 {
 "id": "id1200579775837970",
-"start": "2026-10-30T09:00:00.000Z",
+"start": "2026-10-30T10:00:00.000Z",
 "turnier": "Ningbo Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -761,13 +79,13 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.33,
-3.0
+1.32,
+3.05
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.337,
+1.347,
 3.43
 ],
 "tid": 5797,
@@ -813,7 +131,7 @@
 "turnier": "ATP Vienna",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Adrian Mannarino",
 "b": "Daniil Medvedev",
 "aRoh": "Mannarino, Adrian",
@@ -823,18 +141,51 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-4.9,
-1.17
+4.4,
+1.24
 ]
 },
 "pausiert": [],
 "pinnacle": [
-4.97,
-1.207
+4.31,
+1.254
 ],
 "tid": 3103,
 "p1Id": 15894,
-"p2Id": 163504
+"p2Id": 163504,
+"sapId": 17377280,
+"landA": "FR",
+"landB": "RU",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 9,
+"games7": 93,
+"min7": 481,
+"minN": 4,
+"letztesMin": 107,
+"letztesGames": 22,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-10-28T16:35:00Z",
+"quali": true
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"games7": 90,
+"min7": 350,
+"minN": 3,
+"letztesMin": 151,
+"letztesGames": 32,
+"dreisatz7": 2,
+"siege7": 4,
+"letztes": "2026-10-29T12:30:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1201312575837816",
@@ -852,14 +203,14 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.65,
-1.42
+2.7,
+1.4
 ]
 },
 "pausiert": [],
 "pinnacle": [
-3.03,
-1.42
+3.01,
+1.425
 ],
 "tid": 13125,
 "p1Id": 917921,
@@ -904,7 +255,7 @@
 "turnier": "ATP Basel",
 "kategorie": "ATP",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Holger Rune",
 "b": "Valentin Vacherot",
 "aRoh": "Rune, Holger",
@@ -914,68 +265,59 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.82,
-1.96
+1.7,
+2.25
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.833,
-2.07
+1.684,
+2.3
 ],
 "tid": 2613,
 "p1Id": 429603,
-"p2Id": 158912
+"p2Id": 158912,
+"sapId": 17377325,
+"landA": "DK",
+"landB": "MC",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 6,
+"games7": 67,
+"min7": 280,
+"minN": 2,
+"letztesMin": 119,
+"letztesGames": 31,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-10-28T19:50:00Z",
+"quali": false
 },
-{
-"id": "id1200310375837632",
-"start": "2026-10-30T14:00:00.000Z",
-"turnier": "ATP Vienna",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Tommy Paul",
-"b": "Carlos Alcaraz",
-"aRoh": "Paul, Tommy",
-"bRoh": "Alcaraz, Carlos",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"tid": 3103,
-"p1Id": 138546,
-"p2Id": 407573
-},
-{
-"id": "id1200261375837576",
-"start": "2026-10-30T14:10:00.000Z",
-"turnier": "ATP Basel",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Taylor Fritz",
-"b": "Arthur Fils",
-"aRoh": "Fritz, Taylor",
-"bRoh": "Fils, Arthur",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"tid": 2613,
-"p1Id": 136042,
-"p2Id": 671637
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 56,
+"min7": 269,
+"minN": 2,
+"letztesMin": 149,
+"letztesGames": 34,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T11:10:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1201312575837814",
-"start": "2026-10-30T14:30:00.000Z",
+"start": "2026-10-30T13:50:00.000Z",
 "turnier": "Brest Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
-"belagQuelle": "kalender",
+"belagQuelle": "spieldaten",
 "a": "Martin Damm",
 "b": "Clement Tabur",
 "aRoh": "Damm Jr, Martin",
@@ -985,22 +327,546 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.46,
-2.5
+1.47,
+2.45
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.515,
-2.67
+1.502,
+2.72
 ],
 "tid": 13125,
 "p1Id": 51345,
-"p2Id": 225052
+"p2Id": 225052,
+"sapId": 17377344,
+"landA": "US",
+"landB": "FR",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 43,
+"min7": 153,
+"minN": 2,
+"letztesMin": 91,
+"letztesGames": 23,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T13:20:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 39,
+"min7": 150,
+"minN": 2,
+"letztesMin": 79,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T15:10:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200310375837632",
+"start": "2026-10-30T14:00:00.000Z",
+"turnier": "ATP Vienna",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Tommy Paul",
+"b": "Carlos Alcaraz",
+"aRoh": "Paul, Tommy",
+"bRoh": "Alcaraz, Carlos",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+4.0,
+1.27
+]
+},
+"pausiert": [],
+"pinnacle": [
+3.99,
+1.284
+],
+"tid": 3103,
+"p1Id": 138546,
+"p2Id": 407573,
+"sapId": 17377281,
+"landA": "US",
+"landB": "ES",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 6,
+"games7": 55,
+"min7": 240,
+"minN": 3,
+"letztesMin": 49,
+"letztesGames": 14,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T12:30:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 43,
+"min7": 225,
+"minN": 2,
+"letztesMin": 101,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T15:20:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200261375837576",
+"start": "2026-10-30T14:10:00.000Z",
+"turnier": "ATP Basel",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Taylor Fritz",
+"b": "Arthur Fils",
+"aRoh": "Fritz, Taylor",
+"bRoh": "Fils, Arthur",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.96,
+1.9
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.97,
+1.917
+],
+"tid": 2613,
+"p1Id": 136042,
+"p2Id": 671637,
+"sapId": 17377313,
+"landA": "US",
+"landB": "FR",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 5,
+"saetze7": 10,
+"games7": 103,
+"min7": 448,
+"minN": 5,
+"letztesMin": 78,
+"letztesGames": 19,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-10-29T16:40:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"games7": 116,
+"min7": 495,
+"minN": 4,
+"letztesMin": 140,
+"letztesGames": 32,
+"dreisatz7": 2,
+"siege7": 3,
+"letztes": "2026-10-29T14:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200394575837864",
+"start": "2026-10-30T16:20:00.000Z",
+"turnier": "Guayaquil Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Joaquin  Aguilar Cardozo",
+"b": "Lautaro Midon",
+"aRoh": "Aguilar Cardozo, Joaquin",
+"bRoh": "Midon, Lautaro",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": [
+1.934,
+1.917
+],
+"tid": 3945,
+"p1Id": 952887,
+"p2Id": 847592,
+"sapId": 17377238,
+"landA": "UY",
+"landB": "AR",
+"runde": "Quarterfinals",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 34,
+"min7": 180,
+"minN": 2,
+"letztesMin": 96,
+"letztesGames": 16,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T16:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 38,
+"min7": 208,
+"minN": 2,
+"letztesMin": 101,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T17:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200310375837626",
+"start": "2026-10-30T16:30:00.000Z",
+"turnier": "ATP Vienna",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Alexander Zverev",
+"b": "Arthur Fery",
+"aRoh": "Zverev, Alexander",
+"bRoh": "Fery, Arthur",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.11,
+6.25
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.128,
+6.88
+],
+"tid": 3103,
+"p1Id": 57163,
+"p2Id": 603098,
+"sapId": 17377308,
+"landA": "DE",
+"landB": "GB",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 56,
+"min7": 282,
+"minN": 2,
+"letztesMin": 96,
+"letztesGames": 22,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T17:25:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 38,
+"min7": 192,
+"minN": 2,
+"letztesMin": 165,
+"letztesGames": 32,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T16:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200261375837586",
+"start": "2026-10-30T17:00:00.000Z",
+"turnier": "ATP Basel",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Jerome Kym",
+"b": "Jiri Lehecka",
+"aRoh": "Kym, Jerome",
+"bRoh": "Lehecka, Jiri",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+3.15,
+1.35
+]
+},
+"pausiert": [],
+"pinnacle": [
+3.49,
+1.346
+],
+"tid": 2613,
+"p1Id": 539343,
+"p2Id": 339377,
+"sapId": 17377304,
+"landA": "CH",
+"landB": "CZ",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 58,
+"min7": 243,
+"minN": 2,
+"letztesMin": 141,
+"letztesGames": 35,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T21:05:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 47,
+"min7": 214,
+"minN": 2,
+"letztesMin": 103,
+"letztesGames": 22,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T16:15:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204350375837934",
+"start": "2026-10-30T17:00:00.000Z",
+"turnier": "Sioux Falls Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Mees Rottgering",
+"b": "Aidan Mayo",
+"aRoh": "Rottgering, Mees",
+"bRoh": "Mayo, Aidan",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.62,
+2.1
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.704,
+2.24
+],
+"tid": 43503,
+"p1Id": 930125,
+"p2Id": 540271,
+"sapId": 17377269,
+"landA": "NL",
+"landB": "US",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 42,
+"min7": 183,
+"minN": 2,
+"letztesMin": 107,
+"letztesGames": 23,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-28T22:10:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 50,
+"min7": 210,
+"minN": 2,
+"letztesMin": 140,
+"letztesGames": 33,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-28T16:50:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201312575837826",
+"start": "2026-10-30T17:30:00.000Z",
+"turnier": "Brest Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Moise Kouame",
+"b": "Francesco Maestrelli",
+"aRoh": "Kouame, Moise",
+"bRoh": "Maestrelli, Francesco",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.44,
+2.55
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.5,
+2.73
+],
+"tid": 13125,
+"p1Id": 1141275,
+"p2Id": 359608,
+"sapId": 17377324,
+"landA": "FR",
+"landB": "IT",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 38,
+"min7": 176,
+"minN": 2,
+"letztesMin": 65,
+"letztesGames": 15,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T17:40:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 36,
+"min7": 173,
+"minN": 2,
+"letztesMin": 69,
+"letztesGames": 14,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-28T20:20:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200261375837588",
+"start": "2026-10-30T18:10:00.000Z",
+"turnier": "ATP Basel",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Jan-Lennard Struff",
+"b": "Nuno Borges",
+"aRoh": "Struff, Jan-Lennard",
+"bRoh": "Borges, Nuno",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.72,
+2.1
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.787,
+2.13
+],
+"tid": 2613,
+"p1Id": 46391,
+"p2Id": 125006,
+"sapId": 17377314,
+"landA": "DE",
+"landB": "PT",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 5,
+"saetze7": 13,
+"games7": 144,
+"min7": 585,
+"minN": 5,
+"letztesMin": 156,
+"letztesGames": 38,
+"dreisatz7": 3,
+"siege7": 4,
+"letztes": "2026-10-29T18:20:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 42,
+"min7": 170,
+"minN": 2,
+"letztesMin": 108,
+"letztesGames": 26,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-28T13:00:00Z",
+"quali": false
+}
+}
 },
 {
 "id": "id1204350375837932",
-"start": "2026-10-30T16:00:00.000Z",
+"start": "2026-10-30T18:10:00.000Z",
 "turnier": "Sioux Falls Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -1014,14 +880,14 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.54,
-2.25
+1.5,
+2.4
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.561,
-2.54
+1.552,
+2.57
 ],
 "tid": 43503,
 "p1Id": 780790,
@@ -1030,7 +896,7 @@
 "landA": "CH",
 "landB": "US",
 "runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
+"gt": "Hardcourt indoor",
 "form": {
 "a": {
 "spiele7": 2,
@@ -1061,64 +927,423 @@
 }
 },
 {
-"id": "id1204350375837934",
-"start": "2026-10-30T16:00:00.000Z",
-"turnier": "Sioux Falls Challenger",
+"id": "id1200394575837868",
+"start": "2026-10-30T18:40:00.000Z",
+"turnier": "Guayaquil Challenger",
 "kategorie": "Challenger",
-"belag": "hard",
+"belag": "clay",
 "belagQuelle": "spieldaten",
-"a": "Mees Rottgering",
-"b": "Aidan Mayo",
-"aRoh": "Rottgering, Mees",
-"bRoh": "Mayo, Aidan",
+"a": "Carlos Maria Zarate",
+"b": "Hugo Dellien",
+"aRoh": "Zarate, Carlos Maria",
+"bRoh": "Dellien, Hugo",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.62,
-2.1
+4.6,
+1.15
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.74,
-2.18
+5.48,
+1.169
 ],
-"tid": 43503,
-"p1Id": 930125,
-"p2Id": 540271,
-"sapId": 17377269,
-"landA": "NL",
-"landB": "US",
+"tid": 3945,
+"p1Id": 1118225,
+"p2Id": 57289,
+"sapId": 17377239,
+"landA": "AR",
+"landB": "BO",
 "runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
+"gt": "Red clay",
 "form": {
 "a": {
 "spiele7": 2,
-"saetze7": 4,
-"games7": 42,
-"min7": 183,
+"saetze7": 5,
+"games7": 52,
+"min7": 251,
 "minN": 2,
-"letztesMin": 107,
+"letztesMin": 173,
+"letztesGames": 33,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T18:30:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 36,
+"min7": 144,
+"minN": 2,
+"letztesMin": 76,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T16:00:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1201312575837812",
+"start": "2026-10-30T18:40:00.000Z",
+"turnier": "Brest Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Stefano Travaglia",
+"b": "Otto Virtanen",
+"aRoh": "Travaglia, Stefano",
+"bRoh": "Virtanen, Otto",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+3.5,
+1.25
+]
+},
+"pausiert": [],
+"pinnacle": [
+3.81,
+1.296
+],
+"tid": 13125,
+"p1Id": 36300,
+"p2Id": 276563,
+"sapId": 17377337,
+"landA": "IT",
+"landB": "FI",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 59,
+"min7": 258,
+"minN": 2,
+"letztesMin": 91,
+"letztesGames": 20,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T18:55:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 46,
+"min7": 165,
+"minN": 2,
+"letztesMin": 91,
 "letztesGames": 23,
 "dreisatz7": 0,
 "siege7": 2,
-"letztes": "2026-10-28T22:10:00Z",
+"letztes": "2026-10-28T15:15:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200310375837628",
+"start": "2026-10-30T19:00:00.000Z",
+"turnier": "ATP Vienna",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Matteo Berrettini",
+"b": "Alex de Minaur",
+"aRoh": "Berrettini, Matteo",
+"bRoh": "de Minaur, Alex",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.75,
+1.45
+]
+},
+"pausiert": [],
+"pinnacle": [
+2.95,
+1.45
+],
+"tid": 3103,
+"p1Id": 112783,
+"p2Id": 214182,
+"sapId": 17377309,
+"landA": "IT",
+"landB": "AU",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 3,
+"games7": 26,
+"min7": 124,
+"minN": 2,
+"letztesMin": 40,
+"letztesGames": 7,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T19:30:00Z",
 "quali": false
 },
 "b": {
 "spiele7": 2,
 "saetze7": 5,
-"games7": 50,
-"min7": 210,
+"games7": 44,
+"min7": 202,
 "minN": 2,
-"letztesMin": 140,
-"letztesGames": 33,
+"letztesMin": 79,
+"letztesGames": 18,
 "dreisatz7": 1,
 "siege7": 2,
-"letztes": "2026-10-28T16:50:00Z",
+"letztes": "2026-10-28T19:15:00Z",
 "quali": false
+}
+}
+},
+{
+"id": "id1200394575837866",
+"start": "2026-10-30T19:00:00.000Z",
+"turnier": "Guayaquil Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Valerio Aboian",
+"b": "Nick Hardt",
+"aRoh": "Aboian, Valerio",
+"bRoh": "Hardt, Nick",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.35,
+1.5
+]
+},
+"pausiert": [],
+"pinnacle": [
+2.46,
+1.581
+],
+"tid": 3945,
+"p1Id": 498580,
+"p2Id": 186885,
+"sapId": 17377244,
+"landA": "AR",
+"landB": "DO",
+"runde": "Quarterfinals",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 10,
+"games7": 103,
+"min7": 585,
+"minN": 4,
+"letztesMin": 123,
+"letztesGames": 26,
+"dreisatz7": 2,
+"siege7": 3,
+"letztes": "2026-10-29T16:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 42,
+"min7": 238,
+"minN": 2,
+"letztesMin": 85,
+"letztesGames": 17,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T20:15:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1204350375837922",
+"start": "2026-10-30T22:00:00.000Z",
+"turnier": "Sioux Falls Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Max Hans Rehberg",
+"b": "Sebastian Dominko",
+"aRoh": "Rehberg, Max Hans",
+"bRoh": "Dominko, Sebastian",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": [
+1.645,
+2.35
+],
+"tid": 43503,
+"p1Id": 508498,
+"p2Id": 801696,
+"sapId": 17377274,
+"landA": "DE",
+"landB": "SI",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 41,
+"min7": 214,
+"minN": 2,
+"letztesMin": 121,
+"letztesGames": 23,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T17:35:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 4,
+"saetze7": 9,
+"games7": 99,
+"min7": 361,
+"minN": 4,
+"letztesMin": 92,
+"letztesGames": 24,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-10-29T19:10:00Z",
+"quali": true
+}
+}
+},
+{
+"id": "id1204350375837936",
+"start": "2026-10-30T23:10:00.000Z",
+"turnier": "Sioux Falls Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Liam Draxl",
+"b": "Darwin Blanch",
+"aRoh": "Draxl, Liam",
+"bRoh": "Blanch, Darwin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.15,
+1.6
+]
+},
+"pausiert": [],
+"pinnacle": [
+2.32,
+1.662
+],
+"tid": 43503,
+"p1Id": 263917,
+"p2Id": 873695,
+"sapId": 17377264,
+"landA": "CA",
+"landB": "US",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 3,
+"games7": 35,
+"min7": 168,
+"minN": 2,
+"letztesMin": 46,
+"letztesGames": 9,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-10-29T22:05:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 53,
+"min7": 205,
+"minN": 2,
+"letztesMin": 147,
+"letztesGames": 35,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-10-29T23:25:00Z",
+"quali": false
+}
+}
+},
+{
+"id": "id1200611175837718",
+"start": "2026-10-31T06:00:00.000Z",
+"turnier": "Seoul Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Coleman Wong",
+"b": "Omar Jasika",
+"aRoh": "Wong, Coleman",
+"bRoh": "Jasika, Omar",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"tid": 6111,
+"p1Id": 449767,
+"p2Id": 79467,
+"sapId": 17377328,
+"landA": "HK",
+"landB": "AU",
+"runde": "Semifinals",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 9,
+"games7": 89,
+"min7": 376,
+"minN": 4,
+"letztesMin": 92,
+"letztesGames": 20,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-10-30T02:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 5,
+"saetze7": 11,
+"games7": 91,
+"min7": 390,
+"minN": 5,
+"letztesMin": 117,
+"letztesGames": 26,
+"dreisatz7": 1,
+"siege7": 5,
+"letztes": "2026-10-30T03:50:00Z",
+"quali": true
 }
 }
 }

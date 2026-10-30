@@ -4946,7 +4946,13 @@
 "warn": [],
 "letzteQuote": 1.29,
 "letzteP": 0.7929047122006274,
-"zuletztGesehen": "2026-10-29T19:28Z"
+"zuletztGesehen": "2026-10-29T19:28Z",
+"clv_versucht": true,
+"schlussQuote": 1.29,
+"clv": -0.023255813953488413,
+"ergebnis": "L",
+"sieger": "B",
+"ergebnisQuelle": "spieldaten"
 },
 "id1200310375837648|winamax": {
 "id": "id1200310375837648",
@@ -4970,7 +4976,14 @@
 "letzteQuote": 1.94,
 "letzteP": 0.5411207446342664,
 "zuletztGesehen": "2026-10-29T19:28Z",
-"erstQuoteOrig": 1.98
+"erstQuoteOrig": 1.98,
+"clv_versucht": true,
+"schlussQuote": 1.94,
+"clv": -0.010309278350515427,
+"ergebnis": "V",
+"ergebnisQuelle": "aufgabe",
+"aufgabe": true,
+"sieger": "B"
 },
 "id1201312575837820|winamax": {
 "id": "id1201312575837820",
@@ -5022,7 +5035,13 @@
 "warn": [],
 "letzteQuote": 1.27,
 "letzteP": 0.8115832933344471,
-"zuletztGesehen": "2026-10-29T16:16Z"
+"zuletztGesehen": "2026-10-29T16:16Z",
+"clv_versucht": true,
+"schlussQuote": 1.27,
+"clv": 0.0,
+"ergebnis": "L",
+"sieger": "B",
+"ergebnisQuelle": "spieldaten"
 },
 "id1201312575837810|winamax": {
 "id": "id1201312575837810",
@@ -5046,7 +5065,14 @@
 "letzteQuote": 1.74,
 "letzteP": 0.6169062099731478,
 "zuletztGesehen": "2026-10-29T16:16Z",
-"erstQuoteOrig": 1.92
+"erstQuoteOrig": 1.92,
+"clv_versucht": true,
+"schlussQuote": 1.74,
+"clv": 0.02298850574712641,
+"ergebnis": "V",
+"ergebnisQuelle": "aufgabe",
+"aufgabe": true,
+"sieger": "B"
 },
 "id1200579775837972|winamax": {
 "id": "id1200579775837972",
@@ -5069,9 +5095,7 @@
 "warn": [],
 "letzteQuote": 1.43,
 "letzteP": 0.27592357272750645,
-"zuletztGesehen": "2026-10-29T16:16Z",
-"valueWeg": "2026-10-29T19:28Z",
-"valueWegQuote": 1.34
+"zuletztGesehen": "2026-10-29T16:16Z"
 },
 "id1200310375837642|winamax": {
 "id": "id1200310375837642",
@@ -5095,7 +5119,10 @@
 "letzteQuote": 1.27,
 "letzteP": 0.7912754059035574,
 "zuletztGesehen": "2026-10-29T16:16Z",
-"clv_versucht": true
+"clv_versucht": true,
+"ergebnis": "W",
+"sieger": "A",
+"ergebnisQuelle": "spieldaten"
 },
 "id1200261375837574|winamax": {
 "id": "id1200261375837574",
@@ -5116,8 +5143,100 @@
 "kelly": 12.19,
 "erstGesehen": "2026-10-29T19:28Z",
 "warn": [],
-"letzteQuote": 1.96,
-"letzteP": 0.45361157742619745,
-"zuletztGesehen": "2026-10-29T19:28Z"
+"letzteQuote": 2.25,
+"letzteP": 0.4803273774100186,
+"zuletztGesehen": "2026-10-30T07:35Z"
+},
+"id1200261375837576|winamax": {
+"id": "id1200261375837576",
+"start": "2026-10-30T14:10:00.000Z",
+"turnier": "ATP Basel",
+"belag": "hard",
+"a": "Taylor Fritz",
+"b": "Arthur Fils",
+"tid": 2613,
+"p1Id": 136042,
+"p2Id": 671637,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.9,
+"erstP": 0.4510770455973784,
+"edge": 0.04295361336498105,
+"kelly": 7.87,
+"erstGesehen": "2026-10-30T07:35Z",
+"warn": [],
+"letzteQuote": 1.9,
+"letzteP": 0.4510770455973784,
+"zuletztGesehen": "2026-10-30T07:35Z"
+},
+"id1200261375837586|winamax": {
+"id": "id1200261375837586",
+"start": "2026-10-30T17:00:00.000Z",
+"turnier": "ATP Basel",
+"belag": "hard",
+"a": "Jerome Kym",
+"b": "Jiri Lehecka",
+"tid": 2613,
+"p1Id": 539343,
+"p2Id": 339377,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.35,
+"erstP": 0.23490024180275876,
+"edge": 0.03288467356627578,
+"kelly": 15.5,
+"erstGesehen": "2026-10-30T07:35Z",
+"warn": [],
+"letzteQuote": 1.35,
+"letzteP": 0.23490024180275876,
+"zuletztGesehen": "2026-10-30T07:35Z"
+},
+"id1200261375837588|winamax": {
+"id": "id1200261375837588",
+"start": "2026-10-30T18:10:00.000Z",
+"turnier": "ATP Basel",
+"belag": "hard",
+"a": "Jan-Lennard Struff",
+"b": "Nuno Borges",
+"tid": 2613,
+"p1Id": 46391,
+"p2Id": 125006,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 2.1,
+"erstP": 0.49256619252221817,
+"edge": 0.06561099570334172,
+"kelly": 9.84,
+"erstGesehen": "2026-10-30T07:35Z",
+"warn": [],
+"letzteQuote": 2.1,
+"letzteP": 0.49256619252221817,
+"zuletztGesehen": "2026-10-30T07:35Z"
+},
+"id1200310375837628|winamax": {
+"id": "id1200310375837628",
+"start": "2026-10-30T19:00:00.000Z",
+"turnier": "ATP Vienna",
+"belag": "hard",
+"a": "Matteo Berrettini",
+"b": "Alex de Minaur",
+"tid": 3103,
+"p1Id": 112783,
+"p2Id": 214182,
+"kategorie": "ATP",
+"buchmacher": "winamax",
+"wette": "B",
+"erstQuote": 1.45,
+"erstP": 0.3013077086107458,
+"edge": 0.01310382251441844,
+"kelly": 4.8,
+"erstGesehen": "2026-10-30T07:35Z",
+"warn": [],
+"letzteQuote": 1.45,
+"letzteP": 0.3013077086107458,
+"zuletztGesehen": "2026-10-30T07:35Z"
 }
 }
