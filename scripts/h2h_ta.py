@@ -59,6 +59,8 @@ def main():
     players = load("players.json", {})
     nm = NameMatcher(list(players), load("name_map.json", {}))
     st = load("h2h_ta.json", {"spieler": {}, "paare": {}})
+    if st.get("version") != 2:                    # 30.10.2026: Quelle auf komplette Karriere umgestellt -> alles neu laden
+        st = {"version": 2, "spieler": {}, "paare": {}, "hb": {}, "haende": {}}
     heute = datetime.date.today().isoformat()
     jetzt = datetime.datetime.now(datetime.timezone.utc).isoformat()
     partien = [m for m in load("matches.json", {}).get("partien", [])
