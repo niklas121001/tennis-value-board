@@ -150,17 +150,7 @@ jobs:
         working-directory: scripts
         run: python serve_stats.py
 
-      - name: Value-Tipps protokollieren
-        run: node scripts/log_tips.js
-
-      - name: Telegram-Nachricht bei neuen Tipps
-        continue-on-error: true
-        working-directory: scripts
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python notify.py
-
+      # Ergebnisse und eigene Elo VOR den Tipps: neue Tipps rechnen mit dem neuesten Stand (Elo nach den letzten Ergebnissen)
       - name: Ergebnisse und Schlussquoten nachtragen
         continue-on-error: true
         working-directory: scripts
@@ -172,6 +162,17 @@ jobs:
         continue-on-error: true
         working-directory: scripts
         run: python elo_eigen.py
+
+      - name: Value-Tipps protokollieren
+        run: node scripts/log_tips.js
+
+      - name: Telegram-Nachricht bei neuen Tipps
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python notify.py
 
       - name: Systemcheck (Telegram-Warnung bei Problemen)
         if: always()

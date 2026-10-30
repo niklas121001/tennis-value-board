@@ -678,7 +678,9 @@ function evalMatch(p){
   // Value verpasst: Tipp wurde protokolliert, ist mit der aktuellen Quote aber kein Value mehr
   { const t = LOG && LOG[p.id + "|" + r.bm];
     // nur wenn die Quote auf den getippten Spieler gefallen ist – nicht, wenn sich das Modell geändert hat
-    if(t && t.wette && !t.storniert && r.wette !== t.wette && jetztQ(t) < t.erstQuote - 1e-9) r.verpasst = {seite: t.wette, name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote,
+    // Quote von Hand korrigiert: kein „verpasst“, sondern der Tipp wird beim nächsten Update storniert (Datenkorrektur)
+    if(t && t.wette && r.manuellQ && r.wette !== t.wette && !t.storniert) r.stornoHinweis = {name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote, jetzt: jetztQ(t)};
+    else if(t && t.wette && !t.storniert && !r.manuellQ && r.wette !== t.wette && jetztQ(t) < t.erstQuote - 1e-9) r.verpasst = {seite: t.wette, name: t.wette==="A" ? p.a : p.b, erstQuote: t.erstQuote,
       jetzt: jetztQ(t), edge: t.edge, erstGesehen: t.erstGesehen}; }
   // Quotensturz: Quote eines Spielers seit der ersten Sichtung um mind. 10 % gefallen ("der Markt weiß was")
   { const reihe = qvReihe(p, r.bm);
@@ -715,6 +717,8 @@ function meineWetteText(x){
 }
 function signalInfoHtml(r){
   let h = "";
+  if(r.stornoHinweis){ const v = r.stornoHinweis;
+    h += `<div class="assbox"><b>✎ Quote korrigiert:</b> Der Tipp auf ${esc(v.name)} (Quote ${fx(v.erstQuote)}) ist mit deiner Quote ${fx(v.jetzt)} kein Value mehr. <span class="time">Er wird beim nächsten Update storniert und zählt nicht in der Bilanz. Quote zurücksetzen hebt das wieder auf.</span></div>`; }
   if(r.verpasst){ const v = r.verpasst;
     h += `<div class="assbox"><b>⏱ Value verpasst:</b> Tipp auf ${esc(v.name)} am ${kDatum(v.erstGesehen)} bei Quote ${fx(v.erstQuote)} (Edge ${sg(v.edge)}). Aktuell ${fx(v.jetzt)} – zu diesem Preis kein Value mehr. <span class="time">Die Bilanz rechnet mit der ersten Quote.</span></div>`; }
   if(r.pinSig){ const x = r.pinSig;
@@ -912,7 +916,7 @@ function rowHtml(p, r){
   const tipWarn = r.wette ? r.warn.filter(w => w.seite===r.wette) : [];
   const pill = regelAus ? `<span class="pill no" title="Value, aber außerhalb deiner Tipp-Regeln (Modell-Reiter)">Value · außerhalb Regeln</span>`
              : r.wette ? `<span class="pill ${stop?"stop":"go"}"${tipWarn.length?` title="${esc(tipWarn.map(w=>w.text).join(" · "))}"`:""}>${stop?"Blacklist":`${tipWarn.length?"⚠ ":""}<span class="hide-s">Auf ${esc(r.wette==="A"?r.a:r.b)}</span><span class="show-s">Value</span>`}</span>`
-             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : r.verpasst ? `<span class="pill warn" title="Tipp auf ${esc(r.verpasst.name)} bei ${fx(r.verpasst.erstQuote)} – jetzt ${fx(r.verpasst.jetzt)}">Value verpasst</span>` : r.aussenseiter ? "" : `<span class="pill no">kein Value</span>`;
+             : stop ? `<span class="pill stop">Blacklist</span>` : r.pMarkt==null ? `<span class="pill no">noch keine Quote</span>` : beide ? `<span class="pill warn">Beide Value</span>` : r.stornoHinweis ? `<span class="pill no" title="Quote von dir korrigiert – Tipp auf ${esc(r.stornoHinweis.name)} wird storniert">wird storniert</span>` : r.verpasst ? `<span class="pill warn" title="Tipp auf ${esc(r.verpasst.name)} bei ${fx(r.verpasst.erstQuote)} – jetzt ${fx(r.verpasst.jetzt)}">Value verpasst</span>` : r.aussenseiter ? "" : `<span class="pill no">kein Value</span>`;
   const e = r.wette==="A" ? r.edgeA : r.wette==="B" ? r.edgeB : Math.max(r.edgeA??-1, r.edgeB??-1);
   const warn = r.nurElo ? ' <span title="Aufschlagwerte fehlen – nur Elo/H2H">*</span>' : "";
   const favA = r.pFinal >= 0.5;   // Modell-Favorit = prognostizierter Sieger (wie Excel "Modell-Favorit")
