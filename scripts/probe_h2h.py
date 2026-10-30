@@ -1,13 +1,11 @@
-"""Einmal-Test: Tennis-Abstract-Spielerdateien (aktuelle + Karriere)"""
-import urllib.request, re
-UA = {"User-Agent": "Mozilla/5.0 (TennisValueApp; private use)"}
-for url in ["https://www.tennisabstract.com/jsfrags/JanLennardStruff.js",
-            "https://www.tennisabstract.com/jsmatches/JanLennardStruffCareer.js"]:
-    try:
-        t = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read().decode("utf-8", "replace")
-        print(url, len(t)); print(t[:700].replace("\n", " ")); 
-        for w in ["Borges", "Challenger", " CH"]:
-            i = t.find(w); print(w, "bei", i, t[max(0, i-300):i+150].replace("\n", " ") if i >= 0 else "")
-        print("Jahre:", sorted(set(re.findall(r"20[12][0-9][01][0-9][0-3][0-9]", t)))[-3:], sorted(set(re.findall(r"20[12][0-9][01][0-9][0-3][0-9]", t)))[:2])
-    except Exception as e:
-        print(url, "Fehler", e)
+"""Einmal-Test: h2h_ta.py mit wenigen Abrufen"""
+import sys, json, os
+sys.path.insert(0, "scripts"); os.chdir("scripts")
+import h2h_ta
+h2h_ta.MAX_ABRUFE = 6
+h2h_ta.main()
+from common import load
+d = load("h2h_ta.json", {})
+print(json.dumps(d.get("spieler"), ensure_ascii=False))
+for k, v in list(d.get("paare", {}).items())[:6]:
+    print(k, json.dumps(v, ensure_ascii=False)[:600])
