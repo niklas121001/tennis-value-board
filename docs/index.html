@@ -1386,7 +1386,7 @@ function handBilanz(name){
   const tmlBis = HAENDE_ROH.bis ? `${HAENDE_ROH.bis.slice(4,6)}/${HAENDE_ROH.bis.slice(0,4)}` : "";
   return {L, R, n: L[0]+L[1]+R[0]+R[1], stand: ta ? `aktuell (Tennis Abstract, ${ta.datum.split("-").reverse().join(".")})` : `nur bis ${tmlBis} (ältere Datenbank) – aktuelle Daten kommen, sobald der Spieler auf dem Board steht`};
 }
-const hand = (name) => ((D && D.haende || {})[name] || {}).h || null;
+const hand = (name) => ((D && D.haende || {})[name] || {}).h || ((typeof H2HTA !== "undefined" && H2HTA && H2HTA.haende) || {})[name] || null;
 const linksBadge = (name) => hand(name) === "L" ? `<span class="lh" title="Linkshänder">L</span>` : "";
 function handBilanzText(name, gegnerHand){
   const hb = handBilanz(name); if(!hb.n) return "—";
@@ -1585,8 +1585,9 @@ function qvHtml(p, r){
 // H2H-Duelle mit Ergebnis: TML-Database (ATP-Ebene, ältere), Tennis Abstract (letzte ~12 Monate inkl. Challenger),
 // eigenes Archiv (neueste). Dateien werden erst beim Öffnen einer Partie geladen.
 let H2HL = null, H2HTA = null, H2H_P = null;
+j("h2h_ta.json", {paare:{}}).then(t => { H2HTA = t || {paare:{}}; if(D) render(); });   // klein: gleich beim Start (Schlaghand, Bilanz gg. Linkshänder)
 function h2hLaden(){ if(H2H_P) return H2H_P;
-  return H2H_P = Promise.all([j("h2h_liste.json", {paare:{}}), j("h2h_ta.json", {paare:{}})]).then(([l, t]) => { H2HL = l || {paare:{}}; H2HTA = t || {paare:{}}; render(); }); }
+  return H2H_P = Promise.all([j("h2h_liste.json", {paare:{}}), H2HTA ? Promise.resolve(H2HTA) : j("h2h_ta.json", {paare:{}})]).then(([l, t]) => { H2HL = l || {paare:{}}; H2HTA = t || {paare:{}}; render(); }); }
 function h2hDuelle(a, b){
   const [x, y] = [a, b].sort(), key = x + "|" + y, out = [];
   const dat = (s) => new Date(`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T12:00:00Z`);
@@ -1616,7 +1617,7 @@ function h2hBoxHtml(p){
   const tab = (ys) => `<table class="h2ht"><tbody>${ys.map(zeile).join("")}</tbody></table>`;
   return `<div class="box"><h3>H2H-Duelle <span class="time" style="text-transform:none;letter-spacing:0">${esc(p.a.split(" ").slice(-1)[0])} ${wa}:${wb} ${esc(p.b.split(" ").slice(-1)[0])}</span></h3>
     ${tab(xs.slice(0, 5))}${xs.length > 5 ? `<details class="h2hmehr"><summary class="time">alle ${xs.length} Duelle zeigen</summary>${tab(xs.slice(5))}</details>` : ""}${gesamt}
-    <p class="time" style="margin:6px 0 0">Ergebnis aus Sicht des Siegers. Quellen: ATP-Ebene (TML-Database), letzte 12 Monate inkl. Challenger (Tennis Abstract), eigenes Archiv.</p></div>`;
+    <p class="time" style="margin:6px 0 0">Ergebnis aus Sicht des Siegers, Datum = Turnierbeginn. Quellen: Tennis Abstract (alle Stufen inkl. Challenger, täglich für Board-Partien), TML-Database (ATP-Ebene), eigenes Archiv.</p></div>`;
 }
 function detailHtml(p, r){
   const ab = (a,b,f) => `<span class="v">${f(a)}</span><span class="v">${f(b)}</span>`;
