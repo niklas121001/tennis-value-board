@@ -6,7 +6,7 @@ Website, die automatisch Value-Wetten für ATP- und Challenger-Partien anzeigt, 
 - **Quoten:** OddsPapi (Gratis-Konto), Buchmacher wählbar: Winamax, Tipico, bet365
 - **Elo:** täglich von Tennis Abstract (Belags-Elo + yElo)
 - **Aufschlag-/Returnwerte, H2H, Blacklist, Parameter:** aus der Excel (`scripts/excel_export.py`)
-- **Updates:** automatisch 3× täglich (07:30, 14:05, 19:30 Uhr) über GitHub Actions, Website über GitHub Pages
+- **Updates:** automatisch 4× täglich (07:30, 11:00, 14:05, 19:30 Uhr) über GitHub Actions, Website über GitHub Pages
 
 ## Einrichtung (einmalig, ca. 15 Minuten)
 

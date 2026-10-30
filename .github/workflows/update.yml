@@ -2,11 +2,11 @@ name: Daten aktualisieren
 
 on:
   schedule:
-    # Läufe um 07:30, 14:05 und 19:30 Uhr deutscher Zeit – ganzjährig (GitHub startet oft 20–40 Min. später). GitHub rechnet in UTC, daher je zwei Zeiten:
+    # Läufe um 07:30, 11:00, 14:05 und 19:30 Uhr deutscher Zeit – ganzjährig (GitHub startet oft 20–40 Min. später). GitHub rechnet in UTC, daher je zwei Zeiten:
     # Sommerzeit (UTC+2): 05:30 und 12:05 UTC · Winterzeit (UTC+1): 06:30 und 13:05 UTC.
     # GitHub verzögert geplante Läufe teils um Stunden oder lässt sie ausfallen. Deshalb gibt es Ersatz-Zeiten,
     # und der Job "zeitpruefung" entscheidet nach deutscher Uhrzeit und docs/data/lauf_status.json:
-    # Frühlauf ab 07:15 Uhr, Mittagslauf ab 13:50 Uhr, Abendlauf ab 19:20 Uhr – jeweils einmal pro Tag, egal welcher Zeitplan ihn auslöst.
+    # Frühlauf ab 07:15 Uhr, Vormittagslauf ab 10:50 Uhr, Mittagslauf ab 13:50 Uhr, Abendlauf ab 19:20 Uhr – jeweils einmal pro Tag, egal welcher Zeitplan ihn auslöst.
     - cron: "30 5 * * *"
     - cron: "5 12 * * *"
     - cron: "30 6 * * *"
@@ -14,6 +14,10 @@ on:
     - cron: "45 7 * * *"     # Ersatz Frühlauf
     - cron: "15 14 * * *"    # Ersatz Mittagslauf
     - cron: "45 15 * * *"    # Ersatz Mittagslauf
+    # Vormittagslauf 11:00 Uhr (Sommer 09:00 UTC, Winter 10:00 UTC), Ersatz 11:30 bzw. 12:30 Uhr
+    - cron: "0 9 * * *"
+    - cron: "0 10 * * *"
+    - cron: "30 10 * * *"    # Ersatz Vormittagslauf
     # Abendlauf 19:30 Uhr deutscher Zeit (Sommer 17:30 UTC, Winter 18:30 UTC), Ersatz 20:15 bzw. 21:00 Uhr
     - cron: "30 17 * * *"
     - cron: "30 18 * * *"
@@ -41,7 +45,7 @@ jobs:
       - id: p
         run: |
           hm=$(TZ=Europe/Berlin date +%H%M); heute=$(TZ=Europe/Berlin date +%F)
-          if [ "$hm" -ge 1920 ]; then slot=abend; elif [ "$hm" -ge 1350 ]; then slot=mittag; elif [ "$hm" -ge 715 ]; then slot=frueh; else slot=""; fi
+          if [ "$hm" -ge 1920 ]; then slot=abend; elif [ "$hm" -ge 1350 ]; then slot=mittag; elif [ "$hm" -ge 1050 ]; then slot=vormittag; elif [ "$hm" -ge 715 ]; then slot=frueh; else slot=""; fi
           erledigt=$(python3 -c "import json,sys; d=json.load(open('docs/data/lauf_status.json')) if __import__('os').path.exists('docs/data/lauf_status.json') else {}; print(d.get('$slot',''))" 2>/dev/null || true)
           laufen=true
           if [ "${{ github.event_name }}" = "schedule" ]; then
