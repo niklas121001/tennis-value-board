@@ -177,6 +177,7 @@ tr.detail td{background:var(--bg);white-space:normal;text-align:left;padding:14p
 .box h3{font:600 .95rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:var(--accent)}
 .kv{display:grid;grid-template-columns:1fr auto auto;gap:2px 12px;font-size:13px}
 .kv.two{grid-template-columns:1fr auto}
+.h2ht{width:100%;font-size:12.5px;border-collapse:collapse;background:none}.h2ht tr,.h2ht td{background:none!important}.h2ht td{padding:4px 8px 4px 0;border-bottom:1px solid var(--line);vertical-align:top}.h2ht{table-layout:fixed}.h2ht td:first-child{width:62px}.h2ht td:last-child{width:42%}.h2ht .erg{word-spacing:2px}.h2ht td:last-child{text-align:right;padding-right:0}.h2ht td:first-child{white-space:nowrap}.h2hmehr summary{cursor:pointer;margin-top:6px}
 .scblock+.scblock{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}.scname{font-weight:600;font-size:13.5px;margin-bottom:3px}.scblock .kv .v .time{margin-left:4px}
 .kv span:nth-child(n){font-variant-numeric:tabular-nums}
 .kv .k{color:var(--muted)}
@@ -1570,6 +1571,42 @@ function qvHtml(p, r){
   return `<h3 style="margin-top:10px">Quotenverlauf ${esc(r.bm)}</h3><div class="kv three">${reihe.map(([ts,a,b]) => `<span class="k">${t(ts)}</span><span class="v">${fx(a)}</span><span class="v">${fx(b)}</span>`).join("")}</div>`;
 }
 
+// H2H-Duelle mit Ergebnis: TML-Database (ATP-Ebene, ältere), Tennis Abstract (letzte ~12 Monate inkl. Challenger),
+// eigenes Archiv (neueste). Dateien werden erst beim Öffnen einer Partie geladen.
+let H2HL = null, H2HTA = null, H2H_LAEDT = false;
+function h2hLaden(){ if(H2HL || H2H_LAEDT) return; H2H_LAEDT = true;
+  Promise.all([j("h2h_liste.json", {paare:{}}), j("h2h_ta.json", {paare:{}})]).then(([l, t]) => { H2HL = l || {paare:{}}; H2HTA = t || {paare:{}}; render(); }); }
+function h2hDuelle(a, b){
+  const [x, y] = [a, b].sort(), key = x + "|" + y, out = [];
+  const dat = (s) => new Date(`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T12:00:00Z`);
+  const add = (d, t, bel, r, siegerName, erg, quelle) => {
+    const dd = dat(d);
+    if(out.some(e => e.sieger === siegerName && Math.abs(e.d - dd) <= 15*864e5)) return;   // gleiches Duell aus zwei Quellen
+    out.push({d: dd, t, bel, r, sieger: siegerName, erg, quelle}); };
+  for(const e of ((H2HTA && H2HTA.paare[key]) || {}).duelle || []) add(e[0], e[1], e[2], e[3], e[4] ? y : x, e[5], "TA");
+  for(const e of (H2HL && H2HL.paare[key]) || []) add(e[0], e[1], e[2], e[3], e[4] ? y : x, e[5], "TML");
+  for(const v of Object.values(ARCHIV || {})){
+    if(!((v.a === a && v.b === b) || (v.a === b && v.b === a)) || !(v.sieger === "A" || v.sieger === "B")) continue;
+    const sieger = v.sieger === "A" ? v.a : v.b, st = (v.satz || []).map(([u, w]) => v.sieger === "A" ? `${u}-${w}` : `${w}-${u}`).join(" ");
+    add(String(v.start).slice(0,10).replace(/-/g, ""), v.turnier, (v.belag || "?")[0].toUpperCase(), v.runde || "", sieger, st + (v.aufgabe ? " RET" : ""), "Archiv"); }
+  return out.sort((p, q) => q.d - p.d);
+}
+const BEL_K = {H: "Hart", C: "Sand", G: "Rasen", P: "Teppich"};
+const RUNDE_K = (r) => ({F: "Finale", SF: "HF", QF: "VF", RR: "Gruppe"})[r] || String(r || "").replace(/^Round of (\d+)$/i, "R$1").replace(/^Quarterfinals?$/i, "VF").replace(/^Semifinals?$/i, "HF").replace(/^Final$/i, "Finale");
+function h2hBoxHtml(p){
+  if(p.calc) return "";
+  h2hLaden();
+  if(!H2HL) return `<div class="box"><h3>H2H-Duelle</h3><p class="time">lädt …</p></div>`;
+  const xs = h2hDuelle(p.a, p.b), wa = xs.filter(e => e.sieger === p.a).length, wb = xs.length - wa;
+  const api = (D.h2hApi || {})[`${p.a}|${p.b}`] || ((D.h2hApi || {})[`${p.b}|${p.a}`] || []).slice().reverse();
+  const gesamt = api && api.length && (api[0] + api[1]) > xs.length ? `<div class="time">Gesamtbilanz aller Stufen (SportsAPIPro): ${api[0]}:${api[1]} – nicht alle Duelle mit Details bekannt</div>` : "";
+  const zeile = (e) => `<tr><td class="l time">${e.d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"2-digit",timeZone:"UTC"})}</td><td class="l">${esc(e.t)}<div class="time">${BEL_K[e.bel] || ""}${e.r ? " · " + esc(RUNDE_K(e.r)) : ""}</div></td><td class="l"><b>${esc(e.sieger.split(" ").slice(-1)[0])}</b><div class="time erg">${esc(e.erg || "")}</div></td></tr>`;
+  if(!xs.length) return `<div class="box"><h3>H2H-Duelle</h3><p class="time">Keine Duelle mit Details bekannt.</p>${gesamt}</div>`;
+  const tab = (ys) => `<table class="h2ht"><tbody>${ys.map(zeile).join("")}</tbody></table>`;
+  return `<div class="box"><h3>H2H-Duelle <span class="time" style="text-transform:none;letter-spacing:0">${esc(p.a.split(" ").slice(-1)[0])} ${wa}:${wb} ${esc(p.b.split(" ").slice(-1)[0])}</span></h3>
+    ${tab(xs.slice(0, 5))}${xs.length > 5 ? `<details class="h2hmehr"><summary class="time">alle ${xs.length} Duelle zeigen</summary>${tab(xs.slice(5))}</details>` : ""}${gesamt}
+    <p class="time" style="margin:6px 0 0">Ergebnis aus Sicht des Siegers. Quellen: ATP-Ebene (TML-Database), letzte 12 Monate inkl. Challenger (Tennis Abstract), eigenes Archiv.</p></div>`;
+}
 function detailHtml(p, r){
   const ab = (a,b,f) => `<span class="v">${f(a)}</span><span class="v">${f(b)}</span>`;
   const s = r.saetze || {};
@@ -1603,6 +1640,7 @@ function detailHtml(p, r){
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
     <div class="box"><h3>Spieler-Check</h3>${spielerCheckHtml(p, r)}</div>
+    ${h2hBoxHtml(p)}
     ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
     ${p.calc?"":`<div class="box"><h3>Quoten</h3>${allBooks?`<div class="kv"><span></span><span class="h">Quote A / B</span><span class="h">Edge A / B</span>${allBooks}${r.pin?`<span class="k" title="Pinnacle gilt als schärfster Markt. Fair = ohne Marge. Edge = deine Quote gegen die faire Pinnacle-Quote.">Pinnacle (fair)</span><span class="v">${fx(r.pin.qa)} / ${fx(r.pin.qb)}<div class="time">${fx(r.pin.fairA)} / ${fx(r.pin.fairB)}</div></span><span class="v"><span class="${r.pin.edgeA>0?"pos":""}">${sg(r.pin.edgeA)}</span> / <span class="${r.pin.edgeB>0?"pos":""}">${sg(r.pin.edgeB)}</span></span>`:""}</div>`:""}${qvHtml(p, r)}
       ${quoteBox(p, r)}

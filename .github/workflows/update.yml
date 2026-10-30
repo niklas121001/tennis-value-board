@@ -145,6 +145,11 @@ jobs:
         working-directory: scripts
         run: python sportsapipro.py
 
+      - name: H2H-Duelle (Tennis Abstract, letzte 12 Monate)
+        continue-on-error: true
+        working-directory: scripts
+        run: python h2h_ta.py
+
       - name: Aufschlag-/Returnwerte fortschreiben
         continue-on-error: true
         working-directory: scripts
