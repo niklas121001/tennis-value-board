@@ -35,12 +35,28 @@ def laden(name):
 def zeilen(txt):
     """Alle gespielten Matches der Karriere (Array matchmx, alle Stufen inkl. Challenger/ITF):
     (Datum YYYYMMDD = Turnierbeginn, Turnier, Belag, Runde, gewonnen?, Gegner, Ergebnis aus Siegersicht, Gegnerhand)."""
-    m = re.search(r"var\s+matchmx\s*=\s*(\[\[.*?\]\])\s*;", txt or "", re.S)
+    m = re.search(r"var\s+matchmx\s*=\s*\[", txt or "")
     if not m:
         return []
+    # Ende des Arrays über Klammerzählung finden (Strings beachten), dann tolerant als JSON lesen
+    i, tiefe, im_str, esc_ = m.end() - 1, 0, False, False
+    for j in range(i, len(txt)):
+        c = txt[j]
+        if im_str:
+            if esc_: esc_ = False
+            elif c == "\\": esc_ = True
+            elif c == '"': im_str = False
+        elif c == '"': im_str = True
+        elif c == "[": tiefe += 1
+        elif c == "]":
+            tiefe -= 1
+            if tiefe == 0:
+                break
+    roh = re.sub(r",\s*\]", "]", txt[i:j + 1])
     try:
-        rows = json.loads(m.group(1))
-    except ValueError:
+        rows = json.loads(roh)
+    except ValueError as e:
+        print("  matchmx nicht lesbar:", str(e)[:120], roh[-120:].replace("\n", " "))
         return []
     out = []
     for r in rows:
