@@ -6,6 +6,8 @@ den Gegner herausgesucht. Je Spieler höchstens ein Abruf pro Tag, höchstens MA
 Ältere ATP-Duelle kommen aus h2h_liste.json (TML-Database), die neuesten aus dem eigenen Ergebnis-Archiv.
 NUR PRIVAT (Tennis Abstract: nicht-kommerziell).
 
+Zusätzlich "hb": {Name: {"datum", "ab": YYYYMM, "m": {"YYYYMM": [S gg. L, N gg. L, S gg. R, N gg. R]}}} – aktuelle
+Bilanz gegen Links-/Rechtshänder (Gegnerhand aus haende.json), wird auf der Website mit den älteren TML-Monaten kombiniert.
 Format: {"spieler": {Name: {"datum": "YYYY-MM-DD", "ok": bool}}, "paare": {"Name1|Name2" (alphabetisch):
          {"datum": ..., "duelle": [[YYYYMMDD, Turnier, Belag H/C/G/P, Runde, Sieger 0=Name1/1=Name2, Ergebnis], ...]}}}
 """
@@ -67,32 +69,53 @@ def main():
     jetzt = datetime.datetime.now(datetime.timezone.utc).isoformat()
     partien = [m for m in load("matches.json", {}).get("partien", [])
                if m.get("hatQuoten") and str(m.get("start", "")) > jetzt[:19] and m.get("aInDb") and m.get("bInDb")]
-    abrufe, neu = 0, 0
+    haende = (load("haende.json", {}) or {}).get("spieler", {})
+    hand = lambda n: (haende.get(n) or {}).get("h")
+    st.setdefault("hb", {})
+    seiten, abrufe, neu, n_hb = {}, 0, 0, 0
+
+    def seite(name):
+        """Zeilen der Tennis-Abstract-Seite (heute höchstens einmal laden); None, wenn nicht verfügbar."""
+        nonlocal abrufe, n_hb
+        if name in seiten:
+            return seiten[name]
+        if abrufe >= MAX_ABRUFE:
+            return None
+        time.sleep(1.5)
+        txt = laden(name)
+        abrufe += 1
+        ok = bool(txt and 'id="recent-results"' in txt)
+        st["spieler"][name] = {"datum": heute, "ok": ok}
+        z = [(d, t, b, r, gew, nm.match(geg), erg) for d, t, b, r, gew, geg, erg in zeilen(txt)] if ok else None
+        seiten[name] = z
+        if z:   # Bilanz gegen Links-/Rechtshänder je Monat (Gegnerhand aus haende.json)
+            m_ = {}
+            for d, _, _, _, gew, geg, _ in z:
+                h = hand(geg)
+                if h in ("L", "R"):
+                    v = m_.setdefault(d[:6], [0, 0, 0, 0])
+                    v[(0 if h == "L" else 2) + (0 if gew else 1)] += 1
+            st["hb"][name] = {"datum": heute, "ab": min(d[:6] for d, *_ in z), "m": m_}
+            n_hb += 1
+        return z
+
     for m in sorted(partien, key=lambda m: (m.get("kategorie") != "ATP", m.get("start"))):
         x, y = sorted([m["a"], m["b"]])
         key = f"{x}|{y}"
+        # Spieler gegen einen Linkshänder: dessen Seite für die aktuelle Bilanz gegen Linkshänder laden
+        for me, geg in ((m["a"], m["b"]), (m["b"], m["a"])):
+            if hand(geg) == "L" and (st["hb"].get(me) or {}).get("datum") != heute:
+                seite(me)
         if (st["paare"].get(key) or {}).get("datum") == heute:
             continue
-        # Spieler wählen, der heute schon geladen wurde – sonst den ersten mit funktionierender Seite
-        kand = sorted([m["a"], m["b"]], key=lambda n: (st["spieler"].get(n, {}).get("datum") != heute, not st["spieler"].get(n, {}).get("ok", True)))
+        kand = sorted([m["a"], m["b"]], key=lambda n: (n not in seiten, not st["spieler"].get(n, {}).get("ok", True)))
         duelle = None
         for me in kand:
-            if abrufe >= MAX_ABRUFE:
-                break
-            gegner = m["b"] if me == m["a"] else m["a"]
-            time.sleep(1.5)
-            txt = laden(me)
-            abrufe += 1
-            st["spieler"][me] = {"datum": heute, "ok": bool(txt and 'id="recent-results"' in txt)}
-            if not st["spieler"][me]["ok"]:
+            z = seite(me)
+            if not z:
                 continue
-            duelle = []
-            for d, t, b, r, gew, geg, erg in zeilen(txt):
-                if nm.match(geg) != gegner:
-                    continue
-                sieger_me = gew
-                sieger_ist_x = (me == x) == sieger_me
-                duelle.append([d, t, b, r, 0 if sieger_ist_x else 1, erg])
+            gegner = m["b"] if me == m["a"] else m["a"]
+            duelle = [[d, t, b, r, 0 if (me == x) == gew else 1, erg] for d, t, b, r, gew, geg, erg in z if geg == gegner]
             break
         if duelle is None:
             continue
@@ -102,7 +125,8 @@ def main():
     grenze = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
     st["spieler"] = {k: v for k, v in st["spieler"].items() if v.get("datum", "") >= grenze}
     save("h2h_ta.json", st, indent=0)
-    print(f"H2H Tennis Abstract: {neu} Paare aktualisiert, {abrufe} Seiten geladen, {len(st['paare'])} Paare gespeichert")
+    print(f"H2H Tennis Abstract: {neu} Paare aktualisiert, {abrufe} Seiten geladen, {len(st['paare'])} Paare gespeichert; "
+          f"Bilanz gegen Links-/Rechtshänder für {n_hb} Spieler aktualisiert ({len(st['hb'])} gespeichert)")
 
 
 if __name__ == "__main__":

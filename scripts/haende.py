@@ -6,6 +6,7 @@ Aufruf (manuell, die Schlaghand ändert sich nicht):  python scripts/haende.py /
 Je Spieler (Name wie in players.json):
   h        Schlaghand "R"/"L"
   vsL/vsR  [Siege, Niederlagen] gegen Links-/Rechtshänder ab BILANZ_AB
+  m        Monatswerte {"YYYYMM": [S gg. L, N gg. L, S gg. R, N gg. R]} (zum Zusammenführen mit neueren Quellen)
   srvL/srvR  Aufschlag/Return gegen Links-/Rechtshänder (Summen: svpt, in1, w1, w2, rpt, rw) – vorerst nur gesammelt
 """
 import csv, glob, json, os, sys
@@ -56,6 +57,9 @@ def main(pfad):
                 continue
             x = rec(me)
             x["vs" + geg_h][0 if gew else 1] += 1
+            mon = str(r.get("tourney_date", ""))[:6]           # Monatswerte: [S gg. L, N gg. L, S gg. R, N gg. R]
+            mm = x.setdefault("m", {}).setdefault(mon, [0, 0, 0, 0])
+            mm[(0 if geg_h == "L" else 2) + (0 if gew else 1)] += 1
             sv, i1, w1, w2 = (zahl(r.get(pre + k)) for k in ("svpt", "1stIn", "1stWon", "2ndWon"))
             gsv, gw1, gw2 = (zahl(r.get(gpre + k)) for k in ("svpt", "1stWon", "2ndWon"))
             if None not in (sv, i1, w1, w2) and sv and None not in (gsv, gw1, gw2) and gsv:
@@ -65,7 +69,8 @@ def main(pfad):
     for x in out.values():
         for k in ("srvL", "srvR"):
             x[k] = {a: int(b) for a, b in x[k].items()}
-    save("haende.json", {"quelle": "TML-Database (nur privat, keine kommerzielle Nutzung)", "bilanz_ab": BILANZ_AB, "spieler": out}, indent=0)
+    bis = max((m_ for x in out.values() for m_ in (x.get("m") or {})), default="")
+    save("haende.json", {"quelle": "TML-Database (nur privat, keine kommerzielle Nutzung)", "bilanz_ab": BILANZ_AB, "bis": bis, "spieler": out}, indent=0)
     n_l = sum(1 for x in out.values() if x["h"] == "L")
     print(f"Schlaghand: {sum(1 for x in out.values() if x['h'])} Spieler zugeordnet, davon {n_l} Linkshänder")
 

@@ -472,7 +472,7 @@ async function init(){
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
     j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {}), j("h2h_web.json", {}), j("h2h_api.json", {}), j("player_stats_web.json", {}), j("serve_live.json", {}), j("quoten_verlauf.json", {})]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
-  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], haende: ((await j("haende.json", {})) || {}).spieler || {}, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
+  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], haende: (HAENDE_ROH = (await j("haende.json", {})) || {}).spieler || {}, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   ERG = erg || {}; QV = qv || {};
   // Manuelle Spielerwerte sofort berücksichtigen (das nächste Update schreibt sie fest in players.json)
@@ -1376,11 +1376,21 @@ function gegnerBand(name, rolle, qGegner){
   return {name, rolle, band, s, n: s + l};
 }
 // Schlaghand (TML-Database, nur privat): "L"-Kennzeichen und Bilanz gegen Linkshänder
+let HAENDE_ROH = {};
+// Bilanz gegen Links-/Rechtshänder: ältere Monate aus TML (bis Jan. 2026), aktuelle ~12 Monate aus Tennis Abstract (h2h_ta.json)
+function handBilanz(name){
+  const x = (D.haende || {})[name] || {}, ta = H2HTA && H2HTA.hb ? H2HTA.hb[name] : null, L = [0,0], R = [0,0];
+  const add = (v) => { L[0] += v[0]; L[1] += v[1]; R[0] += v[2]; R[1] += v[3]; };
+  for(const [mon, v] of Object.entries(x.m || {})) if(mon >= "202301" && (!ta || mon < ta.ab)) add(v);
+  if(ta) for(const v of Object.values(ta.m || {})) add(v);
+  const tmlBis = HAENDE_ROH.bis ? `${HAENDE_ROH.bis.slice(4,6)}/${HAENDE_ROH.bis.slice(0,4)}` : "";
+  return {L, R, n: L[0]+L[1]+R[0]+R[1], stand: ta ? `aktuell (Tennis Abstract, ${ta.datum.split("-").reverse().join(".")})` : `nur bis ${tmlBis} (ältere Datenbank) – aktuelle Daten kommen, sobald der Spieler auf dem Board steht`};
+}
 const hand = (name) => ((D && D.haende || {})[name] || {}).h || null;
 const linksBadge = (name) => hand(name) === "L" ? `<span class="lh" title="Linkshänder">L</span>` : "";
 function handBilanzText(name, gegnerHand){
-  const x = (D.haende || {})[name]; if(!x) return "—";
-  const b = x["vs" + gegnerHand] || [0,0], n = b[0] + b[1], o = x[gegnerHand === "L" ? "vsR" : "vsL"] || [0,0], m = o[0] + o[1];
+  const hb = handBilanz(name); if(!hb.n) return "—";
+  const b = gegnerHand === "L" ? hb.L : hb.R, n = b[0] + b[1], o = gegnerHand === "L" ? hb.R : hb.L, m = o[0] + o[1];
   return n ? `${b[0]}–${b[1]} (${pc(b[0]/n,0)})${m ? ` <span class="time">· gg. ${gegnerHand==="L"?"Rechts":"Links"}: ${pc(o[0]/m,0)}</span>` : ""}` : "—";
 }
 const einUnitText = (z) => z && z.n ? `${z.w}–${z.n-z.w} · <span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> · ROI ${sg(z.roi)}` : "–";
@@ -1402,14 +1412,15 @@ function spielerCheckHtml(p, r){
       add(x.name, `bei Gegnerquote ${bandTxt(x.band)}`, x.n ? `${x.s}–${x.n-x.s} <span class="time">${pc(x.s/x.n,0)}</span>` : "—");
   }
   if(!p.calc) for(const [me, g] of [[p.a, p.b], [p.b, p.a]]) if(hand(g) === "L"){
-    const x = (D.haende || {})[me], b = x && x.vsL || [0,0], o = x && x.vsR || [0,0], n = b[0]+b[1], m = o[0]+o[1];
-    add(me, `gegen Linkshänder <span class="lh" title="Linkshänder">L</span>`, n ? `${b[0]}–${b[1]} <span class="time">${pc(b[0]/n,0)}</span>` : "—", "Seit 2023, ATP-Ebene" + (m ? ` · gegen Rechtshänder ${o[0]}–${o[1]} (${pc(o[0]/m,0)})` : ""));
+    const hb = handBilanz(me), b = hb.L, o = hb.R, n = b[0]+b[1], m = o[0]+o[1];
+    add(me, `gegen Linkshänder <span class="lh" title="Linkshänder">L</span>`, n ? `${b[0]}–${b[1]} <span class="time">${pc(b[0]/n,0)}</span>` : "—", `Seit 2023 · Stand ${hb.stand}` + (m ? ` · gegen Rechtshänder ${o[0]}–${o[1]} (${pc(o[0]/m,0)})` : ""));
   }
   if(!p.calc && ARCHIV) for(const n of [p.a, p.b]){ const z = (einUnit(n)||{}).alle;
     add(n, "1 U auf Sieg (Archiv)", z && z.n ? `<span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> <span class="time">${z.w}–${z.n-z.w}</span>` : "—", "Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote." + (z && z.n ? ` ROI ${sg(z.roi)}` : "")); }
   return reihe.map(n => `<div class="scblock"><div class="scname">${esc(n)}${linksBadge(n)}${n === reihe[0] && r.qa !== r.qb ? ` <span class="time">Favorit</span>` : ""}</div><div class="kv two">${zeilen[n].join("") || `<span class="k">keine Daten</span><span class="v">—</span>`}</div></div>`).join("");
 }
 async function openProfil(name, ctx){
+  try{ await h2hLaden(); }catch(_){}
   const dlg = $("#profil"), pl = D.players[name] || {}, live = (D.serveLive||{})[name] || {};
   const gesch = pl.geschaetzt ? ` <span class="gesch" title="Elo geschätzt">≈</span>` : "";
   const elo = (k) => pl[k] ? fx(pl[k],0) : "–";
@@ -1435,8 +1446,8 @@ async function openProfil(name, ctx){
       <div class="box"><h3>Als Favorit / Außenseiter</h3><div class="kv two">
         <span class="k">als Favorit</span><span class="v">${fav.n?`${fav.s}–${fav.n-fav.s} (${pc(fav.pct,0)})`:"–"}</span>
         <span class="k">als Außenseiter</span><span class="v">${aus.n?`${aus.s}–${aus.n-aus.s} (${pc(aus.pct,0)})`:"–"}</span>
-        ${hand(name) ? `<span class="k">Schlaghand</span><span class="v">${hand(name)==="L"?"Links":"Rechts"}</span>
-        <span class="k">gegen Linkshänder <span class="time">(seit 2023)</span></span><span class="v">${handBilanzText(name, "L")}</span>` : ""}</div>
+        ${hand(name) ? `<span class="k">Schlaghand</span><span class="v">${hand(name)==="L"?"Links":"Rechts"}</span>` : ""}
+        ${hand(name) || handBilanz(name).n ? `<span class="k" title="Stand ${esc(handBilanz(name).stand)}">gegen Linkshänder <span class="time">(seit 2023)</span></span><span class="v">${handBilanzText(name, "L")}</span>` : ""}</div>
         ${ARCHIV?(() => { const z = saetzeBilanz(name); if(!z || !z.n) return "";
           const gs = z.bo5 > 0 || (ctx && ctx.r && ctx.r.modus===5);
           const zl = (t, w) => w ? `<span class="k">${t}</span><span class="v">${w}${z.n?` <small>(${pc(w/z.n,0)})</small>`:""}</span>` : "";
@@ -1573,9 +1584,9 @@ function qvHtml(p, r){
 
 // H2H-Duelle mit Ergebnis: TML-Database (ATP-Ebene, ältere), Tennis Abstract (letzte ~12 Monate inkl. Challenger),
 // eigenes Archiv (neueste). Dateien werden erst beim Öffnen einer Partie geladen.
-let H2HL = null, H2HTA = null, H2H_LAEDT = false;
-function h2hLaden(){ if(H2HL || H2H_LAEDT) return; H2H_LAEDT = true;
-  Promise.all([j("h2h_liste.json", {paare:{}}), j("h2h_ta.json", {paare:{}})]).then(([l, t]) => { H2HL = l || {paare:{}}; H2HTA = t || {paare:{}}; render(); }); }
+let H2HL = null, H2HTA = null, H2H_P = null;
+function h2hLaden(){ if(H2H_P) return H2H_P;
+  return H2H_P = Promise.all([j("h2h_liste.json", {paare:{}}), j("h2h_ta.json", {paare:{}})]).then(([l, t]) => { H2HL = l || {paare:{}}; H2HTA = t || {paare:{}}; render(); }); }
 function h2hDuelle(a, b){
   const [x, y] = [a, b].sort(), key = x + "|" + y, out = [];
   const dat = (s) => new Date(`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T12:00:00Z`);
