@@ -10230,7 +10230,7 @@
 "17377370": {
 "id": 17377370,
 "start": "2026-10-31T06:50:00Z",
-"min": null,
+"min": 147,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -10241,14 +10241,22 @@
 "aId": 204329,
 "hL": "RU",
 "aL": "TW",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Semifinals",
 "satz": [
 [
+7,
+5
+],
+[
 1,
-1
+6
+],
+[
+6,
+4
 ]
 ]
 },
@@ -10283,7 +10291,7 @@
 },
 "17377367": {
 "id": 17377367,
-"start": "2026-10-31T08:00:00Z",
+"start": "2026-10-31T09:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
@@ -10295,11 +10303,16 @@
 "aId": 47764,
 "hL": "RU",
 "aL": "GB",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+5,
+4
+]
+]
 },
 "17377341": {
 "id": 17377341,
@@ -10415,11 +10428,16 @@
 "aId": 237452,
 "hL": "PT",
 "aL": "AU",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+4
+]
+]
 },
 "17449707": {
 "id": 17449707,
@@ -10435,11 +10453,16 @@
 "aId": 294337,
 "hL": "ES",
 "aL": "IT",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+4
+]
+]
 },
 "17449708": {
 "id": 17449708,
@@ -10455,11 +10478,16 @@
 "aId": 298247,
 "hL": "AR",
 "aL": "US",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+3
+]
+]
 },
 "17449698": {
 "id": 17449698,
@@ -11139,6 +11167,26 @@
 "desc": "Not started",
 "w": null,
 "runde": "Round of 64",
+"satz": []
+},
+"17377372": {
+"id": 17377372,
+"start": "2026-11-01T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ningbo, China",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "WSF1",
+"a": "Yaroslav Demin",
+"hId": 393304,
+"aId": 371863,
+"hL": null,
+"aL": "RU",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Final",
 "satz": []
 }
 }
