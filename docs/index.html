@@ -1098,6 +1098,8 @@ function signalUebersichtHtml(bm, art){
   const ok = (x) => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x));
   const gruppen = [
     ["⚡ Außenseiter-Signal", Object.values(VAR.ass||{})],
+    ["⚡ Außenseiter ohne Modell-Bedingung (Test seit 31.10.)", Object.values(VAR.sig||{}).filter(x => x.typ==="aussenOhne")],
+    ["&nbsp;&nbsp;↳ davon Modell dagegen (kein echtes Außenseiter-Signal)", Object.values(VAR.sig||{}).filter(x => x.typ==="aussenOhne" && !x.modellDafuer)],
     ["📊 Bilanz-Signal", Object.values(VAR.bil||{})],
     ["📉 Quotensturz (Tipp auf den Spieler mit fallender Quote)", Object.values(VAR.sig||{}).filter(x => x.typ==="sturz")],
     ["📌 Pinnacle-Value (Quote über fairer Pinnacle-Quote)", Object.values(VAR.sig||{}).filter(x => x.typ==="pinnacle")],

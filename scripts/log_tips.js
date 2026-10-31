@@ -157,7 +157,7 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       if ((m.pausiert || []).includes(bm)) continue;
       const basis = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b, buchmacher: bm };
       // laufende Signale: letzte Quote mitschreiben (CLV)
-      for (const typ of ["sturz", "comeback", "tagesziel", "pinnacle"]) {
+      for (const typ of ["sturz", "comeback", "tagesziel", "pinnacle", "aussenOhne"]) {
         const e = slog[`${typ}|${m.id}|${bm}`];
         if (e) { e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start;
           if (m.pinnacle) e.pinLetzt = e.wette === "A" ? m.pinnacle[0] : m.pinnacle[1]; }
@@ -191,6 +191,19 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       // Einsatz für 1 U Gewinn <= 3 U. Getrackt mit dem Einsatz für 1 U Gewinn (= 1 / (Quote − 1)).
       {
         const rr = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb }, D);
+        // Außenseiter-Signal OHNE Modell-Bedingung (Test seit 31.10.2026): nur die Spieler-Bilanzen
+        // (Favorit als Favorit < 65 %, Außenseiter als Außenseiter > 40 %, je mind. 7 Spiele) – egal, wie das Modell den Außenseiter sieht
+        if (rr.ok && rr.favCheck && rr.ausCheck && qa !== qb) {
+          const fc = rr.favCheck, ac = rr.ausCheck, minN = P.params.AUSSENSEITER_MIN_N || 7;
+          if (fc.n >= minN && fc.pct != null && fc.pct < (P.params.AUSSENSEITER_FAV_MAX || 0.65) &&
+              ac.n >= minN && ac.pct != null && ac.pct > (P.params.AUSSENSEITER_AUS_MIN || 0.4)) {
+            const seite = qa > qb ? "A" : "B", q = seite === "A" ? qa : qb;
+            const pm = rr.pMarkt != null ? (seite === "A" ? rr.pMarkt : 1 - rr.pMarkt) : null, pmod = seite === "A" ? rr.pFinal : 1 - rr.pFinal;
+            neuSignal(`aussenOhne|${m.id}|${bm}`, Object.assign({ typ: "aussenOhne", wette: seite, erstQuote: q, letzteQuote: q,
+              favPct: r3(fc.pct), favN: fc.n, ausPct: r3(ac.pct), ausN: ac.n, pModell: r3(pmod), pMarkt: pm != null ? r3(pm) : null,
+              modellDafuer: pm != null && pmod > pm }, basis));
+          }
+        }
         if (rr.ok && rr.pMarkt != null && rr.pFinal != null) for (const seite of ["A", "B"]) {
           const q = seite === "A" ? qa : qb, pz = seite === "A" ? (rr.pFinal + rr.pMarkt) / 2 : 1 - (rr.pFinal + rr.pMarkt) / 2;
           if (q > 1 && pz >= 0.7 && 1 / (q - 1) <= 3)
