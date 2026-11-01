@@ -10158,7 +10158,7 @@
 },
 "17449513": {
 "id": 17449513,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10178,7 +10178,7 @@
 },
 "17449515": {
 "id": 17449515,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-02T11:10:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10218,7 +10218,7 @@
 },
 "17449521": {
 "id": 17449521,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10238,7 +10238,7 @@
 },
 "17449519": {
 "id": 17449519,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10258,7 +10258,7 @@
 },
 "17449508": {
 "id": 17449508,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10278,7 +10278,7 @@
 },
 "17449520": {
 "id": 17449520,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-02T12:20:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10298,7 +10298,7 @@
 },
 "17449517": {
 "id": 17449517,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-02T12:20:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10318,7 +10318,7 @@
 },
 "17449512": {
 "id": 17449512,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-02T18:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10378,7 +10378,7 @@
 },
 "17449524": {
 "id": 17449524,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-02T11:10:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10398,7 +10398,7 @@
 },
 "17449522": {
 "id": 17449522,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10418,7 +10418,7 @@
 },
 "17449516": {
 "id": 17449516,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10438,7 +10438,7 @@
 },
 "17449523": {
 "id": 17449523,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10478,7 +10478,7 @@
 },
 "17449507": {
 "id": 17449507,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-02T19:30:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -10531,7 +10531,7 @@
 },
 "17453373": {
 "id": 17453373,
-"start": "2026-11-02T10:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France",
@@ -11273,7 +11273,7 @@
 "17455622": {
 "id": 17455622,
 "start": "2026-11-01T13:30:00Z",
-"min": null,
+"min": 141,
 "kat": "ATP",
 "turnier": "Paris, France, Qualifying",
 "belag": "hard",
@@ -11284,21 +11284,29 @@
 "aId": 104847,
 "hL": "PY",
 "aL": "IT",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
 "satz": [
 [
-2,
-1
+3,
+6
+],
+[
+6,
+4
+],
+[
+6,
+7
 ]
 ]
 },
 "17377322": {
 "id": 17377322,
 "start": "2026-11-01T13:00:00Z",
-"min": null,
+"min": 88,
 "kat": "ATP",
 "turnier": "Vienna, Austria",
 "belag": "hard",
@@ -11309,21 +11317,25 @@
 "aId": 275923,
 "hL": "AU",
 "aL": "ES",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Final",
 "satz": [
 [
 1,
-5
+6
+],
+[
+4,
+6
 ]
 ]
 },
 "17455372": {
 "id": 17455372,
 "start": "2026-11-01T13:50:00Z",
-"min": null,
+"min": 86,
 "kat": "ATP",
 "turnier": "Paris, France, Qualifying",
 "belag": "hard",
@@ -11334,11 +11346,20 @@
 "aId": 145130,
 "hL": "PT",
 "aL": "SK",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+7
+],
+[
+2,
+6
+]
+]
 },
 "17455205": {
 "id": 17455205,
@@ -11487,7 +11508,7 @@
 "17455206": {
 "id": 17455206,
 "start": "2026-11-01T12:50:00Z",
-"min": null,
+"min": 90,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
 "belag": "hard",
@@ -11498,9 +11519,9 @@
 "aId": 202572,
 "hL": "CZ",
 "aL": "CZ",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -11508,15 +11529,15 @@
 5
 ],
 [
-0,
-0
+7,
+5
 ]
 ]
 },
 "17455201": {
 "id": 17455201,
 "start": "2026-11-01T13:35:00Z",
-"min": null,
+"min": 60,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
 "belag": "hard",
@@ -11527,21 +11548,25 @@
 "aId": 460257,
 "hL": "FR",
 "aL": "FR",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
-1,
-1
+6,
+4
+],
+[
+6,
+4
 ]
 ]
 },
 "17455204": {
 "id": 17455204,
-"start": "2026-11-01T13:30:00Z",
-"min": null,
+"start": "2026-11-01T14:35:00Z",
+"min": 88,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
 "belag": "hard",
@@ -11552,16 +11577,29 @@
 "aId": 355096,
 "hL": "CZ",
 "aL": "AT",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+0
+],
+[
+1,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17455984": {
 "id": 17455984,
 "start": "2026-11-01T13:10:00Z",
-"min": null,
+"min": 144,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11572,21 +11610,29 @@
 "aId": 478027,
 "hL": "AR",
 "aL": "JP",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
 2,
-5
+6
+],
+[
+6,
+3
+],
+[
+3,
+6
 ]
 ]
 },
 "17455989": {
 "id": 17455989,
 "start": "2026-11-01T13:05:00Z",
-"min": null,
+"min": 70,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11597,9 +11643,9 @@
 "aId": 206594,
 "hL": "AR",
 "aL": "UY",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -11607,15 +11653,15 @@
 6
 ],
 [
-0,
-2
+2,
+6
 ]
 ]
 },
 "17455988": {
 "id": 17455988,
 "start": "2026-11-01T13:05:00Z",
-"min": null,
+"min": 72,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11626,9 +11672,9 @@
 "aId": 371422,
 "hL": "AR",
 "aL": "AR",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -11636,15 +11682,15 @@
 4
 ],
 [
-0,
-0
+6,
+3
 ]
 ]
 },
 "17455200": {
 "id": 17455200,
-"start": "2026-11-01T14:40:00Z",
-"min": null,
+"start": "2026-11-01T14:55:00Z",
+"min": 95,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
 "belag": "hard",
@@ -11655,16 +11701,25 @@
 "aId": 353705,
 "hL": "SK",
 "aL": "CZ",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+7
+],
+[
+3,
+6
+]
+]
 },
 "17455197": {
 "id": 17455197,
-"start": "2026-11-01T14:40:00Z",
-"min": null,
+"start": "2026-11-01T16:15:00Z",
+"min": 75,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
 "belag": "hard",
@@ -11675,16 +11730,25 @@
 "aId": 111857,
 "hL": "SK",
 "aL": "UA",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17377343": {
 "id": 17377343,
 "start": "2026-11-01T14:00:00Z",
-"min": null,
+"min": 138,
 "kat": "Challenger",
 "turnier": "Brest, France",
 "belag": "hard",
@@ -11695,16 +11759,29 @@
 "aId": 51345,
 "hL": "FR",
 "aL": "US",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Final",
-"satz": []
+"satz": [
+[
+5,
+5
+],
+[
+6,
+7
+],
+[
+7,
+6
+]
+]
 },
 "17455985": {
 "id": 17455985,
-"start": "2026-11-01T14:10:00Z",
-"min": null,
+"start": "2026-11-01T14:30:00Z",
+"min": 56,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11715,16 +11792,25 @@
 "aId": 118040,
 "hL": "AR",
 "aL": "RU",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+1,
+0
+]
+]
 },
 "17455983": {
 "id": 17455983,
-"start": "2026-11-01T14:10:00Z",
-"min": null,
+"start": "2026-11-01T14:30:00Z",
+"min": 45,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11735,16 +11821,25 @@
 "aId": 481909,
 "hL": "AR",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+6,
+0
+]
+]
 },
 "17455992": {
 "id": 17455992,
-"start": "2026-11-01T14:10:00Z",
-"min": null,
+"start": "2026-11-01T15:50:00Z",
+"min": 76,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11755,16 +11850,25 @@
 "aId": 1216692,
 "hL": "AR",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+3
+]
+]
 },
 "17377323": {
 "id": 17377323,
 "start": "2026-11-01T14:30:00Z",
-"min": null,
+"min": 114,
 "kat": "ATP",
 "turnier": "Basel, Switzerland",
 "belag": "hard",
@@ -11775,16 +11879,29 @@
 "aId": 158912,
 "hL": "CZ",
 "aL": "MC",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Final",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+3,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17455208": {
 "id": 17455208,
-"start": "2026-11-01T15:50:00Z",
-"min": null,
+"start": "2026-11-01T16:45:00Z",
+"min": 90,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
 "belag": "hard",
@@ -11795,15 +11912,28 @@
 "aId": 165234,
 "hL": "SK",
 "aL": "FI",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+6,
+2
+],
+[
+3,
+6
+]
+]
 },
 "17455198": {
 "id": 17455198,
-"start": "2026-11-01T15:50:00Z",
+"start": "2026-11-01T17:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11815,11 +11945,24 @@
 "aId": 233060,
 "hL": "CZ",
 "aL": "US",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+5,
+7
+],
+[
+1,
+2
+]
+]
 },
 "17456257": {
 "id": 17456257,
@@ -11835,16 +11978,16 @@
 "aId": 400534,
 "hL": "GB",
 "aL": "CO",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Qualification Round 1",
 "satz": []
 },
 "17456253": {
 "id": 17456253,
-"start": "2026-11-01T15:00:00Z",
-"min": null,
+"start": "2026-11-01T15:10:00Z",
+"min": 112,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
 "belag": "hard",
@@ -11855,16 +11998,29 @@
 "aId": 263674,
 "hL": "US",
 "aL": "CA",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+2,
+6
+],
+[
+0,
+6
+]
+]
 },
 "17455991": {
 "id": 17455991,
-"start": "2026-11-01T15:20:00Z",
-"min": null,
+"start": "2026-11-01T15:35:00Z",
+"min": 93,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11875,16 +12031,25 @@
 "aId": 391778,
 "hL": "PE",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17455986": {
 "id": 17455986,
-"start": "2026-11-01T15:20:00Z",
-"min": null,
+"start": "2026-11-01T16:00:00Z",
+"min": 101,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11895,16 +12060,25 @@
 "aId": 519114,
 "hL": "AR",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+6,
+2
+]
+]
 },
 "17456006": {
 "id": 17456006,
-"start": "2026-11-01T15:20:00Z",
-"min": null,
+"start": "2026-11-01T17:15:00Z",
+"min": 95,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11915,15 +12089,24 @@
 "aId": 265808,
 "hL": "BR",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+3
+]
+]
 },
 "17377245": {
 "id": 17377245,
-"start": "2026-11-01T17:00:00Z",
+"start": "2026-11-01T17:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Guayaquil, Ecuador",
@@ -11943,8 +12126,8 @@
 },
 "17456254": {
 "id": 17456254,
-"start": "2026-11-01T16:10:00Z",
-"min": null,
+"start": "2026-11-01T16:05:00Z",
+"min": 98,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
 "belag": "hard",
@@ -11955,16 +12138,25 @@
 "aId": 233657,
 "hL": "US",
 "aL": "AU",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+7,
+6
+]
+]
 },
 "17456251": {
 "id": 17456251,
-"start": "2026-11-01T16:10:00Z",
-"min": null,
+"start": "2026-11-01T17:25:00Z",
+"min": 80,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
 "belag": "hard",
@@ -11975,16 +12167,25 @@
 "aId": 141882,
 "hL": "JP",
 "aL": "FR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+6,
+2
+]
+]
 },
 "17455990": {
 "id": 17455990,
-"start": "2026-11-01T16:30:00Z",
-"min": null,
+"start": "2026-11-01T17:25:00Z",
+"min": 79,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
 "belag": "clay",
@@ -11995,15 +12196,24 @@
 "aId": 284076,
 "hL": "AR",
 "aL": "BR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17455982": {
 "id": 17455982,
-"start": "2026-11-01T16:30:00Z",
+"start": "2026-11-01T17:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
@@ -12015,15 +12225,20 @@
 "aId": 221015,
 "hL": "AR",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+4,
+3
+]
+]
 },
 "17455987": {
 "id": 17455987,
-"start": "2026-11-01T16:30:00Z",
+"start": "2026-11-01T19:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina, Qualifying",
@@ -12043,7 +12258,7 @@
 },
 "17456250": {
 "id": 17456250,
-"start": "2026-11-01T17:20:00Z",
+"start": "2026-11-01T18:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
@@ -12055,11 +12270,16 @@
 "aId": 335630,
 "hL": "KR",
 "aL": "US",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+0,
+2
+]
+]
 },
 "17456256": {
 "id": 17456256,
@@ -12083,7 +12303,7 @@
 },
 "17456248": {
 "id": 17456248,
-"start": "2026-11-01T18:30:00Z",
+"start": "2026-11-01T20:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
@@ -12103,7 +12323,7 @@
 },
 "17456249": {
 "id": 17456249,
-"start": "2026-11-01T18:30:00Z",
+"start": "2026-11-01T19:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
@@ -12135,11 +12355,16 @@
 "aId": 223513,
 "hL": "CH",
 "aL": "CA",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Final",
-"satz": []
+"satz": [
+[
+1,
+1
+]
+]
 },
 "17456110": {
 "id": 17456110,
@@ -12203,7 +12428,7 @@
 },
 "17456259": {
 "id": 17456259,
-"start": "2026-11-01T19:40:00Z",
+"start": "2026-11-01T21:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
@@ -12223,7 +12448,7 @@
 },
 "17456252": {
 "id": 17456252,
-"start": "2026-11-01T19:40:00Z",
+"start": "2026-11-01T20:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
@@ -12283,7 +12508,7 @@
 },
 "17456258": {
 "id": 17456258,
-"start": "2026-11-01T20:50:00Z",
+"start": "2026-11-01T21:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
@@ -12303,7 +12528,7 @@
 },
 "17456255": {
 "id": 17456255,
-"start": "2026-11-01T20:50:00Z",
+"start": "2026-11-01T22:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Charlottesville, USA, Qualifying",
@@ -12423,7 +12648,7 @@
 },
 "17455489": {
 "id": 17455489,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T16:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12443,7 +12668,7 @@
 },
 "17455492": {
 "id": 17455492,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12483,7 +12708,7 @@
 },
 "17455488": {
 "id": 17455488,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12503,7 +12728,7 @@
 },
 "17455493": {
 "id": 17455493,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12523,7 +12748,7 @@
 },
 "17455496": {
 "id": 17455496,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12543,7 +12768,7 @@
 },
 "17455487": {
 "id": 17455487,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12563,7 +12788,7 @@
 },
 "17455494": {
 "id": 17455494,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12583,7 +12808,7 @@
 },
 "17455491": {
 "id": 17455491,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12603,7 +12828,7 @@
 },
 "17455490": {
 "id": 17455490,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -12643,7 +12868,7 @@
 },
 "17456574": {
 "id": 17456574,
-"start": "2026-11-02T13:00:00Z",
+"start": "2026-11-02T17:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina",
@@ -12663,7 +12888,7 @@
 },
 "17456576": {
 "id": 17456576,
-"start": "2026-11-02T13:00:00Z",
+"start": "2026-11-02T22:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina",
@@ -12743,7 +12968,7 @@
 },
 "17456577": {
 "id": 17456577,
-"start": "2026-11-02T13:00:00Z",
+"start": "2026-11-02T18:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Villa Maria, Argentina",
@@ -12823,7 +13048,7 @@
 },
 "17455683": {
 "id": 17455683,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12843,7 +13068,7 @@
 },
 "17455687": {
 "id": 17455687,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12863,7 +13088,7 @@
 },
 "17455678": {
 "id": 17455678,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12883,7 +13108,7 @@
 },
 "17455689": {
 "id": 17455689,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12903,7 +13128,7 @@
 },
 "17455684": {
 "id": 17455684,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12923,7 +13148,7 @@
 },
 "17455681": {
 "id": 17455681,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12943,7 +13168,7 @@
 },
 "17455667": {
 "id": 17455667,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12963,7 +13188,7 @@
 },
 "17455673": {
 "id": 17455673,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -12983,7 +13208,7 @@
 },
 "17455688": {
 "id": 17455688,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -13003,7 +13228,7 @@
 },
 "17455686": {
 "id": 17455686,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -13023,7 +13248,7 @@
 },
 "17455685": {
 "id": 17455685,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-03T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -13423,7 +13648,7 @@
 },
 "17456586": {
 "id": 17456586,
-"start": "2026-11-02T19:00:00Z",
+"start": "2026-11-02T20:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Costa do Sauipe, Brazil",
@@ -13492,7 +13717,7 @@
 },
 "17457727": {
 "id": 17457727,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -13532,7 +13757,7 @@
 },
 "17466793": {
 "id": 17466793,
-"start": "2026-11-02T04:20:00Z",
+"start": "2026-11-02T04:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
@@ -13552,7 +13777,7 @@
 },
 "17465132": {
 "id": 17465132,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -13573,7 +13798,7 @@
 "17455093": {
 "id": 17455093,
 "start": "2026-11-01T12:15:00Z",
-"min": null,
+"min": 141,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -13584,9 +13809,9 @@
 "aId": 41473,
 "hL": "IT",
 "aL": "FR",
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -13598,15 +13823,15 @@
 4
 ],
 [
-0,
-1
+7,
+6
 ]
 ]
 },
 "17455092": {
 "id": 17455092,
 "start": "2026-11-01T12:35:00Z",
-"min": null,
+"min": 170,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -13617,9 +13842,9 @@
 "aId": 207077,
 "hL": "IT",
 "aL": "SE",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -13627,15 +13852,19 @@
 6
 ],
 [
-2,
-2
+6,
+4
+],
+[
+7,
+6
 ]
 ]
 },
 "17455091": {
 "id": 17455091,
 "start": "2026-11-01T12:55:00Z",
-"min": null,
+"min": 73,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -13646,9 +13875,9 @@
 "aId": 91240,
 "hL": "RO",
 "aL": "GB",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -13656,15 +13885,15 @@
 6
 ],
 [
-0,
-1
+2,
+6
 ]
 ]
 },
 "17459839": {
 "id": 17459839,
 "start": "2026-11-01T13:15:00Z",
-"min": null,
+"min": 90,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -13675,14 +13904,18 @@
 "aId": 153826,
 "hL": "GB",
 "aL": "TN",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
-5,
+6,
 3
+],
+[
+6,
+4
 ]
 ]
 },
@@ -13764,6 +13997,380 @@
 "desc": "Not started",
 "w": null,
 "runde": "Qualification Final",
+"satz": []
+},
+"17467907": {
+"id": 17467907,
+"start": "2026-11-01T15:00:00Z",
+"min": 31,
+"kat": "Challenger",
+"turnier": "Charlottesville, USA, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Jeffrey von der Schulenburg",
+"a": "Samuel Heredia",
+"hId": 339444,
+"aId": 400534,
+"hL": "CH",
+"aL": "CO",
+"st": "finished",
+"desc": "Retired",
+"w": 2,
+"runde": "Qualification Round 1",
+"satz": [
+[
+4,
+4
+]
+]
+},
+"17467905": {
+"id": 17467905,
+"start": "2026-11-01T18:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Charlottesville, USA, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Oliver Okonkwo",
+"a": "James Trotter",
+"hId": 323272,
+"aId": 255993,
+"hL": "GB",
+"aL": "JP",
+"st": "inprogress",
+"desc": "2nd set",
+"w": null,
+"runde": "Qualification Round 1",
+"satz": [
+[
+4,
+6
+],
+[
+2,
+2
+]
+]
+},
+"17468328": {
+"id": 17468328,
+"start": "2026-11-02T10:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Luciano Darderi",
+"a": "Rinky Hijikata",
+"hId": 308084,
+"aId": 237452,
+"hL": "IT",
+"aL": "AU",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17467804": {
+"id": 17467804,
+"start": "2026-11-02T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Bratislava 2, Slovakia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Lucas Poullain",
+"a": "Yannik Kelm",
+"hId": 135778,
+"aId": 391081,
+"hL": "FR",
+"aL": "DE",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468525": {
+"id": 17468525,
+"start": "2026-11-02T11:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Bratislava 2, Slovakia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Giovanni Mpetshi Perricard",
+"a": "Sebastian Sorger",
+"hId": 289146,
+"aId": 355096,
+"hL": "FR",
+"aL": "AT",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468169": {
+"id": 17468169,
+"start": "2026-11-02T11:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Bratislava 2, Slovakia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Max Houkes",
+"a": "Michael Vrbensky",
+"hId": 277179,
+"aId": 235930,
+"hL": "NL",
+"aL": "CZ",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468324": {
+"id": 17468324,
+"start": "2026-11-02T12:20:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Casper Ruud",
+"a": "Juan Manuel Cerundolo",
+"hId": 119248,
+"aId": 248861,
+"hL": "NO",
+"aL": "AR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17468969": {
+"id": 17468969,
+"start": "2026-11-02T12:20:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Bratislava 2, Slovakia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Eero Vasa",
+"a": "Vadym Ursu",
+"hId": 165234,
+"aId": 111857,
+"hL": "FI",
+"aL": "UA",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468170": {
+"id": 17468170,
+"start": "2026-11-02T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Villa Maria, Argentina, Qualifying",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Lorenzo Gagliardo",
+"a": "Ian Luca Vertberger",
+"hId": 255413,
+"aId": 519382,
+"hL": "AR",
+"aL": "AR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468569": {
+"id": 17468569,
+"start": "2026-11-02T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Villa Maria, Argentina, Qualifying",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Santiago De la Fuente",
+"a": "Ryo Tabata",
+"hId": 286518,
+"aId": 478027,
+"hL": "AR",
+"aL": "JP",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17467964": {
+"id": 17467964,
+"start": "2026-11-02T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Villa Maria, Argentina, Qualifying",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Tomas Farjat",
+"a": "Federico Aguilar Cardozo",
+"hId": 270414,
+"aId": 206594,
+"hL": "AR",
+"aL": "UY",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468326": {
+"id": 17468326,
+"start": "2026-11-02T13:30:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Mattia Bellucci",
+"a": "Lorenzo Sonego",
+"hId": 294337,
+"aId": 104847,
+"hL": "IT",
+"aL": "IT",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17468150": {
+"id": 17468150,
+"start": "2026-11-02T10:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taranto, Italy, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Jacopo Vasamì",
+"a": "Matteo Sciahbasi",
+"hId": 853634,
+"aId": 487983,
+"hL": "IT",
+"aL": "IT",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468049": {
+"id": 17468049,
+"start": "2026-11-02T10:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taranto, Italy, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Ryan Peniston",
+"a": "Marcus Walters",
+"hId": 91240,
+"aId": 135828,
+"hL": "GB",
+"aL": "GB",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468327": {
+"id": 17468327,
+"start": "2026-11-02T14:30:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Kyrian Jacquet",
+"a": "Tomaš Machač",
+"hId": 267577,
+"aId": 238300,
+"hL": "FR",
+"aL": "CZ",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17468584": {
+"id": 17468584,
+"start": "2026-11-02T15:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Charlottesville, USA, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Samuel Heredia",
+"a": "Justin Boulais",
+"hId": 400534,
+"aId": 263674,
+"hL": "CO",
+"aL": "CA",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17468323": {
+"id": 17468323,
+"start": "2026-11-02T15:40:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Alex Molčan",
+"a": "Titouan Droguet",
+"hId": 145130,
+"aId": 243925,
+"hL": "SK",
+"aL": "FR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17468325": {
+"id": 17468325,
+"start": "2026-11-03T10:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Benjamin Bonzi",
+"a": "Taylor Fritz",
+"hId": 94485,
+"aId": 136042,
+"hL": "FR",
+"aL": "US",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
 "satz": []
 }
 }
