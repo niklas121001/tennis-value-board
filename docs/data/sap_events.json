@@ -10126,7 +10126,7 @@
 "17377332": {
 "id": 17377332,
 "start": "2026-11-01T07:45:00Z",
-"min": null,
+"min": 125,
 "kat": "Challenger",
 "turnier": "Seoul, Korea Republic",
 "belag": "hard",
@@ -10137,11 +10137,24 @@
 "aId": 289106,
 "hL": "FR",
 "aL": "HK",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Final",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+3,
+6
+],
+[
+7,
+6
+]
+]
 },
 "17449513": {
 "id": 17449513,
@@ -10486,7 +10499,7 @@
 "17377372": {
 "id": 17377372,
 "start": "2026-11-01T06:00:00Z",
-"min": null,
+"min": 156,
 "kat": "Challenger",
 "turnier": "Ningbo, China",
 "belag": "hard",
@@ -10497,9 +10510,9 @@
 "aId": 371863,
 "hL": "RU",
 "aL": "RU",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Final",
 "satz": [
 [
@@ -10507,8 +10520,12 @@
 5
 ],
 [
-1,
-5
+2,
+6
+],
+[
+6,
+7
 ]
 ]
 },
@@ -10546,11 +10563,16 @@
 "aId": 199395,
 "hL": "AU",
 "aL": "CZ",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+4,
+3
+]
+]
 },
 "17453374": {
 "id": 17453374,
@@ -10566,11 +10588,16 @@
 "aId": 294337,
 "hL": "AR",
 "aL": "IT",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+3,
+4
+]
+]
 },
 "17453078": {
 "id": 17453078,
@@ -10745,7 +10772,7 @@
 "17453083": {
 "id": 17453083,
 "start": "2026-11-01T06:30:00Z",
-"min": null,
+"min": 93,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
 "belag": "hard",
@@ -10756,9 +10783,9 @@
 "aId": 422851,
 "hL": "TW",
 "aL": "MY",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -10766,8 +10793,8 @@
 6
 ],
 [
-3,
-3
+6,
+7
 ]
 ]
 },
@@ -10802,8 +10829,8 @@
 },
 "17453084": {
 "id": 17453084,
-"start": "2026-11-01T07:50:00Z",
-"min": null,
+"start": "2026-11-01T08:20:00Z",
+"min": 101,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
 "belag": "hard",
@@ -10814,16 +10841,25 @@
 "aId": 450874,
 "hL": "TH",
 "aL": "JP",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+7,
+6
+]
+]
 },
 "17453085": {
 "id": 17453085,
 "start": "2026-11-01T07:15:00Z",
-"min": null,
+"min": 54,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
 "belag": "hard",
@@ -10834,20 +10870,24 @@
 "aId": 556652,
 "hL": "RU",
 "aL": "TW",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
-2,
-1
+3,
+5
+],
+[
+1,
+3
 ]
 ]
 },
 "17453086": {
 "id": 17453086,
-"start": "2026-11-01T09:00:00Z",
+"start": "2026-11-01T09:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
@@ -10859,16 +10899,25 @@
 "aId": 79467,
 "hL": "BG",
 "aL": "AU",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+1,
+2
+]
+]
 },
 "17453087": {
 "id": 17453087,
-"start": "2026-11-01T08:25:00Z",
-"min": null,
+"start": "2026-11-01T08:30:00Z",
+"min": 46,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
 "belag": "hard",
@@ -10879,11 +10928,20 @@
 "aId": 82579,
 "hL": "US",
 "aL": "JP",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+0,
+4
+]
+]
 },
 "17453203": {
 "id": 17453203,
@@ -11167,7 +11225,7 @@
 },
 "17455622": {
 "id": 17455622,
-"start": "2026-11-01T12:20:00Z",
+"start": "2026-11-01T13:30:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Paris, France, Qualifying",
@@ -11228,7 +11286,7 @@
 "17455205": {
 "id": 17455205,
 "start": "2026-11-01T09:00:00Z",
-"min": null,
+"min": 61,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
 "belag": "hard",
@@ -11239,11 +11297,20 @@
 "aId": 296802,
 "hL": "EG",
 "aL": "NL",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17455202": {
 "id": 17455202,
@@ -11259,15 +11326,15 @@
 "aId": 376934,
 "hL": "CH",
 "aL": "SK",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Qualification Round 1",
 "satz": []
 },
 "17455199": {
 "id": 17455199,
-"start": "2026-11-01T10:10:00Z",
+"start": "2026-11-01T10:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11287,7 +11354,7 @@
 },
 "17455207": {
 "id": 17455207,
-"start": "2026-11-01T10:10:00Z",
+"start": "2026-11-01T10:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11299,15 +11366,20 @@
 "aId": 391081,
 "hL": "MK",
 "aL": "DE",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+3,
+0
+]
+]
 },
 "17455203": {
 "id": 17455203,
-"start": "2026-11-01T11:20:00Z",
+"start": "2026-11-01T11:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11327,7 +11399,7 @@
 },
 "17455206": {
 "id": 17455206,
-"start": "2026-11-01T11:20:00Z",
+"start": "2026-11-01T11:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11347,7 +11419,7 @@
 },
 "17455201": {
 "id": 17455201,
-"start": "2026-11-01T12:30:00Z",
+"start": "2026-11-01T12:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11367,7 +11439,7 @@
 },
 "17455204": {
 "id": 17455204,
-"start": "2026-11-01T12:30:00Z",
+"start": "2026-11-01T12:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11447,7 +11519,7 @@
 },
 "17455200": {
 "id": 17455200,
-"start": "2026-11-01T13:40:00Z",
+"start": "2026-11-01T13:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11467,7 +11539,7 @@
 },
 "17455197": {
 "id": 17455197,
-"start": "2026-11-01T13:40:00Z",
+"start": "2026-11-01T13:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11587,7 +11659,7 @@
 },
 "17455208": {
 "id": 17455208,
-"start": "2026-11-01T14:50:00Z",
+"start": "2026-11-01T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -11607,7 +11679,7 @@
 },
 "17455198": {
 "id": 17455198,
-"start": "2026-11-01T14:50:00Z",
+"start": "2026-11-01T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia, Qualifying",
@@ -12279,8 +12351,8 @@
 "aId": 341853,
 "hL": "HR",
 "aL": "SK",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 32",
 "satz": []
@@ -13239,6 +13311,75 @@
 "aId": 499834,
 "hL": "CZ",
 "aL": "DK",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17457861": {
+"id": 17457861,
+"start": "2026-11-01T09:00:00Z",
+"min": 76,
+"kat": "Challenger",
+"turnier": "Bratislava 2, Slovakia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Aleksandr Braynin",
+"a": "Michal Krajci",
+"hId": 208160,
+"aId": 376934,
+"hL": "UA",
+"aL": "SK",
+"st": "finished",
+"desc": "Ended",
+"w": 2,
+"runde": "Qualification Round 1",
+"satz": [
+[
+4,
+6
+],
+[
+2,
+6
+]
+]
+},
+"17457783": {
+"id": 17457783,
+"start": "2026-11-02T03:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Yosuke Watanuki",
+"a": "Mitsuki Wei Kang Leong",
+"hId": 157302,
+"aId": 422851,
+"hL": "JP",
+"aL": "MY",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17457727": {
+"id": 17457727,
+"start": "2026-11-02T09:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Bratislava 2, Slovakia",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Nishesh Basavareddy",
+"a": "Miloš Karol",
+"hId": 407164,
+"aId": 341853,
+"hL": "US",
+"aL": "SK",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
