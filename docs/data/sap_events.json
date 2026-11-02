@@ -8058,8 +8058,8 @@
 "aId": 390214,
 "hL": "ES",
 "aL": "BE",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 64",
 "satz": []
@@ -8098,11 +8098,20 @@
 "aId": 170946,
 "hL": "PE",
 "aL": "BE",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 64",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+0,
+1
+]
+]
 },
 "17449526": {
 "id": 17449526,
@@ -8118,11 +8127,20 @@
 "aId": 158896,
 "hL": "IT",
 "aL": "PL",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 64",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+0,
+0
+]
+]
 },
 "17449524": {
 "id": 17449524,
@@ -8745,7 +8763,7 @@
 },
 "17453204": {
 "id": 17453204,
-"start": "2026-11-03T02:00:00Z",
+"start": "2026-11-03T07:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -8765,8 +8783,8 @@
 },
 "17453199": {
 "id": 17453199,
-"start": "2026-11-02T06:30:00Z",
-"min": null,
+"start": "2026-11-02T07:00:00Z",
+"min": 84,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
 "belag": "hard",
@@ -8777,11 +8795,20 @@
 "aId": 207089,
 "hL": "PL",
 "aL": "DK",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17453195": {
 "id": 17453195,
@@ -8825,7 +8852,7 @@
 },
 "17453197": {
 "id": 17453197,
-"start": "2026-11-02T07:40:00Z",
+"start": "2026-11-02T08:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -8837,11 +8864,24 @@
 "aId": 417205,
 "hL": "AT",
 "aL": "CZ",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+6,
+3
+],
+[
+4,
+5
+]
+]
 },
 "17453196": {
 "id": 17453196,
@@ -8865,7 +8905,7 @@
 },
 "17453194": {
 "id": 17453194,
-"start": "2026-11-03T02:00:00Z",
+"start": "2026-11-03T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -10969,7 +11009,7 @@
 },
 "17455683": {
 "id": 17455683,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -10989,7 +11029,7 @@
 },
 "17455687": {
 "id": 17455687,
-"start": "2026-11-02T12:00:00Z",
+"start": "2026-11-02T14:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11009,7 +11049,7 @@
 },
 "17455678": {
 "id": 17455678,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11029,7 +11069,7 @@
 },
 "17455689": {
 "id": 17455689,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11049,7 +11089,7 @@
 },
 "17455684": {
 "id": 17455684,
-"start": "2026-11-02T12:00:00Z",
+"start": "2026-11-02T14:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11069,7 +11109,7 @@
 },
 "17455681": {
 "id": 17455681,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11089,7 +11129,7 @@
 },
 "17455667": {
 "id": 17455667,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11109,7 +11149,7 @@
 },
 "17455673": {
 "id": 17455673,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11129,7 +11169,7 @@
 },
 "17455688": {
 "id": 17455688,
-"start": "2026-11-02T12:00:00Z",
+"start": "2026-11-02T14:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11149,7 +11189,7 @@
 },
 "17455686": {
 "id": 17455686,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11169,7 +11209,7 @@
 },
 "17455685": {
 "id": 17455685,
-"start": "2026-11-03T09:00:00Z",
+"start": "2026-11-03T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11668,7 +11708,7 @@
 "17462070": {
 "id": 17462070,
 "start": "2026-11-02T04:35:00Z",
-"min": null,
+"min": 130,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
 "belag": "hard",
@@ -11679,9 +11719,9 @@
 "aId": 82579,
 "hL": "TW",
 "aL": "JP",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Final",
 "satz": [
 [
@@ -11689,15 +11729,15 @@
 6
 ],
 [
-3,
-4
+7,
+6
 ]
 ]
 },
 "17466793": {
 "id": 17466793,
 "start": "2026-11-02T04:30:00Z",
-"min": null,
+"min": 133,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei, Qualifying",
 "belag": "hard",
@@ -11708,9 +11748,9 @@
 "aId": 79467,
 "hL": "TH",
 "aL": "AU",
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
 "satz": [
 [
@@ -11718,8 +11758,8 @@
 7
 ],
 [
-4,
-3
+6,
+7
 ]
 ]
 },
@@ -11737,11 +11777,20 @@
 "aId": 296802,
 "hL": "SK",
 "aL": "NL",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+1,
+2
+]
+]
 },
 "17455093": {
 "id": 17455093,
@@ -11869,7 +11918,7 @@
 },
 "17463622": {
 "id": 17463622,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
@@ -11889,7 +11938,7 @@
 },
 "17465134": {
 "id": 17465134,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
@@ -11909,7 +11958,7 @@
 },
 "17466755": {
 "id": 17466755,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
@@ -11929,7 +11978,7 @@
 },
 "17467082": {
 "id": 17467082,
-"start": "2026-11-02T09:00:00Z",
+"start": "2026-11-02T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
@@ -12015,11 +12064,20 @@
 "aId": 237452,
 "hL": "IT",
 "aL": "AU",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 64",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+0,
+2
+]
+]
 },
 "17467804": {
 "id": 17467804,
@@ -12035,11 +12093,20 @@
 "aId": 391081,
 "hL": "FR",
 "aL": "DE",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+1,
+0
+]
+]
 },
 "17468525": {
 "id": 17468525,
@@ -12203,7 +12270,7 @@
 },
 "17468150": {
 "id": 17468150,
-"start": "2026-11-02T10:10:00Z",
+"start": "2026-11-02T12:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
@@ -12223,7 +12290,7 @@
 },
 "17468049": {
 "id": 17468049,
-"start": "2026-11-02T10:10:00Z",
+"start": "2026-11-02T12:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
@@ -12779,6 +12846,186 @@
 "desc": "Not started",
 "w": null,
 "runde": "Round of 32",
+"satz": []
+},
+"17473341": {
+"id": 17473341,
+"start": "2026-11-02T12:20:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Daniel Merida",
+"a": "Sebastián Báez",
+"hId": 338890,
+"aId": 221806,
+"hL": "ES",
+"aL": "AR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17472512": {
+"id": 17472512,
+"start": "2026-11-03T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Keegan Smith",
+"a": "Jake Delaney",
+"hId": 232059,
+"aId": 79223,
+"hL": "US",
+"aL": "AU",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17472513": {
+"id": 17472513,
+"start": "2026-11-03T03:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Stefanos Sakellaridis",
+"a": "Yuta Shimizu",
+"hId": 302567,
+"aId": 217136,
+"hL": "GR",
+"aL": "JP",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17472510": {
+"id": 17472510,
+"start": "2026-11-03T03:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Yu Hsiou Hsu",
+"a": "Omar Jasika",
+"hId": 204329,
+"aId": 79467,
+"hL": "TW",
+"aL": "AU",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17472514": {
+"id": 17472514,
+"start": "2026-11-03T04:40:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Masamichi Imamura",
+"a": "Mitsuki Wei Kang Leong",
+"hId": 197935,
+"aId": 422851,
+"hL": "JP",
+"aL": "MY",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17472516": {
+"id": 17472516,
+"start": "2026-11-03T05:50:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "James McCabe",
+"a": "Yanki Erel",
+"hId": 339452,
+"aId": 241718,
+"hL": "AU",
+"aL": "TR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17472515": {
+"id": 17472515,
+"start": "2026-11-03T07:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Lloyd Harris",
+"a": "Yosuke Watanuki",
+"hId": 157808,
+"aId": 157302,
+"hL": "ZA",
+"aL": "JP",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17472517": {
+"id": 17472517,
+"start": "2026-11-03T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Tung-Lin Wu",
+"a": "Chun-Chien Hou",
+"hId": 163996,
+"aId": 556652,
+"hL": "TW",
+"aL": "TW",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17427588": {
+"id": 17427588,
+"start": "2026-11-04T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P9",
+"a": "August Holmgren",
+"hId": 393284,
+"aId": 207089,
+"hL": null,
+"aL": "DK",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
 "satz": []
 }
 }
