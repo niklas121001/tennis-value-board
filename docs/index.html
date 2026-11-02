@@ -262,6 +262,7 @@ tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 .tinfo{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.tinfo:hover{color:var(--accent)}.tinfo-i{font-size:.75em;color:var(--muted)}.prgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.tliste td,.tliste th{padding:4px 8px}
 .mbox{grid-column:span 2}@media(max-width:900px){.mbox{grid-column:auto}}.mtab td,.mtab th{padding:3px 8px;line-height:1.3}.mtab tr,.mtab td{background:none!important}.mtab .num{white-space:nowrap}.mq-in{width:62px;padding:2px 5px;font:inherit;text-align:right}@media(max-width:600px){.mtab td,.mtab th{padding:3px 4px;font-size:12.5px}}.mtab td.l{color:var(--muted)}
 .surf.mini{font-size:9.5px;padding:2px 5px;vertical-align:1px}
+tr.mgr,tr.msig{cursor:pointer}.mbil{width:100%}.mbil td{white-space:normal}.mbil .vliste{width:100%}@media(max-width:600px){.mbil .tdet{grid-template-columns:1fr}.mbil .tdet .kv .v{white-space:normal}.mbil td,.mbil th{padding:5px 4px}}tr.mgr:hover td,tr.msig:hover td{background:var(--accent-soft)}
 .ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
@@ -1290,26 +1291,40 @@ function variantenHtml(bm, art){
 // Satz- & Tiebreak-Signale (Test seit 02.11.2026): eigener Kasten in der Bilanz, je Markt-Gruppe + Liste
 const MARKT_NAMEN = {glattA: "2:0", glattB: "2:0", mind1A: "mind. 1 Satz", mind1B: "mind. 1 Satz", dreiSaetze: "3 Sätze", zweiSaetze: "2 Sätze",
   zweiEinsA: "2:1", zweiEinsB: "2:1", satz1A: "1. Satz", satz1B: "1. Satz", tb1Ja: "TB im 1. Satz: ja", tb1Nein: "TB im 1. Satz: nein", tbJa: "TB im Match: ja", tbNein: "TB im Match: nein"};
-let MARKT_OFFEN = false;
+let MARKT_OFFEN = null; const MSIG_OFFEN = new Set();
 function marktSignaleHtml(bm, art){
   if(!VAR) return "";
   const ok = (x) => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x));
   const xs = Object.values(VAR.sig||{}).filter(x => x.typ==="markt" && ok(x));
-  const gruppen = [["2:0 (glatter Sieg)", /^glatt/], ["2:1", /^zweiEins/], ["mind. 1 Satz", /^mind1/], ["Anzahl Sätze (2 / 3)", /Saetze$/], ["Sieger 1. Satz", /^satz1/],
-    ["Tiebreak im 1. Satz", /^tb1/], ["Tiebreak im Match", /^tb(Ja|Nein)$/]];
+  const gruppen = [["glatt", "2:0 (glatter Sieg)", /^glatt/], ["zweiEins", "2:1", /^zweiEins/], ["mind1", "mind. 1 Satz", /^mind1/], ["saetze", "Anzahl Sätze (2 / 3)", /Saetze$/],
+    ["satz1", "Sieger 1. Satz", /^satz1/], ["tb1", "Tiebreak im 1. Satz", /^tb1/], ["tb", "Tiebreak im Match", /^tb(Ja|Nein)$/]];
   const kz = (ys) => { const f = ys.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
     const u = f.reduce((s_, x) => s_ + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0), c = ys.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
     return {n: ys.length, f: f.length, w, u, roi: f.length ? u/f.length : null, clv: c.length ? c.reduce((a,b)=>a+b,0)/c.length : null}; };
-  const zeile = (t, ys, fett) => { const z = kz(ys); return `<tr><td class="l">${fett?`<b>${t}</b>`:t}</td><td class="num">${z.n}</td><td class="num">${z.f?`${z.w}–${z.f-z.w}`:"–"}</td><td class="num ${z.u>0?"pos":z.u<0?"negv":""}">${z.f?(z.u>0?"+":"")+fx(z.u,1)+" U":"–"}</td><td class="num">${z.roi!=null?sg(z.roi):"–"}</td><td class="num hide-s">${z.clv!=null?sg(z.clv):"–"}</td></tr>`; };
-  const ERGP = {W:'<span class="pill go">✓</span>', L:'<span class="pill stop">✗</span>', V:'<span class="pill warn">ungültig</span>'};
-  const liste = xs.slice().sort((a,b) => String(b.start).localeCompare(String(a.start))).map(x => {
-    const wer = /A$/.test(x.markt) ? x.a : /B$/.test(x.markt) ? x.b : "";
-    return `<tr><td class="l time">${new Date(x.start).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td class="l">${esc(x.a)} – ${esc(x.b)}<div class="time">${esc(tName(x))}</div></td><td class="l"><b>${esc(MARKT_NAMEN[x.markt]||x.markt)}</b>${wer?` <span class="time">${esc(wer.split(" ").slice(-1)[0])}</span>`:""}${x.manuell?' <span class="time" title="Quote von dir eingetragen">✎</span>':""}</td><td class="num">${fx(x.erstQuote)}</td><td class="num hide-s">${fx(x.letzteQuote)}</td><td class="num hide-s">${pc(x.pModell,0)}</td><td class="num">${sg(x.edge)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>`; }).join("");
+  const ERGP = {W:'<span class="pill go">gewonnen</span>', L:'<span class="pill stop">verloren</span>', V:'<span class="pill warn">ungültig</span>'};
+  const datum = (d) => new Date(d).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ});
+  const zeit = (d) => d ? new Date(d).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
+  const sigDetail = (x) => { const ar = (ARCHIV||{})[x.id] || {}, satz = (ar.satz||[]).map(([u,v]) => `${u}:${v}`).join(" ");
+    const kv = (k, v) => v == null || v === "" ? "" : `<span class="k">${k}</span><span class="v">${v}</span>`;
+    return `<div class="tdet"><div><h4 class="vh">Signal</h4><div class="kv two">${kv("Markt", esc(MARKT_NAMEN[x.markt]||x.markt) + (/A$/.test(x.markt) ? ` (${esc(x.a)})` : /B$/.test(x.markt) ? ` (${esc(x.b)})` : ""))}
+        ${kv("Quote beim Signal", `${fx(x.erstQuote)} <span class="time">(${esc(x.buchmacher||"")}${x.manuell ? ", von dir eingetragen" : ""})</span>`)}${kv("letzte Quote vor Start", fx(x.letzteQuote))}
+        ${kv("Modell", `${pc(x.pModell,1)} <span class="time">fair ${fx(1/x.pModell)}</span>`)}${kv("Edge", sg(x.edge))}
+        ${kv("CLV", x.letzteQuote && x.erstQuote ? sg(x.erstQuote/x.letzteQuote-1) : null)}</div></div>
+      <div><h4 class="vh">Partie</h4><div class="kv two">${kv("Spiel", `${esc(x.a)} – ${esc(x.b)}`)}${kv("Turnier", esc(tName(x)))}${kv("Belag", SURF[x.belag]||x.belag)}
+        ${kv("Beginn", zeit(x.start))}${kv("Signal seit", zeit(x.erstGesehen))}</div></div>
+      <div><h4 class="vh">Ergebnis</h4><div class="kv two">${kv("Sätze", satz || "–")}${kv("Wette", ERGP[x.ergebnis]||'<span class="pill no">offen</span>')}
+        ${kv("Gewinn (1 U)", x.ergebnis==="W" ? `<span class="pos">+${fx(x.erstQuote-1)} U</span>` : x.ergebnis==="L" ? `<span class="negv">−1,00 U</span>` : null)}</div></div></div>`; };
+  const sigZeile = (x) => { const key = `${x.id}|${x.buchmacher}|${x.markt}`, auf = MSIG_OFFEN.has(key), wer = /A$/.test(x.markt) ? x.a : /B$/.test(x.markt) ? x.b : "";
+    return `<tr class="msig${auf?" auf":""}" data-k="${esc(key)}" title="Antippen für Details"><td class="l time hide-s">${datum(x.start)}</td><td class="l">${esc(x.a.split(" ").slice(-1)[0])} – ${esc(x.b.split(" ").slice(-1)[0])}<div class="time">${esc(tName(x))}</div></td><td class="l"><b>${esc(MARKT_NAMEN[x.markt]||x.markt)}</b>${wer?` <span class="time">${esc(wer.split(" ").slice(-1)[0])}</span>`:""}${x.manuell?' <span class="time" title="Quote von dir eingetragen">✎</span>':""}</td><td class="num">${fx(x.erstQuote)}</td><td class="num hide-s">${sg(x.edge)}</td><td>${ERGP[x.ergebnis]||'<span class="pill no">offen</span>'}</td></tr>${auf ? `<tr class="kombi-d"><td colspan="6">${sigDetail(x)}</td></tr>` : ""}`; };
+  const zeile = (gk, t, ys, fett) => { const z = kz(ys), auf = MARKT_OFFEN === gk;
+    return `<tr class="mgr" data-g="${gk}" title="Antippen für die einzelnen Signale"><td class="l"><span class="vpf">${auf?"▾":"▸"}</span> ${fett?`<b>${t}</b>`:t}</td><td class="num">${z.n}${z.f?`<div class="time">${z.w}–${z.f-z.w}</div>`:""}</td><td class="num ${z.u>0?"pos":z.u<0?"negv":""}">${z.f?(z.u>0?"+":"")+fx(z.u,1)+" U":"–"}${z.roi!=null?`<div class="time">${sg(z.roi)}</div>`:""}</td><td class="num hide-s">${z.clv!=null?sg(z.clv):"–"}</td></tr>${
+      auf ? `<tr class="kombi-d"><td colspan="4"><table class="vliste"><thead><tr><th class="l hide-s">Datum</th><th class="l">Partie</th><th class="l">Markt</th><th class="num">Quote</th><th class="num hide-s">Edge</th><th>Ergebnis</th></tr></thead><tbody>${
+        ys.slice().sort((a,b) => String(b.start).localeCompare(String(a.start))).map(sigZeile).join("")}</tbody></table></td></tr>` : ""}`; };
+  const reihen = zeile("alle", "Alle Satz- & Tiebreak-Signale", xs, true) + gruppen.map(([gk, t, re]) => { const ys = xs.filter(x => re.test(x.markt)); return ys.length ? zeile(gk, t, ys) : ""; }).join("");
   return `<details class="box klapp" data-k="markt" style="margin-top:16px"${store.get("klapp.markt", true)?" open":""}><summary><h3>🎾 Satz- & Tiebreak-Signale <span class="time">Test seit 02.11. · ${xs.length} Signale</span></h3></summary>
-    <div class="tablewrap"><table><thead><tr><th class="l">Markt</th><th class="num">Signale</th><th class="num">gew.–verl.</th><th class="num">Gewinn (1 U)</th><th class="num">ROI</th><th class="num hide-s">Ø CLV</th></tr></thead><tbody>
-    ${zeile("Alle Satz- & Tiebreak-Signale", xs, true)}${gruppen.map(([t, re]) => { const ys = xs.filter(x => re.test(x.markt)); return ys.length ? zeile(t, ys) : ""; }).join("")}</tbody></table></div>
-    ${xs.length ? `<details class="vdet" style="margin-top:8px"><summary class="time" style="cursor:pointer">alle Signale anzeigen</summary><div class="tablewrap" style="max-height:420px;overflow:auto"><table class="vliste"><thead><tr><th class="l">Datum</th><th class="l">Partie</th><th class="l">Markt</th><th>Quote</th><th class="hide-s">letzte</th><th class="hide-s">Modell</th><th>Edge</th><th>Erg.</th></tr></thead><tbody>${liste}</tbody></table></div></details>` : `<p class="time">Noch keine Signale. Sie entstehen, wenn die Buchmacher-Quote eines Satz-/Tiebreak-Markts mindestens ${pc(D.params.MARKT_MIN_EDGE ?? 0.05,0)} über der fairen Modell-Quote liegt.</p>`}
-    <p class="note">Flach 1 U je Signal zur Quote beim ersten Auftreten, abgerechnet aus dem Satzergebnis (Aufgabe = ungültig). Quellen: Winamax-Quoten aus dem Datenfeed (nur ATP) und von dir im Partie-Detail eingetragene Quoten (✎, z. B. Tiebreak) – eingetragene Quoten zählen, wenn du einen GitHub-Schlüssel hinterlegt hast. CLV = erste ÷ letzte Quote − 1. Folgt den Filtern Buchmacher und Turniere.</p></details>`;
+    ${xs.length ? `<div class="tablewrap"><table class="mbil"><thead><tr><th class="l">Markt</th><th class="num">Signale</th><th class="num" title="1 U je Signal, darunter ROI">Gewinn</th><th class="num hide-s">Ø CLV</th></tr></thead><tbody>${reihen}</tbody></table></div>`
+      : `<p class="time">Noch keine Signale. Sie entstehen, wenn die Buchmacher-Quote eines Satz-/Tiebreak-Markts mindestens ${pc(D.params.MARKT_MIN_EDGE ?? 0.05,0)} über der fairen Modell-Quote liegt.</p>`}
+    <p class="note">Zeile antippen für die einzelnen Signale, Signal antippen für alle Details. Flach 1 U je Signal zur Quote beim ersten Auftreten, abgerechnet aus dem Satzergebnis (Aufgabe = ungültig). Quellen: Winamax-Quoten aus dem Datenfeed (nur ATP) und von dir im Partie-Detail eingetragene Quoten (✎). CLV = erste ÷ letzte Quote − 1. Folgt den Filtern Buchmacher und Turniere.</p></details>`;
 }
 function signalUebersichtHtml(bm, art){
   if(!VAR) return "";
@@ -1983,6 +1998,11 @@ function renderLog(){
   $("#b-kalib").innerHTML = kalibHtml(art);
   $("#b-sigall").innerHTML = signalUebersichtHtml(bm, art);
   $("#b-markt").innerHTML = marktSignaleHtml(bm, art);
+  if(!$("#b-markt").dataset.ok){ $("#b-markt").dataset.ok = "1";
+    $("#b-markt").addEventListener("click", (e) => { const g = e.target.closest("tr.mgr"), sg_ = e.target.closest("tr.msig"); if(!g && !sg_) return;
+      if(sg_){ const k = sg_.dataset.k; MSIG_OFFEN.has(k) ? MSIG_OFFEN.delete(k) : MSIG_OFFEN.add(k); }
+      else MARKT_OFFEN = MARKT_OFFEN === g.dataset.g ? null : g.dataset.g;
+      $("#b-markt").innerHTML = marktSignaleHtml($("#b-bm").value, $("#b-art").value); }); }
   if(!VAR) variantenLaden().then(() => { $("#b-varianten").innerHTML = variantenHtml($("#b-bm").value, $("#b-art").value);
     $("#b-aussenseiter").innerHTML = assBilanzHtml($("#b-bm").value, $("#b-art").value);
     $("#b-bilanzsig").innerHTML = bilanzSigHtml($("#b-bm").value, $("#b-art").value);
