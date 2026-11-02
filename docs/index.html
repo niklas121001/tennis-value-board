@@ -258,6 +258,7 @@ tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 .tagtog{white-space:nowrap}.lscore{width:auto;min-width:0;margin:6px 0;font-size:14px}.lscore th{vertical-align:bottom}.lscore .lalt td{color:var(--muted);font-size:12.5px;padding:2px 10px}.lscore th,.lscore td{padding:4px 10px;text-align:center}.lscore td.l,.lscore th.l{text-align:left}.lscore .lwin{font-weight:700}.lsrv{color:var(--accent);margin-right:4px;font-size:11px}
 #l-sel{width:100%;max-width:100%}.lstep{display:inline-flex;align-items:center;gap:6px}.lstep b{min-width:24px;text-align:center}.lstep button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font-size:17px;line-height:1;cursor:pointer;padding:0}.lstep button:hover{border-color:var(--accent)}.lname{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.lsrv.aus{color:var(--muted)}.lbtn{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.lbtn .btn{min-width:120px}@media(max-width:600px){.lbtn .btn{flex:1 1 45%;min-width:0}.lerg{min-width:0;width:100%}}.lform .ctl input[type=number]{width:70px}.lform .q input{width:100px}
 .lerg{width:auto;min-width:300px;margin-top:10px}.lerg td,.lerg th{padding:4px 12px;text-align:right}.lerg td.l{text-align:left;color:var(--muted)}.lempf{margin:10px 0 4px;font-size:14px}.lhand summary{cursor:pointer;margin-top:6px}
+.tinfo{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.tinfo:hover{color:var(--accent)}.tinfo-i{font-size:.75em;color:var(--muted)}.prgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.tliste td,.tliste th{padding:4px 8px}
 .ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
@@ -478,7 +479,7 @@ async function init(){
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
     j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {}), j("h2h_web.json", {}), j("h2h_api.json", {}), j("player_stats_web.json", {}), j("serve_live.json", {}), j("quoten_verlauf.json", {})]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
-  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], haende: (HAENDE_ROH = (await j("haende.json", {})) || {}).spieler || {}, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
+  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], turnierStats: (TSTATS = (await j("turnier_stats.json", {})) || {}).turniere || {}, haende: (HAENDE_ROH = (await j("haende.json", {})) || {}).spieler || {}, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   ERG = erg || {}; QV = qv || {};
   // Manuelle Spielerwerte sofort berücksichtigen (das nächste Update schreibt sie fest in players.json)
@@ -1068,12 +1069,13 @@ function render(){
     html += `<h2 class="dayh">${dk===kHeute?"Heute":dk===kMorgen?"Morgen":""} <span>${dd.toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"2-digit"})} · ${n} ${n===1?"Partie":"Partien"}</span></h2>`;
   for(const [t, xs] of groups){
     const b = xs[0].r.belagEff, est = xs[0].r.belagQuelle==="standard";
-    html += `<div class="group"><h2>${esc(t)} <span class="surf ${b}${est?" geschaetzt":""}" title="${est?"Belag geschätzt – in den Details änderbar":"Belag"}">${SURF[b]||b}${est?" ?":""}</span></h2><div class="tablewrap"><table>
+    html += `<div class="group"><h2><button type="button" class="tinfo" data-t="${esc(t)}" data-b="${esc(b)}" title="Turnierstatistik: glatte Siege, Tiebreaks, Platztempo">${esc(t)} <span class="tinfo-i">ⓘ</span></button> <span class="surf ${b}${est?" geschaetzt":""}" title="${est?"Belag geschätzt – in den Details änderbar":"Belag"}">${SURF[b]||b}${est?" ?":""}</span></h2><div class="tablewrap"><table>
       <thead><tr><th class="hide-s">Zeit</th><th>Partie</th><th class="hide-s l">Prognose</th><th>Quote</th><th class="hide-s">Fair</th><th>Edge</th><th>Empfehlung</th><th class="hide-s">Einsatz</th><th class="hide-s">Buchm.</th></tr></thead><tbody>`;
     for(const {p, r} of xs) html += rowHtml(p, r);
     html += `</tbody></table></div></div>`;
   }}
   $("#list").innerHTML = html;
+  document.querySelectorAll("button.tinfo").forEach(b => b.addEventListener("click", (e) => { e.stopPropagation(); openTurnier(b.dataset.t, b.dataset.b); }));
   document.querySelectorAll("tr.m").forEach(tr => tr.addEventListener("click", () => { const id = tr.dataset.id; open.has(id)?open.delete(id):open.add(id); render(); }));
   document.querySelectorAll("select.belag-ovr").forEach(s => { s.addEventListener("click", e => e.stopPropagation()); s.addEventListener("change", e => {
     const id = s.dataset.id; if(s.value==="auto") { try{localStorage.removeItem("tvb.belag."+id)}catch(_){} } else store.set("belag."+id, s.value); render(); }); });
@@ -1554,7 +1556,7 @@ function gegnerBand(name, rolle, qGegner){
   return {name, rolle, band, s, n: s + l};
 }
 // Schlaghand (TML-Database, nur privat): "L"-Kennzeichen und Bilanz gegen Linkshänder
-let HAENDE_ROH = {};
+let HAENDE_ROH = {}, TSTATS = {};
 // Bilanz gegen Links-/Rechtshänder: ältere Monate aus TML (bis Jan. 2026), aktuelle ~12 Monate aus Tennis Abstract (h2h_ta.json)
 function handBilanz(name){
   const x = (D.haende || {})[name] || {}, ta = H2HTA && H2HTA.hb ? H2HTA.hb[name] : null, L = [0,0], R = [0,0];
@@ -1828,7 +1830,8 @@ function detailHtml(p, r){
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}
       ${p.calc||!ARCHIV?"":`<span class="k" style="grid-column:1/-1;margin-top:6px;font-weight:600" title="Partien im Ergebnis-Archiv (seit Mitte Oktober). Absagen zählen nicht.">Getrackt (Archiv)</span>`+saetzeZeilen(saetzeBilanz(p.a), saetzeBilanz(p.b), (a,b) => ab(a,b,x => x==null?"–":String(x)), r.modus===5)}</div>${p.calc||!ARCHIV?"":comebackHinweis([p.a, p.b])}</div>
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
-      <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div></div>
+      <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div>${r.satzK ? (() => { const k = r.satzK, u = (r.saetzeUnabh||{}).scores || {}, g = r.modus===5 ? "3-0" : "2-0", g2 = r.modus===5 ? "0-3" : "0-2";
+        return `<p class="time" style="margin:6px 0 0" title="Sätze sind nicht unabhängig: glatte Siege kommen häufiger vor, als das reine Markov-Modell sagt (eigene Daten seit Okt. 2026 bzw. ATP 2015–2026). Die Siegchance bleibt gleich.">Glatt-Korrektur ×${fx(k.k,2)} (${r.modus===5?"Best of 5":/challenger/i.test(p.turnier||"")?"Challenger":"ATP"} ×${fx(k.basis,2)}${k.turnier?` · ${esc(k.turnier)} ×${fx(k.faktor,2)}`:""}). Ohne Korrektur: ${g} ${pc(u[g])}, ${g2} ${pc(u[g2])}.</p>`; })() : ""}</div>
     <div class="box"><h3>Spieler-Check</h3>${spielerCheckHtml(p, r)}</div>
     ${h2hBoxHtml(p)}
     ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
@@ -2016,6 +2019,78 @@ function tippDetail(x){
   </div>`;
 }
 
+
+// ---- Turnier-Info: Platztempo, glatte Siege (2:0 / 3:0), Tiebreaks – Vorjahre (ATP-Ebene) + diese Ausgabe (eigenes Archiv)
+function tempoText(turnier, belag){
+  const sp = TennisModel.lookupTempo ? TennisModel.lookupTempo(turnier, belag, D.tempo) : null, csi = TennisModel.lookupCSI(turnier, belag, D.csi || []);
+  if(typeof sp === "number") return {wert: sp, text: `${fx(sp,2)} · ${sp < 0.85 ? "langsam" : sp < 1.0 ? "eher langsam" : sp < 1.15 ? "mittel" : sp < 1.3 ? "schnell" : "sehr schnell"}`, art: "Tempo (Asse, 1,00 = Tour-Schnitt)"};
+  if(typeof csi === "number") return {wert: csi, text: `CSI ${fx(csi,1)} · ${csi < 3 ? "langsamer Sand" : csi < 6 ? "mittlerer Sand" : "schneller Sand"}`, art: "Court Speed Index (0–10)"};
+  return null;
+}
+function satzZahlen(xs){
+  let n = 0, gl = 0, tb = 0, saetze = 0, erw = 0, ne = 0;
+  for(const x of xs){ const ss = (x.satz||[]).filter(z => z && z[0] !== z[1]); if(x.aufgabe || ss.length < 2) continue;
+    const bo5 = ss.length >= 3 && Math.max(ss.filter(z => z[0]>z[1]).length, ss.filter(z => z[1]>z[0]).length) === 3;
+    n++; gl += ss.length === (bo5 ? 3 : 2) ? 1 : 0; tb += ss.filter(z => (z[0]===7&&z[1]===6)||(z[0]===6&&z[1]===7)).length; saetze += ss.length;
+    if(typeof x.p === "number" || typeof x.pm === "number"){ const pm = x.pm ?? x.p, sc = TennisModel.setScores(Math.max(pm, 1-pm), 3, 1).scores; erw += sc["2-0"] + sc["0-2"]; ne++; } }
+  return {n, gl, tb, saetze, erw: ne ? erw/ne : null};
+}
+async function openTurnier(t, belag){
+  const dlg = $("#profil"), st = TennisModel.lookupTurnierStats(t, D.turnierStats), tp = tempoText(t, belag);
+  const istCh = /challenger/i.test(t), tour = (TSTATS.tour || {})[st && st.bo === 5 ? "5" : "3"];
+  const glattTxt = st && st.bo === 5 ? "3:0" : "2:0";
+  const kopf = `<div class="prkopf"><div><h2 id="pr-titel" style="margin:0">${esc(t)}</h2><div class="time">${SURF[belag]||belag||""}${st && st.halle ? " · Halle" : ""}${tp ? ` · ${tp.art}: ${tp.text}` : ""}</div></div>
+      <button type="button" class="btn ghost mini" id="pr-zu" aria-label="Schließen">✕</button></div>`;
+  $("#pr-inhalt").innerHTML = kopf + `<p class="time">lädt …</p>`;
+  if(!dlg.open) dlg.showModal();
+  const arc = await archivLaden(), heute = Date.now();
+  const prog = (VAR && VAR.prog) || LIVE_PROG || {};
+  const alle = Object.entries(arc).filter(([, x]) => x.turnier === t).map(([id, x]) => Object.assign({}, x, {pm: (prog[id] || {}).pMarkt}));
+  const dies = alle.filter(x => heute - new Date(x.start).getTime() < 16*864e5);
+  const z = satzZahlen(dies);
+  const kNow = (D.params.SATZ_GLATT_ATP ?? 1) * (st ? st.faktor : 1), kCh = D.params.SATZ_GLATT_CH ?? 1;
+  const box1 = `<div class="box"><h3>Diese Ausgabe <span class="time">(eigenes Archiv, letzte 16 Tage)</span></h3>${z.n ? `<div class="kv two">
+      <span class="k">Partien mit Satzergebnis</span><span class="v">${z.n}</span>
+      <span class="k">glatte Siege (${glattTxt})</span><span class="v"><b>${pc(z.gl/z.n,0)}</b> <span class="time">${z.gl}/${z.n}</span></span>
+      ${z.erw != null ? `<span class="k" title="Erwartung aus den Marktquoten: reines Markov-Modell bzw. mit Glatt-Korrektur">erwartet laut Quoten</span><span class="v">${pc(z.erw,0)} <span class="time">· korrigiert ${pc(Math.min(0.97, z.erw*(istCh?kCh:kNow)),0)}</span></span>` : ""}
+      <span class="k">Tiebreak-Sätze</span><span class="v">${pc(z.tb/z.saetze,0)}</span>
+      <span class="k">Ø Sätze je Partie</span><span class="v">${fx(z.saetze/z.n,2)}</span></div>
+      ${z.n < 15 ? `<p class="time" style="margin:6px 0 0">Noch wenige Partien – Werte schwanken stark.</p>` : ""}` : `<p class="time">Noch keine abgeschlossenen Partien dieser Ausgabe im Archiv.</p>`}</div>`;
+  let box2;
+  if(st){
+    const jahre = Object.entries(st.jahre).sort((a,b) => b[0].localeCompare(a[0]));
+    box2 = `<div class="box"><h3>Letzte Jahre <span class="time">(ATP-Ebene, ${esc(st.name)})</span></h3><div class="kv two">
+      <span class="k">Partien seit 2015</span><span class="v">${st.n}</span>
+      <span class="k">glatte Siege (${glattTxt})</span><span class="v"><b>${pc(st.glatt,0)}</b> <span class="time">Tour ${tour ? pc(tour.glatt,0) : "–"}</span></span>
+      <span class="k" title="Erwartung aus der Spielerstärke (Ranglistenpunkte), unabhängige Sätze">erwartet (Spielerstärke)</span><span class="v">${pc(st.erwartet,0)} <span class="time">Tour ${tour ? pc(tour.erwartet,0) : "–"}</span></span>
+      <span class="k" title="(Anteil/erwartet) im Verhältnis zur Tour; zur Mitte gezogen bei wenigen Partien. Fließt in die faire Quote der Satzergebnisse ein.">Turnierfaktor glatte Siege</span><span class="v"><b>×${fx(st.faktor,2)}</b> <span class="time">roh ×${fx(st.faktor_roh,2)}</span></span>
+      <span class="k">Tiebreak-Sätze</span><span class="v">${pc(st.tb_satz,0)}</span>
+      <span class="k">Ø Sätze je Partie</span><span class="v">${fx(st.saetze_schnitt,2)}</span></div>
+      <table class="prtab" style="margin-top:8px"><thead><tr><th>Jahr</th><th>Partien</th><th>${glattTxt}</th><th>TB-Sätze</th></tr></thead><tbody>${jahre.map(([j, v]) => `<tr><td>${j}</td><td>${v[0]}</td><td>${pc(v[1]/v[0],0)}</td><td>${pc(v[2]/v[3],0)}</td></tr>`).join("")}</tbody></table></div>`;
+  } else {
+    const zz = satzZahlen(alle);
+    box2 = `<div class="box"><h3>Frühere Daten</h3><p class="time">${istCh ? "Für Challenger gibt es keine Vorjahres-Statistik." : "Keine Vorjahres-Statistik zu diesem Turnier gefunden."}${zz.n > z.n ? ` Eigenes Archiv (alle Ausgaben seit Okt. 2026): ${zz.n} Partien, glatt ${pc(zz.gl/zz.n,0)}, Tiebreak-Sätze ${pc(zz.tb/zz.saetze,0)}.` : ""} In die Satzprognose geht der allgemeine Faktor ×${fx(istCh ? kCh : (D.params.SATZ_GLATT_ATP ?? 1),2)} ein.</p></div>`;
+  }
+  $("#pr-inhalt").innerHTML = kopf + `<div class="prgrid">${box1}${box2}</div>
+    <p class="time" style="margin-top:10px">Glatte Siege hängen stark von der Spielerstärke ab (Favoritenturniere = mehr 2:0). Der Turnierfaktor vergleicht deshalb mit der Erwartung aus der Spielerstärke und nicht nur den reinen Anteil.</p>`;
+}
+function turnierListeHtml(){
+  const zeilen = [], belegt = new Set();
+  const aktuell = (x) => Object.keys(x.jahre || {}).some(j => j >= "2024");     // nur Turniere, die es noch gibt
+  const norm_ = (v) => String(v||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "");
+  for(const x of Object.values(D.turnierStats || {})){ if(x.level === "D" || x.level === "O" || !aktuell(x)) continue;
+    const tp = tempoText([x.name, ...(x.alias||[])].join(" "), x.belag); belegt.add(x.name);
+    zeilen.push({name: x.name, belag: x.belag, halle: x.halle, tempo: tp, n: x.n, gl: x.glatt, erw: x.erwartet, f: x.faktor, tb: x.tb_satz, bo: x.bo}); }
+  for(const r of D.tempo || []) if(!Object.values(D.turnierStats||{}).some(x => TennisModel.lookupTempo([x.name, ...(x.alias||[])].join(" ").toLowerCase(), r.belag, [r]) != null))
+    zeilen.push({name: r.name, belag: r.belag, tempo: tempoText(r.name, r.belag)});
+  for(const r of D.csi || []) if(!zeilen.some(z => z.belag === "clay" && [r.name, r.alias].some(n => n && (norm_(z.name).includes(norm_(n)) || norm_(n).includes(norm_(z.name))))))
+    zeilen.push({name: r.name, belag: "clay", tempo: tempoText(r.name, "clay")});
+  zeilen.sort((a, b) => (a.belag||"").localeCompare(b.belag||"") || a.name.localeCompare(b.name));
+  return `<h2>Turniere: Platztempo & Satzstatistik</h2>
+  <p class="time">Platztempo: Hart/Rasen aus Tennis Abstract (1,00 = Tour-Schnitt, Asse bereinigt), Sand als Court Speed Index aus der Excel. Glatte Siege (2:0, bei Grand Slams 3:0), Tiebreak-Anteil und Turnierfaktor aus allen ATP-Partien seit 2015 (ohne Aufgaben). Turnier auf dem Board anklicken für die aktuelle Ausgabe.</p>
+  <div class="tablewrap"><table class="tliste"><thead><tr><th class="l">Turnier</th><th class="l">Belag</th><th class="l">Tempo</th><th class="num">Partien</th><th class="num">glatt</th><th class="num hide-s">erwartet</th><th class="num">Faktor</th><th class="num hide-s">TB-Sätze</th></tr></thead><tbody>${
+    zeilen.map(z => `<tr><td class="l">${esc(z.name)}${z.halle ? ' <span class="time">Halle</span>' : ""}${z.bo === 5 ? ' <span class="time">Bo5</span>' : ""}</td><td class="l">${SURF[z.belag]||z.belag||"–"}</td><td class="l time">${z.tempo ? z.tempo.text : "–"}</td><td class="num">${z.n||"–"}</td><td class="num">${z.gl!=null?pc(z.gl,0):"–"}</td><td class="num hide-s">${z.erw!=null?pc(z.erw,0):"–"}</td><td class="num ${z.f>1.02?"pos":z.f<0.98?"negv":""}">${z.f!=null?"×"+fx(z.f,2):"–"}</td><td class="num hide-s">${z.tb!=null?pc(z.tb,0):"–"}</td></tr>`).join("")}</tbody></table></div>`;
+}
 function renderInfo(){
   const P = D.params, n = Object.keys(D.players).length;
   const ohne = Object.values(D.players).filter(p => p.hard_1in==null).length;
@@ -2024,6 +2099,7 @@ function renderInfo(){
   const uc = unitCfg();
   const tt = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "–";
   $("#v-info").innerHTML = `
+  <details class="box klapp" data-k="tliste" style="margin-bottom:16px;width:min(1000px,calc(100vw - 32px));max-width:none"${store.get("klapp.tliste", false)?" open":""}><summary><h3>Turniere: Platztempo & Satzstatistik</h3></summary>${turnierListeHtml().replace(/^<h2>[^<]*<\/h2>/, "")}</details>
   <h2>Systemstatus</h2>
   <div class="kv two" style="max-width:560px">
     <span class="k">Quoten zuletzt</span><span class="v">${tt(META.quoten_update || M.stand)}</span>

@@ -164,7 +164,21 @@
   }
 
   // Satzergebnis-Prognose (BY3..CM3): q so bestimmen, dass P(Match) = P(A) final
-  function setScores(pFinal, mode) {
+  // Turnier-Satzstatistik (turnier_stats.json, ATP-Ebene) zum Turniernamen im Spielplan finden
+  function lookupTurnierStats(turnier, stats) {
+    const t = String(turnier || "").toLowerCase();
+    if (!stats || /challenger/.test(t)) return null;
+    let best = null, bl = 0;
+    for (const x of Object.values(stats)) for (const n of [x.name, ...(x.alias || [])]) {
+      const nn = String(n || "").toLowerCase();
+      if (nn.length > bl && nn.length >= 4 && t.includes(nn)) { best = x; bl = nn.length; }
+    }
+    return best;
+  }
+  // k > 1: mehr glatte Siege als bei unabhängigen Sätzen (Sätze hängen zusammen – Form, Momentum). Siegchance bleibt gleich,
+  // nur die Verteilung 2:0 ↔ 2:1 (bzw. 3:0 ↔ 3:1/3:2) verschiebt sich.
+  function setScores(pFinal, mode, k) {
+    k = isNum(k) && k > 0 ? k : 1;
     const by = clip(pFinal, 0.05, 0.95);
     const F = (q) => (mode === 5 ? 6 * q ** 5 - 15 * q ** 4 + 10 * q ** 3 : 3 * q ** 2 - 2 * q ** 3);
     const dF = (q) => Math.max(0.05, mode === 5 ? 30 * q ** 2 * (1 - q) ** 2 : 6 * q * (1 - q));
@@ -175,8 +189,20 @@
     let sc;
     if (mode === 5) {
       sc = { "3-0": q ** 3, "3-1": 3 * q ** 3 * r, "3-2": 6 * q ** 3 * r ** 2, "0-3": r ** 3, "1-3": 3 * r ** 3 * q, "2-3": 6 * r ** 3 * q ** 2 };
+      if (k !== 1) {
+        const pa = sc["3-0"] + sc["3-1"] + sc["3-2"], pb = 1 - pa;
+        const a0 = Math.min(pa * 0.98, sc["3-0"] * k), b0 = Math.min(pb * 0.98, sc["0-3"] * k);
+        const ra = sc["3-1"] + sc["3-2"], rb = sc["1-3"] + sc["2-3"];
+        sc = { "3-0": a0, "3-1": (pa - a0) * sc["3-1"] / ra, "3-2": (pa - a0) * sc["3-2"] / ra,
+               "0-3": b0, "1-3": (pb - b0) * sc["1-3"] / rb, "2-3": (pb - b0) * sc["2-3"] / rb };
+      }
     } else {
       sc = { "2-0": q ** 2, "2-1": 2 * q ** 2 * r, "0-2": r ** 2, "1-2": 2 * r ** 2 * q };
+      if (k !== 1) {
+        const pa = sc["2-0"] + sc["2-1"], pb = 1 - pa;
+        const a0 = Math.min(pa * 0.98, sc["2-0"] * k), b0 = Math.min(pb * 0.98, sc["0-2"] * k);
+        sc = { "2-0": a0, "2-1": pa - a0, "0-2": b0, "1-2": pb - b0 };
+      }
     }
     let top = null;
     for (const k in sc) if (top === null || sc[k] > sc[top]) top = k;
@@ -431,6 +457,13 @@
     varianten.C.pStats = pStatsC;
     if (eloGeschaetzt) for (const v of Object.values(varianten)) { v.wette = null; v.edge = null; v.kelly = null; }   // gleiche Regel für alle Varianten
 
+    // Satzverteilung: Sätze sind nicht unabhängig (mehr glatte Siege als im Markov-Modell) – globaler Faktor je Ebene,
+    // dazu der Turnierfaktor aus turnier_stats.json (nur ATP-Ebene). Siegchance unverändert.
+    const istCh = /challenger/i.test(String(match.turnier || "") + " " + String(match.kategorie || ""));
+    const satzBasis = mode === 5 ? (P.SATZ_GLATT_BO5 ?? 1) : istCh ? (P.SATZ_GLATT_CH ?? 1) : (P.SATZ_GLATT_ATP ?? 1);
+    const tst = lookupTurnierStats(match.turnier, D.turnierStats);
+    const satzK = { basis: satzBasis, turnier: tst ? tst.name : null, faktor: tst ? tst.faktor : 1, k: satzBasis * (tst ? tst.faktor : 1) };
+
     return Object.assign(out, {
       varianten,
       ok: true, modus: mode, csi, tempo: lookupTempo(match.turnier, match.belag, D.tempo),
@@ -442,7 +475,8 @@
       fairMarktA: pMarkt ? 1 / pMarkt : null, fairMarktB: pMarkt ? 1 / (1 - pMarkt) : null,
       edgeA, edgeB, valueA, valueB, empfehlung, wette, kelly, buchQ,
       favCheck, ausCheck, baender, aussenseiter, bilanzSignal,
-      saetze: setScores(pFinal, mode),
+      saetze: setScores(pFinal, mode, satzK.k),
+      saetzeUnabh: setScores(pFinal, mode, 1), satzK,
     });
   }
 
@@ -509,7 +543,7 @@
     return { p: kal, pPur: pure, pSet: lv.pSet, pGame: lv.gameA, offset: off, delta, pSrvA: pA2, pSrvB: pB2, gespielt: gw + gl };
   }
 
-  const api = { analyse, live, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
+  const api = { analyse, live, lookupTurnierStats, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.TennisModel = api;
 })(typeof self !== "undefined" ? self : this);
