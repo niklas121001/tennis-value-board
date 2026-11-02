@@ -2022,9 +2022,14 @@ function tippDetail(x){
 
 // ---- Turnier-Info: Platztempo, glatte Siege (2:0 / 3:0), Tiebreaks – Vorjahre (ATP-Ebene) + diese Ausgabe (eigenes Archiv)
 function tempoText(turnier, belag){
-  const sp = TennisModel.lookupTempo ? TennisModel.lookupTempo(turnier, belag, D.tempo) : null, csi = TennisModel.lookupCSI(turnier, belag, D.csi || []);
-  if(typeof sp === "number") return {wert: sp, text: `${fx(sp,2)} · ${sp < 0.85 ? "langsam" : sp < 1.0 ? "eher langsam" : sp < 1.15 ? "mittel" : sp < 1.3 ? "schnell" : "sehr schnell"}`, art: "Tempo (Asse, 1,00 = Tour-Schnitt)"};
-  if(typeof csi === "number") return {wert: csi, text: `CSI ${fx(csi,1)} · ${csi < 3 ? "langsamer Sand" : csi < 6 ? "mittlerer Sand" : "schneller Sand"}`, art: "Court Speed Index (0–10)"};
+  const sp = TennisModel.lookupTempo(turnier, belag, D.tempo), csi = TennisModel.lookupCSI(turnier, belag, D.csi || []);
+  if(String(belag) === "clay"){
+    if(typeof sp === "number"){ const lo = D.params.CSI_TEMPO_LANGSAM ?? 0.5, hi = D.params.CSI_TEMPO_SCHNELL ?? 1.0, c = Math.round(Math.min(1, Math.max(0, (sp - lo) / (hi - lo))) * 100) / 10;
+      return {wert: sp, text: `${fx(sp,2)} · ${c < 3 ? "langsamer Sand" : c < 6 ? "mittlerer Sand" : "schneller Sand"} (CSI ${fx(c,1)}${typeof csi === "number" ? `, Excel ${fx(csi,1)}` : ""})`, art: "Tempo (Tennis Abstract, Asse, 1,00 = Tour-Schnitt)"}; }
+    if(typeof csi === "number") return {wert: csi, text: `CSI ${fx(csi,1)} · ${csi < 3 ? "langsamer Sand" : csi < 6 ? "mittlerer Sand" : "schneller Sand"} (Excel)`, art: "Court Speed Index (0–10)"};
+    return null;
+  }
+  if(typeof sp === "number") return {wert: sp, text: `${fx(sp,2)} · ${sp < 0.85 ? "langsam" : sp < 1.0 ? "eher langsam" : sp < 1.15 ? "mittel" : sp < 1.3 ? "schnell" : "sehr schnell"}`, art: "Tempo (Tennis Abstract, Asse, 1,00 = Tour-Schnitt)"};
   return null;
 }
 function satzZahlen(xs){
@@ -2087,7 +2092,7 @@ function turnierListeHtml(){
     zeilen.push({name: r.name, belag: "clay", tempo: tempoText(r.name, "clay")});
   zeilen.sort((a, b) => (a.belag||"").localeCompare(b.belag||"") || a.name.localeCompare(b.name));
   return `<h2>Turniere: Platztempo & Satzstatistik</h2>
-  <p class="time">Platztempo: Hart/Rasen aus Tennis Abstract (1,00 = Tour-Schnitt, Asse bereinigt), Sand als Court Speed Index aus der Excel. Glatte Siege (2:0, bei Grand Slams 3:0), Tiebreak-Anteil und Turnierfaktor aus allen ATP-Partien seit 2015 (ohne Aufgaben). Turnier auf dem Board anklicken für die aktuelle Ausgabe.</p>
+  <p class="time">Platztempo aus Tennis Abstract (Ass-Quote bereinigt um Aufschläger/Returner, 1,00 = Tour-Schnitt, Mittel der letzten 3 Jahre; Sand zusätzlich auf die CSI-Skala 0–10 umgerechnet, Excel-CSI zum Vergleich). Glatte Siege (2:0, bei Grand Slams 3:0), Tiebreak-Anteil und Turnierfaktor aus allen ATP-Partien seit 2015 (ohne Aufgaben). Turnier auf dem Board anklicken für die aktuelle Ausgabe.</p>
   <div class="tablewrap"><table class="tliste"><thead><tr><th class="l">Turnier</th><th class="l">Belag</th><th class="l">Tempo</th><th class="num">Partien</th><th class="num">glatt</th><th class="num hide-s">erwartet</th><th class="num">Faktor</th><th class="num hide-s">TB-Sätze</th></tr></thead><tbody>${
     zeilen.map(z => `<tr><td class="l">${esc(z.name)}${z.halle ? ' <span class="time">Halle</span>' : ""}${z.bo === 5 ? ' <span class="time">Bo5</span>' : ""}</td><td class="l">${SURF[z.belag]||z.belag||"–"}</td><td class="l time">${z.tempo ? z.tempo.text : "–"}</td><td class="num">${z.n||"–"}</td><td class="num">${z.gl!=null?pc(z.gl,0):"–"}</td><td class="num hide-s">${z.erw!=null?pc(z.erw,0):"–"}</td><td class="num ${z.f>1.02?"pos":z.f<0.98?"negv":""}">${z.f!=null?"×"+fx(z.f,2):"–"}</td><td class="num hide-s">${z.tb!=null?pc(z.tb,0):"–"}</td></tr>`).join("")}</tbody></table></div>`;
 }

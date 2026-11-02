@@ -58,7 +58,7 @@
   // Platztempo Hart/Rasen (ATP-Turniere, Tennis Abstract Surface Speed: 1,00 = Tour-Schnitt). Nur ATP, Challenger ohne Wert.
   function lookupTempo(turnier, belag, tabelle) {
     const t = String(turnier || "").toLowerCase(), sk = surfKey(belag);
-    if (!tabelle || /challenger/.test(t) || (sk !== "hard" && sk !== "grass")) return null;
+    if (!tabelle || /challenger/.test(t) || !sk) return null;
     for (const row of tabelle) {
       if (row.belag !== sk) continue;
       for (const n of [row.name, ...(row.alias || [])]) if (n && t.includes(String(n).toLowerCase())) return row.speed;
@@ -288,7 +288,14 @@
       (Math.min(spA === null ? ref : spA, ref) / ref - Math.min(spB === null ? ref : spB, ref) / ref) * P.W_SURF_EXP;
 
     // Kombination (AG3)
-    const csi = lookupCSI(match.turnier, match.belag, D.csi || []);
+    // Sand-Tempo: bevorzugt Tennis Abstract (Ass-Quote, Mehrjahresmittel), auf die CSI-Skala 0–10 umgerechnet;
+    // sonst der CSI aus der Excel
+    let csi = lookupCSI(match.turnier, match.belag, D.csi || []);
+    if (sk === "clay" && P.CSI_AUS_TEMPO !== false) {
+      const spC = lookupTempo(match.turnier, match.belag, D.tempo);
+      const lo = P.CSI_TEMPO_LANGSAM ?? 0.5, hi = P.CSI_TEMPO_SCHNELL ?? 1.0;
+      if (isNum(spC)) csi = Math.round(clip((spC - lo) / (hi - lo), 0, 1) * 100) / 10;
+    }
     let [wS, wE] = weights(sk, csi, P);
     // App-Erweiterung: fehlen Aufschlagwerte, Statistik-Teil abschalten (Excel rechnet mit 0)
     out.nurElo = P.FEHLENDE_STATS !== "excel" && !mitAvg && (out.statsFehlenA || out.statsFehlenB);

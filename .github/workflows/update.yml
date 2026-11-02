@@ -121,6 +121,11 @@ jobs:
         working-directory: scripts
         run: python update_elo.py
 
+      - name: Platztempo (Tennis Abstract, monatlich)
+        continue-on-error: true
+        working-directory: scripts
+        run: python tempo_ta.py
+
       - name: Eigene Elo (Tennis Abstract + Ergebnisse seit dessen Stand)
         continue-on-error: true
         working-directory: scripts
