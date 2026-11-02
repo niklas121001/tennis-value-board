@@ -446,7 +446,70 @@
     });
   }
 
-  const api = { analyse, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
+
+  // ---- Live-Rechner (wie Excel-Blatt LIVE-WETTEN): Siegchance A ab aktuellem Spielstand.
+  // st = {sA, sB (Sätze), gA, gB (Spiele im Satz), pA, pB (Punkte 0..4 = 0/15/30/40/AD bzw. Tiebreak-Punkte), tb (bool),
+  //       srv ("A"/"B", Aufschläger im laufenden Spiel), saetze ([[A,B], …] abgeschlossene Sätze)}
+  // o = {pSrvA, pSrvB, modus (3/5), pPre (Pre-Match-Prognose final), momentum (Gewicht, z. B. 0,3), pMin, pMax}
+  function live(st, o) {
+    const need = ((o.modus || 3) + 1) / 2, pmin = o.pMin ?? 0.4, pmax = o.pMax ?? 0.85;
+    const D2 = (p) => p * p / (p * p + (1 - p) * (1 - p));
+    const rechne = (pA, pB) => {
+      const gm = {}, game = (p, a, b) => {           // Aufschläger gewinnt das Spiel ab Punktstand a:b
+        const k = p + "|" + a + "|" + b; if (k in gm) return gm[k];
+        let r;
+        if (a >= 4 && a - b >= 2) r = 1; else if (b >= 4 && b - a >= 2) r = 0;
+        else if (a >= 3 && b >= 3) r = a === b ? D2(p) : a > b ? p + (1 - p) * D2(p) : p * D2(p);
+        else r = p * game(p, a + 1, b) + (1 - p) * game(p, a, b + 1);
+        return (gm[k] = r);
+      };
+      const pt = (pA + (1 - pB)) / 2, tm = {}, tb = (a, b) => {   // Tiebreak (neutraler Punktgewinn wie Excel)
+        const k = a + "|" + b; if (k in tm) return tm[k];
+        let r;
+        if (a >= 7 && a - b >= 2) r = 1; else if (b >= 7 && b - a >= 2) r = 0;
+        else if (a >= 6 && b >= 6) r = a === b ? D2(pt) : a > b ? pt + (1 - pt) * D2(pt) : pt * D2(pt);
+        else r = pt * tb(a + 1, b) + (1 - pt) * tb(a, b + 1);
+        return (tm[k] = r);
+      };
+      const hA = game(pA, 0, 0), hB = game(pB, 0, 0), sm = {}, set = (a, b, aSrv) => {
+        const k = a + "|" + b + "|" + aSrv; if (k in sm) return sm[k];
+        let r;
+        if (a === 7 || (a >= 6 && a - b >= 2)) r = 1; else if (b === 7 || (b >= 6 && b - a >= 2)) r = 0;
+        else if (a === 6 && b === 6) r = tb(0, 0);
+        else r = aSrv ? hA * set(a + 1, b, false) + (1 - hA) * set(a, b + 1, false)
+                      : (1 - hB) * set(a + 1, b, true) + hB * set(a, b + 1, true);
+        return (sm[k] = r);
+      };
+      const ps = (set(0, 0, true) + set(0, 0, false)) / 2, mm = {}, match = (a, b) => {
+        const k = a + "|" + b; if (k in mm) return mm[k];
+        const r = a >= need ? 1 : b >= need ? 0 : ps * match(a + 1, b) + (1 - ps) * match(a, b + 1);
+        return (mm[k] = r);
+      };
+      const aSrv = st.srv !== "B";
+      let gameA = null, pSet;
+      if (st.tb || (st.gA === 6 && st.gB === 6)) pSet = tb(st.pA || 0, st.pB || 0);
+      else {
+        gameA = aSrv ? game(pA, st.pA || 0, st.pB || 0) : 1 - game(pB, st.pB || 0, st.pA || 0);
+        pSet = gameA * set((st.gA || 0) + 1, st.gB || 0, !aSrv) + (1 - gameA) * set(st.gA || 0, (st.gB || 0) + 1, !aSrv);
+      }
+      const p = pSet * match((st.sA || 0) + 1, st.sB || 0) + (1 - pSet) * match(st.sA || 0, (st.sB || 0) + 1);
+      return { p, pSet, gameA, p00: match(0, 0), hA, hB };
+    };
+    // Momentum: Spielgewinn-Anteil bisher minus erwarteter Anteil verschiebt p_srv (ab 4 gespielten Spielen)
+    const basis = rechne(o.pSrvA, o.pSrvB);
+    let gw = st.gA || 0, gl = st.gB || 0;
+    for (const [x, y] of st.saetze || []) { gw += +x || 0; gl += +y || 0; }
+    const g = (basis.hA + (1 - basis.hB)) / 2, delta = gw + gl >= 4 ? gw / (gw + gl) - g : 0, w = o.momentum || 0;
+    const pA2 = clip(o.pSrvA + w * delta, pmin, pmax), pB2 = clip(o.pSrvB - w * delta, pmin, pmax);
+    const lv = w && delta ? rechne(pA2, pB2) : basis;
+    // Kalibrierung: Logit-Verschiebung, damit 0:0 genau die Pre-Match-Prognose ergibt
+    const off = isNum(o.pPre) && o.pPre > 0 && o.pPre < 1 ? logit(o.pPre) - logit(clip(basis.p00, 1e-4, 1 - 1e-4)) : 0;
+    const pure = clip(lv.p, 0, 1);
+    const kal = pure <= 0 || pure >= 1 ? pure : sigm(logit(clip(pure, 1e-6, 1 - 1e-6)) + off);
+    return { p: kal, pPur: pure, pSet: lv.pSet, pGame: lv.gameA, offset: off, delta, pSrvA: pA2, pSrvB: pB2, gespielt: gw + gl };
+  }
+
+  const api = { analyse, live, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.TennisModel = api;
 })(typeof self !== "undefined" ? self : this);

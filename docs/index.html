@@ -255,7 +255,10 @@ details.box summary{cursor:pointer;list-style-position:outside}
 .bein .nr{font:600 13px var(--f-display);color:var(--muted);align-self:center;min-width:18px}
 tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 .kombi-t{width:100%;font-size:13px}.kombi-t td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
-.tagtog{white-space:nowrap}.ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
+.tagtog{white-space:nowrap}.lscore{width:auto;min-width:280px;margin:6px 0;font-size:14px}.lscore th,.lscore td{padding:4px 10px;text-align:center}.lscore td.l,.lscore th.l{text-align:left}.lscore .lwin{font-weight:700}.lsrv{color:var(--accent);margin-right:4px;font-size:11px}
+#l-sel{width:100%;max-width:100%}.lbtn{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.lbtn .btn{min-width:120px}@media(max-width:600px){.lbtn .btn{flex:1 1 45%;min-width:0}.lerg{min-width:0;width:100%}}.lform .ctl input[type=number]{width:70px}.lform .q input{width:100px}
+.lerg{width:auto;min-width:300px;margin-top:10px}.lerg td,.lerg th{padding:4px 12px;text-align:right}.lerg td.l{text-align:left;color:var(--muted)}.lempf{margin:10px 0 4px;font-size:14px}.lhand summary{cursor:pointer;margin-top:6px}
+.ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
 .kel{margin-top:4px;font-size:12px;color:var(--good);text-align:right}
@@ -274,6 +277,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
 
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-partien" aria-selected="true" data-tab="partien">Partien</button>
+    <button role="tab" id="tab-live" aria-selected="false" data-tab="live">Live</button>
     <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Tagesziel</button>
     <button role="tab" id="tab-wetten" aria-selected="false" data-tab="wetten">Meine Wetten</button>
     <button role="tab" id="tab-protokoll" aria-selected="false" data-tab="protokoll">Bilanz</button>
@@ -303,6 +307,8 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     </div>
     <div id="list"></div>
   </section>
+
+  <section id="v-live" hidden><div id="live"></div></section>
 
   <section id="v-rechner" hidden>
     <div id="tz"></div>
@@ -532,15 +538,174 @@ function setupControls(){
   ["bm","f-tag","f-art","f-belag","f-value","f-ass","f-quali","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
     const el = $("#"+id); store.set(id==="bm"?"bm":id, el.type==="checkbox"?el.checked:el.value); render(); }));
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
-  if(["partien","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
+  if(["partien","live","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
+  liveInit();
+  $("#list").addEventListener("click", (e) => { const b = e.target.closest(".zulive"); if(!b) return; store.set("live.sel", b.dataset.id); showTab("live"); window.scrollTo(0, 0); });
 }
 
 function showTab(t){
   document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t));
-  ["partien","rechner","wetten","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
+  ["partien","live","rechner","wetten","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
+  if(BEREIT && t==="live") renderLive();
   if(BEREIT && t==="protokoll") renderLog();          // Kurve braucht die sichtbare Breite
   if(BEREIT && t==="wetten") renderWetten();
   if(BEREIT && t==="rechner") renderTagesziel();
+}
+
+
+// ---- Live-Rechner (wie Excel-Blatt LIVE-WETTEN): Siegchance ab aktuellem Spielstand, Live-Quote von Hand
+const PKT = ["0","15","30","40","AD"];
+let LIVE_PROG = null;
+function liveLeer(){ return {sA:0, sB:0, gA:0, gB:0, pA:0, pB:0, tb:false, srv:"A", saetze:[], hist:[], qa:"", qb:"", bm:"winamax"}; }
+function liveState(id){ const x = store.get("live." + id, null); return Object.assign(liveLeer(), x || {}); }
+function liveSave(id, st){ st.zeit = nowIso(); store.set("live." + id, st); }
+// Partien zur Auswahl: Board (auch schon begonnene) + heute begonnene aus prognosen.json + eigene Partie
+function livePartien(){
+  const out = [], seen = new Set(), now = Date.now();
+  for(const p of (M && M.partien) || []){
+    const q = (p.quoten||{})[$("#bm") ? $("#bm").value : "winamax"] || Object.values(p.quoten||{})[0] || [];
+    out.push({id: p.id, a: p.a, b: p.b, turnier: p.turnier, belag: (belagFor(p)||{}).belag || p.belag, start: p.start, qa: q[0], qb: q[1], modus: p.modus}); seen.add(p.id); }
+  for(const [id, p] of Object.entries(LIVE_PROG || {})){
+    const t = new Date(p.start).getTime(); if(seen.has(id) || !(t > now - 10*36e5 && t < now + 36e5)) continue;
+    out.push({id, a: p.a, b: p.b, turnier: p.turnier, belag: p.belag, start: p.start, qa: p.qaM || p.qa, qb: p.qbM || p.qb, modus: p.modus}); }
+  return out.sort((x, y) => String(x.start).localeCompare(String(y.start)));
+}
+function liveCtx(sel){
+  if(sel === "eigen"){ const c = store.get("live.eigen.ctx", {}); return c.a && c.b ? Object.assign({id: "eigen", turnier: c.turnier || "", start: null}, c) : null; }
+  return livePartien().find(p => p.id === sel) || null;
+}
+function livePunkt(st, wer){
+  st.hist = (st.hist || []).slice(-60); st.hist.push(JSON.stringify(Object.assign({}, st, {hist: undefined})));
+  const X = wer === "A" ? "pA" : "pB", Y = wer === "A" ? "pB" : "pA";
+  const spielGewonnen = () => {
+    const gX = wer === "A" ? "gA" : "gB", gY = wer === "A" ? "gB" : "gA";
+    st[gX]++; st.pA = 0; st.pB = 0;
+    const satzEnde = st.tb || (st[gX] >= 6 && st[gX] - st[gY] >= 2) || st[gX] === 7;
+    if(st.tb){ st.srv = st.tbStart === "A" ? "B" : "A"; st.tb = false; } else st.srv = st.srv === "A" ? "B" : "A";
+    if(satzEnde){ st.saetze.push([st.gA, st.gB]); if(wer === "A") st.sA++; else st.sB++; st.gA = 0; st.gB = 0; }
+    else if(st.gA === 6 && st.gB === 6){ st.tb = true; st.tbStart = st.srv; }
+  };
+  if(st.tb){ st[X]++; if(st[X] >= 7 && st[X] - st[Y] >= 2) spielGewonnen();
+    else if((st.pA + st.pB) % 2 === 1) st.srv = st.srv === "A" ? "B" : "A";   // im Tiebreak wechselt der Aufschlag nach 1, dann alle 2 Punkte
+    return; }
+  if(st[X] === 4) return spielGewonnen();
+  if(st[X] === 3 && st[Y] < 3) return spielGewonnen();
+  if(st[X] === 3 && st[Y] === 4){ st[Y] = 3; return; }
+  st[X]++;
+}
+function liveInit(){
+  j("prognosen.json", {}).then(p => { LIVE_PROG = p || {}; if(!$("#v-live").hidden) renderLive(); });
+  const el = $("#live");
+  el.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-la]"); if(!b) return;
+    const sel = store.get("live.sel", ""), st = liveState(sel), a = b.dataset.la;
+    if(a === "punktA" || a === "punktB") livePunkt(st, a === "punktA" ? "A" : "B");
+    else if(a === "undo"){ const h = (st.hist || []).pop(); if(h){ const alt = JSON.parse(h); Object.assign(st, alt, {hist: st.hist}); } }
+    else if(a === "neu"){ const q = {qa: st.qa, qb: st.qb, bm: st.bm}; Object.assign(st, liveLeer(), q); }
+    else if(a === "srv") st.srv = st.srv === "A" ? "B" : "A";
+    else if(a === "wette"){ liveWette(b.dataset.seite); return; }
+    else if(a === "eigen-ok"){ const g = (id) => ($("#"+id) || {}).value || "";
+      store.set("live.eigen.ctx", {a: g("le-a").trim(), b: g("le-b").trim(), belag: g("le-belag"), turnier: g("le-turnier").trim(), modus: +g("le-modus") || null, qa: num2(g("le-qa")), qb: num2(g("le-qb"))}); renderLive(); return; }
+    else return;
+    liveSave(sel, st); renderLive();
+  });
+  el.addEventListener("change", (e) => {
+    const t = e.target;
+    if(t.id === "l-sel"){ store.set("live.sel", t.value); setTimeout(renderLive, 0); return; }
+    const sel = store.get("live.sel", ""), st = liveState(sel);
+    if(t.dataset.lf){ const f = t.dataset.lf;
+      if(f === "saetze") st.saetze = String(t.value).split(/[ ,;]+/).map(x => x.split(/[-:]/).map(Number)).filter(x => x.length === 2 && x.every(isFinite));
+      else if(f === "tb") st.tb = t.checked;
+      else if(["qa","qb","bm","srv"].includes(f)) st[f] = t.value;
+      else st[f] = Math.max(0, +t.value || 0);
+      liveSave(sel, st); setTimeout(renderLive, 0); }
+  });
+}
+function liveRechnung(ctx, st){
+  const qa = num2(ctx.qa), qb = num2(ctx.qb);
+  const r = TennisModel.analyse({turnier: ctx.turnier || "", belag: ctx.belag || "hard", a: ctx.a, b: ctx.b, qa: qa || undefined, qb: qb || undefined, modus: ctx.modus || undefined}, D);
+  if(!r || !r.ok) return null;
+  const o = {pSrvA: r.pSrvA, pSrvB: r.pSrvB, modus: r.modus, pPre: r.pFinal, momentum: D.params.MOMENTUM_GEWICHT ?? 0.3, pMin: D.params.P_SRV_MIN, pMax: D.params.P_SRV_MAX};
+  const lv = TennisModel.live(st, o), pur = TennisModel.live(st, Object.assign({}, o, {pPre: null}));
+  return {r, lv, pur};
+}
+function liveWette(seite){
+  const sel = store.get("live.sel", ""), ctx = liveCtx(sel), st = liveState(sel); if(!ctx) return;
+  const q = num2(seite === "A" ? st.qa : st.qb), einsatz = num2(($("#l-einsatz") || {}).value);
+  if(!(q > 1) || !(einsatz > 0)){ ($("#l-einsatz") || {}).focus && $("#l-einsatz").focus(); return; }
+  const x = liveRechnung(ctx, st);
+  const stand = [...st.saetze.map(([u, v]) => `${u}-${v}`), `${st.gA}-${st.gB}`].join(" ") + (st.tb ? ` TB ${st.pA}-${st.pB}` : ` (${PKT[st.pA]||st.pA}:${PKT[st.pB]||st.pB})`);
+  wetteNeu({fixtureId: ctx.id === "eigen" ? null : ctx.id, start: ctx.start || nowIso(), turnier: ctx.turnier, belag: ctx.belag, a: ctx.a, b: ctx.b, seite,
+    spieler: seite === "A" ? ctx.a : ctx.b, gegner: seite === "A" ? ctx.b : ctx.a, buchmacher: st.bm || "winamax", quote: q, einsatz, markt: "sieg",
+    live: true, liveStand: stand, modellP: x ? (seite === "A" ? x.lv.p : 1 - x.lv.p) : null});
+  $("#l-msg").textContent = `Gespeichert: ${seite === "A" ? ctx.a : ctx.b} @ ${fx(q)} (Stand ${stand}) – unter „Meine Wetten“.`;
+}
+function renderLive(){
+  const el = $("#live"); if(!el || !D) return;
+  const parts = livePartien(), sel0 = store.get("live.sel", ""), sel = sel0 === "eigen" || parts.some(p => p.id === sel0) ? sel0 : "";
+  const zeit = (p) => p.start ? new Date(p.start).toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit", timeZone:TZ}) : "";
+  const opts = `<option value="">– Partie wählen –</option>` + parts.map(p => `<option value="${esc(p.id)}"${p.id===sel?" selected":""}>${zeit(p)} · ${esc(p.a)} – ${esc(p.b)} (${esc(p.turnier||"")})</option>`).join("") + `<option value="eigen"${sel==="eigen"?" selected":""}>Eigene Partie eingeben …</option>`;
+  let h = `<div class="box"><h3>Live-Rechner</h3><p class="time" style="margin:0 0 8px">Siegchance ab dem aktuellen Spielstand (Aufschlag-Markov wie in der Excel, kalibriert auf die Pre-Match-Prognose). Spielstand und Live-Quote trägst du selbst ein.</p>
+    <div class="controls"><div class="ctl" style="flex:1 1 320px"><label for="l-sel">Partie</label><select id="l-sel">${opts}</select></div></div>`;
+  if(sel === "eigen"){ const c = store.get("live.eigen.ctx", {});
+    h += `<div class="controls lform"><div class="ctl"><label for="le-a">Spieler A</label><input id="le-a" list="c-players" value="${esc(c.a||"")}"></div>
+      <div class="ctl"><label for="le-b">Spieler B</label><input id="le-b" list="c-players" value="${esc(c.b||"")}"></div>
+      <div class="ctl"><label for="le-belag">Belag</label><select id="le-belag">${["hard","clay","grass"].map(b => `<option value="${b}"${c.belag===b?" selected":""}>${SURF[b]}</option>`).join("")}</select></div>
+      <div class="ctl"><label for="le-modus">Modus</label><select id="le-modus"><option value="">auto</option><option value="3"${c.modus===3?" selected":""}>Best of 3</option><option value="5"${c.modus===5?" selected":""}>Best of 5</option></select></div>
+      <div class="ctl"><label for="le-turnier">Turnier</label><input id="le-turnier" value="${esc(c.turnier||"")}" placeholder="optional"></div>
+      <div class="ctl q"><label for="le-qa">Pre-Match-Quote A</label><input id="le-qa" inputmode="decimal" value="${c.qa?fx(c.qa):""}" placeholder="optional"></div>
+      <div class="ctl q"><label for="le-qb">Pre-Match-Quote B</label><input id="le-qb" inputmode="decimal" value="${c.qb?fx(c.qb):""}" placeholder="optional"></div>
+      <div class="ctl"><label>&nbsp;</label><button type="button" class="btn" data-la="eigen-ok">Übernehmen</button></div></div>`; }
+  const ctx = sel ? liveCtx(sel) : null;
+  if(!ctx){ el.innerHTML = h + `</div>`; return; }
+  const st = liveState(sel), x = liveRechnung(ctx, st);
+  if(!x){ el.innerHTML = h + `<p class="time">Für diese Spieler fehlen Daten.</p></div>`; return; }
+  const nA = ctx.a.split(" ").slice(-1)[0], nB = ctx.b.split(" ").slice(-1)[0];
+  const pk = (v) => st.tb ? v : (PKT[v] ?? v), dot = (w) => st.srv === w ? `<span class="lsrv" title="schlägt auf">●</span>` : "";
+  const ende = Math.max(st.sA, st.sB) >= (x.r.modus + 1) / 2;
+  h += `<table class="lscore"><thead><tr><th class="l"></th>${st.saetze.map((_, i) => `<th>S${i+1}</th>`).join("")}<th>Sätze</th><th>Spiele</th><th>${st.tb?"TB":"Punkte"}</th></tr></thead><tbody>
+    ${[["A", ctx.a, st.sA, st.gA, st.pA, 0], ["B", ctx.b, st.sB, st.gB, st.pB, 1]].map(([w, n, s_, g, pt, i]) => `<tr><td class="l">${dot(w)}<b>${esc(n)}</b>${linksBadge(n)}</td>${st.saetze.map(z => `<td class="${z[i]>z[1-i]?"lwin":""}">${z[i]}</td>`).join("")}<td><b>${s_}</b></td><td><b>${g}</b></td><td><b>${pk(pt)}</b></td></tr>`).join("")}</tbody></table>
+    <div class="lbtn">${ende ? `<span class="pill go">Match beendet</span>` : `<button type="button" class="btn" data-la="punktA">+ Punkt ${esc(nA)}</button><button type="button" class="btn" data-la="punktB">+ Punkt ${esc(nB)}</button>`}
+      <button type="button" class="btn ghost" data-la="undo" title="Letzten Punkt zurücknehmen"${(st.hist||[]).length?"":" disabled"}>↶ zurück</button><button type="button" class="btn ghost" data-la="srv" title="Aufschläger tauschen">⇄ Aufschlag</button><button type="button" class="btn ghost" data-la="neu">Neu (0:0)</button></div>
+    <details class="lhand"><summary class="time">Stand von Hand einstellen</summary><div class="controls lform">
+      <div class="ctl"><label>Sätze ${esc(nA)}</label><input type="number" min="0" max="3" data-lf="sA" value="${st.sA}"></div>
+      <div class="ctl"><label>Sätze ${esc(nB)}</label><input type="number" min="0" max="3" data-lf="sB" value="${st.sB}"></div>
+      <div class="ctl"><label>Spiele ${esc(nA)}</label><input type="number" min="0" max="7" data-lf="gA" value="${st.gA}"></div>
+      <div class="ctl"><label>Spiele ${esc(nB)}</label><input type="number" min="0" max="7" data-lf="gB" value="${st.gB}"></div>
+      <div class="ctl"><label>Punkte ${esc(nA)}</label>${st.tb ? `<input type="number" min="0" data-lf="pA" value="${st.pA}">` : `<select data-lf="pA">${PKT.map((t, i) => `<option value="${i}"${st.pA===i?" selected":""}>${t}</option>`).join("")}</select>`}</div>
+      <div class="ctl"><label>Punkte ${esc(nB)}</label>${st.tb ? `<input type="number" min="0" data-lf="pB" value="${st.pB}">` : `<select data-lf="pB">${PKT.map((t, i) => `<option value="${i}"${st.pB===i?" selected":""}>${t}</option>`).join("")}</select>`}</div>
+      <div class="ctl"><label>Aufschlag</label><select data-lf="srv"><option value="A"${st.srv==="A"?" selected":""}>${esc(nA)}</option><option value="B"${st.srv==="B"?" selected":""}>${esc(nB)}</option></select></div>
+      <div class="ctl"><label><input type="checkbox" data-lf="tb"${st.tb?" checked":""}> Tiebreak</label></div>
+      <div class="ctl" style="flex:1 1 200px"><label>Abgeschlossene Sätze (z. B. 6-4 3-6)</label><input data-lf="saetze" value="${esc(st.saetze.map(z => z.join("-")).join(" "))}"></div></div></details>
+    <div class="controls lform" style="margin-top:8px"><div class="ctl q"><label>Live-Quote ${esc(nA)}</label><input inputmode="decimal" data-lf="qa" value="${esc(st.qa)}" placeholder="z. B. 2,10"></div>
+      <div class="ctl q"><label>Live-Quote ${esc(nB)}</label><input inputmode="decimal" data-lf="qb" value="${esc(st.qb)}" placeholder="z. B. 1,75"></div>
+      <div class="ctl"><label>Buchmacher</label><input data-lf="bm" value="${esc(st.bm||"winamax")}" style="width:120px"></div></div>`;
+  const lqa = num2(st.qa), lqb = num2(st.qb), maxQ = D.params.MAX_QUOTE_VALUE_LIVE;
+  const zeile = (lbl, pa) => { const fa = 1/pa, fb = 1/(1-pa), ea = lqa ? lqa/fa - 1 : null, eb = lqb ? lqb/fb - 1 : null;
+    return {lbl, pa, fa, fb, ea, eb, va: ea > 0 && (!maxQ || lqa <= maxQ), vb: eb > 0 && (!maxQ || lqb <= maxQ)}; };
+  const K = zeile("kalibriert", x.lv.p), Pu = zeile("Markov pur", x.pur.pPur);
+  const kelly = (p, q) => q > 1 ? Math.round(D.params.BANKROLL * D.params.KELLY_FRACTION * Math.max(0, (p - 1/q) / (1 - 1/q)) * 100) / 100 : 0;
+  const tip = K.va ? "A" : K.vb ? "B" : null, kel = tip ? kelly(tip==="A" ? K.pa : 1-K.pa, tip==="A" ? lqa : lqb) : 0;
+  const vz = (v, e) => e == null ? "–" : `<span class="${v?"pos":e<0?"negv":""}">${sg(e)}</span>${v?" ✓":""}`;
+  h += `<table class="lerg"><thead><tr><th class="l"></th><th>kalibriert</th><th>Markov pur</th></tr></thead><tbody>
+    <tr><td class="l">Siegchance ${esc(nA)}</td><td><b>${pc(K.pa)}</b></td><td>${pc(Pu.pa)}</td></tr>
+    <tr><td class="l">Siegchance ${esc(nB)}</td><td><b>${pc(1-K.pa)}</b></td><td>${pc(1-Pu.pa)}</td></tr>
+    <tr><td class="l">Faire Quote ${esc(nA)} / ${esc(nB)}</td><td>${fx(K.fa)} / ${fx(K.fb)}</td><td>${fx(Pu.fa)} / ${fx(Pu.fb)}</td></tr>
+    <tr><td class="l">Edge ${esc(nA)}</td><td>${vz(K.va, K.ea)}</td><td>${vz(Pu.va, Pu.ea)}</td></tr>
+    <tr><td class="l">Edge ${esc(nB)}</td><td>${vz(K.vb, K.eb)}</td><td>${vz(Pu.vb, Pu.eb)}</td></tr></tbody></table>`;
+  const uneinig = tip && !(tip==="A" ? Pu.va : Pu.vb) ? ` <span class="time">⚠ uneinig – Markov pur sieht hier keinen Value</span>` : (!tip && (Pu.va || Pu.vb)) ? ` <span class="time">⚠ Markov pur sähe Value bei ${esc(Pu.va?nA:nB)}</span>` : "";
+  h += `<div class="lempf">${!(lqa > 1 && lqb > 1) ? `<span class="time">Live-Quoten eintragen, dann zeigt der Rechner Value und Einsatz.</span>` : tip ? `<b>Anspielen: ${esc(tip==="A"?ctx.a:ctx.b)} @ ${fx(tip==="A"?lqa:lqb)}</b> · Einsatz ${stakeHtml(kel)}${uneinig}` : `Kein Value (kalibriert).${uneinig}`}</div>
+    <div class="controls lform"><div class="ctl q"><label for="l-einsatz">Einsatz €</label><input id="l-einsatz" inputmode="decimal" value="${kel ? fx(kellyEur(kel)) : fx(unitCfg().unit)}"></div>
+      <div class="ctl"><label>&nbsp;</label><span><button type="button" class="btn mini" data-la="wette" data-seite="A">Wette auf ${esc(nA)} speichern</button> <button type="button" class="btn mini" data-la="wette" data-seite="B">Wette auf ${esc(nB)} speichern</button></span></div></div>
+    <p class="time" id="l-msg"></p>
+    <details class="lhand"><summary class="time">Rechenbasis</summary><div class="kv two" style="max-width:520px">
+      <span class="k">Pre-Match-Prognose ${esc(nA)} (Board, final)</span><span class="v">${pc(x.r.pFinal)}</span>
+      <span class="k">p_srv ${esc(nA)} / ${esc(nB)} (mit Momentum)</span><span class="v">${pc(x.lv.pSrvA)} / ${pc(x.lv.pSrvB)}</span>
+      <span class="k">Momentum (Spielanteil − erwartet, Gewicht ${fx(D.params.MOMENTUM_GEWICHT ?? 0.3, 1)})</span><span class="v">${x.lv.gespielt >= 4 ? sg(x.lv.delta) : "ab 4 Spielen"}</span>
+      <span class="k">Satzgewinn ${esc(nA)} (laufender Satz)</span><span class="v">${pc(x.lv.pSet)}</span>
+      ${x.lv.pGame != null ? `<span class="k">Spielgewinn ${esc(nA)} (laufendes Spiel)</span><span class="v">${pc(x.lv.pGame)}</span>` : ""}
+      <span class="k">Modus</span><span class="v">Best of ${x.r.modus}</span></div></details></div>`;
+  el.innerHTML = h;
 }
 
 // ---- Tagesziel: sichere Favoriten-Vorschläge + Rechner „wie viele Units für X U Gewinn?“
@@ -1630,7 +1795,7 @@ function detailHtml(p, r){
     return `<span class="k">${esc(b)}${x.wette?" ✓":""}</span><span class="v">${fx(q[0])} / ${fx(q[1])}</span><span class="v">${sg(x.edgeA)} / ${sg(x.edgeB)}</span>`; }).join("");
   const cur = store.get("belag."+p.id, null) || "auto";
   PROFCTX[p.id] = {p, r};
-  return `${assHtml(r)}${p.calc?"":`<div class="dsig">${(() => { const mw = meineWettenFuer(p); return mw.length ? `<div class="meinew">🎫 <b>Deine Wette${mw.length>1?"n":""}:</b> ${mw.map(meineWetteText).join(" · ")}</div>` : ""; })()}${bilanzHtml(r)}${signalInfoHtml(r)}${warnHtml(p, r)}</div>`}<div class="profbar"><span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
+  return `${assHtml(r)}${p.calc?"":`<div class="dsig">${(() => { const mw = meineWettenFuer(p); return mw.length ? `<div class="meinew">🎫 <b>Deine Wette${mw.length>1?"n":""}:</b> ${mw.map(meineWetteText).join(" · ")}</div>` : ""; })()}${bilanzHtml(r)}${signalInfoHtml(r)}${warnHtml(p, r)}</div>`}<div class="profbar"><button type="button" class="btn ghost mini zulive" data-id="${esc(p.id)}" title="Siegchance ab aktuellem Spielstand">⏱ Live-Rechner</button> <span class="time">Spielerprofil:</span> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="A">${esc(p.a)}</button> <button type="button" class="btn ghost mini prof" data-id="${esc(p.id)}" data-seite="B">${esc(p.b)}</button></div>
   <div class="dgrid">
     <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
       <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
@@ -2395,8 +2560,8 @@ function renderWetten(){
   $("#m-clv").textContent = n ? fx(qs/n) : "–";
   { // Auswertung nach Art der Wette: Value-Tipp / Signal / eigene Idee (Einzel) / Kombi, dazu „gegen die Modell-Prognose“
     const unit = unitCfg().unit;
-    const art = (w) => w.beine && w.beine.length > 1 ? "kombi" : w.valueTipp ? "value" : w.signal ? "signal" : "eigen";
-    const NAMEN = {value:"Value-Tipps des Modells", signal:"Signale (Außenseiter / Bilanz)", eigen:"Eigene Ideen (Einzelwetten)", kombi:"Kombis"};
+    const art = (w) => w.beine && w.beine.length > 1 ? "kombi" : w.live ? "live" : w.valueTipp ? "value" : w.signal ? "signal" : "eigen";
+    const NAMEN = {value:"Value-Tipps des Modells", signal:"Signale (Außenseiter / Bilanz)", eigen:"Eigene Ideen (Einzelwetten)", live:"Live-Wetten (Live-Rechner)", kombi:"Kombis"};
     const g = {}; const neu = () => ({n:0, w:0, l:0, e:0, gw:0, offen:0});
     const gegen = neu();
     for(const w of xs){ const e = ergebnisVon(w), k = art(w), z = g[k] || (g[k] = neu());
@@ -2407,7 +2572,7 @@ function renderWetten(){
     const zeile = (t, z, ein) => `<tr><td class="l">${ein?"&nbsp;&nbsp;↳ ":""}${t}</td><td class="num">${z.n}${z.offen?` <small>+${z.offen} offen</small>`:""}</td><td class="num">${z.n?`${z.w}–${z.l}`:"–"}</td><td class="num">${z.n?fx(z.e/unit,1)+" U":"–"}</td><td class="num ${z.gw>0?"pos":z.gw<0?"negv":""}">${z.n?(z.gw>0?"+":"")+fx(z.gw/unit,1)+" U":"–"}</td><td class="num">${z.e?sg(z.gw/z.e):"–"}</td></tr>`;
     const lz = neu(); for(const w of xs){ if(!w.leiter) continue; const e = ergebnisVon(w); if(!e){ lz.offen++; continue; } if(e==="V") continue;
       const gv = gewinnVon(w, e); lz.n++; lz.e += w.einsatz; lz.gw += gv; if(gv > 0) lz.w++; else lz.l++; }
-    const reihen = ["value","signal","eigen","kombi"].filter(k => g[k]).map(k => zeile(NAMEN[k], g[k]) + (k==="eigen" && gegen.n ? zeile("davon gegen die Modell-Prognose", gegen, true) : "")).join("")
+    const reihen = ["value","signal","eigen","live","kombi"].filter(k => g[k]).map(k => zeile(NAMEN[k], g[k]) + (k==="eigen" && gegen.n ? zeile("davon gegen die Modell-Prognose", gegen, true) : "")).join("")
       + (lz.n || lz.offen ? zeile("🪜 Wetten in Leitern (alle Arten)", lz) : "");
     $("#m-arten").innerHTML = reihen ? `<details class="box klapp" data-k="marten" style="margin-top:12px"${store.get("klapp.marten", true)?" open":""}><summary><h3>Nach Art der Wette</h3></summary>
       <div class="tablewrap"><table><thead><tr><th class="l">Art</th><th class="num">Wetten</th><th class="num">gew.–verl.</th><th class="num">Einsatz</th><th class="num">Gewinn</th><th class="num">ROI</th></tr></thead><tbody>${reihen}</tbody></table></div>
@@ -2443,7 +2608,7 @@ function renderWetten(){
         : `<b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${hatBeine && w.beine[0].markt && w.beine[0].markt!=="sieg" ? ` <span class="pill">${esc(marktText(w.beine[0]))}</span>` : ""}`;
       const hatAuto = w.fixtureId || hatBeine;
       return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
-        <td class="l">${wetteTxt}${w.leiter && wLoad().leitern[w.leiter] ? ` <span class="pill ltag" title="gehört zur Leiter">🪜 ${esc(wLoad().leitern[w.leiter].name)}</span>` : ""}${w.notiz?`<div class="notiz">📝 ${esc(w.notiz)}</div>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}</td>
+        <td class="l">${wetteTxt}${w.leiter && wLoad().leitern[w.leiter] ? ` <span class="pill ltag" title="gehört zur Leiter">🪜 ${esc(wLoad().leitern[w.leiter].name)}</span>` : ""}${w.notiz?`<div class="notiz">📝 ${esc(w.notiz)}</div>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}${w.live?` <span class="pill" title="Live-Wette aus dem Live-Rechner">Live · ${esc(w.liveStand||"")}</span>`:""}</td>
         <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
         <td class="num">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${fx(w.bonus,0)} % Bonus</div>`:""}</td><td class="num">${betragU(w.einsatz)}</td>
         <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}${opt("C","Cashout")}</select>${e==="C"?`<div class="co"><label>Auszahlung € <input class="co-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.cashout!=null?fx(w.cashout):""}" placeholder="z. B. 14,50"></label></div>`:""}</td>
