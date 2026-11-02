@@ -136,6 +136,7 @@ dialog#profil::backdrop{background:rgba(10,15,20,.55)}
 .prkopf h2{font:700 1.7rem/1.05 var(--f-display);text-transform:uppercase;margin:0}
 .prgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
 .prtab{width:100%;font-size:13px}.prtab th,.prtab td{padding:4px 6px;text-align:right;border-bottom:1px solid var(--line)}.prtab th:first-child,.prtab td:first-child{text-align:left}
+.prtab.letzte th:nth-child(2),.prtab.letzte td:nth-child(2){text-align:left}.prtab.letzte th:nth-child(3),.prtab.letzte td:nth-child(3){text-align:center}.prtab.letzte td{vertical-align:top}
 .prtab td.w{color:var(--good);font-weight:600}.prtab td.l{color:var(--bad)}
 .fz2{font-size:12px;margin-top:2px}.fz2 .k{display:block;color:var(--muted);font-size:13px}
 .kv .fz{font-family:var(--f-body);font-size:12px;white-space:normal}
@@ -1702,7 +1703,7 @@ async function openProfil(name, ctx){
   if(!dlg.open) dlg.showModal();
   const arc = await archivLaden();
   const spiele = Object.values(arc).filter(x => x.a===name || x.b===name).sort((a,b) => String(b.start).localeCompare(String(a.start))).slice(0,12);
-  const letzte = spiele.length ? `<table class="prtab"><thead><tr><th>Datum</th><th>Gegner</th><th>Erg.</th><th>Sätze</th><th>Quote</th></tr></thead><tbody>${spiele.map(x => {
+  const letzte = spiele.length ? `<table class="prtab letzte"><thead><tr><th>Datum</th><th>Gegner</th><th>Erg.</th><th>Sätze</th><th>Quote</th></tr></thead><tbody>${spiele.map(x => {
       const ist = x.a===name ? "A" : "B", geg = ist==="A" ? x.b : x.a, q = ist==="A" ? x.qa : x.qb;
       const erg = x.sieger==="V" ? "–" : (x.sieger===ist ? "S" : "N") + (x.aufgabe ? " (Aufg.)" : "");
       const satz = (x.satz||[]).map(([u,v]) => ist==="A" ? `${u}:${v}` : `${v}:${u}`).join(" ");
