@@ -2,7 +2,7 @@
 "version": 2,
 "spieler": {
 "Daniil Medvedev": {
-"datum": "2026-10-31",
+"datum": "2026-11-02",
 "ok": true
 },
 "Adrian Mannarino": {
@@ -30,11 +30,11 @@
 "ok": true
 },
 "Arthur Fils": {
-"datum": "2026-10-30",
-"ok": false
+"datum": "2026-11-02",
+"ok": true
 },
 "Alexander Zverev": {
-"datum": "2026-10-31",
+"datum": "2026-11-02",
 "ok": true
 },
 "Arthur Fery": {
@@ -204,7 +204,7 @@
 "ok": true
 },
 "Tomas Machac": {
-"datum": "2026-10-31",
+"datum": "2026-11-02",
 "ok": true
 },
 "Tallon Griekspoor": {
@@ -3319,18 +3319,80 @@
 "Facundo Diaz Acosta|Matheus Pucinelli De Almeida": {
 "datum": "2026-11-02",
 "duelle": []
+},
+"Alexander Zverev|Lorenzo Musetti": {
+"datum": "2026-11-02",
+"duelle": [
+[
+"20251020",
+"Vienna",
+"H",
+"SF",
+0,
+"6-4 7-5"
+],
+[
+"20250507",
+"Rome Masters",
+"C",
+"QF",
+1,
+"7-6(1) 6-4"
+],
+[
+"20241021",
+"Vienna",
+"H",
+"QF",
+1,
+"2-6 7-6(5) 6-4"
+],
+[
+"20240729",
+"Paris Olympics",
+"C",
+"QF",
+1,
+"7-5 7-5"
+],
+[
+"20220502",
+"Madrid Masters",
+"C",
+"R16",
+0,
+"6-3 1-0 RET"
+]
+]
+},
+"Arthur Fils|Tomas Machac": {
+"datum": "2026-11-02",
+"duelle": [
+[
+"20240617",
+"Halle",
+"G",
+"R32",
+0,
+"6-4 6-4"
+]
+]
+},
+"Daniil Medvedev|Ignacio Buse": {
+"datum": "2026-11-02",
+"duelle": []
 }
 },
 "hb": {
 "Daniil Medvedev": {
-"datum": "2026-10-31",
+"datum": "2026-11-02",
 "ab": "202301",
 "m": {
 "202610": [
-2,
+3,
 0,
 7,
-0
+1
 ],
 "202609": [
 0,
@@ -4265,14 +4327,14 @@
 }
 },
 "Alexander Zverev": {
-"datum": "2026-10-31",
+"datum": "2026-11-02",
 "ab": "202301",
 "m": {
 "202610": [
 0,
 0,
-6,
-1
+7,
+2
 ],
 "202609": [
 3,
@@ -10295,9 +10357,15 @@
 }
 },
 "Tomas Machac": {
-"datum": "2026-10-31",
+"datum": "2026-11-02",
 "ab": "202301",
 "m": {
+"202611": [
+0,
+0,
+3,
+0
+],
 "202610": [
 1,
 0,
@@ -13754,6 +13822,12 @@
 "datum": "2026-11-02",
 "ab": "202301",
 "m": {
+"202611": [
+0,
+0,
+1,
+0
+],
 "202610": [
 0,
 1,
@@ -14246,6 +14320,12 @@
 "datum": "2026-11-02",
 "ab": "202301",
 "m": {
+"202611": [
+1,
+0,
+0,
+0
+],
 "202610": [
 1,
 0,
@@ -15926,6 +16006,12 @@
 "datum": "2026-11-02",
 "ab": "202301",
 "m": {
+"202611": [
+0,
+0,
+1,
+0
+],
 "202610": [
 0,
 0,
@@ -27674,6 +27760,12 @@
 "datum": "2026-11-02",
 "ab": "202301",
 "m": {
+"202611": [
+1,
+0,
+0,
+0
+],
 "202610": [
 2,
 0,
@@ -41498,6 +41590,12 @@
 "datum": "2026-11-02",
 "ab": "202301",
 "m": {
+"202611": [
+0,
+0,
+1,
+0
+],
 "202610": [
 0,
 0,
@@ -42015,7 +42113,7 @@
 "ab": "202301",
 "m": {
 "202611": [
-0,
+1,
 0,
 1,
 0
@@ -47511,6 +47609,216 @@
 2
 ]
 }
+},
+"Arthur Fils": {
+"datum": "2026-11-02",
+"ab": "202301",
+"m": {
+"202610": [
+0,
+0,
+4,
+2
+],
+"202609": [
+1,
+0,
+3,
+1
+],
+"202608": [
+1,
+0,
+8,
+1
+],
+"202606": [
+0,
+0,
+1,
+1
+],
+"202604": [
+1,
+0,
+7,
+1
+],
+"202603": [
+1,
+0,
+5,
+2
+],
+"202602": [
+0,
+0,
+6,
+3
+],
+"202507": [
+0,
+0,
+1,
+1
+],
+"202505": [
+0,
+0,
+4,
+1
+],
+"202504": [
+0,
+0,
+5,
+3
+],
+"202503": [
+0,
+0,
+5,
+2
+],
+"202502": [
+0,
+0,
+2,
+2
+],
+"202501": [
+0,
+0,
+2,
+0
+],
+"202412": [
+0,
+1,
+2,
+2
+],
+"202410": [
+0,
+1,
+5,
+2
+],
+"202409": [
+2,
+0,
+3,
+2
+],
+"202408": [
+1,
+1,
+1,
+2
+],
+"202407": [
+1,
+0,
+5,
+2
+],
+"202406": [
+1,
+1,
+2,
+1
+],
+"202405": [
+0,
+0,
+4,
+2
+],
+"202404": [
+0,
+0,
+4,
+4
+],
+"202403": [
+0,
+0,
+2,
+2
+],
+"202402": [
+0,
+0,
+1,
+3
+],
+"202401": [
+2,
+1,
+3,
+2
+],
+"202311": [
+1,
+0,
+3,
+1
+],
+"202310": [
+0,
+0,
+5,
+4
+],
+"202309": [
+0,
+0,
+0,
+1
+],
+"202308": [
+0,
+1,
+3,
+2
+],
+"202307": [
+0,
+1,
+3,
+2
+],
+"202306": [
+0,
+1,
+4,
+0
+],
+"202305": [
+2,
+1,
+6,
+3
+],
+"202304": [
+0,
+0,
+1,
+2
+],
+"202302": [
+0,
+0,
+5,
+3
+],
+"202301": [
+1,
+0,
+8,
+1
+]
+}
 }
 },
 "haende": {
@@ -47694,7 +48002,8 @@
 "Marco Cecchinato": "R",
 "Francisco Comesana": "R",
 "Matheus Pucinelli De Almeida": "R",
-"Facundo Diaz Acosta": "L"
+"Facundo Diaz Acosta": "L",
+"Arthur Fils": "R"
 },
 "fs": {
 "Alex Molcan": {
@@ -48229,7 +48538,7 @@
 },
 "Cameron Norrie": {
 "g": [
-95,
+96,
 22
 ],
 "v": [
@@ -48239,7 +48548,7 @@
 },
 "Casper Ruud": {
 "g": [
-134,
+135,
 15
 ],
 "v": [
@@ -48259,7 +48568,7 @@
 },
 "Michael Vrbensky": {
 "g": [
-102,
+103,
 16
 ],
 "v": [
@@ -48525,6 +48834,326 @@
 "v": [
 31,
 58
+]
+},
+"Quentin Halys": {
+"g": [
+96,
+31
+],
+"v": [
+30,
+79
+]
+},
+"Arthur Rinderknech": {
+"g": [
+84,
+22
+],
+"v": [
+25,
+96
+]
+},
+"Andrey Rublev": {
+"g": [
+133,
+20
+],
+"v": [
+30,
+77
+]
+},
+"Brandon Nakashima": {
+"g": [
+128,
+24
+],
+"v": [
+18,
+86
+]
+},
+"Alejandro Davidovich Fokina": {
+"g": [
+104,
+20
+],
+"v": [
+19,
+66
+]
+},
+"Stefanos Tsitsipas": {
+"g": [
+123,
+11
+],
+"v": [
+29,
+73
+]
+},
+"Tommy Paul": {
+"g": [
+136,
+23
+],
+"v": [
+27,
+57
+]
+},
+"Novak Djokovic": {
+"g": [
+122,
+8
+],
+"v": [
+25,
+27
+]
+},
+"Alex Michelsen": {
+"g": [
+134,
+27
+],
+"v": [
+35,
+84
+]
+},
+"Benjamin Bonzi": {
+"g": [
+107,
+23
+],
+"v": [
+30,
+82
+]
+},
+"Jan-Lennard Struff": {
+"g": [
+101,
+24
+],
+"v": [
+27,
+77
+]
+},
+"Rafael Jodar": {
+"g": [
+83,
+7
+],
+"v": [
+16,
+32
+]
+},
+"Alexander Zverev": {
+"g": [
+198,
+25
+],
+"v": [
+43,
+65
+]
+},
+"Lorenzo Musetti": {
+"g": [
+116,
+15
+],
+"v": [
+30,
+74
+]
+},
+"Arthur Fils": {
+"g": [
+114,
+16
+],
+"v": [
+25,
+58
+]
+},
+"Tomas Machac": {
+"g": [
+112,
+11
+],
+"v": [
+20,
+63
+]
+},
+"Ignacio Buse": {
+"g": [
+133,
+22
+],
+"v": [
+27,
+77
+]
+},
+"Daniil Medvedev": {
+"g": [
+164,
+14
+],
+"v": [
+34,
+63
+]
+},
+"Michael Antonius": {
+"g": [
+20,
+1
+],
+"v": [
+2,
+10
+]
+},
+"Juan Carlos Prado Angelo": {
+"g": [
+121,
+14
+],
+"v": [
+20,
+85
+]
+},
+"Billy Harris": {
+"g": [
+122,
+26
+],
+"v": [
+32,
+121
+]
+},
+"Keegan Smith": {
+"g": [
+135,
+23
+],
+"v": [
+20,
+78
+]
+},
+"Yu Hsiou Hsu": {
+"g": [
+128,
+13
+],
+"v": [
+12,
+94
+]
+},
+"Stefanos Sakellaridis": {
+"g": [
+138,
+22
+],
+"v": [
+43,
+103
+]
+},
+"Masamichi Imamura": {
+"g": [
+104,
+13
+],
+"v": [
+10,
+79
+]
+},
+"Yanki Erel": {
+"g": [
+137,
+22
+],
+"v": [
+20,
+51
+]
+},
+"Coleman Wong": {
+"g": [
+139,
+24
+],
+"v": [
+28,
+99
+]
+},
+"Lloyd Harris": {
+"g": [
+91,
+14
+],
+"v": [
+20,
+52
+]
+},
+"Mili Poljicak": {
+"g": [
+131,
+26
+],
+"v": [
+19,
+69
+]
+},
+"Tung Lin Wu": {
+"g": [
+97,
+21
+],
+"v": [
+12,
+72
+]
+},
+"Carlo Alberto Caniato": {
+"g": [
+74,
+18
+],
+"v": [
+8,
+56
+]
+},
+"Philip Henning": {
+"g": [
+137,
+11
+],
+"v": [
+15,
+45
 ]
 }
 },
@@ -48953,6 +49582,2210 @@
 "mittel": [
 0,
 4
+]
+}
+},
+"Quentin Halys": {
+"hard": {
+"schnell": [
+20,
+23
+],
+"mittel": [
+33,
+28
+],
+"langsam": [
+5,
+8
+]
+},
+"halle": [
+14,
+18
+],
+"draussen": [
+79,
+68
+],
+"clay": {
+"mittel": [
+18,
+10
+],
+"schnell": [
+2,
+3
+],
+"langsam": [
+4,
+4
+]
+},
+"grass": {
+"mittel": [
+10,
+7
+],
+"schnell": [
+1,
+2
+],
+"langsam": [
+0,
+1
+]
+}
+},
+"Arthur Fery": {
+"hard": {
+"mittel": [
+9,
+5
+],
+"schnell": [
+4,
+4
+],
+"langsam": [
+2,
+2
+]
+},
+"halle": [
+3,
+2
+],
+"draussen": [
+22,
+20
+],
+"grass": {
+"mittel": [
+7,
+6
+],
+"langsam": [
+2,
+2
+],
+"schnell": [
+0,
+1
+]
+},
+"clay": {
+"mittel": [
+1,
+2
+]
+}
+},
+"Arthur Rinderknech": {
+"hard": {
+"schnell": [
+16,
+21
+],
+"mittel": [
+23,
+28
+],
+"langsam": [
+5,
+9
+]
+},
+"halle": [
+8,
+18
+],
+"draussen": [
+77,
+85
+],
+"clay": {
+"mittel": [
+17,
+14
+],
+"schnell": [
+2,
+4
+],
+"langsam": [
+5,
+7
+]
+},
+"grass": {
+"mittel": [
+11,
+10
+],
+"langsam": [
+1,
+4
+],
+"schnell": [
+5,
+5
+]
+}
+},
+"Francisco Cerundolo": {
+"hard": {
+"mittel": [
+28,
+28
+],
+"schnell": [
+17,
+12
+],
+"langsam": [
+7,
+9
+]
+},
+"halle": [
+13,
+11
+],
+"draussen": [
+123,
+86
+],
+"grass": {
+"mittel": [
+2,
+7
+],
+"langsam": [
+9,
+0
+],
+"schnell": [
+0,
+1
+]
+},
+"clay": {
+"mittel": [
+38,
+24
+],
+"langsam": [
+21,
+10
+],
+"schnell": [
+12,
+5
+]
+}
+},
+"Andrey Rublev": {
+"hard": {
+"mittel": [
+54,
+30
+],
+"schnell": [
+29,
+25
+],
+"langsam": [
+14,
+11
+]
+},
+"halle": [
+17,
+19
+],
+"draussen": [
+146,
+78
+],
+"clay": {
+"langsam": [
+20,
+12
+],
+"mittel": [
+31,
+9
+],
+"schnell": [
+0,
+1
+]
+},
+"grass": {
+"mittel": [
+12,
+7
+],
+"schnell": [
+0,
+1
+]
+}
+},
+"Brandon Nakashima": {
+"hard": {
+"mittel": [
+29,
+30
+],
+"schnell": [
+28,
+27
+],
+"langsam": [
+15,
+7
+]
+},
+"halle": [
+5,
+10
+],
+"draussen": [
+104,
+87
+],
+"grass": {
+"mittel": [
+6,
+6
+],
+"langsam": [
+4,
+4
+],
+"schnell": [
+6,
+3
+]
+},
+"clay": {
+"mittel": [
+18,
+13
+],
+"schnell": [
+0,
+1
+],
+"langsam": [
+3,
+6
+]
+}
+},
+"Matteo Berrettini": {
+"hard": {
+"mittel": [
+17,
+17
+],
+"schnell": [
+14,
+13
+],
+"langsam": [
+4,
+6
+]
+},
+"halle": [
+9,
+8
+],
+"draussen": [
+66,
+44
+],
+"grass": {
+"mittel": [
+6,
+4
+],
+"schnell": [
+5,
+3
+]
+},
+"clay": {
+"mittel": [
+15,
+2
+],
+"schnell": [
+7,
+3
+],
+"langsam": [
+7,
+4
+]
+}
+},
+"Alejandro Davidovich Fokina": {
+"hard": {
+"schnell": [
+32,
+18
+],
+"langsam": [
+13,
+9
+],
+"mittel": [
+36,
+24
+]
+},
+"draussen": [
+108,
+72
+],
+"clay": {
+"mittel": [
+12,
+12
+],
+"langsam": [
+12,
+11
+],
+"schnell": [
+1,
+1
+]
+},
+"grass": {
+"mittel": [
+11,
+6
+],
+"langsam": [
+5,
+2
+],
+"schnell": [
+0,
+1
+]
+},
+"halle": [
+14,
+12
+]
+},
+"Moise Kouame": {
+"hard": {
+"schnell": [
+4,
+4
+],
+"mittel": [
+0,
+1
+],
+"langsam": [
+0,
+1
+]
+},
+"draussen": [
+4,
+11
+],
+"clay": {
+"mittel": [
+2,
+4
+],
+"schnell": [
+0,
+1
+],
+"langsam": [
+0,
+1
+]
+},
+"halle": [
+2,
+1
+]
+},
+"Stefanos Tsitsipas": {
+"hard": {
+"mittel": [
+39,
+24
+],
+"schnell": [
+22,
+16
+],
+"langsam": [
+24,
+12
+]
+},
+"halle": [
+22,
+11
+],
+"draussen": [
+124,
+71
+],
+"clay": {
+"schnell": [
+8,
+1
+],
+"mittel": [
+23,
+13
+],
+"langsam": [
+19,
+6
+]
+},
+"grass": {
+"mittel": [
+7,
+7
+],
+"schnell": [
+1,
+2
+]
+}
+},
+"Learner Tien": {
+"hard": {
+"mittel": [
+30,
+18
+],
+"schnell": [
+20,
+13
+],
+"langsam": [
+13,
+5
+]
+},
+"halle": [
+15,
+7
+],
+"draussen": [
+65,
+45
+],
+"grass": {
+"mittel": [
+5,
+5
+],
+"schnell": [
+0,
+1
+]
+},
+"clay": {
+"mittel": [
+9,
+7
+],
+"schnell": [
+0,
+1
+],
+"langsam": [
+3,
+2
+]
+}
+},
+"Tommy Paul": {
+"hard": {
+"mittel": [
+55,
+24
+],
+"schnell": [
+28,
+17
+],
+"langsam": [
+14,
+8
+]
+},
+"halle": [
+16,
+7
+],
+"draussen": [
+142,
+70
+],
+"grass": {
+"mittel": [
+16,
+5
+],
+"langsam": [
+9,
+5
+],
+"schnell": [
+1,
+1
+]
+},
+"clay": {
+"mittel": [
+24,
+13
+],
+"langsam": [
+8,
+2
+],
+"schnell": [
+0,
+1
+]
+}
+},
+"Holger Rune": {
+"hard": {
+"schnell": [
+30,
+18
+],
+"langsam": [
+17,
+8
+],
+"mittel": [
+25,
+17
+]
+},
+"halle": [
+23,
+12
+],
+"draussen": [
+97,
+49
+],
+"grass": {
+"mittel": [
+10,
+5
+],
+"schnell": [
+2,
+1
+]
+},
+"clay": {
+"mittel": [
+21,
+7
+],
+"langsam": [
+13,
+4
+],
+"schnell": [
+2,
+1
+]
+}
+},
+"Novak Djokovic": {
+"hard": {
+"schnell": [
+26,
+8
+],
+"mittel": [
+57,
+9
+],
+"langsam": [
+1,
+2
+]
+},
+"halle": [
+14,
+2
+],
+"draussen": [
+130,
+32
+],
+"grass": {
+"mittel": [
+21,
+4
+]
+},
+"clay": {
+"mittel": [
+28,
+7
+],
+"langsam": [
+4,
+3
+]
+}
+},
+"Valentin Vacherot": {
+"hard": {
+"schnell": [
+9,
+8
+],
+"langsam": [
+3,
+2
+],
+"mittel": [
+21,
+9
+]
+},
+"halle": [
+8,
+2
+],
+"draussen": [
+42,
+33
+],
+"clay": {
+"mittel": [
+7,
+6
+],
+"schnell": [
+1,
+2
+],
+"langsam": [
+9,
+6
+]
+},
+"grass": {
+"schnell": [
+0,
+1
+]
+}
+},
+"Alex Michelsen": {
+"hard": {
+"schnell": [
+29,
+22
+],
+"mittel": [
+37,
+28
+],
+"langsam": [
+9,
+8
+]
+},
+"halle": [
+14,
+16
+],
+"draussen": [
+89,
+73
+],
+"grass": {
+"mittel": [
+5,
+7
+],
+"schnell": [
+5,
+4
+],
+"langsam": [
+7,
+2
+]
+},
+"clay": {
+"mittel": [
+9,
+14
+],
+"schnell": [
+1,
+1
+],
+"langsam": [
+1,
+3
+]
+}
+},
+"Jiri Lehecka": {
+"hard": {
+"schnell": [
+32,
+21
+],
+"mittel": [
+40,
+26
+],
+"langsam": [
+18,
+9
+]
+},
+"halle": [
+15,
+14
+],
+"draussen": [
+114,
+66
+],
+"grass": {
+"mittel": [
+8,
+3
+],
+"langsam": [
+1,
+1
+],
+"schnell": [
+9,
+4
+]
+},
+"clay": {
+"mittel": [
+8,
+8
+],
+"schnell": [
+3,
+1
+],
+"langsam": [
+7,
+5
+]
+}
+},
+"Benjamin Bonzi": {
+"hard": {
+"schnell": [
+14,
+12
+],
+"mittel": [
+30,
+23
+],
+"langsam": [
+1,
+4
+]
+},
+"draussen": [
+51,
+57
+],
+"grass": {
+"mittel": [
+4,
+7
+],
+"langsam": [
+4,
+1
+],
+"schnell": [
+0,
+3
+]
+},
+"clay": {
+"mittel": [
+3,
+5
+],
+"schnell": [
+4,
+3
+],
+"langsam": [
+2,
+6
+]
+},
+"halle": [
+15,
+8
+]
+},
+"Taylor Fritz": {
+"hard": {
+"schnell": [
+54,
+25
+],
+"langsam": [
+9,
+9
+],
+"mittel": [
+64,
+25
+]
+},
+"halle": [
+20,
+14
+],
+"draussen": [
+171,
+75
+],
+"grass": {
+"mittel": [
+20,
+7
+],
+"schnell": [
+12,
+3
+],
+"langsam": [
+4,
+1
+]
+},
+"clay": {
+"mittel": [
+20,
+14
+],
+"langsam": [
+6,
+4
+]
+}
+},
+"Jan-Lennard Struff": {
+"hard": {
+"schnell": [
+15,
+16
+],
+"mittel": [
+28,
+24
+],
+"langsam": [
+3,
+7
+]
+},
+"halle": [
+20,
+15
+],
+"draussen": [
+84,
+68
+],
+"clay": {
+"mittel": [
+22,
+14
+],
+"langsam": [
+11,
+7
+],
+"schnell": [
+1,
+3
+]
+},
+"grass": {
+"mittel": [
+10,
+6
+],
+"schnell": [
+10,
+4
+]
+}
+},
+"Arthur Gea": {
+"hard": {
+"schnell": [
+4,
+1
+],
+"mittel": [
+13,
+5
+],
+"langsam": [
+5,
+0
+]
+},
+"draussen": [
+25,
+12
+],
+"grass": {
+"mittel": [
+1,
+1
+]
+},
+"clay": {
+"mittel": [
+1,
+4
+],
+"langsam": [
+2,
+2
+],
+"schnell": [
+0,
+1
+]
+},
+"halle": [
+1,
+2
+]
+},
+"Ben Shelton": {
+"hard": {
+"schnell": [
+29,
+25
+],
+"mittel": [
+55,
+22
+],
+"langsam": [
+17,
+8
+]
+},
+"halle": [
+18,
+13
+],
+"draussen": [
+125,
+76
+],
+"grass": {
+"mittel": [
+11,
+9
+],
+"schnell": [
+7,
+4
+]
+},
+"clay": {
+"mittel": [
+17,
+13
+],
+"langsam": [
+7,
+7
+],
+"schnell": [
+0,
+1
+]
+}
+},
+"Cameron Norrie": {
+"hard": {
+"mittel": [
+36,
+28
+],
+"schnell": [
+13,
+16
+],
+"langsam": [
+10,
+9
+]
+},
+"halle": [
+15,
+11
+],
+"draussen": [
+95,
+80
+],
+"grass": {
+"mittel": [
+9,
+6
+],
+"langsam": [
+0,
+2
+],
+"schnell": [
+0,
+2
+]
+},
+"clay": {
+"mittel": [
+24,
+15
+],
+"schnell": [
+7,
+1
+],
+"langsam": [
+10,
+11
+]
+}
+},
+"Casper Ruud": {
+"hard": {
+"schnell": [
+22,
+18
+],
+"langsam": [
+20,
+8
+],
+"mittel": [
+29,
+24
+]
+},
+"halle": [
+16,
+12
+],
+"draussen": [
+133,
+66
+],
+"clay": {
+"schnell": [
+5,
+3
+],
+"mittel": [
+42,
+12
+],
+"langsam": [
+26,
+9
+]
+},
+"grass": {
+"mittel": [
+2,
+3
+]
+}
+},
+"Rafael Jodar": {
+"hard": {
+"schnell": [
+13,
+6
+],
+"langsam": [
+7,
+3
+],
+"mittel": [
+11,
+5
+]
+},
+"halle": [
+6,
+3
+],
+"draussen": [
+45,
+16
+],
+"grass": {
+"mittel": [
+2,
+1
+]
+},
+"clay": {
+"mittel": [
+7,
+2
+],
+"schnell": [
+8,
+1
+],
+"langsam": [
+3,
+1
+]
+}
+},
+"Alexander Zverev": {
+"hard": {
+"mittel": [
+77,
+27
+],
+"schnell": [
+42,
+15
+],
+"langsam": [
+12,
+14
+]
+},
+"halle": [
+29,
+15
+],
+"draussen": [
+207,
+74
+],
+"grass": {
+"mittel": [
+20,
+7
+],
+"schnell": [
+6,
+2
+]
+},
+"clay": {
+"mittel": [
+43,
+12
+],
+"schnell": [
+12,
+4
+],
+"langsam": [
+21,
+7
+]
+}
+},
+"Lorenzo Musetti": {
+"hard": {
+"mittel": [
+39,
+25
+],
+"schnell": [
+24,
+20
+],
+"langsam": [
+6,
+6
+]
+},
+"halle": [
+12,
+14
+],
+"draussen": [
+127,
+70
+],
+"clay": {
+"mittel": [
+21,
+10
+],
+"schnell": [
+4,
+3
+],
+"langsam": [
+23,
+11
+]
+},
+"grass": {
+"mittel": [
+13,
+5
+],
+"schnell": [
+4,
+2
+]
+}
+},
+"Arthur Fils": {
+"hard": {
+"schnell": [
+31,
+14
+],
+"mittel": [
+27,
+18
+],
+"langsam": [
+17,
+8
+]
+},
+"halle": [
+24,
+14
+],
+"draussen": [
+98,
+53
+],
+"grass": {
+"mittel": [
+5,
+3
+],
+"schnell": [
+2,
+1
+],
+"langsam": [
+3,
+2
+]
+},
+"clay": {
+"schnell": [
+9,
+3
+],
+"langsam": [
+19,
+7
+],
+"mittel": [
+9,
+9
+]
+}
+},
+"Tomas Machac": {
+"hard": {
+"mittel": [
+38,
+25
+],
+"schnell": [
+24,
+14
+],
+"langsam": [
+7,
+4
+]
+},
+"halle": [
+14,
+10
+],
+"draussen": [
+82,
+54
+],
+"clay": {
+"mittel": [
+13,
+8
+],
+"schnell": [
+1,
+2
+],
+"langsam": [
+6,
+5
+]
+},
+"grass": {
+"mittel": [
+6,
+4
+],
+"schnell": [
+0,
+1
+]
+}
+},
+"Ignacio Buse": {
+"hard": {
+"mittel": [
+9,
+6
+],
+"schnell": [
+3,
+3
+],
+"langsam": [
+0,
+2
+]
+},
+"halle": [
+0,
+2
+],
+"draussen": [
+36,
+30
+],
+"clay": {
+"mittel": [
+3,
+8
+],
+"schnell": [
+10,
+6
+],
+"langsam": [
+8,
+3
+]
+},
+"grass": {
+"mittel": [
+2,
+3
+],
+"langsam": [
+1,
+1
+]
+}
+},
+"Daniil Medvedev": {
+"hard": {
+"mittel": [
+69,
+24
+],
+"schnell": [
+52,
+16
+],
+"langsam": [
+24,
+11
+]
+},
+"halle": [
+28,
+15
+],
+"draussen": [
+170,
+62
+],
+"grass": {
+"mittel": [
+18,
+7
+],
+"langsam": [
+3,
+3
+],
+"schnell": [
+1,
+1
+]
+},
+"clay": {
+"mittel": [
+20,
+8
+],
+"schnell": [
+2,
+1
+],
+"langsam": [
+7,
+5
+]
+}
+},
+"Michael Antonius": {
+"hard": {
+"mittel": [
+1,
+1
+]
+},
+"draussen": [
+1,
+1
+]
+},
+"Abedallah Shelbayh": {
+"hard": {
+"mittel": [
+7,
+7
+],
+"langsam": [
+1,
+3
+],
+"schnell": [
+3,
+2
+]
+},
+"draussen": [
+17,
+22
+],
+"grass": {
+"mittel": [
+4,
+3
+],
+"schnell": [
+1,
+1
+],
+"langsam": [
+0,
+1
+]
+},
+"clay": {
+"schnell": [
+0,
+2
+],
+"mittel": [
+2,
+4
+],
+"langsam": [
+0,
+1
+]
+},
+"halle": [
+4,
+3
+]
+},
+"Juan Carlos Prado Angelo": {
+"hard": {
+"mittel": [
+0,
+2
+]
+},
+"draussen": [
+6,
+7
+],
+"clay": {
+"langsam": [
+0,
+1
+],
+"mittel": [
+6,
+3
+]
+},
+"grass": {
+"mittel": [
+0,
+1
+]
+}
+},
+"Pedro Boscardin Dias": {
+"grass": {
+"mittel": [
+0,
+1
+]
+},
+"draussen": [
+1,
+3
+],
+"clay": {
+"mittel": [
+1,
+1
+],
+"schnell": [
+0,
+1
+]
+}
+},
+"Billy Harris": {
+"hard": {
+"schnell": [
+8,
+14
+],
+"mittel": [
+10,
+15
+],
+"langsam": [
+2,
+5
+]
+},
+"draussen": [
+41,
+50
+],
+"grass": {
+"mittel": [
+9,
+6
+],
+"langsam": [
+6,
+3
+],
+"schnell": [
+3,
+2
+]
+},
+"clay": {
+"mittel": [
+2,
+5
+],
+"schnell": [
+0,
+1
+],
+"langsam": [
+1,
+4
+]
+},
+"halle": [
+3,
+6
+]
+},
+"Kuan-Shou Chen": {},
+"Keegan Smith": {
+"hard": {
+"mittel": [
+0,
+1
+],
+"langsam": [
+1,
+1
+]
+},
+"draussen": [
+2,
+3
+],
+"grass": {
+"mittel": [
+1,
+1
+]
+}
+},
+"Jake Delaney": {
+"hard": {
+"schnell": [
+0,
+1
+],
+"mittel": [
+0,
+2
+]
+},
+"draussen": [
+0,
+3
+]
+},
+"Yu Hsiou Hsu": {
+"grass": {
+"mittel": [
+0,
+3
+],
+"schnell": [
+0,
+1
+],
+"langsam": [
+0,
+1
+]
+},
+"draussen": [
+13,
+16
+],
+"clay": {
+"mittel": [
+0,
+2
+]
+},
+"hard": {
+"mittel": [
+9,
+6
+],
+"schnell": [
+4,
+3
+]
+}
+},
+"Omar Jasika": {
+"hard": {
+"schnell": [
+1,
+5
+],
+"mittel": [
+3,
+6
+]
+},
+"draussen": [
+4,
+16
+],
+"grass": {
+"mittel": [
+0,
+2
+],
+"langsam": [
+0,
+1
+]
+},
+"clay": {
+"mittel": [
+0,
+2
+]
+}
+},
+"Stefanos Sakellaridis": {
+"hard": {
+"mittel": [
+4,
+6
+],
+"schnell": [
+0,
+2
+]
+},
+"halle": [
+2,
+2
+],
+"draussen": [
+8,
+11
+],
+"grass": {
+"mittel": [
+2,
+1
+],
+"schnell": [
+0,
+1
+]
+},
+"clay": {
+"mittel": [
+1,
+1
+],
+"langsam": [
+3,
+1
+]
+}
+},
+"Yuta Shimizu": {
+"hard": {
+"schnell": [
+0,
+2
+],
+"mittel": [
+3,
+5
+]
+},
+"draussen": [
+3,
+9
+],
+"grass": {
+"mittel": [
+0,
+1
+]
+},
+"clay": {
+"mittel": [
+0,
+1
+]
+}
+},
+"Masamichi Imamura": {
+"hard": {
+"schnell": [
+0,
+1
+]
+},
+"draussen": [
+0,
+1
+]
+},
+"Mitsuki Wei Kang Leong": {},
+"Yanki Erel": {
+"hard": {
+"mittel": [
+0,
+1
+]
+},
+"draussen": [
+0,
+1
+],
+"halle": [
+0,
+1
+]
+},
+"Coleman Wong": {
+"hard": {
+"schnell": [
+14,
+9
+],
+"mittel": [
+21,
+16
+],
+"langsam": [
+3,
+2
+]
+},
+"draussen": [
+41,
+38
+],
+"grass": {
+"mittel": [
+1,
+3
+],
+"langsam": [
+0,
+2
+]
+},
+"clay": {
+"mittel": [
+2,
+6
+],
+"schnell": [
+0,
+1
+]
+},
+"halle": [
+0,
+1
+]
+},
+"Tsung Hao Huang": {},
+"Lloyd Harris": {
+"hard": {
+"schnell": [
+10,
+8
+],
+"mittel": [
+15,
+10
+],
+"langsam": [
+0,
+1
+]
+},
+"draussen": [
+45,
+32
+],
+"clay": {
+"mittel": [
+7,
+5
+],
+"schnell": [
+2,
+1
+],
+"langsam": [
+0,
+1
+]
+},
+"grass": {
+"mittel": [
+10,
+5
+],
+"langsam": [
+0,
+1
+]
+},
+"halle": [
+0,
+1
+]
+},
+"Yosuke Watanuki": {
+"clay": {
+"mittel": [
+5,
+4
+]
+},
+"draussen": [
+35,
+33
+],
+"hard": {
+"mittel": [
+10,
+16
+],
+"schnell": [
+10,
+10
+],
+"langsam": [
+5,
+2
+]
+},
+"grass": {
+"mittel": [
+4,
+3
+],
+"schnell": [
+3,
+1
+]
+},
+"halle": [
+2,
+3
+]
+},
+"Mili Poljicak": {
+"clay": {
+"mittel": [
+0,
+2
+],
+"langsam": [
+0,
+1
+]
+},
+"draussen": [
+0,
+4
+],
+"grass": {
+"mittel": [
+0,
+1
+]
+}
+},
+"Sho Shimabukuro": {
+"hard": {
+"mittel": [
+8,
+16
+],
+"schnell": [
+13,
+11
+],
+"langsam": [
+1,
+4
+]
+},
+"halle": [
+6,
+4
+],
+"draussen": [
+30,
+36
+],
+"grass": {
+"mittel": [
+7,
+5
+],
+"schnell": [
+4,
+1
+]
+},
+"clay": {
+"mittel": [
+0,
+2
+]
+}
+},
+"Tung Lin Wu": {
+"hard": {
+"schnell": [
+3,
+4
+],
+"mittel": [
+2,
+5
+]
+},
+"draussen": [
+6,
+11
+],
+"grass": {
+"mittel": [
+1,
+1
+]
+},
+"clay": {
+"mittel": [
+0,
+1
+]
+}
+},
+"Chun-Chien Hou": {},
+"Mika Brunold": {
+"hard": {
+"schnell": [
+1,
+5
+]
+},
+"halle": [
+1,
+5
+],
+"clay": {
+"schnell": [
+0,
+2
+],
+"mittel": [
+0,
+1
+]
+},
+"draussen": [
+0,
+3
+]
+},
+"Michael Vrbensky": {
+"hard": {
+"langsam": [
+0,
+1
+]
+},
+"halle": [
+0,
+1
+]
+},
+"Carlo Alberto Caniato": {},
+"Lorenzo Giustino": {
+"hard": {
+"mittel": [
+0,
+2
+],
+"schnell": [
+0,
+1
+]
+},
+"draussen": [
+3,
+9
+],
+"clay": {
+"mittel": [
+1,
+3
+],
+"langsam": [
+2,
+1
+]
+},
+"grass": {
+"mittel": [
+0,
+1
+]
+},
+"halle": [
+0,
+1
+]
+},
+"Philip Henning": {},
+"Calvin Hemery": {
+"clay": {
+"schnell": [
+3,
+3
+],
+"mittel": [
+1,
+4
+]
+},
+"draussen": [
+5,
+12
+],
+"hard": {
+"schnell": [
+2,
+3
+],
+"mittel": [
+2,
+7
+]
+},
+"halle": [
+3,
+6
+],
+"grass": {
+"mittel": [
+0,
+1
 ]
 }
 }
