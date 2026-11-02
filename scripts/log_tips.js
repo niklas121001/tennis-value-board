@@ -54,7 +54,7 @@ for (const m of matches) {
   if (unsicher(m.a) || unsicher(m.b)) continue;
   for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
     if ((m.pausiert || []).includes(bm)) continue;   // pausierte Quote: aktuell nicht spielbar
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
     if (!r.ok || !r.wette) continue;
     const key = `${m.id}|${bm}`;
     const q = r.wette === "A" ? qa : qb;
@@ -99,7 +99,7 @@ for (const m of matches) {
       if (t.wette === "A") qa = t.erstQuote; else qb = t.erstQuote;
     }
     if (!(qa > 1 && qb > 1)) continue;
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
     if (!r.ok) continue;
     const pS = t.wette === "A" ? r.pFinal : 1 - r.pFinal, qS = t.wette === "A" ? qa : qb;
     if (r.wette !== t.wette) {
@@ -125,7 +125,7 @@ for (const m of matches) {
   if (unsicher(m.a) || unsicher(m.b)) continue;
   for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
     if ((m.pausiert || []).includes(bm)) continue;
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
     if (!r.ok || !r.varianten) continue;
     for (const [v, x] of Object.entries(r.varianten)) {
       const key = `${v}|${m.id}|${bm}`;
@@ -211,7 +211,7 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       // Tagesziel (Reiter „Tagesziel“, Standard-Einstellung): Siegchance (Mittel Modell/Markt) >= 70 % und
       // Einsatz für 1 U Gewinn <= 3 U. Getrackt mit dem Einsatz für 1 U Gewinn (= 1 / (Quote − 1)).
       {
-        const rr = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+        const rr = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
         // Außenseiter-Signal OHNE Modell-Bedingung (Test seit 31.10.2026): nur die Spieler-Bilanzen
         // (Favorit als Favorit < 65 %, Außenseiter als Außenseiter > 40 %, je mind. 7 Spiele) – egal, wie das Modell den Außenseiter sieht
         if (rr.ok && rr.favCheck && rr.ausCheck && qa !== qb) {
@@ -252,7 +252,7 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       // Value-Tipp weg? (Tipp protokolliert, mit der aktuellen Quote kein Value mehr)
       const t = log[`${m.id}|${bm}`];
       if (t && !t.ergebnis) {
-        const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+        const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
         // "Value weg" nur durch Marktbewegung: Quote auf den getippten Spieler gefallen und jetzt kein Value mehr
         const qT = t.wette === "A" ? qa : qb, gefallen = qT < t.erstQuote - 1e-9;
         if (r.ok && r.wette !== t.wette && gefallen && !t.valueWeg) { t.valueWeg = now; t.valueWegQuote = qT; }
@@ -272,7 +272,7 @@ for (const m of matches) {
   if (!m.start || new Date(m.start) <= new Date()) continue;
   for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
     if ((m.pausiert || []).includes(bm)) continue;
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
     const key = `${m.id}|${bm}`;
     if (alog[key]) { const e = alog[key]; e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; continue; }
     const x = r.ok && r.aussenseiter;
@@ -295,7 +295,7 @@ for (const m of matches) {
     if ((m.pausiert || []).includes(bm)) continue;
     const key = `${m.id}|${bm}`;
     if (blog[key]) { const e = blog[key]; e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; continue; }
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
     const x = r.ok && r.bilanzSignal;
     if (!x) continue;
     blog[key] = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b,
@@ -315,7 +315,7 @@ console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B–F), insgesamt ${Object
 // Ergebnissen zu schätzen – ohne Rückschau-Verzerrung. Ergebnisse kommen aus ergebnisse.json.
 // Merkmale je Partie für die Jahresend-Suche nach Mustern (was wir noch nicht gezielt tracken):
 // Halle/draußen, Runde, Quali, Uhrzeit, Länder (Heimspiel), Form/Belastung, Warnhinweise, Signale. Wird bis Spielbeginn aktualisiert.
-const r0 = (m) => { const q = Object.values(m.quoten || {})[0] || []; return M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa: q[0], qb: q[1], pinnacle: m.pinnacle, form: m.form, start: m.start }, D); };
+const r0 = (m) => { const q = Object.values(m.quoten || {})[0] || []; return M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa: q[0], qb: q[1], pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D); };
 function merkmale(m, r, qs) {
   const fo = (f) => f ? { sp: f.spiele7 || 0, s: f.siege7 || 0, saetze: f.saetze7 || 0, games: f.games7 || 0, min: f.min7 || null,
     letztes: f.letztes || null, lMin: f.letztesMin || null, lGames: f.letztesGames || null, quali: !!f.quali } : null;
@@ -359,7 +359,7 @@ for (const m of matches) {
   }
   const qa = qs.length ? Math.max(...qs.map((q) => q[0])) : undefined;   // beste Quote je Seite
   const qb = qs.length ? Math.max(...qs.map((q) => q[1])) : undefined;
-  const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start }, D);
+  const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
   if (!r.ok) continue;
   const pmMittel = qs.length ? qs.reduce((s, q) => s + (1 / q[0]) / (1 / q[0] + 1 / q[1]), 0) / qs.length : null;
   prog[m.id] = { start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: r.belag, a: m.a, b: m.b,

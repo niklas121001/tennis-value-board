@@ -111,6 +111,25 @@ def main():
                                 "delta": round((v.get("elo") or 0) - (b.get("elo") or 0), 1)}
         else:
             rec.pop("elo_eigen", None)
+    # Elo-Verlauf (Tageswerte der letzten 45 Tage) -> Trend je Spieler: aktuelle Elo minus Wert vor ca. 30 Tagen
+    # (mindestens 14 Tage alt), in players.json als elo_trend {"d": Differenz, "tage": Abstand}
+    heute = datetime.date.today()
+    verlauf = load("elo_verlauf.json", {"tage": {}})
+    verlauf["tage"][heute.isoformat()] = {n: round(v["elo"]) for n, v in cur.items() if isinstance(v.get("elo"), (int, float))}
+    verlauf["tage"] = {d: x for d, x in verlauf["tage"].items() if (heute - datetime.date.fromisoformat(d)).days <= 45}
+    save("elo_verlauf.json", verlauf, indent=0)
+    alt = sorted((d for d in verlauf["tage"] if (heute - datetime.date.fromisoformat(d)).days >= 14),
+                 key=lambda d: abs((heute - datetime.date.fromisoformat(d)).days - 30))
+    n_trend = 0
+    for name in cur:
+        players[name].pop("elo_trend", None)
+        for d in alt:
+            e0 = verlauf["tage"][d].get(name)
+            if e0 is not None and isinstance(players[name].get("elo"), (int, float)):
+                players[name]["elo_trend"] = {"d": round(players[name]["elo"] - e0), "tage": (heute - datetime.date.fromisoformat(d)).days}
+                n_trend += 1
+                break
+    print(f"Elo-Trend: {n_trend} Spieler (Verlauf {len(verlauf['tage'])} Tage)")
     state["stand"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
     save("elo_eigen.json", state, indent=0)
     save("players.json", players)

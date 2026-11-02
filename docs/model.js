@@ -525,6 +525,27 @@
         if (lang(match.form.a)) { dForm -= wL; form.push({ label: `${match.a}: langes Match in den letzten 30 h`, d: -wL }); }
         if (lang(match.form.b)) { dForm += wL; form.push({ label: `${match.b}: langes Match in den letzten 30 h`, d: wL }); }
       }
+      // Heimvorteil: Spieler spielt im eigenen Land, Gegner nicht (Land aus der Spieldaten-API)
+      const ortL = match.ort && match.ort.land, lA = match.landA, lB = match.landB, wH = P.H_HEIM ?? 0.1;
+      if (ortL && lA && lB && lA !== lB) {
+        if (lA === ortL) { dForm += wH; form.push({ label: `Heimspiel ${match.a} (${ortL})`, d: wH }); }
+        if (lB === ortL) { dForm -= wH; form.push({ label: `Heimspiel ${match.b} (${ortL})`, d: -wH }); }
+      }
+      // Reise: voriges Spiel (innerhalb 7 Tagen) mindestens 5 Zeitzonen entfernt
+      if (match.ort && isNum(match.ort.tz) && match.start) {
+        const wR = P.H_REISE ?? 0.08;
+        for (const [k, nm, sg] of [["a", match.a, -1], ["b", match.b, 1]]) {
+          const v = match.form && match.form[k] && match.form[k].vorOrt; if (!v || !isNum(v.tz)) continue;
+          const tage = (new Date(match.start) - new Date(v.start)) / 864e5, dz = Math.abs(v.tz - match.ort.tz), z = Math.min(dz, 24 - dz);
+          if (tage >= 0 && tage <= 7 && z >= 5) { dForm += sg * wR; form.push({ label: `${nm}: Reise ${Math.round(z)} Zeitzonen (${v.land} → ${match.ort.land}) vor ${Math.round(tage)} T.`, d: sg * wR }); }
+        }
+      }
+      // Elo-Trend: Elo-Veränderung der letzten ~30 Tage im Vergleich (je 50 Punkte Unterschied H_TREND, höchstens 150)
+      const trA = ((D.players || {})[match.a] || {}).elo_trend, trB = ((D.players || {})[match.b] || {}).elo_trend;
+      if (trA && trB && isNum(trA.d) && isNum(trB.d)) {
+        const dd = clip((trA.d - trB.d) / 50, -3, 3) * (P.H_TREND ?? 0.04);
+        if (Math.abs(trA.d - trB.d) >= 25) { dForm += dd; form.push({ label: `Elo-Trend ${trA.d >= 0 ? "+" : ""}${trA.d} vs. ${trB.d >= 0 ? "+" : ""}${trB.d} (${trA.tage} T.)`, d: dd }); }
+      }
       const p = sigm(L(pBasis) + wM * dModell + wS * dStats + dForm);
       return { p, pBasis, basis: pin != null ? "Pinnacle" : "Buchmacher", dModell, wM, dStats, wS, dForm, form, teile };
     })();

@@ -98,6 +98,32 @@ def zeit(s):
         return None
 
 
+# Land (wie in den API-Turniernamen) -> ISO-Code und grobe UTC-Abweichung in Stunden (Hauptstadt/Turnierregion, Winterzeit)
+LAENDER = {
+    "usa": ("US", -6), "canada": ("CA", -5), "mexico": ("MX", -6), "guatemala": ("GT", -6), "el salvador": ("SV", -6), "costa rica": ("CR", -6),
+    "panama": ("PA", -5), "colombia": ("CO", -5), "ecuador": ("EC", -5), "peru": ("PE", -5), "bolivia": ("BO", -4), "chile": ("CL", -3),
+    "argentina": ("AR", -3), "uruguay": ("UY", -3), "paraguay": ("PY", -3), "brazil": ("BR", -3), "venezuela": ("VE", -4),
+    "dominican republic": ("DO", -4), "puerto rico": ("PR", -4), "bahamas": ("BS", -5),
+    "united kingdom": ("GB", 0), "great britain": ("GB", 0), "england": ("GB", 0), "scotland": ("GB", 0), "ireland": ("IE", 0), "portugal": ("PT", 0),
+    "spain": ("ES", 1), "france": ("FR", 1), "monaco": ("MC", 1), "belgium": ("BE", 1), "netherlands": ("NL", 1), "luxembourg": ("LU", 1),
+    "germany": ("DE", 1), "switzerland": ("CH", 1), "austria": ("AT", 1), "italy": ("IT", 1), "san marino": ("SM", 1), "denmark": ("DK", 1),
+    "norway": ("NO", 1), "sweden": ("SE", 1), "poland": ("PL", 1), "czech republic": ("CZ", 1), "czechia": ("CZ", 1), "slovakia": ("SK", 1),
+    "hungary": ("HU", 1), "slovenia": ("SI", 1), "croatia": ("HR", 1), "bosnia & herzegovina": ("BA", 1), "bosnia and herzegovina": ("BA", 1),
+    "serbia": ("RS", 1), "montenegro": ("ME", 1), "north macedonia": ("MK", 1), "albania": ("AL", 1), "tunisia": ("TN", 1), "morocco": ("MA", 1),
+    "algeria": ("DZ", 1), "nigeria": ("NG", 1), "malta": ("MT", 1),
+    "finland": ("FI", 2), "estonia": ("EE", 2), "latvia": ("LV", 2), "lithuania": ("LT", 2), "romania": ("RO", 2), "bulgaria": ("BG", 2),
+    "greece": ("GR", 2), "cyprus": ("CY", 2), "egypt": ("EG", 2), "israel": ("IL", 2), "south africa": ("ZA", 2), "ukraine": ("UA", 2),
+    "moldova": ("MD", 2), "turkey": ("TR", 3), "türkiye": ("TR", 3), "turkiye": ("TR", 3), "russia": ("RU", 3), "belarus": ("BY", 3),
+    "saudi arabia": ("SA", 3), "qatar": ("QA", 3), "bahrain": ("BH", 3), "kuwait": ("KW", 3), "georgia": ("GE", 4),
+    "united arab emirates": ("AE", 4), "uae": ("AE", 4), "azerbaijan": ("AZ", 4), "armenia": ("AM", 4), "oman": ("OM", 4),
+    "uzbekistan": ("UZ", 5), "pakistan": ("PK", 5), "kazakhstan": ("KZ", 5), "india": ("IN", 5.5), "sri lanka": ("LK", 5.5), "nepal": ("NP", 5.75),
+    "bangladesh": ("BD", 6), "thailand": ("TH", 7), "vietnam": ("VN", 7), "indonesia": ("ID", 7), "china": ("CN", 8), "hong kong": ("HK", 8),
+    "chinese taipei": ("TW", 8), "taiwan": ("TW", 8), "philippines": ("PH", 8), "singapore": ("SG", 8), "malaysia": ("MY", 8),
+    "korea republic": ("KR", 9), "south korea": ("KR", 9), "korea": ("KR", 9), "japan": ("JP", 9), "australia": ("AU", 10),
+    "new caledonia": ("NC", 11), "new zealand": ("NZ", 12),
+}
+
+
 def kompakt(e):
     """Partie aus der API -> kleines Dict. None für Doppel/fremde Kategorien."""
     t = e.get("tournament") or {}
@@ -359,6 +385,20 @@ def main():
                 w.append({"typ": "belag", "text": f"Belagwechsel: erstes {BELAG_DE.get(belag, belag)}-Spiel seit über 30 Tagen"})
         return w
 
+    # Turnierort (Land aus „Stadt, Land[, Qualifying]“ der API) und Ort des vorigen Spiels je Spieler (Heimvorteil, Reise)
+    def ort(turnier):
+        teile = [x.strip() for x in re.sub(r",\s*qualifying.*$", "", turnier or "", flags=re.I).split(",")]
+        x = LAENDER.get(teile[-1].lower()) if len(teile) >= 2 else None
+        return {"land": x[0], "tz": x[1]} if x else None
+
+    def vorher(pid, vor, ev_jetzt):
+        spiele = [e for e in evs if pid in (e.get("hId"), e.get("aId")) and e.get("id") != ev_jetzt["id"]
+                  and e.get("start") and zeit(e["start"]) < vor and (vor - zeit(e["start"])).days < 14 and ergebnis(e) in ("H", "A")]
+        if not spiele:
+            return None
+        e = max(spiele, key=lambda e: e["start"]); o = ort(e.get("turnier"))
+        return dict(o, start=e["start"], turnier=e.get("turnier")) if o else None
+
     n_form = 0
     for m in mj.get("partien", []):
         z = smap.get(m["id"])
@@ -368,6 +408,15 @@ def main():
             continue
         fh, fa = form(ev.get("hId"), s_, ev), form(ev.get("aId"), s_, ev)
         m["form"] = {"a": fa, "b": fh} if z["tausch"] else {"a": fh, "b": fa}
+        o_ = ort(ev.get("turnier"))
+        if o_:
+            m["ort"] = o_
+        vh, va = vorher(ev.get("hId"), s_, ev), vorher(ev.get("aId"), s_, ev)
+        for k_, v_ in (("a", va if not z["tausch"] else vh), ("b", vh if not z["tausch"] else va)):
+            if v_ and isinstance(m["form"].get(k_), dict):
+                m["form"][k_]["vorOrt"] = v_
+        if not m.get("landA"):
+            m["landA"], m["landB"] = (ev.get("aL"), ev.get("hL")) if z["tausch"] else (ev.get("hL"), ev.get("aL"))
         wh, wa = warnungen(ev.get("hId"), s_, m.get("belag")), warnungen(ev.get("aId"), s_, m.get("belag"))
         ws = [dict(x, seite="A") for x in (wa if z["tausch"] else wh)] + [dict(x, seite="B") for x in (wh if z["tausch"] else wa)]
         if ws:
