@@ -672,7 +672,7 @@
     return { p: kal, pPur: pure, pSet: lv.pSet, pGame: lv.gameA, offset: off, delta, pSrvA: pA2, pSrvB: pB2, gespielt: gw + gl };
   }
 
-  const api = { analyse, live, lookupTurnierStats, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
+  const api = { analyse, live, weights, lookupTurnierStats, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.TennisModel = api;
 })(typeof self !== "undefined" ? self : this);

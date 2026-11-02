@@ -1269,7 +1269,32 @@ function variantenHtml(bm, art){
       return (gd.n ? `<p class="vrueck">Seit 27.10. auf denselben ${gd.n} Partien: A ${pc(ga.t,0)} / ${fx(ga.ll,3)} · Markt ${pc(gm.t,0)} / ${fx(gm.ll,3)}</p>` : "") + rueck("pDR", "pER", "E (bisheriges A)", "Partien seit 13.10."); },
     F: () => rueck("pFR", "pAR", "A (aktuell)", "ATP-Hartplatzpartien mit Tempo-Wert"),
     G: () => rueck("pGR", "pCR", "C", "ATP-Hartplatzpartien mit Tempo-Wert"),
+    I: () => rueckI(),
   };
+  // I rückgerechnet: reines Modell mit den aktuellen A-Gewichten aus den eingefrorenen Teilen (Elo, Statistik, H2H, Sand-Tempo),
+  // ohne Markt-Mischung; dazu simulierte Tipps nach derselben Value-Regel zur besten Quote beim ersten Sehen (1 U flach)
+  function rueckI(){
+    const P_ = D.params, L_ = (x) => Math.log(x/(1-x)), S_ = (z) => 1/(1+Math.exp(-z)), cl = (x,a,b) => Math.min(b, Math.max(a, x));
+    const rs = []; let n = 0, w = 0, gew = 0;
+    for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
+      if(p.pAR == null || p.pMR == null || p.pElo == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
+      const sk = p.belag === "clay" ? "clay" : p.belag === "grass" ? "grass" : "hard";
+      let csi = p.csi;
+      if(sk === "clay" && P_.CSI_AUS_TEMPO !== false){ const sp = TennisModel.lookupTempo(p.turnier, "clay", D.tempo); const lo = P_.CSI_TEMPO_LANGSAM ?? 0.5, hi = P_.CSI_TEMPO_SCHNELL ?? 1.0;
+        if(typeof sp === "number") csi = Math.round(cl((sp-lo)/(hi-lo), 0, 1) * 100) / 10; }
+      let [wS, wE] = TennisModel.weights(sk, csi, P_); if(p.nurElo || p.pStats == null) wS = 0;
+      const hA = p.h2hA || 0, hB = p.h2hB || 0, hN = hA + hB, hP = hN >= P_.H2H_MIN_MATCHES ? hA/hN : 0.5, hW = hN < P_.H2H_MIN_MATCHES ? 0 : Math.min(P_.H2H_MAX_WEIGHT, hN/10*P_.H2H_MAX_WEIGHT);
+      const pK = cl((wS*(p.pStats ?? 0.5) + wE*p.pElo + hW*hP) / (wS + wE + hW), 0.05, 0.95), pI = S_(P_.K_KALIBRIERUNG * L_(cl(pK, 0.02, 0.98)));
+      const y = e.sieger === "A" ? 1 : 0; rs.push({y, X: pI, V: p.pAR, M: p.pMR});
+      if(p.qa > 1 && p.qb > 1 && !p.geschaetzt){ const fa = 1/pI, fb = 1/(1-pI);
+        const sd = p.qa > fa && p.qa <= P_.MAX_QUOTE_VALUE && fa < fb ? ["A", p.qa] : p.qb > fb && p.qb <= P_.MAX_QUOTE_VALUE && fb < fa ? ["B", p.qb] : null;
+        if(sd){ n++; if((sd[0]==="A") === (y===1)){ w++; gew += sd[1] - 1; } else gew -= 1; } }
+    }
+    if(!rs.length) return "";
+    const g = (k) => { let t=0, ll=0; for(const r of rs){ const q=Math.min(Math.max(r[k],1e-4),1-1e-4); t+=(q>.5)===(r.y===1); ll-=r.y*Math.log(q)+(1-r.y)*Math.log(1-q); } return `<b>${pc(t/rs.length,0)}</b> / ${fx(ll/rs.length,3)}`; };
+    return `<p class="vrueck">Rückrechnung ${rs.length} Partien seit 13.10.: diese Variante ${g("X")} · A (aktuell) ${g("V")} · Markt ${g("M")} <span class="time">(Treffer / Fehlermaß)</span></p>`
+      + (n ? `<p class="vrueck">Simulierte Tipps (beste Quote beim ersten Sehen, 1 U flach, ohne geschätzte Elo): <b>${n}</b> (${w}–${n-w}) · <b class="${gew>=0?"pos":"negv"}">${gew>=0?"+":""}${fx(gew,1)} U</b> · ROI ${sg(gew/n)}</p>` : "");
+  }
   const zeile = (name, beschr, k, x) => { const g = guete(k), offen = VAR_OFFEN === k;
     return `<tr class="vz" data-v="${k}" title="Klicken für Details"><td class="l"><span class="vpf">${offen?"▾":"▸"}</span> <b>${name}</b><div class="time vbeschr hide-s">${beschr}</div></td><td class="num">${x?`${x.f}<span class="hide-s"> (${x.w}–${x.l})</span><div class="time show-s">${x.w}–${x.l}</div>`:"–"}</td><td class="num ${x&&x.flat>0?"pos":x&&x.flat<0?"negv":""}">${x&&x.f?`${x.flat>0?"+":""}${fx(x.flat,1)} U<div class="time">${sg(x.roi)}</div>`:"–"}</td><td class="num ${x&&x.u>0?"pos":x&&x.u<0?"negv":""}">${x&&x.f?betragU(x.u*unit,true):"–"}</td><td class="num hide-s ${x&&x.clv>0?"pos":""}">${x?sg(x.clv):"–"}</td><td class="num hide-s">${pc(g.t,0)}</td><td class="num hide-s">${g.ll==null?"–":fx(g.ll,3)}</td></tr>${
       offen ? `<tr class="kombi-d"><td colspan="7" style="text-align:left"><div class="vdet">${extra[k] ? extra[k]() : ""}${k==="M" ? progListe("M") : `<h4 class="vh">Tipps von ${name}</h4>${tippListe(tips[k])}<h4 class="vh">Prognosen</h4>${progListe(k)}`}</div></td></tr>` : ""}`; };
@@ -1287,7 +1312,7 @@ function variantenHtml(bm, art){
     ${zeile("J · Test", "nur Modell gesamt: Modell + alle Spieler-Statistiken + Umstände, ohne Markteinfluss", "J", kz(tips.J))}
     ${zeile("Markt", "nur Winamax-Quote", "M", null)}
     </tbody></table></div>
-    <p class="note">B bis J tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10., H, I, J seit 02.11.). A zählt erst seit der Gewichts-Umstellung; alle Board-Tipps davor stehen bei E, weil sie mit den alten Gewichten entstanden sind. Fairer Vergleich: Zeiträume beachten. Zeile antippen für Tipps, Prognosen und – bei D, F und G – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
+    <p class="note">B bis J tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10., H, I, J seit 02.11.). A zählt erst seit der Gewichts-Umstellung; alle Board-Tipps davor stehen bei E, weil sie mit den alten Gewichten entstanden sind. Fairer Vergleich: Zeiträume beachten. Zeile antippen für Tipps, Prognosen und – bei D, F, G und I – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
