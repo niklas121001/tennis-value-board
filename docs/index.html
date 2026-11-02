@@ -74,7 +74,7 @@ details.klapp[open]>summary{margin-bottom:8px}
 tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var(--muted)}
 .vliste{width:100%;font-size:13px;margin:4px 0 8px}.vliste th,.vliste td{padding:4px 6px;border-bottom:1px solid var(--line)}
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}
+.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}.pill.hval{background:none;border:1px solid var(--accent);color:var(--accent);margin-left:4px;font-size:.72em;padding:0 5px}
 .cbbox{background:var(--good-soft);color:var(--fg);border-radius:6px;padding:8px 10px;margin-top:10px;font-size:12.5px;line-height:1.45}
 .pill.sturz{background:var(--bad-soft);color:var(--bad);margin-left:4px}
 details.heute{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:14px 0 4px}
@@ -442,6 +442,10 @@ const store = {get(k,d){try{const v=localStorage.getItem("tvb."+k);return v===nu
 const BEST = "__best__";
 let D, M, META, LOG, ERG = {}, QV = {}, PROFCTX = {}, BEREIT = false, open = new Set();
 
+// kleines „H“ in der Spielliste, nur wenn Variante H (Gesamtschätzung) Value sieht
+function hValHtml(r){ const h = r && r.varianten && r.varianten.H; if(!h || !h.wette) return "";
+  const nm = h.wette === "A" ? r.a : r.b, f = h.wette === "A" ? h.fairA : h.fairB;
+  return `<span class="pill hval" title="Variante H (Gesamtschätzung): Value auf ${esc(nm)} – fair ${fx(f)}, Edge ${sg(h.edge)}">H <span class="hide-s">${esc(String(nm).split(" ").slice(-1)[0])} </span>${sg(h.edge)}</span>`; }
 const pinFairAus = (q) => Array.isArray(q) && q[0] > 1 && q[1] > 1 ? (1/q[0]) / (1/q[0] + 1/q[1]) : null;
 const fx = (x,d=2) => (typeof x==="number"&&isFinite(x)) ? x.toFixed(d).replace(".",",") : "–";
 const pc = (x,d=1) => (typeof x==="number"&&isFinite(x)) ? (x*100).toFixed(d).replace(".",",")+" %" : "–";
@@ -1144,7 +1148,7 @@ function rowHtml(p, r){
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
     <td class="num"><div class="pl"><span class="${r.edgeA>0?"pos":"neg"}">${sg(r.edgeA)}</span><span class="${r.edgeB>0?"pos":"neg"}">${sg(r.edgeB)}</span></div></td>
-    <td>${pill}${r.aussenseiter?`<span class="pill ass" title="${esc(assText(r.aussenseiter))}">⚡ Außenseiter</span>`:""}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
+    <td>${pill}${r.aussenseiter?`<span class="pill ass" title="${esc(assText(r.aussenseiter))}">⚡ Außenseiter</span>`:""}${hValHtml(r)}${r.kelly&&!stop&&!regelAus?`<span class="num show-s kel">${stakeHtml(r.kelly)}</span>`:""}</td>
     <td class="num hide-s einsatz-z">${r.kelly&&!stop&&!regelAus?stakeHtml(r.kelly):"–"}</td>
     <td class="hide-s time">${esc(r.bm||"")}</td></tr>`;
   if(open.has(p.id)) html += `<tr class="detail"><td colspan="9">${detailHtml(p, r)}</td></tr>`;
