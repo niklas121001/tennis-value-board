@@ -462,10 +462,11 @@
     // Basis = faire Pinnacle-Quote (sonst Buchmacher, entvigt). Jede Statistik wird zum Markt hin gezogen
     // (s + K·p) / (n + K) und als Logit-Abweichung vom Markt gezählt; die Statistik-Abweichungen werden gemittelt
     // (sie überschneiden sich stark), das Modell geht mit Gewicht H_W_MODELL ein.
-    const gesamt = (() => {
-      const pin = Array.isArray(match.pinnacle) && match.pinnacle[0] > 1 && match.pinnacle[1] > 1 ? (1 / match.pinnacle[0]) / (1 / match.pinnacle[0] + 1 / match.pinnacle[1]) : null;
-      const pBasis = pin ?? pMarkt;
+    // J (Test seit 02.11.2026): dieselbe Rechnung ohne Markteinfluss – Basis = reines Modell (wie I), Statistiken zum Modell hin gezogen.
+    const pinFair = Array.isArray(match.pinnacle) && match.pinnacle[0] > 1 && match.pinnacle[1] > 1 ? (1 / match.pinnacle[0]) / (1 / match.pinnacle[0] + 1 / match.pinnacle[1]) : null;
+    const gesamtRechnen = (pBasis, basisName) => {
       if (pBasis === null) return null;
+      const pin = basisName === "Pinnacle" ? pBasis : null;
       const K = P.H_K ?? 20, L = (x) => logit(clip(x, 0.02, 0.98)), teile = [];
       const stat = (name, label, s_, n, pRef, seite, zeig) => {      // pRef = Markt-Siegchance dieses Spielers; zeig = echte Bilanz bei relativen Werten
         if (!(n > 0)) return;
@@ -547,8 +548,10 @@
         if (Math.abs(trA.d - trB.d) >= 25) { dForm += dd; form.push({ label: `Elo-Trend ${trA.d >= 0 ? "+" : ""}${trA.d} vs. ${trB.d >= 0 ? "+" : ""}${trB.d} (${trA.tage} T.)`, d: dd }); }
       }
       const p = sigm(L(pBasis) + wM * dModell + wS * dStats + dForm);
-      return { p, pBasis, basis: pin != null ? "Pinnacle" : "Buchmacher", dModell, wM, dStats, wS, dForm, form, teile };
-    })();
+      return { p, pBasis, basis: basisName, dModell, wM, dStats, wS, dForm, form, teile };
+    };
+    const gesamt = gesamtRechnen(pinFair ?? pMarkt, pinFair != null ? "Pinnacle" : "Buchmacher");
+    const gesamtModell = gesamtRechnen(pKal, "Modell");
 
     const varianten = {
       D: bewerte(pD, match, haveOdds, D, P),
@@ -558,6 +561,8 @@
       C: bewerte(mitMarkt(kombi(pStatsC, echteStats)), match, haveOdds, D, P),
       G: bewerte(pG, match, haveOdds, D, P),
       ...(gesamt ? { H: bewerte(gesamt.p, match, haveOdds, D, P) } : {}),
+      I: bewerte(pKal, match, haveOdds, D, P),                       // I (Test seit 02.11.2026): nur Modell, ohne Markt-Mischung
+      J: bewerte(gesamtModell.p, match, haveOdds, D, P),             // J: nur Modell + Statistiken + Umstände, ohne Markt
     };
     varianten.C.pStats = pStatsC;
     if (eloGeschaetzt) for (const v of Object.values(varianten)) { v.wette = null; v.edge = null; v.kelly = null; }   // gleiche Regel für alle Varianten
@@ -588,7 +593,7 @@
     })();
 
     return Object.assign(out, {
-      maerkte, gesamt,
+      maerkte, gesamt, gesamtModell,
       varianten,
       ok: true, modus: mode, csi, tempo: lookupTempo(match.turnier, match.belag, D.tempo),
       eloA, eloB, yEloA: pa.elo, yEloB: pb.elo,

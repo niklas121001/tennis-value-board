@@ -354,6 +354,8 @@ for (const m of matches) {
       if (e.pF == null && rNow.ok && rNow.varianten && rNow.varianten.F) e.pF = r3(rNow.varianten.F.p);   // Variante F = Tempo-Gewicht Hart
       if (e.pG == null && rNow.ok && rNow.varianten && rNow.varianten.G) e.pG = r3(rNow.varianten.G.p);   // Variante G = C + F (ab 29.10.)
       if (e.pH == null && rNow.ok && rNow.varianten && rNow.varianten.H) e.pH = r3(rNow.varianten.H.p);   // Variante H = Gesamtschätzung (ab 02.11.)
+      if (e.pI == null && rNow.ok && rNow.varianten && rNow.varianten.I) e.pI = r3(rNow.varianten.I.p);   // Variante I = nur Modell (ab 02.11.)
+      if (e.pJ == null && rNow.ok && rNow.varianten && rNow.varianten.J) e.pJ = r3(rNow.varianten.J.p);   // Variante J = Modell gesamt ohne Markt (ab 02.11.)
     }
     continue;
   }
@@ -369,7 +371,7 @@ for (const m of matches) {
     qaM: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null,   // Durchschnittsquote (Spieler-Check)
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
     geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), quali: !!m.quali, modus: r.modus, csi: r.csi, gesehen: now,
-    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null, pH: r.varianten && r.varianten.H ? r3(r.varianten.H.p) : null,
+    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null, pH: r.varianten && r.varianten.H ? r3(r.varianten.H.p) : null, pI: r.varianten && r.varianten.I ? r3(r.varianten.I.p) : null, pJ: r.varianten && r.varianten.J ? r3(r.varianten.J.p) : null,
     pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null,
     qaErst: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null, qbErst: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null,
     quoteErstZeit: qs.length ? now : null, merkmale: merkmale(m, r, qs),
