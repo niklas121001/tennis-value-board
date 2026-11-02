@@ -453,6 +453,45 @@
       if (!echteStats || pStatsC === null) wsG = 0;
       pG = mitMarkt(clip((wsG * (pStatsC ?? 0.5) + weG * pEloD + h2hW * h2hPct) / (wsG + weG + h2hW) + erf, 0.03, 0.97));
     }
+    // ---- Variante H (Test seit 02.11.2026): Gesamtschätzung aus Markt + Modell + allen Spieler-Statistiken ----
+    // Basis = faire Pinnacle-Quote (sonst Buchmacher, entvigt). Jede Statistik wird zum Markt hin gezogen
+    // (s + K·p) / (n + K) und als Logit-Abweichung vom Markt gezählt; die Statistik-Abweichungen werden gemittelt
+    // (sie überschneiden sich stark), das Modell geht mit Gewicht H_W_MODELL ein.
+    const gesamt = (() => {
+      const pin = Array.isArray(match.pinnacle) && match.pinnacle[0] > 1 && match.pinnacle[1] > 1 ? (1 / match.pinnacle[0]) / (1 / match.pinnacle[0] + 1 / match.pinnacle[1]) : null;
+      const pBasis = pin ?? pMarkt;
+      if (pBasis === null) return null;
+      const K = P.H_K ?? 20, L = (x) => logit(clip(x, 0.02, 0.98)), teile = [];
+      const stat = (name, label, s_, n, pRef, seite) => {      // pRef = Markt-Siegchance dieses Spielers
+        if (!(n > 0)) return;
+        const pEst = (s_ + K * pRef) / (n + K), d = L(pEst) - L(pRef);
+        teile.push({ name, label, s: s_, n, pRef, pEst, d: seite === "A" ? d : -d });
+      };
+      const pA = pBasis, favA = match.qa <= match.qb, qA = match.qa, qB = match.qb;
+      for (const [seite, nm, pS, qS, qG, istFav] of [["A", match.a, pA, qA, qB, favA], ["B", match.b, 1 - pA, qB, qA, !favA]]) {
+        const r_ = spielerRolle(nm, istFav ? "fav" : "aus", D);
+        if (r_.n && isNum(r_.pct)) stat(nm, istFav ? "Siegquote als Favorit" : "Siegquote als Außenseiter", r_.pct * r_.n, r_.n, pS, seite);
+        const bd = spielerBand(nm, qS, D); if (bd && bd.n) stat(nm, "bei eigener Quote " + bd.band, bd.siege, bd.n, pS, seite);
+        const gb = quotenBand(qG);
+        if (gb) { let s_ = 0, n = 0;
+          for (const src of [(D.playerStats || {})[nm], (D.playerStatsWeb || {})[nm]]) { const x = ((src && src.gbaender) || {})[istFav ? "fav" : "aus"] || {}; const v = x[gb]; if (v) { s_ += v[0]; n += v[0] + v[1]; } }
+          if (n) stat(nm, "bei Gegnerquote " + gb, s_, n, pS, seite); }
+        const gegner = seite === "A" ? match.b : match.a, hb = (D.hbTA || {})[nm];
+        if (hb && D.haende && ((D.haende[gegner] || {}).h === "L" || (D.handTA || {})[gegner] === "L")) {
+          let wl = 0, ll = 0, wr = 0, lr = 0; for (const v of Object.values(hb.m || {})) { wl += v[0]; ll += v[1]; wr += v[2]; lr += v[3]; }
+          const nL = wl + ll, nR = wr + lr;
+          if (nL >= 5 && nR >= 10) {               // Abweichung gegen Linkshänder relativ zur eigenen Bilanz gegen Rechtshänder
+            const rel = clip(pS + (wl / nL - wr / nR), 0.03, 0.97);
+            stat(nm, "gegen Linkshänder", rel * nL, nL, pS, seite);
+          }
+        }
+      }
+      const dStats = teile.length ? teile.reduce((a, t) => a + t.d, 0) / teile.length : 0;
+      const dModell = L(pKal) - L(pBasis), wM = P.H_W_MODELL ?? 0.3, wS = P.H_W_STATS ?? 1;
+      const p = sigm(L(pBasis) + wM * dModell + wS * dStats);
+      return { p, pBasis, basis: pin != null ? "Pinnacle" : "Buchmacher", dModell, wM, dStats, wS, teile };
+    })();
+
     const varianten = {
       D: bewerte(pD, match, haveOdds, D, P),
       F: bewerte(pF, match, haveOdds, D, P),
@@ -460,6 +499,7 @@
       B: bewerte(mitMarkt(kombi(pStats, echteStats)), match, haveOdds, D, P),
       C: bewerte(mitMarkt(kombi(pStatsC, echteStats)), match, haveOdds, D, P),
       G: bewerte(pG, match, haveOdds, D, P),
+      ...(gesamt ? { H: bewerte(gesamt.p, match, haveOdds, D, P) } : {}),
     };
     varianten.C.pStats = pStatsC;
     if (eloGeschaetzt) for (const v of Object.values(varianten)) { v.wette = null; v.edge = null; v.kelly = null; }   // gleiche Regel für alle Varianten
@@ -490,7 +530,7 @@
     })();
 
     return Object.assign(out, {
-      maerkte,
+      maerkte, gesamt,
       varianten,
       ok: true, modus: mode, csi, tempo: lookupTempo(match.turnier, match.belag, D.tempo),
       eloA, eloB, yEloA: pa.elo, yEloB: pb.elo,

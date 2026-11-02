@@ -484,7 +484,7 @@ async function init(){
     j("params.json"), j("players.json"), j("h2h.json", {}), j("player_stats.json", {}), j("blacklist.json", []),
     j("matches.json", {partien:[]}), j("meta.json", {}), j("tips_log.json", {}), j("stats_avg.json", null), j("ergebnisse.json", {}), j("h2h_web.json", {}), j("h2h_api.json", {}), j("player_stats_web.json", {}), j("serve_live.json", {}), j("quoten_verlauf.json", {})]);
   if(!P || !players){ $("#list").innerHTML = '<div class="empty">Die Daten konnten nicht geladen werden. Liegt der Ordner <b>data</b> neben dieser Seite?</div>'; return; }
-  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], turnierStats: (TSTATS = (await j("turnier_stats.json", {})) || {}).turniere || {}, haende: (HAENDE_ROH = (await j("haende.json", {})) || {}).spieler || {}, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
+  D = {params:P.params, csi:P.csi, tempo: ((await j("tempo.json", {})) || {}).turniere || [], turnierStats: (TSTATS = (await j("turnier_stats.json", {})) || {}).turniere || {}, haende: (HAENDE_ROH = (await j("haende.json", {})) || {}).spieler || {}, hbTA: (H2HTA && H2HTA.hb) || {}, handTA: (H2HTA && H2HTA.haende) || {}, players, h2h, h2hWeb:(h2hw||{}).paare||{}, h2hApi:(h2ha||{}).paare||{}, playerStatsWeb:(psw||{}).spieler||{}, serveLive:(svl||{}).spieler||{}, playerStats:ps, blacklist:bl, statsAvg:avg};
   M = matches; META = meta||{}; LOG = log||{};
   ERG = erg || {}; QV = qv || {};
   // Manuelle Spielerwerte sofort berücksichtigen (das nächste Update schreibt sie fest in players.json)
@@ -927,7 +927,7 @@ function evalMatchRoh(p){
   const bm = $("#bm").value;
   const ovr = quoteOvr(p);
   if(ovr){
-    const r = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b, qa:ovr.qa, qb:ovr.qb}, D);
+    const r = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b, qa:ovr.qa, qb:ovr.qb, pinnacle:p.pinnacle}, D);
     r.bm = ovr.bm; r.qa = ovr.qa; r.qb = ovr.qb; r.manuellQ = ovr;
     r.belagQuelle = quelle; r.belagEff = belag; r.warn = warnListe(p, r);
     if(r.wette){ const e = r.wette==="A" ? r.edgeA : r.edgeB, q = r.wette==="A" ? r.qa : r.qb;
@@ -938,7 +938,7 @@ function evalMatchRoh(p){
   let best = null;
   for(const b of books){
     const q = (p.quoten||{})[b]; if(!q) continue;
-    const r = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
+    const r = TennisModel.analyse({turnier:p.turnier, belag, a:p.a, b:p.b, qa:q[0], qb:q[1], pinnacle:p.pinnacle}, D);
     r.bm = b; r.qa = q[0]; r.qb = q[1];
     const e = r.wette ? (r.wette==="A"?r.edgeA:r.edgeB) : -9;
     if(!best || e > best._e) { r._e = e; best = r; }
@@ -1228,14 +1228,14 @@ function variantenHtml(bm, art){
   const A = LOGT.filter(x => String(x.erstGesehen) >= UMST);
   const altA = LOGT.filter(x => String(x.erstGesehen) < UMST).map(x => Object.assign({}, x, {variante: "E", altA: true}));
   const V = Object.values(VAR.vt).filter(passt);
-  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: [...altA, ...V.filter(x => x.variante==="E")], F: V.filter(x => x.variante==="F"), G: V.filter(x => x.variante==="G")};
+  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: [...altA, ...V.filter(x => x.variante==="E")], F: V.filter(x => x.variante==="F"), G: V.filter(x => x.variante==="G"), H: V.filter(x => x.variante==="H")};
   // Prognose-Güte auf denselben Partien (alle mit Quote, Ergebnis und allen drei Varianten)
   const res = [];
   for(const [id, p] of Object.entries(VAR.prog)){
     const e = ERG[id] || (ARCHIV||{})[id];
     if(!artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || p.pB==null || p.pC==null || p.pMarkt==null || p.pFinal==null) continue;
     const neuA = String(p.gesehen || p.start || "") >= UMST;   // Prognose vor/nach der Umstellung eingefroren
-    res.push({y: e.sieger==="A" ? 1 : 0, A: neuA ? p.pFinal : null, B: p.pB, C: p.pC, D: p.pD, E: p.pE ?? (neuA ? null : p.pFinal), F: p.pF, G: p.pG, M: p.pMarkt, p, e});
+    res.push({y: e.sieger==="A" ? 1 : 0, A: neuA ? p.pFinal : null, B: p.pB, C: p.pC, D: p.pD, E: p.pE ?? (neuA ? null : p.pFinal), F: p.pF, G: p.pG, H: p.pH, M: p.pMarkt, p, e});
   }
   // Güte über die Partien, für die die Variante eine Prognose hat (D erst seit 27.10. – eigener, kleinerer Ausschnitt)
   const guete = (k, nur) => { const rs = res.filter(r => r[k] != null && (!nur || r[nur] != null)); if(!rs.length) return {t:null, ll:null, n:0};
@@ -1280,9 +1280,10 @@ function variantenHtml(bm, art){
     ${D.params.E_W_STATS_HARD != null ? zeile("E · bisheriges A", `alte Excel-Gewichte · bis ${(() => { const d = new Date(UMST + "T12:00:00Z"); d.setUTCDate(d.getUTCDate()-1); return d.toISOString().slice(5,10).split("-").reverse().join(".") + "."; })()} = A`, "E", kz(tips.E)) : ""}
     ${zeile("F · Test", `Hard-Statistik nach Platztempo ${pc(D.params.F_W_STATS_LANGSAM??0.25,0)}–${pc(D.params.F_W_STATS_SCHNELL??0.1,0)}`, "F", kz(tips.F))}
     ${zeile("G · Test", "C + F: gegnerbereinigt, Elo gedämpft, Hard-Statistik nach Platztempo", "G", kz(tips.G))}
+    ${zeile("H · Test", "Gesamtschätzung: Pinnacle/Markt + Modell + alle Spieler-Statistiken", "H", kz(tips.H))}
     ${zeile("Markt", "nur Winamax-Quote", "M", null)}
     </tbody></table></div>
-    <p class="note">B bis G tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10.). A zählt erst seit der Gewichts-Umstellung; alle Board-Tipps davor stehen bei E, weil sie mit den alten Gewichten entstanden sind. Fairer Vergleich: Zeiträume beachten. Zeile antippen für Tipps, Prognosen und – bei D, F und G – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
+    <p class="note">B bis H tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10., H seit 02.11.). A zählt erst seit der Gewichts-Umstellung; alle Board-Tipps davor stehen bei E, weil sie mit den alten Gewichten entstanden sind. Fairer Vergleich: Zeiträume beachten. Zeile antippen für Tipps, Prognosen und – bei D, F und G – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
@@ -1824,7 +1825,7 @@ function qvHtml(p, r){
 // H2H-Duelle mit Ergebnis: TML-Database (ATP-Ebene, ältere), Tennis Abstract (letzte ~12 Monate inkl. Challenger),
 // eigenes Archiv (neueste). Dateien werden erst beim Öffnen einer Partie geladen.
 let H2HL = null, H2HTA = null, H2H_P = null;
-j("h2h_ta.json", {paare:{}}).then(t => { H2HTA = t || {paare:{}}; if(D) render(); });   // klein: gleich beim Start (Schlaghand, Bilanz gg. Linkshänder)
+j("h2h_ta.json", {paare:{}}).then(t => { H2HTA = t || {paare:{}}; if(D){ D.hbTA = H2HTA.hb || {}; D.handTA = H2HTA.haende || {}; render(); } });   // klein: gleich beim Start (Schlaghand, Bilanz gg. Linkshänder)
 function h2hLaden(){ if(H2H_P) return H2H_P;
   return H2H_P = Promise.all([j("h2h_liste.json", {paare:{}}), H2HTA ? Promise.resolve(H2HTA) : j("h2h_ta.json", {paare:{}})]).then(([l, t]) => { H2HL = l || {paare:{}}; H2HTA = t || {paare:{}}; render(); }); }
 function h2hDuelle(a, b){
@@ -1883,12 +1884,32 @@ function maerkteHtml(p, r){
   return `<div class="box mbox"><h3>${istCh ? "Satz-Märkte" : "Satz- & Tiebreak-Märkte"}</h3><div class="tablewrap"><table class="mtab"><thead><tr><th class="l"></th><th class="num">Modell</th><th class="num hide-s">fair</th><th class="num">${esc(bm)}</th><th class="num">Edge</th><th class="num hide-s">Pinnacle fair</th></tr></thead><tbody>${tr}</tbody></table></div>
     <p class="time" style="margin:6px 0 0">${istCh ? `Challenger: nur Märkte, die Winamax hier anbietet (kein genaues Ergebnis, kein Tiebreak). Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. ✓ = Edge ab ${pc(minE,0)}.` : `TB = Tiebreak. Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. Tiebreak je Satz ${pc(mk.tb1,0)} (Aufschlag-Markov ${pc(mk.tbRoh,0)} × ${fx(mk.tbFaktor,2)} für ${/challenger/i.test(p.turnier||"")?"Challenger":"ATP"}${(r.satzK||{}).turnier ? " und Turnier" : ""}). ✓ = Edge ab ${pc(minE,0)}${hatQ ? " – Märkte mit Buchmacher-Quote werden als Test-Signal getrackt" : ""}. Fehlt ein Markt im Datenfeed (z. B. Tiebreak, 2:1), kannst du die Quote ins Feld tippen – mit GitHub-Schlüssel wird sie beim nächsten Update als Signal getrackt, wenn sie Value hat (Bilanz → Satz- & Tiebreak-Signale).`}</p></div>`;
 }
+
+// Gesamtschätzung (Variante H): Markt + Modell + alle Spieler-Statistiken als eine Quote
+function gesamtHtml(p, r){
+  const g = r.gesamt; if(!g || p.calc) return "";
+  const pp = (d) => `${d >= 0 ? "+" : "−"}${fx(Math.abs(d) * 100, 1)}`;
+  const mitte = (x) => g.pBasis + (1 / (1 + Math.exp(-(Math.log(g.pBasis/(1-g.pBasis)) + x))) - g.pBasis);   // Logit-Abweichung -> Prozentpunkte (für A)
+  const zeilen = g.teile.map(t => `<tr><td class="l">${esc(t.name.split(" ").slice(-1)[0])}: ${esc(t.label)}</td><td class="num">${fx(t.s,0)}/${t.n}</td><td class="num hide-s">${pc(t.s/t.n,0)} → ${pc(t.pEst,0)}</td><td class="num hide-s">${pc(t.pRef,0)}</td><td class="num ${t.d>0?"pos":t.d<0?"negv":""}">${pp(mitte(t.d) - g.pBasis)}</td></tr>`).join("");
+  const pa = g.p, fa = 1/pa, fb = 1/(1-pa), ea = r.qa ? r.qa/fa - 1 : null, eb = r.qb ? r.qb/fb - 1 : null, v = (r.varianten||{}).H || {};
+  const nA = p.a.split(" ").slice(-1)[0], nB = p.b.split(" ").slice(-1)[0];
+  return `<div class="box mbox"><h3>Gesamtschätzung <span class="time" style="text-transform:none;letter-spacing:0">Variante H · Test</span></h3>
+    <div class="kv two" style="max-width:520px">
+      <span class="k">Basis: ${g.basis === "Pinnacle" ? "faire Pinnacle-Quote" : "Buchmacher-Quote (entvigt)"}</span><span class="v">${esc(nA)} ${pc(g.pBasis)}</span>
+      <span class="k">+ Modell (Gewicht ${fx(g.wM,1)})</span><span class="v ${g.dModell>0?"pos":g.dModell<0?"negv":""}">${pp(mitte(g.wM*g.dModell) - g.pBasis)} Pkt.</span>
+      <span class="k">+ Statistiken (Mittel aus ${g.teile.length})</span><span class="v ${g.dStats>0?"pos":g.dStats<0?"negv":""}">${g.teile.length ? pp(mitte(g.wS*g.dStats) - g.pBasis) + " Pkt." : "–"}</span>
+      <span class="k"><b>= Siegchance ${esc(nA)} / ${esc(nB)}</b></span><span class="v"><b>${pc(pa)} / ${pc(1-pa)}</b></span>
+      <span class="k">faire Quote</span><span class="v">${fx(fa)} / ${fx(fb)}</span>
+      <span class="k">Edge bei ${esc(r.bm||"")} ${fx(r.qa)} / ${fx(r.qb)}</span><span class="v"><span class="${ea>0?"pos":"negv"}">${sg(ea)}</span> / <span class="${eb>0?"pos":"negv"}">${sg(eb)}</span>${v.wette ? ` <span class="pill go">Value ${esc(v.wette==="A"?nA:nB)}</span>` : ""}</span></div>
+    ${zeilen ? `<table class="mtab" style="margin-top:8px"><thead><tr><th class="l">Statistik</th><th class="num">S/n</th><th class="num hide-s">roh → gezogen</th><th class="num hide-s">Markt</th><th class="num">Wirkung</th></tr></thead><tbody>${zeilen}</tbody></table>` : `<p class="time">Keine Spieler-Statistiken für diese Partie.</p>`}
+    <p class="time" style="margin:6px 0 0">Jede Statistik wird zum Markt hin gezogen ((Siege + ${D.params.H_K ?? 20}·Markt) / (Spiele + ${D.params.H_K ?? 20})), damit wenige Spiele wenig zählen. „Wirkung“ in Prozentpunkten auf ${esc(nA)}. Die Statistiken überschneiden sich, daher zählt ihr Mittel. Value-Regel wie bei den anderen Varianten; Auswertung unter Bilanz → Modell-Varianten (H).</p></div>`;
+}
 function detailHtml(p, r){
   const ab = (a,b,f) => `<span class="v">${f(a)}</span><span class="v">${f(b)}</span>`;
   const s = r.saetze || {};
   const scores = s.scores ? Object.entries(s.scores).map(([k,v]) => `<span class="k">${k}</span><span class="v">${pc(v)}</span><span class="v">${fx(1/v)}</span>`).join("") : "";
   const allBooks = Object.entries(p.quoten||{}).map(([b,q]) => {
-    const x = TennisModel.analyse({turnier:p.turnier, belag:r.belagEff, a:p.a, b:p.b, qa:q[0], qb:q[1]}, D);
+    const x = TennisModel.analyse({turnier:p.turnier, belag:r.belagEff, a:p.a, b:p.b, qa:q[0], qb:q[1], pinnacle:p.pinnacle}, D);
     return `<span class="k">${esc(b)}${x.wette?" ✓":""}</span><span class="v">${fx(q[0])} / ${fx(q[1])}</span><span class="v">${sg(x.edgeA)} / ${sg(x.edgeB)}</span>`; }).join("");
   const cur = store.get("belag."+p.id, null) || "auto";
   PROFCTX[p.id] = {p, r};
@@ -1917,6 +1938,7 @@ function detailHtml(p, r){
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div>${r.satzK ? (() => { const k = r.satzK, u = (r.saetzeUnabh||{}).scores || {}, g = r.modus===5 ? "3-0" : "2-0", g2 = r.modus===5 ? "0-3" : "0-2";
         return `<p class="time" style="margin:6px 0 0" title="Sätze sind nicht unabhängig: glatte Siege kommen häufiger vor, als das reine Markov-Modell sagt (eigene Daten seit Okt. 2026 bzw. ATP 2015–2026). Die Siegchance bleibt gleich.">Glatt-Korrektur ×${fx(k.k,2)} (${r.modus===5?"Best of 5":/challenger/i.test(p.turnier||"")?"Challenger":"ATP"} ×${fx(k.basis,2)}${k.turnier?` · ${esc(k.turnier)} ×${fx(k.faktor,2)}`:""}). Ohne Korrektur: ${g} ${pc(u[g])}, ${g2} ${pc(u[g2])}.</p>`; })() : ""}</div>`}
     ${maerkteHtml(p, r)}
+    ${gesamtHtml(p, r)}
     <div class="box"><h3>Spieler-Check</h3>${spielerCheckHtml(p, r)}</div>
     ${h2hBoxHtml(p)}
     ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
@@ -2078,7 +2100,7 @@ function tippDetail(x){
   const sig = x.favPct != null ? `Fav. als Fav. ${pc(x.favPct,0)} (n ${x.favN}) · Außens. als Außens. ${pc(x.ausPct,0)} (n ${x.ausN})`
     : x.band ? `${x.siege}/${x.n} bei Quote ${String(x.band).replace("-","–").replace(/\./g,",")} · geschätzt ${pc(x.pEst,0)}` : x.variante ? `Variante ${x.variante}` : null;
   const satz = ar.satz && ar.satz.length ? ar.satz.map(([u,v]) => A ? `${u}:${v}` : `${v}:${u}`).join(" ") : "";
-  const vars = ["B","C","D","E","F","G"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
+  const vars = ["B","C","D","E","F","G","H"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
   const zeit = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
   const kv = (k, v) => v == null || v === "" ? "" : `<span class="k">${k}</span><span class="v">${v}</span>`;
   return `<div class="tdet">
