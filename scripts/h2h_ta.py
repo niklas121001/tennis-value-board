@@ -123,6 +123,16 @@ def main():
                 v[(0 if h == "L" else 2) + (0 if gew else 1)] += 1
             st["hb"][name] = {"datum": heute, "ab": "202301", "m": m_}
             n_hb += 1
+            # 1. Satz seit 2023: nach gewonnenem bzw. verlorenem 1. Satz – Match gewonnen/verloren (Ergebnis aus Siegersicht)
+            fs = {"g": [0, 0], "v": [0, 0]}
+            for d, _, _, _, gew, geg, erg, h in z:
+                m1 = re.match(r"^(\d+)-(\d+)", erg or "")
+                if d < "20230101" or not m1 or re.search(r"RET|W/O|DEF|ABD", erg, re.I) or m1.group(1) == m1.group(2):
+                    continue
+                satz1_sieger_gewann = int(m1.group(1)) > int(m1.group(2))
+                erster = satz1_sieger_gewann if gew else not satz1_sieger_gewann
+                fs["g" if erster else "v"][0 if gew else 1] += 1
+            st.setdefault("fs", {})[name] = fs
         return z
 
     for m in sorted(partien, key=lambda m: (m.get("kategorie") != "ATP", m.get("start"))):
@@ -131,6 +141,9 @@ def main():
         # Spieler gegen einen Linkshänder: dessen Seite für die aktuelle Bilanz gegen Linkshänder laden
         for me, geg in ((m["a"], m["b"]), (m["b"], m["a"])):
             if hand(geg) == "L" and (st["hb"].get(me) or {}).get("datum") != heute:
+                seite(me)
+        for me in (m["a"], m["b"]):                    # beide Spieler: 1. Satz-Statistik und Bilanz aktuell halten
+            if (st["hb"].get(me) or {}).get("datum") != heute and abrufe < MAX_ABRUFE // 2 * 2:
                 seite(me)
         if (st["paare"].get(key) or {}).get("datum") == heute:
             continue

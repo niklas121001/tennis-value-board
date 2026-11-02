@@ -53,6 +53,7 @@ def main(pfad):
     dateien = [dateien[-1]] + sorted(dateien[:-1], reverse=True)    # neueste zuerst: aktuelle Schreibweise
     gesehen, t = set(), {}
     tour = {3: [0, 0, 0.0], 5: [0, 0, 0.0]}
+    tour_tb, tour_fs = [0, 0], {3: [0, 0], 5: [0, 0]}
     for f in dateien:
         if not os.path.exists(f):
             continue
@@ -69,6 +70,8 @@ def main(pfad):
             bo = int(r["best_of"])
             glatt = len(ss) == (2 if bo == 3 else 3)
             tb = sum(1 for x in ss if re.match(r"^(7-6|6-7)", x))
+            # 1. Satz: gewann der Sieger des 1. Satzes auch das Match? (Score steht aus Sicht des Match-Siegers)
+            m1 = re.match(r"^(\d+)-(\d+)", ss[0]); erster_sieger = bool(m1) and int(m1.group(1)) > int(m1.group(2))
             name = (r.get("tourney_name") or "").strip()
             name = NAMEN.setdefault(name.lower(), name)       # gleiche Turniere mit anderer Schreibweise zusammenführen
             jahr = str(r.get("tourney_date", ""))[:4]
@@ -79,6 +82,8 @@ def main(pfad):
             j = x["jahre"].setdefault(jahr, [0, 0, 0, 0])
             j[0] += 1; j[1] += glatt; j[2] += tb; j[3] += len(ss)
             x["n"] += 1; x["glatt"] += glatt; x["tb"] += tb; x["saetze"] += len(ss)
+            x.setdefault("fs", 0); x["fs"] += erster_sieger
+            tour_tb[0] += tb; tour_tb[1] += len(ss); tour_fs[bo][0] += erster_sieger; tour_fs[bo][1] += 1
             try:
                 pw, pl = float(r["winner_rank_points"]), float(r["loser_rank_points"])
             except (TypeError, ValueError):
@@ -101,17 +106,21 @@ def main(pfad):
             "level": x["level"], "alias": ALIAS.get(name, [re.sub(r"\s+Masters$", "", name)] if name.endswith("Masters") else []),
             "n": x["n"], "glatt": round(x["glatt"] / x["n"], 3), "erwartet": round(x["erw"] / ne, 3) if ne else None,
             "tb_satz": round(x["tb"] / x["saetze"], 3), "saetze_schnitt": round(x["saetze"] / x["n"], 2),
+            "tb_faktor": round(1 + ((x["tb"] / x["saetze"]) / (tour_tb[0] / tour_tb[1]) - 1) * x["saetze"] / (x["saetze"] + 600), 3),
+            "erster_satz": round(x["fs"] / x["n"], 3),
             "faktor_roh": round(roh, 3), "faktor": round(1 + (roh - 1) * x["n"] / (x["n"] + SCHRUMPF), 3),
             "jahre": dict(sorted(x["jahre"].items())),
         }
     erg = {"stand": datetime.date.today().isoformat(), "quelle": f"TML-Database ab {AB_JAHR} (ATP-Ebene, ohne Davis Cup) – nur privat",
            "tour": {str(bo): {"n": v[0], "glatt": round(v[1] / v[0], 3), "erwartet": round(v[2] / v[0], 3)} for bo, v in tour.items() if v[0]},
+           "tb_satz": round(tour_tb[0] / tour_tb[1], 3),
+           "erster_satz": {str(bo): round(v[0] / v[1], 3) for bo, v in tour_fs.items() if v[1]},
            "schrumpf": SCHRUMPF, "turniere": out}
     (DATA / "turnier_stats.json").write_text(json.dumps(erg, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"Turnierstatistik: {len(out)} Turniere, Tour Bo3 {erg['tour'].get('3')}, Bo5 {erg['tour'].get('5')}")
     for n in ["Paris Masters", "Basel", "Barcelona", "Rio de Janeiro", "Wimbledon"]:
         if n in out:
-            print(" ", n, {k: out[n][k] for k in ("n", "glatt", "erwartet", "faktor_roh", "faktor", "tb_satz")})
+            print(" ", n, {k: out[n][k] for k in ("n", "glatt", "erwartet", "faktor", "tb_satz", "tb_faktor", "erster_satz")})
 
 
 if __name__ == "__main__":

@@ -215,6 +215,16 @@ def letzter_preis(outcome):
 
 
 HIST_FEHLER = []
+ZUSATZ = {}                 # {fixtureId: {slug: {markt: quote}}}
+# OddsPapi-Markt-IDs (Tennis) -> {Ausgangs-ID: Schlüssel}; P1 = Spieler A, P2 = Spieler B
+ZUSATZ_MAERKTE = {
+    "12239": {"12239": "glattA", "12240": "mind1B"},        # Satz-Handicap −1,5 / +1,5
+    "12241": {"12241": "mind1A", "12242": "glattB"},        # Satz-Handicap +1,5 / −1,5
+    "12231": {"12231": "dreiSaetze", "12232": "zweiSaetze"},  # Anzahl Sätze über/unter 2,5
+    "12249": {"12249": "tb1Ja", "12250": "tb1Nein"},        # Tiebreak im 1. Satz
+    "12251": {"12251": "tbJa", "12252": "tbNein"},          # Tiebreaks im Match über/unter 0,5
+    "123": {"123": "satz1A", "124": "satz1B"},              # Sieger 1. Satz
+}
 
 
 def quoten_historisch(fixtures, slugs, meta, cfg, diag):
@@ -245,6 +255,16 @@ def quoten_historisch(fixtures, slugs, meta, cfg, diag):
                 raise
             continue
         for slug, bo in (res.get("bookmakers") or {}).items():
+            # Zusatzmärkte (Satz, Tiebreak, 1. Satz) – im selben kostenlosen Abruf enthalten
+            zus = {}
+            for mk_id, felder in ZUSATZ_MAERKTE.items():
+                outs = ((bo.get("markets") or {}).get(mk_id) or {}).get("outcomes") or {}
+                for oid, key in felder.items():
+                    q, aktiv = letzter_preis(outs.get(oid))
+                    if q and aktiv:
+                        zus[key] = q
+            if zus:
+                ZUSATZ.setdefault(fx["fixtureId"], {})[slug] = zus
             mk = (bo.get("markets") or {}).get(mid) or {}
             (qa, aa), (qb, ab) = letzter_preis((mk.get("outcomes") or {}).get(o1)), letzter_preis((mk.get("outcomes") or {}).get(o2))
             if not (qa and qb):
@@ -459,6 +479,7 @@ def run(cfg, meta, state, n_books):
             "quoten": {slug2name.get(s, s): q for s, q in o.items()},
             "pausiert": [slug2name.get(s, s) for s in pausiert.get(fx["fixtureId"], [])],
             "pinnacle": pin.get(fx["fixtureId"]),
+            "maerkte": {slug2name.get(k, k): v for k, v in ZUSATZ.get(fx["fixtureId"], {}).items()} or None,
             "tid": fx.get("tournamentId"), "p1Id": fx.get("participant1Id"), "p2Id": fx.get("participant2Id"),
         })
 

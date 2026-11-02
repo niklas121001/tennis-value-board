@@ -392,6 +392,8 @@ def main():
             e = erg_alle.get(t["id"])
             if not e or e.get("sieger") not in ("A", "B", "V"):
                 continue
+            if t.get("typ") == "markt":
+                continue                         # Satz-/Tiebreak-Märkte: unten aus dem Satzergebnis (Archiv)
             t["ergebnis"] = "V" if e["sieger"] == "V" or e.get("aufgabe") else ("W" if e["sieger"] == t["wette"] else "L")
             if t.get("letzteQuote") and t.get("erstQuote"):
                 t["clv"] = round(t["erstQuote"] / t["letzteQuote"] - 1, 4)
@@ -496,6 +498,40 @@ def main():
         archiv_schreiben(erg_alle, seen, prog, smap, sap, log)
     except Exception as ex:                      # Archiv darf das Update nie blockieren
         print("Ergebnis-Archiv übersprungen:", ex)
+
+    # Satz-/Tiebreak-Markt-Signale (Test) mit dem Satzergebnis aus dem Archiv abrechnen
+    try:
+        sl = load("signale_log.json", {})
+        offen = [t for t in sl.values() if t.get("typ") == "markt" and not t.get("ergebnis")]
+        if offen:
+            arch = {}
+            for f in sorted((DATA / "archiv").glob("????-??.json"))[-2:]:
+                arch.update(json.loads(f.read_text(encoding="utf-8")))
+            n_m = 0
+            for t in offen:
+                a = arch.get(t["id"])
+                if not a or a.get("sieger") not in ("A", "B", "V"):
+                    continue
+                ss = [z for z in (a.get("satz") or []) if z and z[0] != z[1]]
+                if a.get("sieger") == "V" or a.get("aufgabe") or len(ss) < 2:
+                    t["ergebnis"] = "V"; n_m += 1; continue
+                sa, sb = sum(1 for z in ss if z[0] > z[1]), sum(1 for z in ss if z[1] > z[0])
+                tb = [((z[0] == 7 and z[1] == 6) or (z[0] == 6 and z[1] == 7)) for z in ss]
+                k = t.get("markt")
+                treffer = {"glattA": sb == 0, "glattB": sa == 0, "mind1A": sa >= 1, "mind1B": sb >= 1,
+                           "dreiSaetze": len(ss) >= 3, "zweiSaetze": len(ss) == 2, "satz1A": ss[0][0] > ss[0][1], "satz1B": ss[0][1] > ss[0][0],
+                           "tb1Ja": tb[0], "tb1Nein": not tb[0], "tbJa": any(tb), "tbNein": not any(tb)}.get(k)
+                if treffer is None:
+                    continue
+                t["ergebnis"] = "W" if treffer else "L"
+                if t.get("letzteQuote") and t.get("erstQuote"):
+                    t["clv"] = round(t["erstQuote"] / t["letzteQuote"] - 1, 4)
+                n_m += 1
+            if n_m:
+                save("signale_log.json", sl, indent=0)
+                print(f"Markt-Signale abgerechnet: {n_m}")
+    except Exception as ex:                      # noqa
+        print("Markt-Signale übersprungen:", ex)
 
     b = bilanz(log)
     b["_stand"] = jetzt.strftime("%Y-%m-%dT%H:%MZ")

@@ -259,6 +259,7 @@ tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 #l-sel{width:100%;max-width:100%}.lstep{display:inline-flex;align-items:center;gap:6px}.lstep b{min-width:24px;text-align:center}.lstep button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font-size:17px;line-height:1;cursor:pointer;padding:0}.lstep button:hover{border-color:var(--accent)}.lname{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.lsrv.aus{color:var(--muted)}.lbtn{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.lbtn .btn{min-width:120px}@media(max-width:600px){.lbtn .btn{flex:1 1 45%;min-width:0}.lerg{min-width:0;width:100%}}.lform .ctl input[type=number]{width:70px}.lform .q input{width:100px}
 .lerg{width:auto;min-width:300px;margin-top:10px}.lerg td,.lerg th{padding:4px 12px;text-align:right}.lerg td.l{text-align:left;color:var(--muted)}.lempf{margin:10px 0 4px;font-size:14px}.lhand summary{cursor:pointer;margin-top:6px}
 .tinfo{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.tinfo:hover{color:var(--accent)}.tinfo-i{font-size:.75em;color:var(--muted)}.prgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.tliste td,.tliste th{padding:4px 8px}
+.mbox{grid-column:span 2}@media(max-width:900px){.mbox{grid-column:auto}}.mtab td,.mtab th{padding:3px 8px;line-height:1.3}.mtab tr,.mtab td{background:none!important}.mtab .num{white-space:nowrap}@media(max-width:600px){.mtab td,.mtab th{padding:3px 4px;font-size:12.5px}}.mtab td.l{color:var(--muted)}
 .ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
@@ -1281,6 +1282,9 @@ function signalUebersichtHtml(bm, art){
     ["📊 Bilanz-Signal", Object.values(VAR.bil||{})],
     ["📉 Quotensturz (Tipp auf den Spieler mit fallender Quote)", Object.values(VAR.sig||{}).filter(x => x.typ==="sturz")],
     ["📌 Pinnacle-Value (Quote über fairer Pinnacle-Quote)", Object.values(VAR.sig||{}).filter(x => x.typ==="pinnacle")],
+    ["🎾 Satz-Märkte (2:0, mind. 1 Satz, Anzahl Sätze) – Test seit 02.11.", Object.values(VAR.sig||{}).filter(x => x.typ==="markt" && /glatt|mind1|Saetze/.test(x.markt))],
+    ["🎾 Sieger 1. Satz – Test seit 02.11.", Object.values(VAR.sig||{}).filter(x => x.typ==="markt" && /^satz1/.test(x.markt))],
+    ["🎾 Tiebreak ja/nein – Test seit 02.11.", Object.values(VAR.sig||{}).filter(x => x.typ==="markt" && /^tb/.test(x.markt))],
     ["↻ Comeback-Spieler (Tipp auf Sieg)", Object.values(VAR.sig||{}).filter(x => x.typ==="comeback")],
     ["🎯 Tagesziel-Favorit (≥ 70 %, max. 3 U für 1 U Gewinn)", Object.values(VAR.sig||{}).filter(x => x.typ==="tagesziel"), true],
     ["⏱ Value-Tipp, Value vor Start weg", Object.values(LOG||{}).filter(x => x.valueWeg && !x.storniert && String(x.erstGesehen) >= "2026-10-27")],
@@ -1595,6 +1599,10 @@ function spielerCheckHtml(p, r){
     const hb = handBilanz(me), b = hb.L, o = hb.R, n = b[0]+b[1], m = o[0]+o[1];
     add(me, `gegen Linkshänder <span class="lh" title="Linkshänder">L</span>`, n ? `${b[0]}–${b[1]} <span class="time">${pc(b[0]/n,0)}</span>` : "—", `Seit 2023 · Stand ${hb.stand}` + (m ? ` · gegen Rechtshänder ${o[0]}–${o[1]} (${pc(o[0]/m,0)})` : ""));
   }
+  if(!p.calc && H2HTA && H2HTA.fs) for(const n of [p.a, p.b]){ const f = H2HTA.fs[n]; if(!f) continue;
+    const g = f.g[0] + f.g[1], v = f.v[0] + f.v[1], tour = ((TSTATS.erster_satz || {})["3"]) || 0.8;
+    if(g >= 5) add(n, "Match-Sieg nach gewonnenem 1. Satz", `${pc(f.g[0]/g,0)} <span class="time">${f.g[0]}–${f.g[1]}</span>`, `Seit 2023, alle Stufen (Tennis Abstract). Tour-Schnitt etwa ${pc(tour,0)}.`);
+    if(v >= 5) add(n, "Match-Sieg nach verlorenem 1. Satz", `${pc(f.v[0]/v,0)} <span class="time">${f.v[0]}–${f.v[1]}</span>`, `Seit 2023, alle Stufen (Tennis Abstract). Tour-Schnitt etwa ${pc(1-tour,0)}.`); }
   if(!p.calc && ARCHIV) for(const n of [p.a, p.b]){ const z = (einUnit(n)||{}).alle;
     add(n, "1 U auf Sieg (Archiv)", z && z.n ? `<span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> <span class="time">${z.w}–${z.n-z.w}</span>` : "—", "Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote." + (z && z.n ? ` ROI ${sg(z.roi)}` : "")); }
   return reihe.map(n => `<div class="scblock"><div class="scname">${esc(n)}${linksBadge(n)}${n === reihe[0] && r.qa !== r.qb ? ` <span class="time">Favorit</span>` : ""}</div><div class="kv two">${zeilen[n].join("") || `<span class="k">keine Daten</span><span class="v">—</span>`}</div></div>`).join("");
@@ -1799,6 +1807,26 @@ function h2hBoxHtml(p){
     ${tab(xs.slice(0, 5))}${xs.length > 5 ? `<details class="h2hmehr"><summary class="time">alle ${xs.length} Duelle zeigen</summary>${tab(xs.slice(5))}</details>` : ""}${gesamt}
     <p class="time" style="margin:6px 0 0">Ergebnis aus Sicht des Siegers, Datum = Turnierbeginn. Quellen: Tennis Abstract (alle Stufen inkl. Challenger, täglich für Board-Partien), TML-Database (ATP-Ebene), eigenes Archiv.</p></div>`;
 }
+
+// Satz- und Tiebreak-Märkte im Partie-Detail: Modell vs. Buchmacher (Winamax, kostenlos mit abgerufen) und Pinnacle (fair)
+function maerkteHtml(p, r){
+  const mk = r.maerkte; if(!mk || p.calc) return "";
+  const bm = r.bm || "winamax", mq = ((p.maerkte || {})[bm]) || {}, pin = ((p.maerkte || {}).pinnacle) || {};
+  const nA = p.a.split(" ").slice(-1)[0], nB = p.b.split(" ").slice(-1)[0], bo5 = r.modus === 5, minE = D.params.MARKT_MIN_EDGE ?? 0.05;
+  const paare = {glattA: "mind1B", mind1B: "glattA", mind1A: "glattB", glattB: "mind1A", dreiSaetze: "zweiSaetze", zweiSaetze: "dreiSaetze", satz1A: "satz1B", satz1B: "satz1A", tb1Ja: "tb1Nein", tb1Nein: "tb1Ja", tbJa: "tbNein", tbNein: "tbJa"};
+  const pinFair = (k) => { const a = pin[k], b = pin[paare[k]]; return a > 1 && b > 1 ? (1/a + 1/b) * a : null; };
+  const zeilen = [
+    ...(bo5 ? [] : [["2:0 " + nA, "glattA", mk.glattA], ["2:0 " + nB, "glattB", mk.glattB], [nA + " mind. 1 Satz", "mind1A", 1 - mk.glattB], [nB + " mind. 1 Satz", "mind1B", 1 - mk.glattA],
+      ["3 Sätze", "dreiSaetze", mk.volleDistanz], ["2 Sätze", "zweiSaetze", 1 - mk.volleDistanz]]),
+    ["1. Satz " + nA, "satz1A", mk.satz1A], ["1. Satz " + nB, "satz1B", 1 - mk.satz1A],
+    ["TB im 1. Satz: ja", "tb1Ja", mk.tb1], ["TB im 1. Satz: nein", "tb1Nein", 1 - mk.tb1],
+    ["TB im Match: ja", "tbJa", mk.tbMatch], ["TB im Match: nein", "tbNein", 1 - mk.tbMatch]];
+  const hatQ = zeilen.some(([, k]) => mq[k]);
+  const tr = zeilen.map(([lbl, k, pm]) => { const q = mq[k], e = q ? q * pm - 1 : null, pf = pinFair(k);
+    return `<tr><td class="l">${esc(lbl)}</td><td class="num">${pc(pm,0)}</td><td class="num hide-s">${fx(1/pm)}</td><td class="num">${q ? fx(q) : "–"}</td><td class="num ${e >= minE ? "pos" : e < 0 ? "negv" : ""}">${e == null ? "–" : sg(e) + (e >= minE ? " ✓" : "")}</td><td class="num hide-s time">${pf ? fx(pf) : "–"}</td></tr>`; }).join("");
+  return `<div class="box mbox"><h3>Satz- & Tiebreak-Märkte</h3><div class="tablewrap"><table class="mtab"><thead><tr><th class="l"></th><th class="num">Modell</th><th class="num hide-s">fair</th><th class="num">${esc(bm)}</th><th class="num">Edge</th><th class="num hide-s">Pinnacle fair</th></tr></thead><tbody>${tr}</tbody></table></div>
+    <p class="time" style="margin:6px 0 0">TB = Tiebreak. Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. Tiebreak je Satz ${pc(mk.tb1,0)} (Aufschlag-Markov ${pc(mk.tbRoh,0)} × ${fx(mk.tbFaktor,2)} für ${/challenger/i.test(p.turnier||"")?"Challenger":"ATP"}${(r.satzK||{}).turnier ? " und Turnier" : ""}). ${hatQ ? `✓ = Edge ab ${pc(minE,0)}, wird als Test-Signal getrackt.` : "Für diese Partie liefert der Buchmacher (noch) keine Satz-/Tiebreak-Quoten."}</p></div>`;
+}
 function detailHtml(p, r){
   const ab = (a,b,f) => `<span class="v">${f(a)}</span><span class="v">${f(b)}</span>`;
   const s = r.saetze || {};
@@ -1832,6 +1860,7 @@ function detailHtml(p, r){
     <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div>${r.satzK ? (() => { const k = r.satzK, u = (r.saetzeUnabh||{}).scores || {}, g = r.modus===5 ? "3-0" : "2-0", g2 = r.modus===5 ? "0-3" : "0-2";
         return `<p class="time" style="margin:6px 0 0" title="Sätze sind nicht unabhängig: glatte Siege kommen häufiger vor, als das reine Markov-Modell sagt (eigene Daten seit Okt. 2026 bzw. ATP 2015–2026). Die Siegchance bleibt gleich.">Glatt-Korrektur ×${fx(k.k,2)} (${r.modus===5?"Best of 5":/challenger/i.test(p.turnier||"")?"Challenger":"ATP"} ×${fx(k.basis,2)}${k.turnier?` · ${esc(k.turnier)} ×${fx(k.faktor,2)}`:""}). Ohne Korrektur: ${g} ${pc(u[g])}, ${g2} ${pc(u[g2])}.</p>`; })() : ""}</div>
+    ${maerkteHtml(p, r)}
     <div class="box"><h3>Spieler-Check</h3>${spielerCheckHtml(p, r)}</div>
     ${h2hBoxHtml(p)}
     ${p.calc||!p.form?"":`<div class="box">${formHtml(p).replace('<h3 style="margin-top:10px">', '<h3>')}</div>`}
@@ -2069,7 +2098,8 @@ async function openTurnier(t, belag){
       <span class="k">glatte Siege (${glattTxt})</span><span class="v"><b>${pc(st.glatt,0)}</b> <span class="time">Tour ${tour ? pc(tour.glatt,0) : "–"}</span></span>
       <span class="k" title="Erwartung aus der Spielerstärke (Ranglistenpunkte), unabhängige Sätze">erwartet (Spielerstärke)</span><span class="v">${pc(st.erwartet,0)} <span class="time">Tour ${tour ? pc(tour.erwartet,0) : "–"}</span></span>
       <span class="k" title="(Anteil/erwartet) im Verhältnis zur Tour; zur Mitte gezogen bei wenigen Partien. Fließt in die faire Quote der Satzergebnisse ein.">Turnierfaktor glatte Siege</span><span class="v"><b>×${fx(st.faktor,2)}</b> <span class="time">roh ×${fx(st.faktor_roh,2)}</span></span>
-      <span class="k">Tiebreak-Sätze</span><span class="v">${pc(st.tb_satz,0)}</span>
+      <span class="k">Tiebreak-Sätze</span><span class="v">${pc(st.tb_satz,0)} <span class="time">Tour ${pc(TSTATS.tb_satz||0,0)} · Faktor ×${fx(st.tb_faktor||1,2)}</span></span>
+      <span class="k" title="Anteil der Partien, die der Gewinner des 1. Satzes auch gewonnen hat">Sieger 1. Satz gewinnt Match</span><span class="v">${st.erster_satz != null ? pc(st.erster_satz,0) : "–"} <span class="time">Tour ${pc(((TSTATS.erster_satz||{})[String(st.bo)])||0,0)}</span></span>
       <span class="k">Ø Sätze je Partie</span><span class="v">${fx(st.saetze_schnitt,2)}</span></div>
       <table class="prtab" style="margin-top:8px"><thead><tr><th>Jahr</th><th>Partien</th><th>${glattTxt}</th><th>TB-Sätze</th></tr></thead><tbody>${jahre.map(([j, v]) => `<tr><td>${j}</td><td>${v[0]}</td><td>${pc(v[1]/v[0],0)}</td><td>${pc(v[2]/v[3],0)}</td></tr>`).join("")}</tbody></table></div>`;
   } else {

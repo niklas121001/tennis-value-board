@@ -6,7 +6,7 @@ const dir = path.join(__dirname, "..", "docs", "data");
 const rd = (f, d) => (fs.existsSync(path.join(dir, f)) ? JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) : d);
 
 const P = rd("params.json");
-const D = { params: P.params, csi: P.csi, tempo: (rd("tempo.json", {}) || {}).turniere || [], haende: (rd("haende.json", {}) || {}).spieler || {}, players: rd("players.json"), h2h: rd("h2h.json"), playerStats: rd("player_stats.json"), blacklist: rd("blacklist.json", []), statsAvg: rd("stats_avg.json", null), h2hWeb: (rd("h2h_web.json", {}) || {}).paare || {}, h2hApi: (rd("h2h_api.json", {}) || {}).paare || {},
+const D = { params: P.params, csi: P.csi, tempo: (rd("tempo.json", {}) || {}).turniere || [], turnierStats: (rd("turnier_stats.json", {}) || {}).turniere || {}, haende: (rd("haende.json", {}) || {}).spieler || {}, players: rd("players.json"), h2h: rd("h2h.json"), playerStats: rd("player_stats.json"), blacklist: rd("blacklist.json", []), statsAvg: rd("stats_avg.json", null), h2hWeb: (rd("h2h_web.json", {}) || {}).paare || {}, h2hApi: (rd("h2h_api.json", {}) || {}).paare || {},
   playerStatsWeb: (rd("player_stats_web.json", {}) || {}).spieler || {}, serveLive: (rd("serve_live.json", {}) || {}).spieler || {} };
 const mj = rd("matches.json", { partien: [] });
 if (mj.demo) { console.log("Demo-Daten – nichts protokolliert"); process.exit(0); }
@@ -157,6 +157,9 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       if ((m.pausiert || []).includes(bm)) continue;
       const basis = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b, buchmacher: bm };
       // laufende Signale: letzte Quote mitschreiben (CLV)
+      // Satz-/Tiebreak-Märkte (Test seit 02.11.2026): letzte Quote nachführen
+      for (const [k, e] of Object.entries(slog)) if (e.typ === "markt" && e.id === m.id && e.buchmacher === bm && !e.ergebnis) {
+        const q = ((m.maerkte || {})[bm] || {})[e.markt]; if (q) { e.letzteQuote = q; e.zuletztGesehen = now; e.start = m.start; } }
       for (const typ of ["sturz", "comeback", "tagesziel", "pinnacle", "aussenOhne"]) {
         const e = slog[`${typ}|${m.id}|${bm}`];
         if (e) { e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start;
@@ -202,6 +205,19 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
             neuSignal(`aussenOhne|${m.id}|${bm}`, Object.assign({ typ: "aussenOhne", wette: seite, erstQuote: q, letzteQuote: q,
               favPct: r3(fc.pct), favN: fc.n, ausPct: r3(ac.pct), ausN: ac.n, pModell: r3(pmod), pMarkt: pm != null ? r3(pm) : null,
               modellDafuer: pm != null && pmod > pm }, basis));
+          }
+        }
+        // Satz-/Tiebreak-Märkte: Buchmacher-Quote mind. MARKT_MIN_EDGE über der fairen Modell-Quote (nicht bei geschätzter Elo)
+        const mq = (m.maerkte || {})[bm];
+        if (rr.ok && rr.maerkte && mq && !(rr.eloGeschaetztA || rr.eloGeschaetztB)) {
+          const mk = rr.maerkte, bo5 = rr.modus === 5;
+          const pM = { tb1Ja: mk.tb1, tb1Nein: 1 - mk.tb1, tbJa: mk.tbMatch, tbNein: 1 - mk.tbMatch, satz1A: mk.satz1A, satz1B: 1 - mk.satz1A };
+          if (!bo5) Object.assign(pM, { glattA: mk.glattA, glattB: mk.glattB, mind1A: 1 - mk.glattB, mind1B: 1 - mk.glattA, dreiSaetze: mk.volleDistanz, zweiSaetze: 1 - mk.volleDistanz });
+          for (const [k, p] of Object.entries(pM)) {
+            const q = mq[k]; if (!(q > 1) || !(p > 0) || q > (P.params.MARKT_MAX_QUOTE || 6)) continue;
+            const edge = q * p - 1; if (edge < (P.params.MARKT_MIN_EDGE ?? 0.05)) continue;
+            neuSignal(`markt|${m.id}|${bm}|${k}`, Object.assign({ typ: "markt", markt: k, wette: /A$/.test(k) ? "A" : /B$/.test(k) ? "B" : null,
+              erstQuote: q, letzteQuote: q, pModell: r3(p), edge: r3(edge) }, basis));
           }
         }
         if (rr.ok && rr.pMarkt != null && rr.pFinal != null) for (const seite of ["A", "B"]) {

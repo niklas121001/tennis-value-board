@@ -471,7 +471,26 @@
     const tst = lookupTurnierStats(match.turnier, D.turnierStats);
     const satzK = { basis: satzBasis, turnier: tst ? tst.name : null, faktor: tst ? tst.faktor : 1, k: satzBasis * (tst ? tst.faktor : 1) };
 
+    // Satz- und Tiebreak-Märkte (2:0, 3 Sätze, 1. Satz, Tiebreak im 1. Satz / im Match)
+    const maerkte = (() => {
+      const hA = pGame(pSrvA), hB = pGame(pSrvB), mm = {};
+      const zuTB = (a, b, aSrv) => { const k = a + "|" + b + "|" + aSrv; if (k in mm) return mm[k];
+        let r; if (a === 6 && b === 6) r = 1; else if (a === 7 || b === 7 || (a >= 6 && a - b >= 2) || (b >= 6 && b - a >= 2)) r = 0;
+        else r = aSrv ? hA * zuTB(a + 1, b, false) + (1 - hA) * zuTB(a, b + 1, false) : (1 - hB) * zuTB(a + 1, b, true) + hB * zuTB(a, b + 1, true);
+        return (mm[k] = r); };
+      const tRoh = (zuTB(0, 0, true) + zuTB(0, 0, false)) / 2;
+      const tbF = (istCh ? (P.TB_FAKTOR_CH ?? 1) : (P.TB_FAKTOR_ATP ?? 1)) * (tst && isNum(tst.tb_faktor) ? tst.tb_faktor : 1);
+      const t = clip(tRoh * tbF, 0.01, 0.8);
+      const ss = setScores(pFinal, mode, satzK.k), sc = ss.scores;
+      const nSaetze = mode === 5 ? { 3: sc["3-0"] + sc["0-3"], 4: sc["3-1"] + sc["1-3"], 5: sc["3-2"] + sc["2-3"] }
+                                 : { 2: sc["2-0"] + sc["0-2"], 3: sc["2-1"] + sc["1-2"] };
+      let tbMatch = 0; for (const [n, pn] of Object.entries(nSaetze)) tbMatch += pn * (1 - (1 - t) ** +n);
+      return { glattA: mode === 5 ? sc["3-0"] : sc["2-0"], glattB: mode === 5 ? sc["0-3"] : sc["0-2"],
+        volleDistanz: mode === 5 ? null : sc["2-1"] + sc["1-2"], satz1A: ss.q, tb1: t, tbMatch, tbRoh: tRoh, tbFaktor: tbF };
+    })();
+
     return Object.assign(out, {
+      maerkte,
       varianten,
       ok: true, modus: mode, csi, tempo: lookupTempo(match.turnier, match.belag, D.tempo),
       eloA, eloB, yEloA: pa.elo, yEloB: pb.elo,
