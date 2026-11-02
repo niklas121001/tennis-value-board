@@ -26,6 +26,7 @@ D.tempoTA = (rd("h2h_ta.json", {}) || {}).tempo || {};
   fs.writeFileSync(path.join(dir, "spieler_markt.json"), JSON.stringify({ stand: new Date().toISOString().slice(0, 10), spieler: out }));
   D.arcStats = out;
 }
+const PROG0 = rd("prognosen.json", {});   // erste Pinnacle-Quote je Partie (Variante Q: Quotenbewegung)
 const mj = rd("matches.json", { partien: [] });
 if (mj.demo) { console.log("Demo-Daten – nichts protokolliert"); process.exit(0); }
 const matches = mj.partien;
@@ -54,7 +55,7 @@ for (const m of matches) {
   if (unsicher(m.a) || unsicher(m.b)) continue;
   for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
     if ((m.pausiert || []).includes(bm)) continue;   // pausierte Quote: aktuell nicht spielbar
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
     if (!r.ok || !r.wette) continue;
     const key = `${m.id}|${bm}`;
     const q = r.wette === "A" ? qa : qb;
@@ -99,7 +100,7 @@ for (const m of matches) {
       if (t.wette === "A") qa = t.erstQuote; else qb = t.erstQuote;
     }
     if (!(qa > 1 && qb > 1)) continue;
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
     if (!r.ok) continue;
     const pS = t.wette === "A" ? r.pFinal : 1 - r.pFinal, qS = t.wette === "A" ? qa : qb;
     if (r.wette !== t.wette) {
@@ -125,7 +126,7 @@ for (const m of matches) {
   if (unsicher(m.a) || unsicher(m.b)) continue;
   for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
     if ((m.pausiert || []).includes(bm)) continue;
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
     if (!r.ok || !r.varianten) continue;
     for (const [v, x] of Object.entries(r.varianten)) {
       const key = `${v}|${m.id}|${bm}`;
@@ -211,7 +212,7 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       // Tagesziel (Reiter „Tagesziel“, Standard-Einstellung): Siegchance (Mittel Modell/Markt) >= 70 % und
       // Einsatz für 1 U Gewinn <= 3 U. Getrackt mit dem Einsatz für 1 U Gewinn (= 1 / (Quote − 1)).
       {
-        const rr = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+        const rr = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
         // Außenseiter-Signal OHNE Modell-Bedingung (Test seit 31.10.2026): nur die Spieler-Bilanzen
         // (Favorit als Favorit < 65 %, Außenseiter als Außenseiter > 40 %, je mind. 7 Spiele) – egal, wie das Modell den Außenseiter sieht
         if (rr.ok && rr.favCheck && rr.ausCheck && qa !== qb) {
@@ -252,7 +253,7 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
       // Value-Tipp weg? (Tipp protokolliert, mit der aktuellen Quote kein Value mehr)
       const t = log[`${m.id}|${bm}`];
       if (t && !t.ergebnis) {
-        const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+        const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
         // "Value weg" nur durch Marktbewegung: Quote auf den getippten Spieler gefallen und jetzt kein Value mehr
         const qT = t.wette === "A" ? qa : qb, gefallen = qT < t.erstQuote - 1e-9;
         if (r.ok && r.wette !== t.wette && gefallen && !t.valueWeg) { t.valueWeg = now; t.valueWegQuote = qT; }
@@ -272,7 +273,7 @@ for (const m of matches) {
   if (!m.start || new Date(m.start) <= new Date()) continue;
   for (const [bm, [qa, qb]] of Object.entries(m.quoten || {})) {
     if ((m.pausiert || []).includes(bm)) continue;
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
     const key = `${m.id}|${bm}`;
     if (alog[key]) { const e = alog[key]; e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; continue; }
     const x = r.ok && r.aussenseiter;
@@ -295,7 +296,7 @@ for (const m of matches) {
     if ((m.pausiert || []).includes(bm)) continue;
     const key = `${m.id}|${bm}`;
     if (blog[key]) { const e = blog[key]; e.letzteQuote = e.wette === "A" ? qa : qb; e.zuletztGesehen = now; e.start = m.start; continue; }
-    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
     const x = r.ok && r.bilanzSignal;
     if (!x) continue;
     blog[key] = { id: m.id, start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: m.belag, a: m.a, b: m.b,
@@ -315,7 +316,7 @@ console.log(`Varianten-Protokoll: ${neuV} neue Tipps (B–F), insgesamt ${Object
 // Ergebnissen zu schätzen – ohne Rückschau-Verzerrung. Ergebnisse kommen aus ergebnisse.json.
 // Merkmale je Partie für die Jahresend-Suche nach Mustern (was wir noch nicht gezielt tracken):
 // Halle/draußen, Runde, Quali, Uhrzeit, Länder (Heimspiel), Form/Belastung, Warnhinweise, Signale. Wird bis Spielbeginn aktualisiert.
-const r0 = (m) => { const q = Object.values(m.quoten || {})[0] || []; return M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa: q[0], qb: q[1], pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D); };
+const r0 = (m) => { const q = Object.values(m.quoten || {})[0] || []; return M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa: q[0], qb: q[1], pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D); };
 function merkmale(m, r, qs) {
   const fo = (f) => f ? { sp: f.spiele7 || 0, s: f.siege7 || 0, saetze: f.saetze7 || 0, games: f.games7 || 0, min: f.min7 || null,
     letztes: f.letztes || null, lMin: f.letztesMin || null, lGames: f.letztesGames || null, quali: !!f.quali } : null;
@@ -356,12 +357,14 @@ for (const m of matches) {
       if (e.pH == null && rNow.ok && rNow.varianten && rNow.varianten.H) e.pH = r3(rNow.varianten.H.p);   // Variante H = Gesamtschätzung (ab 02.11.)
       if (e.pI == null && rNow.ok && rNow.varianten && rNow.varianten.I) e.pI = r3(rNow.varianten.I.p);   // Variante I = nur Modell (ab 02.11.)
       if (e.pJ == null && rNow.ok && rNow.varianten && rNow.varianten.J) e.pJ = r3(rNow.varianten.J.p);   // Variante J = Modell gesamt ohne Markt (ab 02.11.)
+      if (e.pK == null && rNow.ok && rNow.varianten && rNow.varianten.K) e.pK = r3(rNow.varianten.K.p);   // Variante K = Konsens (Mittel A, D, F, H)
+      if (e.pN == null && rNow.ok && rNow.varianten && rNow.varianten.N) e.pN = r3(rNow.varianten.N.p);   // Variante N = 25 % Modell
     }
     continue;
   }
   const qa = qs.length ? Math.max(...qs.map((q) => q[0])) : undefined;   // beste Quote je Seite
   const qb = qs.length ? Math.max(...qs.map((q) => q[1])) : undefined;
-  const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+  const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa, qb, pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB, pinErst: (PROG0[m.id] || {}).pinErst || null }, D);
   if (!r.ok) continue;
   const pmMittel = qs.length ? qs.reduce((s, q) => s + (1 / q[0]) / (1 / q[0] + 1 / q[1]), 0) / qs.length : null;
   prog[m.id] = { start: m.start, turnier: m.turnier, kategorie: m.kategorie, belag: r.belag, a: m.a, b: m.b,
@@ -371,7 +374,7 @@ for (const m of matches) {
     qaM: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null,   // Durchschnittsquote (Spieler-Check)
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
     geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), quali: !!m.quali, modus: r.modus, csi: r.csi, gesehen: now,
-    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null, pH: r.varianten && r.varianten.H ? r3(r.varianten.H.p) : null, pI: r.varianten && r.varianten.I ? r3(r.varianten.I.p) : null, pJ: r.varianten && r.varianten.J ? r3(r.varianten.J.p) : null,
+    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null, pH: r.varianten && r.varianten.H ? r3(r.varianten.H.p) : null, pI: r.varianten && r.varianten.I ? r3(r.varianten.I.p) : null, pJ: r.varianten && r.varianten.J ? r3(r.varianten.J.p) : null, pK: r.varianten && r.varianten.K ? r3(r.varianten.K.p) : null, pN: r.varianten && r.varianten.N ? r3(r.varianten.N.p) : null,
     pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null,
     qaErst: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null, qbErst: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null,
     quoteErstZeit: qs.length ? now : null, merkmale: merkmale(m, r, qs),

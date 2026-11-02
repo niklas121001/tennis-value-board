@@ -565,7 +565,51 @@
       J: bewerte(gesamtModell.p, match, haveOdds, D, P),             // J: nur Modell + Statistiken + Umstände, ohne Markt
     };
     varianten.C.pStats = pStatsC;
-    if (eloGeschaetzt) for (const v of Object.values(varianten)) { v.wette = null; v.edge = null; v.kelly = null; }   // gleiche Regel für alle Varianten
+    // ---- Varianten K–Q (Test seit 02.11.2026), Buchstabe M ist für „Markt“ vergeben ----
+    const nur = (v, ok) => (ok ? v : Object.assign({}, v, { wette: null, edge: null, kelly: null }));
+    const vA = bewerte(pFinal, match, haveOdds, D, P);
+    // K Konsens: Tipp nur, wenn mindestens 3 von A, D, F, H dieselbe Seite tippen; p = Mittel der vier
+    {
+      const vs = [vA, varianten.D, varianten.F, varianten.H].filter(Boolean);
+      const pK = vs.reduce((a, v) => a + v.p, 0) / vs.length, k = bewerte(pK, match, haveOdds, D, P);
+      const nA = vs.filter((v) => v.wette === "A").length, nB = vs.filter((v) => v.wette === "B").length;
+      const seite = nA >= (P.K_MIN ?? 3) ? "A" : nB >= (P.K_MIN ?? 3) ? "B" : null;
+      if (seite && haveOdds) { const q = seite === "A" ? match.qa : match.qb, f = seite === "A" ? 1 / pK : 1 / (1 - pK);
+        Object.assign(k, { wette: seite, edge: q / f - 1, kelly: Math.round(P.BANKROLL * P.KELLY_FRACTION * Math.max(0, (1 / f - 1 / q) / (1 - 1 / q)) * 100) / 100, stimmen: Math.max(nA, nB) });
+      } else Object.assign(k, { wette: null, edge: null, kelly: null });
+      varianten.K = k;
+    }
+    // L Mindest-Edge: wie A, aber erst ab L_MIN_EDGE (+5 %)
+    varianten.L = nur(vA, vA.edge != null && vA.edge >= (P.L_MIN_EDGE ?? 0.05));
+    // N Weniger Modell: wie A, aber nur N_BLEND (25 %) Modell, Rest Markt
+    varianten.N = bewerte(pMarkt === null ? pKal : sigm((P.N_BLEND ?? 0.25) * logit(pKal) + (1 - (P.N_BLEND ?? 0.25)) * logit(pMarkt)), match, haveOdds, D, P);
+    // O Excel-Muster: wie A, aber nur ATP (kein Challenger), Favorit, Quote 1,30–2,20
+    {
+      const ch = /challenger/i.test(String(match.turnier || "") + " " + String(match.kategorie || ""));
+      const q = vA.wette === "A" ? match.qa : vA.wette === "B" ? match.qb : null;
+      varianten.O = nur(vA, !ch && q != null && q >= (P.O_QUOTE_MIN ?? 1.3) && q <= (P.O_QUOTE_MAX ?? 2.2));
+    }
+    // P Pinnacle-Abweichung: p = faire Pinnacle-Quote, Tipp wenn der Buchmacher mind. PIN_MIN_EDGE mehr zahlt (ohne Modell)
+    // (wie das 📌-Signal auf beiden Seiten, also auch Außenseiter, bis Quote PIN_MAX_QUOTE)
+    if (pinFair != null) {
+      const v = { p: pinFair, fairA: 1 / pinFair, fairB: 1 / (1 - pinFair), wette: null, edge: null, kelly: null };
+      if (haveOdds) {
+        const eA = match.qa * pinFair - 1, eB = match.qb * (1 - pinFair) - 1, mE = P.PIN_MIN_EDGE ?? 0.02, mQ = P.PIN_MAX_QUOTE ?? 5;
+        const okA = eA >= mE && match.qa <= mQ, okB = eB >= mE && match.qb <= mQ;
+        const seite = okA && (!okB || eA >= eB) ? "A" : okB ? "B" : null;
+        if (seite) { const q = seite === "A" ? match.qa : match.qb, pp = seite === "A" ? pinFair : 1 - pinFair;
+          Object.assign(v, { wette: seite, edge: seite === "A" ? eA : eB, kelly: Math.round(P.BANKROLL * P.KELLY_FRACTION * Math.max(0, (pp - 1 / q) / (1 - 1 / q)) * 100) / 100 }); }
+      }
+      varianten.P = v;
+    }
+    // Q Quotenbewegung: wie A, aber nur wenn sich Pinnacle seit dem ersten Sehen um mind. Q_MIN_BEWEGUNG zu unserer Seite bewegt hat
+    if (pinFair != null && Array.isArray(match.pinErst) && match.pinErst[0] > 1 && match.pinErst[1] > 1) {
+      const p0 = (1 / match.pinErst[0]) / (1 / match.pinErst[0] + 1 / match.pinErst[1]), dp = pinFair - p0, mind = P.Q_MIN_BEWEGUNG ?? 0.01;
+      varianten.Q = nur(vA, (vA.wette === "A" && dp >= mind) || (vA.wette === "B" && -dp >= mind));
+      varianten.Q.bewegung = dp;
+    }
+    const ohneModell = new Set(["P"]);   // P nutzt keine Elo -> Regel „geschätzte Elo“ greift dort nicht
+    if (eloGeschaetzt) for (const [k_, v] of Object.entries(varianten)) if (!ohneModell.has(k_)) { v.wette = null; v.edge = null; v.kelly = null; }   // gleiche Regel für alle Modell-Varianten
 
     // Satzverteilung: Sätze sind nicht unabhängig (mehr glatte Siege als im Markov-Modell) – globaler Faktor je Ebene,
     // dazu der Turnierfaktor aus turnier_stats.json (nur ATP-Ebene). Siegchance unverändert.

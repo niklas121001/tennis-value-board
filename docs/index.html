@@ -442,6 +442,7 @@ const store = {get(k,d){try{const v=localStorage.getItem("tvb."+k);return v===nu
 const BEST = "__best__";
 let D, M, META, LOG, ERG = {}, QV = {}, PROFCTX = {}, BEREIT = false, open = new Set();
 
+const pinFairAus = (q) => Array.isArray(q) && q[0] > 1 && q[1] > 1 ? (1/q[0]) / (1/q[0] + 1/q[1]) : null;
 const fx = (x,d=2) => (typeof x==="number"&&isFinite(x)) ? x.toFixed(d).replace(".",",") : "–";
 const pc = (x,d=1) => (typeof x==="number"&&isFinite(x)) ? (x*100).toFixed(d).replace(".",",")+" %" : "–";
 const sg = (x) => (typeof x==="number"&&isFinite(x)) ? (x>0?"+":"")+(x*100).toFixed(1).replace(".",",")+" %" : "–";
@@ -1230,14 +1231,14 @@ function variantenHtml(bm, art){
   const A = LOGT.filter(x => String(x.erstGesehen) >= UMST);
   const altA = LOGT.filter(x => String(x.erstGesehen) < UMST).map(x => Object.assign({}, x, {variante: "E", altA: true}));
   const V = Object.values(VAR.vt).filter(passt);
-  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: [...altA, ...V.filter(x => x.variante==="E")], F: V.filter(x => x.variante==="F"), G: V.filter(x => x.variante==="G"), H: V.filter(x => x.variante==="H"), I: V.filter(x => x.variante==="I"), J: V.filter(x => x.variante==="J")};
+  const tips = {A, B: V.filter(x => x.variante==="B"), C: V.filter(x => x.variante==="C"), D: V.filter(x => x.variante==="D"), E: [...altA, ...V.filter(x => x.variante==="E")], F: V.filter(x => x.variante==="F"), G: V.filter(x => x.variante==="G"), H: V.filter(x => x.variante==="H"), I: V.filter(x => x.variante==="I"), J: V.filter(x => x.variante==="J"), K: V.filter(x => x.variante==="K"), L: V.filter(x => x.variante==="L"), N: V.filter(x => x.variante==="N"), O: V.filter(x => x.variante==="O"), P: V.filter(x => x.variante==="P"), Q: V.filter(x => x.variante==="Q")};
   // Prognose-Güte auf denselben Partien (alle mit Quote, Ergebnis und allen drei Varianten)
   const res = [];
   for(const [id, p] of Object.entries(VAR.prog)){
     const e = ERG[id] || (ARCHIV||{})[id];
     if(!artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || p.pB==null || p.pC==null || p.pMarkt==null || p.pFinal==null) continue;
     const neuA = String(p.gesehen || p.start || "") >= UMST;   // Prognose vor/nach der Umstellung eingefroren
-    res.push({y: e.sieger==="A" ? 1 : 0, A: neuA ? p.pFinal : null, B: p.pB, C: p.pC, D: p.pD, E: p.pE ?? (neuA ? null : p.pFinal), F: p.pF, G: p.pG, H: p.pH, I: p.pI, J: p.pJ, M: p.pMarkt, p, e});
+    res.push({y: e.sieger==="A" ? 1 : 0, A: neuA ? p.pFinal : null, B: p.pB, C: p.pC, D: p.pD, E: p.pE ?? (neuA ? null : p.pFinal), F: p.pF, G: p.pG, H: p.pH, I: p.pI, J: p.pJ, K: p.pK, N: p.pN, P: p.pPin != null && p.pinErst ? pinFairAus(p.pinErst) : null, M: p.pMarkt, p, e});
   }
   // Güte über die Partien, für die die Variante eine Prognose hat (D erst seit 27.10. – eigener, kleinerer Ausschnitt)
   const guete = (k, nur) => { const rs = res.filter(r => r[k] != null && (!nur || r[nur] != null)); if(!rs.length) return {t:null, ll:null, n:0};
@@ -1270,21 +1271,58 @@ function variantenHtml(bm, art){
     F: () => rueck("pFR", "pAR", "A (aktuell)", "ATP-Hartplatzpartien mit Tempo-Wert"),
     G: () => rueck("pGR", "pCR", "C", "ATP-Hartplatzpartien mit Tempo-Wert"),
     I: () => rueckI(),
+    L: () => rueckSim("L"), N: () => rueckSim("N"), O: () => rueckSim("O"), P: () => rueckSim("P"), Q: () => rueckSim("Q"),
+    K: () => `<p class="vrueck time">Keine Rückrechnung: H gibt es erst seit 02.11. – K sammelt ab jetzt.</p>`,
   };
+  // Simulierte Tipps seit 13.10. aus den eingefrorenen Prognosen (beste Quote beim ersten Sehen, 1 U flach, ohne geschätzte Elo)
+  function rueckSim(k){
+    const P_ = D.params, L_ = (x) => Math.log(x/(1-x)), S_ = (z) => 1/(1+Math.exp(-z));
+    let n = 0, w = 0, gew = 0, basis = 0;
+    for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
+      if(!artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe || !(p.qa > 1 && p.qb > 1) || p.geschaetzt && k !== "P") continue;
+      const y = e.sieger === "A" ? 1 : 0;
+      let pX = null, ok = () => true;
+      if(k === "P"){ if(!p.pinErst) continue; pX = pinFairAus(p.pinErst); }
+      else { pX = p.pAR ?? (String(p.gesehen || "") >= UMST ? p.pFinal : null); if(pX == null) continue; }   // ab der Umstellung ist pFinal = aktuelles A
+      if(k === "N"){ const pI = pIaus(p); if(pI == null || p.pMR == null) continue; const wN = P_.N_BLEND ?? 0.25; pX = S_(wN*L_(pI) + (1-wN)*L_(p.pMR)); }
+      if(k === "Q" && !(p.pinErst && (p.pinSchluss || p.pin))) continue;
+      basis++;
+      const fa = 1/pX, fb = 1/(1-pX);
+      if(k === "P"){ const eA = p.qa*pX - 1, eB = p.qb*(1-pX) - 1, mE = P_.PIN_MIN_EDGE ?? 0.02, mQ = P_.PIN_MAX_QUOTE ?? 5;
+        const okA = eA >= mE && p.qa <= mQ, okB = eB >= mE && p.qb <= mQ, sA = okA && (!okB || eA >= eB) ? "A" : okB ? "B" : null;
+        if(!sA) continue; const q = sA === "A" ? p.qa : p.qb; n++; if((sA==="A") === (y===1)){ w++; gew += q - 1; } else gew -= 1; continue; }
+      const sd = p.qa > fa && p.qa <= P_.MAX_QUOTE_VALUE && fa < fb ? ["A", p.qa, fa] : p.qb > fb && p.qb <= P_.MAX_QUOTE_VALUE && fb < fa ? ["B", p.qb, fb] : null;
+      if(!sd) continue;
+      const edge = sd[1]/sd[2] - 1, ch = isChTip(p);
+      if(k === "L" && edge < (P_.L_MIN_EDGE ?? 0.05)) continue;
+      if(k === "O" && (ch || sd[1] < (P_.O_QUOTE_MIN ?? 1.3) || sd[1] > (P_.O_QUOTE_MAX ?? 2.2))) continue;
+      if(k === "P" && edge < (P_.PIN_MIN_EDGE ?? 0.02)) continue;
+      if(k === "Q"){ const dp = pinFairAus(p.pinSchluss || p.pin) - pinFairAus(p.pinErst), m_ = P_.Q_MIN_BEWEGUNG ?? 0.01; if(!(sd[0]==="A" ? dp >= m_ : -dp >= m_)) continue; }
+      n++; if((sd[0]==="A") === (y===1)){ w++; gew += sd[1] - 1; } else gew -= 1;
+    }
+    const hinweis = {P: "Partien mit Pinnacle-Quote (seit ca. 31.10.)", Q: "Bewegung bis Spielbeginn gemessen – in echt kennt man beim Tippen nur die Bewegung bis dahin (Rückrechnung daher zu optimistisch)", N: "Modell aus den eingefrorenen Teilen wie bei I"}[k];
+    return `<p class="vrueck">Rückrechnung seit 13.10. (${basis} Partien${hinweis ? "; " + hinweis : ""}): ${n ? `simulierte Tipps <b>${n}</b> (${w}–${n-w}) · <b class="${gew>=0?"pos":"negv"}">${gew>=0?"+":""}${fx(gew,1)} U</b> · ROI ${sg(gew/n)}` : "keine Tipps"} <span class="time">(beste Quote beim ersten Sehen, 1 U flach)</span></p>`;
+  }
   // I rückgerechnet: reines Modell mit den aktuellen A-Gewichten aus den eingefrorenen Teilen (Elo, Statistik, H2H, Sand-Tempo),
   // ohne Markt-Mischung; dazu simulierte Tipps nach derselben Value-Regel zur besten Quote beim ersten Sehen (1 U flach)
+  function pIaus(p){
+    if(p.pElo == null) return null;
+    const P_ = D.params, L_ = (x) => Math.log(x/(1-x)), S_ = (z) => 1/(1+Math.exp(-z)), cl = (x,a,b) => Math.min(b, Math.max(a, x));
+    const sk = p.belag === "clay" ? "clay" : p.belag === "grass" ? "grass" : "hard";
+    let csi = p.csi;
+    if(sk === "clay" && P_.CSI_AUS_TEMPO !== false){ const sp = TennisModel.lookupTempo(p.turnier, "clay", D.tempo); const lo = P_.CSI_TEMPO_LANGSAM ?? 0.5, hi = P_.CSI_TEMPO_SCHNELL ?? 1.0;
+      if(typeof sp === "number") csi = Math.round(cl((sp-lo)/(hi-lo), 0, 1) * 100) / 10; }
+    let [wS, wE] = TennisModel.weights(sk, csi, P_); if(p.nurElo || p.pStats == null) wS = 0;
+    const hA = p.h2hA || 0, hB = p.h2hB || 0, hN = hA + hB, hP = hN >= P_.H2H_MIN_MATCHES ? hA/hN : 0.5, hW = hN < P_.H2H_MIN_MATCHES ? 0 : Math.min(P_.H2H_MAX_WEIGHT, hN/10*P_.H2H_MAX_WEIGHT);
+    const pK = cl((wS*(p.pStats ?? 0.5) + wE*p.pElo + hW*hP) / (wS + wE + hW), 0.05, 0.95);
+    return S_(P_.K_KALIBRIERUNG * L_(cl(pK, 0.02, 0.98)));
+  }
   function rueckI(){
     const P_ = D.params, L_ = (x) => Math.log(x/(1-x)), S_ = (z) => 1/(1+Math.exp(-z)), cl = (x,a,b) => Math.min(b, Math.max(a, x));
     const rs = []; let n = 0, w = 0, gew = 0;
     for(const [id, p] of Object.entries(VAR.prog)){ const e = ERG[id] || (ARCHIV||{})[id];
       if(p.pAR == null || p.pMR == null || p.pElo == null || !artOk(p) || !e || !(e.sieger==="A"||e.sieger==="B") || e.aufgabe) continue;
-      const sk = p.belag === "clay" ? "clay" : p.belag === "grass" ? "grass" : "hard";
-      let csi = p.csi;
-      if(sk === "clay" && P_.CSI_AUS_TEMPO !== false){ const sp = TennisModel.lookupTempo(p.turnier, "clay", D.tempo); const lo = P_.CSI_TEMPO_LANGSAM ?? 0.5, hi = P_.CSI_TEMPO_SCHNELL ?? 1.0;
-        if(typeof sp === "number") csi = Math.round(cl((sp-lo)/(hi-lo), 0, 1) * 100) / 10; }
-      let [wS, wE] = TennisModel.weights(sk, csi, P_); if(p.nurElo || p.pStats == null) wS = 0;
-      const hA = p.h2hA || 0, hB = p.h2hB || 0, hN = hA + hB, hP = hN >= P_.H2H_MIN_MATCHES ? hA/hN : 0.5, hW = hN < P_.H2H_MIN_MATCHES ? 0 : Math.min(P_.H2H_MAX_WEIGHT, hN/10*P_.H2H_MAX_WEIGHT);
-      const pK = cl((wS*(p.pStats ?? 0.5) + wE*p.pElo + hW*hP) / (wS + wE + hW), 0.05, 0.95), pI = S_(P_.K_KALIBRIERUNG * L_(cl(pK, 0.02, 0.98)));
+      const pI = pIaus(p);
       const y = e.sieger === "A" ? 1 : 0; rs.push({y, X: pI, V: p.pAR, M: p.pMR});
       if(p.qa > 1 && p.qb > 1 && !p.geschaetzt){ const fa = 1/pI, fb = 1/(1-pI);
         const sd = p.qa > fa && p.qa <= P_.MAX_QUOTE_VALUE && fa < fb ? ["A", p.qa] : p.qb > fb && p.qb <= P_.MAX_QUOTE_VALUE && fb < fa ? ["B", p.qb] : null;
@@ -1310,9 +1348,15 @@ function variantenHtml(bm, art){
     ${zeile("H · Test", "Gesamtschätzung: Pinnacle/Markt + Modell + alle Spieler-Statistiken", "H", kz(tips.H))}
     ${zeile("I · Test", "nur Modell – ohne Markteinfluss", "I", kz(tips.I))}
     ${zeile("J · Test", "nur Modell gesamt: Modell + alle Spieler-Statistiken + Umstände, ohne Markteinfluss", "J", kz(tips.J))}
+    ${zeile("K · Test", `Konsens: mind. ${D.params.K_MIN ?? 3} von A, D, F, H tippen dieselbe Seite`, "K", kz(tips.K))}
+    ${zeile("L · Test", `wie A, aber erst ab ${pc(D.params.L_MIN_EDGE ?? 0.05, 0)} Edge`, "L", kz(tips.L))}
+    ${zeile("N · Test", `wie A, aber nur ${pc(D.params.N_BLEND ?? 0.25, 0)} Modell`, "N", kz(tips.N))}
+    ${zeile("O · Test", `Excel-Muster: wie A, nur ATP, Quote ${fx(D.params.O_QUOTE_MIN ?? 1.3)}–${fx(D.params.O_QUOTE_MAX ?? 2.2)}`, "O", kz(tips.O))}
+    ${zeile("P · Test", `nur Pinnacle: Buchmacher zahlt mind. ${pc(D.params.PIN_MIN_EDGE ?? 0.02, 0)} mehr als die faire Pinnacle-Quote, beide Seiten bis Quote ${fx(D.params.PIN_MAX_QUOTE ?? 5)} (ohne Modell)`, "P", kz(tips.P))}
+    ${zeile("Q · Test", "wie A, aber nur wenn Pinnacle sich seit dem ersten Sehen zu uns bewegt hat", "Q", kz(tips.Q))}
     ${zeile("Markt", "nur Winamax-Quote", "M", null)}
     </tbody></table></div>
-    <p class="note">B bis J tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10., H, I, J seit 02.11.). A zählt erst seit der Gewichts-Umstellung; alle Board-Tipps davor stehen bei E, weil sie mit den alten Gewichten entstanden sind. Fairer Vergleich: Zeiträume beachten. Zeile antippen für Tipps, Prognosen und – bei D, F, G und I – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
+    <p class="note">B bis Q tippen unsichtbar im Hintergrund mit derselben Value-Regel (D, E, F seit 27.10., G seit 29.10., H bis Q seit 02.11.). A zählt erst seit der Gewichts-Umstellung; alle Board-Tipps davor stehen bei E, weil sie mit den alten Gewichten entstanden sind. Fairer Vergleich: Zeiträume beachten. Zeile antippen für Tipps, Prognosen und – bei D, F, G, I, L, N, O, P und Q – die Rückrechnung. Treffer/Fehlermaß über ${res.length} Partien mit Prognosen aller Varianten; Fehlermaß (Log-Loss) kleiner ist besser, unter „Markt“ heißt: weiß mehr als die Quote. CLV = erste ÷ letzte Quote − 1. Filter „Turniere“ oben trennt ATP und Challenger.</p></details>`;
 }
 
 // Kalibrierung: Wie oft gewinnt der prognostizierte Favorit wirklich, je Wahrscheinlichkeitsbereich? Modell vs. Markt
@@ -2130,7 +2174,7 @@ function tippDetail(x){
   const sig = x.favPct != null ? `Fav. als Fav. ${pc(x.favPct,0)} (n ${x.favN}) · Außens. als Außens. ${pc(x.ausPct,0)} (n ${x.ausN})`
     : x.band ? `${x.siege}/${x.n} bei Quote ${String(x.band).replace("-","–").replace(/\./g,",")} · geschätzt ${pc(x.pEst,0)}` : x.variante ? `Variante ${x.variante}` : null;
   const satz = ar.satz && ar.satz.length ? ar.satz.map(([u,v]) => A ? `${u}:${v}` : `${v}:${u}`).join(" ") : "";
-  const vars = ["B","C","D","E","F","G","H","I","J"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
+  const vars = ["B","C","D","E","F","G","H","I","J","K","L","N","O","P","Q"].filter(v => (VAR && VAR.vt || {})[`${v}|${x.id}|${x.buchmacher}`] && VAR.vt[`${v}|${x.id}|${x.buchmacher}`].wette === x.wette);
   const zeit = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "–";
   const kv = (k, v) => v == null || v === "" ? "" : `<span class="k">${k}</span><span class="v">${v}</span>`;
   return `<div class="tdet">
