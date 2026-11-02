@@ -150,7 +150,7 @@ dialog#profil::backdrop{background:rgba(10,15,20,.55)}
 .tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
 th{font:500 11px/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-th:nth-child(-n+2){text-align:left}
+th:first-child{text-align:left}
 td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;vertical-align:middle}
 td.l{text-align:left}
 tr.m{cursor:pointer}
@@ -168,7 +168,7 @@ tr.m:last-of-type td{border-bottom:0}
 .pill.no{background:transparent;color:var(--muted);font-weight:400}
 .pill.stop{background:var(--bad-soft);color:var(--bad)}
 .pill.warn{background:var(--warn-soft);color:var(--warn)}
-tr.detail td{background:var(--bg);white-space:normal;text-align:left;padding:14px}
+tr.detail > td{background:var(--bg);white-space:normal;text-align:left;padding:14px}
 .dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 .dgrid .wbox{grid-column:1/-1}.dgrid .wbox .mform .ctl{flex:1 1 140px}
 .dgrid .box{min-width:0}.dgrid select{max-width:100%}
@@ -1085,7 +1085,7 @@ function render(){
   for(const [t, xs] of groups){
     const b = xs[0].r.belagEff, est = xs[0].r.belagQuelle==="standard";
     html += `<div class="group"><h2><button type="button" class="tinfo" data-t="${esc(t)}" data-b="${esc(b)}" title="Turnierstatistik: glatte Siege, Tiebreaks, Platztempo">${esc(t)} <span class="tinfo-i">ⓘ</span></button> <span class="surf ${b}${est?" geschaetzt":""}" title="${est?"Belag geschätzt – in den Details änderbar":"Belag"}">${SURF[b]||b}${est?" ?":""}</span></h2><div class="tablewrap"><table>
-      <thead><tr><th class="hide-s">Zeit</th><th>Partie</th><th class="hide-s l">Prognose</th><th>Quote</th><th class="hide-s">Fair</th><th>Edge</th><th>Empfehlung</th><th class="hide-s">Einsatz</th><th class="hide-s">Buchm.</th></tr></thead><tbody>`;
+      <thead><tr><th class="hide-s l">Zeit</th><th class="l">Partie</th><th class="hide-s l">Prognose</th><th>Quote</th><th class="hide-s">Fair</th><th>Edge</th><th>Empfehlung</th><th class="hide-s">Einsatz</th><th class="hide-s">Buchm.</th></tr></thead><tbody>`;
     for(const {p, r} of xs) html += rowHtml(p, r);
     html += `</tbody></table></div></div>`;
   }}
@@ -2035,7 +2035,7 @@ function renderLog(){
       <td class="num">${fx(x.erstQuote)}</td><td class="num">${(stakeU(kellyEur(x.kelly))||{}).klein ? "klein" : st ? fu(st)+" U" : "–"}</td>
       <td>${x.aufgabe?'<span class="pill warn">Aufgabe</span>':ERG[x.ergebnis]||'<span class="pill no">offen</span>'}</td>
       <td class="num ${gU>0?"pos":gU<0?"negv":""}">${gU==null?"–":(gU>0?"+":"")+fx(gU,2)+" U"}</td></tr>${offen ? `<tr class="kombi-d"><td colspan="6">${tippDetail(x)}</td></tr>` : ""}`; }).join("");
-  $("#protokoll").innerHTML = `<div class="tablewrap" style="margin-top:16px"><table><thead><tr><th class="hide-s">Spiel</th><th>Tipp</th><th>Quote</th><th title="empfohlener Einsatz beim Tipp">Einsatz</th><th>Ergebnis</th><th>Gewinn</th></tr></thead><tbody>${zeilen}</tbody></table></div>
+  $("#protokoll").innerHTML = `<div class="tablewrap" style="margin-top:16px"><table><thead><tr><th class="hide-s l">Spiel</th><th class="l">Tipp</th><th>Quote</th><th title="empfohlener Einsatz beim Tipp">Einsatz</th><th>Ergebnis</th><th>Gewinn</th></tr></thead><tbody>${zeilen}</tbody></table></div>
     <p class="time">Zeile antippen für alle Infos zum Tipp (Gegnerquote, Modell, Einsatz, Verlauf, Ergebnis).</p>`;
   if(!$("#protokoll").dataset.ok){ $("#protokoll").dataset.ok = "1";
     $("#protokoll").addEventListener("click", (e) => { const t = e.target.closest("tr.bz"); if(!t) return;
@@ -2775,7 +2775,7 @@ function renderWetten(){
   }
   if(fil==="offen") xs = xs.filter(w => !ergebnisVon(w)); else if(fil==="fertig") xs = xs.filter(w => ergebnisVon(w));
   if(!xs.length){ $("#m-liste").innerHTML = `<div class="empty">${all.length ? "Keine Wetten in dieser Auswahl." : "Noch keine Wetten gespeichert. Öffne eine Partie unter <b>Partien</b> und klicke bei „Als Wette speichern“ auf Speichern – oder trage unten eine Wette manuell ein."}</div>`; return; }
-  $("#m-liste").innerHTML = `<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Spiel</th><th>Wette</th><th class="hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th>Einsatz</th><th>Ergebnis</th><th>Gewinn</th><th></th></tr></thead><tbody>${
+  $("#m-liste").innerHTML = `<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th class="l">Spiel</th><th class="l">Wette</th><th class="l hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th>Einsatz</th><th>Ergebnis</th><th>Gewinn</th><th></th></tr></thead><tbody>${
     xs.map(w => { const e = ergebnisVon(w), d = new Date(w.start), gw = e ? gewinnVon(w, e) : null;
       const opt = (v, t) => `<option value="${v}"${(w.manuell ? (w.ergebnis||"offen") : "auto")===v?" selected":""}>${t}</option>`;
       const autoTxt = e ? (e==="V" && w.fixtureId && (ERG[w.fixtureId]||{}).aufgabe ? "Aufgabe (ungültig)" : ({W:"gewonnen",L:"verloren",V:"ungültig"})[e]) : "offen";
