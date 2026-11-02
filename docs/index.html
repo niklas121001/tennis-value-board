@@ -255,8 +255,8 @@ details.box summary{cursor:pointer;list-style-position:outside}
 .bein .nr{font:600 13px var(--f-display);color:var(--muted);align-self:center;min-width:18px}
 tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 .kombi-t{width:100%;font-size:13px}.kombi-t td{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
-.tagtog{white-space:nowrap}.lscore{width:auto;min-width:280px;margin:6px 0;font-size:14px}.lscore th,.lscore td{padding:4px 10px;text-align:center}.lscore td.l,.lscore th.l{text-align:left}.lscore .lwin{font-weight:700}.lsrv{color:var(--accent);margin-right:4px;font-size:11px}
-#l-sel{width:100%;max-width:100%}.lbtn{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.lbtn .btn{min-width:120px}@media(max-width:600px){.lbtn .btn{flex:1 1 45%;min-width:0}.lerg{min-width:0;width:100%}}.lform .ctl input[type=number]{width:70px}.lform .q input{width:100px}
+.tagtog{white-space:nowrap}.lscore{width:auto;min-width:0;margin:6px 0;font-size:14px}.lscore th{vertical-align:bottom}.lscore .lalt td{color:var(--muted);font-size:12.5px;padding:2px 10px}.lscore th,.lscore td{padding:4px 10px;text-align:center}.lscore td.l,.lscore th.l{text-align:left}.lscore .lwin{font-weight:700}.lsrv{color:var(--accent);margin-right:4px;font-size:11px}
+#l-sel{width:100%;max-width:100%}.lstep{display:inline-flex;align-items:center;gap:6px}.lstep b{min-width:24px;text-align:center}.lstep button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font-size:17px;line-height:1;cursor:pointer;padding:0}.lstep button:hover{border-color:var(--accent)}.lname{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.lsrv.aus{color:var(--muted)}.lbtn{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.lbtn .btn{min-width:120px}@media(max-width:600px){.lbtn .btn{flex:1 1 45%;min-width:0}.lerg{min-width:0;width:100%}}.lform .ctl input[type=number]{width:70px}.lform .q input{width:100px}
 .lerg{width:auto;min-width:300px;margin-top:10px}.lerg td,.lerg th{padding:4px 12px;text-align:right}.lerg td.l{text-align:left;color:var(--muted)}.lempf{margin:10px 0 4px;font-size:14px}.lhand summary{cursor:pointer;margin-top:6px}
 .ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
@@ -603,6 +603,13 @@ function liveInit(){
     else if(a === "undo"){ const h = (st.hist || []).pop(); if(h){ const alt = JSON.parse(h); Object.assign(st, alt, {hist: st.hist}); } }
     else if(a === "neu"){ const q = {qa: st.qa, qb: st.qb, bm: st.bm}; Object.assign(st, liveLeer(), q); }
     else if(a === "srv") st.srv = st.srv === "A" ? "B" : "A";
+    else if(a === "setsrv") st.srv = b.dataset.w;
+    else if(a === "inc"){ const f = b.dataset.f, d = +b.dataset.d;
+      st.hist = (st.hist || []).slice(-60); st.hist.push(JSON.stringify(Object.assign({}, st, {hist: undefined})));
+      const max = f[0] === "s" ? 3 : f[0] === "g" ? 7 : st.tb ? 30 : 4;
+      st[f] = Math.min(max, Math.max(0, (st[f] || 0) + d));
+      if(f[0] === "g"){ st.tb = st.gA === 6 && st.gB === 6; if(!st.tb){ st.pA = Math.min(st.pA, 4); st.pB = Math.min(st.pB, 4); } }
+      if(!st.tb && f[0] === "p" && st.pA === 4 && st.pB === 4){ st.pA = 3; st.pB = 3; } }
     else if(a === "wette"){ liveWette(b.dataset.seite); return; }
     else if(a === "eigen-ok"){ const g = (id) => ($("#"+id) || {}).value || "";
       store.set("live.eigen.ctx", {a: g("le-a").trim(), b: g("le-b").trim(), belag: g("le-belag"), turnier: g("le-turnier").trim(), modus: +g("le-modus") || null, qa: num2(g("le-qa")), qb: num2(g("le-qb"))}); renderLive(); return; }
@@ -612,13 +619,16 @@ function liveInit(){
   el.addEventListener("change", (e) => {
     const t = e.target;
     if(t.id === "l-sel"){ store.set("live.sel", t.value); setTimeout(renderLive, 0); return; }
-    const sel = store.get("live.sel", ""), st = liveState(sel);
-    if(t.dataset.lf){ const f = t.dataset.lf;
-      if(f === "saetze") st.saetze = String(t.value).split(/[ ,;]+/).map(x => x.split(/[-:]/).map(Number)).filter(x => x.length === 2 && x.every(isFinite));
-      else if(f === "tb") st.tb = t.checked;
-      else if(["qa","qb","bm","srv"].includes(f)) st[f] = t.value;
-      else st[f] = Math.max(0, +t.value || 0);
-      liveSave(sel, st); setTimeout(renderLive, 0); }
+    if(t.dataset.lf === "saetze") setTimeout(renderLive, 0);          // Satzspalten neu zeichnen
+  });
+  // Eingabefelder (Quoten, Sätze): beim Tippen speichern und nur das Ergebnis neu rechnen – Fokus bleibt im Feld
+  el.addEventListener("input", (e) => {
+    const t = e.target, f = t.dataset.lf; if(!f) return;
+    const sel = store.get("live.sel", ""), st = liveState(sel), ctx = liveCtx(sel); if(!ctx) return;
+    if(f === "saetze") st.saetze = String(t.value).split(/[ ,;]+/).map(x => x.split(/[-:]/).map(Number)).filter(x => x.length === 2 && x.every(isFinite));
+    else st[f] = t.value;
+    liveSave(sel, st);
+    const x = liveRechnung(ctx, st), z = $("#l-erg"); if(x && z) z.innerHTML = liveErgHtml(ctx, st, x);
   });
 }
 function liveRechnung(ctx, st){
@@ -639,6 +649,35 @@ function liveWette(seite){
     spieler: seite === "A" ? ctx.a : ctx.b, gegner: seite === "A" ? ctx.b : ctx.a, buchmacher: st.bm || "winamax", quote: q, einsatz, markt: "sieg",
     live: true, liveStand: stand, modellP: x ? (seite === "A" ? x.lv.p : 1 - x.lv.p) : null});
   $("#l-msg").textContent = `Gespeichert: ${seite === "A" ? ctx.a : ctx.b} @ ${fx(q)} (Stand ${stand}) – unter „Meine Wetten“.`;
+}
+function liveErgHtml(ctx, st, x){
+  const nA = ctx.a.split(" ").slice(-1)[0], nB = ctx.b.split(" ").slice(-1)[0];
+  const lqa = num2(st.qa), lqb = num2(st.qb), maxQ = D.params.MAX_QUOTE_VALUE_LIVE;
+  const zeile = (lbl, pa) => { const fa = 1/pa, fb = 1/(1-pa), ea = lqa ? lqa/fa - 1 : null, eb = lqb ? lqb/fb - 1 : null;
+    return {lbl, pa, fa, fb, ea, eb, va: ea > 0 && (!maxQ || lqa <= maxQ), vb: eb > 0 && (!maxQ || lqb <= maxQ)}; };
+  const K = zeile("kalibriert", x.lv.p), Pu = zeile("Markov pur", x.pur.pPur);
+  const kelly = (p, q) => q > 1 ? Math.round(D.params.BANKROLL * D.params.KELLY_FRACTION * Math.max(0, (p - 1/q) / (1 - 1/q)) * 100) / 100 : 0;
+  const tip = K.va ? "A" : K.vb ? "B" : null, kel = tip ? kelly(tip==="A" ? K.pa : 1-K.pa, tip==="A" ? lqa : lqb) : 0;
+  const vz = (v, e) => e == null ? "–" : `<span class="${v?"pos":e<0?"negv":""}">${sg(e)}</span>${v?" ✓":""}`;
+  let h = `<table class="lerg"><thead><tr><th class="l"></th><th>kalibriert</th><th>Markov pur</th></tr></thead><tbody>
+    <tr><td class="l">Siegchance ${esc(nA)}</td><td><b>${pc(K.pa)}</b></td><td>${pc(Pu.pa)}</td></tr>
+    <tr><td class="l">Siegchance ${esc(nB)}</td><td><b>${pc(1-K.pa)}</b></td><td>${pc(1-Pu.pa)}</td></tr>
+    <tr><td class="l">Faire Quote ${esc(nA)} / ${esc(nB)}</td><td>${fx(K.fa)} / ${fx(K.fb)}</td><td>${fx(Pu.fa)} / ${fx(Pu.fb)}</td></tr>
+    <tr><td class="l">Edge ${esc(nA)}</td><td>${vz(K.va, K.ea)}</td><td>${vz(Pu.va, Pu.ea)}</td></tr>
+    <tr><td class="l">Edge ${esc(nB)}</td><td>${vz(K.vb, K.eb)}</td><td>${vz(Pu.vb, Pu.eb)}</td></tr></tbody></table>`;
+  const uneinig = tip && !(tip==="A" ? Pu.va : Pu.vb) ? ` <span class="time">⚠ uneinig – Markov pur sieht hier keinen Value</span>` : (!tip && (Pu.va || Pu.vb)) ? ` <span class="time">⚠ Markov pur sähe Value bei ${esc(Pu.va?nA:nB)}</span>` : "";
+  h += `<div class="lempf">${!(lqa > 1 && lqb > 1) ? `<span class="time">Live-Quoten eintragen, dann zeigt der Rechner Value und Einsatz.</span>` : tip ? `<b>Anspielen: ${esc(tip==="A"?ctx.a:ctx.b)} @ ${fx(tip==="A"?lqa:lqb)}</b> · Einsatz ${stakeHtml(kel)}${uneinig}` : `Kein Value (kalibriert).${uneinig}`}</div>
+    <div class="controls lform"><div class="ctl q"><label for="l-einsatz">Einsatz €</label><input id="l-einsatz" inputmode="decimal" value="${kel ? fx(kellyEur(kel)) : fx(unitCfg().unit)}"></div>
+      <div class="ctl"><label>&nbsp;</label><span><button type="button" class="btn mini" data-la="wette" data-seite="A">Wette auf ${esc(nA)} speichern</button> <button type="button" class="btn mini" data-la="wette" data-seite="B">Wette auf ${esc(nB)} speichern</button></span></div></div>
+    <p class="time" id="l-msg"></p>
+    <details class="lhand"><summary class="time">Rechenbasis</summary><div class="kv two" style="max-width:520px">
+      <span class="k">Pre-Match-Prognose ${esc(nA)} (Board, final)</span><span class="v">${pc(x.r.pFinal)}</span>
+      <span class="k">p_srv ${esc(nA)} / ${esc(nB)} (mit Momentum)</span><span class="v">${pc(x.lv.pSrvA)} / ${pc(x.lv.pSrvB)}</span>
+      <span class="k">Momentum (Spielanteil − erwartet, Gewicht ${fx(D.params.MOMENTUM_GEWICHT ?? 0.3, 1)})</span><span class="v">${x.lv.gespielt >= 4 ? sg(x.lv.delta) : "ab 4 Spielen"}</span>
+      <span class="k">Satzgewinn ${esc(nA)} (laufender Satz)</span><span class="v">${pc(x.lv.pSet)}</span>
+      ${x.lv.pGame != null ? `<span class="k">Spielgewinn ${esc(nA)} (laufendes Spiel)</span><span class="v">${pc(x.lv.pGame)}</span>` : ""}
+      <span class="k">Modus</span><span class="v">Best of ${x.r.modus}</span></div></details>`;
+  return h;
 }
 function renderLive(){
   const el = $("#live"); if(!el || !D) return;
@@ -663,48 +702,20 @@ function renderLive(){
   const nA = ctx.a.split(" ").slice(-1)[0], nB = ctx.b.split(" ").slice(-1)[0];
   const pk = (v) => st.tb ? v : (PKT[v] ?? v), dot = (w) => st.srv === w ? `<span class="lsrv" title="schlägt auf">●</span>` : "";
   const ende = Math.max(st.sA, st.sB) >= (x.r.modus + 1) / 2;
-  h += `<table class="lscore"><thead><tr><th class="l"></th>${st.saetze.map((_, i) => `<th>S${i+1}</th>`).join("")}<th>Sätze</th><th>Spiele</th><th>${st.tb?"TB":"Punkte"}</th></tr></thead><tbody>
-    ${[["A", ctx.a, st.sA, st.gA, st.pA, 0], ["B", ctx.b, st.sB, st.gB, st.pB, 1]].map(([w, n, s_, g, pt, i]) => `<tr><td class="l">${dot(w)}<b>${esc(n)}</b>${linksBadge(n)}</td>${st.saetze.map(z => `<td class="${z[i]>z[1-i]?"lwin":""}">${z[i]}</td>`).join("")}<td><b>${s_}</b></td><td><b>${g}</b></td><td><b>${pk(pt)}</b></td></tr>`).join("")}</tbody></table>
+  const stepper = (f, v, txt) => ende ? `<b>${txt ?? v}</b>` : `<span class="lstep"><button type="button" data-la="inc" data-f="${f}" data-d="-1" aria-label="minus">−</button><b>${txt ?? v}</b><button type="button" data-la="inc" data-f="${f}" data-d="1" aria-label="plus">+</button></span>`;
+  const kopf = (w, n) => `<button type="button" class="lname" data-la="setsrv" data-w="${w}" title="Aufschlag ${esc(n)}">${st.srv===w?'<span class="lsrv">●</span>':'<span class="lsrv aus">○</span>'}<b>${esc(n.split(" ").slice(-1)[0])}</b></button>${linksBadge(n)}`;
+  h += `<table class="lscore"><thead><tr><th class="l"><span class="time" style="text-transform:none;letter-spacing:0">● Aufschlag:<br>Name antippen</span></th><th>${kopf("A", ctx.a)}</th><th>${kopf("B", ctx.b)}</th></tr></thead><tbody>
+    ${st.saetze.map((z, i) => `<tr class="lalt"><td class="l time">Satz ${i+1}</td><td class="${z[0]>z[1]?"lwin":""}">${z[0]}</td><td class="${z[1]>z[0]?"lwin":""}">${z[1]}</td></tr>`).join("")}
+    <tr><td class="l">Sätze</td><td>${stepper("sA", st.sA)}</td><td>${stepper("sB", st.sB)}</td></tr>
+    <tr><td class="l">Spiele</td><td>${stepper("gA", st.gA)}</td><td>${stepper("gB", st.gB)}</td></tr>
+    <tr><td class="l">${st.tb ? "Tiebreak" : "Punkte"}</td><td>${stepper("pA", st.pA, pk(st.pA))}</td><td>${stepper("pB", st.pB, pk(st.pB))}</td></tr></tbody></table>
     <div class="lbtn">${ende ? `<span class="pill go">Match beendet</span>` : `<button type="button" class="btn" data-la="punktA">+ Punkt ${esc(nA)}</button><button type="button" class="btn" data-la="punktB">+ Punkt ${esc(nB)}</button>`}
-      <button type="button" class="btn ghost" data-la="undo" title="Letzten Punkt zurücknehmen"${(st.hist||[]).length?"":" disabled"}>↶ zurück</button><button type="button" class="btn ghost" data-la="srv" title="Aufschläger tauschen">⇄ Aufschlag</button><button type="button" class="btn ghost" data-la="neu">Neu (0:0)</button></div>
-    <details class="lhand"><summary class="time">Stand von Hand einstellen</summary><div class="controls lform">
-      <div class="ctl"><label>Sätze ${esc(nA)}</label><input type="number" min="0" max="3" data-lf="sA" value="${st.sA}"></div>
-      <div class="ctl"><label>Sätze ${esc(nB)}</label><input type="number" min="0" max="3" data-lf="sB" value="${st.sB}"></div>
-      <div class="ctl"><label>Spiele ${esc(nA)}</label><input type="number" min="0" max="7" data-lf="gA" value="${st.gA}"></div>
-      <div class="ctl"><label>Spiele ${esc(nB)}</label><input type="number" min="0" max="7" data-lf="gB" value="${st.gB}"></div>
-      <div class="ctl"><label>Punkte ${esc(nA)}</label>${st.tb ? `<input type="number" min="0" data-lf="pA" value="${st.pA}">` : `<select data-lf="pA">${PKT.map((t, i) => `<option value="${i}"${st.pA===i?" selected":""}>${t}</option>`).join("")}</select>`}</div>
-      <div class="ctl"><label>Punkte ${esc(nB)}</label>${st.tb ? `<input type="number" min="0" data-lf="pB" value="${st.pB}">` : `<select data-lf="pB">${PKT.map((t, i) => `<option value="${i}"${st.pB===i?" selected":""}>${t}</option>`).join("")}</select>`}</div>
-      <div class="ctl"><label>Aufschlag</label><select data-lf="srv"><option value="A"${st.srv==="A"?" selected":""}>${esc(nA)}</option><option value="B"${st.srv==="B"?" selected":""}>${esc(nB)}</option></select></div>
-      <div class="ctl"><label><input type="checkbox" data-lf="tb"${st.tb?" checked":""}> Tiebreak</label></div>
-      <div class="ctl" style="flex:1 1 200px"><label>Abgeschlossene Sätze (z. B. 6-4 3-6)</label><input data-lf="saetze" value="${esc(st.saetze.map(z => z.join("-")).join(" "))}"></div></div></details>
-    <div class="controls lform" style="margin-top:8px"><div class="ctl q"><label>Live-Quote ${esc(nA)}</label><input inputmode="decimal" data-lf="qa" value="${esc(st.qa)}" placeholder="z. B. 2,10"></div>
+      <button type="button" class="btn ghost" data-la="undo" title="Letzten Schritt zurücknehmen"${(st.hist||[]).length?"":" disabled"}>↶ zurück</button><button type="button" class="btn ghost" data-la="neu">Neu (0:0)</button></div>
+    <div class="controls lform"><div class="ctl" style="flex:1 1 200px"><label>Abgeschlossene Sätze <span class="time" style="text-transform:none;letter-spacing:0">(optional, z. B. 6-4 3-6 – für Momentum)</span></label><input data-lf="saetze" value="${esc(st.saetze.map(z => z.join("-")).join(" "))}" placeholder="6-4 3-6"></div>
+      <div class="ctl q"><label>Live-Quote ${esc(nA)}</label><input inputmode="decimal" data-lf="qa" value="${esc(st.qa)}" placeholder="z. B. 2,10"></div>
       <div class="ctl q"><label>Live-Quote ${esc(nB)}</label><input inputmode="decimal" data-lf="qb" value="${esc(st.qb)}" placeholder="z. B. 1,75"></div>
-      <div class="ctl"><label>Buchmacher</label><input data-lf="bm" value="${esc(st.bm||"winamax")}" style="width:120px"></div></div>`;
-  const lqa = num2(st.qa), lqb = num2(st.qb), maxQ = D.params.MAX_QUOTE_VALUE_LIVE;
-  const zeile = (lbl, pa) => { const fa = 1/pa, fb = 1/(1-pa), ea = lqa ? lqa/fa - 1 : null, eb = lqb ? lqb/fb - 1 : null;
-    return {lbl, pa, fa, fb, ea, eb, va: ea > 0 && (!maxQ || lqa <= maxQ), vb: eb > 0 && (!maxQ || lqb <= maxQ)}; };
-  const K = zeile("kalibriert", x.lv.p), Pu = zeile("Markov pur", x.pur.pPur);
-  const kelly = (p, q) => q > 1 ? Math.round(D.params.BANKROLL * D.params.KELLY_FRACTION * Math.max(0, (p - 1/q) / (1 - 1/q)) * 100) / 100 : 0;
-  const tip = K.va ? "A" : K.vb ? "B" : null, kel = tip ? kelly(tip==="A" ? K.pa : 1-K.pa, tip==="A" ? lqa : lqb) : 0;
-  const vz = (v, e) => e == null ? "–" : `<span class="${v?"pos":e<0?"negv":""}">${sg(e)}</span>${v?" ✓":""}`;
-  h += `<table class="lerg"><thead><tr><th class="l"></th><th>kalibriert</th><th>Markov pur</th></tr></thead><tbody>
-    <tr><td class="l">Siegchance ${esc(nA)}</td><td><b>${pc(K.pa)}</b></td><td>${pc(Pu.pa)}</td></tr>
-    <tr><td class="l">Siegchance ${esc(nB)}</td><td><b>${pc(1-K.pa)}</b></td><td>${pc(1-Pu.pa)}</td></tr>
-    <tr><td class="l">Faire Quote ${esc(nA)} / ${esc(nB)}</td><td>${fx(K.fa)} / ${fx(K.fb)}</td><td>${fx(Pu.fa)} / ${fx(Pu.fb)}</td></tr>
-    <tr><td class="l">Edge ${esc(nA)}</td><td>${vz(K.va, K.ea)}</td><td>${vz(Pu.va, Pu.ea)}</td></tr>
-    <tr><td class="l">Edge ${esc(nB)}</td><td>${vz(K.vb, K.eb)}</td><td>${vz(Pu.vb, Pu.eb)}</td></tr></tbody></table>`;
-  const uneinig = tip && !(tip==="A" ? Pu.va : Pu.vb) ? ` <span class="time">⚠ uneinig – Markov pur sieht hier keinen Value</span>` : (!tip && (Pu.va || Pu.vb)) ? ` <span class="time">⚠ Markov pur sähe Value bei ${esc(Pu.va?nA:nB)}</span>` : "";
-  h += `<div class="lempf">${!(lqa > 1 && lqb > 1) ? `<span class="time">Live-Quoten eintragen, dann zeigt der Rechner Value und Einsatz.</span>` : tip ? `<b>Anspielen: ${esc(tip==="A"?ctx.a:ctx.b)} @ ${fx(tip==="A"?lqa:lqb)}</b> · Einsatz ${stakeHtml(kel)}${uneinig}` : `Kein Value (kalibriert).${uneinig}`}</div>
-    <div class="controls lform"><div class="ctl q"><label for="l-einsatz">Einsatz €</label><input id="l-einsatz" inputmode="decimal" value="${kel ? fx(kellyEur(kel)) : fx(unitCfg().unit)}"></div>
-      <div class="ctl"><label>&nbsp;</label><span><button type="button" class="btn mini" data-la="wette" data-seite="A">Wette auf ${esc(nA)} speichern</button> <button type="button" class="btn mini" data-la="wette" data-seite="B">Wette auf ${esc(nB)} speichern</button></span></div></div>
-    <p class="time" id="l-msg"></p>
-    <details class="lhand"><summary class="time">Rechenbasis</summary><div class="kv two" style="max-width:520px">
-      <span class="k">Pre-Match-Prognose ${esc(nA)} (Board, final)</span><span class="v">${pc(x.r.pFinal)}</span>
-      <span class="k">p_srv ${esc(nA)} / ${esc(nB)} (mit Momentum)</span><span class="v">${pc(x.lv.pSrvA)} / ${pc(x.lv.pSrvB)}</span>
-      <span class="k">Momentum (Spielanteil − erwartet, Gewicht ${fx(D.params.MOMENTUM_GEWICHT ?? 0.3, 1)})</span><span class="v">${x.lv.gespielt >= 4 ? sg(x.lv.delta) : "ab 4 Spielen"}</span>
-      <span class="k">Satzgewinn ${esc(nA)} (laufender Satz)</span><span class="v">${pc(x.lv.pSet)}</span>
-      ${x.lv.pGame != null ? `<span class="k">Spielgewinn ${esc(nA)} (laufendes Spiel)</span><span class="v">${pc(x.lv.pGame)}</span>` : ""}
-      <span class="k">Modus</span><span class="v">Best of ${x.r.modus}</span></div></details></div>`;
+      <div class="ctl"><label>Buchmacher</label><input data-lf="bm" value="${esc(st.bm||"winamax")}" style="width:110px"></div></div>
+    <div id="l-erg">${liveErgHtml(ctx, st, x)}</div></div>`;
   el.innerHTML = h;
 }
 
