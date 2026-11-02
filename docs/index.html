@@ -259,7 +259,7 @@ tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 #l-sel{width:100%;max-width:100%}.lstep{display:inline-flex;align-items:center;gap:6px}.lstep b{min-width:24px;text-align:center}.lstep button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font-size:17px;line-height:1;cursor:pointer;padding:0}.lstep button:hover{border-color:var(--accent)}.lname{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.lsrv.aus{color:var(--muted)}.lbtn{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.lbtn .btn{min-width:120px}@media(max-width:600px){.lbtn .btn{flex:1 1 45%;min-width:0}.lerg{min-width:0;width:100%}}.lform .ctl input[type=number]{width:70px}.lform .q input{width:100px}
 .lerg{width:auto;min-width:300px;margin-top:10px}.lerg td,.lerg th{padding:4px 12px;text-align:right}.lerg td.l{text-align:left;color:var(--muted)}.lempf{margin:10px 0 4px;font-size:14px}.lhand summary{cursor:pointer;margin-top:6px}
 .tinfo{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.tinfo:hover{color:var(--accent)}.tinfo-i{font-size:.75em;color:var(--muted)}.prgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.tliste td,.tliste th{padding:4px 8px}
-.mbox{grid-column:span 2}@media(max-width:900px){.mbox{grid-column:auto}}.mtab td,.mtab th{padding:3px 8px;line-height:1.3}.mtab tr,.mtab td{background:none!important}.mtab .num{white-space:nowrap}@media(max-width:600px){.mtab td,.mtab th{padding:3px 4px;font-size:12.5px}}.mtab td.l{color:var(--muted)}
+.mbox{grid-column:span 2}@media(max-width:900px){.mbox{grid-column:auto}}.mtab td,.mtab th{padding:3px 8px;line-height:1.3}.mtab tr,.mtab td{background:none!important}.mtab .num{white-space:nowrap}.mq-in{width:62px;padding:2px 5px;font:inherit;text-align:right}@media(max-width:600px){.mtab td,.mtab th{padding:3px 4px;font-size:12.5px}}.mtab td.l{color:var(--muted)}
 .ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
@@ -542,6 +542,11 @@ function setupControls(){
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
   if(["partien","live","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
   liveInit();
+  $("#list").addEventListener("input", (e) => { const t = e.target.closest(".mq-in"); if(!t) return;
+    const all = store.get("mq." + t.dataset.id, {}), q = num2(t.value); if(q > 1) all[t.dataset.k] = q; else delete all[t.dataset.k]; store.set("mq." + t.dataset.id, all);
+    const z = t.closest("tr").querySelector("[data-edge]"), pm = +z.dataset.p, minE = D.params.MARKT_MIN_EDGE ?? 0.05, ed = q > 1 ? q * pm - 1 : null;
+    z.className = "num " + (ed >= minE ? "pos" : ed < 0 ? "negv" : ""); z.textContent = ed == null ? "–" : sg(ed) + (ed >= minE ? " ✓" : ""); });
+  $("#list").addEventListener("click", (e) => { if(e.target.closest(".mq-in")) e.stopPropagation(); });
   $("#list").addEventListener("click", (e) => { const b = e.target.closest(".zulive"); if(!b) return; store.set("live.sel", b.dataset.id); showTab("live"); window.scrollTo(0, 0); });
 }
 
@@ -1822,10 +1827,12 @@ function maerkteHtml(p, r){
     ["TB im 1. Satz: ja", "tb1Ja", mk.tb1], ["TB im 1. Satz: nein", "tb1Nein", 1 - mk.tb1],
     ["TB im Match: ja", "tbJa", mk.tbMatch], ["TB im Match: nein", "tbNein", 1 - mk.tbMatch]];
   const hatQ = zeilen.some(([, k]) => mq[k]);
-  const tr = zeilen.map(([lbl, k, pm]) => { const q = mq[k], e = q ? q * pm - 1 : null, pf = pinFair(k);
-    return `<tr><td class="l">${esc(lbl)}</td><td class="num">${pc(pm,0)}</td><td class="num hide-s">${fx(1/pm)}</td><td class="num">${q ? fx(q) : "–"}</td><td class="num ${e >= minE ? "pos" : e < 0 ? "negv" : ""}">${e == null ? "–" : sg(e) + (e >= minE ? " ✓" : "")}</td><td class="num hide-s time">${pf ? fx(pf) : "–"}</td></tr>`; }).join("");
+  const eigen = store.get("mq." + p.id, {});      // von Hand eingetragene Quoten (Markt fehlt im Datenfeed)
+  const tr = zeilen.map(([lbl, k, pm]) => { const qAuto = mq[k], qHand = eigen[k], q = qAuto || qHand, e = q ? q * pm - 1 : null, pf = pinFair(k);
+    const qZelle = qAuto ? fx(qAuto) : `<input class="mq-in" data-id="${esc(p.id)}" data-k="${k}" inputmode="decimal" value="${qHand ? fx(qHand) : ""}" placeholder="Quote" title="Quote von Hand eintragen (fehlt im Datenfeed)">`;
+    return `<tr><td class="l">${esc(lbl)}</td><td class="num">${pc(pm,0)}</td><td class="num hide-s">${fx(1/pm)}</td><td class="num">${qZelle}</td><td class="num ${e >= minE ? "pos" : e < 0 ? "negv" : ""}" data-edge="${k}" data-p="${pm}">${e == null ? "–" : sg(e) + (e >= minE ? " ✓" : "")}</td><td class="num hide-s time">${pf ? fx(pf) : "–"}</td></tr>`; }).join("");
   return `<div class="box mbox"><h3>Satz- & Tiebreak-Märkte</h3><div class="tablewrap"><table class="mtab"><thead><tr><th class="l"></th><th class="num">Modell</th><th class="num hide-s">fair</th><th class="num">${esc(bm)}</th><th class="num">Edge</th><th class="num hide-s">Pinnacle fair</th></tr></thead><tbody>${tr}</tbody></table></div>
-    <p class="time" style="margin:6px 0 0">TB = Tiebreak. Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. Tiebreak je Satz ${pc(mk.tb1,0)} (Aufschlag-Markov ${pc(mk.tbRoh,0)} × ${fx(mk.tbFaktor,2)} für ${/challenger/i.test(p.turnier||"")?"Challenger":"ATP"}${(r.satzK||{}).turnier ? " und Turnier" : ""}). ${hatQ ? `✓ = Edge ab ${pc(minE,0)}, wird als Test-Signal getrackt.` : "Für diese Partie liefert der Buchmacher (noch) keine Satz-/Tiebreak-Quoten."}</p></div>`;
+    <p class="time" style="margin:6px 0 0">TB = Tiebreak. Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. Tiebreak je Satz ${pc(mk.tb1,0)} (Aufschlag-Markov ${pc(mk.tbRoh,0)} × ${fx(mk.tbFaktor,2)} für ${/challenger/i.test(p.turnier||"")?"Challenger":"ATP"}${(r.satzK||{}).turnier ? " und Turnier" : ""}). ✓ = Edge ab ${pc(minE,0)}${hatQ ? " – Märkte mit Buchmacher-Quote werden als Test-Signal getrackt" : ""}. Fehlt ein Markt im Datenfeed (z. B. Tiebreak), kannst du die Quote ins Feld tippen – sie wird nur bei dir gespeichert und nicht getrackt.</p></div>`;
 }
 function detailHtml(p, r){
   const ab = (a,b,f) => `<span class="v">${f(a)}</span><span class="v">${f(b)}</span>`;
