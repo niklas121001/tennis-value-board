@@ -65,6 +65,11 @@
     }
     return null;
   }
+  // Tempo-Stufe je Belag (gleiche Grenzen wie scripts/h2h_ta.py)
+  function tempoStufe(belag, sp) {
+    const [lo, hi] = { hard: [0.95, 1.15], clay: [0.65, 0.85], grass: [1.05, 1.25] }[belag] || [0.95, 1.15];
+    return sp < lo ? "langsam" : sp > hi ? "schnell" : "mittel";
+  }
   // DASHBOARD AJ: Court Speed Index (nur Sand)
   function lookupCSI(turnier, belag, csiTable) {
     if (surfKey(belag) !== "clay") return null;
@@ -462,10 +467,10 @@
       const pBasis = pin ?? pMarkt;
       if (pBasis === null) return null;
       const K = P.H_K ?? 20, L = (x) => logit(clip(x, 0.02, 0.98)), teile = [];
-      const stat = (name, label, s_, n, pRef, seite) => {      // pRef = Markt-Siegchance dieses Spielers
+      const stat = (name, label, s_, n, pRef, seite, zeig) => {      // pRef = Markt-Siegchance dieses Spielers; zeig = echte Bilanz bei relativen Werten
         if (!(n > 0)) return;
         const pEst = (s_ + K * pRef) / (n + K), d = L(pEst) - L(pRef);
-        teile.push({ name, label, s: s_, n, pRef, pEst, d: seite === "A" ? d : -d });
+        teile.push({ name, label, s: s_, n, pRef, pEst, d: seite === "A" ? d : -d, ...(zeig ? { zeig } : {}) });
       };
       const pA = pBasis, favA = match.qa <= match.qb, qA = match.qa, qB = match.qb;
       for (const [seite, nm, pS, qS, qG, istFav] of [["A", match.a, pA, qA, qB, favA], ["B", match.b, 1 - pA, qB, qA, !favA]]) {
@@ -482,14 +487,46 @@
           const nL = wl + ll, nR = wr + lr;
           if (nL >= 5 && nR >= 10) {               // Abweichung gegen Linkshänder relativ zur eigenen Bilanz gegen Rechtshänder
             const rel = clip(pS + (wl / nL - wr / nR), 0.03, 0.97);
-            stat(nm, "gegen Linkshänder", rel * nL, nL, pS, seite);
+            stat(nm, `gegen Linkshänder (rel. zu Rechtsh. ${Math.round(100 * wr / nR)} %)`, rel * nL, nL, pS, seite, `${wl}–${ll}`);
           }
+        }
+        // 1U auf Sieg: eigene Bilanz im Archiv gegenüber der Markterwartung (Summe der fairen Siegchancen)
+        const ar = (D.arcStats || {})[nm];
+        if (ar && ar.n >= 3) stat(nm, `Archiv vs. Markt (erwartet ${ar.ps.toFixed(1)} Siege)`, clip(pS + (ar.w - ar.ps) / ar.n, 0.03, 0.97) * ar.n, ar.n, pS, seite, `${ar.w}–${ar.n - ar.w}`);
+        // Platztempo: Bilanz in der Tempo-Stufe dieses Turniers relativ zur Bilanz auf dem Belag (seit 2023, Tennis Abstract)
+        const tp = (D.tempoTA || {})[nm];
+        if (tp && isNum(tempoF) && tp[sk]) {
+          const st_ = tempoStufe(sk, tempoF), b_ = tp[sk][st_];
+          let W = 0, N = 0; for (const v of Object.values(tp[sk])) { W += v[0]; N += v[0] + v[1]; }
+          const n_ = b_ ? b_[0] + b_[1] : 0;
+          if (n_ >= 5 && N >= 15) stat(nm, `Platztempo ${st_} (Belag gesamt ${Math.round(100 * W / N)} %)`, clip(pS + (b_[0] / n_ - W / N), 0.03, 0.97) * n_, n_, pS, seite, `${b_[0]}–${b_[1]}`);
+        }
+        const tstH = lookupTurnierStats(match.turnier, D.turnierStats);
+        if (tp && tstH && typeof tstH.halle === "boolean") {
+          const x = tp[tstH.halle ? "halle" : "draussen"], y = tp[tstH.halle ? "draussen" : "halle"];
+          const n_ = x ? x[0] + x[1] : 0, N = n_ + (y ? y[0] + y[1] : 0);
+          if (n_ >= 5 && N >= 15) stat(nm, `${tstH.halle ? "Halle" : "draußen"} (gesamt ${Math.round(100 * (x[0] + (y ? y[0] : 0)) / N)} %)`, clip(pS + (x[0] / n_ - (x[0] + (y ? y[0] : 0)) / N), 0.03, 0.97) * n_, n_, pS, seite, `${x[0]}–${x[1]}`);
         }
       }
       const dStats = teile.length ? teile.reduce((a, t) => a + t.d, 0) / teile.length : 0;
       const dModell = L(pKal) - L(pBasis), wM = P.H_W_MODELL ?? 0.3, wS = P.H_W_STATS ?? 1;
-      const p = sigm(L(pBasis) + wM * dModell + wS * dStats);
-      return { p, pBasis, basis: pin != null ? "Pinnacle" : "Buchmacher", dModell, wM, dStats, wS, teile };
+      // Form/Belastung (eigener Term, nicht gemittelt): Spielzeit der letzten 7 Tage im Vergleich (je Stunde mehr
+      // über 1,5 h hinaus H_BELAST Logit-Punkte Abzug, höchstens 4 h) und Zusatzabzug für ein langes Match (≥ 150 Min.) in den letzten 30 h.
+      let dForm = 0; const form = [];
+      if (match.form && match.form.a && match.form.b) {
+        const minuten = (f) => !f.spiele7 ? 0 : (isNum(f.min7) && f.minN === f.spiele7 ? f.min7 : (f.games7 || 0) * 4.3);
+        const lang = (f) => { if (!f || !f.letztes || !match.start) return false;
+          const h_ = (new Date(match.start) - new Date(f.letztes)) / 36e5; if (!(h_ > 0 && h_ < 30)) return false;
+          return (f.letztesMin && f.letztesMin >= 150) || (!f.letztesMin && f.letztesGames >= 33); };
+        const mA = minuten(match.form.a), mB = minuten(match.form.b), wB = P.H_BELAST ?? 0.04, wL = P.H_LANG ?? 0.1;
+        // erste 1,5 h Unterschied zählen nicht (Spielpraxis gleicht leichte Mehrbelastung aus)
+        const dh0 = (mA - mB) / 60, dh = Math.sign(dh0) * clip(Math.abs(dh0) - (P.H_BELAST_FREI ?? 1.5), 0, 4);
+        if (dh !== 0) { dForm -= wB * dh; form.push({ label: `Spielzeit 7 Tage ${Math.round(mA)} vs. ${Math.round(mB)} Min.`, d: -wB * dh }); }
+        if (lang(match.form.a)) { dForm -= wL; form.push({ label: `${match.a}: langes Match in den letzten 30 h`, d: -wL }); }
+        if (lang(match.form.b)) { dForm += wL; form.push({ label: `${match.b}: langes Match in den letzten 30 h`, d: wL }); }
+      }
+      const p = sigm(L(pBasis) + wM * dModell + wS * dStats + dForm);
+      return { p, pBasis, basis: pin != null ? "Pinnacle" : "Buchmacher", dModell, wM, dStats, wS, dForm, form, teile };
     })();
 
     const varianten = {

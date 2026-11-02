@@ -79,6 +79,42 @@ def eigene_hand(txt):
     return m.group(1) if m else None
 
 
+# Platztempo (tempo.json, Tennis Abstract) und Halle (turnier_stats.json) je Turniername – für die Spieler-Bilanzen
+_TEMPO, _HALLE = None, None
+
+
+def _norm(t):
+    return re.sub(r"[^a-z]", "", str(t).lower())   # Challenger ("… CH") bleiben eigene Namen -> kein Tempo-Wert
+
+
+def tempo_von(turnier, belag, jahr):
+    global _TEMPO
+    if _TEMPO is None:
+        _TEMPO = {}
+        for r in (load("tempo.json", {}) or {}).get("turniere", []):
+            for n in [r["name"]] + (r.get("alias") or []):
+                _TEMPO[(_norm(n), r["belag"])] = r
+    r = _TEMPO.get((_norm(turnier), belag))
+    if not r:
+        return None
+    return (r.get("jahre") or {}).get(str(jahr), r.get("speed"))
+
+
+def tempo_stufe(belag, sp):
+    lo, hi = {"hard": (0.95, 1.15), "clay": (0.65, 0.85), "grass": (1.05, 1.25)}.get(belag, (0.95, 1.15))
+    return "langsam" if sp < lo else "schnell" if sp > hi else "mittel"
+
+
+def halle_von(turnier):
+    global _HALLE
+    if _HALLE is None:
+        _HALLE = {}
+        for x in ((load("turnier_stats.json", {}) or {}).get("turniere") or {}).values():
+            for n in [x["name"]] + (x.get("alias") or []):
+                _HALLE[_norm(n)] = bool(x.get("halle"))
+    return _HALLE.get(_norm(turnier))
+
+
 def main():
     players = load("players.json", {})
     nm = NameMatcher(list(players), load("name_map.json", {}))
@@ -133,6 +169,21 @@ def main():
                 erster = satz1_sieger_gewann if gew else not satz1_sieger_gewann
                 fs["g" if erster else "v"][0 if gew else 1] += 1
             st.setdefault("fs", {})[name] = fs
+            # Platztempo und Halle seit 2023: Bilanz je Belag in den Tempo-Stufen langsam/mittel/schnell und Halle/draußen
+            tp = {}
+            for d, turnier, bel, _, gew, geg, erg, h in z:
+                if d < "20230101" or re.search(r"RET|W/O|DEF|ABD", erg or "", re.I):
+                    continue
+                b_ = {"H": "hard", "C": "clay", "G": "grass"}.get(bel)
+                if not b_:
+                    continue
+                sp = tempo_von(turnier, b_, d[:4])
+                if sp is not None:
+                    v = tp.setdefault(b_, {}).setdefault(tempo_stufe(b_, sp), [0, 0]); v[0 if gew else 1] += 1
+                ha = halle_von(turnier)
+                if ha is not None:
+                    v = tp.setdefault("halle" if ha else "draussen", [0, 0]); v[0 if gew else 1] += 1
+            st.setdefault("tempo", {})[name] = tp
         return z
 
     for m in sorted(partien, key=lambda m: (m.get("kategorie") != "ATP", m.get("start"))):
