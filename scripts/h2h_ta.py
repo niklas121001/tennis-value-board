@@ -142,6 +142,20 @@ def main():
         txt = laden(name)
         abrufe += 1
         roh = zeilen(txt)
+        # keine Matchliste: andere Schreibweisen versuchen (Namen aus name_map.json, z. B. „Tomas Martin Etcheverry“,
+        # und nur erster Buchstabe groß, z. B. „Mccabe“)
+        if not roh:
+            alt = [k for k, v in (load("name_map.json", {}) or {}).items() if v == name]
+            alt.append(" ".join(t[:1].upper() + t[1:].lower() for t in name.split()))
+            for a in dict.fromkeys(alt):
+                if ta_name(a) == ta_name(name) or abrufe >= MAX_ABRUFE:
+                    continue
+                time.sleep(PAUSE)
+                t2 = laden(a); abrufe += 1
+                if zeilen(t2):
+                    txt, roh = t2, zeilen(t2)
+                    print(f"  {name}: Tennis Abstract unter „{a}“")
+                    break
         ok = bool(roh)
         st["spieler"][name] = {"datum": heute, "ok": ok}
         if not ok:
@@ -186,15 +200,21 @@ def main():
             st.setdefault("tempo", {})[name] = tp
         return z
 
+    def veraltet(me):
+        """Seite neu laden: nicht heute geladen oder (neue) Auswertungen 1. Satz / Platztempo fehlen noch."""
+        if me in seiten or (st["spieler"].get(me) or {}).get("datum") == heute and not (st["spieler"].get(me) or {}).get("ok", True):
+            return False                              # heute schon geladen bzw. heute schon ohne Erfolg versucht
+        return (st["hb"].get(me) or {}).get("datum") != heute or me not in st.get("fs", {}) or me not in st.get("tempo", {})
+
     for m in sorted(partien, key=lambda m: (m.get("kategorie") != "ATP", m.get("start"))):
         x, y = sorted([m["a"], m["b"]])
         key = f"{x}|{y}"
         # Spieler gegen einen Linkshänder: dessen Seite für die aktuelle Bilanz gegen Linkshänder laden
         for me, geg in ((m["a"], m["b"]), (m["b"], m["a"])):
-            if hand(geg) == "L" and (st["hb"].get(me) or {}).get("datum") != heute:
+            if hand(geg) == "L" and veraltet(me):
                 seite(me)
         for me in (m["a"], m["b"]):                    # beide Spieler: 1. Satz-Statistik und Bilanz aktuell halten
-            if (st["hb"].get(me) or {}).get("datum") != heute and abrufe < MAX_ABRUFE // 2 * 2:
+            if veraltet(me) and abrufe < MAX_ABRUFE:
                 seite(me)
         if (st["paare"].get(key) or {}).get("datum") == heute:
             continue
