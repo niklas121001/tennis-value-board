@@ -177,7 +177,7 @@ tr.detail > td{background:var(--bg);white-space:normal;text-align:left;padding:1
 .box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
 .box h3{font:600 .95rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:var(--accent)}
 .detail .box>h3:first-child{cursor:pointer;user-select:none}.detail .box>h3:first-child::before{content:"▾ ";color:var(--muted);font-size:.8em}
-.detail .box.zu{align-self:start}.detail .box.zu>h3:first-child::before{content:"▸ "}.detail .box.zu>h3:first-child{margin:0}.detail .box.zu>:not(h3:first-child){display:none!important}
+.detail .dgrid.mas{grid-auto-rows:1px;row-gap:0;align-items:start;grid-auto-flow:row dense}.detail .box.zu{align-self:start}.detail .box.zu>h3:first-child::before{content:"▸ "}.detail .box.zu>h3:first-child{margin:0}.detail .box.zu>:not(h3:first-child){display:none!important}
 .kv{display:grid;grid-template-columns:1fr auto auto;gap:2px 12px;font-size:13px}
 .kv.two{grid-template-columns:1fr auto}
 .h2ht{width:100%;font-size:12.5px;border-collapse:collapse;background:none}.h2ht tr,.h2ht td{background:none!important}.h2ht td{padding:4px 8px 4px 0;border-bottom:1px solid var(--line);vertical-align:top}.h2ht{table-layout:fixed}.h2ht td:first-child{width:62px}.h2ht td:last-child{width:42%}.h2ht .erg{word-spacing:2px}.h2ht td:last-child{text-align:right;padding-right:0}.h2ht td:first-child{white-space:nowrap}.h2hmehr summary{cursor:pointer;margin-top:6px}
@@ -2910,7 +2910,13 @@ function syncPush(){
 // Detailansicht: große Blöcke per Klick auf die Überschrift ein-/ausklappen; Zustand je Blocktitel gemerkt (gilt für alle Partien)
 const KLAPP = new Set(store.get("klapp", []));
 const klappKey = (h) => [...h.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join("").trim() || h.textContent.trim();
-function klappAnwenden(root){ for(const h of (root || document).querySelectorAll(".detail .box>h3:first-child")) h.parentElement.classList.toggle("zu", KLAPP.has(klappKey(h))); }
+// Ohne Lücken: jeder Block belegt so viele 1-px-Zeilen, wie er hoch ist (Masonry im Grid); passt sich beim Ein-/Ausklappen
+// und bei nachgeladenen Inhalten über ResizeObserver an.
+const MAS_RO = typeof ResizeObserver === "function" ? new ResizeObserver((es) => { for(const e of es) masBox(e.target); }) : null;
+function masBox(b){ if(!b.parentElement || !b.parentElement.classList.contains("mas")) return; b.style.gridRowEnd = "span " + Math.ceil(b.getBoundingClientRect().height + 14); }
+function masonry(root){ if(!MAS_RO) return;
+  for(const g of (root || document).querySelectorAll(".detail .dgrid")){ if(g.classList.contains("mas")) continue; g.classList.add("mas"); for(const b of g.children){ masBox(b); MAS_RO.observe(b); } } }
+function klappAnwenden(root){ for(const h of (root || document).querySelectorAll(".detail .box>h3:first-child")) h.parentElement.classList.toggle("zu", KLAPP.has(klappKey(h))); masonry(root); }
 document.addEventListener("click", (e) => {
   const h = e.target.closest(".detail .box>h3:first-child"); if(!h || e.target.closest("button,a,input,select,label")) return;
   const k = klappKey(h); KLAPP.has(k) ? KLAPP.delete(k) : KLAPP.add(k); store.set("klapp", [...KLAPP]);
