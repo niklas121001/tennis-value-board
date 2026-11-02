@@ -24,8 +24,11 @@ def jahr_laden(y):
     for r in re.findall(r"<tr[^>]*>(.*?)</tr>", t, re.S):
         td = [html.unescape(re.sub(r"<[^>]+>", "", c)).strip() for c in re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)]
         if len(td) >= 5 and re.match(r"\d{2}-\w{3}-\d{4}", td[0]):
+            b = BELAG.get(td[2].lower())
+            if not b:
+                continue                                   # Zeile verrutscht (z. B. Turniername in der Belag-Spalte)
             try:
-                out.append((td[1], BELAG.get(td[2].lower(), td[2].lower()), float(td[4])))
+                out.append((td[1], b, float(td[4])))
             except ValueError:
                 pass
     return out
