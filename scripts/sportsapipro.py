@@ -378,6 +378,16 @@ def main():
 
     if not mj.get("demo"):
         save("matches.json", mj, indent=0)
+        # Unbekannte Namen neu bestimmen: Quali-Partien ohne Quote zählen nicht (das Quali-Kennzeichen kommt erst hier
+        # dazu, extra_players.py läuft vorher und kennt es noch nicht)
+        try:
+            players_ = load("players.json", {})
+            meta_ = load("meta.json", {})
+            meta_["unbekannte_namen"] = sorted({m.get(s_) for m in mj.get("partien", []) for s_ in ("a", "b")
+                                                if m.get(s_) and m.get(s_) not in players_ and not (m.get("quali") and not m.get("quoten"))})
+            save("meta.json", meta_)
+        except Exception as ex:          # noqa
+            print("Unbekannte Namen nicht aktualisiert:", ex)
         if laender:
             save("laender.json", laender, indent=0)
 
