@@ -22,6 +22,9 @@ ELO_NIVEAU_MAX = 1650   # Spieler unter diesem yElo bilden den "Challenger-Durch
 FELDER = ("1in", "1won", "2won")
 
 
+QUALI_ABSCHLAG = 50        # vorläufige Elo von Qualifikanten ohne Quote: so viel unter der Basis
+
+
 def belag_key(b):
     b = str(b or "hard").lower()
     return b if b in ("hard", "clay", "grass") else "hard"
@@ -198,6 +201,23 @@ def main():
         if not stufe(lambda g: g.get("geschaetzt") and g.get("elo") is not None, "indirekt", nur_neue=True):
             break
     print(f"  Basis-Elo für zwei unbekannte Challenger-Spieler: {basis:.0f}")
+
+    # 4) Seit 02.11.2026: alle übrigen unbekannten Spieler (auch ohne Quote, z. B. Qualifikation) automatisch aufnehmen –
+    #    vorläufig mit der Basis-Elo (Qualifikanten etwas darunter). Sobald es Quoten oder Ergebnisse gibt, wird der Wert
+    #    wie bei jedem geschätzten Spieler aus Markt und Ergebnissen neu berechnet. Kein Value-Tipp mit geschätzter Elo.
+    ohne = 0
+    for m in matches:
+        for seite in ("a", "b"):
+            key = key_fuer(m, seite)
+            if not key or key in players or ist_platzhalter(key):
+                continue
+            start = basis - (QUALI_ABSCHLAG if m.get("quali") else 0)
+            players[key] = {"geschaetzt": True, "n_markt": 0, "n_erg": 0, "quelle": "ohne_quote", "anker": "keine",
+                            "erstellt": datetime.date.today().isoformat(), "elo_start": round(start, 1)}
+            setze_elo(players[key], round(start, 1))
+            ohne += 1
+    if ohne:
+        print(f"  {ohne} Spieler ohne Quote neu aufgenommen (vorläufige Elo {basis:.0f}, Quali −{QUALI_ABSCHLAG})")
 
     # Namen in Spielplan und gesehenen Partien auf die DB-Schlüssel umstellen (sonst erst am nächsten Tag erkannt)
     umbenannt = 0
