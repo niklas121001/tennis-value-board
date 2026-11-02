@@ -260,6 +260,7 @@ tr.kombi-d td{background:var(--bg);padding:6px 10px 10px}
 .lerg{width:auto;min-width:300px;margin-top:10px}.lerg td,.lerg th{padding:4px 12px;text-align:right}.lerg td.l{text-align:left;color:var(--muted)}.lempf{margin:10px 0 4px;font-size:14px}.lhand summary{cursor:pointer;margin-top:6px}
 .tinfo{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.tinfo:hover{color:var(--accent)}.tinfo-i{font-size:.75em;color:var(--muted)}.prgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.tliste td,.tliste th{padding:4px 8px}
 .mbox{grid-column:span 2}@media(max-width:900px){.mbox{grid-column:auto}}.mtab td,.mtab th{padding:3px 8px;line-height:1.3}.mtab tr,.mtab td{background:none!important}.mtab .num{white-space:nowrap}.mq-in{width:62px;padding:2px 5px;font:inherit;text-align:right}@media(max-width:600px){.mtab td,.mtab th{padding:3px 4px;font-size:12.5px}}.mtab td.l{color:var(--muted)}
+.surf.mini{font-size:9.5px;padding:2px 5px;vertical-align:1px}
 .ktog{cursor:pointer;background:none;border:0;color:var(--accent);font:inherit;padding:0}
 .gespeichert{color:var(--good);font-size:12px;margin-top:6px}
 select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--fg)}
@@ -1705,7 +1706,7 @@ async function openProfil(name, ctx){
       const ist = x.a===name ? "A" : "B", geg = ist==="A" ? x.b : x.a, q = ist==="A" ? x.qa : x.qb;
       const erg = x.sieger==="V" ? "–" : (x.sieger===ist ? "S" : "N") + (x.aufgabe ? " (Aufg.)" : "");
       const satz = (x.satz||[]).map(([u,v]) => ist==="A" ? `${u}:${v}` : `${v}:${u}`).join(" ");
-      return `<tr><td>${new Date(x.start).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td>${esc(geg)}<div class="time">${esc(x.turnier||"")}</div></td><td class="${x.aufgabe?"":erg==="S"?"w":erg==="N"?"l":""}">${erg}</td><td class="time">${satz||"–"}</td><td>${fx(q)}</td></tr>`; }).join("")}</tbody></table>`
+      return `<tr><td>${new Date(x.start).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td>${esc(geg)}<div class="time">${esc(x.turnier||"")}${x.belag ? ` <span class="surf mini ${esc(x.belag)}" title="Belag">${SURF[x.belag]||esc(x.belag)}</span>` : ""}</div></td><td class="${x.aufgabe?"":erg==="S"?"w":erg==="N"?"l":""}">${erg}</td><td class="time">${satz||"–"}</td><td>${fx(q)}</td></tr>`; }).join("")}</tbody></table>`
     : '<p class="time">Noch keine Ergebnisse im Archiv.</p>';
   $("#pr-inhalt").innerHTML = html(letzte);
   $("#pr-edit-btn").addEventListener("click", () => { $("#pr-edit").hidden = !$("#pr-edit").hidden; });
