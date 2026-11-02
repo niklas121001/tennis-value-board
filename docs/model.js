@@ -531,13 +531,13 @@
         if (lA === ortL) { dForm += wH; form.push({ label: `Heimspiel ${match.a} (${ortL})`, d: wH }); }
         if (lB === ortL) { dForm -= wH; form.push({ label: `Heimspiel ${match.b} (${ortL})`, d: -wH }); }
       }
-      // Reise: voriges Spiel (innerhalb 7 Tagen) mindestens 5 Zeitzonen entfernt
+      // Reise: voriges Spiel (innerhalb H_REISE_TAGE = 5 Tagen) mindestens 5 Zeitzonen entfernt
       if (match.ort && isNum(match.ort.tz) && match.start) {
         const wR = P.H_REISE ?? 0.08;
         for (const [k, nm, sg] of [["a", match.a, -1], ["b", match.b, 1]]) {
           const v = match.form && match.form[k] && match.form[k].vorOrt; if (!v || !isNum(v.tz)) continue;
           const tage = (new Date(match.start) - new Date(v.start)) / 864e5, dz = Math.abs(v.tz - match.ort.tz), z = Math.min(dz, 24 - dz);
-          if (tage >= 0 && tage <= 7 && z >= 5) { dForm += sg * wR; form.push({ label: `${nm}: Reise ${Math.round(z)} Zeitzonen (${v.land} → ${match.ort.land}) vor ${Math.round(tage)} T.`, d: sg * wR }); }
+          if (tage >= 0 && tage <= (P.H_REISE_TAGE ?? 5) && z >= 5) { dForm += sg * wR; form.push({ label: `${nm}: Reise ${Math.round(z)} Zeitzonen (${v.land} → ${match.ort.land}) vor ${Math.round(tage)} T.`, d: sg * wR }); }
         }
       }
       // Elo-Trend: Elo-Veränderung der letzten ~30 Tage im Vergleich (je 50 Punkte Unterschied H_TREND, höchstens 150)
