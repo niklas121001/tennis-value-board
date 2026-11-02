@@ -520,7 +520,8 @@ def main():
                 k = t.get("markt")
                 treffer = {"glattA": sb == 0, "glattB": sa == 0, "mind1A": sa >= 1, "mind1B": sb >= 1,
                            "dreiSaetze": len(ss) >= 3, "zweiSaetze": len(ss) == 2, "satz1A": ss[0][0] > ss[0][1], "satz1B": ss[0][1] > ss[0][0],
-                           "tb1Ja": tb[0], "tb1Nein": not tb[0], "tbJa": any(tb), "tbNein": not any(tb)}.get(k)
+                           "tb1Ja": tb[0], "tb1Nein": not tb[0], "tbJa": any(tb), "tbNein": not any(tb),
+                           "zweiEinsA": sa == 2 and sb == 1, "zweiEinsB": sb == 2 and sa == 1}.get(k)
                 if treffer is None:
                     continue
                 t["ergebnis"] = "W" if treffer else "L"

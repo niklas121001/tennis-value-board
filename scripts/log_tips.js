@@ -131,7 +131,7 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
 //  comeback  – Spieler gewinnt auffällig oft nach verlorenem 1. Satz (Archiv, mind. 2 von 3, >= 50 %): Tipp auf Sieg
 // Außerdem in tips_log.json: valueWeg (Value-Tipp ist vor Spielbeginn mit der aktuellen Quote kein Value mehr)
 {
-  const slog = rd("signale_log.json", {}), qv = rd("quoten_verlauf.json", {});
+  const slog = rd("signale_log.json", {}), qv = rd("quoten_verlauf.json", {}), manMarkt = rd("manuelle_markt.json", {});
   // Archiv der letzten 12 Monate für die Comeback-Auswertung
   const adir = path.join(dir, "archiv"), arch = [];
   if (fs.existsSync(adir)) for (const f of fs.readdirSync(adir).filter((f) => /^\d{4}-\d{2}\.json$/.test(f)).sort().slice(-12))
@@ -208,16 +208,20 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
           }
         }
         // Satz-/Tiebreak-Märkte: Buchmacher-Quote mind. MARKT_MIN_EDGE über der fairen Modell-Quote (nicht bei geschätzter Elo)
-        const mq = (m.maerkte || {})[bm];
-        if (rr.ok && rr.maerkte && mq && !(rr.eloGeschaetztA || rr.eloGeschaetztB)) {
+        // Feed-Quoten + von Hand im Partie-Detail eingetragene Quoten (manuelle_markt.json, nur vor Spielbeginn)
+        const hand = {}; for (const [k, x] of Object.entries(manMarkt[m.id] || {})) if (x && x.q > 1 && (x.bm || "winamax") === bm && String(x.zeit) < String(m.start)) hand[k] = x;
+        const mq = Object.assign({}, Object.fromEntries(Object.entries(hand).map(([k, x]) => [k, x.q])), (m.maerkte || {})[bm] || {});
+        if (rr.ok && rr.maerkte && Object.keys(mq).length && !(rr.eloGeschaetztA || rr.eloGeschaetztB)) {
           const mk = rr.maerkte, bo5 = rr.modus === 5;
           const pM = { tb1Ja: mk.tb1, tb1Nein: 1 - mk.tb1, tbJa: mk.tbMatch, tbNein: 1 - mk.tbMatch, satz1A: mk.satz1A, satz1B: 1 - mk.satz1A };
-          if (!bo5) Object.assign(pM, { glattA: mk.glattA, glattB: mk.glattB, mind1A: 1 - mk.glattB, mind1B: 1 - mk.glattA, dreiSaetze: mk.volleDistanz, zweiSaetze: 1 - mk.volleDistanz });
+          if (!bo5) Object.assign(pM, { glattA: mk.glattA, glattB: mk.glattB, mind1A: 1 - mk.glattB, mind1B: 1 - mk.glattA, dreiSaetze: mk.volleDistanz, zweiSaetze: 1 - mk.volleDistanz,
+            zweiEinsA: rr.saetze && rr.saetze.scores ? rr.saetze.scores["2-1"] : null, zweiEinsB: rr.saetze && rr.saetze.scores ? rr.saetze.scores["1-2"] : null });
           for (const [k, p] of Object.entries(pM)) {
             const q = mq[k]; if (!(q > 1) || !(p > 0) || q > (P.params.MARKT_MAX_QUOTE || 6)) continue;
             const edge = q * p - 1; if (edge < (P.params.MARKT_MIN_EDGE ?? 0.05)) continue;
+            const h = hand[k] && !((m.maerkte || {})[bm] || {})[k] ? hand[k] : null;
             neuSignal(`markt|${m.id}|${bm}|${k}`, Object.assign({ typ: "markt", markt: k, wette: /A$/.test(k) ? "A" : /B$/.test(k) ? "B" : null,
-              erstQuote: q, letzteQuote: q, pModell: r3(p), edge: r3(edge) }, basis));
+              erstQuote: q, letzteQuote: q, pModell: r3(p), edge: r3(edge) }, h ? { manuell: true, erstGesehen: h.zeit } : {}, basis));
           }
         }
         if (rr.ok && rr.pMarkt != null && rr.pFinal != null) for (const seite of ["A", "B"]) {
