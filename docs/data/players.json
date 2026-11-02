@@ -9127,7 +9127,7 @@
   }
  },
  "Yuta Shimizu": {
-  "elo": 1414.0,
+  "elo": 1413.9,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -9153,7 +9153,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": 4.9
+   "delta": 4.8
   }
  },
  "Alex Martinez": {
@@ -13861,7 +13861,7 @@
   }
  },
  "Santiago De La Fuente": {
-  "elo": 1146.4,
+  "elo": 1138.7,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -13876,8 +13876,13 @@
   "ret_grass": null,
   "tb": 0.5,
   "elo_hard": 1143.1,
-  "elo_clay": 1063.0,
-  "elo_grass": 1233.1
+  "elo_clay": 1056.9,
+  "elo_grass": 1233.1,
+  "elo_eigen": {
+   "seit": "2026-10-26",
+   "spiele": 1,
+   "delta": -7.7
+  }
  },
  "Jan Kumstat": {
   "elo": 1689.5,
@@ -15766,13 +15771,13 @@
   }
  },
  "Evan Zhu": {
-  "elo": 1136.6,
+  "elo": 1131.8,
   "neu": true,
   "elo_hard": 1125.9,
   "elo_clay": 1195.4,
   "elo_grass": 1188.1,
   "ta": {
-   "elo": 1141.5,
+   "elo": 1136.6,
    "elo_hard": 1131.9,
    "elo_clay": 1195.4,
    "elo_grass": 1188.1
@@ -15780,7 +15785,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": -4.9
+   "delta": -4.8
   }
  },
  "Thiago Cigarran": {
@@ -16028,21 +16033,21 @@
  "Franco Ribero": {
   "geschaetzt": true,
   "n_markt": 1,
-  "n_erg": 1,
+  "n_erg": 2,
   "quelle": "markt",
   "anker": "direkt",
   "erstellt": "2026-10-20",
   "markt_ids": [
    "id1200386175804594"
   ],
-  "elo": 1279.5,
-  "elo_hard": 1040.2,
-  "elo_clay": 1040.2,
-  "elo_grass": 1040.2,
+  "elo": 1029.1,
+  "elo_hard": 1029.1,
+  "elo_clay": 1029.1,
+  "elo_grass": 1029.1,
   "markt_werte": [
    1051.2
   ],
-  "erg_delta": -11.0,
+  "erg_delta": -22.1,
   "elo_markt": 1051.2
  },
  "Sander Jong": {
@@ -16618,6 +16623,82 @@
   "elo_grass": 1302.5
  },
  "Lucas Andrade Da Silva": {
+  "geschaetzt": true,
+  "n_markt": 1,
+  "n_erg": 0,
+  "quelle": "ohne_quote",
+  "anker": "direkt",
+  "erstellt": "2026-11-02",
+  "elo_start": 1302.5,
+  "elo": 1401.9,
+  "elo_hard": 1401.9,
+  "elo_clay": 1401.9,
+  "elo_grass": 1401.9,
+  "markt_ids": [
+   "id1204837576263842"
+  ],
+  "markt_werte": [
+   1401.9
+  ],
+  "elo_markt": 1401.9
+ },
+ "Lorenzo Gagliardo": {
+  "geschaetzt": true,
+  "n_markt": 0,
+  "n_erg": 0,
+  "quelle": "ohne_quote",
+  "anker": "keine",
+  "erstellt": "2026-11-02",
+  "elo_start": 1302.5,
+  "elo": 1302.5,
+  "elo_hard": 1302.5,
+  "elo_clay": 1302.5,
+  "elo_grass": 1302.5
+ },
+ "Federico Aguilar Cardozo": {
+  "geschaetzt": true,
+  "n_markt": 0,
+  "n_erg": 0,
+  "quelle": "ohne_quote",
+  "anker": "keine",
+  "erstellt": "2026-11-02",
+  "elo_start": 1302.5,
+  "elo": 1302.5,
+  "elo_hard": 1302.5,
+  "elo_clay": 1302.5,
+  "elo_grass": 1302.5
+ },
+ "Ryo Tabata": {
+  "geschaetzt": true,
+  "n_markt": 0,
+  "n_erg": 1,
+  "quelle": "ohne_quote",
+  "anker": "keine",
+  "erstellt": "2026-11-02",
+  "elo_start": 1302.5,
+  "elo": 1314.0,
+  "elo_hard": 1314.0,
+  "elo_clay": 1314.0,
+  "elo_grass": 1314.0,
+  "elo_markt": 1302.5,
+  "erg_delta": 11.5
+ },
+ "Nicolas Bruna": {
+  "geschaetzt": true,
+  "n_markt": 0,
+  "n_erg": 1,
+  "quelle": "ohne_quote",
+  "anker": "keine",
+  "erstellt": "2026-11-02",
+  "elo_start": 1302.5,
+  "elo": 1313.6,
+  "elo_hard": 1313.6,
+  "elo_clay": 1313.6,
+  "elo_grass": 1313.6,
+  "elo_markt": 1302.5,
+  "erg_delta": 11.1
+ },
+ "Ivan Dreycopp": {
   "geschaetzt": true,
   "n_markt": 0,
   "n_erg": 0,
