@@ -1,301 +1,820 @@
 {
- "quelle": "Tennis Abstract – ATP Surface Speed Ratings 2025 (1,00 = Tour-Schnitt, Asse bereinigt um Aufschläger/Returner)",
- "url": "https://www.tennisabstract.com/cgi-bin/surface-speed.cgi?year=2025",
- "jahr": 2025,
+ "quelle": "Tennis Abstract – ATP Surface Speed Ratings 2024–2026, gewichtetes Mittel (neuere Jahre stärker), 1,00 = Tour-Schnitt, Asse bereinigt um Aufschläger/Returner – nur privat",
+ "url": "https://www.tennisabstract.com/cgi-bin/surface-speed.cgi",
+ "jahre": [
+  2024,
+  2025,
+  2026
+ ],
+ "stand": "2026-11-02",
  "turniere": [
+  {
+   "name": "Monte Carlo Masters",
+   "belag": "atp monte carlo masters",
+   "jahre": {
+    "2026": 0.57
+   },
+   "speed": 0.57,
+   "alias": [
+    "Monte Carlo",
+    "Monte-Carlo"
+   ]
+  },
+  {
+   "name": "Gstaad",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.79,
+    "2025": 1.06,
+    "2026": 0.9
+   },
+   "speed": 0.94,
+   "alias": []
+  },
+  {
+   "name": "Rio De Janeiro",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.67,
+    "2025": 0.91,
+    "2026": 0.97
+   },
+   "speed": 0.9,
+   "alias": []
+  },
+  {
+   "name": "Marrakech",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.9,
+    "2025": 0.78,
+    "2026": 0.93
+   },
+   "speed": 0.88,
+   "alias": []
+  },
+  {
+   "name": "Santiago",
+   "belag": "clay",
+   "jahre": {
+    "2024": 1.19,
+    "2025": 0.71,
+    "2026": 0.81
+   },
+   "speed": 0.84,
+   "alias": []
+  },
+  {
+   "name": "Lyon",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.82
+   },
+   "speed": 0.82,
+   "alias": []
+  },
+  {
+   "name": "Madrid Masters",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.71,
+    "2025": 0.78,
+    "2026": 0.86
+   },
+   "speed": 0.81,
+   "alias": [
+    "Madrid"
+   ]
+  },
+  {
+   "name": "Kitzbuhel",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.83,
+    "2025": 0.8,
+    "2026": 0.74
+   },
+   "speed": 0.77,
+   "alias": [
+    "Kitzbühel"
+   ]
+  },
+  {
+   "name": "Cordoba",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.73
+   },
+   "speed": 0.73,
+   "alias": []
+  },
+  {
+   "name": "Houston",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.8,
+    "2025": 0.76,
+    "2026": 0.67
+   },
+   "speed": 0.72,
+   "alias": []
+  },
+  {
+   "name": "Bastad",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.61,
+    "2025": 0.85,
+    "2026": 0.67
+   },
+   "speed": 0.72,
+   "alias": []
+  },
+  {
+   "name": "Umag",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.55,
+    "2025": 0.8,
+    "2026": 0.7
+   },
+   "speed": 0.71,
+   "alias": []
+  },
+  {
+   "name": "Geneva",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.69,
+    "2025": 0.71,
+    "2026": 0.65
+   },
+   "speed": 0.68,
+   "alias": [
+    "Genf"
+   ]
+  },
+  {
+   "name": "Roland Garros",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.67,
+    "2025": 0.68
+   },
+   "speed": 0.68,
+   "alias": [
+    "French Open",
+    "Roland"
+   ]
+  },
+  {
+   "name": "Buenos Aires",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.67,
+    "2025": 0.9,
+    "2026": 0.52
+   },
+   "speed": 0.67,
+   "alias": []
+  },
+  {
+   "name": "Munich",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.64,
+    "2025": 0.64,
+    "2026": 0.7
+   },
+   "speed": 0.67,
+   "alias": [
+    "Muenchen",
+    "München"
+   ]
+  },
+  {
+   "name": "Rome Masters",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.7,
+    "2025": 0.6,
+    "2026": 0.66
+   },
+   "speed": 0.65,
+   "alias": [
+    "Rom",
+    "Roma",
+    "Rome"
+   ]
+  },
+  {
+   "name": "Hamburg",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.89,
+    "2025": 0.57,
+    "2026": 0.51
+   },
+   "speed": 0.59,
+   "alias": []
+  },
+  {
+   "name": "Monte Carlo Masters",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.61,
+    "2025": 0.55
+   },
+   "speed": 0.57,
+   "alias": [
+    "Monte Carlo",
+    "Monte-Carlo"
+   ]
+  },
+  {
+   "name": "Barcelona",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.62,
+    "2025": 0.57,
+    "2026": 0.53
+   },
+   "speed": 0.56,
+   "alias": []
+  },
+  {
+   "name": "Estoril",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.58,
+    "2026": 0.54
+   },
+   "speed": 0.55,
+   "alias": []
+  },
+  {
+   "name": "Bucharest",
+   "belag": "clay",
+   "jahre": {
+    "2024": 0.54,
+    "2025": 0.43,
+    "2026": 0.55
+   },
+   "speed": 0.51,
+   "alias": [
+    "Bukarest"
+   ]
+  },
+  {
+   "name": "Stuttgart",
+   "belag": "grass",
+   "jahre": {
+    "2024": 1.27,
+    "2025": 1.38,
+    "2026": 1.3
+   },
+   "speed": 1.32,
+   "alias": []
+  },
+  {
+   "name": "Halle",
+   "belag": "grass",
+   "jahre": {
+    "2024": 1.35,
+    "2025": 1.24,
+    "2026": 1.19
+   },
+   "speed": 1.23,
+   "alias": []
+  },
+  {
+   "name": "Queen's Club",
+   "belag": "grass",
+   "jahre": {
+    "2024": 1.24,
+    "2025": 1.35,
+    "2026": 1.03
+   },
+   "speed": 1.17,
+   "alias": [
+    "London",
+    "Queens"
+   ]
+  },
+  {
+   "name": "Mallorca",
+   "belag": "grass",
+   "jahre": {
+    "2024": 1.26,
+    "2025": 1.07,
+    "2026": 1.18
+   },
+   "speed": 1.16,
+   "alias": []
+  },
+  {
+   "name": "Wimbledon",
+   "belag": "grass",
+   "jahre": {
+    "2024": 1.19,
+    "2025": 1.09,
+    "2026": 1.1
+   },
+   "speed": 1.11,
+   "alias": []
+  },
+  {
+   "name": "Eastbourne",
+   "belag": "grass",
+   "jahre": {
+    "2024": 1.26,
+    "2025": 0.75,
+    "2026": 1.16
+   },
+   "speed": 1.04,
+   "alias": []
+  },
+  {
+   "name": "s Hertogenbosch",
+   "belag": "grass",
+   "jahre": {
+    "2024": 0.92,
+    "2025": 0.99,
+    "2026": 0.95
+   },
+   "speed": 0.96,
+   "alias": []
+  },
+  {
+   "name": "Newport",
+   "belag": "grass",
+   "jahre": {
+    "2024": 0.91
+   },
+   "speed": 0.91,
+   "alias": []
+  },
   {
    "name": "Athens",
    "belag": "hard",
+   "jahre": {
+    "2025": 1.45
+   },
    "speed": 1.45,
    "alias": [
     "Athen"
    ]
   },
   {
-   "name": "Basel",
-   "belag": "hard",
-   "speed": 1.44,
-   "alias": []
-  },
-  {
    "name": "Tour Finals",
    "belag": "hard",
-   "speed": 1.4,
+   "jahre": {
+    "2024": 1.37,
+    "2025": 1.4
+   },
+   "speed": 1.39,
    "alias": [
-    "Turin",
-    "Nitto"
+    "Nitto",
+    "Turin"
    ]
   },
   {
-   "name": "Hangzhou",
+   "name": "Antwerp",
    "belag": "hard",
+   "jahre": {
+    "2024": 1.38
+   },
    "speed": 1.38,
-   "alias": []
-  },
-  {
-   "name": "Stuttgart",
-   "belag": "grass",
-   "speed": 1.38,
-   "alias": []
-  },
-  {
-   "name": "Queen's Club",
-   "belag": "grass",
-   "speed": 1.35,
-   "alias": [
-    "Queens",
-    "London"
-   ]
-  },
-  {
-   "name": "Brussels",
-   "belag": "hard",
-   "speed": 1.34,
-   "alias": [
-    "Brüssel"
-   ]
-  },
-  {
-   "name": "Metz",
-   "belag": "hard",
-   "speed": 1.34,
-   "alias": []
-  },
-  {
-   "name": "Hong Kong",
-   "belag": "hard",
-   "speed": 1.31,
-   "alias": []
-  },
-  {
-   "name": "Brisbane",
-   "belag": "hard",
-   "speed": 1.27,
-   "alias": []
-  },
-  {
-   "name": "Vienna",
-   "belag": "hard",
-   "speed": 1.25,
-   "alias": [
-    "Wien"
-   ]
-  },
-  {
-   "name": "Halle",
-   "belag": "grass",
-   "speed": 1.24,
-   "alias": []
-  },
-  {
-   "name": "Dallas",
-   "belag": "hard",
-   "speed": 1.2,
-   "alias": []
-  },
-  {
-   "name": "Cincinnati",
-   "belag": "hard",
-   "speed": 1.19,
-   "alias": []
-  },
-  {
-   "name": "Tokyo",
-   "belag": "hard",
-   "speed": 1.18,
    "alias": []
   },
   {
    "name": "Chengdu",
    "belag": "hard",
-   "speed": 1.18,
+   "jahre": {
+    "2024": 1.45,
+    "2025": 1.18,
+    "2026": 1.44
+   },
+   "speed": 1.36,
    "alias": []
   },
   {
-   "name": "Washington",
+   "name": "Basel",
    "belag": "hard",
-   "speed": 1.17,
+   "jahre": {
+    "2024": 1.48,
+    "2025": 1.44,
+    "2026": 1.2
+   },
+   "speed": 1.33,
    "alias": []
   },
   {
-   "name": "United Cup",
+   "name": "Hangzhou",
    "belag": "hard",
-   "speed": 1.17,
+   "jahre": {
+    "2024": 1.11,
+    "2025": 1.38,
+    "2026": 1.36
+   },
+   "speed": 1.32,
    "alias": []
   },
   {
-   "name": "Miami",
+   "name": "Dallas",
    "belag": "hard",
-   "speed": 1.17,
+   "jahre": {
+    "2024": 1.12,
+    "2025": 1.2,
+    "2026": 1.45
+   },
+   "speed": 1.31,
    "alias": []
   },
   {
-   "name": "Almaty",
+   "name": "Belgrade",
    "belag": "hard",
-   "speed": 1.16,
-   "alias": []
-  },
-  {
-   "name": "Winston-Salem",
-   "belag": "hard",
-   "speed": 1.1,
-   "alias": []
-  },
-  {
-   "name": "Adelaide",
-   "belag": "hard",
-   "speed": 1.1,
-   "alias": []
-  },
-  {
-   "name": "Delray Beach",
-   "belag": "hard",
-   "speed": 1.09,
+   "jahre": {
+    "2024": 1.28
+   },
+   "speed": 1.28,
    "alias": []
   },
   {
    "name": "Montpellier",
    "belag": "hard",
-   "speed": 1.09,
+   "jahre": {
+    "2024": 1.0,
+    "2025": 1.09,
+    "2026": 1.49
+   },
+   "speed": 1.28,
    "alias": []
   },
   {
-   "name": "Wimbledon",
-   "belag": "grass",
-   "speed": 1.09,
-   "alias": []
-  },
-  {
-   "name": "Shanghai",
+   "name": "Atlanta",
    "belag": "hard",
-   "speed": 1.08,
+   "jahre": {
+    "2024": 1.26
+   },
+   "speed": 1.26,
    "alias": []
   },
   {
-   "name": "Mallorca",
-   "belag": "grass",
-   "speed": 1.07,
-   "alias": []
-  },
-  {
-   "name": "Doha",
+   "name": "Metz",
    "belag": "hard",
-   "speed": 1.07,
+   "jahre": {
+    "2024": 1.03,
+    "2025": 1.34
+   },
+   "speed": 1.24,
    "alias": []
   },
   {
-   "name": "Australian Open",
+   "name": "Brisbane",
    "belag": "hard",
-   "speed": 1.07,
+   "jahre": {
+    "2024": 1.3,
+    "2025": 1.27,
+    "2026": 1.17
+   },
+   "speed": 1.22,
+   "alias": []
+  },
+  {
+   "name": "Brussels",
+   "belag": "hard",
+   "jahre": {
+    "2025": 1.34,
+    "2026": 1.14
+   },
+   "speed": 1.22,
    "alias": [
-    "Melbourne"
+    "Brüssel"
    ]
   },
   {
-   "name": "Beijing",
+   "name": "Lyon",
    "belag": "hard",
-   "speed": 1.05,
-   "alias": [
-    "Peking"
-   ]
-  },
-  {
-   "name": "Marseille",
-   "belag": "hard",
-   "speed": 1.05,
+   "jahre": {
+    "2026": 1.21
+   },
+   "speed": 1.21,
    "alias": []
   },
   {
-   "name": "Canada",
+   "name": "Shanghai Masters",
    "belag": "hard",
-   "speed": 1.02,
-   "alias": [
-    "Toronto",
-    "Montreal",
-    "Montréal"
-   ]
+   "jahre": {
+    "2024": 1.16,
+    "2025": 1.08,
+    "2026": 1.3
+   },
+   "speed": 1.2,
+   "alias": []
   },
   {
-   "name": "Los Cabos",
+   "name": "Delray Beach",
    "belag": "hard",
-   "speed": 1.01,
+   "jahre": {
+    "2024": 0.97,
+    "2025": 1.09,
+    "2026": 1.31
+   },
+   "speed": 1.18,
    "alias": []
   },
   {
    "name": "Dubai",
    "belag": "hard",
-   "speed": 1.0,
+   "jahre": {
+    "2024": 1.13,
+    "2025": 1.0,
+    "2026": 1.29
+   },
+   "speed": 1.17,
    "alias": []
   },
   {
-   "name": "Paris",
+   "name": "Miami Masters",
    "belag": "hard",
-   "speed": 0.99,
+   "jahre": {
+    "2024": 1.11,
+    "2025": 1.17,
+    "2026": 1.19
+   },
+   "speed": 1.17,
+   "alias": []
+  },
+  {
+   "name": "Washington",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.21,
+    "2025": 1.17,
+    "2026": 1.13
+   },
+   "speed": 1.16,
+   "alias": []
+  },
+  {
+   "name": "Vienna",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.15,
+    "2025": 1.25,
+    "2026": 1.1
+   },
+   "speed": 1.16,
    "alias": [
-    "Paris Masters",
-    "Bercy"
+    "Wien"
    ]
   },
   {
-   "name": "Hertogenbosch",
-   "belag": "grass",
-   "speed": 0.99,
+   "name": "Hong Kong",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.08,
+    "2025": 1.31,
+    "2026": 1.06
+   },
+   "speed": 1.15,
+   "alias": []
+  },
+  {
+   "name": "Cincinnati Masters",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.1,
+    "2025": 1.19,
+    "2026": 1.13
+   },
+   "speed": 1.14,
+   "alias": []
+  },
+  {
+   "name": "Marseille",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.29,
+    "2025": 1.05
+   },
+   "speed": 1.13,
+   "alias": []
+  },
+  {
+   "name": "Almaty",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.06,
+    "2025": 1.16,
+    "2026": 1.12
+   },
+   "speed": 1.12,
+   "alias": []
+  },
+  {
+   "name": "Australian Open",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.14,
+    "2025": 1.07,
+    "2026": 1.12
+   },
+   "speed": 1.11,
    "alias": [
-    "'s-Hertogenbosch",
-    "s Hertogenbosch"
+    "Melbourne"
+   ]
+  },
+  {
+   "name": "United Cup",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.02,
+    "2025": 1.17,
+    "2026": 1.07
+   },
+   "speed": 1.09,
+   "alias": []
+  },
+  {
+   "name": "Paris Masters",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.24,
+    "2025": 0.99
+   },
+   "speed": 1.07,
+   "alias": []
+  },
+  {
+   "name": "Adelaide",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.09,
+    "2025": 1.1,
+    "2026": 1.05
+   },
+   "speed": 1.07,
+   "alias": []
+  },
+  {
+   "name": "Winston-Salem",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.02,
+    "2025": 1.1,
+    "2026": 1.05
+   },
+   "speed": 1.06,
+   "alias": []
+  },
+  {
+   "name": "Tokyo",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.17,
+    "2025": 1.18,
+    "2026": 0.93
+   },
+   "speed": 1.05,
+   "alias": []
+  },
+  {
+   "name": "Auckland",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.05,
+    "2025": 0.93,
+    "2026": 1.1
+   },
+   "speed": 1.04,
+   "alias": []
+  },
+  {
+   "name": "Beijing",
+   "belag": "hard",
+   "jahre": {
+    "2024": 0.89,
+    "2025": 1.05,
+    "2026": 1.08
+   },
+   "speed": 1.04,
+   "alias": [
+    "Peking"
+   ]
+  },
+  {
+   "name": "Next Gen Finals",
+   "belag": "hard",
+   "jahre": {
+    "2024": 1.39,
+    "2025": 0.81
+   },
+   "speed": 1.0,
+   "alias": [
+    "Dschidda",
+    "Jeddah"
    ]
   },
   {
    "name": "US Open",
    "belag": "hard",
-   "speed": 0.96,
+   "jahre": {
+    "2024": 1.04,
+    "2025": 0.96,
+    "2026": 0.95
+   },
+   "speed": 0.97,
    "alias": [
     "New York"
    ]
   },
   {
-   "name": "Auckland",
+   "name": "Acapulco",
    "belag": "hard",
-   "speed": 0.93,
+   "jahre": {
+    "2024": 0.88,
+    "2025": 0.81,
+    "2026": 1.1
+   },
+   "speed": 0.97,
    "alias": []
   },
   {
    "name": "Stockholm",
    "belag": "hard",
-   "speed": 0.9,
+   "jahre": {
+    "2024": 1.08,
+    "2025": 0.9
+   },
+   "speed": 0.96,
    "alias": []
   },
   {
-   "name": "Next Gen Finals",
+   "name": "Indian Wells Masters",
    "belag": "hard",
-   "speed": 0.81,
-   "alias": [
-    "Jeddah",
-    "Dschidda"
-   ]
+   "jahre": {
+    "2024": 0.84,
+    "2025": 0.73,
+    "2026": 1.16
+   },
+   "speed": 0.96,
+   "alias": []
   },
   {
-   "name": "Acapulco",
+   "name": "Doha",
    "belag": "hard",
-   "speed": 0.81,
+   "jahre": {
+    "2024": 0.77,
+    "2025": 1.07,
+    "2026": 0.89
+   },
+   "speed": 0.93,
    "alias": []
   },
   {
    "name": "Rotterdam",
    "belag": "hard",
-   "speed": 0.77,
+   "jahre": {
+    "2024": 1.25,
+    "2025": 0.77,
+    "2026": 0.89
+   },
+   "speed": 0.91,
    "alias": []
   },
   {
-   "name": "Eastbourne",
-   "belag": "grass",
-   "speed": 0.75,
-   "alias": []
-  },
-  {
-   "name": "Indian Wells",
+   "name": "Canada Masters",
    "belag": "hard",
-   "speed": 0.73,
+   "jahre": {
+    "2024": 0.83,
+    "2025": 1.02,
+    "2026": 0.86
+   },
+   "speed": 0.91,
+   "alias": []
+  },
+  {
+   "name": "Los Cabos",
+   "belag": "hard",
+   "jahre": {
+    "2024": 0.74,
+    "2025": 1.01,
+    "2026": 0.53
+   },
+   "speed": 0.72,
+   "alias": []
+  },
+  {
+   "name": "Laver Cup",
+   "belag": "hard",
+   "jahre": {
+    "2024": 0.77,
+    "2025": 0.55,
+    "2026": 0.44
+   },
+   "speed": 0.53,
    "alias": []
   }
  ]
