@@ -1822,6 +1822,7 @@ function maerkteHtml(p, r){
   const pinFair = (k) => { const a = pin[k], b = pin[paare[k]]; return a > 1 && b > 1 ? (1/a + 1/b) * a : null; };
   const zeilen = [
     ...(bo5 ? [] : [["2:0 " + nA, "glattA", mk.glattA], ["2:0 " + nB, "glattB", mk.glattB], [nA + " mind. 1 Satz", "mind1A", 1 - mk.glattB], [nB + " mind. 1 Satz", "mind1B", 1 - mk.glattA],
+      ["2:1 " + nA, "zweiEinsA", (r.saetze||{}).scores ? r.saetze.scores["2-1"] : null], ["2:1 " + nB, "zweiEinsB", (r.saetze||{}).scores ? r.saetze.scores["1-2"] : null],
       ["3 Sätze", "dreiSaetze", mk.volleDistanz], ["2 Sätze", "zweiSaetze", 1 - mk.volleDistanz]]),
     ["1. Satz " + nA, "satz1A", mk.satz1A], ["1. Satz " + nB, "satz1B", 1 - mk.satz1A],
     ["TB im 1. Satz: ja", "tb1Ja", mk.tb1], ["TB im 1. Satz: nein", "tb1Nein", 1 - mk.tb1],
@@ -2283,7 +2284,7 @@ function wetteBox(p, r){
   const vorhanden = Object.values(wLoad().items).filter(w => w.fixtureId === p.id);
   const id = esc(p.id);
   return `<div class="box wbox"><h3>Als Wette speichern</h3>
-    <form class="mform w-form" data-id="${id}" data-quoten="${esc(JSON.stringify(r.manuellQ ? Object.assign({}, p.quoten, {[r.manuellQ.bm]: [r.qa, r.qb]}) : (p.quoten||{})))}" autocomplete="off">
+    <form class="mform w-form" data-id="${id}" data-quoten="${esc(JSON.stringify(r.manuellQ ? Object.assign({}, p.quoten, {[r.manuellQ.bm]: [r.qa, r.qb]}) : (p.quoten||{})))}" data-maerkte="${esc(JSON.stringify(p.maerkte||{}))}" autocomplete="off">
       <div class="ctl"><label for="ws-s-${id}">Auf</label><select id="ws-s-${id}" name="seite">
         <option value="A"${seite==="A"?" selected":""}>${esc(p.a)}</option><option value="B"${seite==="B"?" selected":""}>${esc(p.b)}</option></select></div>
       <div class="ctl"><label for="ws-b-${id}">Buchmacher</label><select id="ws-b-${id}" name="bm">
@@ -2522,9 +2523,18 @@ function setupWetten(){
   // Spieler oder Buchmacher gewechselt -> passende Quote eintragen (nur beim Markt "Sieg")
   $("#list").addEventListener("change", (e) => {
     const f = e.target.closest(".w-form"); if(!f || !["seite","bm","markt"].includes(e.target.name)) return;
-    if(f.markt.value !== "sieg") return;
+    const seite = f.seite.value === "A" ? "A" : "B";
+    if(f.markt.value !== "sieg"){
+      // Satzmärkte: Quote aus dem Datenfeed (Satz-Handicap) oder aus deiner Eingabe im Kasten „Satz- & Tiebreak-Märkte“
+      const key = f.markt.value === "satz1" ? "mind1" + seite : f.markt.value === "2:0" ? "glatt" + seite : f.markt.value === "2:1" ? "zweiEins" + seite : null;
+      let mk = {}; try{ mk = JSON.parse(f.dataset.maerkte || "{}"); }catch(_){}
+      const q = key ? (((mk[f.bm.value] || {})[key]) || (store.get("mq." + f.dataset.id, {}) || {})[key]) : null;
+      f.quote.value = q ? fx(q) : "";
+      if(!q) f.quote.placeholder = "Quote eintragen";
+      return;
+    }
     let qs = {}; try{ qs = JSON.parse(f.dataset.quoten || "{}"); }catch(_){}
-    const q = qs[f.bm.value]; if(q) f.quote.value = fx(q[f.seite.value==="A" ? 0 : 1]);
+    const q = qs[f.bm.value]; if(q) f.quote.value = fx(q[seite==="A" ? 0 : 1]);
   });
   $("#list").addEventListener("click", (e) => {
     const qf = e.target.closest(".qform");
