@@ -176,6 +176,8 @@ tr.detail > td{background:var(--bg);white-space:normal;text-align:left;padding:1
 .eu{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:2px 0;font-size:13px}.eu>span:first-child{color:var(--muted)}.eu .v{font-family:var(--f-mono);font-size:12.5px}
 .box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
 .box h3{font:600 .95rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:var(--accent)}
+.detail .box>h3:first-child{cursor:pointer;user-select:none}.detail .box>h3:first-child::before{content:"▾ ";color:var(--muted);font-size:.8em}
+.detail .box.zu{align-self:start}.detail .box.zu>h3:first-child::before{content:"▸ "}.detail .box.zu>h3:first-child{margin:0}.detail .box.zu>:not(h3:first-child){display:none!important}
 .kv{display:grid;grid-template-columns:1fr auto auto;gap:2px 12px;font-size:13px}
 .kv.two{grid-template-columns:1fr auto}
 .h2ht{width:100%;font-size:12.5px;border-collapse:collapse;background:none}.h2ht tr,.h2ht td{background:none!important}.h2ht td{padding:4px 8px 4px 0;border-bottom:1px solid var(--line);vertical-align:top}.h2ht{table-layout:fixed}.h2ht td:first-child{width:62px}.h2ht td:last-child{width:42%}.h2ht .erg{word-spacing:2px}.h2ht td:last-child{text-align:right;padding-right:0}.h2ht td:first-child{white-space:nowrap}.h2hmehr summary{cursor:pointer;margin-top:6px}
@@ -2905,7 +2907,20 @@ function syncPush(){
   clearTimeout(syncTimer); syncTimer = setTimeout(() => syncPull(false), 1200);
 }
 
+// Detailansicht: große Blöcke per Klick auf die Überschrift ein-/ausklappen; Zustand je Blocktitel gemerkt (gilt für alle Partien)
+const KLAPP = new Set(store.get("klapp", []));
+const klappKey = (h) => [...h.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join("").trim() || h.textContent.trim();
+function klappAnwenden(root){ for(const h of (root || document).querySelectorAll(".detail .box>h3:first-child")) h.parentElement.classList.toggle("zu", KLAPP.has(klappKey(h))); }
+document.addEventListener("click", (e) => {
+  const h = e.target.closest(".detail .box>h3:first-child"); if(!h || e.target.closest("button,a,input,select,label")) return;
+  const k = klappKey(h); KLAPP.has(k) ? KLAPP.delete(k) : KLAPP.add(k); store.set("klapp", [...KLAPP]);
+  h.parentElement.classList.toggle("zu", KLAPP.has(k));
+});
+new MutationObserver((ms) => { for(const m of ms) for(const n of m.addedNodes) if(n.nodeType === 1 && (n.matches(".detail,.box") || n.querySelector(".box>h3"))) { klappAnwenden(n.closest ? (n.closest(".detail") || n) : n); } })
+  .observe(document.body, {childList: true, subtree: true});
+
 init();
 })();
 if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+
 </script>
