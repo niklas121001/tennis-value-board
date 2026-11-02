@@ -1844,7 +1844,7 @@ function h2hBoxHtml(p){
 
 // Satz- und Tiebreak-Märkte im Partie-Detail: Modell vs. Buchmacher (Winamax, kostenlos mit abgerufen) und Pinnacle (fair)
 function maerkteHtml(p, r){
-  const mk = r.maerkte; if(!mk || p.calc) return "";
+  const mk = r.maerkte; if(!mk || p.calc || /challenger/i.test((p.turnier||"")+" "+(p.kategorie||""))) return "";   // Challenger: keine Satzmärkte
   const bm = r.bm || "winamax", mq = ((p.maerkte || {})[bm]) || {}, pin = ((p.maerkte || {}).pinnacle) || {};
   const nA = p.a.split(" ").slice(-1)[0], nB = p.b.split(" ").slice(-1)[0], bo5 = r.modus === 5, minE = D.params.MARKT_MIN_EDGE ?? 0.05;
   const paare = {glattA: "mind1B", mind1B: "glattA", mind1A: "glattB", glattB: "mind1A", dreiSaetze: "zweiSaetze", zweiSaetze: "dreiSaetze", satz1A: "satz1B", satz1B: "satz1A", tb1Ja: "tb1Nein", tb1Nein: "tb1Ja", tbJa: "tbNein", tbNein: "tbJa"};
@@ -1896,9 +1896,9 @@ function detailHtml(p, r){
       <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}
       ${p.calc||!ARCHIV?"":`<span class="k" style="grid-column:1/-1;margin-top:6px;font-weight:600" title="Partien im Ergebnis-Archiv (seit Mitte Oktober). Absagen zählen nicht.">Getrackt (Archiv)</span>`+saetzeZeilen(saetzeBilanz(p.a), saetzeBilanz(p.b), (a,b) => ab(a,b,x => x==null?"–":String(x)), r.modus===5)}</div>${p.calc||!ARCHIV?"":comebackHinweis([p.a, p.b])}</div>
-    <div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
+    ${/challenger/i.test((p.turnier||"")+" "+(p.kategorie||"")) ? "" : `<div class="box"><h3>Satzprognose Bo${r.modus}</h3><div class="kv">
       <span></span><span class="h">P</span><span class="h">Faire Q.</span>${scores}</div>${r.satzK ? (() => { const k = r.satzK, u = (r.saetzeUnabh||{}).scores || {}, g = r.modus===5 ? "3-0" : "2-0", g2 = r.modus===5 ? "0-3" : "0-2";
-        return `<p class="time" style="margin:6px 0 0" title="Sätze sind nicht unabhängig: glatte Siege kommen häufiger vor, als das reine Markov-Modell sagt (eigene Daten seit Okt. 2026 bzw. ATP 2015–2026). Die Siegchance bleibt gleich.">Glatt-Korrektur ×${fx(k.k,2)} (${r.modus===5?"Best of 5":/challenger/i.test(p.turnier||"")?"Challenger":"ATP"} ×${fx(k.basis,2)}${k.turnier?` · ${esc(k.turnier)} ×${fx(k.faktor,2)}`:""}). Ohne Korrektur: ${g} ${pc(u[g])}, ${g2} ${pc(u[g2])}.</p>`; })() : ""}</div>
+        return `<p class="time" style="margin:6px 0 0" title="Sätze sind nicht unabhängig: glatte Siege kommen häufiger vor, als das reine Markov-Modell sagt (eigene Daten seit Okt. 2026 bzw. ATP 2015–2026). Die Siegchance bleibt gleich.">Glatt-Korrektur ×${fx(k.k,2)} (${r.modus===5?"Best of 5":/challenger/i.test(p.turnier||"")?"Challenger":"ATP"} ×${fx(k.basis,2)}${k.turnier?` · ${esc(k.turnier)} ×${fx(k.faktor,2)}`:""}). Ohne Korrektur: ${g} ${pc(u[g])}, ${g2} ${pc(u[g2])}.</p>`; })() : ""}</div>`}
     ${maerkteHtml(p, r)}
     <div class="box"><h3>Spieler-Check</h3>${spielerCheckHtml(p, r)}</div>
     ${h2hBoxHtml(p)}
@@ -2336,9 +2336,8 @@ function wetteBox(p, r){
 const SAETZE_MARKT = {"o2.5":"Über 2,5 Sätze","u2.5":"Unter 2,5 Sätze","o3.5":"Über 3,5 Sätze","u3.5":"Unter 3,5 Sätze","o4.5":"Über 4,5 Sätze","u4.5":"Unter 4,5 Sätze"};
 const MARKT_OPT = `<option value="sieg">Sieg</option><option value="satz1">gewinnt mind. 1 Satz</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("")
   + Object.entries(SAETZE_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("");
-// Challenger (Best of 3): kein genaues Ergebnis bei Winamax – Sieg, mind. 1 Satz und Über/Unter 2,5 Sätze
-const MARKT_OPT_CH = `<option value="sieg">Sieg</option><option value="satz1">gewinnt mind. 1 Satz</option>`
-  + Object.entries(SAETZE_MARKT).filter(([k]) => /2[.,]5/.test(k)).map(([k,t]) => `<option value="${k}">${t}</option>`).join("");
+// Challenger: bei Winamax nur Siegwetten – im Formular nur „Sieg“
+const MARKT_OPT_CH = `<option value="sieg">Sieg</option>`;
 const nameNorm = (s) => String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z ]/g," ").split(/\s+/).filter(Boolean);
 function nameGleich(x, y){       // "Sinner", "J. Sinner", "Jannik Sinner" passen zusammen
   const a = nameNorm(x), b = nameNorm(y); if(!a.length || !b.length) return false;
