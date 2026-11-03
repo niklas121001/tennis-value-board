@@ -404,7 +404,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
         <button type="button" class="btn ghost mini" id="mf-plus" hidden>+ weitere Auswahl</button>
         <div class="mform">
           <div class="ctl"><label for="mf-quote">Gesamtquote</label><input id="mf-quote" inputmode="decimal" required placeholder="1,85"></div>
-          <div class="ctl" id="mf-bonus-ctl" hidden><label for="mf-bonus" title="Winamax-Kombi-Bonus: Prozent auf den Reingewinn">Kombi-Bonus %</label><input id="mf-bonus" inputmode="decimal" placeholder="z. B. 12"></div>
+          <div class="ctl" id="mf-bonus-ctl" hidden><label for="mf-bonus" title="Winamax-Kombi-Bonus: Prozent auf den Reingewinn">Kombi-Bonus %</label><input id="mf-bonus" inputmode="decimal" placeholder="z. B. 12,5"></div>
           <div class="ctl"><label for="mf-leiter">Leiter</label><select id="mf-leiter"></select></div>
           <div class="ctl" style="flex:2 1 220px"><label for="mf-notiz">Notiz (optional)</label><input id="mf-notiz" maxlength="300" placeholder="z. B. Bauchgefühl, Livewette"></div>
           <div class="ctl"><label for="mf-einsatz">Einsatz €</label><input id="mf-einsatz" inputmode="decimal" required placeholder="z. B. 10 = 1 U"></div>
@@ -2605,6 +2605,9 @@ function wetteAuswertung(w){      // {e, quote} – Kombi: eine falsche Auswahl 
     quote = w.beine.reduce((q, b, i) => q * (es[i] === "V" ? 1 : b.quote), 1);
   return {e, quote, beine: r};
 }
+// Kombi-Bonus in 0,5er-Schritten (Winamax: z. B. 12,5 %)
+const bonusRund = (v) => v > 0 ? Math.round(v * 2) / 2 : 0;
+const bonusTxt = (v) => fx(v, v % 1 ? 1 : 0);
 const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : b.markt==="satz1" ? "mind. 1 Satz" : SAETZE_MARKT[b.markt] || TB_MARKT[b.markt] || "Ergebnis " + b.markt;
 
 function ergebnisVon(w){
@@ -2835,7 +2838,7 @@ function setupWetten(){
       a: beine[0].spieler, b: beine[0].gegner, seite: beine[0].seite || "A",
       spieler: kombi ? `Kombi (${beine.length})` : beine[0].spieler, gegner: kombi ? "" : beine[0].gegner,
       buchmacher: $("#mf-bm").value.trim(), quote, einsatz, typ: kombi ? "kombi" : "einzel", beine, manuell: false, ergebnis: null,
-      bonus: kombi ? Math.max(0, num2($("#mf-bonus").value) || 0) : 0, notiz: $("#mf-notiz").value.trim()});
+      bonus: kombi ? bonusRund(num2($("#mf-bonus").value)) : 0, notiz: $("#mf-notiz").value.trim()});
     $("#mf-beine").innerHTML = ""; beinZeile({}); ["mf-quote","mf-einsatz","mf-turnier","mf-bonus","mf-notiz"].forEach(id => $("#"+id).value = "");
     $("#mf-art").value = "einzel"; artWechsel();
     try{ localStorage.removeItem("tvb.kombi.entwurf"); }catch(_){}
@@ -2855,7 +2858,7 @@ function setupWetten(){
     if(del && confirm("Leiter löschen? Die Wetten bleiben unter „Meine Wetten“ erhalten.")) leiterLoeschen(del.dataset.id); });
   $("#m-liste").addEventListener("change", (e) => {
     const bo = e.target.closest("input.bonus-wert");
-    if(bo){ const v = num2(bo.value); wetteAendern(bo.dataset.id, {bonus: v && v > 0 ? v : 0}); return; }
+    if(bo){ const v = bonusRund(num2(bo.value)); bo.value = v ? bonusTxt(v) : ""; wetteAendern(bo.dataset.id, {bonus: v}); return; }
     const co = e.target.closest("input.co-wert");
     if(co){ const v = num2(co.value); if(v != null && v >= 0) wetteAendern(co.dataset.id, {cashout: v}); return; }
     const sel = e.target.closest("select.erg"); if(!sel) return;
@@ -2995,7 +2998,7 @@ function renderWetten(){
       return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
         <td class="l">${wetteTxt}${w.leiter && wLoad().leitern[w.leiter] ? ` <span class="pill ltag" title="gehört zur Leiter">🪜 ${esc(wLoad().leitern[w.leiter].name)}</span>` : ""}${w.notiz?`<div class="notiz">📝 ${esc(w.notiz)}</div>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}${w.live?` <span class="pill" title="Live-Wette aus dem Live-Rechner">Live · ${esc(w.liveStand||"")}</span>`:""}</td>
         <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
-        <td class="num">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${fx(w.bonus,0)} % Bonus</div>`:""}</td><td class="num">${betragU(w.einsatz)}</td>
+        <td class="num">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${bonusTxt(w.bonus)} % Bonus</div>`:""}</td><td class="num">${betragU(w.einsatz)}</td>
         <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}${opt("C","Cashout")}</select>${e==="C"?`<div class="co"><label>Auszahlung € <input class="co-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.cashout!=null?fx(w.cashout):""}" placeholder="z. B. 14,50"></label></div>`:""}</td>
         <td class="num ${gw>0?"pos":gw<0?"negv":""}">${gw==null?"–":betragU(gw, true)}</td>
         <td class="aktionen"><button type="button" class="btn ghost mini w-notiz" data-id="${esc(w.id)}" title="Notiz ${w.notiz?"bearbeiten":"hinzufügen"}">📝</button> <button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${
@@ -3013,7 +3016,7 @@ function kombiDetail(w){
       <td class="time">${esc(x.text)}</td><td>${pill(x.e)}</td>
       <td><select class="bein-erg" data-id="${esc(w.id)}" data-i="${i}" aria-label="Ergebnis der Auswahl ${i+1}">${sel}</select></td></tr>`; }).join("")}</tbody></table>
     ${r.e==="W" && r.quote!==w.quote ? `<p class="time" style="margin:6px 0 0">Ausgezahlt mit Quote ${fx(r.quote)} (ungültige Auswahl zählt mit 1,00).</p>` : ""}
-    <div class="co">Kombi-Bonus % <input class="bonus-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.bonus?fx(w.bonus,0):""}" placeholder="0"> <span class="time">auf den Reingewinn${w.bonus?` · Gewinn bei Treffer: ${eur(w.einsatz*(w.quote-1)*(1+w.bonus/100))}`:""}</span></div></td></tr>`;
+    <div class="co">Kombi-Bonus % <input class="bonus-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.bonus?bonusTxt(w.bonus):""}" placeholder="0"> <span class="time">auf den Reingewinn${w.bonus?` · Gewinn bei Treffer: ${eur(w.einsatz*(w.quote-1)*(1+w.bonus/100))}`:""}</span></div></td></tr>`;
 }
 
 // ---- Abgleich über geheimen Gist
