@@ -534,6 +534,45 @@ def main():
     except Exception as ex:                      # noqa
         print("Markt-Signale übersprungen:", ex)
 
+    # Empfehlungen (eigene Seite, getrennt von der Bilanz): Haupt- und Alternativ-Wette mit dem Archiv abrechnen
+    try:
+        emp = load("empfehlungen.json", {})
+        offen = [e for e in emp.values() if not e.get("erledigt")]
+        if offen:
+            arch = {}
+            for f in sorted((DATA / "archiv").glob("????-??.json"))[-2:]:
+                arch.update(json.loads(f.read_text(encoding="utf-8")))
+            n_e = 0
+            for fid, e in emp.items():
+                if e.get("erledigt"):
+                    continue
+                a = arch.get(fid)
+                if not a or a.get("sieger") not in ("A", "B", "V"):
+                    continue
+                ss = [z for z in (a.get("satz") or []) if z and z[0] != z[1]]
+                ungueltig = a.get("sieger") == "V" or a.get("aufgabe") or len(ss) < 2
+                sa, sb = sum(1 for z in ss if z[0] > z[1]), sum(1 for z in ss if z[1] > z[0])
+                tb = [((z[0] == 7 and z[1] == 6) or (z[0] == 6 and z[1] == 7)) for z in ss]
+                for teil in ("haupt", "alt"):
+                    w = e.get(teil)
+                    if not w:
+                        continue
+                    if ungueltig:
+                        w["ergebnis"] = "V"; continue
+                    t = {"siegA": a["sieger"] == "A", "siegB": a["sieger"] == "B", "glattA": sb == 0, "glattB": sa == 0, "mind1A": sa >= 1, "mind1B": sb >= 1,
+                         "dreiSaetze": len(ss) >= 3, "zweiSaetze": len(ss) == 2, "satz1A": ss[0][0] > ss[0][1], "satz1B": ss[0][1] > ss[0][0],
+                         "tb1Ja": tb[0], "tb1Nein": not tb[0], "tbJa": any(tb), "tbNein": not any(tb),
+                         "zweiEinsA": sa == 2 and sb == 1, "zweiEinsB": sb == 2 and sa == 1}.get(w.get("k"))
+                    if t is not None:
+                        w["ergebnis"] = "W" if t else "L"
+                e["sieger"] = a.get("sieger"); e["satz"] = a.get("satz"); e["erledigt"] = True
+                n_e += 1
+            if n_e:
+                save("empfehlungen.json", emp, indent=0)
+                print(f"Empfehlungen abgerechnet: {n_e}")
+    except Exception as ex:                      # noqa
+        print("Empfehlungen übersprungen:", ex)
+
     b = bilanz(log)
     b["_stand"] = jetzt.strftime("%Y-%m-%dT%H:%MZ")
     save("bilanz.json", b)

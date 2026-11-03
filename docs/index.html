@@ -74,7 +74,8 @@ details.klapp[open]>summary{margin-bottom:8px}
 tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var(--muted)}
 .vliste{width:100%;font-size:13px;margin:4px 0 8px}.vliste th,.vliste td{padding:4px 6px;border-bottom:1px solid var(--line)}
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}.pill.tbsig{background:none;border:1px solid var(--good,#2a8a4a);color:var(--good,#2a8a4a);margin-left:5px;font-size:.68em;padding:0 4px;vertical-align:1px}.hval-z{margin-top:3px;line-height:1}.hval-z:first-child{margin-top:0}.pill.hval{background:none;border:1px solid var(--accent);color:var(--accent);margin:0;font-size:.72em;padding:0 5px}
+.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}.empt td,.empt th{vertical-align:top}.empt td.l{min-width:0}.empt .pill{margin-left:3px}
+.pill.tbsig{background:none;border:1px solid var(--good,#2a8a4a);color:var(--good,#2a8a4a);margin-left:5px;font-size:.68em;padding:0 4px;vertical-align:1px}.hval-z{margin-top:3px;line-height:1}.hval-z:first-child{margin-top:0}.pill.hval{background:none;border:1px solid var(--accent);color:var(--accent);margin:0;font-size:.72em;padding:0 5px}
 .cbbox{background:var(--good-soft);color:var(--fg);border-radius:6px;padding:8px 10px;margin-top:10px;font-size:12.5px;line-height:1.45}
 .pill.sturz{background:var(--bad-soft);color:var(--bad);margin-left:4px}
 details.heute{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:14px 0 4px}
@@ -284,6 +285,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
 
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-partien" aria-selected="true" data-tab="partien">Partien</button>
+    <button role="tab" id="tab-empf" aria-selected="false" data-tab="empf">Empfehlungen</button>
     <button role="tab" id="tab-live" aria-selected="false" data-tab="live">Live</button>
     <button role="tab" id="tab-rechner" aria-selected="false" data-tab="rechner">Tagesziel</button>
     <button role="tab" id="tab-wetten" aria-selected="false" data-tab="wetten">Meine Wetten</button>
@@ -315,6 +317,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     <div id="list"></div>
   </section>
 
+  <section id="v-empf" hidden><div id="empf"></div></section>
   <section id="v-live" hidden><div id="live"></div></section>
 
   <section id="v-rechner" hidden>
@@ -567,7 +570,7 @@ function setupControls(){
   ["bm","f-tag","f-art","f-belag","f-value","f-ass","f-quali","f-suche"].forEach(id => $("#"+id).addEventListener(id==="f-suche"?"input":"change", () => {
     const el = $("#"+id); store.set(id==="bm"?"bm":id, el.type==="checkbox"?el.checked:el.value); render(); }));
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
-  if(["partien","live","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
+  if(["partien","empf","live","rechner","wetten","protokoll","info"].includes(location.hash.slice(1))) showTab(location.hash.slice(1));
   liveInit();
   $("#list").addEventListener("input", (e) => { const t = e.target.closest(".mq-in"); if(!t) return;
     const all = store.get("mq." + t.dataset.id, {}), q = num2(t.value); if(q > 1) all[t.dataset.k] = q; else delete all[t.dataset.k]; store.set("mq." + t.dataset.id, all);
@@ -589,13 +592,61 @@ function setupControls(){
 
 function showTab(t){
   document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t));
-  ["partien","live","rechner","wetten","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
+  ["partien","empf","live","rechner","wetten","protokoll","info"].forEach(x => $("#v-"+x).hidden = x!==t);
+  if(BEREIT && t==="empf") renderEmpf();
   if(BEREIT && t==="live") renderLive();
   if(BEREIT && t==="protokoll") renderLog();          // Kurve braucht die sichtbare Breite
   if(BEREIT && t==="wetten") renderWetten();
   if(BEREIT && t==="rechner") renderTagesziel();
 }
 
+
+// ---- Empfehlungen (eigene Seite, seit 03.11.2026): je ATP-Partie Hauptwette + Alternative, Value nicht nötig.
+// Getrennt von Bilanz, Value-Tipps und Varianten; abgerechnet in empfehlungen.json (results.py).
+let EMP = null, EMP_OFFEN = false;
+function empLabel(k, a, b){ const A = String(a).split(" ").slice(-1)[0], B = String(b).split(" ").slice(-1)[0];
+  return ({siegA: `Sieg ${A}`, siegB: `Sieg ${B}`, glattA: `2:0 ${A}`, glattB: `2:0 ${B}`, mind1A: `${A} gewinnt mind. 1 Satz`, mind1B: `${B} gewinnt mind. 1 Satz`,
+    zweiEinsA: `2:1 ${A}`, zweiEinsB: `2:1 ${B}`, dreiSaetze: "3 Sätze", zweiSaetze: "2 Sätze (kein 3. Satz)", satz1A: `1. Satz ${A}`, satz1B: `1. Satz ${B}`,
+    tb1Ja: "Tiebreak im 1. Satz", tb1Nein: "kein Tiebreak im 1. Satz", tbJa: "Tiebreak im Match", tbNein: "kein Tiebreak im Match"})[k] || k; }
+function empZelle(x, a, b, erg){ if(!x) return `<span class="time">–</span>`;
+  const pill = erg ? ({W:'<span class="pill go">✓</span>', L:'<span class="pill stop">✗</span>', V:'<span class="pill warn">ungültig</span>'}[x.ergebnis] || '<span class="pill no">offen</span>') : "";
+  return `<b>${esc(empLabel(x.k, a, b))}</b> @ ${fx(x.q)} <span class="time">${pc(x.p,0)} · ${sg(x.edge)}</span> ${pill}`; }
+async function renderEmpf(){
+  const box = $("#empf"); if(!box) return;
+  if(!EMP){ box.innerHTML = '<p class="time">Lade Empfehlungen …</p>'; EMP = (await j("empfehlungen.json", {})) || {}; }
+  const jetzt = new Date().toISOString();
+  // offene ATP-Partien: live mit den aktuellen Winamax-Quoten gerechnet (gleiche Regel wie im Protokoll)
+  const offen = [];
+  for(const p of (M && M.partien) || []){
+    if(!/^ATP$/i.test(String(p.kategorie||"")) || isChTip(p) || !(String(p.start) > jetzt)) continue;
+    const q = (p.quoten||{}).winamax; if(!q || !(q[0] > 1 && q[1] > 1)) continue;
+    const r = TennisModel.analyse({turnier:p.turnier, belag:p.belag, a:p.a, b:p.b, qa:q[0], qb:q[1], pinnacle:p.pinnacle, form:p.form, start:p.start, ort:p.ort, landA:p.landA, landB:p.landB}, D);
+    const e = TennisModel.empfehlungen(r, {qa:q[0], qb:q[1]}, (p.maerkte||{}).winamax, D.params);
+    if(e && e.haupt) offen.push({p, r, e, q});
+  }
+  offen.sort((x, y) => String(x.p.start).localeCompare(String(y.p.start)));
+  const zeit = (s) => new Date(s).toLocaleString("de-DE",{weekday:"short", hour:"2-digit", minute:"2-digit", timeZone:TZ});
+  const offenHtml = offen.length ? `<div class="tablewrap"><table class="empt"><thead><tr><th class="l hide-s">Zeit</th><th class="l">Partie</th><th class="l">Hauptwette</th><th class="l">Alternative</th></tr></thead><tbody>${
+    offen.map(({p, r, e, q}) => `<tr><td class="l time hide-s">${zeit(p.start)}</td><td class="l"><span class="time show-s">${zeit(p.start)}<br></span>${esc(p.a)} – ${esc(p.b)}<div class="time">${esc(tName(p))} · ${fx(q[0])} / ${fx(q[1])}${r.eloGeschaetztA||r.eloGeschaetztB?" · Elo geschätzt":""}</div></td>
+      <td class="l">${empZelle(e.haupt, p.a, p.b)}</td><td class="l">${empZelle(e.alt, p.a, p.b)}</td></tr>`).join("")}</tbody></table></div>`
+    : `<p class="time">Gerade keine offenen ATP-Partien mit Winamax-Quote.</p>`;
+  // Auswertung: wie oft lag die Empfehlung richtig? (erwartet = Mittel der Modell-Chancen; 1 U nur zur Info)
+  const fertig = Object.entries(EMP).filter(([, x]) => x.erledigt).sort((a, b) => String(b[1].start).localeCompare(String(a[1].start)));
+  const stat = (teil) => { let n = 0, w = 0, ps = 0, u = 0; for(const [, x] of fertig){ const v = x[teil]; if(!v || !["W","L"].includes(v.ergebnis)) continue;
+      n++; ps += v.p; if(v.ergebnis === "W"){ w++; u += v.q - 1; } else u -= 1; } return {n, w, ps, u}; };
+  const zeile = (lbl, s_) => `<tr><td class="l"><b>${lbl}</b></td><td class="num hide-s">${s_.n}</td><td class="num">${s_.n ? `${s_.w}–${s_.n - s_.w}` : "–"}</td><td class="num"><b>${s_.n ? pc(s_.w/s_.n,0) : "–"}</b></td><td class="num">${s_.n ? pc(s_.ps/s_.n,0) : "–"}</td><td class="num hide-s ${s_.u>=0?"pos":"negv"}">${s_.n ? (s_.u>=0?"+":"") + fx(s_.u,1) + " U" : "–"}</td></tr>`;
+  const sH = stat("haupt"), sA = stat("alt");
+  const liste = fertig.length ? `<details class="box" style="margin-top:12px"${EMP_OFFEN?" open":""} id="empf-liste"><summary><h3 style="display:inline">Abgerechnete Empfehlungen (${fertig.length})</h3></summary>
+    <div class="tablewrap"><table class="empt"><thead><tr><th class="l">Datum</th><th class="l">Partie (Sieger fett)</th><th class="l">Hauptwette</th><th class="l">Alternative</th></tr></thead><tbody>${
+    fertig.slice(0, 150).map(([, x]) => `<tr><td class="l time">${kDatum(x.start)}</td><td class="l">${x.sieger==="A"?`<b>${esc(x.a)}</b>`:esc(x.a)} – ${x.sieger==="B"?`<b>${esc(x.b)}</b>`:esc(x.b)}<div class="time">${(x.satz||[]).map(z => z.join("-")).join(" ")}</div></td><td class="l">${empZelle(x.haupt, x.a, x.b, true)}</td><td class="l">${empZelle(x.alt, x.a, x.b, true)}</td></tr>`).join("")}</tbody></table></div></details>` : "";
+  box.innerHTML = `<div class="box"><h3>Empfehlungen <span class="time" style="text-transform:none;letter-spacing:0">ATP · Winamax · getrennt von der Bilanz</span></h3>
+    <p class="time" style="margin:0 0 8px">Je Partie die <b>Hauptwette</b> (höchste Trefferchance) und eine <b>Alternative</b> (bester Erwartungswert mit spürbar höherer Quote, bis ${fx(D.params.EMP_ALT_MAX_QUOTE ?? 3)}). Value ist nicht nötig, aber die Quote darf höchstens ${pc(-(D.params.EMP_MIN_EDGE ?? -0.05),0)} unter fair liegen; Quoten ${fx(D.params.EMP_MIN_QUOTE ?? 1.2)}–${fx(D.params.EMP_MAX_QUOTE ?? 5)}. Siegchance aus der Gesamtschätzung (H), Satz- und Tiebreak-Chancen aus dem Modell. Angaben: Quote · Chance · Edge.</p>
+    ${offenHtml}</div>
+    <div class="box" style="margin-top:12px"><h3>Wie oft liegt die Empfehlung richtig?</h3>
+    <div class="tablewrap"><table class="empt"><thead><tr><th class="l"></th><th class="num hide-s">Partien</th><th class="num">richtig–falsch</th><th class="num">Treffer</th><th class="num" title="Mittel der Modell-Chancen – so oft sollte es bei gut kalibriertem Modell klappen">erwartet</th><th class="num hide-s" title="nur zur Info: 1 U je Empfehlung">1 U</th></tr></thead><tbody>${zeile("Hauptwette", sH)}${zeile("Alternative", sA)}</tbody></table></div>
+    <p class="time" style="margin:6px 0 0">Gezählt wird die letzte Empfehlung vor Spielbeginn. Aufgaben und Walkover zählen nicht. Kein Einfluss auf Bilanz, Value-Tipps oder Varianten.</p></div>${liste}`;
+  const d = $("#empf-liste"); if(d) d.addEventListener("toggle", () => { EMP_OFFEN = d.open; });
+}
 
 // ---- Live-Rechner (wie Excel-Blatt LIVE-WETTEN): Siegchance ab aktuellem Spielstand, Live-Quote von Hand
 const PKT = ["0","15","30","40","AD"];

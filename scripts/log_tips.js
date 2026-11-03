@@ -388,3 +388,26 @@ for (const k of Object.keys(prog)) if (String(prog[k].start) < grenzeProg) delet
 fs.writeFileSync(path.join(dir, "prognosen.json"), JSON.stringify(prog));
 console.log(`Prognose-Protokoll: ${neuProg} neue Partien, insgesamt ${Object.keys(prog).length}`);
 console.log(`Tipp-Protokoll: ${neu} neue Value-Signale, insgesamt ${Object.keys(log).length}`);
+
+// Empfehlungen (eigene Seite, seit 03.11.2026): je ATP-Partie Hauptwette + Alternative (Winamax-Quoten), bis Spielbeginn
+// mit jedem Lauf aktualisiert -> empfehlungen.json. Völlig getrennt von Bilanz, Value-Tipps und Varianten.
+{
+  const emp = rd("empfehlungen.json", {});
+  const jetzt = new Date().toISOString();
+  let n = 0;
+  for (const m of matches) {
+    if (!/^ATP$/i.test(String(m.kategorie || "")) || /challenger/i.test(String(m.turnier || "")) || !(String(m.start) > jetzt)) continue;
+    const q = (m.quoten || {}).winamax; if (!q || !(q[0] > 1 && q[1] > 1)) continue;
+    const r = M.analyse({ turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa: q[0], qb: q[1], pinnacle: m.pinnacle, form: m.form, start: m.start, ort: m.ort, landA: m.landA, landB: m.landB }, D);
+    const e = M.empfehlungen(r, { qa: q[0], qb: q[1] }, (m.maerkte || {}).winamax, P.params);
+    if (!e || !e.haupt) continue;
+    const x = (v) => v ? { k: v.k, q: v.q, p: r3(v.p), edge: r3(v.edge) } : null;
+    const alt = emp[m.id] || {};
+    emp[m.id] = { start: m.start, turnier: m.turnier, belag: m.belag, a: m.a, b: m.b, qa: q[0], qb: q[1], pW: r3(e.pW),
+      geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), haupt: x(e.haupt), alt: x(e.alt),
+      erstGesehen: alt.erstGesehen || now, aktualisiert: now };
+    n++;
+  }
+  fs.writeFileSync(path.join(dir, "empfehlungen.json"), JSON.stringify(emp));
+  console.log(`Empfehlungen: ${n} offene ATP-Partien, insgesamt ${Object.keys(emp).length}`);
+}

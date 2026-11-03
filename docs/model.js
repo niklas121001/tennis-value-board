@@ -654,6 +654,39 @@
   }
 
 
+  // ---- Empfehlungen (Seite „Empfehlungen“, seit 03.11.2026, getrennt von Bilanz und Value-Tipps) ----
+  // Je ATP-Partie eine Hauptwette und eine Alternative aus Sieg und Satz-/Tiebreak-Märkten – Value ist nicht nötig.
+  // Siegchance = Gesamtschätzung H (sonst Modell A), Satzverteilung daraus mit Glatt-Korrektur, Tiebreak aus dem Modell.
+  // Kandidaten: Quote EMP_MIN_QUOTE–EMP_MAX_QUOTE und Edge mind. EMP_MIN_EDGE (nicht deutlich schlechter als fair).
+  // Haupt = höchste Trefferchance. Alternative = bester Erwartungswert (p · Quote) unter den Märkten mit spürbar
+  // höherer Quote (mind. EMP_ALT_ABSTAND über der Hauptwette), ohne das Gegenteil der Hauptwette; sonst zweithöchste Chance.
+  const EMP_GEGEN = { siegA: "siegB", siegB: "siegA", glattA: "mind1B", mind1B: "glattA", glattB: "mind1A", mind1A: "glattB", dreiSaetze: "zweiSaetze",
+    zweiSaetze: "dreiSaetze", satz1A: "satz1B", satz1B: "satz1A", tb1Ja: "tb1Nein", tb1Nein: "tb1Ja", tbJa: "tbNein", tbNein: "tbJa" };
+  function empfehlungen(r, match, mq, P) {
+    if (!r || !r.ok || !(match.qa > 1 && match.qb > 1)) return null;
+    mq = mq || {};
+    const pW = r.gesamt && isNum(r.gesamt.p) ? r.gesamt.p : r.pFinal, mode = r.modus || 3;
+    const ss = setScores(pW, mode, (r.satzK && r.satzK.k) || 1), sc = ss.scores, mk = r.maerkte || {};
+    const pM = { siegA: pW, siegB: 1 - pW, satz1A: ss.q, satz1B: 1 - ss.q, tb1Ja: mk.tb1, tb1Nein: 1 - mk.tb1, tbJa: mk.tbMatch, tbNein: 1 - mk.tbMatch };
+    if (mode === 3) Object.assign(pM, { glattA: sc["2-0"], glattB: sc["0-2"], mind1A: 1 - sc["0-2"], mind1B: 1 - sc["2-0"], zweiEinsA: sc["2-1"], zweiEinsB: sc["1-2"],
+      dreiSaetze: sc["2-1"] + sc["1-2"], zweiSaetze: sc["2-0"] + sc["0-2"] });
+    const qOf = { siegA: match.qa, siegB: match.qb };
+    const minQ = P.EMP_MIN_QUOTE ?? 1.2, maxQ = P.EMP_MAX_QUOTE ?? 5, minE = P.EMP_MIN_EDGE ?? -0.05;
+    const kand = [];
+    for (const [k, p] of Object.entries(pM)) {
+      const q = qOf[k] || mq[k];
+      if (!(q > 1) || !(p > 0 && p < 1) || q < minQ || q > maxQ) continue;
+      const edge = q * p - 1; if (edge < minE) continue;
+      kand.push({ k, p, q, edge });
+    }
+    if (!kand.length) return { pW, haupt: null, alt: null, kand };
+    const haupt = kand.slice().sort((a, b) => b.p - a.p || b.edge - a.edge)[0];
+    const rest = kand.filter((x) => x.k !== haupt.k && x.k !== EMP_GEGEN[haupt.k]);
+    const hoeher = rest.filter((x) => x.q >= haupt.q + (P.EMP_ALT_ABSTAND ?? 0.3) && x.q <= (P.EMP_ALT_MAX_QUOTE ?? 3));
+    const alt = hoeher.length ? hoeher.sort((a, b) => b.p * b.q - a.p * a.q || b.p - a.p)[0] : (rest.sort((a, b) => b.p - a.p)[0] || null);
+    return { pW, haupt, alt, kand };
+  }
+
   // ---- Live-Rechner (wie Excel-Blatt LIVE-WETTEN): Siegchance A ab aktuellem Spielstand.
   // st = {sA, sB (Sätze), gA, gB (Spiele im Satz), pA, pB (Punkte 0..4 = 0/15/30/40/AD bzw. Tiebreak-Punkte), tb (bool),
   //       srv ("A"/"B", Aufschläger im laufenden Spiel), saetze ([[A,B], …] abgeschlossene Sätze)}
@@ -716,7 +749,7 @@
     return { p: kal, pPur: pure, pSet: lv.pSet, pGame: lv.gameA, offset: off, delta, pSrvA: pA2, pSrvB: pB2, gespielt: gw + gl };
   }
 
-  const api = { analyse, live, weights, lookupTurnierStats, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
+  const api = { analyse, live, weights, empfehlungen, lookupTurnierStats, pGame, pSet, pMatch, detectMode, lookupCSI, lookupTempo, setScores, quotenBand };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.TennisModel = api;
 })(typeof self !== "undefined" ? self : this);
