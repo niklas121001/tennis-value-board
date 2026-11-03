@@ -238,7 +238,8 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
             zweiEinsA: rr.saetze && rr.saetze.scores ? rr.saetze.scores["2-1"] : null, zweiEinsB: rr.saetze && rr.saetze.scores ? rr.saetze.scores["1-2"] : null });
           for (const [k, p] of Object.entries(pM)) {
             const q = mq[k]; if (!(q > 1) || !(p > 0) || q > (P.params.MARKT_MAX_QUOTE || 6)) continue;
-            const edge = q * p - 1; if (edge < (P.params.MARKT_MIN_EDGE ?? 0.05)) continue;
+            const minK = /^tb/.test(k) ? (P.params.TB_MIN_EDGE ?? 0) : (P.params.MARKT_MIN_EDGE ?? 0.05);   // Tiebreak: jede positive Edge
+            const edge = q * p - 1; if (edge < minK || edge <= 0) continue;
             const h = hand[k] && !((m.maerkte || {})[bm] || {})[k] ? hand[k] : null;
             neuSignal(`markt|${m.id}|${bm}|${k}`, Object.assign({ typ: "markt", markt: k, wette: /A$/.test(k) ? "A" : /B$/.test(k) ? "B" : null,
               erstQuote: q, letzteQuote: q, pModell: r3(p), edge: r3(edge) }, h ? { manuell: true, erstGesehen: h.zeit } : {}, basis));

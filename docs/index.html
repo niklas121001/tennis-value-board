@@ -449,10 +449,10 @@ j("manuelle_markt.json", {}).then(d => { MANMQ = d || {}; if(BEREIT) render(); }
 function tbSignale(p, r){
   const mk = r && r.maerkte; if(!mk || p.calc || isChTip(p) || r.eloGeschaetztA || r.eloGeschaetztB) return [];
   const bm = r.bm || "winamax", mq = ((p.maerkte || {})[bm]) || {}, eigen = store.get("mq." + p.id, {}), srv = MANMQ[p.id] || {};
-  const minE = D.params.MARKT_MIN_EDGE ?? 0.05, maxQ = D.params.MARKT_MAX_QUOTE ?? 6, out = [];
+  const minE = D.params.TB_MIN_EDGE ?? 0, maxQ = D.params.MARKT_MAX_QUOTE ?? 6, out = [];   // Tiebreak: jede positive Edge
   for(const [k, lbl, pm] of [["tb1Ja", "TB im 1. Satz: ja", mk.tb1], ["tb1Nein", "TB im 1. Satz: nein", 1 - mk.tb1], ["tbJa", "TB im Match: ja", mk.tbMatch], ["tbNein", "TB im Match: nein", 1 - mk.tbMatch]]){
     const q = mq[k] || eigen[k] || (srv[k] && (srv[k].bm || "winamax") === bm ? srv[k].q : null);
-    if(!(q > 1) || !(pm > 0) || q > maxQ) continue; const e = q * pm - 1; if(e >= minE) out.push({k, lbl, q, e, fair: 1/pm});
+    if(!(q > 1) || !(pm > 0) || q > maxQ) continue; const e = q * pm - 1; if(e >= minE && e > 0) out.push({k, lbl, q, e, fair: 1/pm});
   }
   return out;
 }
@@ -571,8 +571,8 @@ function setupControls(){
   liveInit();
   $("#list").addEventListener("input", (e) => { const t = e.target.closest(".mq-in"); if(!t) return;
     const all = store.get("mq." + t.dataset.id, {}), q = num2(t.value); if(q > 1) all[t.dataset.k] = q; else delete all[t.dataset.k]; store.set("mq." + t.dataset.id, all);
-    const z = t.closest("tr").querySelector("[data-edge]"), pm = +z.dataset.p, minE = D.params.MARKT_MIN_EDGE ?? 0.05, ed = q > 1 ? q * pm - 1 : null;
-    z.className = "num " + (ed >= minE ? "pos" : ed < 0 ? "negv" : ""); z.textContent = ed == null ? "–" : sg(ed) + (ed >= minE ? " ✓" : "");
+    const z = t.closest("tr").querySelector("[data-edge]"), pm = +z.dataset.p, minE = minEdgeMarkt(t.dataset.k), ed = q > 1 ? q * pm - 1 : null, ok = ed != null && ed >= minE && ed > 0;
+    z.className = "num " + (ok ? "pos" : ed < 0 ? "negv" : ""); z.textContent = ed == null ? "–" : sg(ed) + (ok ? " ✓" : "");
     // TB-Kennzeichen an der Partie sofort mitziehen
     const ctx = PROFCTX[t.dataset.id], row = document.querySelector(`tr.m[data-id="${CSS.escape(t.dataset.id)}"]`);
     if(ctx && row){ const alt = row.querySelector(".pill.tbsig"), neu = tbBadge(ctx.p, ctx.r), bSp = row.querySelectorAll("td .pl > span")[2];
@@ -1959,6 +1959,8 @@ function h2hBoxHtml(p){
 }
 
 // Satz- und Tiebreak-Märkte im Partie-Detail: Modell vs. Buchmacher (Winamax, kostenlos mit abgerufen) und Pinnacle (fair)
+// Mindest-Edge je Markt: Tiebreak jede positive Edge (TB_MIN_EDGE), übrige Satzmärkte MARKT_MIN_EDGE
+const minEdgeMarkt = (k) => /^tb/.test(k) ? (D.params.TB_MIN_EDGE ?? 0) : (D.params.MARKT_MIN_EDGE ?? 0.05);
 function maerkteHtml(p, r){
   const mk = r.maerkte; if(!mk || p.calc || /challenger/i.test((p.turnier||"")+" "+(p.kategorie||""))) return "";   // Challenger: keine Satzmärkte
   const bm = r.bm || "winamax", mq = ((p.maerkte || {})[bm]) || {}, pin = ((p.maerkte || {}).pinnacle) || {};
@@ -1978,9 +1980,9 @@ function maerkteHtml(p, r){
   const eigen = store.get("mq." + p.id, {});      // von Hand eingetragene Quoten (Markt fehlt im Datenfeed)
   const tr = zeilen.map(([lbl, k, pm]) => { const qAuto = mq[k], qHand = eigen[k], q = qAuto || qHand, e = q ? q * pm - 1 : null, pf = pinFair(k);
     const qZelle = qAuto ? fx(qAuto) : `<input class="mq-in" data-id="${esc(p.id)}" data-k="${k}" inputmode="decimal" value="${qHand ? fx(qHand) : ""}" placeholder="Quote" title="Quote von Hand eintragen (fehlt im Datenfeed)">`;
-    return `<tr><td class="l">${esc(lbl)}</td><td class="num">${pc(pm,0)}</td><td class="num hide-s">${fx(1/pm)}</td><td class="num">${qZelle}</td><td class="num ${e >= minE ? "pos" : e < 0 ? "negv" : ""}" data-edge="${k}" data-p="${pm}">${e == null ? "–" : sg(e) + (e >= minE ? " ✓" : "")}</td><td class="num hide-s time">${pf ? fx(pf) : "–"}</td></tr>`; }).join("");
+    return `<tr><td class="l">${esc(lbl)}</td><td class="num">${pc(pm,0)}</td><td class="num hide-s">${fx(1/pm)}</td><td class="num">${qZelle}</td><td class="num ${e != null && e >= minEdgeMarkt(k) && e > 0 ? "pos" : e < 0 ? "negv" : ""}" data-edge="${k}" data-p="${pm}">${e == null ? "–" : sg(e) + (e >= minEdgeMarkt(k) && e > 0 ? " ✓" : "")}</td><td class="num hide-s time">${pf ? fx(pf) : "–"}</td></tr>`; }).join("");
   return `<div class="box mbox"><h3>${istCh ? "Satz-Märkte" : "Satz- & Tiebreak-Märkte"}</h3><div class="tablewrap"><table class="mtab"><thead><tr><th class="l"></th><th class="num">Modell</th><th class="num hide-s">fair</th><th class="num">${esc(bm)}</th><th class="num">Edge</th><th class="num hide-s">Pinnacle fair</th></tr></thead><tbody>${tr}</tbody></table></div>
-    <p class="time" style="margin:6px 0 0">${istCh ? `Challenger: nur Märkte, die Winamax hier anbietet (kein genaues Ergebnis, kein Tiebreak). Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. ✓ = Edge ab ${pc(minE,0)}.` : `TB = Tiebreak. Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. Tiebreak je Satz ${pc(mk.tb1,0)} (Aufschlag-Markov ${pc(mk.tbRoh,0)} × ${fx(mk.tbFaktor,2)} für ${/challenger/i.test(p.turnier||"")?"Challenger":"ATP"}${(r.satzK||{}).turnier ? " und Turnier" : ""}). ✓ = Edge ab ${pc(minE,0)}${hatQ ? " – Märkte mit Buchmacher-Quote werden als Test-Signal getrackt" : ""}. Fehlt ein Markt im Datenfeed (z. B. Tiebreak, 2:1), kannst du die Quote ins Feld tippen – mit GitHub-Schlüssel wird sie beim nächsten Update als Signal getrackt, wenn sie Value hat (Bilanz → Satz- & Tiebreak-Signale).`}</p></div>`;
+    <p class="time" style="margin:6px 0 0">${istCh ? `Challenger: nur Märkte, die Winamax hier anbietet (kein genaues Ergebnis, kein Tiebreak). Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. ✓ = Edge ab ${pc(minE,0)}.` : `TB = Tiebreak. Satzverteilung mit Glatt-Korrektur ×${fx((r.satzK||{}).k||1,2)}. Tiebreak je Satz ${pc(mk.tb1,0)} (Aufschlag-Markov ${pc(mk.tbRoh,0)} × ${fx(mk.tbFaktor,2)} für ${/challenger/i.test(p.turnier||"")?"Challenger":"ATP"}${(r.satzK||{}).turnier ? " und Turnier" : ""}). ✓ = Edge ab ${pc(minE,0)}, Tiebreak ab jeder positiven Edge${hatQ ? " – Märkte mit Buchmacher-Quote werden als Test-Signal getrackt" : ""}. Fehlt ein Markt im Datenfeed (z. B. Tiebreak, 2:1), kannst du die Quote ins Feld tippen – mit GitHub-Schlüssel wird sie beim nächsten Update als Signal getrackt, wenn sie Value hat (Bilanz → Satz- & Tiebreak-Signale).`}</p></div>`;
 }
 
 // Gesamtschätzung (Variante H): Markt + Modell + alle Spieler-Statistiken als eine Quote
