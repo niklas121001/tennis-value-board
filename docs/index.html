@@ -74,7 +74,7 @@ details.klapp[open]>summary{margin-bottom:8px}
 tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var(--muted)}
 .vliste{width:100%;font-size:13px;margin:4px 0 8px}.vliste th,.vliste td{padding:4px 6px;border-bottom:1px solid var(--line)}
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}.hval-z{margin-top:3px;line-height:1}.hval-z:first-child{margin-top:0}.pill.hval{background:none;border:1px solid var(--accent);color:var(--accent);margin:0;font-size:.72em;padding:0 5px}
+.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}.pill.tbsig{background:none;border:1px solid var(--good,#2a8a4a);color:var(--good,#2a8a4a);margin-left:5px;font-size:.68em;padding:0 4px;vertical-align:1px}.hval-z{margin-top:3px;line-height:1}.hval-z:first-child{margin-top:0}.pill.hval{background:none;border:1px solid var(--accent);color:var(--accent);margin:0;font-size:.72em;padding:0 5px}
 .cbbox{background:var(--good-soft);color:var(--fg);border-radius:6px;padding:8px 10px;margin-top:10px;font-size:12.5px;line-height:1.45}
 .pill.sturz{background:var(--bad-soft);color:var(--bad);margin-left:4px}
 details.heute{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:14px 0 4px}
@@ -442,6 +442,22 @@ const store = {get(k,d){try{const v=localStorage.getItem("tvb."+k);return v===nu
 const BEST = "__best__";
 let D, M, META, LOG, ERG = {}, QV = {}, PROFCTX = {}, BEREIT = false, open = new Set();
 
+// kleines „TB“ an der Partie, wenn ein Tiebreak-Markt ein Value-Signal hat (gleiche Regel wie das Protokoll: Edge ab
+// MARKT_MIN_EDGE, Quote bis MARKT_MAX_QUOTE; Quoten aus dem Feed oder von Hand eingetragen). Nur ATP.
+let MANMQ = {};
+j("manuelle_markt.json", {}).then(d => { MANMQ = d || {}; if(BEREIT) render(); });
+function tbSignale(p, r){
+  const mk = r && r.maerkte; if(!mk || p.calc || isChTip(p) || r.eloGeschaetztA || r.eloGeschaetztB) return [];
+  const bm = r.bm || "winamax", mq = ((p.maerkte || {})[bm]) || {}, eigen = store.get("mq." + p.id, {}), srv = MANMQ[p.id] || {};
+  const minE = D.params.MARKT_MIN_EDGE ?? 0.05, maxQ = D.params.MARKT_MAX_QUOTE ?? 6, out = [];
+  for(const [k, lbl, pm] of [["tb1Ja", "TB im 1. Satz: ja", mk.tb1], ["tb1Nein", "TB im 1. Satz: nein", 1 - mk.tb1], ["tbJa", "TB im Match: ja", mk.tbMatch], ["tbNein", "TB im Match: nein", 1 - mk.tbMatch]]){
+    const q = mq[k] || eigen[k] || (srv[k] && (srv[k].bm || "winamax") === bm ? srv[k].q : null);
+    if(!(q > 1) || !(pm > 0) || q > maxQ) continue; const e = q * pm - 1; if(e >= minE) out.push({k, lbl, q, e, fair: 1/pm});
+  }
+  return out;
+}
+function tbBadge(p, r){ const xs = tbSignale(p, r); if(!xs.length) return "";
+  return `<span class="pill tbsig" title="${esc(xs.map(x => `${x.lbl} @ ${fx(x.q)} – fair ${fx(x.fair)} (${sg(x.e)})`).join(" · "))}">TB</span>`; }
 // kleines „H“ in der Spielliste, nur wenn Variante H (Gesamtschätzung) Value sieht
 function hValHtml(r){ const h = r && r.varianten && r.varianten.H; if(!h || !h.wette) return "";
   const nm = h.wette === "A" ? r.a : r.b, f = h.wette === "A" ? h.fairA : h.fairB;
@@ -556,7 +572,11 @@ function setupControls(){
   $("#list").addEventListener("input", (e) => { const t = e.target.closest(".mq-in"); if(!t) return;
     const all = store.get("mq." + t.dataset.id, {}), q = num2(t.value); if(q > 1) all[t.dataset.k] = q; else delete all[t.dataset.k]; store.set("mq." + t.dataset.id, all);
     const z = t.closest("tr").querySelector("[data-edge]"), pm = +z.dataset.p, minE = D.params.MARKT_MIN_EDGE ?? 0.05, ed = q > 1 ? q * pm - 1 : null;
-    z.className = "num " + (ed >= minE ? "pos" : ed < 0 ? "negv" : ""); z.textContent = ed == null ? "–" : sg(ed) + (ed >= minE ? " ✓" : ""); });
+    z.className = "num " + (ed >= minE ? "pos" : ed < 0 ? "negv" : ""); z.textContent = ed == null ? "–" : sg(ed) + (ed >= minE ? " ✓" : "");
+    // TB-Kennzeichen an der Partie sofort mitziehen
+    const ctx = PROFCTX[t.dataset.id], row = document.querySelector(`tr.m[data-id="${CSS.escape(t.dataset.id)}"]`);
+    if(ctx && row){ const alt = row.querySelector(".pill.tbsig"), neu = tbBadge(ctx.p, ctx.r), bSp = row.querySelectorAll("td .pl > span")[2];
+      if(alt) alt.remove(); if(neu && bSp) bSp.insertAdjacentHTML("beforeend", neu); } });
   $("#list").addEventListener("click", (e) => { if(e.target.closest(".mq-in")) e.stopPropagation(); });
   $("#list").addEventListener("change", async (e) => { const t = e.target.closest(".mq-in"); if(!t || !store.get("gh.repo.token", null)) return;
     const id = t.dataset.id, k = t.dataset.k, q = num2(t.value), bm = $("#bm") && $("#bm").value !== BEST ? $("#bm").value : "winamax";
@@ -1143,7 +1163,7 @@ function rowHtml(p, r){
     return `<div class="pbar" title="${esc(name)}: Modell ${m} %${k!=null?` · Markt ${k} %`:""} (Skala 50–100 %)"><i style="width:${x(m)}%"></i>${gap}${k!=null?`<b style="left:${x(k)}%"></b>`:""}</div>${diffTxt}`; })();
   let html = `<tr class="m${r.wette&&!stop?" value":""}${laeuft?" past":""}" data-id="${id}" aria-expanded="${open.has(p.id)}">
     <td class="l time hide-s">${time}</td>
-    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${linksBadge(r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${linksBadge(r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}</span>${p.quali?'<span class="time">Qualifikation</span>':""}<span class="show-s">${balken}</span></div></td>
+    <td class="l"><div class="pl"><span class="time show-s">${time}</span><span class="${r.wette==="A"?"bet":""}">${favA?'<span class="favm show-s" title="Prognose">▸</span>':""}${flagge(landVon(p,"A"))}${gs(r.eloGeschaetztA, r.a)}${linksBadge(r.a)}${sym("A")}${warnIcon(r.warn, "A", r.a)}</span><span class="${r.wette==="B"?"bet":""}">${favA?"":'<span class="favm show-s" title="Prognose">▸</span>'}${flagge(landVon(p,"B"))}${gs(r.eloGeschaetztB, r.b)}${linksBadge(r.b)}${sym("B")}${warnIcon(r.warn, "B", r.b)}${warn}${tbBadge(p, r)}</span>${p.quali?'<span class="time">Qualifikation</span>':""}<span class="show-s">${balken}</span></div></td>
     <td class="l hide-s"><div class="prog"><b>${esc(favA ? r.a : r.b)}</b><span class="time">${pc(favA ? r.pFinal : 1 - r.pFinal, 0)}</span>${balken}</div></td>
     <td class="num"><div class="pl"${r.manuellQ?` title="Quote von dir angepasst (${esc(new Date(r.manuellQ.zeit).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",timeZone:TZ}))} Uhr) – gilt bis zum nächsten Update"`:""}><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"A")}${fx(r.qa)}</span><span>${r.manuellQ?'<span class="qman">✎</span>':qvPfeil(p,r,"B")}${fx(r.qb)}</span>${(p.pausiert||[]).includes(r.bm)?'<span class="paus" title="Buchmacher hat den Markt gerade pausiert – letzte bekannte Quote">pausiert</span>':""}</div></td>
     <td class="num hide-s"><div class="pl"><span>${fx(r.fairA)}</span><span>${fx(r.fairB)}</span></div></td>
