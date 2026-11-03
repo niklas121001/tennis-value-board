@@ -6294,8 +6294,8 @@
 "aId": 522369,
 "hL": "ES",
 "aL": "FR",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 64",
 "satz": []
@@ -6363,11 +6363,16 @@
 "aId": 169496,
 "hL": "RU",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 64",
-"satz": []
+"satz": [
+[
+3,
+4
+]
+]
 },
 "17449519": {
 "id": 17449519,
@@ -6383,11 +6388,16 @@
 "aId": 221012,
 "hL": "FR",
 "aL": "AR",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 64",
-"satz": []
+"satz": [
+[
+3,
+5
+]
+]
 },
 "17449508": {
 "id": 17449508,
@@ -6616,11 +6626,16 @@
 "aId": 321789,
 "hL": "FR",
 "aL": "GB",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 64",
-"satz": []
+"satz": [
+[
+5,
+5
+]
+]
 },
 "17449523": {
 "id": 17449523,
@@ -6636,8 +6651,8 @@
 "aId": 412818,
 "hL": "GR",
 "aL": "US",
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 64",
 "satz": []
@@ -7156,7 +7171,7 @@
 },
 "17453203": {
 "id": 17453203,
-"start": "2026-11-04T02:00:00Z",
+"start": "2026-11-04T03:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -7196,7 +7211,7 @@
 },
 "17453204": {
 "id": 17453204,
-"start": "2026-11-03T07:40:00Z",
+"start": "2026-11-03T10:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -7208,11 +7223,20 @@
 "aId": 204330,
 "hL": "HK",
 "aL": "TW",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+1,
+0
+]
+]
 },
 "17453199": {
 "id": 17453199,
@@ -7347,7 +7371,7 @@
 },
 "17453194": {
 "id": 17453194,
-"start": "2026-11-03T10:00:00Z",
+"start": "2026-11-03T10:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -7367,7 +7391,7 @@
 },
 "17453200": {
 "id": 17453200,
-"start": "2026-11-04T02:00:00Z",
+"start": "2026-11-04T03:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -11824,7 +11848,7 @@
 "17472514": {
 "id": 17472514,
 "start": "2026-11-03T06:10:00Z",
-"min": null,
+"min": 94,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
 "belag": "hard",
@@ -11835,14 +11859,18 @@
 "aId": 422851,
 "hL": "JP",
 "aL": "MY",
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
-1,
-2
+6,
+4
+],
+[
+6,
+4
 ]
 ]
 },
@@ -11868,8 +11896,8 @@
 },
 "17472515": {
 "id": 17472515,
-"start": "2026-11-03T07:40:00Z",
-"min": null,
+"start": "2026-11-03T09:05:00Z",
+"min": 79,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
 "belag": "hard",
@@ -11880,15 +11908,24 @@
 "aId": 157302,
 "hL": "ZA",
 "aL": "JP",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17472517": {
 "id": 17472517,
-"start": "2026-11-03T10:00:00Z",
+"start": "2026-11-03T11:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -11908,7 +11945,7 @@
 },
 "17427588": {
 "id": 17427588,
-"start": "2026-11-04T02:00:00Z",
+"start": "2026-11-04T07:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -11928,7 +11965,7 @@
 },
 "17427579": {
 "id": 17427579,
-"start": "2026-11-04T02:00:00Z",
+"start": "2026-11-05T02:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -12109,11 +12146,20 @@
 "aId": 235930,
 "hL": "CH",
 "aL": "CZ",
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+0,
+0
+]
+]
 },
 "17428204": {
 "id": 17428204,
@@ -12237,8 +12283,8 @@
 },
 "17479886": {
 "id": 17479886,
-"start": "2026-11-03T06:30:00Z",
-"min": null,
+"start": "2026-11-03T07:10:00Z",
+"min": 100,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
 "belag": "hard",
@@ -12249,11 +12295,20 @@
 "aId": 230306,
 "hL": "AU",
 "aL": "TH",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+5,
+7
+]
+]
 },
 "17476991": {
 "id": 17476991,
@@ -12909,6 +12964,86 @@
 "aId": 392072,
 "hL": "BR",
 "aL": "BO",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17482196": {
+"id": 17482196,
+"start": "2026-11-03T11:10:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Adolfo Daniel Vallejo",
+"a": "Learner Tien",
+"hId": 326949,
+"aId": 412818,
+"hL": "PY",
+"aL": "US",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17482195": {
+"id": 17482195,
+"start": "2026-11-03T11:10:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Paris, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Nuno Borges",
+"a": "Moise Kouame",
+"hId": 125006,
+"aId": 522369,
+"hL": "PT",
+"aL": "FR",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 64",
+"satz": []
+},
+"17427583": {
+"id": 17427583,
+"start": "2026-11-04T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P3",
+"a": "Kasidit Samrej",
+"hId": 393278,
+"aId": 230306,
+"hL": null,
+"aL": "TH",
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17427586": {
+"id": 17427586,
+"start": "2026-11-04T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P5",
+"a": "Masamichi Imamura",
+"hId": 393280,
+"aId": 197935,
+"hL": null,
+"aL": "JP",
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
