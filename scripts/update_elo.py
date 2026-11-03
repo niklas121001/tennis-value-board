@@ -127,6 +127,12 @@ def main():
             v = f(r.get(col))
             if v:
                 rec[fld] = v
+        # Weltranglistenplatz (nur Info, geht in keine Rechnung ein): Spalte „ATP Rank“ der Tennis-Abstract-Elo-Liste
+        rk = next((r.get(c) for c in r if "atp" in c.lower() and "rank" in c.lower()), None)
+        try:
+            rec["rang"] = int(str(rk).strip())
+        except (TypeError, ValueError):
+            rec.pop("rang", None)
         # Fallback für Spieler ohne yElo: allgemeines Elo
         if rec.get("elo") is None and f(r.get("Elo")):
             rec["elo"] = f(r.get("Elo"))
@@ -152,6 +158,7 @@ def main():
     meta = load("meta.json", {})
     meta["elo_update"] = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
     save("meta.json", meta)
+    print(f"Weltrangliste: {sum(1 for k in seen if players.get(k, {}).get('rang'))} Spieler mit ATP-Rang (Spalten: {list(elo[0].keys()) if elo else []})")
     print(f"Elo aktualisiert: {upd} Spieler (davon {neu} neu ohne Aufschlagwerte, {uebernommen} geschätzte übernommen), yElo-Zeilen: {len(yelo)}")
 
 

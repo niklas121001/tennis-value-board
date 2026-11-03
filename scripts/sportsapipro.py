@@ -148,6 +148,7 @@ def kompakt(e):
             "kat": kat, "turnier": tn, "belag": belag_von(e.get("groundType")), "gt": e.get("groundType"),
             "h": hn, "a": an, "hId": h.get("id"), "aId": a.get("id"),
             "hL": (h.get("country") or {}).get("alpha2"), "aL": (a.get("country") or {}).get("alpha2"),
+            "hR": h.get("ranking"), "aR": a.get("ranking"),          # Weltranglistenplatz (falls die API ihn liefert, nur Info)
             "st": str(st.get("type", "")).lower(), "desc": str(st.get("description", "")),
             "w": e.get("winnerCode"), "runde": (e.get("roundInfo") or {}).get("name"), "satz": satz}
 
@@ -417,6 +418,9 @@ def main():
                 m["form"][k_]["vorOrt"] = v_
         if not m.get("landA"):
             m["landA"], m["landB"] = (ev.get("aL"), ev.get("hL")) if z["tausch"] else (ev.get("hL"), ev.get("aL"))
+        rA, rB = (ev.get("aR"), ev.get("hR")) if z["tausch"] else (ev.get("hR"), ev.get("aR"))
+        if isinstance(rA, int) and rA > 0: m["rangA"] = rA
+        if isinstance(rB, int) and rB > 0: m["rangB"] = rB
         wh, wa = warnungen(ev.get("hId"), s_, m.get("belag")), warnungen(ev.get("aId"), s_, m.get("belag"))
         ws = [dict(x, seite="A") for x in (wa if z["tausch"] else wh)] + [dict(x, seite="B") for x in (wh if z["tausch"] else wa)]
         if ws:
