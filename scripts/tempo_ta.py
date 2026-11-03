@@ -16,6 +16,14 @@ ALIAS_STD = {"Rio de Janeiro": ["Rio"], "Monte Carlo Masters": ["Monte Carlo", "
              "Rome Masters": ["Rome", "Rom", "Roma"], "Roland Garros": ["French Open", "Roland"], "Munich": ["München", "Muenchen"],
              "Bucharest": ["Bukarest"], "Kitzbuhel": ["Kitzbühel"], "Geneva": ["Genf"]}
 
+# Austragungsort gewechselt: ältere Jahre zählen nicht mehr (anderer Platz). Name wie bei Tennis Abstract -> erstes Jahr am neuen Ort
+ORT_NEU_AB = {"Paris Masters": 2025}            # Bercy -> Paris La Défense Arena
+
+
+def ort_filter(name, jahre):
+    ab = ORT_NEU_AB.get(name)
+    return {j: v for j, v in jahre.items() if not ab or int(j) >= ab}
+
 
 def jahr_laden(y):
     url = f"https://www.tennisabstract.com/cgi-bin/surface-speed.cgi?year={y}"
@@ -57,7 +65,7 @@ def nur_aktuelles_jahr(alt):
         if x["jahre"].get(str(y)) != sp:
             x["jahre"][str(y)] = sp; neu += 1
     for x in t.values():
-        x["jahre"] = {j: v for j, v in x["jahre"].items() if j in g}
+        x["jahre"] = ort_filter(x["name"], {j: v for j, v in x["jahre"].items() if j in g})
         if x["jahre"]:
             w = sum(g[j] for j in x["jahre"])
             x["speed"] = round(sum(g[j] * v for j, v in x["jahre"].items()) / w, 2)
@@ -103,6 +111,9 @@ def main():
             x = t.setdefault(k, {"name": name, "belag": belag, "jahre": {}})
             x["jahre"][str(y)] = sp
     for (k, belag), x in t.items():
+        x["jahre"] = ort_filter(x["name"], x["jahre"])
+        if not x["jahre"]:
+            continue
         g = {y: i + 1 for i, y in enumerate(sorted(str(j) for j in jahre))}
         w = sum(g[y] for y in x["jahre"])
         x["speed"] = round(sum(g[y] * v for y, v in x["jahre"].items()) / w, 2)
@@ -110,7 +121,7 @@ def main():
     out = {"quelle": f"Tennis Abstract – ATP Surface Speed Ratings {min(jahre)}–{max(jahre)}, gewichtetes Mittel (neuere Jahre stärker), "
                      "1,00 = Tour-Schnitt, Asse bereinigt um Aufschläger/Returner – nur privat",
            "url": "https://www.tennisabstract.com/cgi-bin/surface-speed.cgi", "jahre": sorted(jahre), "stand": datetime.date.today().isoformat(),
-           "turniere": sorted(t.values(), key=lambda x: (x["belag"], -x["speed"]))}
+           "turniere": sorted((x for x in t.values() if x["jahre"]), key=lambda x: (x["belag"], -x["speed"]))}
     save("tempo.json", out)
     from collections import Counter
     print(f"Platztempo: {len(t)} Turniere aus {sorted(jahre)} – {dict(Counter(x['belag'] for x in t.values()))}")
