@@ -76,6 +76,19 @@ tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 .pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}.empt td,.empt th{vertical-align:top}.empt td.l{min-width:0}.empt .pill{margin-left:3px}
 .rang{color:var(--muted);font-size:.78em;font-weight:400;font-family:var(--f-mono,monospace)}
+/* Meine Wetten: Desktop schmaler (Turnier/Buchmacher unter der Wette), Handy als Karten ohne Querscrollen */
+.mwt .wunter{margin-top:2px}.mwt .c-dat{white-space:nowrap}
+@media(max-width:700px){
+  .mwt{min-width:0!important;width:100%}.mwt thead{display:none}.mwt,.mwt tbody{display:block}
+  .mwt tr.wz{display:grid;grid-template-columns:repeat(3,auto) 1fr;grid-template-areas:"dat dat dat akt" "wet wet wet wet" "q e gw erg";gap:4px 14px;padding:10px 2px;border-bottom:1px solid var(--line);align-items:end}
+  .mwt tr.wz>td{display:block;padding:0;border:0;background:none;text-align:left}
+  .mwt .c-dat{grid-area:dat;align-self:center}.mwt .c-wet{grid-area:wet}.mwt .c-q{grid-area:q}.mwt .c-e{grid-area:e}.mwt .c-gw{grid-area:gw}
+  .mwt .c-erg{grid-area:erg;justify-self:end}.mwt .c-akt{grid-area:akt;justify-self:end;white-space:nowrap}
+  .mwt td[data-l]::before{content:attr(data-l);display:block;font:10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .mwt tr.kombi-d{display:block}.mwt tr.kombi-d>td{display:block;padding:6px 2px 10px}
+  .mwt .kombi-t,.mwt .kombi-t tbody{display:block}.mwt .kombi-t tr{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .mwt .kombi-t td{padding:0;border:0}.mwt .kombi-t td:nth-child(n+3){grid-column:2}
+}
 .pill.tbsig{background:none;border:1px solid var(--good,#2a8a4a);color:var(--good,#2a8a4a);margin-left:5px;font-size:.68em;padding:0 4px;vertical-align:1px}.hval-z{margin-top:3px;line-height:1}.hval-z:first-child{margin-top:0}.pill.hval{background:none;border:1px solid var(--accent);color:var(--accent);margin:0;font-size:.72em;padding:0 5px}
 .cbbox{background:var(--good-soft);color:var(--fg);border-radius:6px;padding:8px 10px;margin-top:10px;font-size:12.5px;line-height:1.45}
 .pill.sturz{background:var(--bad-soft);color:var(--bad);margin-left:4px}
@@ -2987,7 +3000,7 @@ function renderWetten(){
   }
   if(fil==="offen") xs = xs.filter(w => !ergebnisVon(w)); else if(fil==="fertig") xs = xs.filter(w => ergebnisVon(w));
   if(!xs.length){ $("#m-liste").innerHTML = `<div class="empty">${all.length ? "Keine Wetten in dieser Auswahl." : "Noch keine Wetten gespeichert. Öffne eine Partie unter <b>Partien</b> und klicke bei „Als Wette speichern“ auf Speichern – oder trage unten eine Wette manuell ein."}</div>`; return; }
-  $("#m-liste").innerHTML = `<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th class="l">Spiel</th><th class="l">Wette</th><th class="l hide-s">Turnier</th><th class="hide-s">Buchm.</th><th>Quote</th><th>Einsatz</th><th>Ergebnis</th><th>Gewinn</th><th></th></tr></thead><tbody>${
+  $("#m-liste").innerHTML = `<div class="tablewrap" style="margin-top:12px"><table class="mwt"><thead><tr><th class="l">Spiel</th><th class="l">Wette</th><th>Quote</th><th>Einsatz</th><th>Ergebnis</th><th>Gewinn</th><th></th></tr></thead><tbody>${
     xs.map(w => { const e = ergebnisVon(w), d = new Date(w.start), gw = e ? gewinnVon(w, e) : null;
       const opt = (v, t) => `<option value="${v}"${(w.manuell ? (w.ergebnis||"offen") : "auto")===v?" selected":""}>${t}</option>`;
       const autoTxt = e ? (e==="V" && w.fixtureId && (ERG[w.fixtureId]||{}).aufgabe ? "Aufgabe (ungültig)" : ({W:"gewonnen",L:"verloren",V:"ungültig"})[e]) : "offen";
@@ -2995,14 +3008,14 @@ function renderWetten(){
       const wetteTxt = kombi ? `<button type="button" class="ktog" data-id="${esc(w.id)}" aria-expanded="${offenK}">${offenK?"▾":"▸"} <b>Kombi</b> · ${w.beine.length} Auswahlen</button>`
         : `<b>${esc(w.spieler)}</b>${w.gegner?` <span class="time">vs ${esc(w.gegner)}</span>`:""}${hatBeine && w.beine[0].markt && w.beine[0].markt!=="sieg" ? ` <span class="pill">${esc(marktText(w.beine[0]))}</span>` : ""}`;
       const hatAuto = w.fixtureId || hatBeine;
-      return `<tr><td class="l time">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
-        <td class="l">${wetteTxt}${w.leiter && wLoad().leitern[w.leiter] ? ` <span class="pill ltag" title="gehört zur Leiter">🪜 ${esc(wLoad().leitern[w.leiter].name)}</span>` : ""}${w.notiz?`<div class="notiz">📝 ${esc(w.notiz)}</div>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}${w.live?` <span class="pill" title="Live-Wette aus dem Live-Rechner">Live · ${esc(w.liveStand||"")}</span>`:""}</td>
-        <td class="l hide-s">${esc(w.turnier||"")}</td><td class="time hide-s">${esc(w.buchmacher||"")}</td>
-        <td class="num">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${bonusTxt(w.bonus)} % Bonus</div>`:""}</td><td class="num">${betragU(w.einsatz)}</td>
-        <td><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}${opt("C","Cashout")}</select>${e==="C"?`<div class="co"><label>Auszahlung € <input class="co-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.cashout!=null?fx(w.cashout):""}" placeholder="z. B. 14,50"></label></div>`:""}</td>
-        <td class="num ${gw>0?"pos":gw<0?"negv":""}">${gw==null?"–":betragU(gw, true)}</td>
-        <td class="aktionen"><button type="button" class="btn ghost mini w-notiz" data-id="${esc(w.id)}" title="Notiz ${w.notiz?"bearbeiten":"hinzufügen"}">📝</button> <button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${
-          NOTIZ_OFFEN.has(w.id) ? `<tr class="kombi-d"><td colspan="9"><div class="notizform"><input class="notiz-wert" data-id="${esc(w.id)}" maxlength="300" placeholder="z. B. war knapp, Idee richtig, Verletzung im 2. Satz …" value="${esc(w.notiz||"")}"><button type="button" class="btn mini notiz-ok" data-id="${esc(w.id)}">Speichern</button>${w.notiz?`<button type="button" class="btn ghost mini notiz-weg" data-id="${esc(w.id)}">Löschen</button>`:""}
+      const unter = [w.turnier, w.buchmacher].filter(Boolean).map(esc).join(" · ");
+      return `<tr class="wz"><td class="l time c-dat">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
+        <td class="l c-wet">${wetteTxt}${unter?`<div class="time wunter">${unter}</div>`:""}${w.leiter && wLoad().leitern[w.leiter] ? ` <span class="pill ltag" title="gehört zur Leiter">🪜 ${esc(wLoad().leitern[w.leiter].name)}</span>` : ""}${w.notiz?`<div class="notiz">📝 ${esc(w.notiz)}</div>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}${w.live?` <span class="pill" title="Live-Wette aus dem Live-Rechner">Live · ${esc(w.liveStand||"")}</span>`:""}</td>
+        <td class="num c-q" data-l="Quote">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${bonusTxt(w.bonus)} % Bonus</div>`:""}</td><td class="num c-e" data-l="Einsatz">${betragU(w.einsatz)}</td>
+        <td class="c-erg"><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}${opt("C","Cashout")}</select>${e==="C"?`<div class="co"><label>Auszahlung € <input class="co-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.cashout!=null?fx(w.cashout):""}" placeholder="z. B. 14,50"></label></div>`:""}</td>
+        <td class="num c-gw ${gw>0?"pos":gw<0?"negv":""}" data-l="Gewinn">${gw==null?"–":betragU(gw, true)}</td>
+        <td class="aktionen c-akt"><button type="button" class="btn ghost mini w-notiz" data-id="${esc(w.id)}" title="Notiz ${w.notiz?"bearbeiten":"hinzufügen"}">📝</button> <button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${
+          NOTIZ_OFFEN.has(w.id) ? `<tr class="kombi-d"><td colspan="7"><div class="notizform"><input class="notiz-wert" data-id="${esc(w.id)}" maxlength="300" placeholder="z. B. war knapp, Idee richtig, Verletzung im 2. Satz …" value="${esc(w.notiz||"")}"><button type="button" class="btn mini notiz-ok" data-id="${esc(w.id)}">Speichern</button>${w.notiz?`<button type="button" class="btn ghost mini notiz-weg" data-id="${esc(w.id)}">Löschen</button>`:""}
             <label class="time" style="margin-left:8px">Leiter <select class="w-leiter" data-id="${esc(w.id)}">${(() => { const ls = Object.values(wLoad().leitern);
               return `<option value="">keine</option>` + ls.map(l => `<option value="${esc(l.id)}"${l.id===w.leiter?" selected":""}>${esc(l.name)}${l.status==="offen"?"":" (abgeschlossen)"}</option>`).join("") + `<option value="neu">+ neue Leiter …</option>`; })()}</select></label></div></td></tr>` : ""}${kombi && offenK ? kombiDetail(w) : ""}`; }).join("")}</tbody></table></div>`;
 }
@@ -3010,7 +3023,7 @@ function renderWetten(){
 function kombiDetail(w){
   const r = wetteAuswertung(w);
   const pill = (e) => e==="W" ? '<span class="pill go">✓ richtig</span>' : e==="L" ? '<span class="pill stop">✗ falsch</span>' : e==="V" ? '<span class="pill warn">ungültig</span>' : '<span class="pill no">offen</span>';
-  return `<tr class="kombi-d"><td colspan="9"><table class="kombi-t"><tbody>${w.beine.map((b, i) => { const x = r.beine[i];
+  return `<tr class="kombi-d"><td colspan="7"><table class="kombi-t"><tbody>${w.beine.map((b, i) => { const x = r.beine[i];
     const sel = ["auto","W","L","V","offen"].map(v => `<option value="${v}"${(b.erg||"auto")===v?" selected":""}>${{auto:"auto",W:"richtig",L:"falsch",V:"ungültig",offen:"offen"}[v]}</option>`).join("");
     return `<tr><td>${i+1}.</td><td><b>${esc(b.spieler)}</b>${b.gegner?` <span class="time">vs ${esc(b.gegner)}</span>`:""}<div class="time">${esc(String(b.datum||"").slice(0,10).split("-").reverse().join("."))} · ${esc(marktText(b))}${b.quote?" @ "+fx(b.quote):""}</div></td>
       <td class="time">${esc(x.text)}</td><td>${pill(x.e)}</td>
