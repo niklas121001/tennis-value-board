@@ -34,10 +34,48 @@ def jahr_laden(y):
     return out
 
 
+def nur_aktuelles_jahr(alt):
+    """Während ATP-Turniere laufen: einmal am Tag nur die Seite des laufenden Jahres laden (1 Abruf, kein Kontingent –
+    Tennis Abstract ist frei) und die Werte dieses Jahres in tempo.json aktualisieren; ältere Jahre bleiben."""
+    y = datetime.date.today().year
+    try:
+        zeilen = jahr_laden(y)
+    except Exception as e:                         # noqa
+        print(f"  {y}: {e}")
+        return 0
+    if not zeilen:
+        return 0
+    t = {(r["name"].lower(), r["belag"]): r for r in alt.get("turniere", [])}
+    jahre = sorted(set(str(j) for j in alt.get("jahre", [])) | {str(y)})[-JAHRE:]
+    g = {j: i + 1 for i, j in enumerate(jahre)}
+    neu = 0
+    for name, belag, sp in zeilen:
+        if "olympic" in name.lower() or "davis" in name.lower():
+            continue
+        name = re.sub(r"^nd Garros$", "Roland Garros", name)
+        x = t.setdefault((name.lower(), belag), {"name": name, "belag": belag, "jahre": {}, "alias": ALIAS_STD.get(name, [])})
+        if x["jahre"].get(str(y)) != sp:
+            x["jahre"][str(y)] = sp; neu += 1
+    for x in t.values():
+        x["jahre"] = {j: v for j, v in x["jahre"].items() if j in g}
+        if x["jahre"]:
+            w = sum(g[j] for j in x["jahre"])
+            x["speed"] = round(sum(g[j] * v for j, v in x["jahre"].items()) / w, 2)
+    alt["turniere"] = sorted((x for x in t.values() if x["jahre"]), key=lambda x: (x["belag"], -x["speed"]))
+    alt["jahre"] = [int(j) for j in jahre]
+    alt["tag"] = datetime.date.today().isoformat()
+    save("tempo.json", alt)
+    print(f"Platztempo {y} aktualisiert (laufende Turniere): {neu} Werte neu/geändert")
+    return 0
+
+
 def main():
     alt = load("tempo.json", {}) or {}
     if "--immer" not in sys.argv and alt.get("stand") and \
             (datetime.date.today() - datetime.date.fromisoformat(alt["stand"])).days < 30:
+        laeuft = any(str(m.get("kategorie", "")).upper() == "ATP" for m in (load("matches.json", {}) or {}).get("partien", []))
+        if laeuft and alt.get("tag") != datetime.date.today().isoformat():
+            return nur_aktuelles_jahr(alt)
         print("Platztempo aktuell (Stand", alt["stand"], ") – nichts zu tun")
         return 0
     jetzt = datetime.date.today().year

@@ -121,7 +121,7 @@ jobs:
         working-directory: scripts
         run: python update_elo.py
 
-      - name: Platztempo (Tennis Abstract, monatlich)
+      - name: Platztempo (Tennis Abstract, monatlich; bei laufenden ATP-Turnieren täglich das aktuelle Jahr)
         continue-on-error: true
         working-directory: scripts
         run: python tempo_ta.py
