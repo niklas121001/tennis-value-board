@@ -43,6 +43,7 @@ h1 span{color:var(--accent)}
 .stand{font:12px/1.4 var(--f-mono);color:var(--muted);text-align:right}
 .banner{margin-top:14px;padding:10px 14px;border-radius:6px;background:var(--warn-soft);color:var(--warn);font-size:13px}
 nav.tabs{display:flex;gap:4px;margin-top:16px;overflow-x:auto;scrollbar-width:none}
+@media(max-width:600px){nav.tabs{flex-wrap:wrap;overflow:visible;gap:0 2px}nav.tabs>button[role]{padding:7px 6px;font-size:12.5px;letter-spacing:.02em}}
 nav.tabs button{white-space:nowrap;flex:none}
 nav.tabs button{font:600 1rem var(--f-display);letter-spacing:.06em;text-transform:uppercase;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:6px 10px;cursor:pointer}
 nav.tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--accent)}
