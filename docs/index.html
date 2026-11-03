@@ -2535,9 +2535,12 @@ function wetteBox(p, r){
 }
 
 // ---- Auswahlen (Einzel/Kombi, Sieg oder genaues Ergebnis) gegen das Ergebnis-Archiv prüfen
+// Tiebreak-Wetten: zählen für beide Spieler gleich (Spielerauswahl egal)
+const TB_MARKT = {tbJa: "Tiebreak im Match: ja", tbNein: "Tiebreak im Match: nein", tb1Ja: "Tiebreak im 1. Satz: ja", tb1Nein: "Tiebreak im 1. Satz: nein"};
 const SAETZE_MARKT = {"o2.5":"Über 2,5 Sätze","u2.5":"Unter 2,5 Sätze","o3.5":"Über 3,5 Sätze","u3.5":"Unter 3,5 Sätze","o4.5":"Über 4,5 Sätze","u4.5":"Unter 4,5 Sätze"};
 const MARKT_OPT = `<option value="sieg">Sieg</option><option value="satz1">gewinnt mind. 1 Satz</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("")
-  + Object.entries(SAETZE_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("");
+  + Object.entries(SAETZE_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("")
+  + Object.entries(TB_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("");
 // Challenger: bei Winamax nur Siegwetten – im Formular nur „Sieg“
 const MARKT_OPT_CH = `<option value="sieg">Sieg</option>`;
 const nameNorm = (s) => String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z ]/g," ").split(/\s+/).filter(Boolean);
@@ -2577,6 +2580,11 @@ function beinAuswertung(bein){
     if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
     return {e: satz.some(([u,v]) => u > v) ? "W" : "L", text};
   }
+  if(TB_MARKT[bein.markt]){                // Tiebreak im Match / im 1. Satz: 7:6 bzw. 6:7
+    if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
+    const tb = satz.map(([u,v]) => (u===7 && v===6) || (u===6 && v===7)), ja = bein.markt.startsWith("tb1") ? tb[0] : tb.some(Boolean);
+    return {e: (bein.markt.endsWith("Ja") ? ja : !ja) ? "W" : "L", text: `${tb.filter(Boolean).length} Tiebreak${tb.filter(Boolean).length===1?"":"s"} · ${text}`};
+  }
   if(SAETZE_MARKT[bein.markt]){            // Über/Unter Sätze: zählt für beide Spieler gleich
     if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
     const n = satz.length, linie = parseFloat(bein.markt.slice(1));
@@ -2597,7 +2605,7 @@ function wetteAuswertung(w){      // {e, quote} – Kombi: eine falsche Auswahl 
     quote = w.beine.reduce((q, b, i) => q * (es[i] === "V" ? 1 : b.quote), 1);
   return {e, quote, beine: r};
 }
-const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : b.markt==="satz1" ? "mind. 1 Satz" : SAETZE_MARKT[b.markt] || "Ergebnis " + b.markt;
+const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : b.markt==="satz1" ? "mind. 1 Satz" : SAETZE_MARKT[b.markt] || TB_MARKT[b.markt] || "Ergebnis " + b.markt;
 
 function ergebnisVon(w){
   if (w.manuell) return w.ergebnis || null;
@@ -2763,7 +2771,8 @@ function setupWetten(){
     const seite = f.seite.value === "A" ? "A" : "B";
     if(f.markt.value !== "sieg"){
       // Satzmärkte: Quote aus dem Datenfeed (Satz-Handicap) oder aus deiner Eingabe im Kasten „Satz- & Tiebreak-Märkte“
-      const key = f.markt.value === "satz1" ? "mind1" + seite : f.markt.value === "2:0" ? "glatt" + seite : f.markt.value === "2:1" ? "zweiEins" + seite : null;
+      const key = f.markt.value === "satz1" ? "mind1" + seite : f.markt.value === "2:0" ? "glatt" + seite : f.markt.value === "2:1" ? "zweiEins" + seite
+        : TB_MARKT[f.markt.value] ? f.markt.value : f.markt.value === "o2.5" ? "dreiSaetze" : f.markt.value === "u2.5" ? "zweiSaetze" : null;
       let mk = {}; try{ mk = JSON.parse(f.dataset.maerkte || "{}"); }catch(_){}
       const q = key ? (((mk[f.bm.value] || {})[key]) || (store.get("mq." + f.dataset.id, {}) || {})[key]) : null;
       f.quote.value = q ? fx(q) : "";
