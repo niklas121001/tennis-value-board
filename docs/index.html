@@ -74,7 +74,13 @@ details.klapp[open]>summary{margin-bottom:8px}
 tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var(--muted)}
 .vliste{width:100%;font-size:13px;margin:4px 0 8px}.vliste th,.vliste td{padding:4px 6px;border-bottom:1px solid var(--line)}
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}.empt td,.empt th{vertical-align:top}.empt td.l{min-width:0}.empt .pill{margin-left:3px}
+.pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}@media(max-width:600px){.empst{min-width:0!important}.empst td,.empst th{padding:5px 4px;font-size:12px}}
+.empt td,.empt th{vertical-align:top}.empt td.l{min-width:0}.empt .pill{margin-left:3px}
+@media(max-width:600px){.empt thead{display:none}.empt,.empt tbody{display:block;min-width:0!important;width:100%}
+  .empt tr{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;padding:8px 2px;border-bottom:1px solid var(--line)}
+  .empt tr>td{display:block;padding:0;border:0;background:none}.empt tr>td.hide-s{display:none}.empt tr>td:nth-child(-n+2){grid-column:1/-1}
+  .empt tr>td:nth-last-child(2)::before{content:"Haupt";display:block;font:10px var(--f-mono);text-transform:uppercase;color:var(--muted)}
+  .empt tr>td:last-child::before{content:"Alternative";display:block;font:10px var(--f-mono);text-transform:uppercase;color:var(--muted)}}
 .rang{color:var(--muted);font-size:.78em;font-weight:400;font-family:var(--f-mono,monospace)}
 /* Meine Wetten: Desktop schmaler (Turnier/Buchmacher unter der Wette), Handy als Karten ohne Querscrollen */
 .mwt .wunter{margin-top:2px}.mwt .c-dat{white-space:nowrap}
@@ -104,7 +110,7 @@ details.heute>summary{cursor:pointer}details.heute>summary b{font:600 1.05rem va
 .lstufen{margin:6px 0 0 18px;padding:0;font-size:13px}.lstufen li{padding:2px 0}.laktion{display:flex;gap:6px;margin-top:8px}
 .pill.ltag{background:var(--accent-soft);color:var(--accent)}
 .vdet{max-height:460px;overflow:auto;padding-right:4px}.vrueck{margin:4px 0 8px;font-size:12.5px;overflow-wrap:anywhere}
-.vtab .vbeschr{max-width:340px}
+.vtab .vbeschr{max-width:340px;white-space:normal}
 @media (max-width:700px){.vdet{max-height:380px;max-width:calc(100vw - 64px);overflow:auto}.vrueck{font-size:12px}.vtab td,.vtab th{padding:6px 6px}}
 .tdet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:6px 2px 10px;text-align:left}
 .tdet>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-width:0}
@@ -248,6 +254,7 @@ tr.m.past td{color:var(--muted)}
 .kpi b.pos{color:var(--good)}.kpi b.negv{color:var(--bad)}
 .kv.split{grid-template-columns:minmax(90px,1fr) auto auto auto auto}
 .kv.split .v{white-space:nowrap}
+@media(max-width:600px){.kv.split{grid-template-columns:minmax(60px,1fr) repeat(4,auto);column-gap:7px;font-size:12px}.kv.split .h{font-size:9.5px}}
 #b-split .dgrid{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
 .kv small{color:var(--muted);font-size:11px}
 @media (max-width:980px){.kpis6{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -661,7 +668,7 @@ async function renderEmpf(){
     <p class="time" style="margin:0 0 8px">Je Partie die <b>Hauptwette</b> (höchste Trefferchance) und eine <b>Alternative</b> (bester Erwartungswert mit spürbar höherer Quote, bis ${fx(D.params.EMP_ALT_MAX_QUOTE ?? 3)}). Value ist nicht nötig, aber die Quote darf höchstens ${pc(-(D.params.EMP_MIN_EDGE ?? -0.05),0)} unter fair liegen; Quoten ${fx(D.params.EMP_MIN_QUOTE ?? 1.2)}–${fx(D.params.EMP_MAX_QUOTE ?? 5)}. Siegchance aus der Gesamtschätzung (H), Satz- und Tiebreak-Chancen aus dem Modell. Angaben: Quote · Chance · Edge.</p>
     ${offenHtml}</div>
     <div class="box" style="margin-top:12px"><h3>Wie oft liegt die Empfehlung richtig?</h3>
-    <div class="tablewrap"><table class="empt"><thead><tr><th class="l"></th><th class="num hide-s">Partien</th><th class="num">richtig–falsch</th><th class="num">Treffer</th><th class="num" title="Mittel der Modell-Chancen – so oft sollte es bei gut kalibriertem Modell klappen">erwartet</th><th class="num hide-s" title="nur zur Info: 1 U je Empfehlung">1 U</th></tr></thead><tbody>${zeile("Hauptwette", sH)}${zeile("Alternative", sA)}</tbody></table></div>
+    <div class="tablewrap"><table class="empst"><thead><tr><th class="l"></th><th class="num hide-s">Partien</th><th class="num">richtig–falsch</th><th class="num">Treffer</th><th class="num" title="Mittel der Modell-Chancen – so oft sollte es bei gut kalibriertem Modell klappen">erwartet</th><th class="num hide-s" title="nur zur Info: 1 U je Empfehlung">1 U</th></tr></thead><tbody>${zeile("Hauptwette", sH)}${zeile("Alternative", sA)}</tbody></table></div>
     <p class="time" style="margin:6px 0 0">Gezählt wird die letzte Empfehlung vor Spielbeginn. Aufgaben und Walkover zählen nicht. Kein Einfluss auf Bilanz, Value-Tipps oder Varianten.</p></div>${liste}`;
   const d = $("#empf-liste"); if(d) d.addEventListener("toggle", () => { EMP_OFFEN = d.open; });
 }

@@ -114,6 +114,11 @@ for (const m of matches) {
   }
   if (storno) console.log(`Tipps storniert (Daten korrigiert, kein Value mehr): ${storno}`);
 }
+// Verschobene Partien (z. B. Regen): neue Startzeit in offene Tipps und Signale übernehmen
+{
+  const startVon = Object.fromEntries(matches.map((m) => [m.id, m.start]));
+  for (const t of Object.values(log)) if (!t.ergebnis && startVon[t.id] && startVon[t.id] !== t.start) t.start = startVon[t.id];
+}
 fs.writeFileSync(path.join(dir, "tips_log.json"), JSON.stringify(log, null, 0));
 
 // Test-Varianten B und C (Hintergrund, Auswertung zum Jahresende): eigene Tipps mit derselben Value-Regel.
