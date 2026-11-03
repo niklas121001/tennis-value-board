@@ -1728,7 +1728,8 @@ function spielerCheckHtml(p, r){
     const hb = handBilanz(me), b = hb.L, o = hb.R, n = b[0]+b[1], m = o[0]+o[1];
     add(me, `gegen Linkshänder <span class="lh" title="Linkshänder">L</span>`, n ? `${b[0]}–${b[1]} <span class="time">${pc(b[0]/n,0)}</span>` : "—", `Seit 2023 · Stand ${hb.stand}` + (m ? ` · gegen Rechtshänder ${o[0]}–${o[1]} (${pc(o[0]/m,0)})` : ""));
   }
-  if(!p.calc && H2HTA && H2HTA.fs) for(const n of [p.a, p.b]){ const f = H2HTA.fs[n]; if(!f) continue;
+  // 1. Satz nur bei ATP (Challenger ohne Satzwetten)
+  if(!p.calc && H2HTA && H2HTA.fs && !isChTip(p)) for(const n of [p.a, p.b]){ const f = H2HTA.fs[n]; if(!f) continue;
     const g = f.g[0] + f.g[1], v = f.v[0] + f.v[1], tour = ((TSTATS.erster_satz || {})["3"]) || 0.8;
     if(g >= 5) add(n, "Match-Sieg nach gewonnenem 1. Satz", `${pc(f.g[0]/g,0)} <span class="time">${f.g[0]}–${f.g[1]}</span>`, `Seit 2023, alle Stufen (Tennis Abstract). Tour-Schnitt etwa ${pc(tour,0)}.`);
     if(v >= 5) add(n, "Match-Sieg nach verlorenem 1. Satz", `${pc(f.v[0]/v,0)} <span class="time">${f.v[0]}–${f.v[1]}</span>`, `Seit 2023, alle Stufen (Tennis Abstract). Tour-Schnitt etwa ${pc(1-tour,0)}.`); }

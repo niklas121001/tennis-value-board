@@ -230,7 +230,8 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
         // Feed-Quoten + von Hand im Partie-Detail eingetragene Quoten (manuelle_markt.json, nur vor Spielbeginn)
         const hand = {}; for (const [k, x] of Object.entries(manMarkt[m.id] || {})) if (x && x.q > 1 && (x.bm || "winamax") === bm && String(x.zeit) < String(m.start)) hand[k] = x;
         const mq = Object.assign({}, Object.fromEntries(Object.entries(hand).map(([k, x]) => [k, x.q])), (m.maerkte || {})[bm] || {});
-        if (rr.ok && rr.maerkte && Object.keys(mq).length && !(rr.eloGeschaetztA || rr.eloGeschaetztB)) {
+        const istCh = /challenger/i.test(String(m.turnier || "") + " " + String(m.kategorie || ""));   // Challenger: keine Satz-/TB-Signale
+        if (!istCh && rr.ok && rr.maerkte && Object.keys(mq).length && !(rr.eloGeschaetztA || rr.eloGeschaetztB)) {
           const mk = rr.maerkte, bo5 = rr.modus === 5;
           const pM = { tb1Ja: mk.tb1, tb1Nein: 1 - mk.tb1, tbJa: mk.tbMatch, tbNein: 1 - mk.tbMatch, satz1A: mk.satz1A, satz1B: 1 - mk.satz1A };
           if (!bo5) Object.assign(pM, { glattA: mk.glattA, glattB: mk.glattB, mind1A: 1 - mk.glattB, mind1B: 1 - mk.glattA, dreiSaetze: mk.volleDistanz, zweiSaetze: 1 - mk.volleDistanz,
