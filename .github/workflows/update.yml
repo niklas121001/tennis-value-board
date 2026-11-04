@@ -172,6 +172,11 @@ jobs:
           ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
         run: python results.py
 
+      - name: Gehaltene Aufschlagspiele je Spieler (Tiebreak-Test)
+        continue-on-error: true
+        working-directory: scripts
+        run: python hold_stats.py
+
       - name: Eigenes Platztempo für Challenger aus Match-Statistiken
         continue-on-error: true
         working-directory: scripts

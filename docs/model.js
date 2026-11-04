@@ -631,6 +631,21 @@
         else r = aSrv ? hA * zuTB(a + 1, b, false) + (1 - hA) * zuTB(a, b + 1, false) : (1 - hB) * zuTB(a + 1, b, true) + hB * zuTB(a, b + 1, true);
         return (mm[k] = r); };
       const tRoh = (zuTB(0, 0, true) + zuTB(0, 0, false)) / 2;
+      // Test (seit 04.11.2026): Tiebreak-Chance aus den gehaltenen Aufschlagspielen der Spieler (hold_stats.json) statt aus den
+      // Aufschlagpunkten – eigener Aufschlag gehalten und Halten der Gegner gegen ihn, je zum Tour-Schnitt gezogen (H_HOLD_K Spiele)
+      const tbAusHold = (() => {
+        const hs = D.holdStats; if (!hs || !hs.spieler) return null;
+        const xa = (hs.spieler[match.a] || {})[sk] || (hs.spieler[match.a] || {}).alle, xb = (hs.spieler[match.b] || {})[sk] || (hs.spieler[match.b] || {}).alle;
+        if (!xa || !xb || xa[1] < 10 || xb[1] < 10) return null;
+        const avg = (hs.tour || {})[(istCh ? "ch_" : "atp_") + sk] || (hs.tour || {})["ch_" + sk] || 0.8, K = P.H_HOLD_K ?? 40, Lg = (q) => logit(clip(q, 0.02, 0.98));
+        const sh = (h, n) => (h + K * avg) / (n + K);
+        const gA = sigm(Lg(sh(xa[0], xa[1])) + Lg(sh(xb[2], xb[3])) - Lg(avg)), gB = sigm(Lg(sh(xb[0], xb[1])) + Lg(sh(xa[2], xa[3])) - Lg(avg));
+        const m2 = {}, z2 = (a, b, aSrv) => { const k = a + "|" + b + "|" + aSrv; if (k in m2) return m2[k];
+          let r; if (a === 6 && b === 6) r = 1; else if (a === 7 || b === 7 || (a >= 6 && a - b >= 2) || (b >= 6 && b - a >= 2)) r = 0;
+          else r = aSrv ? gA * z2(a + 1, b, false) + (1 - gA) * z2(a, b + 1, false) : (1 - gB) * z2(a + 1, b, true) + gB * z2(a, b + 1, true);
+          return (m2[k] = r); };
+        return { roh: (z2(0, 0, true) + z2(0, 0, false)) / 2, holdA: gA, holdB: gB };
+      })();
       const tbF = (istCh ? (P.TB_FAKTOR_CH ?? 1) : (P.TB_FAKTOR_ATP ?? 1)) * (tst && isNum(tst.tb_faktor) ? tst.tb_faktor : 1);
       const t = clip(tRoh * tbF, 0.01, 0.8);
       const ss = setScores(pFinal, mode, satzK.k), sc = ss.scores;
@@ -646,8 +661,14 @@
         let mT = 0; for (const [n, pn] of Object.entries(nSaetze)) mT += pn * (1 - (1 - tT) ** +n);
         tbTest = { tb1: tT, tbMatch: mT, faktor: fT };
       }
+      let tbHold = null;
+      if (tbAusHold) {
+        const tH = clip(tbAusHold.roh * tbF, 0.01, 0.8);
+        let mH = 0; for (const [n, pn] of Object.entries(nSaetze)) mH += pn * (1 - (1 - tH) ** +n);
+        tbHold = { tb1: tH, tbMatch: mH, holdA: tbAusHold.holdA, holdB: tbAusHold.holdB };
+      }
       return { glattA: mode === 5 ? sc["3-0"] : sc["2-0"], glattB: mode === 5 ? sc["0-3"] : sc["0-2"],
-        volleDistanz: mode === 5 ? null : sc["2-1"] + sc["1-2"], satz1A: ss.q, tb1: t, tbMatch, tbRoh: tRoh, tbFaktor: tbF, tbTest,
+        volleDistanz: mode === 5 ? null : sc["2-1"] + sc["1-2"], satz1A: ss.q, tb1: t, tbMatch, tbRoh: tRoh, tbFaktor: tbF, tbTest, tbHold,
         // Best-of-5 (Grand Slams): über/unter 3,5 bzw. 4,5 Sätze und genaue Ergebnisse 3:1 / 3:2
         ...(mode === 5 ? { ueber35: 1 - sc["3-0"] - sc["0-3"], ueber45: sc["3-2"] + sc["2-3"], dreiEinsA: sc["3-1"], dreiEinsB: sc["1-3"],
           dreiZweiA: sc["3-2"], dreiZweiB: sc["2-3"] } : {}) };
