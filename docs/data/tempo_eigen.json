@@ -1,6 +1,7 @@
 {
  "stand": "2026-11-04",
  "quelle": "Eigene Schätzung aus Match-Statistiken (SportsAPIPro): Asse je Aufschlagpunkt vs. Erwartung aus Aufschläger und Returner, 1,00 = Schnitt",
+ "steigung_hold": 0.963,
  "turniere": [
   {
    "name": "cali",
@@ -9,14 +10,17 @@
     "2026": {
      "seiten": 86,
      "ass_index": 0.973,
+     "hold_dev": 0.14,
      "hold": 0.756,
      "tb_satz": 0.12
     }
    },
-   "speed": 0.98,
-   "roh": 0.973,
-   "seiten": 86,
    "ch": true,
+   "speed": 1.05,
+   "roh": 1.074,
+   "ass": 0.973,
+   "hold_skala": 1.175,
+   "seiten": 86,
    "quelle": "eigen",
    "alias": []
   },
@@ -27,50 +31,17 @@
     "2026": {
      "seiten": 78,
      "ass_index": 0.834,
+     "hold_dev": 0.036,
      "hold": 0.753,
      "tb_satz": 0.088
     }
    },
-   "speed": 0.89,
-   "roh": 0.834,
+   "ch": true,
+   "speed": 0.97,
+   "roh": 0.954,
+   "ass": 0.834,
+   "hold_skala": 1.075,
    "seiten": 78,
-   "ch": true,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "guayaquil",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 90,
-     "ass_index": 0.78,
-     "hold": 0.693,
-     "tb_satz": 0.135
-    }
-   },
-   "speed": 0.85,
-   "roh": 0.78,
-   "seiten": 90,
-   "ch": true,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "catania",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 34,
-     "ass_index": 0.661,
-     "hold": 0.718,
-     "tb_satz": 0.235
-    }
-   },
-   "speed": 0.84,
-   "roh": 0.661,
-   "seiten": 34,
-   "ch": true,
    "quelle": "eigen",
    "alias": []
   },
@@ -81,14 +52,59 @@
     "2026": {
      "seiten": 26,
      "ass_index": 0.54,
+     "hold_dev": -0.011,
      "hold": 0.745,
      "tb_satz": 0.053
     }
    },
-   "speed": 0.82,
-   "roh": 0.54,
-   "seiten": 26,
    "ch": true,
+   "speed": 0.92,
+   "roh": 0.785,
+   "ass": 0.54,
+   "hold_skala": 1.03,
+   "seiten": 26,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "catania",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 34,
+     "ass_index": 0.661,
+     "hold_dev": -0.164,
+     "hold": 0.718,
+     "tb_satz": 0.235
+    }
+   },
+   "ch": true,
+   "speed": 0.9,
+   "roh": 0.772,
+   "ass": 0.661,
+   "hold_skala": 0.882,
+   "seiten": 34,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "guayaquil",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 90,
+     "ass_index": 0.78,
+     "hold_dev": -0.194,
+     "hold": 0.693,
+     "tb_satz": 0.135
+    }
+   },
+   "ch": true,
+   "speed": 0.87,
+   "roh": 0.817,
+   "ass": 0.78,
+   "hold_skala": 0.853,
+   "seiten": 90,
    "quelle": "eigen",
    "alias": []
   },
@@ -99,14 +115,17 @@
     "2026": {
      "seiten": 74,
      "ass_index": 0.668,
+     "hold_dev": -0.192,
      "hold": 0.717,
      "tb_satz": 0.112
     }
    },
-   "speed": 0.78,
-   "roh": 0.668,
-   "seiten": 74,
    "ch": true,
+   "speed": 0.85,
+   "roh": 0.762,
+   "ass": 0.668,
+   "hold_skala": 0.855,
+   "seiten": 74,
    "quelle": "eigen",
    "alias": []
   },
@@ -117,14 +136,17 @@
     "2026": {
      "seiten": 74,
      "ass_index": 0.637,
+     "hold_dev": -0.179,
      "hold": 0.694,
      "tb_satz": 0.085
     }
    },
-   "speed": 0.76,
-   "roh": 0.637,
-   "seiten": 74,
    "ch": true,
+   "speed": 0.84,
+   "roh": 0.752,
+   "ass": 0.637,
+   "hold_skala": 0.868,
+   "seiten": 74,
    "quelle": "eigen",
    "alias": []
   },
@@ -135,14 +157,17 @@
     "2026": {
      "seiten": 78,
      "ass_index": 0.534,
+     "hold_dev": -0.46,
      "hold": 0.673,
      "tb_satz": 0.094
     }
    },
-   "speed": 0.69,
-   "roh": 0.534,
-   "seiten": 78,
    "ch": true,
+   "speed": 0.71,
+   "roh": 0.566,
+   "ass": 0.534,
+   "hold_skala": 0.597,
+   "seiten": 78,
    "quelle": "eigen",
    "alias": []
   },
@@ -153,14 +178,17 @@
     "2026": {
      "seiten": 76,
      "ass_index": 1.702,
+     "hold_dev": 0.339,
      "hold": 0.847,
      "tb_satz": null
     }
    },
-   "speed": 1.46,
-   "roh": 1.702,
-   "seiten": 76,
    "ch": true,
+   "speed": 1.35,
+   "roh": 1.534,
+   "ass": 1.702,
+   "hold_skala": 1.366,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -171,14 +199,17 @@
     "2026": {
      "seiten": 98,
      "ass_index": 1.161,
+     "hold_dev": 0.152,
      "hold": 0.826,
      "tb_satz": 0.229
     }
    },
-   "speed": 1.11,
-   "roh": 1.161,
-   "seiten": 98,
    "ch": true,
+   "speed": 1.12,
+   "roh": 1.174,
+   "ass": 1.161,
+   "hold_skala": 1.186,
+   "seiten": 98,
    "quelle": "eigen",
    "alias": []
   },
@@ -189,32 +220,17 @@
     "2026": {
      "seiten": 46,
      "ass_index": 1.095,
+     "hold_dev": 0.181,
      "hold": 0.818,
      "tb_satz": 0.25
     }
    },
-   "speed": 1.05,
-   "roh": 1.095,
+   "ch": true,
+   "speed": 1.08,
+   "roh": 1.155,
+   "ass": 1.095,
+   "hold_skala": 1.214,
    "seiten": 46,
-   "ch": true,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "bratislava ii",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 32,
-     "ass_index": 1.08,
-     "hold": 0.782,
-     "tb_satz": 0.132
-    }
-   },
-   "speed": 1.04,
-   "roh": 1.08,
-   "seiten": 32,
-   "ch": true,
    "quelle": "eigen",
    "alias": []
   },
@@ -225,14 +241,38 @@
     "2026": {
      "seiten": 88,
      "ass_index": 1.017,
+     "hold_dev": 0.04,
      "hold": 0.791,
      "tb_satz": 0.206
     }
    },
-   "speed": 1.01,
-   "roh": 1.017,
-   "seiten": 88,
    "ch": true,
+   "speed": 1.03,
+   "roh": 1.048,
+   "ass": 1.017,
+   "hold_skala": 1.079,
+   "seiten": 88,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "bratislava ii",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 32,
+     "ass_index": 1.08,
+     "hold_dev": -0.065,
+     "hold": 0.782,
+     "tb_satz": 0.132
+    }
+   },
+   "ch": true,
+   "speed": 1.01,
+   "roh": 1.029,
+   "ass": 1.08,
+   "hold_skala": 0.978,
+   "seiten": 32,
    "quelle": "eigen",
    "alias": []
   },
@@ -243,14 +283,17 @@
     "2026": {
      "seiten": 72,
      "ass_index": 0.891,
+     "hold_dev": 0.061,
      "hold": 0.832,
      "tb_satz": 0.234
     }
    },
-   "speed": 0.93,
-   "roh": 0.891,
-   "seiten": 72,
    "ch": true,
+   "speed": 1.0,
+   "roh": 0.995,
+   "ass": 0.891,
+   "hold_skala": 1.099,
+   "seiten": 72,
    "quelle": "eigen",
    "alias": []
   },
@@ -261,14 +304,17 @@
     "2026": {
      "seiten": 70,
      "ass_index": 0.757,
+     "hold_dev": -0.225,
      "hold": 0.779,
      "tb_satz": 0.116
     }
    },
-   "speed": 0.85,
-   "roh": 0.757,
-   "seiten": 70,
    "ch": true,
+   "speed": 0.87,
+   "roh": 0.79,
+   "ass": 0.757,
+   "hold_skala": 0.824,
+   "seiten": 70,
    "quelle": "eigen",
    "alias": []
   },
@@ -279,32 +325,17 @@
     "2026": {
      "seiten": 76,
      "ass_index": 0.732,
+     "hold_dev": -0.248,
      "hold": 0.758,
      "tb_satz": 0.129
     }
    },
-   "speed": 0.82,
-   "roh": 0.732,
+   "ch": true,
+   "speed": 0.85,
+   "roh": 0.767,
+   "ass": 0.732,
+   "hold_skala": 0.801,
    "seiten": 76,
-   "ch": true,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "seoul",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 90,
-     "ass_index": 0.719,
-     "hold": 0.745,
-     "tb_satz": 0.121
-    }
-   },
-   "speed": 0.81,
-   "roh": 0.719,
-   "seiten": 90,
-   "ch": true,
    "quelle": "eigen",
    "alias": []
   },
@@ -315,14 +346,187 @@
     "2026": {
      "seiten": 90,
      "ass_index": 0.639,
+     "hold_dev": -0.126,
      "hold": 0.787,
      "tb_satz": 0.153
     }
    },
-   "speed": 0.75,
-   "roh": 0.639,
-   "seiten": 90,
    "ch": true,
+   "speed": 0.85,
+   "roh": 0.779,
+   "ass": 0.639,
+   "hold_skala": 0.919,
+   "seiten": 90,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "seoul",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 90,
+     "ass_index": 0.719,
+     "hold_dev": -0.368,
+     "hold": 0.745,
+     "tb_satz": 0.121
+    }
+   },
+   "ch": true,
+   "speed": 0.79,
+   "roh": 0.702,
+   "ass": 0.719,
+   "hold_skala": 0.686,
+   "seiten": 90,
+   "quelle": "eigen",
+   "alias": []
+  }
+ ],
+ "atp_test": [
+  {
+   "name": "almaty",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 76,
+     "ass_index": 1.149,
+     "hold_dev": 0.363,
+     "hold": 0.851,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.18,
+   "roh": 1.269,
+   "ass": 1.149,
+   "hold_skala": 1.39,
+   "seiten": 76,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "basel",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 86,
+     "ass_index": 1.084,
+     "hold_dev": 0.193,
+     "hold": 0.867,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.11,
+   "roh": 1.155,
+   "ass": 1.084,
+   "hold_skala": 1.226,
+   "seiten": 86,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "shanghai",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 42,
+     "ass_index": 1.019,
+     "hold_dev": 0.085,
+     "hold": 0.85,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.04,
+   "roh": 1.07,
+   "ass": 1.019,
+   "hold_skala": 1.122,
+   "seiten": 42,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "brussels",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 76,
+     "ass_index": 0.961,
+     "hold_dev": 0.005,
+     "hold": 0.828,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.0,
+   "roh": 1.003,
+   "ass": 0.961,
+   "hold_skala": 1.045,
+   "seiten": 76,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "paris",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 98,
+     "ass_index": 1.02,
+     "hold_dev": -0.097,
+     "hold": 0.826,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.99,
+   "roh": 0.983,
+   "ass": 1.02,
+   "hold_skala": 0.947,
+   "seiten": 98,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "lyon",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 78,
+     "ass_index": 0.855,
+     "hold_dev": -0.016,
+     "hold": 0.845,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.96,
+   "roh": 0.94,
+   "ass": 0.855,
+   "hold_skala": 1.025,
+   "seiten": 78,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "vienna",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 80,
+     "ass_index": 0.69,
+     "hold_dev": -0.233,
+     "hold": 0.803,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.84,
+   "roh": 0.753,
+   "ass": 0.69,
+   "hold_skala": 0.816,
+   "seiten": 80,
    "quelle": "eigen",
    "alias": []
   }

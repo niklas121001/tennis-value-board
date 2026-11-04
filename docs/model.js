@@ -637,8 +637,17 @@
       const nSaetze = mode === 5 ? { 3: sc["3-0"] + sc["0-3"], 4: sc["3-1"] + sc["1-3"], 5: sc["3-2"] + sc["2-3"] }
                                  : { 2: sc["2-0"] + sc["0-2"], 3: sc["2-1"] + sc["1-2"] };
       let tbMatch = 0; for (const [n, pn] of Object.entries(nSaetze)) tbMatch += pn * (1 - (1 - t) ** +n);
+      // Test (seit 04.11.2026, nur ATP mit Platztempo): Tiebreak-Faktor aus dem Platztempo statt aus der Turnier-Tiebreak-Quote.
+      // Steigung aus den ATP-Turnieren (Tiebreak-Anteil je Satz ~ Tempo): Hart +63 % je 1,0 Tempo um 1,10, Sand +107 % um 0,69, Rasen +97 % um 1,13
+      let tbTest = null;
+      if (isNum(tempoF)) {
+        const [mitte, steig] = { hard: [1.10, 0.63], clay: [0.69, 1.07], grass: [1.13, 0.97] }[sk] || [1.10, 0.63];
+        const fT = clip(1 + steig * (tempoF - mitte), 0.8, 1.3), tT = clip(tRoh * (istCh ? (P.TB_FAKTOR_CH ?? 1) : (P.TB_FAKTOR_ATP ?? 1)) * fT, 0.01, 0.8);
+        let mT = 0; for (const [n, pn] of Object.entries(nSaetze)) mT += pn * (1 - (1 - tT) ** +n);
+        tbTest = { tb1: tT, tbMatch: mT, faktor: fT };
+      }
       return { glattA: mode === 5 ? sc["3-0"] : sc["2-0"], glattB: mode === 5 ? sc["0-3"] : sc["0-2"],
-        volleDistanz: mode === 5 ? null : sc["2-1"] + sc["1-2"], satz1A: ss.q, tb1: t, tbMatch, tbRoh: tRoh, tbFaktor: tbF,
+        volleDistanz: mode === 5 ? null : sc["2-1"] + sc["1-2"], satz1A: ss.q, tb1: t, tbMatch, tbRoh: tRoh, tbFaktor: tbF, tbTest,
         // Best-of-5 (Grand Slams): über/unter 3,5 bzw. 4,5 Sätze und genaue Ergebnisse 3:1 / 3:2
         ...(mode === 5 ? { ueber35: 1 - sc["3-0"] - sc["0-3"], ueber45: sc["3-2"] + sc["2-3"], dreiEinsA: sc["3-1"], dreiEinsB: sc["1-3"],
           dreiZweiA: sc["3-2"], dreiZweiB: sc["2-3"] } : {}) };
