@@ -116,7 +116,17 @@ def main():
     heute = datetime.date.today()
     verlauf = load("elo_verlauf.json", {"tage": {}})
     verlauf["tage"][heute.isoformat()] = {n: round(v["elo"]) for n, v in cur.items() if isinstance(v.get("elo"), (int, float))}
-    verlauf["tage"] = {d: x for d, x in verlauf["tage"].items() if (heute - datetime.date.fromisoformat(d)).days <= 45}
+    # täglich für 45 Tage, danach ein Stand je Kalenderwoche (für die Kurve im Spielerprofil), höchstens 400 Tage
+    behalten, wochen = {}, set()
+    for d in sorted(verlauf["tage"], reverse=True):
+        alt = (heute - datetime.date.fromisoformat(d)).days
+        if alt <= 45:
+            behalten[d] = verlauf["tage"][d]
+        elif alt <= 400:
+            wk = datetime.date.fromisoformat(d).isocalendar()[:2]
+            if wk not in wochen:
+                wochen.add(wk); behalten[d] = verlauf["tage"][d]
+    verlauf["tage"] = dict(sorted(behalten.items()))
     save("elo_verlauf.json", verlauf, indent=0)
     alt = sorted((d for d in verlauf["tage"] if (heute - datetime.date.fromisoformat(d)).days >= 14),
                  key=lambda d: abs((heute - datetime.date.fromisoformat(d)).days - 30))

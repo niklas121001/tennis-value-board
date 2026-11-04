@@ -403,7 +403,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
       <div class="kpi"><b id="m-gewinn">–</b><span>Gewinn / Verlust</span></div>
       <div class="kpi"><b id="m-roi">–</b><span>ROI</span></div>
       <div class="kpi"><b id="m-offen">–</b><span>offen (Einsatz)</span></div>
-      <div class="kpi"><b id="m-clv">–</b><span>Ø Quote</span></div>
+      <div class="kpi"><b id="m-clv">–</b><span>Ø Quote · Ø CLV</span></div>
     </div>
     <div id="m-kurve" class="kurvebox"></div>
     <div id="m-leitern"></div>
@@ -1858,6 +1858,28 @@ function spielerCheckHtml(p, r){
     add(n, "1 U auf Sieg (Archiv)", z && z.n ? `<span class="${z.u>0?"pos":z.u<0?"negv":""}">${z.u>0?"+":""}${fx(z.u)} U</span> <span class="time">${z.w}–${z.n-z.w}</span>` : "—", "Immer 1 Unit auf den Sieg des Spielers, zur Ø-Quote vor Spielbeginn. Ohne Aufgaben, Absagen und Partien ohne Quote." + (z && z.n ? ` ROI ${sg(z.roi)}` : "")); }
   return reihe.map(n => `<div class="scblock"><div class="scname">${esc(n)}${linksBadge(n)}${n === reihe[0] && r.qa !== r.qb ? ` <span class="time">Favorit</span>` : ""}</div><div class="kv two">${zeilen[n].join("") || `<span class="k">keine Daten</span><span class="v">—</span>`}</div></div>`).join("");
 }
+// Elo-Verlauf (elo_verlauf.json: Tageswerte 45 Tage, danach wöchentlich) als kleine Kurve im Spielerprofil
+let ELOV = null;
+async function eloVerlaufHtml(name){
+  if(!ELOV) ELOV = (await j("elo_verlauf.json", {tage:{}})) || {tage:{}};
+  const pts = Object.entries(ELOV.tage || {}).filter(([, x]) => typeof x[name] === "number").map(([d, x]) => [d, x[name]]).sort((a, b) => a[0].localeCompare(b[0]));
+  const jetzt = (D.players[name] || {}).elo;
+  if(typeof jetzt === "number" && (!pts.length || Math.round(jetzt) !== pts[pts.length-1][1])) pts.push([new Date().toISOString().slice(0,10) + " (aktuell)", Math.round(jetzt)]);
+  if(pts.length < 2) return `<p class="time">Noch zu wenige Tageswerte – der Verlauf wird seit 02.11.2026 täglich gespeichert und füllt sich von selbst.</p>`;
+  const W = 640, H = 120, pl = 44, pr = 10, pt = 10, pb = 22, vs = pts.map(p => p[1]);
+  let lo = Math.min(...vs), hi = Math.max(...vs); if(hi - lo < 20){ const m = (hi + lo) / 2; lo = m - 10; hi = m + 10; }
+  const x = (i) => pl + (W - pl - pr) * i / (pts.length - 1), y = (v) => pt + (H - pt - pb) * (1 - (v - lo) / (hi - lo));
+  const d = pts.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(p[1]).toFixed(1)}`).join(" ");
+  const diff = vs[vs.length-1] - vs[0], tag = (s) => s.slice(8,10) + "." + s.slice(5,7) + ".";
+  const tr = (D.players[name] || {}).elo_trend;
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;max-height:160px" role="img" aria-label="Elo-Verlauf ${esc(name)}">
+      <line x1="${pl}" x2="${W-pr}" y1="${y(hi)}" y2="${y(hi)}" stroke="var(--line)"/><line x1="${pl}" x2="${W-pr}" y1="${y(lo)}" y2="${y(lo)}" stroke="var(--line)"/>
+      <text x="${pl-6}" y="${y(hi)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${Math.round(hi)}</text><text x="${pl-6}" y="${y(lo)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${Math.round(lo)}</text>
+      <path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${pts.map((p, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="3" fill="var(--accent)"><title>${esc(p[0])}: ${p[1]}</title></circle>`).join("")}
+      <text x="${pl}" y="${H-5}" font-size="11" fill="var(--muted)">${tag(pts[0][0])}</text><text x="${W-pr}" y="${H-5}" text-anchor="end" font-size="11" fill="var(--muted)">${tag(pts[pts.length-1][0])}</text></svg>
+    <p class="time" style="margin:4px 0 0">Gesamt-Elo (eigene Fortschreibung). Seit ${tag(pts[0][0])}: <b class="${diff>0?"pos":diff<0?"negv":""}">${diff>0?"+":""}${Math.round(diff)}</b>${tr ? ` · Trend ${tr.tage} Tage: ${tr.d>0?"+":""}${tr.d}` : ""}. Punkt antippen für den Wert.</p>`;
+}
 async function openProfil(name, ctx){
   try{ await h2hLaden(); }catch(_){}
   const dlg = $("#profil"), pl = D.players[name] || {}, live = (D.serveLive||{})[name] || {};
@@ -1912,10 +1934,13 @@ async function openProfil(name, ctx){
           ${ta?`<div class="time" style="margin-top:6px">als Außenseiter, Quote des Favoriten</div><table class="prtab"><tbody>${ta}</tbody></table>`:""}
           <p class="time" style="margin:6px 0 0">Excel (getrackte Spiele) + Website-Spiele seit dem Excel-Stand.</p></div>` : ""; })()}
       <div class="box"><h3>Nach Quotenbereich</h3>${bands?`<table class="prtab"><thead><tr><th>Quote</th><th>S–N</th><th>Quote gew.</th></tr></thead><tbody>${bands}</tbody></table>`:'<p class="time">Noch keine Spiele mit Quote.</p>'}</div>
+      <div class="box" style="grid-column:1/-1" id="pr-elo"><h3>Elo-Verlauf</h3><p class="time">lädt …</p></div>
       <div class="box" style="grid-column:1/-1"><h3>Letzte Ergebnisse</h3>${letzte}</div>
     </div>`;
   $("#pr-inhalt").innerHTML = html('<p class="time">lädt …</p>');
   if(!dlg.open) dlg.showModal();
+  const eloP = eloVerlaufHtml(name).catch(() => "");
+  eloP.then(h => { const b = $("#pr-elo"); if(b && h) b.innerHTML = `<h3>Elo-Verlauf</h3>${h}`; });
   const arc = await archivLaden();
   const spiele = Object.values(arc).filter(x => x.a===name || x.b===name).sort((a,b) => String(b.start).localeCompare(String(a.start))).slice(0,12);
   const letzte = spiele.length ? `<table class="prtab letzte"><thead><tr><th>Datum</th><th>Gegner</th><th>Erg.</th><th>Sätze</th><th>Quote</th></tr></thead><tbody>${spiele.map(x => {
@@ -1925,6 +1950,7 @@ async function openProfil(name, ctx){
       return `<tr><td>${new Date(x.start).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",timeZone:TZ})}</td><td>${esc(geg)}<div class="time">${esc(x.turnier||"")}${x.belag ? ` <span class="surf mini ${esc(x.belag)}" title="Belag">${SURF[x.belag]||esc(x.belag)}</span>` : ""}</div></td><td class="${x.aufgabe?"":erg==="S"?"w":erg==="N"?"l":""}">${erg}</td><td class="time">${satz||"–"}</td><td>${fx(q)}</td></tr>`; }).join("")}</tbody></table>`
     : '<p class="time">Noch keine Ergebnisse im Archiv.</p>';
   $("#pr-inhalt").innerHTML = html(letzte);
+  eloP.then(h => { const b = $("#pr-elo"); if(b && h) b.innerHTML = `<h3>Elo-Verlauf</h3>${h}`; });
   $("#pr-edit-btn").addEventListener("click", () => { $("#pr-edit").hidden = !$("#pr-edit").hidden; });
   $("#pr-edit-form").addEventListener("submit", (ev) => { ev.preventDefault(); manuellSpeichern(name, ev.target, ctx); });
 }
@@ -2607,6 +2633,20 @@ function nameGleich(x, y){       // "Sinner", "J. Sinner", "Jannik Sinner" passe
   const la = lang(a), lb = lang(b);
   return la.some(w => lb.includes(w)) && (la.length < 2 || lb.length < 2 || la.filter(w => lb.includes(w)).length >= 1);
 }
+// Schlussquote einer Einzelwette auf Sieg: letzte Quote des Buchmachers vor Spielbeginn (Quotenverlauf, sonst Archiv)
+function schlussquote(w){
+  if(!w || (w.beine && w.beine.length > 1) || !(w.quote > 1) || !(new Date(w.start) < new Date())) return null;   // erst nach Spielbeginn
+  const b0 = w.beine && w.beine.length === 1 ? w.beine[0] : {}, fid = w.fixtureId || b0.fixtureId, markt = b0.markt || w.markt;
+  if(!fid || (markt && markt !== "sieg")) return null;
+  const bm = w.buchmacher || "winamax", seite = w.seite || b0.seite || "A", start = String(w.start || "");
+  const reihe = ((QV[fid] || {}).bm || {})[bm] || [];
+  const vor = reihe.filter(x => !start || String(x[0]) < start.slice(0, 16) + "Z" || String(x[0]) < start);
+  const z = vor[vor.length - 1];
+  if(z) return seite === "A" ? z[1] : z[2];
+  const a = ARCHIV && ARCHIV[fid];
+  if(a && a.qa > 1 && a.qb > 1 && (!a.bm || a.bm.includes(bm))) return seite === "A" ? a.qa : a.qb;
+  return null;
+}
 function archivSuche(bein){
   if(bein.fixtureId && ARCHIV && ARCHIV[bein.fixtureId]) return ARCHIV[bein.fixtureId];
   // Partie bekannt, aber noch nicht im Archiv -> noch kein Ergebnis. Nicht über Namen suchen, sonst wird z. B. das
@@ -3006,7 +3046,9 @@ function renderWetten(){
   $("#m-gewinn").innerHTML = n ? betragU(gewinn, true) : "–"; $("#m-gewinn").className = gewinn>0?"pos":gewinn<0?"negv":"";
   $("#m-roi").textContent = einsatz ? sg(gewinn/einsatz) : "–"; $("#m-roi").className = gewinn>0?"pos":gewinn<0?"negv":"";
   $("#m-offen").innerHTML = offen ? betragU(offen) : "–";
-  $("#m-clv").textContent = n ? fx(qs/n) : "–";
+  { // CLV: deine Quote gegen die letzte Quote vor Spielbeginn (Einzelwetten auf Sieg mit Board-Partie)
+    let cn = 0, cs = 0; for(const w of xs){ const sq = schlussquote(w); if(sq){ cn++; cs += w.quote / sq - 1; } }
+    $("#m-clv").innerHTML = `${n ? fx(qs/n) : "–"}${cn ? ` · <span class="${cs>0?"pos":"negv"}" title="${cn} Einzelwetten mit Schlussquote">${sg(cs/cn)}</span>` : ""}`; }
   { // Auswertung nach Art der Wette: Value-Tipp / Signal / eigene Idee (Einzel) / Kombi, dazu „gegen die Modell-Prognose“
     const unit = unitCfg().unit;
     const art = (w) => w.beine && w.beine.length > 1 ? "kombi" : w.live ? "live" : w.valueTipp ? "value" : w.signal ? "signal" : "eigen";
@@ -3059,7 +3101,8 @@ function renderWetten(){
       const unter = [w.turnier, w.buchmacher].filter(Boolean).map(esc).join(" · ");
       return `<tr class="wz"><td class="l time c-dat">${isNaN(d)?"–":d.toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:TZ})}</td>
         <td class="l c-wet">${wetteTxt}${unter?`<div class="time wunter">${unter}</div>`:""}${w.leiter && wLoad().leitern[w.leiter] ? ` <span class="pill ltag" title="gehört zur Leiter">🪜 ${esc(wLoad().leitern[w.leiter].name)}</span>` : ""}${w.notiz?`<div class="notiz">📝 ${esc(w.notiz)}</div>`:""}${w.valueTipp?' <span class="pill go" title="War ein Value-Tipp des Modells">Value</span>':""}${w.live?` <span class="pill" title="Live-Wette aus dem Live-Rechner">Live · ${esc(w.liveStand||"")}</span>`:""}</td>
-        <td class="num c-q" data-l="Quote">${fx(w.quote)}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${bonusTxt(w.bonus)} % Bonus</div>`:""}</td><td class="num c-e" data-l="Einsatz">${betragU(w.einsatz)}</td>
+        <td class="num c-q" data-l="Quote">${fx(w.quote)}${(() => { const sq = schlussquote(w); if(!sq) return ""; const c = w.quote / sq - 1;
+          return `<div class="time" title="Letzte Quote vor Spielbeginn (${esc(w.buchmacher||"winamax")}) – positiv: du hast besser als der Schlusskurs gewettet">Schluss ${fx(sq)} <span class="${c>0?"pos":c<0?"negv":""}">${sg(c)}</span></div>`; })()}${w.bonus?`<div class="time" title="Kombi-Bonus auf den Gewinn">+${bonusTxt(w.bonus)} % Bonus</div>`:""}</td><td class="num c-e" data-l="Einsatz">${betragU(w.einsatz)}</td>
         <td class="c-erg"><select class="erg" data-id="${esc(w.id)}" aria-label="Ergebnis">${hatAuto?opt("auto", "auto: "+autoTxt):""}${opt("offen","offen")}${opt("W","gewonnen")}${opt("L","verloren")}${opt("V","ungültig")}${opt("C","Cashout")}</select>${e==="C"?`<div class="co"><label>Auszahlung € <input class="co-wert" data-id="${esc(w.id)}" inputmode="decimal" value="${w.cashout!=null?fx(w.cashout):""}" placeholder="z. B. 14,50"></label></div>`:""}</td>
         <td class="num c-gw ${gw>0?"pos":gw<0?"negv":""}" data-l="Gewinn">${gw==null?"–":betragU(gw, true)}</td>
         <td class="aktionen c-akt"><button type="button" class="btn ghost mini w-notiz" data-id="${esc(w.id)}" title="Notiz ${w.notiz?"bearbeiten":"hinzufügen"}">📝</button> <button type="button" class="btn ghost mini w-del" data-id="${esc(w.id)}" title="Wette löschen">✕</button></td></tr>${
