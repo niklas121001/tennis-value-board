@@ -14,7 +14,7 @@ JAHRE = 3
 BELAG = {"hard": "hard", "clay": "clay", "grass": "grass", "carpet": "hard"}
 ALIAS_STD = {"Paris Masters": ["Paris", "Bercy"], "Shanghai Masters": ["Shanghai"], "Indian Wells Masters": ["Indian Wells"],
              "Miami Masters": ["Miami"], "Cincinnati Masters": ["Cincinnati"], "Canada Masters": ["Toronto", "Montreal", "Montréal", "Canadian Open"],
-             "Tour Finals": ["ATP Finals", "Turin"], "Rio de Janeiro": ["Rio"], "Monte Carlo Masters": ["Monte Carlo", "Monte-Carlo"], "Madrid Masters": ["Madrid"],
+             "Tour Finals": ["ATP Finals", "Turin"], "s Hertogenbosch": ["Hertogenbosch", "'s-Hertogenbosch"], "Rio de Janeiro": ["Rio"], "Monte Carlo Masters": ["Monte Carlo", "Monte-Carlo"], "Madrid Masters": ["Madrid"],
              "Rome Masters": ["Rome", "Rom", "Roma"], "Roland Garros": ["French Open", "Roland"], "Munich": ["München", "Muenchen"],
              "Bucharest": ["Bukarest"], "Kitzbuhel": ["Kitzbühel"], "Geneva": ["Genf"]}
 

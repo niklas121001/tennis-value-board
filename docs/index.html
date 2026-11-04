@@ -97,6 +97,7 @@ tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var
   .mwt .kombi-t,.mwt .kombi-t tbody{display:block}.mwt .kombi-t tr{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;padding:6px 0;border-bottom:1px dashed var(--line)}
   .mwt .kombi-t td{padding:0;border:0}.mwt .kombi-t td:nth-child(n+3){grid-column:2}
 }
+.tlfilter{display:flex;gap:6px;margin:6px 0 8px;flex-wrap:wrap}.btn.tlf.an{background:var(--accent);color:#fff;border-color:var(--accent)}
 .tlbox{max-width:none!important;width:min(1100px,calc(100vw - 32px))}.tliste td,.tliste th{padding:5px 8px;white-space:nowrap}.tliste td.l:first-child{white-space:normal}
 @media(max-width:600px){.tliste{min-width:0!important}.tliste td,.tliste th{padding:5px 4px;font-size:12.5px}}
 .pill.tbsig{background:none;border:1px solid var(--good,#2a8a4a);color:var(--good,#2a8a4a);margin-left:5px;font-size:.68em;padding:0 4px;vertical-align:1px}.hval-z{margin-top:3px;line-height:1}.hval-z:first-child{margin-top:0}.pill.hval{background:none;border:1px solid var(--accent);color:var(--accent);margin:0;font-size:.72em;padding:0 5px}
@@ -2437,6 +2438,15 @@ async function openTurnier(t, belag){
     <p class="time" style="margin-top:10px">Glatte Siege hängen stark von der Spielerstärke ab (Favoritenturniere = mehr 2:0). Der Turnierfaktor vergleicht deshalb mit der Erwartung aus der Spielerstärke und nicht nur den reinen Anteil.</p>`;
 }
 let TLISTE_CH = "";
+// Belag-Filter in den Turnierlisten (je Liste, merkt sich die Wahl)
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".tlf"); if(!b) return;
+  const box = b.closest("details"), f = b.dataset.f;
+  for(const x of box.querySelectorAll(".tlf")) x.classList.toggle("an", x === b);
+  for(const tr of box.querySelectorAll("tbody tr[data-belag]")) tr.hidden = f !== "alle" && tr.dataset.belag !== f;
+  store.set("tlf." + box.dataset.k, f);
+});
+function tlFilterAnwenden(){ for(const box of document.querySelectorAll("details.tlbox")){ const f = store.get("tlf." + box.dataset.k, "alle"), b = box.querySelector(`.tlf[data-f="${f}"]`); if(b && f !== "alle") b.click(); } }
 // Tempo kurz für die Turnierlisten: „0,56 · langsamer Sand“, Details (CSI, Excel, von Hand) im Tooltip; ✎ = von Hand gesetzt
 function tempoKurz(tp){
   if(!tp) return "–";
@@ -2461,12 +2471,14 @@ function turnierListeHtml(){
     zeilen.push({name: r.name, belag: "clay", tempo: tempoText(r.name, "clay")});
   zeilen.sort((a, b) => (a.belag||"").localeCompare(b.belag||"") || a.name.localeCompare(b.name));
   TLISTE_CH = `<p class="time">Eigene Schätzung aus den gesammelten Match-Statistiken (seit Oktober 2026): Asse je Aufschlagpunkt gegenüber der Erwartung aus Aufschläger und Returner, 1,00 = Schnitt aller Partien; Turniere mit wenigen Partien zur Mitte gezogen, mehrere Jahre gewichtet. Dazu gehaltene Aufschlagspiele und Tiebreaks je Satz. Nur Info – das Modell nutzt die Werte bis zur Jahresend-Auswertung nicht.</p>
+  <div class="tlfilter" role="group" aria-label="Belag filtern">${[["alle","Alle"],["hard","Hart"],["clay","Sand"],["grass","Rasen"]].map(([k,t]) => `<button type="button" class="btn ghost mini tlf${k==="alle"?" an":""}" data-f="${k}">${t}</button>`).join("")}</div>
   <div class="tablewrap"><table class="tliste"><thead><tr><th class="l">Turnier</th><th class="l hide-s">Belag</th><th class="l">Tempo</th><th class="num hide-s">Partien</th><th class="num">gehalten</th><th class="num">TB-Sätze</th></tr></thead><tbody>${
-    chZeilen.map(z => `<tr><td class="l">${esc(z.name)}</td><td class="l hide-s">${SURF[z.belag]||z.belag||"–"}</td><td class="l">${tempoKurz(z.tempo)}</td><td class="num hide-s">${z.n}</td><td class="num">${z.hold != null ? pc(z.hold,0) : "–"}</td><td class="num">${z.tb != null ? pc(z.tb,0) : "–"}</td></tr>`).join("") || '<tr><td colspan="6" class="time">Noch keine Daten.</td></tr>'}</tbody></table></div>`;
+    chZeilen.map(z => `<tr data-belag="${esc(z.belag||"")}"><td class="l">${esc(z.name)}</td><td class="l hide-s">${SURF[z.belag]||z.belag||"–"}</td><td class="l">${tempoKurz(z.tempo)}</td><td class="num hide-s">${z.n}</td><td class="num">${z.hold != null ? pc(z.hold,0) : "–"}</td><td class="num">${z.tb != null ? pc(z.tb,0) : "–"}</td></tr>`).join("") || '<tr><td colspan="6" class="time">Noch keine Daten.</td></tr>'}</tbody></table></div>`;
   return `<h2>Turniere: Platztempo & Satzstatistik</h2>
   <p class="time">Platztempo aus Tennis Abstract (Ass-Quote bereinigt um Aufschläger/Returner, 1,00 = Tour-Schnitt, Mittel der letzten 3 Jahre; Sand zusätzlich auf die CSI-Skala 0–10 umgerechnet, Excel-CSI zum Vergleich). Glatte Siege (2:0, bei Grand Slams 3:0), Tiebreak-Anteil und Turnierfaktor aus allen ATP-Partien seit 2015 (TML-Database bis 2025, danach eigenes Ergebnis-Archiv; ohne Aufgaben). „eigen“ = eigene Tempo-Schätzung aus Assen und gehaltenen Aufschlagspielen (Test). Wert antippen für Details, ✎ = von Hand gesetzt.</p>
+  <div class="tlfilter" role="group" aria-label="Belag filtern">${[["alle","Alle"],["hard","Hart"],["clay","Sand"],["grass","Rasen"]].map(([k,t]) => `<button type="button" class="btn ghost mini tlf${k==="alle"?" an":""}" data-f="${k}">${t}</button>`).join("")}</div>
   <div class="tablewrap"><table class="tliste"><thead><tr><th class="l">Turnier</th><th class="l hide-s">Belag</th><th class="l">Tempo</th><th class="num hide-s" title="Eigene Schätzung aus Assen und gehaltenen Aufschlagspielen (Test bis Jahresende, Vergleich mit Tennis Abstract)">eigen</th><th class="num hide-s">Partien</th><th class="num">glatt</th><th class="num hide-s">erwartet</th><th class="num">Faktor</th><th class="num hide-s">TB-Sätze</th></tr></thead><tbody>${
-    zeilen.map(z => `<tr><td class="l">${esc(z.name)}${z.halle ? ' <span class="time">Halle</span>' : ""}${z.bo === 5 ? ' <span class="time">Bo5</span>' : ""}</td><td class="l hide-s">${SURF[z.belag]||z.belag||"–"}</td><td class="l">${tempoKurz(z.tempo)}</td><td class="num time hide-s">${(() => { const e = (D.tempoEigenATP || []).find(r => r.belag === z.belag && [z.name, ...(z.alias||[])].some(n => String(n).toLowerCase().includes(r.name) || r.name.includes(String(n).toLowerCase()))); return e ? `<span title="${Math.round(e.seiten/2)} Partien">${fx(e.speed,2)}</span>` : "–"; })()}</td><td class="num hide-s">${z.n||"–"}</td><td class="num">${z.gl!=null?pc(z.gl,0):"–"}</td><td class="num hide-s">${z.erw!=null?pc(z.erw,0):"–"}</td><td class="num ${z.f>1.02?"pos":z.f<0.98?"negv":""}">${z.f!=null?"×"+fx(z.f,2):"–"}</td><td class="num hide-s">${z.tb!=null?pc(z.tb,0):"–"}</td></tr>`).join("")}</tbody></table></div>`;
+    zeilen.map(z => `<tr data-belag="${esc(z.belag||"")}"><td class="l">${esc(z.name)}${z.halle ? ' <span class="time">Halle</span>' : ""}${z.bo === 5 ? ' <span class="time">Bo5</span>' : ""}</td><td class="l hide-s">${SURF[z.belag]||z.belag||"–"}</td><td class="l">${tempoKurz(z.tempo)}</td><td class="num time hide-s">${(() => { const e = (D.tempoEigenATP || []).find(r => r.belag === z.belag && [z.name, ...(z.alias||[])].some(n => String(n).toLowerCase().includes(r.name) || r.name.includes(String(n).toLowerCase()))); return e ? `<span title="${Math.round(e.seiten/2)} Partien">${fx(e.speed,2)}</span>` : "–"; })()}</td><td class="num hide-s">${z.n||"–"}</td><td class="num">${z.gl!=null?pc(z.gl,0):"–"}</td><td class="num hide-s">${z.erw!=null?pc(z.erw,0):"–"}</td><td class="num ${z.f>1.02?"pos":z.f<0.98?"negv":""}">${z.f!=null?"×"+fx(z.f,2):"–"}</td><td class="num hide-s">${z.tb!=null?pc(z.tb,0):"–"}</td></tr>`).join("")}</tbody></table></div>`;
 }
 function renderInfo(){
   const P = D.params, n = Object.keys(D.players).length;
@@ -2529,6 +2541,7 @@ function renderInfo(){
   ${META.abdeckung?`<h2>Quoten-Abdeckung beim letzten Update</h2><p>${Object.entries(META.abdeckung).map(([b,d])=>`<b>${esc(b)}</b>: ${d.mit_quote} von ${d.partien} Partien mit Siegquote${d.pausiert?` (${d.pausiert} pausiert)`:""}${d.ohne_siegermarkt?`, ${d.ohne_siegermarkt} ohne Siegermarkt`:""}`).join(" · ")}</p>`:""}
   <h2>Parameter</h2>
   <p>Alle Werte kommen aus dem Blatt PARAMETER. Nach Änderungen in der Excel einmal <code>scripts/excel_export.py</code> laufen lassen.</p>`;
+  tlFilterAnwenden();
   $("#gh-form").addEventListener("submit", (ev) => { ev.preventDefault(); const t = $("#gh-token").value.trim(); if(t){ store.set("gh.repo.token", t); renderInfo(); } });
   if($("#gh-weg")) $("#gh-weg").addEventListener("click", () => { try{ localStorage.removeItem("tvb.gh.repo.token"); }catch(_){} renderInfo(); });
   $("#r-art").value = regeln().art;
