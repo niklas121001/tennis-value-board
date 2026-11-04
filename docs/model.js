@@ -236,7 +236,11 @@
     // Elo (G3/K3 mit BQ..BT)
     const eloCol = sk === "clay" ? "elo_clay" : sk === "grass" ? "elo_grass" : "elo_hard";
     const belagElo = (p) => (isNum(p[eloCol]) && p[eloCol] > 0 ? p[eloCol] : p.elo);
-    const mix = (p) => (P.YELO_EINBEZIEHEN === "Ja" && isNum(p.elo) ? P.W_YELO_BLEND * p.elo + (1 - P.W_YELO_BLEND) * belagElo(p) : belagElo(p));
+    // yElo (Saison-Elo) startet im Januar neu und ist anfangs unsicher: Gewicht ab 1.1. über YELO_ANLAUF_TAGE (45) Tage
+    // linear von 0 auf W_YELO_BLEND hochfahren (seit 04.11.2026, wirkt ab Januar 2027)
+    const tagImJahr = (() => { const d = match.start ? new Date(match.start) : new Date(); return (d - new Date(Date.UTC(d.getUTCFullYear(), 0, 1))) / 864e5; })();
+    const wYelo = P.W_YELO_BLEND * Math.min(1, Math.max(0, tagImJahr / (P.YELO_ANLAUF_TAGE ?? 45)));
+    const mix = (p) => (P.YELO_EINBEZIEHEN === "Ja" && isNum(p.elo) ? wYelo * p.elo + (1 - wYelo) * belagElo(p) : belagElo(p));
     const eloA = mix(pa), eloB = mix(pb);
 
     // Aufschlagwerte nach Belag (H..N); "other" nutzt Hard-Spalten wie die Excel
