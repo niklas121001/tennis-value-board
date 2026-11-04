@@ -76,6 +76,7 @@ tr.vz{cursor:pointer}tr.vz:hover td{background:var(--accent-soft)}.vpf{color:var
 .vliste{width:100%;font-size:13px;margin:4px 0 8px}.vliste th,.vliste td{padding:4px 6px;border-bottom:1px solid var(--line)}
 .vh{margin:6px 0 2px;font:600 .95rem var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 .pill.ass{background:var(--warn-soft);color:var(--warn);margin-left:4px}@media(max-width:600px){.empst{min-width:0!important}.empst td,.empst th{padding:5px 4px;font-size:12px}}
+.empk{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .empt td,.empt th{vertical-align:top}.empt td.l{min-width:0}.empt .pill{margin-left:3px}
 @media(max-width:600px){.empt thead{display:none}.empt,.empt tbody{display:block;min-width:0!important;width:100%}
   .empt tr{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;padding:8px 2px;border-bottom:1px solid var(--line)}
@@ -629,7 +630,23 @@ function showTab(t){
 
 // ---- Empfehlungen (eigene Seite, seit 03.11.2026): je ATP-Partie Hauptwette + Alternative, Value nicht nötig.
 // Getrennt von Bilanz, Value-Tipps und Varianten; abgerechnet in empfehlungen.json (results.py).
-let EMP = null, EMP_OFFEN = false;
+let EMP = null, EMP_OFFEN = false, EMP_OFFENE = [];
+// Empfehlung -> Markt im Wettformular (Seite A/B)
+function empZuBein(x, p){
+  const s = /B$/.test(x.k) ? "B" : "A", k = x.k.replace(/[AB]$/, "");
+  const markt = {sieg: "sieg", glatt: "2:0", mind1: "satz1", zweiEins: "2:1", satz1: "s1", dreiSaetze: "o2.5", zweiSaetze: "u2.5"}[k] || (TB_MARKT[x.k] ? x.k : "sieg");
+  return {fixtureId: p.id, seite: s, spieler: s==="A"?p.a:p.b, gegner: s==="A"?p.b:p.a, datum: String(p.start).slice(0,10), markt, quote: x.q};
+}
+// Alle Haupt- bzw. Alternativ-Empfehlungen als Kombi ins Formular „Wette eintragen“ (vor dem Speichern noch änderbar)
+function empAlsKombi(teil, nurHeute){
+  const heute = new Date().toLocaleDateString("sv-SE", {timeZone: TZ});
+  const xs = EMP_OFFENE.filter(o => o.e[teil] && (!nurHeute || new Date(o.p.start).toLocaleDateString("sv-SE", {timeZone: TZ}) === heute));
+  if(!xs.length) return;
+  $("#mf-beine").innerHTML = "";
+  for(const o of xs) beinZeile(empZuBein(o.e[teil], o.p));
+  $("#mf-art").value = "kombi"; artWechsel(); entwurfSichern(); gesamtQuote();
+  $("#tab-wetten").click(); const box = $("#m-manuell-box"); if(box){ box.open = true; box.scrollIntoView({behavior:"smooth"}); }
+}
 function empLabel(k, a, b){ const A = String(a).split(" ").slice(-1)[0], B = String(b).split(" ").slice(-1)[0];
   return ({siegA: `Sieg ${A}`, siegB: `Sieg ${B}`, glattA: `2:0 ${A}`, glattB: `2:0 ${B}`, mind1A: `${A} gewinnt mind. 1 Satz`, mind1B: `${B} gewinnt mind. 1 Satz`,
     zweiEinsA: `2:1 ${A}`, zweiEinsB: `2:1 ${B}`, dreiSaetze: "3 Sätze", zweiSaetze: "2 Sätze (kein 3. Satz)", satz1A: `1. Satz ${A}`, satz1B: `1. Satz ${B}`,
@@ -650,6 +667,7 @@ async function renderEmpf(){
     const e = TennisModel.empfehlungen(r, {qa:q[0], qb:q[1]}, (p.maerkte||{}).winamax, D.params);
     if(e && e.haupt) offen.push({p, r, e, q});
   }
+  EMP_OFFENE = offen;
   offen.sort((x, y) => String(x.p.start).localeCompare(String(y.p.start)));
   const zeit = (s) => new Date(s).toLocaleString("de-DE",{weekday:"short", hour:"2-digit", minute:"2-digit", timeZone:TZ});
   const offenHtml = offen.length ? `<div class="tablewrap"><table class="empt"><thead><tr><th class="l hide-s">Zeit</th><th class="l">Partie</th><th class="l">Hauptwette</th><th class="l">Alternative</th></tr></thead><tbody>${
@@ -667,11 +685,17 @@ async function renderEmpf(){
     fertig.slice(0, 150).map(([, x]) => `<tr><td class="l time">${kDatum(x.start)}</td><td class="l">${x.sieger==="A"?`<b>${esc(x.a)}</b>`:esc(x.a)} – ${x.sieger==="B"?`<b>${esc(x.b)}</b>`:esc(x.b)}<div class="time">${(x.satz||[]).map(z => z.join("-")).join(" ")}</div></td><td class="l">${empZelle(x.haupt, x.a, x.b, true)}</td><td class="l">${empZelle(x.alt, x.a, x.b, true)}</td></tr>`).join("")}</tbody></table></div></details>` : "";
   box.innerHTML = `<div class="box"><h3>Empfehlungen <span class="time" style="text-transform:none;letter-spacing:0">ATP · Winamax · getrennt von der Bilanz</span></h3>
     <p class="time" style="margin:0 0 8px">Je Partie die <b>Hauptwette</b> (höchste Trefferchance) und eine <b>Alternative</b> (bester Erwartungswert mit spürbar höherer Quote, bis ${fx(D.params.EMP_ALT_MAX_QUOTE ?? 3)}). Value ist nicht nötig, aber die Quote darf höchstens ${pc(-(D.params.EMP_MIN_EDGE ?? -0.05),0)} unter fair liegen; Quoten ${fx(D.params.EMP_MIN_QUOTE ?? 1.2)}–${fx(D.params.EMP_MAX_QUOTE ?? 5)}. Siegchance aus der Gesamtschätzung (H), Satz- und Tiebreak-Chancen aus dem Modell. Angaben: Quote · Chance · Edge.</p>
-    ${offenHtml}</div>
+    ${offenHtml}
+    ${offen.length ? `<div class="empk"><span class="time">Als Kombi eintragen (in Meine Wetten noch änderbar):</span>
+      <button type="button" class="btn ghost mini emp-k" data-t="haupt" data-h="1">Hauptwetten heute</button>
+      <button type="button" class="btn ghost mini emp-k" data-t="haupt">alle Hauptwetten</button>
+      <button type="button" class="btn ghost mini emp-k" data-t="alt" data-h="1">Alternativen heute</button>
+      <button type="button" class="btn ghost mini emp-k" data-t="alt">alle Alternativen</button></div>` : ""}</div>
     <div class="box" style="margin-top:12px"><h3>Wie oft liegt die Empfehlung richtig?</h3>
     <div class="tablewrap"><table class="empst"><thead><tr><th class="l"></th><th class="num hide-s">Partien</th><th class="num">richtig–falsch</th><th class="num">Treffer</th><th class="num" title="Mittel der Modell-Chancen – so oft sollte es bei gut kalibriertem Modell klappen">erwartet</th><th class="num hide-s" title="nur zur Info: 1 U je Empfehlung">1 U</th></tr></thead><tbody>${zeile("Hauptwette", sH)}${zeile("Alternative", sA)}</tbody></table></div>
     <p class="time" style="margin:6px 0 0">Gezählt wird die letzte Empfehlung vor Spielbeginn. Aufgaben und Walkover zählen nicht. Kein Einfluss auf Bilanz, Value-Tipps oder Varianten.</p></div>${liste}`;
   const d = $("#empf-liste"); if(d) d.addEventListener("toggle", () => { EMP_OFFEN = d.open; });
+  for(const b of box.querySelectorAll(".emp-k")) b.addEventListener("click", () => empAlsKombi(b.dataset.t, !!b.dataset.h));
 }
 
 // ---- Live-Rechner (wie Excel-Blatt LIVE-WETTEN): Siegchance ab aktuellem Spielstand, Live-Quote von Hand
@@ -2570,7 +2594,7 @@ function wetteBox(p, r){
 // Tiebreak-Wetten: zählen für beide Spieler gleich (Spielerauswahl egal)
 const TB_MARKT = {tbJa: "Tiebreak im Match: ja", tbNein: "Tiebreak im Match: nein", tb1Ja: "Tiebreak im 1. Satz: ja", tb1Nein: "Tiebreak im 1. Satz: nein"};
 const SAETZE_MARKT = {"o2.5":"Über 2,5 Sätze","u2.5":"Unter 2,5 Sätze","o3.5":"Über 3,5 Sätze","u3.5":"Unter 3,5 Sätze","o4.5":"Über 4,5 Sätze","u4.5":"Unter 4,5 Sätze"};
-const MARKT_OPT = `<option value="sieg">Sieg</option><option value="satz1">gewinnt mind. 1 Satz</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("")
+const MARKT_OPT = `<option value="sieg">Sieg</option><option value="satz1">gewinnt mind. 1 Satz</option><option value="s1">gewinnt den 1. Satz</option>` + ["2:0","2:1","3:0","3:1","3:2"].map(x => `<option value="${x}">genaues Ergebnis ${x}</option>`).join("")
   + Object.entries(SAETZE_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("")
   + Object.entries(TB_MARKT).map(([k,t]) => `<option value="${k}">${t}</option>`).join("");
 // Challenger: bei Winamax nur Siegwetten – im Formular nur „Sieg“
@@ -2612,6 +2636,10 @@ function beinAuswertung(bein){
     if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
     return {e: satz.some(([u,v]) => u > v) ? "W" : "L", text};
   }
+  if(bein.markt === "s1"){                 // Spieler gewinnt den 1. Satz
+    if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
+    return {e: satz[0][0] > satz[0][1] ? "W" : "L", text: `1. Satz ${satz[0][0]}:${satz[0][1]} · ${text}`};
+  }
   if(TB_MARKT[bein.markt]){                // Tiebreak im Match / im 1. Satz: 7:6 bzw. 6:7
     if(!satz.length) return {e: null, text: text + " – Satzstand fehlt, bitte selbst setzen"};
     const tb = satz.map(([u,v]) => (u===7 && v===6) || (u===6 && v===7)), ja = bein.markt.startsWith("tb1") ? tb[0] : tb.some(Boolean);
@@ -2640,7 +2668,7 @@ function wetteAuswertung(w){      // {e, quote} – Kombi: eine falsche Auswahl 
 // Kombi-Bonus in 0,5er-Schritten (Winamax: z. B. 12,5 %)
 const bonusRund = (v) => v > 0 ? Math.round(v * 2) / 2 : 0;
 const bonusTxt = (v) => fx(v, v % 1 ? 1 : 0);
-const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : b.markt==="satz1" ? "mind. 1 Satz" : SAETZE_MARKT[b.markt] || TB_MARKT[b.markt] || "Ergebnis " + b.markt;
+const marktText = (b) => !b.markt || b.markt==="sieg" ? "Sieg" : b.markt==="satz1" ? "mind. 1 Satz" : b.markt==="s1" ? "1. Satz" : SAETZE_MARKT[b.markt] || TB_MARKT[b.markt] || "Ergebnis " + b.markt;
 
 function ergebnisVon(w){
   if (w.manuell) return w.ergebnis || null;
@@ -2807,7 +2835,7 @@ function setupWetten(){
     if(f.markt.value !== "sieg"){
       // Satzmärkte: Quote aus dem Datenfeed (Satz-Handicap) oder aus deiner Eingabe im Kasten „Satz- & Tiebreak-Märkte“
       const key = f.markt.value === "satz1" ? "mind1" + seite : f.markt.value === "2:0" ? "glatt" + seite : f.markt.value === "2:1" ? "zweiEins" + seite
-        : TB_MARKT[f.markt.value] ? f.markt.value : f.markt.value === "o2.5" ? "dreiSaetze" : f.markt.value === "u2.5" ? "zweiSaetze" : null;
+        : f.markt.value === "s1" ? "satz1" + seite : TB_MARKT[f.markt.value] ? f.markt.value : f.markt.value === "o2.5" ? "dreiSaetze" : f.markt.value === "u2.5" ? "zweiSaetze" : null;
       let mk = {}; try{ mk = JSON.parse(f.dataset.maerkte || "{}"); }catch(_){}
       const q = key ? (((mk[f.bm.value] || {})[key]) || (store.get("mq." + f.dataset.id, {}) || {})[key]) : null;
       f.quote.value = q ? fx(q) : "";
