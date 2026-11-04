@@ -2434,6 +2434,7 @@ async function openTurnier(t, belag){
   $("#pr-inhalt").innerHTML = kopf + `<div class="prgrid">${box1}${box2}</div>
     <p class="time" style="margin-top:10px">Glatte Siege hängen stark von der Spielerstärke ab (Favoritenturniere = mehr 2:0). Der Turnierfaktor vergleicht deshalb mit der Erwartung aus der Spielerstärke und nicht nur den reinen Anteil.</p>`;
 }
+let TLISTE_CH = "";
 function turnierListeHtml(){
   const zeilen = [], belegt = new Set();
   const aktuell = (x) => Object.keys(x.jahre || {}).some(j => j >= "2024");     // nur Turniere, die es noch gibt
@@ -2444,10 +2445,15 @@ function turnierListeHtml(){
   for(const r of D.tempo || []) if(!Object.values(D.turnierStats||{}).some(x => TennisModel.lookupTempo([x.name, ...(x.alias||[])].join(" ").toLowerCase(), r.belag, [r]) != null))
     zeilen.push({name: r.name, belag: r.belag, tempo: tempoText(r.name, r.belag)});
   const gross = (t) => t.replace(/\b([a-z])/g, (m) => m.toUpperCase()).replace(/\bIi\b/, "II").replace(/\bIii\b/, "III");
-  for(const r of D.tempoEigen || []) zeilen.push({name: gross(r.name) + " Challenger", belag: r.belag, tempo: tempoText(r.name + " challenger", r.belag)});
+  const chZeilen = (D.tempoEigen || []).map(r => { const j = Object.values(r.jahre || {}), sum = (k) => { let a = 0, n = 0; for(const v of j) if(v[k] != null){ a += v[k] * v.seiten; n += v.seiten; } return n ? a / n : null; };
+    return {name: gross(r.name) + " Challenger", belag: r.belag, tempo: tempoText(r.name + " challenger", r.belag), n: Math.round(r.seiten / 2), hold: sum("hold"), tb: sum("tb_satz")}; })
+    .sort((a, b) => (a.belag||"").localeCompare(b.belag||"") || a.name.localeCompare(b.name));
   for(const r of D.csi || []) if(!zeilen.some(z => z.belag === "clay" && [r.name, r.alias].some(n => n && (norm_(z.name).includes(norm_(n)) || norm_(n).includes(norm_(z.name))))))
     zeilen.push({name: r.name, belag: "clay", tempo: tempoText(r.name, "clay")});
   zeilen.sort((a, b) => (a.belag||"").localeCompare(b.belag||"") || a.name.localeCompare(b.name));
+  TLISTE_CH = `<p class="time">Eigene Schätzung aus den gesammelten Match-Statistiken (seit Oktober 2026): Asse je Aufschlagpunkt gegenüber der Erwartung aus Aufschläger und Returner, 1,00 = Schnitt aller Partien; Turniere mit wenigen Partien zur Mitte gezogen, mehrere Jahre gewichtet. Dazu gehaltene Aufschlagspiele und Tiebreaks je Satz. Nur Info – das Modell nutzt die Werte bis zur Jahresend-Auswertung nicht.</p>
+  <div class="tablewrap"><table class="tliste"><thead><tr><th class="l">Turnier</th><th class="l">Belag</th><th class="l">Tempo</th><th class="num">Partien</th><th class="num">gehalten</th><th class="num">TB-Sätze</th></tr></thead><tbody>${
+    chZeilen.map(z => `<tr><td class="l">${esc(z.name)}</td><td class="l">${SURF[z.belag]||z.belag||"–"}</td><td class="l time">${z.tempo ? z.tempo.text.replace(/ <span[^>]*>\(eigene Schätzung[^<]*<\/span>/, "") : "–"}</td><td class="num">${z.n}</td><td class="num">${z.hold != null ? pc(z.hold,0) : "–"}</td><td class="num">${z.tb != null ? pc(z.tb,0) : "–"}</td></tr>`).join("") || '<tr><td colspan="6" class="time">Noch keine Daten.</td></tr>'}</tbody></table></div>`;
   return `<h2>Turniere: Platztempo & Satzstatistik</h2>
   <p class="time">Platztempo aus Tennis Abstract (Ass-Quote bereinigt um Aufschläger/Returner, 1,00 = Tour-Schnitt, Mittel der letzten 3 Jahre; Sand zusätzlich auf die CSI-Skala 0–10 umgerechnet, Excel-CSI zum Vergleich). Glatte Siege (2:0, bei Grand Slams 3:0), Tiebreak-Anteil und Turnierfaktor aus allen ATP-Partien seit 2015 (ohne Aufgaben). Turnier auf dem Board anklicken für die aktuelle Ausgabe.</p>
   <div class="tablewrap"><table class="tliste"><thead><tr><th class="l">Turnier</th><th class="l">Belag</th><th class="l">Tempo</th><th class="num">Partien</th><th class="num">glatt</th><th class="num hide-s">erwartet</th><th class="num">Faktor</th><th class="num hide-s">TB-Sätze</th></tr></thead><tbody>${
@@ -2461,7 +2467,8 @@ function renderInfo(){
   const uc = unitCfg();
   const tt = (s) => s ? new Date(s).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "–";
   $("#v-info").innerHTML = `
-  <details class="box klapp" data-k="tliste" style="margin-bottom:16px;width:min(1000px,calc(100vw - 32px));max-width:none"${store.get("klapp.tliste", false)?" open":""}><summary><h3>Turniere: Platztempo & Satzstatistik</h3></summary>${turnierListeHtml().replace(/^<h2>[^<]*<\/h2>/, "")}</details>
+  <details class="box klapp" data-k="tliste" style="margin-bottom:10px;width:min(1000px,calc(100vw - 32px));max-width:none"${store.get("klapp.tliste", false)?" open":""}><summary><h3>ATP-Turniere: Platztempo & Satzstatistik</h3></summary>${turnierListeHtml().replace(/^<h2>[^<]*<\/h2>/, "")}</details>
+  <details class="box klapp" data-k="tlistech" style="margin-bottom:16px;width:min(1000px,calc(100vw - 32px));max-width:none"${store.get("klapp.tlistech", false)?" open":""}><summary><h3>Challenger: Platztempo</h3></summary>${TLISTE_CH}</details>
   <h2>Systemstatus</h2>
   <div class="kv two" style="max-width:560px">
     <span class="k">Quoten zuletzt</span><span class="v">${tt(META.quoten_update || M.stand)}</span>

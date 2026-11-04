@@ -33,11 +33,15 @@ def main():
                              "s": srv, "r": ret, "ace": st["ace"], "sv": st["svpt"],
                              "gms": st.get("sv_gms") or 0, "brk": (st.get("bp_faced") or 0) - (st.get("bp_saved") or 0)})
     tb = collections.defaultdict(lambda: [0, 0])
-    for e in (load("sap_events.json", {}) or {}).values():
-        for z in e.get("satz") or []:
-            if isinstance(z[0], int) and isinstance(z[1], int) and max(z) >= 6:
-                k = (ort(e.get("turnier")), e.get("belag"), str(e.get("start", ""))[:4])
-                tb[k][0] += sorted(z) == [6, 7]; tb[k][1] += 1
+    # Tiebreaks je Satz aus dem Ergebnis-Archiv (vollständig seit Oktober 2026): „Maia Challenger“ -> „maia“
+    from common import DATA
+    for f in sorted((DATA / "archiv").glob("????-??.json")):
+        for e in json.loads(f.read_text(encoding="utf-8")).values():
+            name = re.sub(r"\s+2$", " ii", re.sub(r"\s+challenger.*$", "", str(e.get("turnier") or ""), flags=re.I).strip().lower())
+            for z in e.get("satz") or []:
+                if isinstance(z[0], int) and isinstance(z[1], int) and max(z) >= 6:
+                    k = (name, e.get("belag"), str(e.get("start", ""))[:4])
+                    tb[k][0] += sorted(z) == [6, 7]; tb[k][1] += 1
     gesamt_rate = sum(r["ace"] for r in rows) / max(1, sum(r["sv"] for r in rows))
     # Spielerwerte je Turnier ohne dieses Turnier (Leave-one-out): erst Summen gesamt, dann das Turnier abziehen
     sa, ra = collections.defaultdict(lambda: [0, 0]), collections.defaultdict(lambda: [0, 0])
