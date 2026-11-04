@@ -25,6 +25,23 @@ def ort_filter(name, jahre):
     return {j: v for j, v in jahre.items() if not ab or int(j) >= ab}
 
 
+def manuell_anwenden(turniere):
+    """tempo_manuell.json: Wert von Hand, solange Tennis Abstract für das Jahr noch nichts hat (danach gilt TA)."""
+    for m in (load("tempo_manuell.json", {}) or {}).get("turniere", []):
+        x = next((r for r in turniere if r["name"].lower() == m["name"].lower() and r["belag"] == m["belag"]), None)
+        if x is None:
+            x = {"name": m["name"], "belag": m["belag"], "jahre": {}, "alias": ALIAS_STD.get(m["name"], [])}
+            turniere.append(x)
+        x.pop("manuell", None)
+        if str(m["jahr"]) not in (x.get("jahre") or {}):
+            x["ta_speed"] = x.get("speed")
+            x["speed"] = m["wert"]; x["manuell"] = {"jahr": m["jahr"], "grund": m.get("grund", "")}
+            print(f"  Platztempo von Hand: {m['name']} {m['wert']} (bis Tennis Abstract {m['jahr']} liefert)")
+        else:
+            x.pop("ta_speed", None)
+    return turniere
+
+
 def jahr_laden(y):
     url = f"https://www.tennisabstract.com/cgi-bin/surface-speed.cgi?year={y}"
     t = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read().decode("utf-8", "replace")
@@ -69,7 +86,7 @@ def nur_aktuelles_jahr(alt):
         if x["jahre"]:
             w = sum(g[j] for j in x["jahre"])
             x["speed"] = round(sum(g[j] * v for j, v in x["jahre"].items()) / w, 2)
-    alt["turniere"] = sorted((x for x in t.values() if x["jahre"]), key=lambda x: (x["belag"], -x["speed"]))
+    alt["turniere"] = sorted(manuell_anwenden([x for x in t.values() if x["jahre"]]), key=lambda x: (x["belag"], -x["speed"]))
     alt["jahre"] = [int(j) for j in jahre]
     alt["tag"] = datetime.date.today().isoformat()
     save("tempo.json", alt)
@@ -84,6 +101,13 @@ def main():
         laeuft = any(str(m.get("kategorie", "")).upper() == "ATP" for m in (load("matches.json", {}) or {}).get("partien", []))
         if laeuft and alt.get("tag") != datetime.date.today().isoformat():
             return nur_aktuelles_jahr(alt)
+        vorher = json.dumps(alt.get("turniere"), sort_keys=True)
+        for x in alt.get("turniere", []):          # Handwerte neu bewerten (z. B. geänderte tempo_manuell.json)
+            if x.get("manuell") and x.get("ta_speed") is not None:
+                x["speed"] = x["ta_speed"]
+        alt["turniere"] = sorted(manuell_anwenden(alt.get("turniere", [])), key=lambda x: (x["belag"], -x["speed"]))
+        if json.dumps(alt["turniere"], sort_keys=True) != vorher:
+            save("tempo.json", alt)
         print("Platztempo aktuell (Stand", alt["stand"], ") – nichts zu tun")
         return 0
     jetzt = datetime.date.today().year
@@ -121,7 +145,7 @@ def main():
     out = {"quelle": f"Tennis Abstract – ATP Surface Speed Ratings {min(jahre)}–{max(jahre)}, gewichtetes Mittel (neuere Jahre stärker), "
                      "1,00 = Tour-Schnitt, Asse bereinigt um Aufschläger/Returner – nur privat",
            "url": "https://www.tennisabstract.com/cgi-bin/surface-speed.cgi", "jahre": sorted(jahre), "stand": datetime.date.today().isoformat(),
-           "turniere": sorted((x for x in t.values() if x["jahre"]), key=lambda x: (x["belag"], -x["speed"]))}
+           "turniere": sorted(manuell_anwenden([x for x in t.values() if x["jahre"]]), key=lambda x: (x["belag"], -x["speed"]))}
     save("tempo.json", out)
     from collections import Counter
     print(f"Platztempo: {len(t)} Turniere aus {sorted(jahre)} – {dict(Counter(x['belag'] for x in t.values()))}")

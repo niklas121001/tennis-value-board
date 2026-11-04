@@ -102,7 +102,7 @@ def tempo_von(turnier, belag, jahr):
 
 def tempo_stufe(belag, sp):
     lo, hi = {"hard": (0.95, 1.15), "clay": (0.65, 0.85), "grass": (1.05, 1.25)}.get(belag, (0.95, 1.15))
-    return "langsam" if sp < lo else "schnell" if sp > hi else "mittel"
+    return "langsam" if sp < lo else "schnell" if sp >= hi else "mittel"
 
 
 def halle_von(turnier):

@@ -1,0 +1,12 @@
+{
+ "_hinweis": "Platztempo von Hand je Turnier (Name wie in tempo.json) und Belag. Gilt nur, solange Tennis Abstract für das angegebene Jahr keinen Wert hat.",
+ "turniere": [
+  {
+   "name": "Paris Masters",
+   "belag": "hard",
+   "jahr": 2026,
+   "wert": 1.15,
+   "grund": "2026 laut Turnier und Spielern deutlich schneller als 2025; eigene Auswertung der ersten Runden (Hold 82,8 %, TB 23 % je Satz)"
+  }
+ ]
+}

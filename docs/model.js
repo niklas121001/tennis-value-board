@@ -68,7 +68,7 @@
   // Tempo-Stufe je Belag (gleiche Grenzen wie scripts/h2h_ta.py)
   function tempoStufe(belag, sp) {
     const [lo, hi] = { hard: [0.95, 1.15], clay: [0.65, 0.85], grass: [1.05, 1.25] }[belag] || [0.95, 1.15];
-    return sp < lo ? "langsam" : sp > hi ? "schnell" : "mittel";
+    return sp < lo ? "langsam" : sp >= hi ? "schnell" : "mittel";
   }
   // DASHBOARD AJ: Court Speed Index (nur Sand)
   function lookupCSI(turnier, belag, csiTable) {
