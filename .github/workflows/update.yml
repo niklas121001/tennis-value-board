@@ -172,6 +172,11 @@ jobs:
           ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
         run: python results.py
 
+      - name: Eigenes Platztempo für Challenger aus Match-Statistiken
+        continue-on-error: true
+        working-directory: scripts
+        run: python tempo_eigen.py
+
       - name: Turnier-Satzstatistik aus dem Ergebnis-Archiv fortschreiben (Ersatz TML)
         continue-on-error: true
         working-directory: scripts

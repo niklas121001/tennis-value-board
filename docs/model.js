@@ -56,11 +56,12 @@
   }
 
   // Platztempo Hart/Rasen (ATP-Turniere, Tennis Abstract Surface Speed: 1,00 = Tour-Schnitt). Nur ATP, Challenger ohne Wert.
+  // Challenger: eigene Schätzung aus Match-Statistiken (tempo_eigen.json, Zeilen mit ch: true)
   function lookupTempo(turnier, belag, tabelle) {
-    const t = String(turnier || "").toLowerCase(), sk = surfKey(belag);
-    if (!tabelle || /challenger/.test(t) || !sk) return null;
+    const t = String(turnier || "").toLowerCase(), sk = surfKey(belag), ch = /challenger/.test(t);
+    if (!tabelle || !sk) return null;
     for (const row of tabelle) {
-      if (row.belag !== sk) continue;
+      if (row.belag !== sk || !!row.ch !== ch) continue;
       for (const n of [row.name, ...(row.alias || [])]) if (n && t.includes(String(n).toLowerCase())) return row.speed;
     }
     return null;
