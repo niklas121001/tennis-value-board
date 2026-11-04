@@ -239,6 +239,8 @@ fs.writeFileSync(path.join(dir, "varianten_tips.json"), JSON.stringify(vlog));
         if (!istCh && rr.ok && rr.maerkte && Object.keys(mq).length && !(rr.eloGeschaetztA || rr.eloGeschaetztB)) {
           const mk = rr.maerkte, bo5 = rr.modus === 5;
           const pM = { tb1Ja: mk.tb1, tb1Nein: 1 - mk.tb1, tbJa: mk.tbMatch, tbNein: 1 - mk.tbMatch, satz1A: mk.satz1A, satz1B: 1 - mk.satz1A };
+          if (bo5) Object.assign(pM, { glattA: mk.glattA, glattB: mk.glattB, mind1A: 1 - mk.glattB, mind1B: 1 - mk.glattA, dreiEinsA: mk.dreiEinsA, dreiEinsB: mk.dreiEinsB,
+            dreiZweiA: mk.dreiZweiA, dreiZweiB: mk.dreiZweiB, ueber35: mk.ueber35, unter35: 1 - mk.ueber35, ueber45: mk.ueber45, unter45: 1 - mk.ueber45 });
           if (!bo5) Object.assign(pM, { glattA: mk.glattA, glattB: mk.glattB, mind1A: 1 - mk.glattB, mind1B: 1 - mk.glattA, dreiSaetze: mk.volleDistanz, zweiSaetze: 1 - mk.volleDistanz,
             zweiEinsA: rr.saetze && rr.saetze.scores ? rr.saetze.scores["2-1"] : null, zweiEinsB: rr.saetze && rr.saetze.scores ? rr.saetze.scores["1-2"] : null });
           for (const [k, p] of Object.entries(pM)) {

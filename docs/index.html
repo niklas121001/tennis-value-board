@@ -634,7 +634,9 @@ let EMP = null, EMP_OFFEN = false, EMP_OFFENE = [];
 // Empfehlung -> Markt im Wettformular (Seite A/B)
 function empZuBein(x, p){
   const s = /B$/.test(x.k) ? "B" : "A", k = x.k.replace(/[AB]$/, "");
-  const markt = {sieg: "sieg", glatt: "2:0", mind1: "satz1", zweiEins: "2:1", satz1: "s1", dreiSaetze: "o2.5", zweiSaetze: "u2.5"}[k] || (TB_MARKT[x.k] ? x.k : "sieg");
+  const bo5 = x.k === "glattA" || x.k === "glattB" ? (TennisModel.detectMode(p.turnier, undefined, D.params) === 5) : false;
+  const markt = {sieg: "sieg", glatt: bo5 ? "3:0" : "2:0", mind1: "satz1", zweiEins: "2:1", dreiEins: "3:1", dreiZwei: "3:2", satz1: "s1", dreiSaetze: "o2.5", zweiSaetze: "u2.5",
+    ueber35: "o3.5", unter35: "u3.5", ueber45: "o4.5", unter45: "u4.5"}[k] || (TB_MARKT[x.k] ? x.k : "sieg");
   return {fixtureId: p.id, seite: s, spieler: s==="A"?p.a:p.b, gegner: s==="A"?p.b:p.a, datum: String(p.start).slice(0,10), markt, quote: x.q};
 }
 // Alle Haupt- bzw. Alternativ-Empfehlungen als Kombi ins Formular „Wette eintragen“ (vor dem Speichern noch änderbar)
@@ -648,8 +650,9 @@ function empAlsKombi(teil, nurHeute){
   $("#tab-wetten").click(); const box = $("#m-manuell-box"); if(box){ box.open = true; box.scrollIntoView({behavior:"smooth"}); }
 }
 function empLabel(k, a, b){ const A = String(a).split(" ").slice(-1)[0], B = String(b).split(" ").slice(-1)[0];
-  return ({siegA: `Sieg ${A}`, siegB: `Sieg ${B}`, glattA: `2:0 ${A}`, glattB: `2:0 ${B}`, mind1A: `${A} gewinnt mind. 1 Satz`, mind1B: `${B} gewinnt mind. 1 Satz`,
-    zweiEinsA: `2:1 ${A}`, zweiEinsB: `2:1 ${B}`, dreiSaetze: "3 Sätze", zweiSaetze: "2 Sätze (kein 3. Satz)", satz1A: `1. Satz ${A}`, satz1B: `1. Satz ${B}`,
+  return ({siegA: `Sieg ${A}`, siegB: `Sieg ${B}`, glattA: `${A} ohne Satzverlust`, glattB: `${B} ohne Satzverlust`, mind1A: `${A} gewinnt mind. 1 Satz`, mind1B: `${B} gewinnt mind. 1 Satz`,
+    zweiEinsA: `2:1 ${A}`, zweiEinsB: `2:1 ${B}`, dreiEinsA: `3:1 ${A}`, dreiEinsB: `3:1 ${B}`, dreiZweiA: `3:2 ${A}`, dreiZweiB: `3:2 ${B}`,
+    ueber35: "über 3,5 Sätze", unter35: "unter 3,5 Sätze", ueber45: "über 4,5 Sätze", unter45: "unter 4,5 Sätze", dreiSaetze: "3 Sätze", zweiSaetze: "2 Sätze (kein 3. Satz)", satz1A: `1. Satz ${A}`, satz1B: `1. Satz ${B}`,
     tb1Ja: "Tiebreak im 1. Satz", tb1Nein: "kein Tiebreak im 1. Satz", tbJa: "Tiebreak im Match", tbNein: "kein Tiebreak im Match"})[k] || k; }
 function empZelle(x, a, b, erg){ if(!x) return `<span class="time">–</span>`;
   const pill = erg ? ({W:'<span class="pill go">✓</span>', L:'<span class="pill stop">✗</span>', V:'<span class="pill warn">ungültig</span>'}[x.ergebnis] || '<span class="pill no">offen</span>') : "";
@@ -1489,13 +1492,14 @@ function variantenHtml(bm, art){
 
 // Satz- & Tiebreak-Signale (Test seit 02.11.2026): eigener Kasten in der Bilanz, je Markt-Gruppe + Liste
 const MARKT_NAMEN = {glattA: "2:0", glattB: "2:0", mind1A: "mind. 1 Satz", mind1B: "mind. 1 Satz", dreiSaetze: "3 Sätze", zweiSaetze: "2 Sätze",
-  zweiEinsA: "2:1", zweiEinsB: "2:1", satz1A: "1. Satz", satz1B: "1. Satz", tb1Ja: "TB im 1. Satz: ja", tb1Nein: "TB im 1. Satz: nein", tbJa: "TB im Match: ja", tbNein: "TB im Match: nein"};
+  zweiEinsA: "2:1", zweiEinsB: "2:1", dreiEinsA: "3:1", dreiEinsB: "3:1", dreiZweiA: "3:2", dreiZweiB: "3:2", ueber35: "über 3,5 Sätze", unter35: "unter 3,5 Sätze", ueber45: "über 4,5 Sätze", unter45: "unter 4,5 Sätze", satz1A: "1. Satz", satz1B: "1. Satz", tb1Ja: "TB im 1. Satz: ja", tb1Nein: "TB im 1. Satz: nein", tbJa: "TB im Match: ja", tbNein: "TB im Match: nein"};
 let MARKT_OFFEN = null; const MSIG_OFFEN = new Set();
 function marktSignaleHtml(bm, art){
   if(!VAR) return "";
   const ok = (x) => (bm==="alle" || x.buchmacher===bm) && (art==="alle" || (art==="ch")===isChTip(x));
   const xs = Object.values(VAR.sig||{}).filter(x => x.typ==="markt" && ok(x));
-  const gruppen = [["glatt", "2:0 (glatter Sieg)", /^glatt/], ["zweiEins", "2:1", /^zweiEins/], ["mind1", "mind. 1 Satz", /^mind1/], ["saetze", "Anzahl Sätze (2 / 3)", /Saetze$/],
+  const gruppen = [["glatt", "2:0 / 3:0 (ohne Satzverlust)", /^glatt/], ["zweiEins", "2:1", /^zweiEins/], ["dreiEinsZwei", "3:1 / 3:2 (Best-of-5)", /^drei(Eins|Zwei)/], ["mind1", "mind. 1 Satz", /^mind1/], ["saetze", "Anzahl Sätze (2 / 3)", /Saetze$/],
+    ["saetze5", "Anzahl Sätze Best-of-5 (3,5 / 4,5)", /^(ueber|unter)(35|45)$/],
     ["satz1", "Sieger 1. Satz", /^satz1/], ["tb1", "Tiebreak im 1. Satz", /^tb1/], ["tb", "Tiebreak im Match", /^tb(Ja|Nein)$/]];
   const kz = (ys) => { const f = ys.filter(x => x.ergebnis==="W" || x.ergebnis==="L"), w = f.filter(x => x.ergebnis==="W").length;
     const u = f.reduce((s_, x) => s_ + (x.ergebnis==="W" ? x.erstQuote-1 : -1), 0), c = ys.map(x => x.letzteQuote && x.erstQuote ? x.erstQuote/x.letzteQuote-1 : null).filter(x => x!=null);
@@ -2092,11 +2096,13 @@ function maerkteHtml(p, r){
   const mk = r.maerkte; if(!mk || p.calc || /challenger/i.test((p.turnier||"")+" "+(p.kategorie||""))) return "";   // Challenger: keine Satzmärkte
   const bm = r.bm || "winamax", mq = ((p.maerkte || {})[bm]) || {}, pin = ((p.maerkte || {}).pinnacle) || {};
   const nA = p.a.split(" ").slice(-1)[0], nB = p.b.split(" ").slice(-1)[0], bo5 = r.modus === 5, minE = D.params.MARKT_MIN_EDGE ?? 0.05;
-  const paare = {glattA: "mind1B", mind1B: "glattA", mind1A: "glattB", glattB: "mind1A", dreiSaetze: "zweiSaetze", zweiSaetze: "dreiSaetze", satz1A: "satz1B", satz1B: "satz1A", tb1Ja: "tb1Nein", tb1Nein: "tb1Ja", tbJa: "tbNein", tbNein: "tbJa"};
+  const paare = {ueber35: "unter35", unter35: "ueber35", ueber45: "unter45", unter45: "ueber45", glattA: "mind1B", mind1B: "glattA", mind1A: "glattB", glattB: "mind1A", dreiSaetze: "zweiSaetze", zweiSaetze: "dreiSaetze", satz1A: "satz1B", satz1B: "satz1A", tb1Ja: "tb1Nein", tb1Nein: "tb1Ja", tbJa: "tbNein", tbNein: "tbJa"};
   const pinFair = (k) => { const a = pin[k], b = pin[paare[k]]; return a > 1 && b > 1 ? (1/a + 1/b) * a : null; };
   const istCh = /challenger/i.test((p.turnier||"")+" "+(p.kategorie||""));   // Challenger: kein genaues Ergebnis, kein Tiebreak
   const zeilen0 = [
-    ...(bo5 ? [] : [["2:0 " + nA, "glattA", mk.glattA], ["2:0 " + nB, "glattB", mk.glattB], [nA + " mind. 1 Satz", "mind1A", 1 - mk.glattB], [nB + " mind. 1 Satz", "mind1B", 1 - mk.glattA],
+    ...(bo5 ? [["3:0 " + nA, "glattA", mk.glattA], ["3:0 " + nB, "glattB", mk.glattB], [nA + " mind. 1 Satz", "mind1A", 1 - mk.glattB], [nB + " mind. 1 Satz", "mind1B", 1 - mk.glattA],
+      ["3:1 " + nA, "dreiEinsA", mk.dreiEinsA], ["3:1 " + nB, "dreiEinsB", mk.dreiEinsB], ["3:2 " + nA, "dreiZweiA", mk.dreiZweiA], ["3:2 " + nB, "dreiZweiB", mk.dreiZweiB],
+      ["Über 3,5 Sätze", "ueber35", mk.ueber35], ["Unter 3,5 Sätze", "unter35", 1 - mk.ueber35], ["Über 4,5 Sätze", "ueber45", mk.ueber45], ["Unter 4,5 Sätze", "unter45", 1 - mk.ueber45]] : [["2:0 " + nA, "glattA", mk.glattA], ["2:0 " + nB, "glattB", mk.glattB], [nA + " mind. 1 Satz", "mind1A", 1 - mk.glattB], [nB + " mind. 1 Satz", "mind1B", 1 - mk.glattA],
       ["2:1 " + nA, "zweiEinsA", (r.saetze||{}).scores ? r.saetze.scores["2-1"] : null], ["2:1 " + nB, "zweiEinsB", (r.saetze||{}).scores ? r.saetze.scores["1-2"] : null],
       ["3 Sätze", "dreiSaetze", mk.volleDistanz], ["2 Sätze", "zweiSaetze", 1 - mk.volleDistanz]]),
     ["1. Satz " + nA, "satz1A", mk.satz1A], ["1. Satz " + nB, "satz1B", 1 - mk.satz1A],
@@ -2876,7 +2882,9 @@ function setupWetten(){
     if(f.markt.value !== "sieg"){
       // Satzmärkte: Quote aus dem Datenfeed (Satz-Handicap) oder aus deiner Eingabe im Kasten „Satz- & Tiebreak-Märkte“
       const key = f.markt.value === "satz1" ? "mind1" + seite : f.markt.value === "2:0" ? "glatt" + seite : f.markt.value === "2:1" ? "zweiEins" + seite
-        : f.markt.value === "s1" ? "satz1" + seite : TB_MARKT[f.markt.value] ? f.markt.value : f.markt.value === "o2.5" ? "dreiSaetze" : f.markt.value === "u2.5" ? "zweiSaetze" : null;
+        : f.markt.value === "s1" ? "satz1" + seite : TB_MARKT[f.markt.value] ? f.markt.value : f.markt.value === "o2.5" ? "dreiSaetze" : f.markt.value === "u2.5" ? "zweiSaetze"
+        : f.markt.value === "3:0" ? "glatt" + seite : f.markt.value === "3:1" ? "dreiEins" + seite : f.markt.value === "3:2" ? "dreiZwei" + seite
+        : ({"o3.5": "ueber35", "u3.5": "unter35", "o4.5": "ueber45", "u4.5": "unter45"})[f.markt.value] || null;
       let mk = {}; try{ mk = JSON.parse(f.dataset.maerkte || "{}"); }catch(_){}
       const q = key ? (((mk[f.bm.value] || {})[key]) || (store.get("mq." + f.dataset.id, {}) || {})[key]) : null;
       f.quote.value = q ? fx(q) : "";

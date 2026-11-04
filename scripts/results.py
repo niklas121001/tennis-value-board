@@ -521,7 +521,9 @@ def main():
                 treffer = {"glattA": sb == 0, "glattB": sa == 0, "mind1A": sa >= 1, "mind1B": sb >= 1,
                            "dreiSaetze": len(ss) >= 3, "zweiSaetze": len(ss) == 2, "satz1A": ss[0][0] > ss[0][1], "satz1B": ss[0][1] > ss[0][0],
                            "tb1Ja": tb[0], "tb1Nein": not tb[0], "tbJa": any(tb), "tbNein": not any(tb),
-                           "zweiEinsA": sa == 2 and sb == 1, "zweiEinsB": sb == 2 and sa == 1}.get(k)
+                           "zweiEinsA": sa == 2 and sb == 1, "zweiEinsB": sb == 2 and sa == 1,
+                           "dreiEinsA": sa == 3 and sb == 1, "dreiEinsB": sb == 3 and sa == 1, "dreiZweiA": sa == 3 and sb == 2, "dreiZweiB": sb == 3 and sa == 2,
+                           "ueber35": len(ss) >= 4, "unter35": len(ss) == 3, "ueber45": len(ss) == 5, "unter45": len(ss) <= 4}.get(k)
                 if treffer is None:
                     continue
                 t["ergebnis"] = "W" if treffer else "L"
@@ -562,7 +564,9 @@ def main():
                     t = {"siegA": a["sieger"] == "A", "siegB": a["sieger"] == "B", "glattA": sb == 0, "glattB": sa == 0, "mind1A": sa >= 1, "mind1B": sb >= 1,
                          "dreiSaetze": len(ss) >= 3, "zweiSaetze": len(ss) == 2, "satz1A": ss[0][0] > ss[0][1], "satz1B": ss[0][1] > ss[0][0],
                          "tb1Ja": tb[0], "tb1Nein": not tb[0], "tbJa": any(tb), "tbNein": not any(tb),
-                         "zweiEinsA": sa == 2 and sb == 1, "zweiEinsB": sb == 2 and sa == 1}.get(w.get("k"))
+                         "zweiEinsA": sa == 2 and sb == 1, "zweiEinsB": sb == 2 and sa == 1,
+                           "dreiEinsA": sa == 3 and sb == 1, "dreiEinsB": sb == 3 and sa == 1, "dreiZweiA": sa == 3 and sb == 2, "dreiZweiB": sb == 3 and sa == 2,
+                           "ueber35": len(ss) >= 4, "unter35": len(ss) == 3, "ueber45": len(ss) == 5, "unter45": len(ss) <= 4}.get(w.get("k"))
                     if t is not None:
                         w["ergebnis"] = "W" if t else "L"
                 e["sieger"] = a.get("sieger"); e["satz"] = a.get("satz"); e["erledigt"] = True

@@ -225,6 +225,18 @@ ZUSATZ_MAERKTE = {
     "12251": {"12251": "tbJa", "12252": "tbNein"},          # Tiebreaks im Match über/unter 0,5
     "123": {"123": "satz1A", "124": "satz1B"},              # Sieger 1. Satz
 }
+# Best-of-5 (Grand Slams der Herren): ±1,5 und 2,5 Sätze bedeuten dort etwas anderes -> eigene Zuordnung
+# (IDs aus dem OddsPapi-Marktkatalog vom 04.11.2026; 12243/12244 = Handicap +2,5 nach dem Muster 12241/12242, im Januar prüfen)
+ZUSATZ_MAERKTE_BO5 = {
+    "12237": {"12237": "glattA", "12238": "mind1B"},        # Satz-Handicap −2,5 / +2,5 (3:0 bzw. Gegner mind. 1 Satz)
+    "12243": {"12243": "mind1A", "12244": "glattB"},        # Satz-Handicap +2,5 / −2,5
+    "12233": {"12233": "ueber35", "12234": "unter35"},      # Anzahl Sätze über/unter 3,5
+    "12235": {"12235": "ueber45", "12236": "unter45"},      # Anzahl Sätze über/unter 4,5
+    "12249": {"12249": "tb1Ja", "12250": "tb1Nein"},
+    "12251": {"12251": "tbJa", "12252": "tbNein"},
+    "123": {"123": "satz1A", "124": "satz1B"},
+}
+GRAND_SLAM = re.compile(r"australian open|roland garros|french open|wimbledon|us open", re.I)
 
 
 def quoten_historisch(fixtures, slugs, meta, cfg, diag):
@@ -257,7 +269,8 @@ def quoten_historisch(fixtures, slugs, meta, cfg, diag):
         for slug, bo in (res.get("bookmakers") or {}).items():
             # Zusatzmärkte (Satz, Tiebreak, 1. Satz) – im selben kostenlosen Abruf enthalten
             zus = {}
-            for mk_id, felder in ZUSATZ_MAERKTE.items():
+            bo5 = bool(GRAND_SLAM.search(f"{fx.get('tournamentName', '')}")) and not re.search(r"women|wta|qualif|mixed|doubles", f"{fx.get('categoryName', '')} {fx.get('tournamentName', '')}", re.I)
+            for mk_id, felder in (ZUSATZ_MAERKTE_BO5 if bo5 else ZUSATZ_MAERKTE).items():
                 outs = ((bo.get("markets") or {}).get(mk_id) or {}).get("outcomes") or {}
                 for oid, key in felder.items():
                     q, aktiv = letzter_preis(outs.get(oid))

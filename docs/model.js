@@ -633,7 +633,10 @@
                                  : { 2: sc["2-0"] + sc["0-2"], 3: sc["2-1"] + sc["1-2"] };
       let tbMatch = 0; for (const [n, pn] of Object.entries(nSaetze)) tbMatch += pn * (1 - (1 - t) ** +n);
       return { glattA: mode === 5 ? sc["3-0"] : sc["2-0"], glattB: mode === 5 ? sc["0-3"] : sc["0-2"],
-        volleDistanz: mode === 5 ? null : sc["2-1"] + sc["1-2"], satz1A: ss.q, tb1: t, tbMatch, tbRoh: tRoh, tbFaktor: tbF };
+        volleDistanz: mode === 5 ? null : sc["2-1"] + sc["1-2"], satz1A: ss.q, tb1: t, tbMatch, tbRoh: tRoh, tbFaktor: tbF,
+        // Best-of-5 (Grand Slams): über/unter 3,5 bzw. 4,5 Sätze und genaue Ergebnisse 3:1 / 3:2
+        ...(mode === 5 ? { ueber35: 1 - sc["3-0"] - sc["0-3"], ueber45: sc["3-2"] + sc["2-3"], dreiEinsA: sc["3-1"], dreiEinsB: sc["1-3"],
+          dreiZweiA: sc["3-2"], dreiZweiB: sc["2-3"] } : {}) };
     })();
 
     return Object.assign(out, {
@@ -660,7 +663,7 @@
   // Kandidaten: Quote EMP_MIN_QUOTE–EMP_MAX_QUOTE und Edge mind. EMP_MIN_EDGE (nicht deutlich schlechter als fair).
   // Haupt = höchste Trefferchance. Alternative = bester Erwartungswert (p · Quote) unter den Märkten mit spürbar
   // höherer Quote (mind. EMP_ALT_ABSTAND über der Hauptwette), ohne das Gegenteil der Hauptwette; sonst zweithöchste Chance.
-  const EMP_GEGEN = { siegA: "siegB", siegB: "siegA", glattA: "mind1B", mind1B: "glattA", glattB: "mind1A", mind1A: "glattB", dreiSaetze: "zweiSaetze",
+  const EMP_GEGEN = { ueber35: "unter35", unter35: "ueber35", ueber45: "unter45", unter45: "ueber45", siegA: "siegB", siegB: "siegA", glattA: "mind1B", mind1B: "glattA", glattB: "mind1A", mind1A: "glattB", dreiSaetze: "zweiSaetze",
     zweiSaetze: "dreiSaetze", satz1A: "satz1B", satz1B: "satz1A", tb1Ja: "tb1Nein", tb1Nein: "tb1Ja", tbJa: "tbNein", tbNein: "tbJa" };
   function empfehlungen(r, match, mq, P) {
     if (!r || !r.ok || !(match.qa > 1 && match.qb > 1)) return null;
@@ -670,6 +673,8 @@
     const pM = { siegA: pW, siegB: 1 - pW, satz1A: ss.q, satz1B: 1 - ss.q, tb1Ja: mk.tb1, tb1Nein: 1 - mk.tb1, tbJa: mk.tbMatch, tbNein: 1 - mk.tbMatch };
     if (mode === 3) Object.assign(pM, { glattA: sc["2-0"], glattB: sc["0-2"], mind1A: 1 - sc["0-2"], mind1B: 1 - sc["2-0"], zweiEinsA: sc["2-1"], zweiEinsB: sc["1-2"],
       dreiSaetze: sc["2-1"] + sc["1-2"], zweiSaetze: sc["2-0"] + sc["0-2"] });
+    else Object.assign(pM, { glattA: sc["3-0"], glattB: sc["0-3"], mind1A: 1 - sc["0-3"], mind1B: 1 - sc["3-0"], dreiEinsA: sc["3-1"], dreiEinsB: sc["1-3"],
+      dreiZweiA: sc["3-2"], dreiZweiB: sc["2-3"], ueber35: 1 - sc["3-0"] - sc["0-3"], unter35: sc["3-0"] + sc["0-3"], ueber45: sc["3-2"] + sc["2-3"], unter45: 1 - sc["3-2"] - sc["2-3"] });
     const qOf = { siegA: match.qa, siegB: match.qb };
     const minQ = P.EMP_MIN_QUOTE ?? 1.2, maxQ = P.EMP_MAX_QUOTE ?? 5, minE = P.EMP_MIN_EDGE ?? -0.05;
     const kand = [];
