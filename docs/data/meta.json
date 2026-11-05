@@ -1,35 +1,35 @@
 {
  "hinweis": "Demo: Partien und Quoten aus dem aktuellen DASHBOARD der Excel. Live-Daten nach Einrichtung des OddsPapi-Keys.",
- "elo_update": "2026-11-05T06:23Z",
- "quoten_update": "2026-11-05T06:27:35Z",
+ "elo_update": "2026-11-05T10:55Z",
+ "quoten_update": "2026-11-05T10:59:23Z",
  "quoten_hinweis": null,
  "kontingent": {
-  "verbraucht": 24,
+  "verbraucht": 25,
   "limit": 250
  },
  "unbekannte_namen": [],
  "buchmacher_fehlen": [],
  "abdeckung": {
   "winamax": {
-   "partien": 36,
-   "mit_quote": 36,
+   "partien": 34,
+   "mit_quote": 34,
    "pausiert": 0,
    "ohne_siegermarkt": 0
   }
  },
  "historisch": {
-  "partien": 42,
-  "mit_quote": 36,
-  "mit_pinnacle": 23,
+  "partien": 40,
+  "mit_quote": 34,
+  "mit_pinnacle": 30,
   "fehler": 6,
   "fehler_beispiele": [
    "OddsPapi historical-odds: HTTP 404 – {\"error\":{\"message\":\"No historical odds found.\",\"code\":\"NOT_FOUND\",\"details\":\"Please check the provided filters and try aga"
   ]
  },
  "pin_schluss": {
-  "stand": "2026-11-05T06:33Z",
-  "abgerufen": 11,
-  "offen": 11,
+  "stand": "2026-11-05T11:01Z",
+  "abgerufen": 15,
+  "offen": 15,
   "fehler": 0,
   "fehler_beispiele": []
  }

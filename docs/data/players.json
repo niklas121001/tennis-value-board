@@ -3259,7 +3259,7 @@
   "rang": 163
  },
  "Yosuke Watanuki": {
-  "elo": 1443.7,
+  "elo": 1451.1,
   "hard_1in": 0.554,
   "hard_1won": 0.722,
   "hard_2won": 0.464,
@@ -3273,7 +3273,7 @@
   "ret_clay": 0.372,
   "ret_grass": 0.332,
   "tb": 0.5,
-  "elo_hard": 1541.2,
+  "elo_hard": 1546.2,
   "elo_clay": 1472.4,
   "elo_grass": 1530.0,
   "ta": {
@@ -3284,8 +3284,8 @@
   },
   "elo_eigen": {
    "seit": "2026-10-26",
-   "spiele": 3,
-   "delta": 40.6
+   "spiele": 4,
+   "delta": 48.0
   },
   "rang": 375
  },
@@ -5277,7 +5277,7 @@
   "rang": 141
  },
  "Sho Shimabukuro": {
-  "elo": 1637.7,
+  "elo": 1622.6,
   "hard_1in": 0.575,
   "hard_1won": 0.727,
   "hard_2won": 0.542,
@@ -5291,7 +5291,7 @@
   "ret_clay": 0.431,
   "ret_grass": 0.361,
   "tb": 0.5,
-  "elo_hard": 1583.1,
+  "elo_hard": 1567.5,
   "elo_clay": 1490.6,
   "elo_grass": 1614.0,
   "ta": {
@@ -5303,8 +5303,8 @@
   "rang": 118,
   "elo_eigen": {
    "seit": "2026-11-02",
-   "spiele": 1,
-   "delta": 7.0
+   "spiele": 2,
+   "delta": -8.1
   }
  },
  "Joel Schwärzler": {
@@ -7563,7 +7563,7 @@
   "elo_grass": 1363.2
  },
  "Filip Misolic": {
-  "elo": 1440.0,
+  "elo": 1439.9,
   "hard_1in": 0.62,
   "hard_1won": 0.669,
   "hard_2won": 0.47,
@@ -7589,7 +7589,7 @@
   "elo_eigen": {
    "seit": "2026-10-26",
    "spiele": 3,
-   "delta": 3.4
+   "delta": 3.3
   },
   "rang": 676
  },
@@ -7623,7 +7623,7 @@
   "rang": 130
  },
  "Harold Mayot": {
-  "elo": 1611.0,
+  "elo": 1626.1,
   "hard_1in": 0.62,
   "hard_1won": 0.717,
   "hard_2won": 0.506,
@@ -7637,7 +7637,7 @@
   "ret_clay": 0.37,
   "ret_grass": 0.258,
   "tb": 0.5,
-  "elo_hard": 1592.0,
+  "elo_hard": 1607.6,
   "elo_clay": 1532.4,
   "elo_grass": 1515.2,
   "ta": {
@@ -7649,8 +7649,8 @@
   "rang": 220,
   "elo_eigen": {
    "seit": "2026-11-02",
-   "spiele": 1,
-   "delta": 8.1
+   "spiele": 2,
+   "delta": 23.2
   }
  },
  "Jack Kennedy": {
@@ -7831,17 +7831,17 @@
  },
  "Buvaysar Gadamauri": {
   "elo": 1436.2,
-  "hard_1in": null,
-  "hard_1won": null,
-  "hard_2won": null,
-  "clay_1in": null,
-  "clay_1won": null,
-  "clay_2won": null,
+  "hard_1in": 0.637,
+  "hard_1won": 0.715,
+  "hard_2won": 0.549,
+  "clay_1in": 0.661,
+  "clay_1won": 0.667,
+  "clay_2won": 0.547,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
-  "ret_hard": null,
-  "ret_clay": null,
+  "ret_hard": 0.391,
+  "ret_clay": 0.387,
   "ret_grass": null,
   "tb": 0.5,
   "elo_hard": 1398.8,
@@ -7858,6 +7858,16 @@
    "seit": "2026-10-26",
    "spiele": 1,
    "delta": 8.6
+  },
+  "manuell": {
+   "hard_1in": "2026-11-05T10:28",
+   "hard_1won": "2026-11-05T10:28",
+   "hard_2won": "2026-11-05T10:28",
+   "ret_hard": "2026-11-05T10:28",
+   "clay_1in": "2026-11-05T10:28",
+   "clay_1won": "2026-11-05T10:28",
+   "clay_2won": "2026-11-05T10:28",
+   "ret_clay": "2026-11-05T10:28"
   }
  },
  "Mikhail Kukushkin": {
@@ -8438,16 +8448,16 @@
  },
  "Andres Andrade": {
   "elo": 1569.9,
-  "hard_1in": null,
-  "hard_1won": null,
-  "hard_2won": null,
+  "hard_1in": 0.583,
+  "hard_1won": 0.685,
+  "hard_2won": 0.486,
   "clay_1in": null,
   "clay_1won": null,
   "clay_2won": null,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
-  "ret_hard": null,
+  "ret_hard": 0.416,
   "ret_clay": null,
   "ret_grass": null,
   "tb": 0.5,
@@ -8465,6 +8475,12 @@
    "seit": "2026-11-02",
    "spiele": 1,
    "delta": 11.2
+  },
+  "manuell": {
+   "hard_1in": "2026-11-05T10:34",
+   "hard_1won": "2026-11-05T10:34",
+   "hard_2won": "2026-11-05T10:34",
+   "ret_hard": "2026-11-05T10:34"
   }
  },
  "Igor Ribeiro Marcondes": {
@@ -10024,7 +10040,7 @@
   "rang": 363
  },
  "Yuta Shimizu": {
-  "elo": 1448.6,
+  "elo": 1448.5,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -10050,7 +10066,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 3,
-   "delta": 39.5
+   "delta": 39.4
   },
   "rang": 405
  },
@@ -10170,7 +10186,7 @@
   "rang": 260
  },
  "Ryan Peniston": {
-  "elo": 1301.8,
+  "elo": 1288.8,
   "hard_1in": 0.633,
   "hard_1won": 0.659,
   "hard_2won": 0.462,
@@ -10188,7 +10204,7 @@
   "elo_clay": 1339.8,
   "elo_grass": 1423.2,
   "ta": {
-   "elo": 1315.3,
+   "elo": 1301.8,
    "elo_hard": 1368.6,
    "elo_clay": 1339.8,
    "elo_grass": 1423.2
@@ -10197,7 +10213,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": -13.5
+   "delta": -13.0
   }
  },
  "Juan Pablo Varillas": {
@@ -13221,7 +13237,7 @@
   "rang": 357
  },
  "Masamichi Imamura": {
-  "elo": 1268.0,
+  "elo": 1260.5,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -13235,7 +13251,7 @@
   "ret_clay": null,
   "ret_grass": null,
   "tb": 0.5,
-  "elo_hard": 1245.0,
+  "elo_hard": 1240.1,
   "elo_clay": 1236.2,
   "elo_grass": 1326.2,
   "ta": {
@@ -13246,8 +13262,8 @@
   },
   "elo_eigen": {
    "seit": "2026-11-02",
-   "spiele": 1,
-   "delta": 17.4
+   "spiele": 2,
+   "delta": 9.9
   },
   "rang": 437
  },
@@ -13931,25 +13947,25 @@
   "rang": 390
  },
  "Carl Emil Overbeck": {
-  "elo": 1299.2,
-  "hard_1in": null,
-  "hard_1won": null,
-  "hard_2won": null,
-  "clay_1in": null,
-  "clay_1won": null,
-  "clay_2won": null,
+  "elo": 1321.1,
+  "hard_1in": 0.639,
+  "hard_1won": 0.742,
+  "hard_2won": 0.518,
+  "clay_1in": 0.656,
+  "clay_1won": 0.701,
+  "clay_2won": 0.518,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
-  "ret_hard": null,
-  "ret_clay": null,
+  "ret_hard": 0.405,
+  "ret_clay": 0.433,
   "ret_grass": null,
   "tb": 0.5,
   "elo_hard": 1197.6,
   "elo_clay": 1204.9,
   "elo_grass": 1294.9,
   "ta": {
-   "elo": 1276.7,
+   "elo": 1299.2,
    "elo_hard": 1170.2,
    "elo_clay": 1204.9,
    "elo_grass": 1294.9
@@ -13958,7 +13974,17 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": 22.5
+   "delta": 21.9
+  },
+  "manuell": {
+   "hard_1in": "2026-11-05T10:30",
+   "hard_1won": "2026-11-05T10:30",
+   "hard_2won": "2026-11-05T10:30",
+   "ret_hard": "2026-11-05T10:30",
+   "clay_1in": "2026-11-05T10:30",
+   "clay_1won": "2026-11-05T10:30",
+   "clay_2won": "2026-11-05T10:30",
+   "ret_clay": "2026-11-05T10:30"
   }
  },
  "Kasidit Samrej": {
@@ -14327,7 +14353,7 @@
   "elo_grass": 1396.3
  },
  "Mateus Alves": {
-  "elo": 1168.2,
+  "elo": 1162.8,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -14345,7 +14371,7 @@
   "elo_clay": 1242.6,
   "elo_grass": 1322.9,
   "ta": {
-   "elo": 1173.7,
+   "elo": 1168.2,
    "elo_hard": 1146.8,
    "elo_clay": 1246.2,
    "elo_grass": 1322.9
@@ -14353,7 +14379,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": -5.5
+   "delta": -5.4
   },
   "rang": 413
  },
@@ -15035,7 +15061,7 @@
   "rang": 354
  },
  "Sebastian Gima": {
-  "elo": 1166.7,
+  "elo": 1166.2,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -15055,7 +15081,7 @@
   "elo_eigen": {
    "seit": "2026-10-26",
    "spiele": 1,
-   "delta": -8.6
+   "delta": -9.1
   }
  },
  "Jake Delaney": {
@@ -16638,7 +16664,7 @@
   "rang": 188
  },
  "Chun Hsin Tseng": {
-  "elo": 1500.3,
+  "elo": 1500.9,
   "neu": true,
   "elo_hard": 1453.9,
   "elo_clay": 1536.8,
@@ -16653,7 +16679,7 @@
   "elo_eigen": {
    "seit": "2026-10-26",
    "spiele": 1,
-   "delta": -22.5
+   "delta": -21.9
   }
  },
  "Radu Mihai Papoe": {
@@ -17134,13 +17160,13 @@
   }
  },
  "Evan Zhu": {
-  "elo": 1081.4,
+  "elo": 1077.7,
   "neu": true,
   "elo_hard": 1125.9,
   "elo_clay": 1195.4,
   "elo_grass": 1188.1,
   "ta": {
-   "elo": 1085.2,
+   "elo": 1081.4,
    "elo_hard": 1131.9,
    "elo_clay": 1195.4,
    "elo_grass": 1188.1
@@ -17148,7 +17174,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": -3.8
+   "delta": -3.7
   },
   "rang": 467
  },
