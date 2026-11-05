@@ -1,1172 +1,6 @@
 {
-"stand": "2026-11-04T18:25:16Z",
+"stand": "2026-11-05T06:27:33Z",
 "partien": [
-{
-"id": "id1200321776126768",
-"start": "2026-11-04T19:05:00.000Z",
-"turnier": "Charlottesville Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Marcos Giron",
-"b": "Justin Boulais",
-"aRoh": "Giron, Marcos",
-"bRoh": "Boulais, Justin",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.18,
-4.1
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.208,
-4.64
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 1.653,
-"mind1B": 2.28,
-"mind1A": 1.099,
-"glattB": 7.74,
-"dreiSaetze": 3.04,
-"zweiSaetze": 1.401,
-"satz1A": 1.314,
-"satz1B": 3.48
-}
-},
-"tid": 3217,
-"p1Id": 42379,
-"p2Id": 369572,
-"sapId": 17427334,
-"landA": "US",
-"landB": "CA",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 18,
-"min7": 85,
-"minN": 1,
-"letztesMin": 85,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-03T19:25:00Z",
-"quali": false,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-03T16:25:00Z",
-"turnier": "Charlottesville, USA"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 52,
-"min7": 238,
-"minN": 3,
-"letztesMin": 69,
-"letztesGames": 17,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-03T16:25:00Z",
-"quali": true,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-03T19:25:00Z",
-"turnier": "Charlottesville, USA"
-}
-}
-},
-"ort": {
-"land": "US",
-"tz": -6
-},
-"rangA": 89,
-"rangB": 439
-},
-{
-"id": "id1200266176142868",
-"start": "2026-11-04T19:30:00.000Z",
-"turnier": "ATP Paris",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Arthur Fils",
-"b": "Tomas Machac",
-"aRoh": "Fils, Arthur",
-"bRoh": "Machac, Tomas",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.56,
-2.5
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.581,
-2.52
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 2.42,
-"mind1B": 1.609,
-"mind1A": 1.224,
-"glattB": 4.6,
-"dreiSaetze": 2.38,
-"zweiSaetze": 1.632,
-"satz1A": 1.625,
-"satz1B": 2.39
-},
-"winamax": {
-"glattA": 2.25,
-"mind1B": 1.5,
-"mind1A": 1.2,
-"glattB": 3.75,
-"dreiSaetze": 2.2,
-"zweiSaetze": 1.54,
-"tbJa": 2.0,
-"tbNein": 1.52
-}
-},
-"tid": 2661,
-"p1Id": 671637,
-"p2Id": 300540,
-"sapId": 17428213,
-"landA": "FR",
-"landB": "CZ",
-"runde": "Round of 32",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 42,
-"min7": 185,
-"minN": 2,
-"letztesMin": 45,
-"letztesGames": 10,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-10-30T15:35:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-02T15:40:00Z",
-"turnier": "Paris, France"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 57,
-"min7": 252,
-"minN": 3,
-"letztesMin": 82,
-"letztesGames": 20,
-"dreisatz7": 0,
-"siege7": 3,
-"letztes": "2026-11-02T15:40:00Z",
-"quali": true,
-"vorOrt": {
-"land": "CH",
-"tz": 1,
-"start": "2026-10-30T15:35:00Z",
-"turnier": "Basel, Switzerland"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 7,
-"rangB": 69,
-"warnungen": [
-{
-"typ": "aufgabe",
-"text": "Aufgabe im letzten Spiel (30.10.)",
-"seite": "A"
-}
-]
-},
-{
-"id": "id1204837576131282",
-"start": "2026-11-04T19:30:00.000Z",
-"turnier": "Costa do Sauipe Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Lautaro Midon",
-"b": "Tomas Vera",
-"aRoh": "Midon, Lautaro",
-"bRoh": "Barrios Vera, Marcelo Tomas",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.84,
-1.84
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.97,
-1.9
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 3.2,
-"mind1B": 1.377,
-"mind1A": 1.395,
-"glattB": 3.11,
-"dreiSaetze": 2.37,
-"zweiSaetze": 1.625,
-"satz1A": 1.943,
-"satz1B": 1.892
-}
-},
-"tid": 48375,
-"p1Id": 847592,
-"p2Id": 132834,
-"sapId": 17427546,
-"landA": "AR",
-"landB": "CL",
-"runde": "Round of 16",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 65,
-"min7": 355,
-"minN": 3,
-"letztesMin": 124,
-"letztesGames": 22,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-03T18:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "BR",
-"tz": -3,
-"start": "2026-11-02T19:05:00Z",
-"turnier": "Costa do Sauipe, Brazil"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 39,
-"min7": 250,
-"minN": 2,
-"letztesMin": 154,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-02T19:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "BR",
-"tz": -3,
-"start": "2026-11-03T18:00:00Z",
-"turnier": "Costa do Sauipe, Brazil"
-}
-}
-},
-"ort": {
-"land": "BR",
-"tz": -3
-},
-"rangA": 185,
-"rangB": 154
-},
-{
-"id": "id1200321776126770",
-"start": "2026-11-04T20:20:00.000Z",
-"turnier": "Charlottesville Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Jack Kennedy",
-"b": "Clement Chidekh",
-"aRoh": "Kennedy, Jack",
-"bRoh": "Chidekh, Clement",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-6.25,
-1.07
-]
-},
-"pausiert": [],
-"pinnacle": [
-7.59,
-1.087
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 13.73,
-"mind1B": 1.043,
-"mind1A": 3.29,
-"glattB": 1.353,
-"dreiSaetze": 4.019,
-"zweiSaetze": 1.258,
-"satz1A": 5.16,
-"satz1B": 1.165
-}
-},
-"tid": 3217,
-"p1Id": 1140995,
-"p2Id": 283759,
-"sapId": 17427330,
-"landA": "US",
-"landB": "FR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 28,
-"min7": 113,
-"minN": 1,
-"letztesMin": 113,
-"letztesGames": 28,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-02T21:10:00Z",
-"quali": false,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-03T18:15:00Z",
-"turnier": "Charlottesville, USA"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 15,
-"min7": 54,
-"minN": 1,
-"letztesMin": 54,
-"letztesGames": 15,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-03T18:15:00Z",
-"quali": false,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-02T21:10:00Z",
-"turnier": "Charlottesville, USA"
-}
-}
-},
-"ort": {
-"land": "US",
-"tz": -6
-},
-"rangA": 396,
-"rangB": 131
-},
-{
-"id": "id1204837576131300",
-"start": "2026-11-04T21:30:00.000Z",
-"turnier": "Costa do Sauipe Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Igor Ribeiro Marcondes",
-"b": "Camilo Ugo Carabelli",
-"aRoh": "Marcondes, Igor",
-"bRoh": "Ugo Carabelli, Camilo",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.65,
-1.24
-]
-},
-"pausiert": [],
-"pinnacle": [
-3.97,
-1.278
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 6.65,
-"mind1B": 1.128,
-"mind1A": 1.99,
-"glattB": 1.869,
-"dreiSaetze": 2.7,
-"zweiSaetze": 1.497,
-"satz1A": 2.9,
-"satz1B": 1.432
-}
-},
-"tid": 48375,
-"p1Id": 82157,
-"p2Id": 204117,
-"sapId": 17427538,
-"landA": "BR",
-"landB": "AR",
-"runde": "Round of 16",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 21,
-"min7": 97,
-"minN": 1,
-"letztesMin": 97,
-"letztesGames": 21,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-03T22:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "BR",
-"tz": -3,
-"start": "2026-11-03T22:25:00Z",
-"turnier": "Costa do Sauipe, Brazil"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 33,
-"min7": 206,
-"minN": 2,
-"letztesMin": 195,
-"letztesGames": 31,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-03T22:25:00Z",
-"quali": false,
-"vorOrt": {
-"land": "BR",
-"tz": -3,
-"start": "2026-11-03T22:00:00Z",
-"turnier": "Costa do Sauipe, Brazil"
-}
-}
-},
-"ort": {
-"land": "BR",
-"tz": -3
-},
-"rangA": 279,
-"rangB": 81
-},
-{
-"id": "id1203761576126400",
-"start": "2026-11-04T22:00:00.000Z",
-"turnier": "Villa Maria Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Lucio Ratti",
-"b": "Carlos Maria Zarate",
-"aRoh": "Ratti, Lucio",
-"bRoh": "Zarate, Carlos Maria",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.15,
-1.6
-]
-},
-"pausiert": [],
-"pinnacle": [
-2.17,
-1.704
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 3.48,
-"mind1B": 1.314,
-"mind1A": 1.512,
-"glattB": 2.58,
-"dreiSaetze": 2.52,
-"zweiSaetze": 1.537,
-"satz1A": 2.11,
-"satz1B": 1.729
-}
-},
-"tid": 37615,
-"p1Id": 866247,
-"p2Id": 1118225,
-"sapId": 17427289,
-"landA": "AR",
-"landB": "AR",
-"runde": "Round of 16",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 29,
-"min7": 144,
-"minN": 1,
-"letztesMin": 144,
-"letztesGames": 29,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-02T19:40:00Z",
-"quali": false,
-"vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-02T22:15:00Z",
-"turnier": "Villa Maria, Argentina"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 69,
-"min7": 333,
-"minN": 3,
-"letztesMin": 99,
-"letztesGames": 22,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-02T22:15:00Z",
-"quali": false,
-"vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-02T19:40:00Z",
-"turnier": "Villa Maria, Argentina"
-}
-}
-},
-"ort": {
-"land": "AR",
-"tz": -3
-},
-"rangA": 371,
-"rangB": 341
-},
-{
-"id": "id1204837576131298",
-"start": "2026-11-04T22:00:00.000Z",
-"turnier": "Costa do Sauipe Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Gustavo Heide",
-"b": "Juan Carlos Prado Angelo",
-"aRoh": "Heide, Gustavo",
-"bRoh": "Prado Angelo, Juan Carlos",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.58,
-2.2
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.68,
-2.26
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 2.5,
-"mind1B": 1.555,
-"mind1A": 1.272,
-"glattB": 3.89,
-"dreiSaetze": 2.46,
-"zweiSaetze": 1.571,
-"satz1A": 1.632,
-"satz1B": 2.3
-}
-},
-"tid": 48375,
-"p1Id": 515510,
-"p2Id": 834054,
-"sapId": 17427542,
-"landA": "BR",
-"landB": "BO",
-"runde": "Round of 16",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 26,
-"min7": 196,
-"minN": 1,
-"letztesMin": 196,
-"letztesGames": 26,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-02T22:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "BR",
-"tz": -3,
-"start": "2026-11-03T01:30:00Z",
-"turnier": "Costa do Sauipe, Brazil"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 34,
-"min7": 178,
-"minN": 2,
-"letztesMin": 93,
-"letztesGames": 17,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-03T01:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "BR",
-"tz": -3,
-"start": "2026-11-02T22:00:00Z",
-"turnier": "Costa do Sauipe, Brazil"
-}
-}
-},
-"ort": {
-"land": "BR",
-"tz": -3
-},
-"rangA": 112,
-"rangB": 193
-},
-{
-"id": "id1201146376131454",
-"start": "2026-11-05T03:00:00.000Z",
-"turnier": "Taipei Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Charles Broom",
-"b": "Alexandre Muller",
-"aRoh": "Broom, Charles",
-"bRoh": "Muller, Alexandre",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.05,
-1.66
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 11463,
-"p1Id": 216502,
-"p2Id": 88992,
-"sapId": 17427584,
-"landA": "GB",
-"landB": "FR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 18,
-"min7": 68,
-"minN": 1,
-"letztesMin": 68,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-04T02:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-04T03:35:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 19,
-"min7": 85,
-"minN": 1,
-"letztesMin": 85,
-"letztesGames": 19,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-04T03:35:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-04T02:00:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-}
-},
-"ort": {
-"land": "TW",
-"tz": 8
-},
-"rangA": 264,
-"rangB": 146
-},
-{
-"id": "id1201146376131458",
-"start": "2026-11-05T03:00:00.000Z",
-"turnier": "Taipei Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Jake Delaney",
-"b": "Omar Jasika",
-"aRoh": "Delaney, Jake",
-"bRoh": "Jasika, Omar",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.45,
-1.47
-]
-},
-"pausiert": [],
-"pinnacle": [
-2.59,
-1.543
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 4.48,
-"mind1B": 1.226,
-"mind1A": 1.632,
-"glattB": 2.35,
-"dreiSaetze": 2.45,
-"zweiSaetze": 1.588,
-"satz1A": 2.35,
-"satz1B": 1.617
-}
-},
-"tid": 11463,
-"p1Id": 79223,
-"p2Id": 79467,
-"sapId": 17427580,
-"landA": "AU",
-"landB": "AU",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 4,
-"saetze7": 10,
-"games7": 93,
-"min7": 364,
-"minN": 4,
-"letztesMin": 113,
-"letztesGames": 28,
-"dreisatz7": 2,
-"siege7": 3,
-"letztes": "2026-11-03T02:00:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-03T03:40:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-},
-"b": {
-"spiele7": 5,
-"saetze7": 13,
-"games7": 130,
-"min7": 617,
-"minN": 5,
-"letztesMin": 134,
-"letztesGames": 26,
-"dreisatz7": 3,
-"siege7": 4,
-"letztes": "2026-11-03T03:40:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-03T02:00:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-}
-},
-"ort": {
-"land": "TW",
-"tz": 8
-},
-"rangA": 350,
-"rangB": 329
-},
-{
-"id": "id1201146376131432",
-"start": "2026-11-05T04:20:00.000Z",
-"turnier": "Taipei Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Yosuke Watanuki",
-"b": "Masamichi Imamura",
-"aRoh": "Watanuki, Yosuke",
-"bRoh": "Imamura, Masamichi",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.14,
-4.8
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.164,
-5.6
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 1.529,
-"mind1B": 2.6,
-"mind1A": 1.079,
-"glattB": 9.36,
-"dreiSaetze": 3.39,
-"zweiSaetze": 1.343,
-"satz1A": 1.271,
-"satz1B": 3.89
-}
-},
-"tid": 11463,
-"p1Id": 157302,
-"p2Id": 207777,
-"sapId": 17427586,
-"landA": "JP",
-"landB": "JP",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 53,
-"min7": 231,
-"minN": 3,
-"letztesMin": 79,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 3,
-"letztes": "2026-11-03T09:05:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-03T06:10:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 61,
-"min7": 268,
-"minN": 3,
-"letztesMin": 94,
-"letztesGames": 20,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-03T06:10:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-03T09:05:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-}
-},
-"ort": {
-"land": "TW",
-"tz": 8
-},
-"rangA": 375,
-"rangB": 437
-},
-{
-"id": "id1201146376131446",
-"start": "2026-11-05T04:30:00.000Z",
-"turnier": "Taipei Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Harold Mayot",
-"b": "Sho Shimabukuro",
-"aRoh": "Mayot, Harold",
-"bRoh": "Shimabukuro, Sho",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.76,
-1.94
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 11463,
-"p1Id": 321667,
-"p2Id": 247607,
-"sapId": 17427582,
-"landA": "FR",
-"landB": "JP",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 42,
-"min7": 171,
-"minN": 2,
-"letztesMin": 71,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-04T02:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-03T10:40:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 43,
-"min7": 182,
-"minN": 2,
-"letztesMin": 90,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-03T10:40:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-04T02:00:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-}
-},
-"ort": {
-"land": "TW",
-"tz": 8
-},
-"rangA": 220,
-"rangB": 118
-},
-{
-"id": "id1201146376131346",
-"start": "2026-11-05T07:40:00.000Z",
-"turnier": "Taipei Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Carl Emil Overbeck",
-"b": "Kasidit Samrej",
-"aRoh": "Overbeck, Carl Emil",
-"bRoh": "Samrej, Kasidit",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.58,
-2.2
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 11463,
-"p1Id": 637610,
-"p2Id": 280449,
-"sapId": 17427583,
-"landA": "DK",
-"landB": "TH",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 23,
-"min7": 98,
-"minN": 1,
-"letztesMin": 98,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-04T03:25:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-03T07:10:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 69,
-"min7": 334,
-"minN": 3,
-"letztesMin": 100,
-"letztesGames": 21,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-03T07:10:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TW",
-"tz": 8,
-"start": "2026-11-04T03:25:00Z",
-"turnier": "Taipei, Chinese Taipei"
-}
-}
-},
-"ort": {
-"land": "TW",
-"tz": 8
-},
-"rangA": 301,
-"rangB": 409
-},
-{
-"id": "id1200266176142896",
-"start": "2026-11-05T09:00:00.000Z",
-"turnier": "ATP Paris",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Ben Shelton",
-"b": "Arthur Rinderknech",
-"aRoh": "Shelton, Ben",
-"bRoh": "Rinderknech, Arthur",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.3,
-3.8
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": {
-"winamax": {
-"glattA": 1.86,
-"mind1B": 1.82,
-"mind1A": 1.09,
-"glattB": 6.0,
-"dreiSaetze": 2.25,
-"zweiSaetze": 1.49
-}
-},
-"tid": 2661,
-"p1Id": 808628,
-"p2Id": 63606,
-"sapId": 17428219,
-"landA": "US",
-"landB": "FR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 54,
-"min7": 213,
-"minN": 2,
-"letztesMin": 72,
-"letztesGames": 19,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-03T18:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-04T10:00:00Z",
-"turnier": "Paris, France"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 41,
-"min7": 165,
-"minN": 2,
-"letztesMin": 65,
-"letztesGames": 17,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-04T10:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-03T18:00:00Z",
-"turnier": "Paris, France"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 4,
-"rangB": 68
-},
 {
 "id": "id1205354676133112",
 "start": "2026-11-05T09:30:00.000Z",
@@ -1188,8 +22,22 @@
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+1.724,
+2.16
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.73,
+"mind1B": 1.478,
+"mind1A": 1.319,
+"glattB": 3.5,
+"dreiSaetze": 2.42,
+"zweiSaetze": 1.584,
+"satz1A": 1.793,
+"satz1B": 2.04
+}
+},
 "tid": 53546,
 "p1Id": 501414,
 "p2Id": 268441,
@@ -1234,8 +82,22 @@
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+1.943,
+1.892
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 3.12,
+"mind1B": 1.384,
+"mind1A": 1.395,
+"glattB": 3.06,
+"dreiSaetze": 2.4,
+"zweiSaetze": 1.598,
+"satz1A": 1.909,
+"satz1B": 1.909
+}
+},
 "tid": 53546,
 "p1Id": 116616,
 "p2Id": 927343,
@@ -1307,13 +169,27 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.3,
-1.52
+2.25,
+1.56
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+2.44,
+1.578
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 4.3,
+"mind1B": 1.233,
+"mind1A": 1.568,
+"glattB": 2.47,
+"dreiSaetze": 2.34,
+"zweiSaetze": 1.621,
+"satz1A": 2.33,
+"satz1B": 1.617
+}
+},
 "tid": 53546,
 "p1Id": 230468,
 "p2Id": 145122,
@@ -1338,223 +214,96 @@
 "rangB": 244
 },
 {
-"id": "id1200266176142886",
-"start": "2026-11-05T10:00:00.000Z",
-"turnier": "ATP Paris",
-"kategorie": "ATP",
+"id": "id1201146376131346",
+"start": "2026-11-05T09:45:00.000Z",
+"turnier": "Taipei Challenger",
+"kategorie": "Challenger",
 "belag": "hard",
 "belagQuelle": "spieldaten",
-"a": "Nuno Borges",
-"b": "Ignacio Buse",
-"aRoh": "Borges, Nuno",
-"bRoh": "Buse, Ignacio",
+"a": "Carl Emil Overbeck",
+"b": "Kasidit Samrej",
+"aRoh": "Overbeck, Carl Emil",
+"bRoh": "Samrej, Kasidit",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.72,
+1.98
+]
+},
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 2661,
-"p1Id": 125006,
-"p2Id": 604344,
-"sapId": 17428199,
-"landA": "PT",
-"landB": "PE",
+"pinnacle": [
+1.775,
+2.12
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.82,
+"mind1B": 1.462,
+"mind1A": 1.327,
+"glattB": 3.5,
+"dreiSaetze": 2.4,
+"zweiSaetze": 1.609,
+"satz1A": 1.793,
+"satz1B": 2.06
+}
+},
+"tid": 11463,
+"p1Id": 637610,
+"p2Id": 280449,
+"sapId": 17427583,
+"landA": "DK",
+"landB": "TH",
 "runde": "Round of 16",
 "gt": "Hardcourt indoor",
 "form": {
 "a": {
-"spiele7": 5,
-"saetze7": 11,
-"games7": 102,
-"min7": 415,
-"minN": 5,
-"letztesMin": 73,
-"letztesGames": 19,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-04T16:15:00Z",
-"quali": true,
+"spiele7": 1,
+"saetze7": 2,
+"games7": 23,
+"min7": 98,
+"minN": 1,
+"letztesMin": 98,
+"letztesGames": 23,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-04T03:25:00Z",
+"quali": false,
 "vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-04T13:45:00Z",
-"turnier": "Paris, France"
+"land": "TW",
+"tz": 8,
+"start": "2026-11-03T07:10:00Z",
+"turnier": "Taipei, Chinese Taipei"
 }
 },
 "b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 38,
-"min7": 178,
-"minN": 2,
-"letztesMin": 99,
-"letztesGames": 20,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-04T13:45:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-04T16:15:00Z",
-"turnier": "Paris, France"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 49,
-"rangB": 33
-},
-{
-"id": "id1200266176142892",
-"start": "2026-11-05T10:00:00.000Z",
-"turnier": "ATP Paris",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Lorenzo Musetti",
-"b": "Luca Van Assche",
-"aRoh": "Musetti, Lorenzo",
-"bRoh": "Van Assche, Luca",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 2661,
-"p1Id": 359602,
-"p2Id": 658475,
-"sapId": 17428203,
-"landA": "IT",
-"landB": "FR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
 "spiele7": 3,
-"saetze7": 7,
-"games7": 79,
-"min7": 369,
+"saetze7": 6,
+"games7": 69,
+"min7": 334,
 "minN": 3,
 "letztesMin": 100,
 "letztesGames": 21,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-04T12:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-04T11:20:00Z",
-"turnier": "Paris, France"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 44,
-"min7": 237,
-"minN": 2,
-"letztesMin": 123,
-"letztesGames": 23,
 "dreisatz7": 0,
 "siege7": 2,
-"letztes": "2026-11-04T11:20:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-04T12:30:00Z",
-"turnier": "Paris, France"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 24,
-"rangB": 47
-},
-{
-"id": "id1200266176142894",
-"start": "2026-11-05T10:00:00.000Z",
-"turnier": "ATP Paris",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Rinky Hijikata",
-"b": "Tomas Etcheverry",
-"aRoh": "Hijikata, Rinky",
-"bRoh": "Etcheverry, Tomas Martin",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 2661,
-"p1Id": 299130,
-"p2Id": 169496,
-"sapId": 17428217,
-"landA": "AU",
-"landB": "AR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 4,
-"saetze7": 9,
-"games7": 82,
-"min7": 357,
-"minN": 4,
-"letztesMin": 135,
-"letztesGames": 26,
-"dreisatz7": 1,
-"siege7": 4,
-"letztes": "2026-11-04T14:45:00Z",
+"letztes": "2026-11-03T07:10:00Z",
 "quali": true,
 "vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-04T12:55:00Z",
-"turnier": "Paris, France"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 58,
-"min7": 289,
-"minN": 2,
-"letztesMin": 119,
-"letztesGames": 22,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-04T12:55:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-04T14:45:00Z",
-"turnier": "Paris, France"
+"land": "TW",
+"tz": 8,
+"start": "2026-11-04T03:25:00Z",
+"turnier": "Taipei, Chinese Taipei"
 }
 }
 },
 "ort": {
-"land": "FR",
-"tz": 1
+"land": "TW",
+"tz": 8
 },
-"rangA": 83,
-"rangB": 31
+"rangA": 301,
+"rangB": 409
 },
 {
 "id": "id1200266176142898",
@@ -1572,20 +321,35 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.31,
-3.7
+1.33,
+3.5
 ]
 },
 "pausiert": [],
-"pinnacle": null,
+"pinnacle": [
+1.317,
+3.7
+],
 "maerkte": {
+"pinnacle": {
+"glattA": 1.961,
+"mind1B": 1.909,
+"mind1A": 1.124,
+"glattB": 7.02,
+"dreiSaetze": 2.52,
+"zweiSaetze": 1.571,
+"satz1A": 1.448,
+"satz1B": 2.91
+},
 "winamax": {
-"glattA": 1.86,
-"mind1B": 1.82,
-"mind1A": 1.09,
-"glattB": 5.7,
-"dreiSaetze": 2.35,
-"zweiSaetze": 1.48
+"glattA": 1.9,
+"mind1B": 1.78,
+"mind1A": 1.1,
+"glattB": 5.5,
+"dreiSaetze": 2.25,
+"zweiSaetze": 1.5,
+"tbJa": 1.8,
+"tbNein": 1.74
 }
 },
 "tid": 2661,
@@ -1660,13 +424,13 @@
 "quoten": {
 "winamax": [
 1.01,
-10.5
+10.0
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.022,
-19.69
+1.036,
+14.54
 ],
 "maerkte": null,
 "tid": 11463,
@@ -1725,84 +489,6 @@
 "rangB": 1340
 },
 {
-"id": "id1203086176127570",
-"start": "2026-11-05T10:35:00.000Z",
-"turnier": "Bratislava II Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Laslo Djere",
-"b": "Otto Virtanen",
-"aRoh": "Djere, Laslo",
-"bRoh": "Virtanen, Otto",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.6,
-1.42
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 30861,
-"p1Id": 97231,
-"p2Id": 276563,
-"sapId": 17427362,
-"landA": "RS",
-"landB": "FI",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 56,
-"min7": 262,
-"minN": 2,
-"letztesMin": 171,
-"letztesGames": 36,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-03T13:40:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SK",
-"tz": 1,
-"start": "2026-11-04T10:00:00Z",
-"turnier": "Bratislava 2, Slovakia"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 59,
-"min7": 229,
-"minN": 3,
-"letztesMin": 87,
-"letztesGames": 21,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-04T10:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SK",
-"tz": 1,
-"start": "2026-11-03T13:40:00Z",
-"turnier": "Bratislava 2, Slovakia"
-}
-}
-},
-"ort": {
-"land": "SK",
-"tz": 1
-},
-"rangA": 137,
-"rangB": 116
-},
-{
 "id": "id1205354676133182",
 "start": "2026-11-05T10:40:00.000Z",
 "turnier": "Taranto Challenger",
@@ -1818,13 +504,27 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.43,
-2.6
+1.48,
+2.45
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+1.515,
+2.58
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.29,
+"mind1B": 1.636,
+"mind1A": 1.233,
+"glattB": 4.21,
+"dreiSaetze": 2.52,
+"zweiSaetze": 1.537,
+"satz1A": 1.613,
+"satz1B": 2.31
+}
+},
 "tid": 53546,
 "p1Id": 948185,
 "p2Id": 983487,
@@ -1869,8 +569,22 @@
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+1.952,
+1.869
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 3.19,
+"mind1B": 1.361,
+"mind1A": 1.387,
+"glattB": 3.05,
+"dreiSaetze": 2.32,
+"zweiSaetze": 1.621,
+"satz1A": 1.98,
+"satz1B": 1.833
+}
+},
 "tid": 53546,
 "p1Id": 780796,
 "p2Id": 145108,
@@ -1891,13 +605,7 @@
 "dreisatz7": 0,
 "siege7": 1,
 "letztes": "2026-11-03T13:55:00Z",
-"quali": false,
-"vorOrt": {
-"land": "CH",
-"tz": 1,
-"start": "2026-10-28T13:00:00Z",
-"turnier": "Basel, Switzerland"
-}
+"quali": false
 },
 "b": {
 "spiele7": 0,
@@ -1918,7 +626,7 @@
 },
 {
 "id": "id1205354676133192",
-"start": "2026-11-05T10:50:00.000Z",
+"start": "2026-11-05T10:40:00.000Z",
 "turnier": "Taranto Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -1932,25 +640,25 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.1,
-1.64
+1.84,
+1.86
 ]
 },
 "pausiert": [],
 "pinnacle": [
-2.06,
-1.781
+1.925,
+1.892
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 3.4,
-"mind1B": 1.326,
-"mind1A": 1.429,
-"glattB": 2.87,
-"dreiSaetze": 2.33,
-"zweiSaetze": 1.617,
-"satz1A": 1.99,
-"satz1B": 1.819
+"glattA": 3.16,
+"mind1B": 1.367,
+"mind1A": 1.39,
+"glattB": 3.04,
+"dreiSaetze": 2.35,
+"zweiSaetze": 1.606,
+"satz1A": 1.925,
+"satz1B": 1.877
 }
 },
 "tid": 53546,
@@ -1993,6 +701,106 @@
 "rangB": 394
 },
 {
+"id": "id1200266176142896",
+"start": "2026-11-05T11:10:00.000Z",
+"turnier": "ATP Paris",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Ben Shelton",
+"b": "Arthur Rinderknech",
+"aRoh": "Shelton, Ben",
+"bRoh": "Rinderknech, Arthur",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.32,
+3.65
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.342,
+3.52
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 1.943,
+"mind1B": 1.925,
+"mind1A": 1.141,
+"glattB": 6.39,
+"dreiSaetze": 2.64,
+"zweiSaetze": 1.526,
+"satz1A": 1.425,
+"satz1B": 3.0
+},
+"winamax": {
+"glattA": 1.92,
+"mind1B": 1.76,
+"mind1A": 1.1,
+"glattB": 5.7,
+"dreiSaetze": 2.25,
+"zweiSaetze": 1.52
+}
+},
+"tid": 2661,
+"p1Id": 808628,
+"p2Id": 63606,
+"sapId": 17428219,
+"landA": "US",
+"landB": "FR",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 54,
+"min7": 213,
+"minN": 2,
+"letztesMin": 72,
+"letztesGames": 19,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-11-03T18:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T10:00:00Z",
+"turnier": "Paris, France"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 41,
+"min7": 165,
+"minN": 2,
+"letztesMin": 65,
+"letztesGames": 17,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T10:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-03T18:00:00Z",
+"turnier": "Paris, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 4,
+"rangB": 68
+},
+{
 "id": "id1205354676133188",
 "start": "2026-11-05T11:50:00.000Z",
 "turnier": "Taranto Challenger",
@@ -2013,8 +821,22 @@
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+1.943,
+1.877
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.98,
+"mind1B": 1.404,
+"mind1A": 1.444,
+"glattB": 2.82,
+"dreiSaetze": 2.63,
+"zweiSaetze": 1.497,
+"satz1A": 1.961,
+"satz1B": 1.84
+}
+},
 "tid": 53546,
 "p1Id": 299818,
 "p2Id": 861461,
@@ -2067,11 +889,30 @@
 "bRoh": "Dodig, Matej",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.3,
+1.54
+]
+},
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+2.47,
+1.578
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 4.12,
+"mind1B": 1.248,
+"mind1A": 1.529,
+"glattB": 2.57,
+"dreiSaetze": 2.31,
+"zweiSaetze": 1.636,
+"satz1A": 2.23,
+"satz1B": 1.671
+}
+},
 "tid": 30861,
 "p1Id": 787144,
 "p2Id": 915153,
@@ -2128,6 +969,300 @@
 "rangB": 138
 },
 {
+"id": "id1203086176127570",
+"start": "2026-11-05T12:10:00.000Z",
+"turnier": "Bratislava II Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Laslo Djere",
+"b": "Otto Virtanen",
+"aRoh": "Djere, Laslo",
+"bRoh": "Virtanen, Otto",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.35,
+1.5
+]
+},
+"pausiert": [],
+"pinnacle": [
+2.4,
+1.606
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 4.27,
+"mind1B": 1.236,
+"mind1A": 1.52,
+"glattB": 2.6,
+"dreiSaetze": 2.25,
+"zweiSaetze": 1.671,
+"satz1A": 2.25,
+"satz1B": 1.662
+}
+},
+"tid": 30861,
+"p1Id": 97231,
+"p2Id": 276563,
+"sapId": 17427362,
+"landA": "RS",
+"landB": "FI",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 56,
+"min7": 262,
+"minN": 2,
+"letztesMin": 171,
+"letztesGames": 36,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-11-03T13:40:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SK",
+"tz": 1,
+"start": "2026-11-04T10:00:00Z",
+"turnier": "Bratislava 2, Slovakia"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 6,
+"games7": 59,
+"min7": 229,
+"minN": 3,
+"letztesMin": 87,
+"letztesGames": 21,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T10:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SK",
+"tz": 1,
+"start": "2026-11-03T13:40:00Z",
+"turnier": "Bratislava 2, Slovakia"
+}
+}
+},
+"ort": {
+"land": "SK",
+"tz": 1
+},
+"rangA": 137,
+"rangB": 116
+},
+{
+"id": "id1200266176142892",
+"start": "2026-11-05T12:20:00.000Z",
+"turnier": "ATP Paris",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Lorenzo Musetti",
+"b": "Luca Van Assche",
+"aRoh": "Musetti, Lorenzo",
+"bRoh": "Van Assche, Luca",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.33,
+3.3
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.34,
+3.53
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.02,
+"mind1B": 1.862,
+"mind1A": 1.142,
+"glattB": 6.38,
+"dreiSaetze": 2.52,
+"zweiSaetze": 1.571,
+"satz1A": 1.467,
+"satz1B": 2.84
+},
+"winamax": {
+"glattA": 1.92,
+"mind1B": 1.76,
+"mind1A": 1.11,
+"glattB": 5.2,
+"dreiSaetze": 2.25,
+"zweiSaetze": 1.49
+}
+},
+"tid": 2661,
+"p1Id": 359602,
+"p2Id": 658475,
+"sapId": 17428203,
+"landA": "IT",
+"landB": "FR",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 7,
+"games7": 79,
+"min7": 369,
+"minN": 3,
+"letztesMin": 100,
+"letztesGames": 21,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T12:30:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T11:20:00Z",
+"turnier": "Paris, France"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 44,
+"min7": 237,
+"minN": 2,
+"letztesMin": 123,
+"letztesGames": 23,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T11:20:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T12:30:00Z",
+"turnier": "Paris, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 24,
+"rangB": 47
+},
+{
+"id": "id1200266176142894",
+"start": "2026-11-05T13:00:00.000Z",
+"turnier": "ATP Paris",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Rinky Hijikata",
+"b": "Tomas Etcheverry",
+"aRoh": "Hijikata, Rinky",
+"bRoh": "Etcheverry, Tomas Martin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.0,
+1.78
+]
+},
+"pausiert": [],
+"pinnacle": [
+2.14,
+1.781
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 3.58,
+"mind1B": 1.325,
+"mind1A": 1.456,
+"glattB": 2.88,
+"dreiSaetze": 2.36,
+"zweiSaetze": 1.641,
+"satz1A": 2.07,
+"satz1B": 1.819
+},
+"winamax": {
+"glattA": 3.0,
+"mind1B": 1.29,
+"mind1A": 1.37,
+"glattB": 2.6,
+"dreiSaetze": 2.1,
+"zweiSaetze": 1.58,
+"tbJa": 1.84,
+"tbNein": 1.7
+}
+},
+"tid": 2661,
+"p1Id": 299130,
+"p2Id": 169496,
+"sapId": 17428217,
+"landA": "AU",
+"landB": "AR",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 9,
+"games7": 82,
+"min7": 357,
+"minN": 4,
+"letztesMin": 135,
+"letztesGames": 26,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-11-04T14:45:00Z",
+"quali": true,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T12:55:00Z",
+"turnier": "Paris, France"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 58,
+"min7": 289,
+"minN": 2,
+"letztesMin": 119,
+"letztesGames": 22,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T12:55:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T14:45:00Z",
+"turnier": "Paris, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 83,
+"rangB": 31
+},
+{
 "id": "id1205354676133186",
 "start": "2026-11-05T13:00:00.000Z",
 "turnier": "Taranto Challenger",
@@ -2143,13 +1278,27 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.39,
-2.75
+1.31,
+3.15
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
+"pinnacle": [
+1.324,
+3.41
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 1.9,
+"mind1B": 1.917,
+"mind1A": 1.144,
+"glattB": 5.81,
+"dreiSaetze": 2.68,
+"zweiSaetze": 1.483,
+"satz1A": 1.44,
+"satz1B": 2.79
+}
+},
 "tid": 53546,
 "p1Id": 359608,
 "p2Id": 252727,
@@ -2190,159 +1339,202 @@
 "rangB": 537
 },
 {
-"id": "id1203761576126390",
-"start": "2026-11-05T14:00:00.000Z",
-"turnier": "Villa Maria Challenger",
+"id": "id1203086176127562",
+"start": "2026-11-05T13:20:00.000Z",
+"turnier": "Bratislava II Challenger",
 "kategorie": "Challenger",
-"belag": "clay",
+"belag": "hard",
 "belagQuelle": "spieldaten",
-"a": "Juan Pablo Ficovich",
-"b": "Murkel Dellien",
-"aRoh": "Ficovich, Juan Pablo",
-"bRoh": "Dellien, Murkel",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 37615,
-"p1Id": 113979,
-"p2Id": 82133,
-"sapId": 17427291,
-"landA": "AR",
-"landB": "BO",
-"runde": "Round of 16",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 15,
-"min7": 77,
-"minN": 1,
-"letztesMin": 77,
-"letztesGames": 15,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-04T14:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-03T19:55:00Z",
-"turnier": "Villa Maria, Argentina"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 25,
-"min7": 129,
-"minN": 1,
-"letztesMin": 129,
-"letztesGames": 25,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-03T19:55:00Z",
-"quali": false,
-"vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-04T14:00:00Z",
-"turnier": "Villa Maria, Argentina"
-}
-}
-},
-"ort": {
-"land": "AR",
-"tz": -3
-},
-"rangA": 370,
-"rangB": 450
-},
-{
-"id": "id1203761576126392",
-"start": "2026-11-05T14:00:00.000Z",
-"turnier": "Villa Maria Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Federico Coria",
-"b": "Valerio Aboian",
-"aRoh": "Coria, Federico",
-"bRoh": "Aboian, Valerio",
+"a": "Jurji Rodionov",
+"b": "Toby Samuel",
+"aRoh": "Rodionov, Jurij",
+"bRoh": "Samuel, Toby",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.0,
-1.72
+2.05,
+1.66
 ]
 },
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 37615,
-"p1Id": 54573,
-"p2Id": 498580,
-"sapId": 17427293,
-"landA": "AR",
-"landB": "AR",
+"pinnacle": [
+2.1,
+1.781
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 3.57,
+"mind1B": 1.309,
+"mind1A": 1.448,
+"glattB": 2.83,
+"dreiSaetze": 2.32,
+"zweiSaetze": 1.636,
+"satz1A": 2.04,
+"satz1B": 1.793
+}
+},
+"tid": 30861,
+"p1Id": 212004,
+"p2Id": 603106,
+"sapId": 17427365,
+"landA": "AT",
+"landB": "GB",
 "runde": "Round of 16",
-"gt": "Red clay",
+"gt": "Hardcourt indoor",
 "form": {
 "a": {
 "spiele7": 1,
 "saetze7": 2,
-"games7": 15,
-"min7": 77,
+"games7": 20,
+"min7": 73,
 "minN": 1,
-"letztesMin": 77,
-"letztesGames": 15,
+"letztesMin": 73,
+"letztesGames": 20,
 "dreisatz7": 0,
 "siege7": 1,
-"letztes": "2026-11-04T00:20:00Z",
+"letztes": "2026-11-03T16:40:00Z",
 "quali": false,
 "vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-03T17:20:00Z",
-"turnier": "Villa Maria, Argentina"
+"land": "SK",
+"tz": 1,
+"start": "2026-11-04T16:45:00Z",
+"turnier": "Bratislava 2, Slovakia"
 }
 },
 "b": {
-"spiele7": 4,
-"saetze7": 10,
-"games7": 99,
-"min7": 531,
-"minN": 4,
-"letztesMin": 139,
-"letztesGames": 24,
-"dreisatz7": 2,
-"siege7": 3,
-"letztes": "2026-11-03T17:20:00Z",
+"spiele7": 2,
+"saetze7": 4,
+"games7": 46,
+"min7": 191,
+"minN": 2,
+"letztesMin": 112,
+"letztesGames": 26,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-04T16:45:00Z",
 "quali": false,
 "vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-04T00:20:00Z",
-"turnier": "Villa Maria, Argentina"
+"land": "SK",
+"tz": 1,
+"start": "2026-11-03T16:40:00Z",
+"turnier": "Bratislava 2, Slovakia"
 }
 }
 },
 "ort": {
-"land": "AR",
-"tz": -3
+"land": "SK",
+"tz": 1
 },
-"rangA": 831,
-"rangB": 258
+"rangA": 142,
+"rangB": 97
+},
+{
+"id": "id1200266176142886",
+"start": "2026-11-05T14:10:00.000Z",
+"turnier": "ATP Paris",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Nuno Borges",
+"b": "Ignacio Buse",
+"aRoh": "Borges, Nuno",
+"bRoh": "Buse, Ignacio",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.64,
+2.2
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.645,
+2.38
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.65,
+"mind1B": 1.526,
+"mind1A": 1.267,
+"glattB": 4.08,
+"dreiSaetze": 2.34,
+"zweiSaetze": 1.649,
+"satz1A": 1.757,
+"satz1B": 2.15
+},
+"winamax": {
+"glattA": 2.35,
+"mind1B": 1.45,
+"mind1A": 1.24,
+"glattB": 3.4,
+"dreiSaetze": 2.2,
+"zweiSaetze": 1.56,
+"tbJa": 1.96,
+"tbNein": 1.6
+}
+},
+"tid": 2661,
+"p1Id": 125006,
+"p2Id": 604344,
+"sapId": 17428199,
+"landA": "PT",
+"landB": "PE",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 5,
+"saetze7": 11,
+"games7": 102,
+"min7": 415,
+"minN": 5,
+"letztesMin": 73,
+"letztesGames": 19,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-11-04T16:15:00Z",
+"quali": true,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T13:45:00Z",
+"turnier": "Paris, France"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 38,
+"min7": 178,
+"minN": 2,
+"letztesMin": 99,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T13:45:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T16:15:00Z",
+"turnier": "Paris, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 49,
+"rangB": 33
 },
 {
 "id": "id1203761576126394",
-"start": "2026-11-05T14:00:00.000Z",
+"start": "2026-11-05T15:00:00.000Z",
 "turnier": "Villa Maria Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
@@ -2353,8 +1545,13 @@
 "bRoh": "Nijboer, Ryan",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.56,
+2.2
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -2414,300 +1611,108 @@
 "rangB": 384
 },
 {
-"id": "id1203761576126396",
-"start": "2026-11-05T14:00:00.000Z",
-"turnier": "Villa Maria Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
+"id": "id1200266176142884",
+"start": "2026-11-05T15:20:00.000Z",
+"turnier": "ATP Paris",
+"kategorie": "ATP",
+"belag": "hard",
 "belagQuelle": "spieldaten",
-"a": "Ignacio Monzon",
-"b": "Genaro Alberto Olivieri",
-"aRoh": "Monzon, Ignacio",
-"bRoh": "Olivieri, Genaro Alberto",
+"a": "Jan-Lennard Struff",
+"b": "Casper Ruud",
+"aRoh": "Struff, Jan-Lennard",
+"bRoh": "Ruud, Casper",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.6,
+1.5
+]
+},
 "pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 37615,
-"p1Id": 107483,
-"p2Id": 169486,
-"sapId": 17427303,
-"landA": "AR",
-"landB": "AR",
+"pinnacle": [
+2.61,
+1.546
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 4.7,
+"mind1B": 1.217,
+"mind1A": 1.568,
+"glattB": 2.52,
+"dreiSaetze": 2.27,
+"zweiSaetze": 1.689,
+"satz1A": 2.33,
+"satz1B": 1.657
+},
+"winamax": {
+"glattA": 4.0,
+"mind1B": 1.16,
+"mind1A": 1.54,
+"glattB": 2.2,
+"dreiSaetze": 2.2,
+"zweiSaetze": 1.56
+}
+},
+"tid": 2661,
+"p1Id": 46391,
+"p2Id": 119248,
+"sapId": 17428218,
+"landA": "DE",
+"landB": "NO",
 "runde": "Round of 16",
-"gt": "Red clay",
+"gt": "Hardcourt indoor",
 "form": {
 "a": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 35,
-"min7": 178,
-"minN": 1,
-"letztesMin": 178,
+"spiele7": 5,
+"saetze7": 13,
+"games7": 143,
+"min7": 553,
+"minN": 5,
+"letztesMin": 143,
 "letztesGames": 35,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-04T14:00:00Z",
+"dreisatz7": 3,
+"siege7": 4,
+"letztes": "2026-11-04T18:05:00Z",
 "quali": false,
 "vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-03T18:30:00Z",
-"turnier": "Villa Maria, Argentina"
+"land": "FR",
+"tz": 1,
+"start": "2026-11-03T19:55:00Z",
+"turnier": "Paris, France"
 }
 },
 "b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 16,
-"min7": 76,
-"minN": 1,
-"letztesMin": 76,
-"letztesGames": 16,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-03T18:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "AR",
-"tz": -3,
-"start": "2026-11-04T14:00:00Z",
-"turnier": "Villa Maria, Argentina"
-}
-}
-},
-"ort": {
-"land": "AR",
-"tz": -3
-},
-"rangA": 578,
-"rangB": 257
-},
-{
-"id": "id1200321776126780",
-"start": "2026-11-05T15:00:00.000Z",
-"turnier": "Charlottesville Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Maks Kasnikowski",
-"b": "Michael Antonius",
-"aRoh": "Kasnikowski, Maks",
-"bRoh": "Antonius, Michael",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 3217,
-"p1Id": 685469,
-"p2Id": 1276064,
-"sapId": 17427337,
-"landA": "PL",
-"landB": "US",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 17,
-"min7": 84,
-"minN": 1,
-"letztesMin": 84,
-"letztesGames": 17,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-04T16:25:00Z",
-"quali": false,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-02T23:30:00Z",
-"turnier": "Charlottesville, USA"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 30,
-"min7": 111,
-"minN": 1,
-"letztesMin": 111,
-"letztesGames": 30,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-02T23:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-04T16:25:00Z",
-"turnier": "Charlottesville, USA"
-}
-}
-},
-"ort": {
-"land": "US",
-"tz": -6
-},
-"rangA": 211,
-"rangB": 619
-},
-{
-"id": "id1200321776126782",
-"start": "2026-11-05T15:00:00.000Z",
-"turnier": "Charlottesville Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Andres Andrade",
-"b": "James Trotter",
-"aRoh": "Andrade, Andres",
-"bRoh": "Trotter, James Kent",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 3217,
-"p1Id": 168420,
-"p2Id": 342826,
-"sapId": 17427326,
-"landA": "EC",
-"landB": "JP",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 27,
-"min7": 127,
-"minN": 1,
-"letztesMin": 127,
-"letztesGames": 27,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-03T22:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-03T23:30:00Z",
-"turnier": "Charlottesville, USA"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 68,
-"min7": 266,
-"minN": 3,
-"letztesMin": 74,
+"spiele7": 2,
+"saetze7": 4,
+"games7": 36,
+"min7": 138,
+"minN": 2,
+"letztesMin": 78,
 "letztesGames": 19,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-03T23:30:00Z",
-"quali": true,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-03T22:30:00Z",
-"turnier": "Charlottesville, USA"
-}
-}
-},
-"ort": {
-"land": "US",
-"tz": -6
-},
-"rangA": 229,
-"rangB": 542
-},
-{
-"id": "id1200321776126794",
-"start": "2026-11-05T15:00:00.000Z",
-"turnier": "Charlottesville Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Daniel Milavsky",
-"b": "Max Hans Rehberg",
-"aRoh": "Milavsky, Daniel",
-"bRoh": "Rehberg, Max Hans",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 3217,
-"p1Id": 660427,
-"p2Id": 508498,
-"sapId": 17427332,
-"landA": "US",
-"landB": "DE",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 70,
-"min7": 330,
-"minN": 3,
-"letztesMin": 92,
-"letztesGames": 22,
 "dreisatz7": 0,
-"siege7": 3,
-"letztes": "2026-11-03T20:45:00Z",
-"quali": true,
-"vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-03T21:05:00Z",
-"turnier": "Charlottesville, USA"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 77,
-"min7": 351,
-"minN": 3,
-"letztesMin": 128,
-"letztesGames": 31,
-"dreisatz7": 1,
 "siege7": 2,
-"letztes": "2026-11-03T21:05:00Z",
+"letztes": "2026-11-03T19:55:00Z",
 "quali": false,
 "vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-03T20:45:00Z",
-"turnier": "Charlottesville, USA"
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T18:05:00Z",
+"turnier": "Paris, France"
 }
 }
 },
 "ort": {
-"land": "US",
-"tz": -6
+"land": "FR",
+"tz": 1
 },
-"rangA": 307,
-"rangB": 248
+"rangA": 39,
+"rangB": 23
 },
 {
 "id": "id1200321776126796",
-"start": "2026-11-05T15:00:00.000Z",
+"start": "2026-11-05T16:00:00.000Z",
 "turnier": "Charlottesville Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -2718,8 +1723,13 @@
 "bRoh": "Gray, Alastair",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.5,
+2.4
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -2794,16 +1804,27 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.0,
-1.68
+2.05,
+1.66
 ]
 },
 "pausiert": [],
 "pinnacle": [
-2.3,
-1.657
+2.25,
+1.684
 ],
-"maerkte": null,
+"maerkte": {
+"pinnacle": {
+"glattA": 4.0,
+"mind1B": 1.26,
+"mind1A": 1.46,
+"glattB": 2.79,
+"dreiSaetze": 2.2,
+"zweiSaetze": 1.704,
+"satz1A": 2.14,
+"satz1B": 1.724
+}
+},
 "tid": 30861,
 "p1Id": 355752,
 "p2Id": 450283,
@@ -2860,150 +1881,238 @@
 "rangB": 145
 },
 {
-"id": "id1204837576131276",
-"start": "2026-11-05T16:30:00.000Z",
-"turnier": "Costa do Sauipe Challenger",
+"id": "id1203761576126390",
+"start": "2026-11-05T16:10:00.000Z",
+"turnier": "Villa Maria Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
 "belagQuelle": "spieldaten",
-"a": "Thiago Seyboth Wild",
-"b": "Franco Roncadelli",
-"aRoh": "Seyboth Wild, Thiago",
-"bRoh": "Roncadelli, Franco",
+"a": "Juan Pablo Ficovich",
+"b": "Murkel Dellien",
+"aRoh": "Ficovich, Juan Pablo",
+"bRoh": "Dellien, Murkel",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.54,
+2.25
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
-"tid": 48375,
-"p1Id": 161262,
-"p2Id": 305558,
-"sapId": 17427548,
-"landA": "BR",
-"landB": "UY",
+"tid": 37615,
+"p1Id": 113979,
+"p2Id": 82133,
+"sapId": 17427291,
+"landA": "AR",
+"landB": "BO",
 "runde": "Round of 16",
 "gt": "Red clay",
 "form": {
 "a": {
 "spiele7": 1,
 "saetze7": 2,
-"games7": 17,
-"min7": 66,
+"games7": 15,
+"min7": 77,
 "minN": 1,
-"letztesMin": 66,
-"letztesGames": 17,
+"letztesMin": 77,
+"letztesGames": 15,
 "dreisatz7": 0,
 "siege7": 1,
-"letztes": "2026-11-04T00:25:00Z",
+"letztes": "2026-11-04T14:00:00Z",
 "quali": false,
 "vorOrt": {
-"land": "BR",
+"land": "AR",
 "tz": -3,
-"start": "2026-11-03T18:00:00Z",
-"turnier": "Costa do Sauipe, Brazil"
+"start": "2026-11-03T19:55:00Z",
+"turnier": "Villa Maria, Argentina"
 }
 },
 "b": {
 "spiele7": 1,
 "saetze7": 3,
-"games7": 31,
-"min7": 182,
+"games7": 25,
+"min7": 129,
 "minN": 1,
-"letztesMin": 182,
-"letztesGames": 31,
+"letztesMin": 129,
+"letztesGames": 25,
 "dreisatz7": 1,
 "siege7": 1,
-"letztes": "2026-11-03T18:00:00Z",
+"letztes": "2026-11-03T19:55:00Z",
 "quali": false,
 "vorOrt": {
-"land": "BR",
+"land": "AR",
 "tz": -3,
-"start": "2026-11-04T00:25:00Z",
-"turnier": "Costa do Sauipe, Brazil"
+"start": "2026-11-04T14:00:00Z",
+"turnier": "Villa Maria, Argentina"
 }
 }
 },
 "ort": {
-"land": "BR",
+"land": "AR",
 "tz": -3
 },
-"rangA": 110,
-"rangB": 261
+"rangA": 370,
+"rangB": 450
 },
 {
-"id": "id1204837576131288",
-"start": "2026-11-05T16:30:00.000Z",
-"turnier": "Costa do Sauipe Challenger",
+"id": "id1203761576126396",
+"start": "2026-11-05T16:10:00.000Z",
+"turnier": "Villa Maria Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
 "belagQuelle": "spieldaten",
-"a": "Thiago Monteiro",
-"b": "Marco Cecchinato",
-"aRoh": "Monteiro, Thiago",
-"bRoh": "Cecchinato, Marco",
+"a": "Ignacio Monzon",
+"b": "Genaro Alberto Olivieri",
+"aRoh": "Monzon, Ignacio",
+"bRoh": "Olivieri, Genaro Alberto",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+4.8,
+1.14
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
-"tid": 48375,
-"p1Id": 47603,
-"p2Id": 44549,
-"sapId": 17427539,
-"landA": "BR",
-"landB": "IT",
+"tid": 37615,
+"p1Id": 107483,
+"p2Id": 169486,
+"sapId": 17427303,
+"landA": "AR",
+"landB": "AR",
 "runde": "Round of 16",
 "gt": "Red clay",
 "form": {
 "a": {
 "spiele7": 1,
-"saetze7": 2,
-"games7": 22,
-"min7": 115,
+"saetze7": 3,
+"games7": 35,
+"min7": 178,
 "minN": 1,
-"letztesMin": 115,
-"letztesGames": 22,
-"dreisatz7": 0,
+"letztesMin": 178,
+"letztesGames": 35,
+"dreisatz7": 1,
 "siege7": 1,
-"letztes": "2026-11-03T18:00:00Z",
+"letztes": "2026-11-04T14:00:00Z",
 "quali": false,
 "vorOrt": {
-"land": "BR",
+"land": "AR",
 "tz": -3,
-"start": "2026-11-03T23:40:00Z",
-"turnier": "Costa do Sauipe, Brazil"
+"start": "2026-11-03T18:30:00Z",
+"turnier": "Villa Maria, Argentina"
 }
 },
 "b": {
 "spiele7": 1,
-"saetze7": 3,
-"games7": 33,
-"min7": 175,
+"saetze7": 2,
+"games7": 16,
+"min7": 76,
 "minN": 1,
-"letztesMin": 175,
-"letztesGames": 33,
-"dreisatz7": 1,
+"letztesMin": 76,
+"letztesGames": 16,
+"dreisatz7": 0,
 "siege7": 1,
-"letztes": "2026-11-03T23:40:00Z",
+"letztes": "2026-11-03T18:30:00Z",
 "quali": false,
 "vorOrt": {
-"land": "BR",
+"land": "AR",
 "tz": -3,
-"start": "2026-11-03T18:00:00Z",
-"turnier": "Costa do Sauipe, Brazil"
+"start": "2026-11-04T14:00:00Z",
+"turnier": "Villa Maria, Argentina"
 }
 }
 },
 "ort": {
-"land": "BR",
+"land": "AR",
 "tz": -3
 },
-"rangA": 233,
-"rangB": 183
+"rangA": 578,
+"rangB": 257
+},
+{
+"id": "id1200321776126794",
+"start": "2026-11-05T17:10:00.000Z",
+"turnier": "Charlottesville Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Daniel Milavsky",
+"b": "Max Hans Rehberg",
+"aRoh": "Milavsky, Daniel",
+"bRoh": "Rehberg, Max Hans",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.8,
+1.9
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3217,
+"p1Id": 660427,
+"p2Id": 508498,
+"sapId": 17427332,
+"landA": "US",
+"landB": "DE",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 6,
+"games7": 70,
+"min7": 330,
+"minN": 3,
+"letztesMin": 92,
+"letztesGames": 22,
+"dreisatz7": 0,
+"siege7": 3,
+"letztes": "2026-11-03T20:45:00Z",
+"quali": true,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-03T21:05:00Z",
+"turnier": "Charlottesville, USA"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"games7": 77,
+"min7": 351,
+"minN": 3,
+"letztesMin": 128,
+"letztesGames": 31,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-03T21:05:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-03T20:45:00Z",
+"turnier": "Charlottesville, USA"
+}
+}
+},
+"ort": {
+"land": "US",
+"tz": -6
+},
+"rangA": 307,
+"rangB": 248
 },
 {
 "id": "id1203086176127560",
@@ -3021,25 +2130,25 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.34,
-2.95
+1.3,
+3.15
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.347,
-3.37
+1.334,
+3.45
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 2.05,
-"mind1B": 1.8,
-"mind1A": 1.146,
-"glattB": 5.91,
-"dreiSaetze": 2.46,
-"zweiSaetze": 1.571,
-"satz1A": 1.467,
-"satz1B": 2.73
+"glattA": 2.02,
+"mind1B": 1.826,
+"mind1A": 1.141,
+"glattB": 6.04,
+"dreiSaetze": 2.49,
+"zweiSaetze": 1.561,
+"satz1A": 1.456,
+"satz1B": 2.77
 }
 },
 "tid": 30861,
@@ -3098,8 +2207,364 @@
 "rangB": 225
 },
 {
-"id": "id1204837576131278",
+"id": "id1200266176142890",
 "start": "2026-11-05T18:00:00.000Z",
+"turnier": "ATP Paris",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Matteo Berrettini",
+"b": "Carlos Alcaraz",
+"aRoh": "Berrettini, Matteo",
+"bRoh": "Alcaraz, Carlos",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+5.5,
+1.14
+]
+},
+"pausiert": [],
+"pinnacle": [
+5.6,
+1.176
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 10.5,
+"mind1B": 1.071,
+"mind1A": 2.54,
+"glattB": 1.564,
+"dreiSaetze": 3.19,
+"zweiSaetze": 1.387,
+"satz1A": 4.1,
+"satz1B": 1.265
+},
+"winamax": {
+"glattA": 9.5,
+"mind1B": 1.04,
+"mind1A": 2.25,
+"glattB": 1.5,
+"dreiSaetze": 2.75,
+"zweiSaetze": 1.35
+}
+},
+"tid": 2661,
+"p1Id": 112783,
+"p2Id": 407573,
+"sapId": 17428206,
+"landA": "IT",
+"landB": "ES",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 8,
+"games7": 85,
+"min7": 383,
+"minN": 4,
+"letztesMin": 106,
+"letztesGames": 25,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-11-04T17:25:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T18:00:00Z",
+"turnier": "Paris, France"
+}
+},
+"b": {
+"spiele7": 4,
+"saetze7": 8,
+"games7": 85,
+"min7": 395,
+"minN": 4,
+"letztesMin": 101,
+"letztesGames": 22,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-11-04T18:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T17:25:00Z",
+"turnier": "Paris, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 43,
+"rangB": 3
+},
+{
+"id": "id1204837576131286",
+"start": "2026-11-05T18:00:00.000Z",
+"turnier": "Costa do Sauipe Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Facundo Diaz Acosta",
+"b": "Filip Misolic",
+"aRoh": "Diaz Acosta, Facundo",
+"bRoh": "Misolic, Filip",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.48,
+2.45
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 48375,
+"p1Id": 371476,
+"p2Id": 248779,
+"sapId": 17427543,
+"landA": "AR",
+"landB": "AT",
+"runde": "Round of 16",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 19,
+"min7": 118,
+"minN": 1,
+"letztesMin": 118,
+"letztesGames": 19,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-03T22:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-03T18:00:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 6,
+"games7": 55,
+"min7": 270,
+"minN": 3,
+"letztesMin": 158,
+"letztesGames": 30,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-11-03T18:00:00Z",
+"quali": true,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-03T22:00:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+}
+},
+"ort": {
+"land": "BR",
+"tz": -3
+},
+"rangA": 72,
+"rangB": 676
+},
+{
+"id": "id1200321776126780",
+"start": "2026-11-05T18:20:00.000Z",
+"turnier": "Charlottesville Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Maks Kasnikowski",
+"b": "Michael Antonius",
+"aRoh": "Kasnikowski, Maks",
+"bRoh": "Antonius, Michael",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.33,
+3.0
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3217,
+"p1Id": 685469,
+"p2Id": 1276064,
+"sapId": 17427337,
+"landA": "PL",
+"landB": "US",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 17,
+"min7": 84,
+"minN": 1,
+"letztesMin": 84,
+"letztesGames": 17,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-04T16:25:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-02T23:30:00Z",
+"turnier": "Charlottesville, USA"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"games7": 30,
+"min7": 111,
+"minN": 1,
+"letztesMin": 111,
+"letztesGames": 30,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-11-02T23:30:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-04T16:25:00Z",
+"turnier": "Charlottesville, USA"
+}
+}
+},
+"ort": {
+"land": "US",
+"tz": -6
+},
+"rangA": 211,
+"rangB": 619
+},
+{
+"id": "id1200266176142888",
+"start": "2026-11-05T19:30:00.000Z",
+"turnier": "ATP Paris",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Arthur Fils",
+"b": "Taylor Fritz",
+"aRoh": "Fils, Arthur",
+"bRoh": "Fritz, Taylor",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.78,
+2.0
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.775,
+2.15
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.95,
+"mind1B": 1.44,
+"mind1A": 1.313,
+"glattB": 3.67,
+"dreiSaetze": 2.28,
+"zweiSaetze": 1.68,
+"satz1A": 1.813,
+"satz1B": 2.07
+},
+"winamax": {
+"glattA": 2.7,
+"mind1B": 1.36,
+"mind1A": 1.28,
+"glattB": 3.1,
+"dreiSaetze": 2.1,
+"zweiSaetze": 1.6
+}
+},
+"tid": 2661,
+"p1Id": 671637,
+"p2Id": 136042,
+"sapId": 17428229,
+"landA": "FR",
+"landB": "US",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 32,
+"min7": 133,
+"minN": 2,
+"letztesMin": 88,
+"letztesGames": 22,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-04T20:05:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T15:15:00Z",
+"turnier": "Paris, France"
+}
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"games7": 98,
+"min7": 383,
+"minN": 4,
+"letztesMin": 150,
+"letztesGames": 38,
+"dreisatz7": 2,
+"siege7": 3,
+"letztes": "2026-11-04T15:15:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-04T20:05:00Z",
+"turnier": "Paris, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 7,
+"rangB": 12
+},
+{
+"id": "id1204837576131278",
+"start": "2026-11-05T19:30:00.000Z",
 "turnier": "Costa do Sauipe Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
@@ -3110,8 +2575,13 @@
 "bRoh": "Moller, Elmer",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.1,
+1.64
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -3171,43 +2641,204 @@
 "rangB": 150
 },
 {
-"id": "id1204837576131286",
-"start": "2026-11-05T18:00:00.000Z",
+"id": "id1204837576131288",
+"start": "2026-11-05T19:30:00.000Z",
 "turnier": "Costa do Sauipe Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
 "belagQuelle": "spieldaten",
-"a": "Facundo Diaz Acosta",
-"b": "Filip Misolic",
-"aRoh": "Diaz Acosta, Facundo",
-"bRoh": "Misolic, Filip",
+"a": "Thiago Monteiro",
+"b": "Marco Cecchinato",
+"aRoh": "Monteiro, Thiago",
+"bRoh": "Cecchinato, Marco",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.72,
+1.96
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
 "tid": 48375,
-"p1Id": 371476,
-"p2Id": 248779,
-"sapId": 17427543,
-"landA": "AR",
-"landB": "AT",
+"p1Id": 47603,
+"p2Id": 44549,
+"sapId": 17427539,
+"landA": "BR",
+"landB": "IT",
 "runde": "Round of 16",
 "gt": "Red clay",
 "form": {
 "a": {
 "spiele7": 1,
 "saetze7": 2,
-"games7": 19,
-"min7": 118,
+"games7": 22,
+"min7": 115,
 "minN": 1,
-"letztesMin": 118,
-"letztesGames": 19,
+"letztesMin": 115,
+"letztesGames": 22,
 "dreisatz7": 0,
 "siege7": 1,
-"letztes": "2026-11-03T22:00:00Z",
+"letztes": "2026-11-03T18:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-03T23:40:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"games7": 33,
+"min7": 175,
+"minN": 1,
+"letztesMin": 175,
+"letztesGames": 33,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-11-03T23:40:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-03T18:00:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+}
+},
+"ort": {
+"land": "BR",
+"tz": -3
+},
+"rangA": 233,
+"rangB": 183
+},
+{
+"id": "id1203761576126392",
+"start": "2026-11-05T20:00:00.000Z",
+"turnier": "Villa Maria Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Federico Coria",
+"b": "Valerio Aboian",
+"aRoh": "Coria, Federico",
+"bRoh": "Aboian, Valerio",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.0,
+1.72
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 37615,
+"p1Id": 54573,
+"p2Id": 498580,
+"sapId": 17427293,
+"landA": "AR",
+"landB": "AR",
+"runde": "Round of 16",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 15,
+"min7": 77,
+"minN": 1,
+"letztesMin": 77,
+"letztesGames": 15,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-04T00:20:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AR",
+"tz": -3,
+"start": "2026-11-03T17:20:00Z",
+"turnier": "Villa Maria, Argentina"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 8,
+"games7": 73,
+"min7": 408,
+"minN": 3,
+"letztesMin": 139,
+"letztesGames": 24,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-11-03T17:20:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AR",
+"tz": -3,
+"start": "2026-11-04T00:20:00Z",
+"turnier": "Villa Maria, Argentina"
+}
+}
+},
+"ort": {
+"land": "AR",
+"tz": -3
+},
+"rangA": 831,
+"rangB": 258
+},
+{
+"id": "id1204837576131276",
+"start": "2026-11-05T22:00:00.000Z",
+"turnier": "Costa do Sauipe Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Thiago Seyboth Wild",
+"b": "Franco Roncadelli",
+"aRoh": "Seyboth Wild, Thiago",
+"bRoh": "Roncadelli, Franco",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.06,
+7.0
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 48375,
+"p1Id": 161262,
+"p2Id": 305558,
+"sapId": 17427548,
+"landA": "BR",
+"landB": "UY",
+"runde": "Round of 16",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 17,
+"min7": 66,
+"minN": 1,
+"letztesMin": 66,
+"letztesGames": 17,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-04T00:25:00Z",
 "quali": false,
 "vorOrt": {
 "land": "BR",
@@ -3217,21 +2848,21 @@
 }
 },
 "b": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 55,
-"min7": 270,
-"minN": 3,
-"letztesMin": 158,
-"letztesGames": 30,
+"spiele7": 1,
+"saetze7": 3,
+"games7": 31,
+"min7": 182,
+"minN": 1,
+"letztesMin": 182,
+"letztesGames": 31,
 "dreisatz7": 1,
-"siege7": 3,
+"siege7": 1,
 "letztes": "2026-11-03T18:00:00Z",
-"quali": true,
+"quali": false,
 "vorOrt": {
 "land": "BR",
 "tz": -3,
-"start": "2026-11-03T22:00:00Z",
+"start": "2026-11-04T00:25:00Z",
 "turnier": "Costa do Sauipe, Brazil"
 }
 }
@@ -3240,8 +2871,602 @@
 "land": "BR",
 "tz": -3
 },
-"rangA": 72,
-"rangB": 676
+"rangA": 110,
+"rangB": 261
+},
+{
+"id": "id1200321776126782",
+"start": "2026-11-05T23:00:00.000Z",
+"turnier": "Charlottesville Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Andres Andrade",
+"b": "James Trotter",
+"aRoh": "Andrade, Andres",
+"bRoh": "Trotter, James Kent",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.68,
+2.05
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3217,
+"p1Id": 168420,
+"p2Id": 342826,
+"sapId": 17427326,
+"landA": "EC",
+"landB": "JP",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 3,
+"games7": 27,
+"min7": 127,
+"minN": 1,
+"letztesMin": 127,
+"letztesGames": 27,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-11-03T22:30:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-03T23:30:00Z",
+"turnier": "Charlottesville, USA"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"games7": 68,
+"min7": 266,
+"minN": 3,
+"letztesMin": 74,
+"letztesGames": 19,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-11-03T23:30:00Z",
+"quali": true,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-03T22:30:00Z",
+"turnier": "Charlottesville, USA"
+}
+}
+},
+"ort": {
+"land": "US",
+"tz": -6
+},
+"rangA": 229,
+"rangB": 542
+},
+{
+"id": "id1203086176127578",
+"start": "2026-11-06T10:00:00.000Z",
+"turnier": "Bratislava II Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Nishesh Basavareddy",
+"b": "Jerome Kym",
+"aRoh": "Basavareddy, Nishesh",
+"bRoh": "Kym, Jerome",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 30861,
+"p1Id": 872497,
+"p2Id": 539343,
+"sapId": 17427360,
+"landA": "US",
+"landB": "CH",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 38,
+"min7": 168,
+"minN": 2,
+"letztesMin": 107,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T19:05:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SK",
+"tz": 1,
+"start": "2026-11-04T18:55:00Z",
+"turnier": "Bratislava 2, Slovakia"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"games7": 64,
+"min7": 272,
+"minN": 3,
+"letztesMin": 82,
+"letztesGames": 20,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T18:55:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SK",
+"tz": 1,
+"start": "2026-11-04T19:05:00Z",
+"turnier": "Bratislava 2, Slovakia"
+}
+}
+},
+"ort": {
+"land": "SK",
+"tz": 1
+},
+"rangA": 128,
+"rangB": 164
+},
+{
+"id": "id1203761576126384",
+"start": "2026-11-06T14:00:00.000Z",
+"turnier": "Villa Maria Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Oriol Roca Batalla",
+"b": "Nicolas Kicker",
+"aRoh": "Roca Batalla, Oriol",
+"bRoh": "Kicker, Nicolas",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 37615,
+"p1Id": 51100,
+"p2Id": 66086,
+"sapId": 17427301,
+"landA": "ES",
+"landB": "AR",
+"runde": "Quarterfinals",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 29,
+"min7": 130,
+"minN": 2,
+"letztesMin": 66,
+"letztesGames": 16,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T18:45:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AR",
+"tz": -3,
+"start": "2026-11-04T18:55:00Z",
+"turnier": "Villa Maria, Argentina"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 41,
+"min7": 208,
+"minN": 2,
+"letztesMin": 71,
+"letztesGames": 15,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T18:55:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AR",
+"tz": -3,
+"start": "2026-11-04T18:45:00Z",
+"turnier": "Villa Maria, Argentina"
+}
+}
+},
+"ort": {
+"land": "AR",
+"tz": -3
+},
+"rangA": 290,
+"rangB": 340
+},
+{
+"id": "id1203761576126382",
+"start": "2026-11-06T15:00:00.000Z",
+"turnier": "Villa Maria Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Juan Manuel La Serna",
+"b": "Carlos Maria Zarate",
+"aRoh": "La Serna, Juan Manuel",
+"bRoh": "Zarate, Carlos Maria",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 37615,
+"p1Id": 785974,
+"p2Id": 1118225,
+"sapId": 17427295,
+"landA": "AR",
+"landB": "AR",
+"runde": "Quarterfinals",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 6,
+"games7": 60,
+"min7": 315,
+"minN": 2,
+"letztesMin": 157,
+"letztesGames": 32,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-11-04T16:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AR",
+"tz": -3,
+"start": "2026-11-04T22:00:00Z",
+"turnier": "Villa Maria, Argentina"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 6,
+"games7": 56,
+"min7": 263,
+"minN": 3,
+"letztesMin": 103,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T22:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AR",
+"tz": -3,
+"start": "2026-11-04T16:00:00Z",
+"turnier": "Villa Maria, Argentina"
+}
+}
+},
+"ort": {
+"land": "AR",
+"tz": -3
+},
+"rangA": 254,
+"rangB": 341
+},
+{
+"id": "id1200321776126784",
+"start": "2026-11-06T15:30:00.000Z",
+"turnier": "Charlottesville Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Marcos Giron",
+"b": "Clement Chidekh",
+"aRoh": "Giron, Marcos",
+"bRoh": "Chidekh, Clement",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3217,
+"p1Id": 42379,
+"p2Id": 283759,
+"sapId": 17427325,
+"landA": "US",
+"landB": "FR",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 50,
+"min7": 248,
+"minN": 2,
+"letztesMin": 163,
+"letztesGames": 32,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T19:35:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-04T22:35:00Z",
+"turnier": "Charlottesville, USA"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 29,
+"min7": 119,
+"minN": 2,
+"letztesMin": 65,
+"letztesGames": 14,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T22:35:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-04T19:35:00Z",
+"turnier": "Charlottesville, USA"
+}
+}
+},
+"ort": {
+"land": "US",
+"tz": -6
+},
+"rangA": 89,
+"rangB": 131
+},
+{
+"id": "id1200321776126786",
+"start": "2026-11-06T15:30:00.000Z",
+"turnier": "Charlottesville Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Stefan Kozlov",
+"b": "Braden Shick",
+"aRoh": "Kozlov, Stefan",
+"bRoh": "Shick, Braden",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.78,
+1.9
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3217,
+"p1Id": 77007,
+"p2Id": 809322,
+"sapId": 17427339,
+"landA": "US",
+"landB": "US",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 32,
+"min7": 136,
+"minN": 2,
+"letztesMin": 67,
+"letztesGames": 16,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T16:30:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-04T18:05:00Z",
+"turnier": "Charlottesville, USA"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 3,
+"games7": 26,
+"min7": 99,
+"minN": 2,
+"letztesMin": 81,
+"letztesGames": 21,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T18:05:00Z",
+"quali": false,
+"vorOrt": {
+"land": "US",
+"tz": -6,
+"start": "2026-11-04T16:30:00Z",
+"turnier": "Charlottesville, USA"
+}
+}
+},
+"ort": {
+"land": "US",
+"tz": -6
+},
+"rangA": 271,
+"rangB": 205
+},
+{
+"id": "id1204837576131290",
+"start": "2026-11-06T18:00:00.000Z",
+"turnier": "Costa do Sauipe Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Gonzalo Bueno",
+"b": "Lautaro Midon",
+"aRoh": "Bueno, Gonzalo",
+"bRoh": "Midon, Lautaro",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 48375,
+"p1Id": 506300,
+"p2Id": 847592,
+"sapId": 17427540,
+"landA": "PE",
+"landB": "AR",
+"runde": "Quarterfinals",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 46,
+"min7": 230,
+"minN": 2,
+"letztesMin": 112,
+"letztesGames": 26,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-04T18:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-04T20:05:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"games7": 78,
+"min7": 427,
+"minN": 3,
+"letztesMin": 173,
+"letztesGames": 33,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T20:05:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-04T18:00:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+}
+},
+"ort": {
+"land": "BR",
+"tz": -3
+},
+"rangA": 198,
+"rangB": 185
+},
+{
+"id": "id1204837576131292",
+"start": "2026-11-06T18:00:00.000Z",
+"turnier": "Costa do Sauipe Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Juan Carlos Prado Angelo",
+"b": "Camilo Ugo Carabelli",
+"aRoh": "Prado Angelo, Juan Carlos",
+"bRoh": "Ugo Carabelli, Camilo",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 48375,
+"p1Id": 834054,
+"p2Id": 204117,
+"sapId": 17427541,
+"landA": "BO",
+"landB": "AR",
+"runde": "Quarterfinals",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 42,
+"min7": 231,
+"minN": 2,
+"letztesMin": 138,
+"letztesGames": 25,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T23:15:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-04T21:30:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 51,
+"min7": 290,
+"minN": 2,
+"letztesMin": 95,
+"letztesGames": 20,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-04T21:30:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-04T23:15:00Z",
+"turnier": "Costa do Sauipe, Brazil"
+}
+}
+},
+"ort": {
+"land": "BR",
+"tz": -3
+},
+"rangA": 193,
+"rangB": 81
 }
 ]
 }
