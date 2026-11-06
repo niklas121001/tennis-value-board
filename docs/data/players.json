@@ -2108,7 +2108,7 @@
   "rang": 127
  },
  "Alexandre Muller": {
-  "elo": 1575.8,
+  "elo": 1557.0,
   "hard_1in": 0.65,
   "hard_1won": 0.683,
   "hard_2won": 0.485,
@@ -2122,7 +2122,7 @@
   "ret_clay": 0.37,
   "ret_grass": 0.27,
   "tb": 0.5,
-  "elo_hard": 1617.4,
+  "elo_hard": 1598.1,
   "elo_clay": 1590.4,
   "elo_grass": 1487.6,
   "ta": {
@@ -2134,8 +2134,8 @@
   "rang": 146,
   "elo_eigen": {
    "seit": "2026-11-02",
-   "spiele": 2,
-   "delta": 26.6
+   "spiele": 3,
+   "delta": 7.8
   }
  },
  "Alex Michelsen": {
@@ -2868,7 +2868,7 @@
   "rang": 107
  },
  "Coleman Wong": {
-  "elo": 1756.1,
+  "elo": 1761.0,
   "hard_1in": 0.606,
   "hard_1won": 0.744,
   "hard_2won": 0.514,
@@ -2882,7 +2882,7 @@
   "ret_clay": 0.352,
   "ret_grass": 0.346,
   "tb": 0.5,
-  "elo_hard": 1703.9,
+  "elo_hard": 1708.7,
   "elo_clay": 1528.5,
   "elo_grass": 1518.6,
   "ta": {
@@ -2894,8 +2894,8 @@
   "rang": 85,
   "elo_eigen": {
    "seit": "2026-11-02",
-   "spiele": 2,
-   "delta": 3.9
+   "spiele": 3,
+   "delta": 8.8
   }
  },
  "Marcos Giron": {
@@ -3249,7 +3249,7 @@
   "rang": 163
  },
  "Yosuke Watanuki": {
-  "elo": 1451.1,
+  "elo": 1469.9,
   "hard_1in": 0.554,
   "hard_1won": 0.722,
   "hard_2won": 0.464,
@@ -3263,7 +3263,7 @@
   "ret_clay": 0.372,
   "ret_grass": 0.332,
   "tb": 0.5,
-  "elo_hard": 1546.2,
+  "elo_hard": 1565.4,
   "elo_clay": 1472.4,
   "elo_grass": 1530.0,
   "ta": {
@@ -3274,8 +3274,8 @@
   },
   "elo_eigen": {
    "seit": "2026-10-26",
-   "spiele": 4,
-   "delta": 48.0
+   "spiele": 5,
+   "delta": 66.8
   },
   "rang": 375
  },
@@ -3438,9 +3438,9 @@
   "hard_1in": 0.667,
   "hard_1won": 0.711,
   "hard_2won": 0.541,
-  "clay_1in": 0.675,
-  "clay_1won": 0.553,
-  "clay_2won": null,
+  "clay_1in": 0.63,
+  "clay_1won": 0.674,
+  "clay_2won": 0.535,
   "grass_1in": 0.667,
   "grass_1won": 0.644,
   "grass_2won": 0.523,
@@ -3451,9 +3451,7 @@
   "elo_hard": 1482.9,
   "elo_clay": 1442.9,
   "elo_grass": 1400.4,
-  "unplausibel": {
-   "clay_2won": 0.803
-  },
+  "unplausibel": {},
   "ta": {
    "elo": 1478.6,
    "elo_hard": 1460.0,
@@ -3465,6 +3463,20 @@
    "seit": "2026-10-26",
    "spiele": 2,
    "delta": 20.2
+  },
+  "manuell": {
+   "hard_1in": "2026-11-06T10:50",
+   "hard_1won": "2026-11-06T10:50",
+   "hard_2won": "2026-11-06T10:50",
+   "ret_hard": "2026-11-06T10:50",
+   "clay_1in": "2026-11-06T10:50",
+   "clay_1won": "2026-11-06T10:50",
+   "clay_2won": "2026-11-06T10:50",
+   "ret_clay": "2026-11-06T10:50",
+   "grass_1in": "2026-11-06T10:50",
+   "grass_1won": "2026-11-06T10:50",
+   "grass_2won": "2026-11-06T10:50",
+   "ret_grass": "2026-11-06T10:50"
   }
  },
  "Thiago Seyboth Wild": {
@@ -7307,15 +7319,15 @@
  "Kilian Feldbausch": {
   "elo": 1554.3,
   "hard_1in": 0.717,
-  "hard_1won": 0.625,
-  "hard_2won": 0.481,
+  "hard_1won": 0.739,
+  "hard_2won": 0.495,
   "clay_1in": 0.717,
   "clay_1won": 0.625,
   "clay_2won": 0.481,
   "grass_1in": null,
   "grass_1won": null,
   "grass_2won": null,
-  "ret_hard": null,
+  "ret_hard": 0.391,
   "ret_clay": 0.471,
   "ret_grass": null,
   "tb": 0.5,
@@ -7333,6 +7345,16 @@
    "seit": "2026-11-02",
    "spiele": 2,
    "delta": 23.0
+  },
+  "manuell": {
+   "hard_1in": "2026-11-06T10:54",
+   "hard_1won": "2026-11-06T10:54",
+   "hard_2won": "2026-11-06T10:54",
+   "ret_hard": "2026-11-06T10:54",
+   "clay_1in": "2026-11-06T10:54",
+   "clay_1won": "2026-11-06T10:54",
+   "clay_2won": "2026-11-06T10:54",
+   "ret_clay": "2026-11-06T10:54"
   }
  },
  "Jerome Kym": {
@@ -7548,7 +7570,7 @@
   "elo_grass": 1363.2
  },
  "Filip Misolic": {
-  "elo": 1436.3,
+  "elo": 1436.1,
   "hard_1in": 0.62,
   "hard_1won": 0.669,
   "hard_2won": 0.47,
@@ -7574,7 +7596,7 @@
   "elo_eigen": {
    "seit": "2026-10-26",
    "spiele": 4,
-   "delta": -0.3
+   "delta": -0.5
   },
   "rang": 676
  },
@@ -10187,7 +10209,7 @@
   }
  },
  "Juan Pablo Varillas": {
-  "elo": 1490.1,
+  "elo": 1490.0,
   "hard_1in": 0.583,
   "hard_1won": 0.707,
   "hard_2won": 0.467,
@@ -10213,7 +10235,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": -17.3
+   "delta": -17.4
   },
   "rang": 202
  },
@@ -13927,7 +13949,7 @@
   "rang": 390
  },
  "Carl Emil Overbeck": {
-  "elo": 1355.9,
+  "elo": 1366.0,
   "hard_1in": 0.639,
   "hard_1won": 0.742,
   "hard_2won": 0.518,
@@ -13945,7 +13967,7 @@
   "elo_clay": 1204.9,
   "elo_grass": 1294.9,
   "ta": {
-   "elo": 1345.1,
+   "elo": 1355.9,
    "elo_hard": 1170.2,
    "elo_clay": 1204.9,
    "elo_grass": 1294.9
@@ -13954,7 +13976,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 2,
-   "delta": 10.8
+   "delta": 10.1
   },
   "manuell": {
    "hard_1in": "2026-11-05T10:30",
@@ -13968,7 +13990,7 @@
   }
  },
  "Kasidit Samrej": {
-  "elo": 1483.6,
+  "elo": 1479.1,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -13982,7 +14004,7 @@
   "ret_clay": null,
   "ret_grass": null,
   "tb": 0.5,
-  "elo_hard": 1402.7,
+  "elo_hard": 1397.8,
   "elo_clay": 1424.4,
   "elo_grass": 1460.2,
   "ta": {
@@ -13993,8 +14015,8 @@
   },
   "elo_eigen": {
    "seit": "2026-11-02",
-   "spiele": 3,
-   "delta": 6.8
+   "spiele": 4,
+   "delta": 2.3
   },
   "rang": 409
  },
@@ -14328,7 +14350,7 @@
   "elo_grass": 1396.3
  },
  "Mateus Alves": {
-  "elo": 1147.4,
+  "elo": 1142.5,
   "hard_1in": null,
   "hard_1won": null,
   "hard_2won": null,
@@ -14346,7 +14368,7 @@
   "elo_clay": 1242.6,
   "elo_grass": 1322.9,
   "ta": {
-   "elo": 1152.4,
+   "elo": 1147.4,
    "elo_hard": 1146.8,
    "elo_clay": 1246.2,
    "elo_grass": 1322.9
@@ -14354,7 +14376,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": -5.0
+   "delta": -4.9
   },
   "rang": 413
  },
@@ -16634,7 +16656,7 @@
   "rang": 188
  },
  "Chun Hsin Tseng": {
-  "elo": 1502.2,
+  "elo": 1502.5,
   "neu": true,
   "elo_hard": 1453.9,
   "elo_clay": 1536.8,
@@ -16649,7 +16671,7 @@
   "elo_eigen": {
    "seit": "2026-10-26",
    "spiele": 1,
-   "delta": -20.6
+   "delta": -20.3
   }
  },
  "Radu Mihai Papoe": {
@@ -17130,13 +17152,13 @@
   }
  },
  "Evan Zhu": {
-  "elo": 1067.0,
+  "elo": 1063.6,
   "neu": true,
   "elo_hard": 1125.9,
   "elo_clay": 1195.4,
   "elo_grass": 1188.1,
   "ta": {
-   "elo": 1070.5,
+   "elo": 1067.0,
    "elo_hard": 1131.9,
    "elo_clay": 1195.4,
    "elo_grass": 1188.1
@@ -17144,7 +17166,7 @@
   "elo_eigen": {
    "seit": "2026-11-02",
    "spiele": 1,
-   "delta": -3.5
+   "delta": -3.4
   },
   "rang": 467
  },

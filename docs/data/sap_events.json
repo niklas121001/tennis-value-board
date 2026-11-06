@@ -11518,7 +11518,7 @@
 "17427592": {
 "id": 17427592,
 "start": "2026-11-06T05:30:00Z",
-"min": null,
+"min": 130,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
 "belag": "hard",
@@ -11531,9 +11531,9 @@
 "aL": "FR",
 "hR": 375,
 "aR": 146,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -11541,7 +11541,11 @@
 4
 ],
 [
-1,
+6,
+7
+],
+[
+6,
 1
 ]
 ]
@@ -11724,8 +11728,8 @@
 },
 "17427581": {
 "id": 17427581,
-"start": "2026-11-06T06:40:00Z",
-"min": null,
+"start": "2026-11-06T07:55:00Z",
+"min": 88,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
 "belag": "hard",
@@ -11738,11 +11742,20 @@
 "aL": "TH",
 "hR": 85,
 "aR": 409,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+6,
+2
+]
+]
 },
 "17428201": {
 "id": 17428201,
@@ -12068,6 +12081,28 @@
 "aL": "CZ",
 "hR": 405,
 "aR": 194,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17427591": {
+"id": 17427591,
+"start": "2026-11-07T02:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Taipei, Chinese Taipei",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Coleman Wong",
+"a": "Yosuke Watanuki",
+"hId": 289106,
+"aId": 157302,
+"hL": "HK",
+"aL": "JP",
+"hR": 85,
+"aR": 375,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
