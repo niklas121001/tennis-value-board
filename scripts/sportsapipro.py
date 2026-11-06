@@ -31,7 +31,7 @@ rest = [None]           # letzter bekannter Stand x-ratelimit-remaining
 anfragen = [0]
 
 
-NACHLADEN_MAX = 12       # einzelne Partien je Lauf nachladen, die im (auf 50 Turniere begrenzten) Spielplan fehlen
+NACHLADEN_MAX = 10       # Abrufe je Lauf für Board-Partien, die im (auf 50 Turniere begrenzten, ITF-lastigen) Spielplan fehlen
 
 
 def frei():
@@ -268,15 +268,28 @@ def main():
     vor2h, vor5t = jetzt - datetime.timedelta(hours=2), jetzt - datetime.timedelta(days=5)
     nach = sorted((ev for k_, ev in cache.items() if k_ in board_ids and ergebnis(ev) is None and ev.get("st") not in ("canceled", "postponed")
                    and ev.get("start") and vor5t < zeit(ev["start"]) < vor2h), key=lambda ev: ev["start"], reverse=True)
-    n_nach = 0
-    for ev in nach[:NACHLADEN_MAX]:
-        d = get(f"/match/{ev['id']}")
+    # Je Turnier reicht meist EIN Abruf: aus der ersten Partie Turnier- und Saison-ID lesen, dann die letzten Partien des
+    # Turniers auf einmal laden (/tournament/{id}/season/{sid}/events/last/0) – ITF bleibt außen vor.
+    n_nach, n_abr, turniere_geladen = 0, 0, set()
+    for ev in nach:
+        if n_abr >= NACHLADEN_MAX or ergebnis(cache.get(str(ev["id"]), ev)) is not None:
+            continue
+        d = get(f"/match/{ev['id']}"); n_abr += 1
         e = ((d or {}).get("data") or {}).get("event") if isinstance(d, dict) else None
         k = kompakt(e) if e else None
         if k and k.get("id") is not None:
             cache[str(k["id"])] = k; n_nach += 1
+        tid = ((e or {}).get("tournament") or {}).get("uniqueTournament", {}).get("id") if e else None
+        sid = ((e or {}).get("season") or {}).get("id") if e else None
+        if tid and sid and (tid, sid) not in turniere_geladen and n_abr < NACHLADEN_MAX:
+            turniere_geladen.add((tid, sid))
+            js = get(f"/tournament/{tid}/season/{sid}/events/last/0"); n_abr += 1
+            for x in finde(js, lambda x: "homeTeam" in x) if js else []:
+                kx = kompakt(x)
+                if kx and kx.get("id") is not None:
+                    cache[str(kx["id"])] = kx; n_nach += 1
     if nach:
-        print(f"Nachgeladen (fehlten im Spielplan): {n_nach} von {len(nach)} offenen Board-Partien")
+        print(f"Nachgeladen (fehlten im Spielplan): {len(nach)} offene Board-Partien, {n_abr} Abrufe, {n_nach} Partien aktualisiert, Turniere {sorted(turniere_geladen)}")
     grenze = (jetzt - datetime.timedelta(days=CACHE_TAGE)).strftime("%Y-%m-%d")
     cache = {k: v for k, v in cache.items() if str(v.get("start", "")) >= grenze}
 
