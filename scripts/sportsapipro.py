@@ -31,7 +31,7 @@ rest = [None]           # letzter bekannter Stand x-ratelimit-remaining
 anfragen = [0]
 
 
-NACHLADEN_MAX = 10       # Abrufe je Lauf für Board-Partien, die im (auf 50 Turniere begrenzten, ITF-lastigen) Spielplan fehlen
+NACHLADEN_MAX = 4        # Abrufe je Lauf für Board-Partien, die im (auf 50 Turniere begrenzten, ITF-lastigen) Spielplan fehlen
 
 
 def frei():
@@ -270,26 +270,34 @@ def main():
                    and ev.get("start") and vor5t < zeit(ev["start"]) < vor2h), key=lambda ev: ev["start"], reverse=True)
     # Je Turnier reicht meist EIN Abruf: aus der ersten Partie Turnier- und Saison-ID lesen, dann die letzten Partien des
     # Turniers auf einmal laden (/tournament/{id}/season/{sid}/events/last/0) – ITF bleibt außen vor.
-    n_nach, n_abr, turniere_geladen = 0, 0, set()
+    # Turnier- und Saison-ID je Turniername werden gemerkt (sap_turniere.json) -> danach 1 Abruf je Turnier und Lauf.
+    tmap = load("sap_turniere.json", {}) or {}
+    n_nach, n_abr, geladen = 0, 0, set()
     for ev in nach:
-        if n_abr >= NACHLADEN_MAX or ergebnis(cache.get(str(ev["id"]), ev)) is not None:
+        if n_abr >= NACHLADEN_MAX or ergebnis(cache.get(str(ev["id"]), ev)) is not None or ev.get("turnier") in geladen:
             continue
-        d = get(f"/match/{ev['id']}"); n_abr += 1
-        e = ((d or {}).get("data") or {}).get("event") if isinstance(d, dict) else None
-        k = kompakt(e) if e else None
-        if k and k.get("id") is not None:
-            cache[str(k["id"])] = k; n_nach += 1
-        tid = ((e or {}).get("tournament") or {}).get("uniqueTournament", {}).get("id") if e else None
-        sid = ((e or {}).get("season") or {}).get("id") if e else None
-        if tid and sid and (tid, sid) not in turniere_geladen and n_abr < NACHLADEN_MAX:
-            turniere_geladen.add((tid, sid))
-            js = get(f"/tournament/{tid}/season/{sid}/events/last/0"); n_abr += 1
+        t = tmap.get(ev.get("turnier"))
+        if not t:
+            d = get(f"/match/{ev['id']}"); n_abr += 1
+            e = ((d or {}).get("data") or {}).get("event") if isinstance(d, dict) else None
+            k = kompakt(e) if e else None
+            if k and k.get("id") is not None:
+                cache[str(k["id"])] = k; n_nach += 1
+            tid = (((e or {}).get("tournament") or {}).get("uniqueTournament") or {}).get("id")
+            sid = ((e or {}).get("season") or {}).get("id")
+            if tid and sid:
+                t = tmap[ev["turnier"]] = {"tid": tid, "sid": sid, "seit": heute_utc}
+        if t and n_abr < NACHLADEN_MAX:
+            geladen.add(ev.get("turnier"))
+            js = get(f"/tournament/{t['tid']}/season/{t['sid']}/events/last/0"); n_abr += 1
             for x in finde(js, lambda x: "homeTeam" in x) if js else []:
                 kx = kompakt(x)
                 if kx and kx.get("id") is not None:
                     cache[str(kx["id"])] = kx; n_nach += 1
+    tmap = {k: v for k, v in tmap.items() if v.get("seit", "") >= (jetzt - datetime.timedelta(days=60)).strftime("%Y-%m-%d")}
+    save("sap_turniere.json", tmap, indent=0)
     if nach:
-        print(f"Nachgeladen (fehlten im Spielplan): {len(nach)} offene Board-Partien, {n_abr} Abrufe, {n_nach} Partien aktualisiert, Turniere {sorted(turniere_geladen)}")
+        print(f"Nachgeladen (fehlten im Spielplan): {len(nach)} offene Board-Partien, {n_abr} Abrufe, {n_nach} Partien aktualisiert, Turniere {sorted(geladen)}")
     grenze = (jetzt - datetime.timedelta(days=CACHE_TAGE)).strftime("%Y-%m-%d")
     cache = {k: v for k, v in cache.items() if str(v.get("start", "")) >= grenze}
 
