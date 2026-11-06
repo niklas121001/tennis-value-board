@@ -5513,8 +5513,8 @@
 },
 "17455683": {
 "id": 17455683,
-"start": "2026-11-03T17:05:00Z",
-"min": null,
+"start": "2026-11-03T17:20:00Z",
+"min": 164,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -5527,11 +5527,24 @@
 "aL": "IT",
 "hR": 266,
 "aR": 501,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+6,
+1
+],
+[
+7,
+6
+]
+]
 },
 "17455687": {
 "id": 17455687,
@@ -5598,7 +5611,7 @@
 "17455689": {
 "id": 17455689,
 "start": "2026-11-03T15:55:00Z",
-"min": null,
+"min": 73,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -5611,9 +5624,9 @@
 "aL": "IT",
 "hR": 176,
 "aR": 322,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -5621,8 +5634,8 @@
 3
 ],
 [
-1,
-1
+6,
+2
 ]
 ]
 },
@@ -5691,7 +5704,7 @@
 "17455667": {
 "id": 17455667,
 "start": "2026-11-03T16:20:00Z",
-"min": null,
+"min": 95,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -5704,21 +5717,25 @@
 "aL": "ES",
 "hR": 244,
 "aR": 191,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
-2,
-3
+6,
+4
+],
+[
+6,
+4
 ]
 ]
 },
 "17455673": {
 "id": 17455673,
-"start": "2026-11-03T17:30:00Z",
-"min": null,
+"start": "2026-11-03T17:40:00Z",
+"min": 89,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -5731,16 +5748,25 @@
 "aL": "IT",
 "hR": 231,
 "aR": 284,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+7,
+5
+]
+]
 },
 "17455688": {
 "id": 17455688,
-"start": "2026-11-03T10:10:00Z",
-"min": null,
+"start": "2026-11-03T10:50:00Z",
+"min": 62,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -5751,11 +5777,22 @@
 "aId": 81271,
 "hL": "ZA",
 "aL": "FR",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"hR": 236,
+"aR": 274,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+6,
+2
+]
+]
 },
 "17455686": {
 "id": 17455686,
@@ -5791,7 +5828,7 @@
 "17455685": {
 "id": 17455685,
 "start": "2026-11-03T15:45:00Z",
-"min": null,
+"min": 99,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -5804,14 +5841,18 @@
 "aL": "UA",
 "hR": 265,
 "aR": 310,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
-6,
+7,
 6
+],
+[
+6,
+2
 ]
 ]
 },
@@ -6765,7 +6806,7 @@
 "17463622": {
 "id": 17463622,
 "start": "2026-11-03T09:00:00Z",
-"min": null,
+"min": 120,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -6776,11 +6817,26 @@
 "aId": 446858,
 "hL": "IT",
 "aL": "AT",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"hR": 534,
+"aR": 706,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+3,
+6
+],
+[
+6,
+1
+]
+]
 },
 "17465134": {
 "id": 17465134,
@@ -6805,7 +6861,7 @@
 "17466755": {
 "id": 17466755,
 "start": "2026-11-03T09:00:00Z",
-"min": null,
+"min": 170,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -6816,16 +6872,31 @@
 "aId": 208824,
 "hL": "IT",
 "aL": "BG",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"hR": 368,
+"aR": 631,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+4,
+6
+],
+[
+5,
+7
+]
+]
 },
 "17467082": {
 "id": 17467082,
 "start": "2026-11-03T09:00:00Z",
-"min": null,
+"min": 78,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -6836,11 +6907,22 @@
 "aId": 217878,
 "hL": "PT",
 "aL": "HU",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"hR": 318,
+"aR": 537,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17467907": {
 "id": 17467907,
@@ -7220,8 +7302,8 @@
 },
 "17468150": {
 "id": 17468150,
-"start": "2026-11-03T10:10:00Z",
-"min": null,
+"start": "2026-11-03T11:40:00Z",
+"min": 137,
 "kat": "Challenger",
 "turnier": "Taranto, Italy, Qualifying",
 "belag": "hard",
@@ -7232,11 +7314,26 @@
 "aId": 487983,
 "hL": "IT",
 "aL": "IT",
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"hR": 385,
+"aR": 873,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+4,
+6
+],
+[
+6,
+3
+]
+]
 },
 "17468049": {
 "id": 17468049,
@@ -10343,7 +10440,7 @@
 "17485384": {
 "id": 17485384,
 "start": "2026-11-04T09:00:00Z",
-"min": null,
+"min": 77,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -10356,11 +10453,20 @@
 "aL": "FR",
 "hR": 816,
 "aR": 298,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+0,
+4
+]
+]
 },
 "17427631": {
 "id": 17427631,
@@ -11647,7 +11753,7 @@
 },
 "17427360": {
 "id": 17427360,
-"start": "2026-11-06T13:20:00Z",
+"start": "2026-11-06T13:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -11898,29 +12004,42 @@
 },
 "17427635": {
 "id": 17427635,
-"start": "2026-11-06T09:00:00Z",
-"min": null,
+"start": "2026-11-06T09:30:00Z",
+"min": 132,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "Qf7",
+"h": "Maxim Mrva",
 "a": "Matteo Martineau",
-"hId": 393298,
+"hId": 450846,
 "aId": 145122,
-"hL": null,
+"hL": "CZ",
 "aL": "FR",
-"hR": null,
+"hR": 231,
 "aR": 244,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+7,
+5
+],
+[
+4,
+6
+]
+]
 },
 "17427628": {
 "id": 17427628,
-"start": "2026-11-06T09:30:00Z",
+"start": "2026-11-06T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
@@ -11934,15 +12053,24 @@
 "aL": "GB",
 "hR": 228,
 "aR": 241,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+0,
+0
+]
+]
 },
 "17427357": {
 "id": 17427357,
-"start": "2026-11-06T12:10:00Z",
+"start": "2026-11-06T12:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Bratislava 2, Slovakia",
@@ -11956,11 +12084,16 @@
 "aL": "RS",
 "hR": 138,
 "aR": 137,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+5,
+3
+]
+]
 },
 "17427336": {
 "id": 17427336,
@@ -12162,7 +12295,7 @@
 },
 "17427587": {
 "id": 17427587,
-"start": "2026-11-07T02:00:00Z",
+"start": "2026-11-07T05:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
@@ -12184,7 +12317,7 @@
 },
 "17427591": {
 "id": 17427591,
-"start": "2026-11-07T02:00:00Z",
+"start": "2026-11-07T06:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Taipei, Chinese Taipei",
