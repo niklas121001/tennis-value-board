@@ -247,12 +247,13 @@ def main():
     mj = load("matches.json", {"partien": []})
 
     # 1) Spielplan: gestern, heute, morgen + ältere Tage mit noch offenen Partien
-    tage = [(jetzt + datetime.timedelta(days=d)).strftime("%Y-%m-%d") for d in (-1, 0, 1)]
-    offen = sorted({str(ev.get("start", ""))[:10] for ev in cache.values()
-                    if ergebnis(ev) is None and ev.get("start") and ev["start"][:10] < tage[0]
-                    and ev["start"][:10] >= (jetzt - datetime.timedelta(days=5)).strftime("%Y-%m-%d")}, reverse=True)
+    # Abfragen sparen (Kontingent für Spielerstatistiken): „gestern“ nur im ersten Lauf des Tages (danach ändert sich dort
+    # kaum noch etwas), ältere Tage gar nicht mehr – fehlende Board-Partien holt das gezielte Nachladen (1b).
+    from zoneinfo import ZoneInfo
+    erster_lauf = jetzt.astimezone(ZoneInfo("Europe/Berlin")).hour < 9 or load("sportsapipro.json", {}).get("tag") != jetzt.strftime("%Y-%m-%d")
+    tage = [(jetzt + datetime.timedelta(days=d)).strftime("%Y-%m-%d") for d in ((-1, 0, 1) if erster_lauf else (0, 1))]
     n_ev = 0
-    for tag in tage + offen[:2]:
+    for tag in tage:
         js = get(f"/schedule/{tag}")
         if js is None:
             continue
