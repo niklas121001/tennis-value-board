@@ -446,7 +446,7 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
     <div id="m-liste"></div>
 
     <details class="box" id="m-sync-box" style="margin-top:12px"><summary><b>Abgleich zwischen Geräten</b> <span class="time" id="m-sync-status">nicht eingerichtet – Wetten liegen nur in diesem Browser</span></summary>
-      <p class="note">Deine Wetten werden in einem <b>geheimen GitHub-Gist</b> gespeichert (nicht öffentlich gelistet, nur mit deinem Schlüssel beschreibbar) und so zwischen Handy und PC abgeglichen. Schlüssel anlegen: GitHub → Settings → Developer settings → Personal access tokens → <b>Tokens (classic)</b> → Generate new token (classic) → nur Haken bei <b>gist</b>. Der Schlüssel bleibt in diesem Browser gespeichert und wird nirgends veröffentlicht. Auf dem zweiten Gerät denselben Schlüssel eintragen – der Gist wird automatisch gefunden.</p>
+      <p class="note">Deine Wetten werden in einem <b>geheimen GitHub-Gist</b> gespeichert (nicht öffentlich gelistet, nur mit deinem Schlüssel beschreibbar) und so zwischen Handy und PC abgeglichen. Schlüssel anlegen: GitHub → Settings → Developer settings → Personal access tokens → <b>Tokens (classic)</b> → Generate new token (classic) → nur Haken bei <b>gist</b>. Der Schlüssel bleibt in diesem Browser gespeichert und wird nirgends veröffentlicht. Auf dem zweiten Gerät denselben Schlüssel eintragen – der Gist wird automatisch gefunden. <b>Ist unter Modell schon der GitHub-Schlüssel des Boards eingetragen, wird er automatisch genutzt</b>, sofern er das Recht „gist“ hat – dann ist hier nichts einzutragen.</p>
       <form class="mform" id="m-sync-form" autocomplete="off">
         <div class="ctl" style="flex:1 1 260px"><label for="ms-token">GitHub-Schlüssel (Token)</label><input id="ms-token" type="password" placeholder="ghp_…"></div>
         <button type="submit" class="btn">Verbinden &amp; abgleichen</button>
@@ -3022,6 +3022,7 @@ function setupWetten(){
   $("#ms-trennen").addEventListener("click", () => { try{ localStorage.removeItem("tvb.gist.token"); localStorage.removeItem("tvb.gist.id"); }catch(_){}
     $("#ms-token").value = ""; syncStatus("getrennt – Wetten liegen nur in diesem Browser"); });
   if(store.get("gist.token", null)){ $("#ms-token").value = "••••••••"; syncPull(false); }
+  else if(store.get("gh.repo.token", null)){ $("#ms-token").placeholder = "Board-Schlüssel wird genutzt"; syncPull(false); }
   // Kombi ausklappen / Auswahl-Ergebnis setzen
   $("#m-liste").addEventListener("click", (e) => {
     const n = e.target.closest(".w-notiz");
@@ -3170,10 +3171,12 @@ function kombiDetail(w){
 let syncTimer = null, syncLaeuft = false;
 function syncStatus(t){ $("#m-sync-status").textContent = t; }
 async function gh(method, url, body){
-  const token = store.get("gist.token", null);
+  const token = store.get("gist.token", null) || store.get("gh.repo.token", null);   // eigener Gist-Schlüssel, sonst der Board-Schlüssel
   const r = await fetch("https://api.github.com" + url, {method, headers: {"Authorization": "Bearer " + token,
     "Accept": "application/vnd.github+json", "Content-Type": "application/json"}, body: body ? JSON.stringify(body) : undefined});
-  if(!r.ok) throw new Error(r.status === 401 ? "Schlüssel ungültig" : r.status === 403 || r.status === 404 ? "Schlüssel ohne gist-Recht" : "GitHub-Fehler " + r.status);
+  if(!r.ok) throw new Error(r.status === 401 ? "Schlüssel ungültig" : r.status === 403 || r.status === 404
+    ? (store.get("gist.token", null) ? "Schlüssel ohne gist-Recht" : "Board-Schlüssel ohne gist-Recht – bei GitHub dem Schlüssel das Recht „gist“ (classic) bzw. „Gists: Read and write“ (fine-grained) geben oder hier einen eigenen Schlüssel eintragen")
+    : "GitHub-Fehler " + r.status);
   return r.json();
 }
 async function findeGist(){
@@ -3201,7 +3204,7 @@ function zusammenfuehren(a, b){
   return out;
 }
 async function syncPull(meldung){
-  if(!store.get("gist.token", null) || syncLaeuft) return;
+  if((!store.get("gist.token", null) && !store.get("gh.repo.token", null)) || syncLaeuft) return;
   syncLaeuft = true; syncStatus("gleiche ab …");
   try{
     const id = await findeGist();
@@ -3217,7 +3220,7 @@ async function syncPull(meldung){
   finally{ syncLaeuft = false; }
 }
 function syncPush(){
-  if(!store.get("gist.token", null)) return;
+  if(!store.get("gist.token", null) && !store.get("gh.repo.token", null)) return;
   clearTimeout(syncTimer); syncTimer = setTimeout(() => syncPull(false), 1200);
 }
 
