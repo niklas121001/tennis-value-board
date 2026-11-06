@@ -1,5 +1,5 @@
 {
-"stand": "2026-11-06T10:58:18Z",
+"stand": "2026-11-06T11:02:00Z",
 "partien": [
 {
 "id": "id1205354676133204",
@@ -48,26 +48,42 @@
 "gt": "Hardcourt outdoor",
 "form": {
 "a": {
-"spiele7": 0,
+"spiele7": 2,
+"saetze7": 4,
+"games7": 51,
+"min7": 250,
+"minN": 2,
+"letztesMin": 122,
+"letztesGames": 26,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-05T09:30:00Z",
+"quali": false,
 "vorOrt": {
 "land": "IT",
 "tz": 1,
-"start": "2026-11-03T12:05:00Z",
+"start": "2026-11-05T09:30:00Z",
 "turnier": "Taranto, Italy"
 }
 },
 "b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 18,
-"min7": 93,
-"minN": 1,
-"letztesMin": 93,
+"spiele7": 2,
+"saetze7": 4,
+"games7": 36,
+"min7": 190,
+"minN": 2,
+"letztesMin": 97,
 "letztesGames": 18,
 "dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-03T12:05:00Z",
-"quali": false
+"siege7": 2,
+"letztes": "2026-11-05T09:30:00Z",
+"quali": false,
+"vorOrt": {
+"land": "IT",
+"tz": 1,
+"start": "2026-11-05T09:30:00Z",
+"turnier": "Taranto, Italy"
+}
 }
 },
 "ort": {
@@ -171,7 +187,7 @@
 },
 {
 "id": "id1205354676133202",
-"start": "2026-11-06T12:40:00.000Z",
+"start": "2026-11-06T12:20:00.000Z",
 "turnier": "Taranto Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -313,47 +329,6 @@
 "rangB": 14
 },
 {
-"id": "id1205354676133200",
-"start": "2026-11-06T13:35:00.000Z",
-"turnier": "Taranto Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Francesco Maestrelli",
-"b": "Carlo Alberto Caniato",
-"aRoh": "Maestrelli, Francesco",
-"bRoh": "Caniato, Carlo Alberto",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.68,
-2.05
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.714,
-2.19
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 2.71,
-"mind1B": 1.492,
-"mind1A": 1.314,
-"glattB": 3.6,
-"dreiSaetze": 2.44,
-"zweiSaetze": 1.591,
-"satz1A": 1.806,
-"satz1B": 2.04
-}
-},
-"tid": 53546,
-"p1Id": 359608,
-"p2Id": 861461
-},
-{
 "id": "id1203086176127578",
 "start": "2026-11-06T14:00:00.000Z",
 "turnier": "Bratislava II Challenger",
@@ -444,6 +419,47 @@
 },
 "rangA": 128,
 "rangB": 164
+},
+{
+"id": "id1205354676133200",
+"start": "2026-11-06T13:30:00.000Z",
+"turnier": "Taranto Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "kalender",
+"a": "Francesco Maestrelli",
+"b": "Carlo Alberto Caniato",
+"aRoh": "Maestrelli, Francesco",
+"bRoh": "Caniato, Carlo Alberto",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.68,
+2.05
+]
+},
+"pausiert": [],
+"pinnacle": [
+1.714,
+2.19
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 2.71,
+"mind1B": 1.492,
+"mind1A": 1.314,
+"glattB": 3.6,
+"dreiSaetze": 2.44,
+"zweiSaetze": 1.591,
+"satz1A": 1.806,
+"satz1B": 2.04
+}
+},
+"tid": 53546,
+"p1Id": 359608,
+"p2Id": 861461
 },
 {
 "id": "id1203761576126384",
@@ -1006,6 +1022,98 @@
 },
 "rangA": 314,
 "rangB": 257
+},
+{
+"id": "id1203086176127584",
+"start": "2026-11-06T17:10:00.000Z",
+"turnier": "Bratislava II Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Kimmer Coppejans",
+"b": "Jurji Rodionov",
+"aRoh": "Coppejans, Kimmer",
+"bRoh": "Rodionov, Jurij",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.9,
+1.35
+]
+},
+"pausiert": [],
+"pinnacle": [
+3.38,
+1.355
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 6.17,
+"mind1B": 1.143,
+"mind1A": 1.869,
+"glattB": 1.98,
+"dreiSaetze": 2.56,
+"zweiSaetze": 1.543,
+"satz1A": 2.83,
+"satz1B": 1.45
+}
+},
+"tid": 30861,
+"p1Id": 54955,
+"p2Id": 212004,
+"sapId": 17427355,
+"landA": "BE",
+"landB": "AT",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 57,
+"min7": 242,
+"minN": 2,
+"letztesMin": 157,
+"letztesGames": 35,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-05T18:35:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SK",
+"tz": 1,
+"start": "2026-11-05T14:30:00Z",
+"turnier": "Bratislava 2, Slovakia"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 39,
+"min7": 149,
+"minN": 2,
+"letztesMin": 76,
+"letztesGames": 19,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-05T14:30:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SK",
+"tz": 1,
+"start": "2026-11-05T18:35:00Z",
+"turnier": "Bratislava 2, Slovakia"
+}
+}
+},
+"ort": {
+"land": "SK",
+"tz": 1
+},
+"rangA": 225,
+"rangB": 142
 },
 {
 "id": "id1200321776126786",
@@ -1865,19 +1973,19 @@
 },
 "pausiert": [],
 "pinnacle": [
-1.276,
-3.99
+1.298,
+3.79
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 1.787,
-"mind1B": 2.09,
-"mind1A": 1.118,
-"glattB": 7.04,
-"dreiSaetze": 2.82,
-"zweiSaetze": 1.462,
-"satz1A": 1.363,
-"satz1B": 3.22
+"glattA": 1.819,
+"mind1B": 2.05,
+"mind1A": 1.127,
+"glattB": 6.69,
+"dreiSaetze": 2.8,
+"zweiSaetze": 1.467,
+"satz1A": 1.378,
+"satz1B": 3.14
 }
 },
 "tid": 48375,
