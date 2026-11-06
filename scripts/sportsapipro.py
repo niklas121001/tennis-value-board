@@ -31,6 +31,9 @@ rest = [None]           # letzter bekannter Stand x-ratelimit-remaining
 anfragen = [0]
 
 
+NACHLADEN_MAX = 12       # einzelne Partien je Lauf nachladen, die im (auf 50 Turniere begrenzten) Spielplan fehlen
+
+
 def frei():
     r = rest[0] if rest[0] is not None else TAGESLIMIT - anfragen[0]
     return r - RESERVE
@@ -258,6 +261,22 @@ def main():
             if k and k["id"] is not None:
                 cache[str(k["id"])] = k
                 n_ev += 1
+    # 1b) Der Spielplan liefert je Tag nur 50 Turniere (ITF zuerst) – Partien unserer Board-Spiele, die dort fehlen, blieben
+    #     sonst auf „nicht gestartet“ stehen (kein Satzstand, keine Form). Für bekannte Board-Partien ab 2 h nach Beginn
+    #     ohne Endstand einzeln nachladen (/match/{id}), höchstens NACHLADEN_MAX je Lauf, neueste zuerst.
+    board_ids = {str(v.get("sap")) for v in smap.values() if isinstance(v, dict) and v.get("sap")}
+    vor2h, vor5t = jetzt - datetime.timedelta(hours=2), jetzt - datetime.timedelta(days=5)
+    nach = sorted((ev for k_, ev in cache.items() if k_ in board_ids and ergebnis(ev) is None and ev.get("st") not in ("canceled", "postponed")
+                   and ev.get("start") and vor5t < zeit(ev["start"]) < vor2h), key=lambda ev: ev["start"], reverse=True)
+    n_nach = 0
+    for ev in nach[:NACHLADEN_MAX]:
+        d = get(f"/match/{ev['id']}")
+        e = ((d or {}).get("data") or {}).get("event") if isinstance(d, dict) else None
+        k = kompakt(e) if e else None
+        if k and k.get("id") is not None:
+            cache[str(k["id"])] = k; n_nach += 1
+    if nach:
+        print(f"Nachgeladen (fehlten im Spielplan): {n_nach} von {len(nach)} offenen Board-Partien")
     grenze = (jetzt - datetime.timedelta(days=CACHE_TAGE)).strftime("%Y-%m-%d")
     cache = {k: v for k, v in cache.items() if str(v.get("start", "")) >= grenze}
 
