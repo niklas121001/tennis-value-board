@@ -1,7 +1,7 @@
 {
  "stand": "2026-11-07",
  "quelle": "Eigene Schätzung aus Match-Statistiken (SportsAPIPro): Asse je Aufschlagpunkt vs. Erwartung aus Aufschläger und Returner, 1,00 = Schnitt",
- "steigung_hold": 0.941,
+ "steigung_hold": 0.94,
  "turniere": [
   {
    "name": "cali",
@@ -17,9 +17,9 @@
    },
    "ch": true,
    "speed": 1.12,
-   "roh": 1.174,
+   "roh": 1.175,
    "ass": 1.087,
-   "hold_skala": 1.261,
+   "hold_skala": 1.262,
    "seiten": 86,
    "quelle": "eigen",
    "alias": []
@@ -40,7 +40,7 @@
    "speed": 1.01,
    "roh": 1.021,
    "ass": 0.885,
-   "hold_skala": 1.157,
+   "hold_skala": 1.158,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -51,17 +51,17 @@
    "jahre": {
     "2026": {
      "seiten": 78,
-     "ass_index": 0.844,
-     "hold_dev": 0.015,
+     "ass_index": 0.841,
+     "hold_dev": 0.019,
      "hold": 0.753,
      "tb_satz": 0.088
     }
    },
    "ch": true,
    "speed": 0.96,
-   "roh": 0.943,
-   "ass": 0.844,
-   "hold_skala": 1.043,
+   "roh": 0.945,
+   "ass": 0.841,
+   "hold_skala": 1.048,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -80,9 +80,9 @@
    },
    "ch": true,
    "speed": 0.93,
-   "roh": 0.893,
+   "roh": 0.894,
    "ass": 0.885,
-   "hold_skala": 0.901,
+   "hold_skala": 0.902,
    "seiten": 90,
    "quelle": "eigen",
    "alias": []
@@ -93,17 +93,17 @@
    "jahre": {
     "2026": {
      "seiten": 34,
-     "ass_index": 0.678,
-     "hold_dev": -0.185,
+     "ass_index": 0.676,
+     "hold_dev": -0.183,
      "hold": 0.718,
      "tb_satz": 0.235
     }
    },
    "ch": true,
    "speed": 0.89,
-   "roh": 0.766,
-   "ass": 0.678,
-   "hold_skala": 0.855,
+   "roh": 0.767,
+   "ass": 0.676,
+   "hold_skala": 0.858,
    "seiten": 34,
    "quelle": "eigen",
    "alias": []
@@ -122,9 +122,9 @@
    },
    "ch": true,
    "speed": 0.89,
-   "roh": 0.826,
+   "roh": 0.827,
    "ass": 0.746,
-   "hold_skala": 0.905,
+   "hold_skala": 0.907,
    "seiten": 74,
    "quelle": "eigen",
    "alias": []
@@ -136,16 +136,16 @@
     "2026": {
      "seiten": 74,
      "ass_index": 0.699,
-     "hold_dev": -0.168,
+     "hold_dev": -0.16,
      "hold": 0.717,
      "tb_satz": 0.112
     }
    },
    "ch": true,
    "speed": 0.86,
-   "roh": 0.785,
+   "roh": 0.789,
    "ass": 0.699,
-   "hold_skala": 0.871,
+   "hold_skala": 0.88,
    "seiten": 74,
    "quelle": "eigen",
    "alias": []
@@ -159,14 +159,14 @@
      "ass_index": 0.457,
      "hold_dev": -0.189,
      "hold": 0.69,
-     "tb_satz": 0.05
+     "tb_satz": 0.048
     }
    },
    "ch": true,
    "speed": 0.78,
-   "roh": 0.654,
+   "roh": 0.655,
    "ass": 0.457,
-   "hold_skala": 0.851,
+   "hold_skala": 0.853,
    "seiten": 70,
    "quelle": "eigen",
    "alias": []
@@ -177,17 +177,17 @@
    "jahre": {
     "2026": {
      "seiten": 78,
-     "ass_index": 0.586,
-     "hold_dev": -0.416,
+     "ass_index": 0.585,
+     "hold_dev": -0.414,
      "hold": 0.673,
      "tb_satz": 0.094
     }
    },
    "ch": true,
    "speed": 0.74,
-   "roh": 0.612,
-   "ass": 0.586,
-   "hold_skala": 0.637,
+   "roh": 0.613,
+   "ass": 0.585,
+   "hold_skala": 0.641,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -208,7 +208,7 @@
    "speed": 1.31,
    "roh": 1.48,
    "ass": 1.644,
-   "hold_skala": 1.316,
+   "hold_skala": 1.317,
    "seiten": 76,
    "quelle": "eigen",
    "alias": []
@@ -226,10 +226,10 @@
     }
    },
    "ch": true,
-   "speed": 1.19,
+   "speed": 1.2,
    "roh": 1.295,
    "ass": 1.234,
-   "hold_skala": 1.355,
+   "hold_skala": 1.356,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -240,17 +240,17 @@
    "jahre": {
     "2026": {
      "seiten": 98,
-     "ass_index": 1.192,
-     "hold_dev": 0.198,
+     "ass_index": 1.206,
+     "hold_dev": 0.206,
      "hold": 0.826,
      "tb_satz": 0.229
     }
    },
    "ch": true,
-   "speed": 1.14,
-   "roh": 1.203,
-   "ass": 1.192,
-   "hold_skala": 1.215,
+   "speed": 1.15,
+   "roh": 1.215,
+   "ass": 1.206,
+   "hold_skala": 1.224,
    "seiten": 98,
    "quelle": "eigen",
    "alias": []
@@ -269,9 +269,9 @@
    },
    "ch": true,
    "speed": 1.04,
-   "roh": 1.064,
+   "roh": 1.065,
    "ass": 1.056,
-   "hold_skala": 1.073,
+   "hold_skala": 1.074,
    "seiten": 88,
    "quelle": "eigen",
    "alias": []
@@ -282,17 +282,17 @@
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 0.942,
-     "hold_dev": 0.126,
+     "ass_index": 0.954,
+     "hold_dev": 0.125,
      "hold": 0.832,
      "tb_satz": 0.234
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.045,
-   "ass": 0.942,
-   "hold_skala": 1.147,
+   "roh": 1.051,
+   "ass": 0.954,
+   "hold_skala": 1.148,
    "seiten": 72,
    "quelle": "eigen",
    "alias": []
@@ -303,7 +303,7 @@
    "jahre": {
     "2026": {
      "seiten": 58,
-     "ass_index": 0.964,
+     "ass_index": 0.963,
      "hold_dev": -0.108,
      "hold": 0.765,
      "tb_satz": 0.088
@@ -312,8 +312,8 @@
    "ch": true,
    "speed": 0.97,
    "roh": 0.946,
-   "ass": 0.964,
-   "hold_skala": 0.927,
+   "ass": 0.963,
+   "hold_skala": 0.929,
    "seiten": 58,
    "quelle": "eigen",
    "alias": []
@@ -323,19 +323,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 76,
-     "ass_index": 0.919,
-     "hold_dev": -0.112,
-     "hold": 0.783,
-     "tb_satz": 0.157
+     "seiten": 80,
+     "ass_index": 0.921,
+     "hold_dev": -0.095,
+     "hold": 0.785,
+     "tb_satz": 0.159
     }
    },
    "ch": true,
    "speed": 0.95,
-   "roh": 0.921,
-   "ass": 0.919,
-   "hold_skala": 0.923,
-   "seiten": 76,
+   "roh": 0.931,
+   "ass": 0.921,
+   "hold_skala": 0.941,
+   "seiten": 80,
    "quelle": "eigen",
    "alias": []
   },
@@ -344,19 +344,40 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 38,
-     "ass_index": 0.797,
-     "hold_dev": -0.036,
-     "hold": 0.766,
-     "tb_satz": 0.155
+     "seiten": 46,
+     "ass_index": 0.78,
+     "hold_dev": -0.155,
+     "hold": 0.752,
+     "tb_satz": 0.147
     }
    },
    "ch": true,
-   "speed": 0.95,
-   "roh": 0.896,
-   "ass": 0.797,
-   "hold_skala": 0.995,
-   "seiten": 38,
+   "speed": 0.91,
+   "roh": 0.832,
+   "ass": 0.78,
+   "hold_skala": 0.884,
+   "seiten": 46,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "olbia",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 76,
+     "ass_index": 0.728,
+     "hold_dev": -0.239,
+     "hold": 0.758,
+     "tb_satz": 0.129
+    }
+   },
+   "ch": true,
+   "speed": 0.85,
+   "roh": 0.767,
+   "ass": 0.728,
+   "hold_skala": 0.806,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -374,31 +395,10 @@
    },
    "ch": true,
    "speed": 0.85,
-   "roh": 0.766,
+   "roh": 0.767,
    "ass": 0.737,
-   "hold_skala": 0.795,
+   "hold_skala": 0.797,
    "seiten": 70,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "olbia",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 76,
-     "ass_index": 0.723,
-     "hold_dev": -0.245,
-     "hold": 0.758,
-     "tb_satz": 0.129
-    }
-   },
-   "ch": true,
-   "speed": 0.84,
-   "roh": 0.761,
-   "ass": 0.723,
-   "hold_skala": 0.798,
-   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -416,9 +416,9 @@
    },
    "ch": true,
    "speed": 0.82,
-   "roh": 0.742,
+   "roh": 0.743,
    "ass": 0.63,
-   "hold_skala": 0.854,
+   "hold_skala": 0.855,
    "seiten": 90,
    "quelle": "eigen",
    "alias": []
@@ -439,7 +439,7 @@
    "speed": 0.77,
    "roh": 0.671,
    "ass": 0.7,
-   "hold_skala": 0.641,
+   "hold_skala": 0.643,
    "seiten": 90,
    "quelle": "eigen",
    "alias": []
@@ -460,9 +460,9 @@
    },
    "ch": false,
    "speed": 1.17,
-   "roh": 1.252,
+   "roh": 1.253,
    "ass": 1.142,
-   "hold_skala": 1.363,
+   "hold_skala": 1.364,
    "seiten": 76,
    "quelle": "eigen",
    "alias": []
@@ -473,17 +473,17 @@
    "jahre": {
     "2026": {
      "seiten": 86,
-     "ass_index": 1.046,
-     "hold_dev": 0.133,
+     "ass_index": 1.04,
+     "hold_dev": 0.124,
      "hold": 0.867,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 1.07,
-   "roh": 1.1,
-   "ass": 1.046,
-   "hold_skala": 1.154,
+   "speed": 1.06,
+   "roh": 1.093,
+   "ass": 1.04,
+   "hold_skala": 1.147,
    "seiten": 86,
    "quelle": "eigen",
    "alias": []
@@ -494,17 +494,17 @@
    "jahre": {
     "2026": {
      "seiten": 42,
-     "ass_index": 0.959,
-     "hold_dev": 0.053,
+     "ass_index": 0.958,
+     "hold_dev": 0.046,
      "hold": 0.85,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.01,
-   "roh": 1.019,
-   "ass": 0.959,
-   "hold_skala": 1.078,
+   "roh": 1.016,
+   "ass": 0.958,
+   "hold_skala": 1.073,
    "seiten": 42,
    "quelle": "eigen",
    "alias": []
@@ -523,9 +523,9 @@
    },
    "ch": false,
    "speed": 1.01,
-   "roh": 1.017,
+   "roh": 1.018,
    "ass": 0.98,
-   "hold_skala": 1.055,
+   "hold_skala": 1.056,
    "seiten": 76,
    "quelle": "eigen",
    "alias": []
@@ -535,8 +535,8 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 144,
-     "ass_index": 1.008,
+     "seiten": 148,
+     "ass_index": 1.009,
      "hold_dev": -0.034,
      "hold": 0.839,
      "tb_satz": null
@@ -544,10 +544,10 @@
    },
    "ch": false,
    "speed": 1.0,
-   "roh": 1.002,
-   "ass": 1.008,
-   "hold_skala": 0.997,
-   "seiten": 144,
+   "roh": 1.004,
+   "ass": 1.009,
+   "hold_skala": 0.998,
+   "seiten": 148,
    "quelle": "eigen",
    "alias": []
   },
@@ -557,17 +557,17 @@
    "jahre": {
     "2026": {
      "seiten": 78,
-     "ass_index": 0.815,
-     "hold_dev": -0.03,
+     "ass_index": 0.825,
+     "hold_dev": -0.036,
      "hold": 0.845,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.94,
-   "roh": 0.908,
-   "ass": 0.815,
-   "hold_skala": 1.0,
+   "roh": 0.911,
+   "ass": 0.825,
+   "hold_skala": 0.996,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -578,17 +578,17 @@
    "jahre": {
     "2026": {
      "seiten": 80,
-     "ass_index": 0.679,
-     "hold_dev": -0.272,
+     "ass_index": 0.674,
+     "hold_dev": -0.283,
      "hold": 0.803,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 0.82,
-   "roh": 0.726,
-   "ass": 0.679,
-   "hold_skala": 0.773,
+   "speed": 0.81,
+   "roh": 0.719,
+   "ass": 0.674,
+   "hold_skala": 0.764,
    "seiten": 80,
    "quelle": "eigen",
    "alias": []
