@@ -12883,11 +12883,20 @@
 "aL": "IT",
 "hR": 191,
 "aR": 106,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+2,
+5
+]
+]
 },
 "17512431": {
 "id": 17512431,
@@ -12905,11 +12914,20 @@
 "aL": "HR",
 "hR": 87,
 "aR": 133,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+6,
+6
+]
+]
 },
 "17513789": {
 "id": 17513789,
@@ -13077,7 +13095,7 @@
 "17513757": {
 "id": 17513757,
 "start": "2026-11-08T08:00:00Z",
-"min": null,
+"min": 194,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -13090,9 +13108,9 @@
 "aL": "RO",
 "hR": 1486,
 "aR": 565,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -13104,15 +13122,15 @@
 6
 ],
 [
-0,
-0
+6,
+2
 ]
 ]
 },
 "17513760": {
 "id": 17513760,
 "start": "2026-11-08T08:00:00Z",
-"min": null,
+"min": 185,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -13125,9 +13143,9 @@
 "aL": "DE",
 "hR": 442,
 "aR": 643,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -13139,15 +13157,15 @@
 7
 ],
 [
-2,
-1
+6,
+4
 ]
 ]
 },
 "17513893": {
 "id": 17513893,
 "start": "2026-11-08T09:00:00Z",
-"min": null,
+"min": 121,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
 "belag": "hard",
@@ -13160,9 +13178,9 @@
 "aL": "ES",
 "hR": 854,
 "aR": 324,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualifications",
 "satz": [
 [
@@ -13174,8 +13192,8 @@
 7
 ],
 [
-2,
-1
+6,
+2
 ]
 ]
 },
@@ -13203,7 +13221,7 @@
 },
 "17513746": {
 "id": 17513746,
-"start": "2026-11-08T10:50:00Z",
+"start": "2026-11-08T11:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -13217,11 +13235,24 @@
 "aL": "BG",
 "hR": 657,
 "aR": 611,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+1,
+6
+],
+[
+0,
+1
+]
+]
 },
 "17513764": {
 "id": 17513764,
@@ -13247,8 +13278,8 @@
 },
 "17513755": {
 "id": 17513755,
-"start": "2026-11-08T10:50:00Z",
-"min": null,
+"start": "2026-11-08T11:35:00Z",
+"min": 58,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -13261,16 +13292,25 @@
 "aL": "FI",
 "hR": null,
 "aR": 624,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+0,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17513833": {
 "id": 17513833,
 "start": "2026-11-08T10:00:00Z",
-"min": null,
+"min": 64,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
 "belag": "hard",
@@ -13283,21 +13323,25 @@
 "aL": "ES",
 "hR": null,
 "aR": 588,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
-0,
-3
+2,
+6
+],
+[
+2,
+6
 ]
 ]
 },
 "17513834": {
 "id": 17513834,
 "start": "2026-11-08T10:00:00Z",
-"min": null,
+"min": 90,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
 "belag": "hard",
@@ -13310,21 +13354,25 @@
 "aL": "FR",
 "hR": 1336,
 "aR": 645,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
-1,
-1
+3,
+6
+],
+[
+3,
+6
 ]
 ]
 },
 "17513864": {
 "id": 17513864,
 "start": "2026-11-08T10:00:00Z",
-"min": null,
+"min": 49,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
 "belag": "hard",
@@ -13337,21 +13385,25 @@
 "aL": "FR",
 "hR": null,
 "aR": 605,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
 4,
-5
+6
+],
+[
+2,
+6
 ]
 ]
 },
 "17455094": {
 "id": 17455094,
 "start": "2026-11-08T10:00:00Z",
-"min": null,
+"min": 78,
 "kat": "Challenger",
 "turnier": "Taranto, Italy",
 "belag": "hard",
@@ -13364,20 +13416,24 @@
 "aL": "FR",
 "hR": 262,
 "aR": 244,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Final",
 "satz": [
 [
+3,
+6
+],
+[
 2,
-5
+6
 ]
 ]
 },
 "17513889": {
 "id": 17513889,
-"start": "2026-11-08T10:50:00Z",
+"start": "2026-11-08T11:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13391,16 +13447,25 @@
 "aL": "FR",
 "hR": 1179,
 "aR": 334,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualifications",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+5,
+4
+]
+]
 },
 "17513892": {
 "id": 17513892,
-"start": "2026-11-08T10:50:00Z",
-"min": null,
+"start": "2026-11-08T11:20:00Z",
+"min": 77,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
 "belag": "hard",
@@ -13413,15 +13478,24 @@
 "aL": "UA",
 "hR": 266,
 "aR": 414,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualifications",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+6,
+1
+]
+]
 },
 "17513756": {
 "id": 17513756,
-"start": "2026-11-08T12:00:00Z",
+"start": "2026-11-08T12:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -13443,7 +13517,7 @@
 },
 "17513758": {
 "id": 17513758,
-"start": "2026-11-08T12:00:00Z",
+"start": "2026-11-08T12:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -13465,7 +13539,7 @@
 },
 "17513766": {
 "id": 17513766,
-"start": "2026-11-08T11:40:00Z",
+"start": "2026-11-08T12:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -13479,16 +13553,25 @@
 "aL": "IT",
 "hR": 521,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+0
+],
+[
+2,
+0
+]
+]
 },
 "17513863": {
 "id": 17513863,
 "start": "2026-11-08T11:10:00Z",
-"min": null,
+"min": 67,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
 "belag": "hard",
@@ -13501,15 +13584,24 @@
 "aL": "FR",
 "hR": null,
 "aR": 628,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17513865": {
 "id": 17513865,
-"start": "2026-11-08T11:10:00Z",
+"start": "2026-11-08T12:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
@@ -13523,15 +13615,24 @@
 "aL": "IT",
 "hR": 838,
 "aR": 827,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+1,
+0
+]
+]
 },
 "17513866": {
 "id": 17513866,
-"start": "2026-11-08T11:10:00Z",
+"start": "2026-11-08T11:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
@@ -13545,15 +13646,24 @@
 "aL": "BG",
 "hR": 545,
 "aR": 1202,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+1
+],
+[
+6,
+4
+]
+]
 },
 "17513896": {
 "id": 17513896,
-"start": "2026-11-08T12:00:00Z",
+"start": "2026-11-08T12:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13575,7 +13685,7 @@
 },
 "17513903": {
 "id": 17513903,
-"start": "2026-11-08T12:00:00Z",
+"start": "2026-11-08T12:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13597,7 +13707,7 @@
 },
 "17513754": {
 "id": 17513754,
-"start": "2026-11-08T13:00:00Z",
+"start": "2026-11-08T13:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -13619,7 +13729,7 @@
 },
 "17513747": {
 "id": 17513747,
-"start": "2026-11-08T13:00:00Z",
+"start": "2026-11-08T13:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -13641,7 +13751,7 @@
 },
 "17513759": {
 "id": 17513759,
-"start": "2026-11-08T12:50:00Z",
+"start": "2026-11-08T13:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -13663,7 +13773,7 @@
 },
 "17513862": {
 "id": 17513862,
-"start": "2026-11-08T12:20:00Z",
+"start": "2026-11-08T12:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
@@ -13685,7 +13795,7 @@
 },
 "17513832": {
 "id": 17513832,
-"start": "2026-11-08T12:20:00Z",
+"start": "2026-11-08T12:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia, Qualifying",
@@ -13699,15 +13809,20 @@
 "aL": "CZ",
 "hR": 561,
 "aR": 1053,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+0,
+1
+]
+]
 },
 "17513902": {
 "id": 17513902,
-"start": "2026-11-08T13:00:00Z",
+"start": "2026-11-08T13:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13729,7 +13844,7 @@
 },
 "17513895": {
 "id": 17513895,
-"start": "2026-11-08T13:00:00Z",
+"start": "2026-11-08T14:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13751,7 +13866,7 @@
 },
 "17513890": {
 "id": 17513890,
-"start": "2026-11-08T14:10:00Z",
+"start": "2026-11-08T15:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13773,7 +13888,7 @@
 },
 "17513891": {
 "id": 17513891,
-"start": "2026-11-08T14:10:00Z",
+"start": "2026-11-08T14:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13817,7 +13932,7 @@
 },
 "17513901": {
 "id": 17513901,
-"start": "2026-11-08T15:20:00Z",
+"start": "2026-11-08T16:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -13839,7 +13954,7 @@
 },
 "17513894": {
 "id": 17513894,
-"start": "2026-11-08T15:20:00Z",
+"start": "2026-11-08T16:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -15018,7 +15133,7 @@
 },
 "17514483": {
 "id": 17514483,
-"start": "2026-11-09T09:00:00Z",
+"start": "2026-11-09T18:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -15040,7 +15155,7 @@
 },
 "17514480": {
 "id": 17514480,
-"start": "2026-11-09T09:00:00Z",
+"start": "2026-11-09T15:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -15150,7 +15265,7 @@
 },
 "17514486": {
 "id": 17514486,
-"start": "2026-11-09T09:00:00Z",
+"start": "2026-11-09T19:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -15855,7 +15970,7 @@
 "17517570": {
 "id": 17517570,
 "start": "2026-11-08T09:00:00Z",
-"min": null,
+"min": 115,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
 "belag": "hard",
@@ -15868,9 +15983,9 @@
 "aL": "FR",
 "hR": null,
 "aR": 656,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualifications",
 "satz": [
 [
@@ -15878,15 +15993,19 @@
 4
 ],
 [
-3,
-4
+5,
+7
+],
+[
+7,
+5
 ]
 ]
 },
 "17517534": {
 "id": 17517534,
 "start": "2026-11-08T10:30:00Z",
-"min": null,
+"min": 80,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -15899,14 +16018,18 @@
 "aL": "FR",
 "hR": 1155,
 "aR": 744,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
+4,
+6
+],
+[
 0,
-0
+6
 ]
 ]
 },
@@ -15978,7 +16101,7 @@
 },
 "17517572": {
 "id": 17517572,
-"start": "2026-11-09T09:00:00Z",
+"start": "2026-11-09T15:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -15996,6 +16119,94 @@
 "desc": "Not started",
 "w": null,
 "runde": "Round of 32",
+"satz": []
+},
+"17518822": {
+"id": 17518822,
+"start": "2026-11-09T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Hersonissos 3, Greece, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Jack Loge",
+"a": "Odysseas Geladaris",
+"hId": 425564,
+"aId": 932313,
+"hL": "BE",
+"aL": "GR",
+"hR": 402,
+"aR": 1486,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17518895": {
+"id": 17518895,
+"start": "2026-11-09T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Branko Đurić",
+"a": "Nicolas Tepmahc",
+"hId": 329553,
+"aId": 253330,
+"hL": "RS",
+"aL": "FR",
+"hR": 480,
+"aR": 645,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17518598": {
+"id": 17518598,
+"start": "2026-11-09T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Semen Pankin",
+"a": "Maxime Janvier",
+"hId": 245046,
+"aId": 107625,
+"hL": "RU",
+"aL": "FR",
+"hR": 424,
+"aR": 605,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17518670": {
+"id": 17518670,
+"start": "2026-11-09T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Yannik Kelm",
+"a": "Pedro Vives Marcos",
+"hId": 391081,
+"aId": 213962,
+"hL": "DE",
+"aL": "ES",
+"hR": 440,
+"aR": 588,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
 "satz": []
 }
 }
