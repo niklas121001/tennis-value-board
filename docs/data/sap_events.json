@@ -10558,7 +10558,7 @@
 },
 "17511573": {
 "id": 17511573,
-"start": "2026-11-09T13:10:00Z",
+"start": "2026-11-09T13:20:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
@@ -10580,8 +10580,8 @@
 },
 "17511572": {
 "id": 17511572,
-"start": "2026-11-09T11:10:00Z",
-"min": null,
+"start": "2026-11-09T11:45:00Z",
+"min": 67,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
 "belag": "hard",
@@ -10594,15 +10594,24 @@
 "aL": "DE",
 "hR": 35,
 "aR": 58,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+6,
+3
+]
+]
 },
 "17511575": {
 "id": 17511575,
-"start": "2026-11-10T10:00:00Z",
+"start": "2026-11-10T14:20:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
@@ -10624,7 +10633,7 @@
 },
 "17511574": {
 "id": 17511574,
-"start": "2026-11-10T10:00:00Z",
+"start": "2026-11-10T17:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
@@ -10647,7 +10656,7 @@
 "17511576": {
 "id": 17511576,
 "start": "2026-11-09T12:00:00Z",
-"min": null,
+"min": 63,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
 "belag": "hard",
@@ -10660,11 +10669,20 @@
 "aL": "GB",
 "hR": 70,
 "aR": 45,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+0,
+6
+]
+]
 },
 "17511570": {
 "id": 17511570,
@@ -13328,7 +13346,7 @@
 },
 "17514479": {
 "id": 17514479,
-"start": "2026-11-09T11:10:00Z",
+"start": "2026-11-09T12:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -13372,8 +13390,8 @@
 },
 "17514470": {
 "id": 17514470,
-"start": "2026-11-09T11:10:00Z",
-"min": null,
+"start": "2026-11-09T11:45:00Z",
+"min": 67,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
 "belag": "hard",
@@ -13386,11 +13404,20 @@
 "aL": "IT",
 "hR": 368,
 "aR": 322,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+2
+]
+]
 },
 "17514478": {
 "id": 17514478,
@@ -13460,7 +13487,7 @@
 },
 "17514469": {
 "id": 17514469,
-"start": "2026-11-09T12:00:00Z",
+"start": "2026-11-09T12:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -14544,11 +14571,20 @@
 "aL": "FR",
 "hR": 480,
 "aR": 645,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+1,
+0
+]
+]
 },
 "17518598": {
 "id": 17518598,
@@ -14588,11 +14624,20 @@
 "aL": "ES",
 "hR": 440,
 "aR": 588,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+3,
+1
+]
+]
 },
 "17519870": {
 "id": 17519870,
@@ -14690,7 +14735,7 @@
 "17520785": {
 "id": 17520785,
 "start": "2026-11-09T09:45:00Z",
-"min": null,
+"min": 129,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -14703,14 +14748,18 @@
 "aL": "IT",
 "hR": 811,
 "aR": 552,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
 "satz": [
 [
-5,
-4
+6,
+7
+],
+[
+3,
+6
 ]
 ]
 },
@@ -14731,20 +14780,28 @@
 "hR": 452,
 "aR": 631,
 "st": "inprogress",
-"desc": "1st set",
+"desc": "3rd set",
 "w": null,
 "runde": "Qualification Final",
 "satz": [
 [
 6,
-6
+7
+],
+[
+6,
+4
+],
+[
+5,
+5
 ]
 ]
 },
 "17519961": {
 "id": 17519961,
 "start": "2026-11-09T09:40:00Z",
-"min": null,
+"min": 111,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -14757,13 +14814,17 @@
 "aL": "IT",
 "hR": 521,
 "aR": 531,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
 "satz": [
 [
 6,
+7
+],
+[
+2,
 6
 ]
 ]
@@ -14784,15 +14845,24 @@
 "aL": "FR",
 "hR": 526,
 "aR": 628,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+3,
+1
+]
+]
 },
 "17520223": {
 "id": 17520223,
-"start": "2026-11-09T12:20:00Z",
+"start": "2026-11-09T13:10:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
@@ -14806,11 +14876,16 @@
 "aL": "HR",
 "hR": 69,
 "aR": 133,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+0,
+1
+]
+]
 },
 "17519532": {
 "id": 17519532,
@@ -14880,7 +14955,7 @@
 },
 "17520227": {
 "id": 17520227,
-"start": "2026-11-10T10:00:00Z",
+"start": "2026-11-10T13:10:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
@@ -14916,8 +14991,8 @@
 "aL": "KZ",
 "hR": 47,
 "aR": 108,
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 32",
 "satz": []
@@ -14947,7 +15022,7 @@
 "17518825": {
 "id": 17518825,
 "start": "2026-11-09T10:00:00Z",
-"min": null,
+"min": 97,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
 "belag": "hard",
@@ -14960,21 +15035,25 @@
 "aL": "FR",
 "hR": null,
 "aR": 854,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
 "satz": [
 [
-5,
-5
+6,
+7
+],
+[
+4,
+6
 ]
 ]
 },
 "17519327": {
 "id": 17519327,
 "start": "2026-11-09T10:00:00Z",
-"min": null,
+"min": 140,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
 "belag": "hard",
@@ -14987,20 +15066,28 @@
 "aL": "FR",
 "hR": 266,
 "aR": 334,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Final",
 "satz": [
 [
 6,
-6
+7
+],
+[
+6,
+2
+],
+[
+7,
+5
 ]
 ]
 },
 "17520317": {
 "id": 17520317,
-"start": "2026-11-09T11:10:00Z",
+"start": "2026-11-09T11:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -15014,15 +15101,24 @@
 "aL": "FR",
 "hR": 209,
 "aR": 580,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+5,
+5
+]
+]
 },
 "17521795": {
 "id": 17521795,
-"start": "2026-11-09T11:10:00Z",
+"start": "2026-11-09T12:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -15036,15 +15132,20 @@
 "aL": "CZ",
 "hR": 394,
 "aR": 302,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualifications",
-"satz": []
+"satz": [
+[
+3,
+3
+]
+]
 },
 "17521796": {
 "id": 17521796,
-"start": "2026-11-09T12:20:00Z",
+"start": "2026-11-09T13:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -15066,7 +15167,7 @@
 },
 "17522250": {
 "id": 17522250,
-"start": "2026-11-09T13:00:00Z",
+"start": "2026-11-09T13:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France, Qualifying",
@@ -15660,19 +15761,19 @@
 },
 "17489489": {
 "id": 17489489,
-"start": "2026-11-10T17:00:00Z",
+"start": "2026-11-10T12:00:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "R16P9",
+"h": "Alex Michelsen",
 "a": "Juan Manuel Cerundolo",
-"hId": 393284,
+"hId": 406728,
 "aId": 248861,
-"hL": null,
+"hL": "US",
 "aL": "AR",
-"hR": null,
+"hR": 35,
 "aR": 54,
 "st": "notstarted",
 "desc": "Not started",
@@ -15755,13 +15856,13 @@
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Taylor Fritz",
-"a": "R16P2",
+"a": "Cameron Norrie",
 "hId": 136042,
-"aId": 393277,
+"aId": 95935,
 "hL": "US",
-"aL": null,
+"aL": "GB",
 "hR": 12,
-"aR": null,
+"aR": 45,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -15876,6 +15977,28 @@
 "desc": "Not started",
 "w": null,
 "runde": "Round of 16",
+"satz": []
+},
+"17525794": {
+"id": 17525794,
+"start": "2026-11-10T12:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Stockholm, Sweden",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Adrian Mannarino",
+"a": "Aleksandr Shevchenko",
+"hId": 15894,
+"aId": 264344,
+"hL": "FR",
+"aL": "KZ",
+"hR": 59,
+"aR": 108,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
 "satz": []
 }
 }
