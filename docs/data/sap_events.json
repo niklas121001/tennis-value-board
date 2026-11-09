@@ -9603,7 +9603,7 @@
 "17510898": {
 "id": 17510898,
 "start": "2026-11-09T04:30:00Z",
-"min": null,
+"min": 172,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
 "belag": "hard",
@@ -9616,24 +9616,28 @@
 "aL": "AU",
 "hR": 434,
 "aR": 404,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
+[
+6,
+7
+],
 [
 7,
 6
 ],
 [
-5,
-5
+6,
+2
 ]
 ]
 },
 "17510906": {
 "id": 17510906,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T03:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -9712,7 +9716,7 @@
 },
 "17510899": {
 "id": 17510899,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T02:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -9734,7 +9738,7 @@
 },
 "17510900": {
 "id": 17510900,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T01:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -9756,7 +9760,7 @@
 },
 "17510901": {
 "id": 17510901,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-11T00:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -9778,7 +9782,7 @@
 },
 "17510905": {
 "id": 17510905,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T02:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -9822,7 +9826,7 @@
 },
 "17510902": {
 "id": 17510902,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T06:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -10290,7 +10294,7 @@
 },
 "17511319": {
 "id": 17511319,
-"start": "2026-11-09T05:55:00Z",
+"start": "2026-11-10T02:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Matsuyama, Japan",
@@ -10304,21 +10308,29 @@
 "aL": "GB",
 "hR": 232,
 "aR": 212,
-"st": "inprogress",
-"desc": "1st set",
+"st": "interrupted",
+"desc": "Interrupted",
 "w": null,
 "runde": "Round of 32",
 "satz": [
 [
 2,
-4
+6
+],
+[
+6,
+3
+],
+[
+4,
+1
 ]
 ]
 },
 "17511232": {
 "id": 17511232,
 "start": "2026-11-09T05:40:00Z",
-"min": null,
+"min": 100,
 "kat": "Challenger",
 "turnier": "Matsuyama, Japan",
 "belag": "hard",
@@ -10331,9 +10343,9 @@
 "aL": "JP",
 "hR": 252,
 "aR": 929,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -10341,8 +10353,12 @@
 2
 ],
 [
-2,
-2
+3,
+6
+],
+[
+6,
+3
 ]
 ]
 },
@@ -10379,7 +10395,7 @@
 },
 "17511322": {
 "id": 17511322,
-"start": "2026-11-10T02:10:00Z",
+"start": "2026-11-10T02:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Matsuyama, Japan",
@@ -10476,7 +10492,7 @@
 },
 "17511318": {
 "id": 17511318,
-"start": "2026-11-10T03:20:00Z",
+"start": "2026-11-10T04:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Matsuyama, Japan",
@@ -13171,7 +13187,7 @@
 "hL": "JP",
 "aL": "JP",
 "hR": 483,
-"aR": 909,
+"aR": null,
 "st": "finished",
 "desc": "Ended",
 "w": 2,
@@ -13312,7 +13328,7 @@
 },
 "17514479": {
 "id": 17514479,
-"start": "2026-11-09T10:20:00Z",
+"start": "2026-11-09T11:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -13356,7 +13372,7 @@
 },
 "17514470": {
 "id": 17514470,
-"start": "2026-11-09T10:20:00Z",
+"start": "2026-11-09T11:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -13444,7 +13460,7 @@
 },
 "17514469": {
 "id": 17514469,
-"start": "2026-11-09T11:30:00Z",
+"start": "2026-11-09T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -14484,7 +14500,7 @@
 "17518822": {
 "id": 17518822,
 "start": "2026-11-09T08:00:00Z",
-"min": null,
+"min": 80,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -14497,11 +14513,20 @@
 "aL": "GR",
 "hR": 402,
 "aR": 1486,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+2
+]
+]
 },
 "17518895": {
 "id": 17518895,
@@ -14603,7 +14628,7 @@
 "17519428": {
 "id": 17519428,
 "start": "2026-11-09T08:00:00Z",
-"min": null,
+"min": 75,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -14616,16 +14641,25 @@
 "aL": "BG",
 "hR": 744,
 "aR": 611,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+0
+],
+[
+6,
+1
+]
+]
 },
 "17519196": {
 "id": 17519196,
 "start": "2026-11-09T08:00:00Z",
-"min": null,
+"min": 89,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
 "belag": "hard",
@@ -14638,15 +14672,24 @@
 "aL": "FI",
 "hR": 442,
 "aR": 624,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+1,
+6
+]
+]
 },
 "17520785": {
 "id": 17520785,
-"start": "2026-11-09T09:10:00Z",
+"start": "2026-11-09T09:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -14660,15 +14703,20 @@
 "aL": "IT",
 "hR": 811,
 "aR": 552,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+5,
+4
+]
+]
 },
 "17520565": {
 "id": 17520565,
-"start": "2026-11-09T09:10:00Z",
+"start": "2026-11-09T09:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -14682,15 +14730,20 @@
 "aL": "BG",
 "hR": 452,
 "aR": 631,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+6
+]
+]
 },
 "17519961": {
 "id": 17519961,
-"start": "2026-11-09T09:10:00Z",
+"start": "2026-11-09T09:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece, Qualifying",
@@ -14704,11 +14757,16 @@
 "aL": "IT",
 "hR": 521,
 "aR": 531,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+6
+]
+]
 },
 "17519116": {
 "id": 17519116,
@@ -14902,11 +14960,16 @@
 "aL": "FR",
 "hR": null,
 "aR": 854,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+5,
+5
+]
+]
 },
 "17519327": {
 "id": 17519327,
@@ -14924,11 +14987,16 @@
 "aL": "FR",
 "hR": 266,
 "aR": 334,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Final",
-"satz": []
+"satz": [
+[
+6,
+6
+]
+]
 },
 "17520317": {
 "id": 17520317,
@@ -15306,7 +15374,7 @@
 },
 "17524182": {
 "id": 17524182,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-11T00:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -15350,7 +15418,7 @@
 },
 "17524179": {
 "id": 17524179,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T06:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -15372,7 +15440,7 @@
 },
 "17524181": {
 "id": 17524181,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T01:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -15394,7 +15462,7 @@
 },
 "17524178": {
 "id": 17524178,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-10T01:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -15416,7 +15484,7 @@
 },
 "17524180": {
 "id": 17524180,
-"start": "2026-11-10T00:00:00Z",
+"start": "2026-11-11T00:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
@@ -15495,7 +15563,7 @@
 "hL": "JP",
 "aL": "JP",
 "hR": 123,
-"aR": 909,
+"aR": null,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -15759,6 +15827,50 @@
 "hL": "TW",
 "aL": null,
 "hR": 304,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17489933": {
+"id": 17489933,
+"start": "2026-11-11T00:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Brisbane 3, Australia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Alafia Ayeni",
+"a": "R16P12",
+"hId": 205313,
+"aId": 393287,
+"hL": "US",
+"aL": null,
+"hR": 434,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17489701": {
+"id": 17489701,
+"start": "2026-11-11T01:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Matsuyama, Japan",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Jay Friend",
+"a": "R16P16",
+"hId": 393595,
+"aId": 393291,
+"hL": "JP",
+"aL": null,
+"hR": 252,
 "aR": null,
 "st": "notstarted",
 "desc": "Not started",
