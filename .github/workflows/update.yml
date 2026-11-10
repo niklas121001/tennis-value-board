@@ -148,16 +148,16 @@ jobs:
         working-directory: scripts
         run: python extra_players.py
 
+      - name: H2H-Duelle (Tennis Abstract, letzte 12 Monate)
+        continue-on-error: true
+        working-directory: scripts
+        run: python h2h_ta.py
+
       - name: Ergebnisse, Belag und H2H (SportsAPIPro)
         if: ${{ env.SPORTSAPIPRO_KEY != '' }}
         continue-on-error: true
         working-directory: scripts
         run: python sportsapipro.py
-
-      - name: H2H-Duelle (Tennis Abstract, letzte 12 Monate)
-        continue-on-error: true
-        working-directory: scripts
-        run: python h2h_ta.py
 
       - name: Aufschlag-/Returnwerte fortschreiben
         continue-on-error: true

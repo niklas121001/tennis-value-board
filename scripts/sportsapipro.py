@@ -490,8 +490,21 @@ def main():
     kommend = sorted((m for m in mj.get("partien", []) if m.get("sapId") and m.get("quoten")
                       and zeit(m.get("start")) and zeit(m["start"]) > jetzt
                       and str(m["sapId"]) not in h2h["abrufe"]), key=lambda m: m["start"])
-    n_h2h = 0
+    # Spart Abfragen für die Spielerstatistiken: Hat Tennis Abstract das Duell schon (h2h_ta.json läuft vorher, Karriere-
+    # Matchlisten aller Stufen), wird die Bilanz von dort übernommen – nur ohne TA-Daten wird die API gefragt.
+    ta = load("h2h_ta.json", {}) or {}
+    n_h2h, n_ta = 0, 0
     for m in kommend:
+        x, y = sorted([m["a"], m["b"]]); tp = (ta.get("paare") or {}).get(f"{x}|{y}")
+        if tp is not None and isinstance(tp.get("duelle"), list):
+            wx = sum(1 for d in tp["duelle"] if d[4] == 0 and not re.search(r"W/O|walkover", str(d[5]), re.I))
+            wy = sum(1 for d in tp["duelle"] if d[4] == 1 and not re.search(r"W/O|walkover", str(d[5]), re.I))
+            wa, wb = (wx, wy) if m["a"] == x else (wy, wx)
+            h2h["paare"].pop(f"{m['b']}|{m['a']}", None)
+            h2h["paare"][f"{m['a']}|{m['b']}"] = [wa, wb]
+            h2h["abrufe"][str(m["sapId"])] = {"paar": f"{m['a']}|{m['b']}", "datum": heute_utc, "quelle": "TA"}
+            n_ta += 1
+            continue
         js = get(f"/match/{m['sapId']}/h2h")
         if js is None:
             if frei() <= 0:
@@ -560,7 +573,7 @@ def main():
     ohne = [m for m in mj.get("partien", []) if not m.get("sapId")]
     print(f"SportsAPIPro: {anfragen[0]} Abfragen, Rest heute {rest[0]}. Partien im Cache: {len(cache)} ({n_ev} geladen). "
           f"Zugeordnet: {len(mj.get('partien', [])) - len(ohne)}/{len(mj.get('partien', []))} Board-Partien "
-          f"({neu_map} neu). Belag gesetzt: {n_belag}. H2H abgerufen: {n_h2h} (offen {len(kommend) - n_h2h}). "
+          f"({neu_map} neu). Belag gesetzt: {n_belag}. H2H abgerufen: {n_h2h}, aus Tennis Abstract: {n_ta} (offen {len(kommend) - n_h2h - n_ta}). "
           f"Statistiken: {n_stats} neu, {len(stats)} gesamt.")
     for m in ohne[:8]:
         print(f"  nicht zugeordnet: {m.get('turnier')}: {m.get('a')} – {m.get('b')} ({m.get('start')})")
