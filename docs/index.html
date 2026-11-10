@@ -2060,6 +2060,13 @@ let H2HL = null, H2HTA = null, H2H_P = null;
 j("h2h_ta.json", {paare:{}}).then(t => { H2HTA = t || {paare:{}}; if(D){ D.hbTA = H2HTA.hb || {}; D.handTA = H2HTA.haende || {}; D.tempoTA = H2HTA.tempo || {}; render(); } });   // klein: gleich beim Start (Schlaghand, Bilanz gg. Linkshänder)
 function h2hLaden(){ if(H2H_P) return H2H_P;
   return H2H_P = Promise.all([j("h2h_liste.json", {paare:{}}), H2HTA ? Promise.resolve(H2HTA) : j("h2h_ta.json", {paare:{}})]).then(([l, t]) => { H2HL = l || {paare:{}}; H2HTA = t || {paare:{}}; render(); }); }
+// Challenger ohne Tennis-Abstract-Daten: kein H2H-Abruf bei SportsAPIPro (spart Anfragen) -> "kein H2H gefunden"
+function keinH2H(p){
+  if(!p || p.calc || !isChTip(p)) return false;
+  const [x, y] = [p.a, p.b].sort(), api = D && D.h2hApi || {};
+  if(H2HTA && H2HTA.paare && H2HTA.paare[x + "|" + y]) return false;
+  return !api[`${p.a}|${p.b}`] && !api[`${p.b}|${p.a}`];
+}
 function h2hDuelle(a, b){
   const [x, y] = [a, b].sort(), key = x + "|" + y, out = [];
   const dat = (s) => new Date(`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T12:00:00Z`);
@@ -2085,7 +2092,7 @@ function h2hBoxHtml(p){
   const api = (D.h2hApi || {})[`${p.a}|${p.b}`] || ((D.h2hApi || {})[`${p.b}|${p.a}`] || []).slice().reverse();
   const gesamt = api && api.length && (api[0] + api[1]) > xs.length ? `<div class="time">Gesamtbilanz aller Stufen (SportsAPIPro): ${api[0]}:${api[1]} – nicht alle Duelle mit Details bekannt</div>` : "";
   const zeile = (e) => `<tr><td class="l time">${e.d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"2-digit",timeZone:"UTC"})}</td><td class="l">${esc(e.t)}<div class="time">${BEL_K[e.bel] || ""}${e.r ? " · " + esc(RUNDE_K(e.r)) : ""}</div></td><td class="l"><b>${esc(e.sieger.split(" ").slice(-1)[0])}</b><div class="time erg">${esc(e.erg || "")}</div></td></tr>`;
-  if(!xs.length) return `<div class="box"><h3>H2H-Duelle</h3><p class="time">Keine Duelle mit Details bekannt.</p>${gesamt}</div>`;
+  if(!xs.length) return `<div class="box"><h3>H2H-Duelle</h3><p class="time">${keinH2H(p) ? "Kein H2H gefunden (Spieler nicht bei Tennis Abstract)." : "Keine Duelle mit Details bekannt."}</p>${gesamt}</div>`;
   const tab = (ys) => `<table class="h2ht"><tbody>${ys.map(zeile).join("")}</tbody></table>`;
   return `<div class="box"><h3>H2H-Duelle <span class="time" style="text-transform:none;letter-spacing:0">${esc(p.a.split(" ").slice(-1)[0])} ${wa}:${wb} ${esc(p.b.split(" ").slice(-1)[0])}</span></h3>
     ${tab(xs.slice(0, 5))}${xs.length > 5 ? `<details class="h2hmehr"><summary class="time">alle ${xs.length} Duelle zeigen</summary>${tab(xs.slice(5))}</details>` : ""}${gesamt}
@@ -2155,7 +2162,7 @@ function detailHtml(p, r){
     <div class="box"><h3>Wahrscheinlichkeit A</h3><div class="kv two">
       <span class="k">Statistik (Markov)${r.nurElo?" – entfällt":""}</span><span class="v">${pc(r.pStats)}</span>
       <span class="k">Elo</span><span class="v">${pc(r.pElo)}</span>
-      <span class="k">H2H ${r.h2h.a}:${r.h2h.b} (${r.h2h.quelle==="spieldaten"?"alle Duelle, ":""}Gewicht ${pc(r.h2h.gewicht,0)})</span><span class="v">${r.h2h.n?pc(r.h2h.pct):"–"}</span>
+      <span class="k">${!r.h2h.n && keinH2H(p) ? "H2H: kein H2H gefunden" : `H2H ${r.h2h.a}:${r.h2h.b} (${r.h2h.quelle==="spieldaten"?"alle Duelle, ":""}Gewicht ${pc(r.h2h.gewicht,0)})`}</span><span class="v">${r.h2h.n?pc(r.h2h.pct):"–"}</span>
       <span class="k">Kombiniert</span><span class="v">${pc(r.pKombi)}</span>
       <span class="k">Kalibriert (k ${fx(D.params.K_KALIBRIERUNG,1)})</span><span class="v">${pc(r.pKal)}</span>
       <span class="k">Markt (entvigt)</span><span class="v">${pc(r.pMarkt)}</span>
