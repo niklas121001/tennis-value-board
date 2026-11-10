@@ -1,0 +1,8 @@
+name: Probe robots
+on: { workflow_dispatch: {} }
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -sS -m 30 -A "Mozilla/5.0 (TennisValueApp; private use)" -D - https://www.tennisabstract.com/robots.txt | head -c 6000
