@@ -10,6 +10,7 @@ const D = { params: P.params, csi: P.csi, tempo: (rd("tempo.json", {}) || {}).tu
   playerStatsWeb: (rd("player_stats_web.json", {}) || {}).spieler || {}, serveLive: (rd("serve_live.json", {}) || {}).spieler || {} };
 D.tempoTA = (rd("h2h_ta.json", {}) || {}).tempo || {};
 D.holdStats = rd("hold_stats.json", null);
+D.taStats = (rd("ta_stats.json", {}) || {}).spieler || {};   // Aufschlagwerte von Tennis Abstract (Test-Variante R)
 // 1U auf Sieg je Spieler aus dem Ergebnis-Archiv: Partien, Siege, Summe der fairen Markt-Siegchancen -> spieler_markt.json
 {
   const arc = {}, out = {};
@@ -368,6 +369,7 @@ for (const m of matches) {
       if (e.pI == null && rNow.ok && rNow.varianten && rNow.varianten.I) e.pI = r3(rNow.varianten.I.p);   // Variante I = nur Modell (ab 02.11.)
       if (e.pJ == null && rNow.ok && rNow.varianten && rNow.varianten.J) e.pJ = r3(rNow.varianten.J.p);   // Variante J = Modell gesamt ohne Markt (ab 02.11.)
       if (e.pK == null && rNow.ok && rNow.varianten && rNow.varianten.K) e.pK = r3(rNow.varianten.K.p);   // Variante K = Konsens (Mittel A, D, F, H)
+      if (e.pR == null && rNow.ok && rNow.varianten && rNow.varianten.R) { e.pR = r3(rNow.varianten.R.p); e.pStatsR = r3(rNow.varianten.R.pStats); e.pKalR = r3(rNow.varianten.R.pKal); e.taN = [rNow.varianten.R.taA, rNow.varianten.R.taB]; }   // Variante R = Aufschlagwerte von Tennis Abstract (ab 11.11.)
       if (e.pN == null && rNow.ok && rNow.varianten && rNow.varianten.N) e.pN = r3(rNow.varianten.N.p);   // Variante N = 25 % Modell
       if (e.pTbM == null && rNow.ok && rNow.maerkte) { e.pTb1 = r3(rNow.maerkte.tb1); e.pTbM = r3(rNow.maerkte.tbMatch);       // Tiebreak heute vs. Test „nach Platztempo“
         if (rNow.maerkte.tbTest) { e.pTb1T = r3(rNow.maerkte.tbTest.tb1); e.pTbMT = r3(rNow.maerkte.tbTest.tbMatch); }
@@ -387,7 +389,7 @@ for (const m of matches) {
     qaM: qs.length ? r3(qs.reduce((x, q) => x + q[0], 0) / qs.length) : null,   // Durchschnittsquote (Spieler-Check)
     qbM: qs.length ? r3(qs.reduce((x, q) => x + q[1], 0) / qs.length) : null, nurElo: !!r.nurElo, statsDurchschnitt: !!r.statsDurchschnitt,
     geschaetzt: !!(r.eloGeschaetztA || r.eloGeschaetztB), quali: !!m.quali, modus: r.modus, csi: r.csi, gesehen: now,
-    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null, pH: r.varianten && r.varianten.H ? r3(r.varianten.H.p) : null, pI: r.varianten && r.varianten.I ? r3(r.varianten.I.p) : null, pJ: r.varianten && r.varianten.J ? r3(r.varianten.J.p) : null, pK: r.varianten && r.varianten.K ? r3(r.varianten.K.p) : null, pN: r.varianten && r.varianten.N ? r3(r.varianten.N.p) : null, pTb1: r.maerkte ? r3(r.maerkte.tb1) : null, pTbM: r.maerkte ? r3(r.maerkte.tbMatch) : null,
+    pB: r.varianten ? r3(r.varianten.B.p) : null, pC: r.varianten ? r3(r.varianten.C.p) : null, pD: r.varianten && r.varianten.D ? r3(r.varianten.D.p) : null, pE: r.varianten && r.varianten.E ? r3(r.varianten.E.p) : null, pF: r.varianten && r.varianten.F ? r3(r.varianten.F.p) : null, pG: r.varianten && r.varianten.G ? r3(r.varianten.G.p) : null, pH: r.varianten && r.varianten.H ? r3(r.varianten.H.p) : null, pI: r.varianten && r.varianten.I ? r3(r.varianten.I.p) : null, pJ: r.varianten && r.varianten.J ? r3(r.varianten.J.p) : null, pK: r.varianten && r.varianten.K ? r3(r.varianten.K.p) : null, pN: r.varianten && r.varianten.N ? r3(r.varianten.N.p) : null, ...(r.varianten && r.varianten.R ? { pR: r3(r.varianten.R.p), pStatsR: r3(r.varianten.R.pStats), pKalR: r3(r.varianten.R.pKal), taN: [r.varianten.R.taA, r.varianten.R.taB] } : {}), pTb1: r.maerkte ? r3(r.maerkte.tb1) : null, pTbM: r.maerkte ? r3(r.maerkte.tbMatch) : null,
     pTb1T: r.maerkte && r.maerkte.tbTest ? r3(r.maerkte.tbTest.tb1) : null, pTbMT: r.maerkte && r.maerkte.tbTest ? r3(r.maerkte.tbTest.tbMatch) : null,
     pTb1H: r.maerkte && r.maerkte.tbHold ? r3(r.maerkte.tbHold.tb1) : null, pTbMH: r.maerkte && r.maerkte.tbHold ? r3(r.maerkte.tbHold.tbMatch) : null,
     pStatsC: r.varianten ? r3(r.varianten.C.pStats) : null,

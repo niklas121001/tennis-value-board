@@ -558,7 +558,34 @@
     const gesamt = gesamtRechnen(pinFair ?? pMarkt, pinFair != null ? "Pinnacle" : "Buchmacher");
     const gesamtModell = gesamtRechnen(pKal, "Modell");
 
+    // R (Test seit 11.11.2026): wie A, aber Aufschlag-/Returnwerte aus den Tennis-Abstract-Matchstatistiken der letzten
+    // 12 Monate (ta_stats.json, Tour + Challenger) statt Excel-Stand/Durchschnitt – je Spieler ab R_MIN_SPIELE Matches
+    // auf dem Belag, sonst bleibt dessen bisheriger Wert. Ohne Tennis-Abstract-Werte beider Spieler entfällt R.
+    let pR = null, rInfo = null;
+    {
+      const taS = (n) => { const x = D.taStats && D.taStats[n] && D.taStats[n][s]; return Array.isArray(x) && x[0] >= (P.R_MIN_SPIELE ?? 5) ? x : null; };
+      const ra = taS(match.a), rb = taS(match.b);
+      if (ra || rb) {
+        const mit = (p, x) => (x ? Object.assign({}, p, { [s + "_1in"]: x[1], [s + "_1won"]: x[2], [s + "_2won"]: x[3], [retKey]: x[4] }) : p);
+        const qa_ = mit(sa, ra), qb_ = mit(sb, rb);
+        const okA = !!ra || !out.statsFehlenA || mitAvg, okB = !!rb || !out.statsFehlenB || mitAvg;
+        let pSR = 0.5, wSR = 0;
+        if (okA && okB && [qa_, qb_].every((q) => felder.every((k) => isNum(q[k])))) {
+          const xA = clip(srv(qa_, qb_[retKey]) + adj, P.P_SRV_MIN, P.P_SRV_MAX), xB = clip(srv(qb_, qa_[retKey]) + adj, P.P_SRV_MIN, P.P_SRV_MAX);
+          let sR = pSet(pGame(xA), pGame(xB), tbA, tbB, P.W_TB);
+          if (!isFinite(sR)) sR = 0.5;
+          pSR = pMatch(sR, mode); wSR = weights(sk, csi, P)[0];
+          rInfo = { pSrvA: xA, pSrvB: xB };
+        }
+        const kR = clip((wSR * pSR + wE * pElo + h2hW * h2hPct) / (wSR + wE + h2hW) + erf, 0.05, 0.95);
+        const kalR = sigm(P.K_KALIBRIERUNG * logit(clip(kR, 0.02, 0.98)));
+        pR = pMarkt === null ? kalR : sigm(P.W_MODELL_BLEND * logit(kalR) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
+        rInfo = Object.assign(rInfo || {}, { pStats: pSR, pKal: kalR, taA: ra ? ra[0] : 0, taB: rb ? rb[0] : 0 });
+      }
+    }
+
     const varianten = {
+      ...(pR !== null ? { R: Object.assign(bewerte(pR, match, haveOdds, D, P), rInfo) } : {}),
       D: bewerte(pD, match, haveOdds, D, P),
       F: bewerte(pF, match, haveOdds, D, P),
       ...(pE !== null ? { E: bewerte(pE, match, haveOdds, D, P) } : {}),

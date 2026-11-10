@@ -40,9 +40,8 @@ def laden(name, versuche=2):
     return None
 
 
-def zeilen(txt):
-    """Alle gespielten Matches der Karriere (Array matchmx, alle Stufen inkl. Challenger/ITF):
-    (Datum YYYYMMDD = Turnierbeginn, Turnier, Belag, Runde, gewonnen?, Gegner, Ergebnis aus Siegersicht, Gegnerhand)."""
+def roh_zeilen(txt):
+    """Array matchmx der Spielerseite als Liste (48 Spalten je Match); [] wenn nicht lesbar."""
     m = re.search(r"var\s+matchmx\s*=\s*\[", txt or "")
     if not m:
         return []
@@ -62,15 +61,47 @@ def zeilen(txt):
                 break
     roh = re.sub(r",\s*\]", "]", txt[i:j + 1])
     try:
-        rows = json.loads(roh)
+        return json.loads(roh)
     except ValueError as e:
         print("  matchmx nicht lesbar:", str(e)[:120], roh[-120:].replace("\n", " "))
         return []
+
+
+def zeilen(txt):
+    """Alle gespielten Matches der Karriere (Array matchmx, alle Stufen inkl. Challenger/ITF):
+    (Datum YYYYMMDD = Turnierbeginn, Turnier, Belag, Runde, gewonnen?, Gegner, Ergebnis aus Siegersicht, Gegnerhand)."""
     out = []
-    for r in rows:
+    for r in roh_zeilen(txt):
         if len(r) < 16 or r[4] not in ("W", "L"):
             continue                                  # "U" = noch nicht gespielt
         out.append((str(r[0]), r[1], (r[2] or "?")[:1].upper(), r[8], r[4] == "W", html.unescape(r[11] or "").strip(), r[9] or "", r[15]))
+    return out
+
+
+TA_STUFEN = {"G", "M", "A", "F", "C", "D"}     # Grand Slam, Masters, ATP, Finals, Challenger, Davis Cup – ohne ITF (15/25)
+
+
+def aufschlag(txt, ab):
+    """Aufschlag-/Returnwerte je Belag aus den Match-Statistiken der Spielerseite (Spalten 21–38), Turnierbeginn ab `ab`
+    (YYYYMMDD), nur Tour- und Challenger-Ebene. Ergebnis je Belag: [Matches, 1. Aufschlag im Feld, Punkte hinter dem 1.,
+    Punkte hinter dem 2., Returnpunkte gewonnen, Aufschlagspiele gehalten, Aufschlagpunkte]."""
+    z = lambda v: int(v) if str(v).strip().lstrip("-").isdigit() else None
+    sm = {}
+    for r in roh_zeilen(txt):
+        if len(r) < 39 or r[4] not in ("W", "L") or str(r[0]) < ab or str(r[3]) not in TA_STUFEN:
+            continue
+        b = {"H": "hard", "C": "clay", "G": "grass"}.get((r[2] or "?")[:1].upper())
+        sv, in1, w1, w2, sg, bs, bf = (z(r[k]) for k in (23, 24, 25, 26, 27, 28, 29))
+        osv, ow1, ow2 = z(r[32]), z(r[34]), z(r[35])
+        if not b or None in (sv, in1, w1, w2, osv, ow1, ow2) or sv < 20 or osv < 20 or in1 <= 0 or sv - in1 <= 0:
+            continue
+        a = sm.setdefault(b, [0] * 10)
+        for i_, v in enumerate((1, sv, in1, w1, w2, osv, ow1 + ow2, sg or 0, (bf or 0) - (bs or 0) if sg else 0)):
+            a[i_] += v
+    out = {}
+    for b, (n, sv, in1, w1, w2, osv, ow, sg, brk, _) in sm.items():
+        out[b] = [n, round(in1 / sv, 4), round(w1 / in1, 4), round(w2 / (sv - in1), 4), round(1 - ow / osv, 4),
+                  round(1 - brk / sg, 4) if sg else None, sv]
     return out
 
 
@@ -122,6 +153,9 @@ def main():
     if st.get("version") != 2:                    # 30.10.2026: Quelle auf komplette Karriere umgestellt -> alles neu laden
         st = {"version": 2, "spieler": {}, "paare": {}, "hb": {}, "haende": {}}
     heute = datetime.date.today().isoformat()
+    ab12 = (datetime.date.today() - datetime.timedelta(days=365)).strftime("%Y%m%d")
+    tas = load("ta_stats.json", {}) or {}
+    tas.setdefault("spieler", {})
     jetzt = datetime.datetime.now(datetime.timezone.utc).isoformat()
     partien = [m for m in load("matches.json", {}).get("partien", [])
                if m.get("hatQuoten") and str(m.get("start", "")) > jetzt[:19] and m.get("aInDb") and m.get("bInDb")]
@@ -162,6 +196,10 @@ def main():
             st["spieler"][name]["grund"] = LETZTER_FEHLER[0] or (f"keine Matchliste (Seite {len(txt)} Zeichen)" if txt else "leer")
         if eigene_hand(txt):
             st.setdefault("haende", {})[name] = eigene_hand(txt)
+        if ok:      # Aufschlag-/Returnwerte der letzten 12 Monate (Test-Variante R) -> ta_stats.json
+            w = aufschlag(txt, ab12)
+            if w:
+                tas["spieler"][name] = dict(w, datum=heute)
         z = [(d, t, b, r, gew, nm.match(geg), erg, h) for d, t, b, r, gew, geg, erg, h in roh] if ok else None
         seiten[name] = z
         if z:   # Bilanz gegen Links-/Rechtshänder je Monat seit 2023 (Gegnerhand direkt von Tennis Abstract), ohne Aufgaben
@@ -204,7 +242,8 @@ def main():
         """Seite neu laden: nicht heute geladen oder (neue) Auswertungen 1. Satz / Platztempo fehlen noch."""
         if me in seiten or (st["spieler"].get(me) or {}).get("datum") == heute and not (st["spieler"].get(me) or {}).get("ok", True):
             return False                              # heute schon geladen bzw. heute schon ohne Erfolg versucht
-        return (st["hb"].get(me) or {}).get("datum") != heute or me not in st.get("fs", {}) or me not in st.get("tempo", {})
+        return (st["hb"].get(me) or {}).get("datum") != heute or me not in st.get("fs", {}) or me not in st.get("tempo", {}) \
+            or not tas.get("stand")                  # erster Lauf mit Aufschlagwerten: alle Seiten einmal neu auswerten
 
     for m in sorted(partien, key=lambda m: (m.get("kategorie") != "ATP", m.get("start"))):
         x, y = sorted([m["a"], m["b"]])
@@ -235,6 +274,13 @@ def main():
     grenze = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
     st["spieler"] = {k: v for k, v in st["spieler"].items() if v.get("datum", "") >= grenze}
     save("h2h_ta.json", st, indent=0)
+    g60 = (datetime.date.today() - datetime.timedelta(days=60)).isoformat()
+    tas["spieler"] = {k: v for k, v in tas["spieler"].items() if v.get("datum", "") >= g60}
+    tas["stand"] = heute
+    tas["quelle"] = "Tennis Abstract, Match-Statistiken der letzten 12 Monate (Tour + Challenger, ohne ITF); nur privat"
+    tas["format"] = "je Belag: [Matches, 1. Aufschlag im Feld, Punkte 1. Aufschlag, Punkte 2. Aufschlag, Returnpunkte, Aufschlagspiele gehalten, Aufschlagpunkte]"
+    save("ta_stats.json", tas, indent=0)
+    print(f"Aufschlagwerte Tennis Abstract: {len(tas['spieler'])} Spieler gespeichert")
     print(f"H2H Tennis Abstract: {neu} Paare aktualisiert, {abrufe} Seiten geladen, {len(st['paare'])} Paare gespeichert; "
           f"Bilanz gegen Links-/Rechtshänder für {n_hb} Spieler aktualisiert ({len(st['hb'])} gespeichert)")
 
