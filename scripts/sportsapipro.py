@@ -493,7 +493,7 @@ def main():
     # Spart Abfragen für die Spielerstatistiken: Hat Tennis Abstract das Duell schon (h2h_ta.json läuft vorher, Karriere-
     # Matchlisten aller Stufen), wird die Bilanz von dort übernommen – nur ohne TA-Daten wird die API gefragt.
     ta = load("h2h_ta.json", {}) or {}
-    n_h2h, n_ta = 0, 0
+    n_h2h, n_ta, n_ch = 0, 0, 0
     for m in kommend:
         x, y = sorted([m["a"], m["b"]]); tp = (ta.get("paare") or {}).get(f"{x}|{y}")
         if tp is not None and isinstance(tp.get("duelle"), list):
@@ -504,6 +504,9 @@ def main():
             h2h["paare"][f"{m['a']}|{m['b']}"] = [wa, wb]
             h2h["abrufe"][str(m["sapId"])] = {"paar": f"{m['a']}|{m['b']}", "datum": heute_utc, "quelle": "TA"}
             n_ta += 1
+            continue
+        if str(m.get("kategorie", "")).lower() == "challenger":   # Challenger ohne TA-Daten: kein H2H (Anfragen für Statistiken)
+            n_ch += 1
             continue
         js = get(f"/match/{m['sapId']}/h2h")
         if js is None:
@@ -573,7 +576,7 @@ def main():
     ohne = [m for m in mj.get("partien", []) if not m.get("sapId")]
     print(f"SportsAPIPro: {anfragen[0]} Abfragen, Rest heute {rest[0]}. Partien im Cache: {len(cache)} ({n_ev} geladen). "
           f"Zugeordnet: {len(mj.get('partien', [])) - len(ohne)}/{len(mj.get('partien', []))} Board-Partien "
-          f"({neu_map} neu). Belag gesetzt: {n_belag}. H2H abgerufen: {n_h2h}, aus Tennis Abstract: {n_ta} (offen {len(kommend) - n_h2h - n_ta}). "
+          f"({neu_map} neu). Belag gesetzt: {n_belag}. H2H abgerufen: {n_h2h}, aus Tennis Abstract: {n_ta}, Challenger ohne H2H: {n_ch} (offen {len(kommend) - n_h2h - n_ta - n_ch}). "
           f"Statistiken: {n_stats} neu, {len(stats)} gesamt.")
     for m in ohne[:8]:
         print(f"  nicht zugeordnet: {m.get('turnier')}: {m.get('a')} – {m.get('b')} ({m.get('start')})")
