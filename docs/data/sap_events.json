@@ -9183,7 +9183,7 @@
 "17514488": {
 "id": 17514488,
 "start": "2026-11-11T10:00:00Z",
-"min": null,
+"min": 138,
 "kat": "Challenger",
 "turnier": "Orleans, France",
 "belag": "hard",
@@ -9196,20 +9196,28 @@
 "aL": "ES",
 "hR": 142,
 "aR": 124,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
 4,
-5
+6
+],
+[
+6,
+4
+],
+[
+4,
+6
 ]
 ]
 },
 "17514487": {
 "id": 17514487,
-"start": "2026-11-11T12:30:00Z",
+"start": "2026-11-11T13:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -9478,11 +9486,20 @@
 "aL": "PT",
 "hR": 262,
 "aR": 318,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+4,
+4
+]
+]
 },
 "17514490": {
 "id": 17514490,
@@ -12063,11 +12080,16 @@
 "aL": "CL",
 "hR": 106,
 "aR": 30,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+6
+]
+]
 },
 "17489488": {
 "id": 17489488,
@@ -12697,7 +12719,7 @@
 "17488838": {
 "id": 17488838,
 "start": "2026-11-11T09:40:00Z",
-"min": null,
+"min": 79,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
 "belag": "hard",
@@ -12710,9 +12732,9 @@
 "aL": "GB",
 "hR": 176,
 "aR": 509,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
@@ -12720,8 +12742,8 @@
 3
 ],
 [
-3,
-2
+6,
+3
 ]
 ]
 },
@@ -12847,11 +12869,20 @@
 "aL": "HR",
 "hR": 339,
 "aR": 251,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+1,
+1
+]
+]
 },
 "17488903": {
 "id": 17488903,
@@ -13780,7 +13811,7 @@
 },
 "17488906": {
 "id": 17488906,
-"start": "2026-11-11T13:40:00Z",
+"start": "2026-11-11T14:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -14023,7 +14054,7 @@
 "17488829": {
 "id": 17488829,
 "start": "2026-11-11T09:40:00Z",
-"min": null,
+"min": 122,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
 "belag": "hard",
@@ -14036,9 +14067,9 @@
 "aL": "IN",
 "hR": 356,
 "aR": 265,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -14046,8 +14077,8 @@
 7
 ],
 [
-0,
-0
+4,
+6
 ]
 ]
 },
@@ -14110,7 +14141,7 @@
 },
 "17488898": {
 "id": 17488898,
-"start": "2026-11-11T11:10:00Z",
+"start": "2026-11-11T12:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -14124,11 +14155,16 @@
 "aL": "DE",
 "hR": 266,
 "aR": 63,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+2,
+2
+]
+]
 },
 "17488868": {
 "id": 17488868,
@@ -14146,11 +14182,20 @@
 "aL": "ES",
 "hR": 241,
 "aR": 588,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+4,
+5
+],
+[
+2,
+2
+]
+]
 },
 "17488871": {
 "id": 17488871,
@@ -14682,20 +14727,20 @@
 },
 "17489938": {
 "id": 17489938,
-"start": "2026-11-13T00:00:00Z",
+"start": "2026-11-13T01:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Brisbane 3, Australia",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Sebastian Gorzny",
-"a": "Qf6",
+"a": "Alex Bolt",
 "hId": 408344,
-"aId": 393297,
+"aId": 58369,
 "hL": "US",
-"aL": null,
+"aL": "AU",
 "hR": 403,
-"aR": null,
+"aR": 174,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -14748,24 +14793,68 @@
 },
 "17488840": {
 "id": 17488840,
-"start": "2026-11-13T08:00:00Z",
+"start": "2026-11-12T08:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "Qf7",
+"h": "Massimo Giunta",
 "a": "Henry Searle",
-"hId": 393298,
+"hId": 142884,
 "aId": 406808,
-"hL": null,
+"hL": "IT",
 "aL": "GB",
-"hR": null,
+"hR": 368,
 "aR": 217,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
 "runde": "Quarterfinals",
+"satz": []
+},
+"17488836": {
+"id": 17488836,
+"start": "2026-11-12T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Hersonissos 3, Greece",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Francesco Maestrelli",
+"a": "Sumit Nagal",
+"hId": 261017,
+"aId": 131566,
+"hL": "IT",
+"aL": "IN",
+"hR": 176,
+"aR": 265,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17488904": {
+"id": 17488904,
+"start": "2026-11-12T12:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Orleans, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Pedro Martinez",
+"a": "R16P4",
+"hId": 77223,
+"aId": 393279,
+"hL": "ES",
+"aL": null,
+"hR": 124,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
 "satz": []
 }
 }
