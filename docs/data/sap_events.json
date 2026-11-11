@@ -9217,7 +9217,7 @@
 },
 "17514487": {
 "id": 17514487,
-"start": "2026-11-11T13:20:00Z",
+"start": "2026-11-11T14:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -9487,7 +9487,7 @@
 "hR": 262,
 "aR": 318,
 "st": "inprogress",
-"desc": "2nd set",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
 "satz": [
@@ -9496,8 +9496,12 @@
 6
 ],
 [
-4,
+6,
 4
+],
+[
+5,
+5
 ]
 ]
 },
@@ -12081,10 +12085,14 @@
 "hR": 106,
 "aR": 30,
 "st": "inprogress",
-"desc": "1st set",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
 "satz": [
+[
+6,
+7
+],
 [
 6,
 6
@@ -12137,7 +12145,7 @@
 },
 "17489491": {
 "id": 17489491,
-"start": "2026-11-11T13:30:00Z",
+"start": "2026-11-11T14:10:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
@@ -12833,7 +12841,7 @@
 },
 "17488863": {
 "id": 17488863,
-"start": "2026-11-11T13:10:00Z",
+"start": "2026-11-11T13:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
@@ -12847,16 +12855,21 @@
 "aL": "ES",
 "hR": 380,
 "aR": 238,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+0,
+3
+]
+]
 },
 "17488870": {
 "id": 17488870,
 "start": "2026-11-11T12:00:00Z",
-"min": null,
+"min": 89,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -12869,9 +12882,9 @@
 "aL": "HR",
 "hR": 339,
 "aR": 251,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -12879,8 +12892,8 @@
 7
 ],
 [
-1,
-1
+4,
+6
 ]
 ]
 },
@@ -13811,7 +13824,7 @@
 },
 "17488906": {
 "id": 17488906,
-"start": "2026-11-11T14:30:00Z",
+"start": "2026-11-11T15:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -14156,20 +14169,24 @@
 "hR": 266,
 "aR": 63,
 "st": "inprogress",
-"desc": "1st set",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
 "satz": [
 [
-2,
-2
+6,
+3
+],
+[
+5,
+5
 ]
 ]
 },
 "17488868": {
 "id": 17488868,
 "start": "2026-11-11T12:00:00Z",
-"min": null,
+"min": 74,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -14182,18 +14199,18 @@
 "aL": "ES",
 "hR": 241,
 "aR": 588,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
-4,
-5
+3,
+6
 ],
 [
 2,
-2
+6
 ]
 ]
 },
@@ -14353,7 +14370,7 @@
 },
 "17488841": {
 "id": 17488841,
-"start": "2026-11-12T08:00:00Z",
+"start": "2026-11-12T09:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -14375,7 +14392,7 @@
 },
 "17488832": {
 "id": 17488832,
-"start": "2026-11-12T08:00:00Z",
+"start": "2026-11-12T09:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -14855,6 +14872,50 @@
 "desc": "Not started",
 "w": null,
 "runde": "Round of 16",
+"satz": []
+},
+"17488873": {
+"id": 17488873,
+"start": "2026-11-13T12:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Pedro Vives Marcos",
+"a": "Qf6",
+"hId": 213962,
+"aId": 393297,
+"hL": "ES",
+"aL": null,
+"hR": 588,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17488869": {
+"id": 17488869,
+"start": "2026-11-13T12:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Qf1",
+"a": "Luka Mikrut",
+"hId": 393292,
+"aId": 349090,
+"hL": null,
+"aL": "HR",
+"hR": null,
+"aR": 251,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
 "satz": []
 }
 }
