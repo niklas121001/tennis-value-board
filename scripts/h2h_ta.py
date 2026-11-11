@@ -15,7 +15,7 @@ import re, sys, json, time, html, datetime, urllib.request
 from common import load, save, NameMatcher
 
 UA = {"User-Agent": "Mozilla/5.0 (TennisValueApp; private use)"}
-MAX_ABRUFE = 60          # Seiten je Lauf (je ca. 0,5 MB)
+MAX_ABRUFE = 120         # Seiten je Lauf (je ca. 0,5 MB; ~8 Min. bei 4 s Pause). Jeder Spieler bleibt bei 1 Seite pro Tag – die Obergrenze sorgt nur dafür, dass alle Board-Spieler schon im Frühlauf dran sind (bis 11.11.2026: 60)
 PAUSE = 4                # Sekunden zwischen zwei Seiten (Tennis Abstract nicht überlasten)
 MONATE = {m: i + 1 for i, m in enumerate(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}
 
@@ -75,6 +75,26 @@ def zeilen(txt):
         if len(r) < 16 or r[4] not in ("W", "L"):
             continue                                  # "U" = noch nicht gespielt
         out.append((str(r[0]), r[1], (r[2] or "?")[:1].upper(), r[8], r[4] == "W", html.unescape(r[11] or "").strip(), r[9] or "", r[15]))
+    return out
+
+
+def spiele(txt, name, ab):
+    """Einzelne Matches mit Statistik (Tour + Challenger, ohne ITF/Davis Cup), Turnierbeginn ab `ab`, für das eigene
+    Platztempo und die gehaltenen Aufschlagspiele: Schlüssel „Datum|Runde|Name1|Name2“ (Namen alphabetisch) ->
+    [Datum, Stufe, Turnier, Belag, Runde, Name1, Name2, Werte1, Werte2]; Werte = [Asse, Doppelfehler, Aufschlagpunkte,
+    1. im Feld, Punkte 1., Punkte 2., Aufschlagspiele, Breakbälle abgewehrt, Breakbälle gegen]."""
+    z = lambda v: int(v) if str(v).strip().isdigit() else None
+    out = {}
+    for r in roh_zeilen(txt):
+        if len(r) < 39 or r[4] not in ("W", "L") or str(r[0]) < ab or str(r[3]) not in ("G", "M", "A", "F", "C"):
+            continue
+        b = {"H": "hard", "C": "clay", "G": "grass"}.get((r[2] or "?")[:1].upper())
+        geg = html.unescape(r[11] or "").strip()
+        ich, er = [z(r[k]) for k in range(21, 30)], [z(r[k]) for k in range(30, 39)]
+        if not b or not geg or None in ich or None in er or ich[2] < 20 or er[2] < 20:
+            continue
+        x, y = sorted([name, geg])
+        out[f"{r[0]}|{r[8]}|{x}|{y}"] = [str(r[0]), str(r[3]), r[1], b, r[8], x, y] + ([ich, er] if x == name else [er, ich])
     return out
 
 
@@ -156,6 +176,8 @@ def main():
     ab12 = (datetime.date.today() - datetime.timedelta(days=365)).strftime("%Y%m%d")
     tas = load("ta_stats.json", {}) or {}
     tas.setdefault("spieler", {})
+    tam = load("ta_matches.json", {}) or {}        # einzelne Matches mit Statistik (für tempo_eigen.py und hold_stats.py)
+    tam.setdefault("spiele", {})
     jetzt = datetime.datetime.now(datetime.timezone.utc).isoformat()
     partien = [m for m in load("matches.json", {}).get("partien", [])
                if m.get("hatQuoten") and str(m.get("start", "")) > jetzt[:19] and m.get("aInDb") and m.get("bInDb")]
@@ -200,6 +222,7 @@ def main():
             w = aufschlag(txt, ab12)
             if w:
                 tas["spieler"][name] = dict(w, datum=heute)
+            tam["spiele"].update(spiele(txt, name, ab12))
         z = [(d, t, b, r, gew, nm.match(geg), erg, h) for d, t, b, r, gew, geg, erg, h in roh] if ok else None
         seiten[name] = z
         if z:   # Bilanz gegen Links-/Rechtshänder je Monat seit 2023 (Gegnerhand direkt von Tennis Abstract), ohne Aufgaben
@@ -243,7 +266,7 @@ def main():
         if me in seiten or (st["spieler"].get(me) or {}).get("datum") == heute and not (st["spieler"].get(me) or {}).get("ok", True):
             return False                              # heute schon geladen bzw. heute schon ohne Erfolg versucht
         return (st["hb"].get(me) or {}).get("datum") != heute or me not in st.get("fs", {}) or me not in st.get("tempo", {}) \
-            or not tas.get("stand")                  # erster Lauf mit Aufschlagwerten: alle Seiten einmal neu auswerten
+            or not tas.get("stand") or not tam.get("stand")                  # erster Lauf mit Aufschlagwerten: alle Seiten einmal neu auswerten
 
     for m in sorted(partien, key=lambda m: (m.get("kategorie") != "ATP", m.get("start"))):
         x, y = sorted([m["a"], m["b"]])
@@ -280,6 +303,12 @@ def main():
     tas["quelle"] = "Tennis Abstract, Match-Statistiken der letzten 12 Monate (Tour + Challenger, ohne ITF); nur privat"
     tas["format"] = "je Belag: [Matches, 1. Aufschlag im Feld, Punkte 1. Aufschlag, Punkte 2. Aufschlag, Returnpunkte, Aufschlagspiele gehalten, Aufschlagpunkte]"
     save("ta_stats.json", tas, indent=0)
+    ab400 = (datetime.date.today() - datetime.timedelta(days=400)).strftime("%Y%m%d")
+    tam["spiele"] = {k: v for k, v in tam["spiele"].items() if v[0] >= ab400}
+    tam["stand"] = heute
+    tam["quelle"] = "Tennis Abstract, Match-Statistiken (Tour + Challenger); nur privat"
+    save("ta_matches.json", tam, indent=0)
+    print(f"Match-Statistiken Tennis Abstract: {len(tam['spiele'])} Spiele gespeichert")
     print(f"Aufschlagwerte Tennis Abstract: {len(tas['spieler'])} Spieler gespeichert")
     print(f"H2H Tennis Abstract: {neu} Paare aktualisiert, {abrufe} Seiten geladen, {len(st['paare'])} Paare gespeichert; "
           f"Bilanz gegen Links-/Rechtshänder für {n_hb} Spieler aktualisiert ({len(st['hb'])} gespeichert)")

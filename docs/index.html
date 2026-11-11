@@ -300,6 +300,8 @@ select.erg{font:inherit;font-size:12px;padding:3px 6px;border:1px solid var(--li
 .u.klein{color:var(--muted,#888)}
 .uform{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:8px 0 4px}
 @media (prefers-reduced-motion:no-preference){tr.m td{transition:background .12s}}
+.kpi b .kpi-sub{font-size:.55em;font-weight:600;color:var(--muted,#5b6472);white-space:nowrap;margin-left:2px}
+.empinfo{margin:0 0 8px}.empinfo>summary{cursor:pointer;font-size:.85rem;color:var(--muted,#5b6472);list-style:none}.empinfo>summary::-webkit-details-marker{display:none}
 </style>
 
 <div class="wrap">
@@ -690,7 +692,7 @@ async function renderEmpf(){
     <div class="tablewrap"><table class="empt"><thead><tr><th class="l">Datum</th><th class="l">Partie (Sieger fett)</th><th class="l">Hauptwette</th><th class="l">Alternative</th></tr></thead><tbody>${
     fertig.slice(0, 150).map(([, x]) => `<tr><td class="l time">${kDatum(x.start)}</td><td class="l">${x.sieger==="A"?`<b>${esc(x.a)}</b>`:esc(x.a)} – ${x.sieger==="B"?`<b>${esc(x.b)}</b>`:esc(x.b)}<div class="time">${(x.satz||[]).map(z => z.join("-")).join(" ")}</div></td><td class="l">${empZelle(x.haupt, x.a, x.b, true)}</td><td class="l">${empZelle(x.alt, x.a, x.b, true)}</td></tr>`).join("")}</tbody></table></div></details>` : "";
   box.innerHTML = `<div class="box"><h3>Empfehlungen <span class="time" style="text-transform:none;letter-spacing:0">ATP · Winamax · getrennt von der Bilanz</span></h3>
-    <p class="time" style="margin:0 0 8px">Je Partie die <b>Hauptwette</b> (höchste Trefferchance) und eine <b>Alternative</b> (bester Erwartungswert mit spürbar höherer Quote, bis ${fx(D.params.EMP_ALT_MAX_QUOTE ?? 3)}). Value ist nicht nötig, aber die Quote darf höchstens ${pc(-(D.params.EMP_MIN_EDGE ?? -0.05),0)} unter fair liegen; Quoten ${fx(D.params.EMP_MIN_QUOTE ?? 1.2)}–${fx(D.params.EMP_MAX_QUOTE ?? 5)}. Siegchance aus der Gesamtschätzung (H), Satz- und Tiebreak-Chancen aus dem Modell. Angaben: Quote · Chance · Edge.</p>
+    <details class="empinfo"><summary>ⓘ So wird ausgewählt</summary><p class="time" style="margin:6px 0 8px">Je Partie die <b>Hauptwette</b> (höchste Trefferchance) und eine <b>Alternative</b> (bester Erwartungswert mit spürbar höherer Quote, bis ${fx(D.params.EMP_ALT_MAX_QUOTE ?? 3)}). Value ist nicht nötig, aber die Quote darf höchstens ${pc(-(D.params.EMP_MIN_EDGE ?? -0.05),0)} unter fair liegen; Quoten ${fx(D.params.EMP_MIN_QUOTE ?? 1.2)}–${fx(D.params.EMP_MAX_QUOTE ?? 5)}. Siegchance aus der Gesamtschätzung (H), Satz- und Tiebreak-Chancen aus dem Modell. Angaben: Quote · Chance · Edge.</p></details>
     ${offenHtml}
     ${offen.length ? `<div class="empk"><span class="time">Als Kombi eintragen (in Meine Wetten noch änderbar):</span>
       <button type="button" class="btn ghost mini emp-k" data-t="haupt" data-h="1">Hauptwetten heute</button>
@@ -2175,7 +2177,7 @@ function detailHtml(p, r){
       <span class="k">yElo</span>${ab(r.yEloA,r.yEloB,x=>fx(x,0))}
       <span class="k">p_srv</span>${ab(r.pSrvA,r.pSrvB,x=>pc(x))}
       ${r.aufschlagQuelle?`<span class="k">Aufschlagwerte</span>${ab(["a",r.aufschlagQuelle.nA],["b",r.aufschlagQuelle.nB],([k,n])=>{const q=r.aufschlagQuelle[k];
-        return q==="excel+spieldaten"?`Excel + ${n} Sp.`:q==="spieldaten"?`Spieldaten (${n} Sp.)`:q==="gemischt"?`Excel/Spieldaten (${n} Sp.)`:q==="excel"?"Excel":"Ø Challenger";})}`:""}
+        return q==="excel+spieldaten"?`Excel + ${n} Sp.`:q==="spieldaten"?`Spieldaten (${n} Sp.)`:q==="gemischt"?`Excel/Spieldaten (${n} Sp.)`:q==="ta"?`Tennis Abstract (${n} Sp.)`:q==="excel"?"Excel":"Ø Challenger";})}`:""}
       <span class="k">TB-Bilanz</span>${ab(r.tbA,r.tbB,x=>pc(x,0))}
       <span class="k">Faire Quote</span>${ab(r.fairA,r.fairB,fx)}
       <span class="k">Fair nur Modell</span>${ab(r.fairModellA,r.fairModellB,fx)}
@@ -2251,7 +2253,7 @@ function renderLog(){
         <td class="l">${esc(GR[x.storniert] || x.storniert)}</td><td class="l time hide-s">${x.stornoInfo ? esc(x.stornoInfo) : "–"}</td>`, x, 5)).join("")}</tbody></table></div>
       <p class="note">Ein Value-Tipp wird storniert, wenn du vor Spielbeginn die Spielerwerte eines Beteiligten korrigierst oder die Quote anpasst (mit GitHub-Schlüssel gespeichert) und das Modell mit den korrigierten Daten keinen Value mehr sieht. Bleibt der Value, zählt der Tipp normal – bei angepasster Quote mit deiner Quote.</p></details>` : ""; }
   const k = kennzahlen(xs);
-  $("#b-n").textContent = `${k.w+k.l} (${k.w}–${k.l})`;
+  $("#b-n").innerHTML = `${k.w+k.l} <small class="kpi-sub">${k.w}–${k.l}</small>`;
   $("#b-hit").textContent = pc(k.hit);
   $("#b-roi").textContent = sg(k.roi); $("#b-roi").className = k.roi>0?"pos":k.roi<0?"negv":"";
   $("#b-units").innerHTML = (k.w+k.l) ? betragU(k.units*unitCfg().unit, true) : "–";
@@ -3093,7 +3095,7 @@ function renderWetten(){
     if(!e){ offen += w.einsatz; continue; }
     if(e==="V") continue;
     n++; einsatz += w.einsatz; gewinn += gewinnVon(w, e); qs += w.quote; if(e==="W") g++; else if(e==="C") co++; else l++; }
-  $("#m-n").textContent = n ? `${n} (${g}–${l}${co?` · ${co} Cashout`:""})` : "–";
+  $("#m-n").innerHTML = n ? `${n} <small class="kpi-sub">${g}–${l}${co?` · ${co} Cashout`:""}</small>` : "–";
   $("#m-einsatz").innerHTML = n ? betragU(einsatz) : "–";
   $("#m-gewinn").innerHTML = n ? betragU(gewinn, true) : "–"; $("#m-gewinn").className = gewinn>0?"pos":gewinn<0?"negv":"";
   $("#m-roi").textContent = einsatz ? sg(gewinn/einsatz) : "–"; $("#m-roi").className = gewinn>0?"pos":gewinn<0?"negv":"";

@@ -10,7 +10,7 @@ genauso geschätzt, aber nur zum Vergleich mit Tennis Abstract gespeichert (atp_
 """
 import re, sys, os, json, math, datetime, collections
 sys.path.insert(0, os.path.dirname(__file__))
-from common import load, save
+from common import load, save, stat_spiele
 
 K_SPIELER = 150      # Aufschlagpunkte, mit denen ein Spieler zum Schnitt gezogen wird
 K_TURNIER = 40       # Aufschlag-Seiten (≈ 20 Partien), mit denen ein Turnier zur 1,00 gezogen wird
@@ -22,13 +22,13 @@ MIN_SEITEN = 20
 def ort(turnier):
     """„Bratislava 2, Slovakia, Qualifying“ -> „bratislava ii“ (Schlüssel wie im Spielplan „Bratislava II Challenger“)."""
     t = re.sub(r",\s*qualifying.*$", "", str(turnier or ""), flags=re.I).split(",")[0].strip().lower()
+    t = re.sub(r"\s+1$", "", t)                      # „Monastir 1“ (Tennis Abstract) = „Monastir“
     return re.sub(r"\s+2$", " ii", re.sub(r"\s+3$", " iii", t))
 
 
 def main():
-    stats = load("sap_stats.json", {}) or {}
     rows = []
-    for e in stats.values():
+    for e in stat_spiele():
         if e.get("belag") not in ("hard", "clay", "grass"):
             continue
         for srv, ret, st in ((e.get("h"), e.get("a"), e.get("hs")), (e.get("a"), e.get("h"), e.get("as"))):
@@ -41,7 +41,7 @@ def main():
     from common import DATA
     for f in sorted((DATA / "archiv").glob("????-??.json")):
         for e in json.loads(f.read_text(encoding="utf-8")).values():
-            name = re.sub(r"\s+2$", " ii", re.sub(r"\s+challenger.*$", "", str(e.get("turnier") or ""), flags=re.I).strip().lower())
+            name = ort(re.sub(r"\s+challenger.*$", "", str(e.get("turnier") or ""), flags=re.I))
             for z in e.get("satz") or []:
                 if isinstance(z[0], int) and isinstance(z[1], int) and max(z) >= 6:
                     k = (name, e.get("belag"), str(e.get("start", ""))[:4])
@@ -100,7 +100,7 @@ def main():
     atp.sort(key=lambda x: (x["belag"], -x["speed"]))
     turniere.sort(key=lambda x: (x["belag"], -x["speed"]))
     save("tempo_eigen.json", {"stand": datetime.date.today().isoformat(),
-                              "quelle": "Eigene Schätzung aus Match-Statistiken (SportsAPIPro): Asse je Aufschlagpunkt vs. Erwartung aus Aufschläger und Returner, 1,00 = Schnitt",
+                              "quelle": "Eigene Schätzung aus Match-Statistiken (SportsAPIPro + Tennis Abstract): Asse je Aufschlagpunkt vs. Erwartung aus Aufschläger und Returner, 1,00 = Schnitt",
                               "steigung_hold": round(steig, 3), "turniere": turniere,
                               "atp_test": atp})   # ATP nur zum Vergleich mit Tennis Abstract (Test bis Jahresende)
     print(f"Eigenes Platztempo: {len(turniere)} Challenger-Turniere ({len(rows)} Aufschlag-Seiten insgesamt)")

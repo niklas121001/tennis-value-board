@@ -330,3 +330,77 @@ def unplausible_entfernen(players):
         if alt:
             r["unplausibel"] = alt
     return n
+
+
+def stat_spiele():
+    """Match-Statistiken aus beiden Quellen im Format von sap_stats.json: SportsAPIPro (sap_stats.json) plus
+    Tennis-Abstract-Spiele (ta_matches.json, aus den ohnehin geladenen Spielerseiten). Ein Tennis-Abstract-Spiel
+    entfällt, wenn dieselbe Paarung in SportsAPIPro im selben Turnierzeitraum steht (Datum dort = Turnierbeginn).
+    Der Turniername kommt möglichst aus unserem Ergebnis-Archiv (gleiche Paarung), damit die Turniere zusammenpassen;
+    sonst wird der Tennis-Abstract-Name vereinheitlicht („Ningbo CH“ -> „Ningbo“)."""
+    sap = load("sap_stats.json", {}) or {}
+    out = list(sap.values())
+    ta = (load("ta_matches.json", {}) or {}).get("spiele") or {}
+    if not ta:
+        return out
+    tag = lambda t: datetime.date.fromisoformat(str(t)[:10]) if "-" in str(t)[:10] else datetime.datetime.strptime(str(t)[:8], "%Y%m%d").date()
+    paar = lambda a, b: "|".join(sorted([norm(a or ""), norm(b or "")]))
+    da = {}
+    for e in out:
+        try:
+            da.setdefault(paar(e.get("h"), e.get("a")), []).append(tag(e.get("start")))
+        except (ValueError, TypeError):
+            pass
+    arch = {}                                       # Paarung -> [(Tag, Turniername unseres Boards)]
+    for f in sorted((DATA / "archiv").glob("????-??.json")):
+        for e in json.loads(f.read_text(encoding="utf-8")).values():
+            try:
+                arch.setdefault(paar(e.get("a"), e.get("b")), []).append((tag(e.get("start")), e.get("turnier") or ""))
+            except (ValueError, TypeError):
+                pass
+    nah = lambda d, t: -2 <= (d - t).days <= 16     # Spieltag liegt im Turnier, das am Tag t begann
+    # Turniername: je Tennis-Abstract-Turnier (Name + Woche) der häufigste Board-Name der zugeordneten Paarungen
+    stimmen = {}
+    for v in ta.values():
+        t = tag(v[0])
+        for d, n in arch.get(paar(v[5], v[6]), []):
+            if nah(d, t) and n:
+                c = stimmen.setdefault((v[2], v[0]), {}); c[n] = c.get(n, 0) + 1
+    # Board-Name -> SportsAPIPro-Name („Guangzhou Challenger“ -> „Guangzhou Nansha, China“), damit beide Quellen
+    # dasselbe Turnier unter demselben Namen führen
+    b2s = {}
+    for e in sap.values():
+        try:
+            t = tag(e.get("start"))
+        except (ValueError, TypeError):
+            continue
+        for d, n in arch.get(paar(e.get("h"), e.get("a")), []):
+            if abs((d - t).days) <= 1 and n and e.get("turnier"):
+                c = b2s.setdefault(n, {}); k = re.sub(r",\s*qualifying.*$", "", e["turnier"], flags=re.I); c[k] = c.get(k, 0) + 1
+    b2s = {n: max(c, key=c.get) for n, c in b2s.items()}
+    # gelernte Zuordnung Tennis-Abstract-Name -> Board-Name merken (gilt dann auch für frühere/spätere Ausgaben)
+    gelernt = load("ta_turniere.json", {}) or {}
+    for (tn, _), c in stimmen.items():
+        if sum(c.values()) >= 2:
+            gelernt[tn] = max(c, key=c.get)
+    save("ta_turniere.json", gelernt, indent=0)
+    kurz = lambda n: b2s[n] if n in b2s else re.sub(r"^ATP\s+", "", re.sub(r"\s+challenger.*$", "", n, flags=re.I)).strip()
+    def turnier(v):
+        c = stimmen.get((v[2], v[0]))
+        if c:
+            return kurz(max(c, key=c.get))
+        if v[2] in gelernt:
+            return kurz(gelernt[v[2]])
+        n = re.sub(r"\s+(CH|Challenger|Masters)$", "", re.sub(r"^ATP\s+", "", str(v[2])), flags=re.I)
+        return n.strip()
+    k9 = ("ace", "df", "svpt", "first_in", "first_won", "second_won", "sv_gms", "bp_saved", "bp_faced")
+    neu = 0
+    for v in ta.values():
+        t = tag(v[0])
+        if any(nah(d, t) for d in da.get(paar(v[5], v[6]), [])):
+            continue
+        out.append({"start": t.isoformat(), "kat": "Challenger" if v[1] == "C" else "ATP", "turnier": turnier(v), "belag": v[3],
+                    "h": v[5], "a": v[6], "hs": dict(zip(k9, v[7])), "as": dict(zip(k9, v[8])), "quelle": "ta"})
+        neu += 1
+    print(f"Match-Statistiken: {len(sap)} SportsAPIPro + {neu} Tennis Abstract (von {len(ta)}, Rest doppelt)")
+    return out

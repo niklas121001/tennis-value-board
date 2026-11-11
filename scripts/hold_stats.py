@@ -6,14 +6,13 @@ Keine API-Abrufe.
 """
 import sys, os, collections, datetime
 sys.path.insert(0, os.path.dirname(__file__))
-from common import load, save
+from common import load, save, stat_spiele
 
 
 def main():
-    st = load("sap_stats.json", {}) or {}
     sp = collections.defaultdict(lambda: collections.defaultdict(lambda: [0, 0, 0, 0]))
     tour = collections.defaultdict(lambda: [0, 0])
-    for e in st.values():
+    for e in stat_spiele():
         b = e.get("belag")
         if b not in ("hard", "clay", "grass"):
             continue
@@ -26,7 +25,7 @@ def main():
                 v = sp[me][key]; v[0] += h; v[1] += g          # eigener Aufschlag
                 w = sp[geg][key]; w[2] += h; w[3] += g         # Gegner schlägt gegen ihn auf
             t = tour[f"{ebene}_{b}"]; t[0] += h; t[1] += g
-    out = {"stand": datetime.date.today().isoformat(), "quelle": "SportsAPIPro Match-Statistiken seit Okt. 2026",
+    out = {"stand": datetime.date.today().isoformat(), "quelle": "Match-Statistiken: SportsAPIPro (seit Okt. 2026) + Tennis Abstract (letzte 12 Monate, Tour + Challenger)",
            "tour": {k: round(v[0] / v[1], 4) for k, v in tour.items() if v[1]},
            "spieler": {n: {k: v for k, v in d.items()} for n, d in sp.items()}}
     save("hold_stats.json", out, indent=0)

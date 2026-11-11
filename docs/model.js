@@ -227,8 +227,8 @@
       const p = D.players[n], l = D.serveLive && D.serveLive[n];
       return p && l ? Object.assign({}, p, l) : p;
     };
-    const pa = live(match.a);
-    const pb = live(match.b);
+    let pa = live(match.a);
+    let pb = live(match.b);
     const out = { a: match.a, b: match.b, belag: sk, warnungen: [] };
     if (!pa) out.warnungen.push(match.a + " nicht in Spieler-DB");
     if (!pb) out.warnungen.push(match.b + " nicht in Spieler-DB");
@@ -249,6 +249,16 @@
     const retKey = "ret_" + s;
     const felder = [s + "_1in", s + "_1won", s + "_2won", retKey];
     const fehlt = (p) => felder.some((k) => !isNum(p[k]));
+    // Seit 11.11.2026: fehlen einem Spieler die Aufschlagwerte, kommen sie aus den Tennis-Abstract-Matchstatistiken der
+    // letzten 12 Monate (ta_stats.json, ab R_MIN_SPIELE Matches auf dem Belag) statt aus dem Challenger-Durchschnitt.
+    // Abschaltbar: params TA_LUECKEN = false.
+    const taFuell = (p, n) => {
+      const x = P.TA_LUECKEN !== false && fehlt(p) && D.taStats && D.taStats[n] && D.taStats[n][s];
+      return Array.isArray(x) && x[0] >= (P.R_MIN_SPIELE ?? 5)
+        ? Object.assign({}, p, { [s + "_1in"]: x[1], [s + "_1won"]: x[2], [s + "_2won"]: x[3], [retKey]: x[4], ["quelle_" + s]: "ta", ["n_" + s]: x[0] }) : p;
+    };
+    pa = taFuell(pa, match.a); pb = taFuell(pb, match.b);
+    out.statsTA = { a: pa["quelle_" + s] === "ta", b: pb["quelle_" + s] === "ta" };
     out.statsFehlenA = fehlt(pa); out.statsFehlenB = fehlt(pb);
     out.aufschlagQuelle = { a: pa["quelle_" + s] || (out.statsFehlenA ? null : "excel"), b: pb["quelle_" + s] || (out.statsFehlenB ? null : "excel"),
       nA: pa["n_" + s] || 0, nB: pb["n_" + s] || 0 };
