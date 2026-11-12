@@ -577,7 +577,21 @@
       const ra = taS(match.a), rb = taS(match.b);
       if (ra || rb) {
         const mit = (p, x) => (x ? Object.assign({}, p, { [s + "_1in"]: x[1], [s + "_1won"]: x[2], [s + "_2won"]: x[3], [retKey]: x[4] }) : p);
-        const qa_ = mit(sa, ra), qb_ = mit(sb, rb);
+        let qa_ = mit(sa, ra), qb_ = mit(sb, rb);
+        // Gegen Linkshänder (seit 12.11.2026): Abweichung des Spielers gegen Linkshänder („gL“, alle Beläge) von seinen
+        // Werten insgesamt („alle“), zur 0 gezogen mit n/(n + R_LINKS_K), auf seine Belagwerte addiert.
+        const links = (n) => (D.haende && D.haende[n] && D.haende[n].h === "L") || (D.handTA && D.handTA[n] === "L");
+        const rLinks = {};
+        const gegenL = (q, n, geg) => {
+          const t = D.taStats && D.taStats[n], gL = t && t.gL, al = t && t.alle;
+          if (P.R_LINKS === false || !links(geg) || !Array.isArray(gL) || !Array.isArray(al) || !gL[0]) return q;
+          const w = gL[0] / (gL[0] + (P.R_LINKS_K ?? 15)), d = (i) => w * (gL[i] - al[i]);
+          const neu = Object.assign({}, q);
+          [[s + "_1in", 1], [s + "_1won", 2], [s + "_2won", 3], [retKey, 4]].forEach(([k, i]) => { if (isNum(q[k])) neu[k] = clip(q[k] + d(i), 0.05, 0.95); });
+          rLinks[n] = { n: gL[0], w: Math.round(w * 100) / 100, d1won: Math.round(d(2) * 1000) / 1000, d2won: Math.round(d(3) * 1000) / 1000, dRet: Math.round(d(4) * 1000) / 1000 };
+          return neu;
+        };
+        qa_ = gegenL(qa_, match.a, match.b); qb_ = gegenL(qb_, match.b, match.a);
         const okA = !!ra || !out.statsFehlenA || mitAvg, okB = !!rb || !out.statsFehlenB || mitAvg;
         let pSR = 0.5, wSR = 0;
         if (okA && okB && [qa_, qb_].every((q) => felder.every((k) => isNum(q[k])))) {
@@ -590,7 +604,7 @@
         const kR = clip((wSR * pSR + wE * pElo + h2hW * h2hPct) / (wSR + wE + h2hW) + erf, 0.05, 0.95);
         const kalR = sigm(P.K_KALIBRIERUNG * logit(clip(kR, 0.02, 0.98)));
         pR = pMarkt === null ? kalR : sigm(P.W_MODELL_BLEND * logit(kalR) + (1 - P.W_MODELL_BLEND) * logit(pMarkt));
-        rInfo = Object.assign(rInfo || {}, { pStats: pSR, pKal: kalR, taA: ra ? ra[0] : 0, taB: rb ? rb[0] : 0 });
+        rInfo = Object.assign(rInfo || {}, { pStats: pSR, pKal: kalR, taA: ra ? ra[0] : 0, taB: rb ? rb[0] : 0 }, Object.keys(rLinks).length ? { links: rLinks } : {});
       }
     }
 

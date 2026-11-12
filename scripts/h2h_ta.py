@@ -104,7 +104,9 @@ TA_STUFEN = {"G", "M", "A", "F", "C", "D"}     # Grand Slam, Masters, ATP, Final
 def aufschlag(txt, ab):
     """Aufschlag-/Returnwerte je Belag aus den Match-Statistiken der Spielerseite (Spalten 21–38), Turnierbeginn ab `ab`
     (YYYYMMDD), nur Tour- und Challenger-Ebene. Ergebnis je Belag: [Matches, 1. Aufschlag im Feld, Punkte hinter dem 1.,
-    Punkte hinter dem 2., Returnpunkte gewonnen, Aufschlagspiele gehalten, Aufschlagpunkte]."""
+    Punkte hinter dem 2., Returnpunkte gewonnen, Aufschlagspiele gehalten, Aufschlagpunkte].
+    Zusätzlich (seit 12.11.2026, Variante R gegen Linkshänder): "alle" = alle Beläge zusammen, "gL" = alle Beläge nur
+    gegen Linkshänder (Gegnerhand Spalte 15), "gR" = nur gegen Rechtshänder."""
     z = lambda v: int(v) if str(v).strip().lstrip("-").isdigit() else None
     sm = {}
     for r in roh_zeilen(txt):
@@ -115,9 +117,11 @@ def aufschlag(txt, ab):
         osv, ow1, ow2 = z(r[32]), z(r[34]), z(r[35])
         if not b or None in (sv, in1, w1, w2, osv, ow1, ow2) or sv < 20 or osv < 20 or in1 <= 0 or sv - in1 <= 0:
             continue
-        a = sm.setdefault(b, [0] * 10)
-        for i_, v in enumerate((1, sv, in1, w1, w2, osv, ow1 + ow2, sg or 0, (bf or 0) - (bs or 0) if sg else 0)):
-            a[i_] += v
+        hand = str(r[15] or "").upper()[:1]
+        for k_ in (b, "alle") + (("gL",) if hand == "L" else ("gR",) if hand == "R" else ()):
+            a = sm.setdefault(k_, [0] * 10)
+            for i_, v in enumerate((1, sv, in1, w1, w2, osv, ow1 + ow2, sg or 0, (bf or 0) - (bs or 0) if sg else 0)):
+                a[i_] += v
     out = {}
     for b, (n, sv, in1, w1, w2, osv, ow, sg, brk, _) in sm.items():
         out[b] = [n, round(in1 / sv, 4), round(w1 / in1, 4), round(w2 / (sv - in1), 4), round(1 - ow / osv, 4),
