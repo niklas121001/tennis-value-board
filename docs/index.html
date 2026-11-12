@@ -1896,11 +1896,17 @@ async function openProfil(name, ctx){
   const gesch = pl.geschaetzt ? ` <span class="gesch" title="Elo geschätzt">≈</span>` : "";
   const elo = (k) => pl[k] ? fx(pl[k],0) : "–";
   const sv = ["hard","clay","grass"].map(b => {
-    const w = (k) => live[k] ?? pl[k], q = live["quelle_"+b];
+    // Tennis-Abstract-Werte (12 Monate): füllen fehlende Werte wie im Modell (TA_LUECKEN); sonst als Vergleichszeile (Variante R)
+    const tx = (D.taStats||{})[name] && D.taStats[name][b], taOk = Array.isArray(tx) && tx[0] >= (D.params.R_MIN_SPIELE ?? 5);
+    const eigen = ["_1in","_1won","_2won"].every(k => (live[b+k] ?? pl[b+k]) != null) && (live["ret_"+b] ?? pl["ret_"+b]) != null;
+    const taFuell = taOk && !eigen && D.params.TA_LUECKEN !== false;
+    const taW = taOk ? {[b+"_1in"]: tx[1], [b+"_1won"]: tx[2], [b+"_2won"]: tx[3], ["ret_"+b]: tx[4]} : {};
+    const w = (k) => taFuell ? taW[k] : (live[k] ?? pl[k]), q = live["quelle_"+b];
     const unpl = Object.keys(pl.unplausibel||{}).some(k => k.includes(b));
     const manu = Object.keys(pl.manuell||{}).some(k => k.includes(b));
-    const quelle = (q==="excel+spieldaten" ? `Excel + ${live["n_"+b]} Sp.` : q==="spieldaten" ? `Spieldaten (${live["n_"+b]})` : q==="gemischt" ? `Excel/Spieldaten (${live["n_"+b]})` : (pl[b+"_1in"]!=null ? (manu ? "manuell" : "Excel") : "Ø Challenger")) + (manu && q ? " (manuell)" : "") + (unpl ? " ⚠" : "");
-    return `<tr><td>${SURF[b]}</td><td>${pc(w(b+"_1in"),0)}</td><td>${pc(w(b+"_1won"),0)}</td><td>${pc(w(b+"_2won"),0)}</td><td>${pc(w("ret_"+b),0)}</td><td class="time hide-s">${quelle}</td></tr>`; }).join("");
+    const quelle = taFuell ? `Tennis Abstract (${tx[0]} Sp.)` : (q==="excel+spieldaten" ? `Excel + ${live["n_"+b]} Sp.` : q==="spieldaten" ? `Spieldaten (${live["n_"+b]})` : q==="gemischt" ? `Excel/Spieldaten (${live["n_"+b]})` : (pl[b+"_1in"]!=null ? (manu ? "manuell" : "Excel") : "Ø Challenger")) + (manu && q ? " (manuell)" : "") + (unpl ? " ⚠" : "");
+    return `<tr><td>${SURF[b]}</td><td>${pc(w(b+"_1in"),0)}</td><td>${pc(w(b+"_1won"),0)}</td><td>${pc(w(b+"_2won"),0)}</td><td>${pc(w("ret_"+b),0)}</td><td class="time hide-s">${quelle}</td></tr>`
+      + (taOk && !taFuell ? `<tr class="time"><td>↳ Tennis Abstract</td><td>${pc(tx[1],0)}</td><td>${pc(tx[2],0)}</td><td>${pc(tx[3],0)}</td><td>${pc(tx[4],0)}</td><td class="hide-s">${tx[0]} Sp., 12 Mon. – nur Variante R</td></tr>` : ""); }).join("");
   const fav = rolleKombi(name,"fav"), aus = rolleKombi(name,"aus");
   const bx = ((D.playerStats||{})[name]||{}).baender||{}, bw = ((D.playerStatsWeb||{})[name]||{}).baender||{};
   const bands = BAENDER.map(b => { const x = bx[b]||[0,0], y = bw[b]||[0,0], s_ = x[0]+y[0], n = s_+x[1]+y[1];
@@ -2545,7 +2551,7 @@ function renderInfo(){
   <h2>Datenquellen</h2>
   <p>Quoten: OddsPapi (Winamax, Pinnacle). Spielplan, Ergebnisse, Form und Weltrangliste: SportsAPIPro. Elo, Karriere-Matchlisten (H2H, Linkshänder, 1. Satz, Platztempo je Spieler) und Platztempo der Turniere: Tennis Abstract. Satzstatistik der Turniere: TML-Database. Alles nur für private Nutzung.</p>
   <h2>Spieler-Datenbank</h2>
-  <p>${n} Spieler, davon ${ohne} ohne Aufschlagwerte auf Hard und ${gesch} mit geschätztem Elo (≈). Fehlen einem Spieler die Aufschlag- oder Returnwerte für den Belag, setzt das Board den Durchschnitt der Spieler auf Challenger-Niveau ein${D.statsAvg&&D.statsAvg.hard?` (Hard: 1st In ${pc(D.statsAvg.hard["1in"],0)}, 1st Won ${pc(D.statsAvg.hard["1won"],0)}, 2nd Won ${pc(D.statsAvg.hard["2won"],0)}, Return ${pc(D.statsAvg.hard.ret,0)}; aus ${D.statsAvg.hard.n} Spielern)`:""}. Die Excel würde dort mit 0 rechnen.</p>
+  <p>${n} Spieler, davon ${ohne} ohne Aufschlagwerte auf Hard und ${gesch} mit geschätztem Elo (≈). Fehlen einem Spieler die Aufschlag- oder Returnwerte für den Belag, nimmt das Board seit 11.11.2026 die Werte aus seinen Tennis-Abstract-Matchstatistiken der letzten 12 Monate (ab ${D.params.R_MIN_SPIELE ?? 5} Spielen auf dem Belag); erst wenn auch die fehlen, setzt es den Durchschnitt der Spieler auf Challenger-Niveau ein${D.statsAvg&&D.statsAvg.hard?` (Hard: 1st In ${pc(D.statsAvg.hard["1in"],0)}, 1st Won ${pc(D.statsAvg.hard["1won"],0)}, 2nd Won ${pc(D.statsAvg.hard["2won"],0)}, Return ${pc(D.statsAvg.hard.ret,0)}; aus ${D.statsAvg.hard.n} Spielern)`:""}. Die Excel würde dort mit 0 rechnen.</p>
   <p>Spieler, die Tennis Abstract nicht führt (meist Challenger), bekommen ein geschätztes Elo: Startwert aus den Buchmacher-Quoten gegen einen bekannten Gegner, danach fortgeschrieben mit jedem Ergebnis. Solange ein geschätzter Spieler weniger als 5 Ergebnisse hat, erscheinen faire Quoten, aber keine Tipps in der Bilanz. Sobald Tennis Abstract den Spieler führt, werden die Schätzwerte automatisch ersetzt.</p>
   ${un.length?`<h2>Unbekannte Namen beim letzten Update</h2><p>Zuordnung in <code>data/name_map.json</code> nachtragen, z. B. <code>{"${esc(un[0])}": "Vorname Nachname"}</code>:</p><p class="time">${un.map(esc).join(" · ")}</p>`:""}
   ${META.abdeckung?`<h2>Quoten-Abdeckung beim letzten Update</h2><p>${Object.entries(META.abdeckung).map(([b,d])=>`<b>${esc(b)}</b>: ${d.mit_quote} von ${d.partien} Partien mit Siegquote${d.pausiert?` (${d.pausiert} pausiert)`:""}${d.ohne_siegermarkt?`, ${d.ohne_siegermarkt} ohne Siegermarkt`:""}`).join(" · ")}</p>`:""}
