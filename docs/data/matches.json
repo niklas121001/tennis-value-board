@@ -1,101 +1,111 @@
 {
-"stand": "2026-11-12T16:22:22Z",
+"stand": "2026-11-12T18:32:44Z",
 "partien": [
 {
-"id": "id1200395176430860",
-"start": "2026-11-12T17:15:00.000Z",
-"turnier": "Knoxville Challenger",
-"kategorie": "Challenger",
+"id": "id1200309176430122",
+"start": "2026-11-12T18:40:00.000Z",
+"turnier": "ATP Stockholm",
+"kategorie": "ATP",
 "belag": "hard",
 "belagQuelle": "spieldaten",
-"a": "Stefan Kozlov",
-"b": "Braden Shick",
-"aRoh": "Kozlov, Stefan",
-"bRoh": "Shick, Braden",
+"a": "Lorenzo Musetti",
+"b": "Ugo Humbert",
+"aRoh": "Musetti, Lorenzo",
+"bRoh": "Humbert, Ugo",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.38,
-2.75
+1.5,
+2.65
 ]
 },
 "pausiert": [],
 "pinnacle": [
-1.401,
-3.03
+1.549,
+2.64
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 1.98,
-"mind1B": 1.854,
-"mind1A": 1.193,
-"glattB": 4.88,
-"dreiSaetze": 2.82,
-"zweiSaetze": 1.452,
-"satz1A": 1.492,
-"satz1B": 2.65
+"glattA": 2.35,
+"mind1B": 1.657,
+"mind1A": 1.242,
+"glattB": 4.46,
+"dreiSaetze": 2.54,
+"zweiSaetze": 1.571,
+"satz1A": 1.636,
+"satz1B": 2.39
+},
+"winamax": {
+"glattA": 2.1,
+"mind1B": 1.56,
+"mind1A": 1.16,
+"glattB": 4.0,
+"dreiSaetze": 2.2,
+"zweiSaetze": 1.54,
+"tbJa": 2.0,
+"tbNein": 1.56
 }
 },
-"tid": 3951,
-"p1Id": 77007,
-"p2Id": 809322,
-"sapId": 17489610,
-"landA": "US",
-"landB": "US",
-"runde": "Round of 16",
+"tid": 3091,
+"p1Id": 359602,
+"p2Id": 185388,
+"sapId": 17489479,
+"landA": "IT",
+"landB": "FR",
+"runde": "Quarterfinals",
 "gt": "Hardcourt indoor",
 "form": {
 "a": {
-"spiele7": 4,
-"saetze7": 10,
-"games7": 97,
-"min7": 453,
-"minN": 4,
-"letztesMin": 98,
-"letztesGames": 22,
-"dreisatz7": 2,
-"siege7": 4,
-"letztes": "2026-11-10T22:20:00Z",
+"spiele7": 1,
+"saetze7": 2,
+"games7": 17,
+"min7": 71,
+"minN": 1,
+"letztesMin": 71,
+"letztesGames": 17,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-10T18:55:00Z",
 "quali": false,
 "vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-11T00:15:00Z",
-"turnier": "Knoxville, USA"
+"land": "SE",
+"tz": 1,
+"start": "2026-11-11T15:05:00Z",
+"turnier": "Stockholm, Sweden"
 }
 },
 "b": {
 "spiele7": 2,
-"saetze7": 5,
-"games7": 44,
-"min7": 167,
+"saetze7": 4,
+"games7": 37,
+"min7": 152,
 "minN": 2,
-"letztesMin": 102,
-"letztesGames": 27,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-11T00:15:00Z",
+"letztesMin": 68,
+"letztesGames": 18,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-11T15:05:00Z",
 "quali": false,
 "vorOrt": {
-"land": "US",
-"tz": -6,
-"start": "2026-11-10T22:20:00Z",
-"turnier": "Knoxville, USA"
+"land": "SE",
+"tz": 1,
+"start": "2026-11-10T18:55:00Z",
+"turnier": "Stockholm, Sweden"
 }
 }
 },
 "ort": {
-"land": "US",
-"tz": -6
+"land": "SE",
+"tz": 1
 },
-"rangA": 271,
-"rangB": 205
+"rangA": 24,
+"rangB": 38
 },
 {
 "id": "id1200779376431528",
-"start": "2026-11-12T17:15:00.000Z",
+"start": "2026-11-12T18:40:00.000Z",
 "turnier": "Lima Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
@@ -186,188 +196,8 @@
 "rangB": 135
 },
 {
-"id": "id1200309176430120",
-"start": "2026-11-12T17:30:00.000Z",
-"turnier": "ATP Stockholm",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Taylor Fritz",
-"b": "Holger Rune",
-"aRoh": "Fritz, Taylor",
-"bRoh": "Rune, Holger",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.46,
-2.85
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.476,
-2.88
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 2.29,
-"mind1B": 1.689,
-"mind1A": 1.189,
-"glattB": 5.33,
-"dreiSaetze": 2.39,
-"zweiSaetze": 1.636,
-"satz1A": 1.564,
-"satz1B": 2.56
-},
-"winamax": {
-"glattA": 2.1,
-"mind1B": 1.6,
-"mind1A": 1.14,
-"glattB": 4.4,
-"dreiSaetze": 2.2,
-"zweiSaetze": 1.54,
-"tbJa": 1.74,
-"tbNein": 1.8
-}
-},
-"tid": 3091,
-"p1Id": 136042,
-"p2Id": 429603,
-"sapId": 17489482,
-"landA": "US",
-"landB": "DK",
-"runde": "Quarterfinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 74,
-"min7": 322,
-"minN": 3,
-"letztesMin": 86,
-"letztesGames": 21,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-11T15:10:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SE",
-"tz": 1,
-"start": "2026-11-11T19:35:00Z",
-"turnier": "Stockholm, Sweden"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 44,
-"min7": 171,
-"minN": 2,
-"letztesMin": 84,
-"letztesGames": 25,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-11T19:35:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SE",
-"tz": 1,
-"start": "2026-11-11T15:10:00Z",
-"turnier": "Stockholm, Sweden"
-}
-}
-},
-"ort": {
-"land": "SE",
-"tz": 1
-},
-"rangA": 12,
-"rangB": 433
-},
-{
-"id": "id1200391576417324",
-"start": "2026-11-12T18:00:00.000Z",
-"turnier": "Orleans Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Sebastian Baez",
-"b": "Calvin Hemery",
-"aRoh": "Baez, Sebastian",
-"bRoh": "Hemery, Calvin",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.28,
-3.25
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 3915,
-"p1Id": 257721,
-"p2Id": 81271,
-"sapId": 17488908,
-"landA": "AR",
-"landB": "FR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 24,
-"min7": 96,
-"minN": 1,
-"letztesMin": 96,
-"letztesGames": 24,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-10T16:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-10T17:30:00Z",
-"turnier": "Orleans, France"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 8,
-"games7": 80,
-"min7": 360,
-"minN": 3,
-"letztesMin": 151,
-"letztesGames": 31,
-"dreisatz7": 2,
-"siege7": 3,
-"letztes": "2026-11-10T17:30:00Z",
-"quali": true,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-10T16:05:00Z",
-"turnier": "Orleans, France"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 52,
-"rangB": 274
-},
-{
 "id": "id1200395176430866",
-"start": "2026-11-12T18:25:00.000Z",
+"start": "2026-11-12T18:45:00.000Z",
 "turnier": "Knoxville Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -458,110 +288,8 @@
 "rangB": 270
 },
 {
-"id": "id1200309176430122",
-"start": "2026-11-12T18:40:00.000Z",
-"turnier": "ATP Stockholm",
-"kategorie": "ATP",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Lorenzo Musetti",
-"b": "Ugo Humbert",
-"aRoh": "Musetti, Lorenzo",
-"bRoh": "Humbert, Ugo",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.48,
-2.7
-]
-},
-"pausiert": [],
-"pinnacle": [
-1.555,
-2.62
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 2.35,
-"mind1B": 1.653,
-"mind1A": 1.245,
-"glattB": 4.42,
-"dreiSaetze": 2.55,
-"zweiSaetze": 1.571,
-"satz1A": 1.641,
-"satz1B": 2.38
-},
-"winamax": {
-"glattA": 2.1,
-"mind1B": 1.58,
-"mind1A": 1.16,
-"glattB": 4.0,
-"dreiSaetze": 2.25,
-"zweiSaetze": 1.52,
-"tbJa": 2.0,
-"tbNein": 1.52
-}
-},
-"tid": 3091,
-"p1Id": 359602,
-"p2Id": 185388,
-"sapId": 17489479,
-"landA": "IT",
-"landB": "FR",
-"runde": "Quarterfinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 17,
-"min7": 71,
-"minN": 1,
-"letztesMin": 71,
-"letztesGames": 17,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-10T18:55:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SE",
-"tz": 1,
-"start": "2026-11-11T15:05:00Z",
-"turnier": "Stockholm, Sweden"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 37,
-"min7": 152,
-"minN": 2,
-"letztesMin": 68,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-11T15:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SE",
-"tz": 1,
-"start": "2026-11-10T18:55:00Z",
-"turnier": "Stockholm, Sweden"
-}
-}
-},
-"ort": {
-"land": "SE",
-"tz": 1
-},
-"rangA": 24,
-"rangB": 38
-},
-{
 "id": "id1200391576417320",
-"start": "2026-11-12T19:10:00.000Z",
+"start": "2026-11-12T19:15:00.000Z",
 "turnier": "Orleans Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -581,15 +309,15 @@
 },
 "pausiert": [],
 "pinnacle": [
-1.787,
-2.11
+1.8,
+2.1
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 2.93,
-"mind1B": 1.434,
-"mind1A": 1.32,
-"glattB": 3.55,
+"glattA": 2.95,
+"mind1B": 1.431,
+"mind1A": 1.323,
+"glattB": 3.53,
 "dreiSaetze": 2.3,
 "zweiSaetze": 1.657,
 "satz1A": 1.847,
@@ -673,19 +401,19 @@
 },
 "pausiert": [],
 "pinnacle": [
-1.318,
-3.51
+1.309,
+3.57
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 1.925,
-"mind1B": 1.909,
-"mind1A": 1.135,
-"glattB": 6.22,
-"dreiSaetze": 2.61,
-"zweiSaetze": 1.518,
-"satz1A": 1.42,
-"satz1B": 2.91
+"glattA": 1.909,
+"mind1B": 1.925,
+"mind1A": 1.132,
+"glattB": 6.32,
+"dreiSaetze": 2.62,
+"zweiSaetze": 1.512,
+"satz1A": 1.413,
+"satz1B": 2.94
 }
 },
 "tid": 3951,
@@ -765,19 +493,19 @@
 },
 "pausiert": [],
 "pinnacle": [
-1.591,
-2.41
+1.641,
+2.31
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 2.45,
-"mind1B": 1.578,
-"mind1A": 1.235,
-"glattB": 4.27,
-"dreiSaetze": 2.37,
-"zweiSaetze": 1.609,
-"satz1A": 1.609,
-"satz1B": 2.34
+"glattA": 2.55,
+"mind1B": 1.537,
+"mind1A": 1.251,
+"glattB": 4.09,
+"dreiSaetze": 2.34,
+"zweiSaetze": 1.625,
+"satz1A": 1.645,
+"satz1B": 2.28
 }
 },
 "tid": 7793,
@@ -949,19 +677,19 @@
 },
 "pausiert": [],
 "pinnacle": [
-1.847,
-2.009
+1.769,
+2.11
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 3.0,
-"mind1B": 1.418,
-"mind1A": 1.354,
-"glattB": 3.33,
-"dreiSaetze": 2.36,
+"glattA": 2.87,
+"mind1B": 1.45,
+"mind1A": 1.328,
+"glattB": 3.49,
+"dreiSaetze": 2.37,
 "zweiSaetze": 1.625,
-"satz1A": 1.869,
-"satz1B": 1.97
+"satz1A": 1.819,
+"satz1B": 2.029
 }
 },
 "tid": 48389,
@@ -1545,8 +1273,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.6,
-2.15
+1.58,
+2.2
 ]
 },
 "pausiert": [],
@@ -1629,19 +1357,19 @@
 },
 "pausiert": [],
 "pinnacle": [
-1.662,
-2.29
+1.641,
+2.33
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 2.58,
-"mind1B": 1.534,
-"mind1A": 1.27,
-"glattB": 3.98,
-"dreiSaetze": 2.39,
-"zweiSaetze": 1.613,
-"satz1A": 1.689,
-"satz1B": 2.22
+"glattA": 2.55,
+"mind1B": 1.549,
+"mind1A": 1.263,
+"glattB": 4.05,
+"dreiSaetze": 2.4,
+"zweiSaetze": 1.609,
+"satz1A": 1.675,
+"satz1B": 2.24
 }
 },
 "tid": 47606,
@@ -1856,171 +1584,6 @@
 "rangB": 265
 },
 {
-"id": "id1200391576417300",
-"start": "2026-11-13T10:00:00.000Z",
-"turnier": "Orleans Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Zsombor Piros",
-"b": "Daniel Altmaier",
-"aRoh": "Piros, Zsombor",
-"bRoh": "Altmaier, Daniel",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.15,
-1.62
-]
-},
-"pausiert": [],
-"pinnacle": [
-2.17,
-1.746
-],
-"maerkte": {
-"pinnacle": {
-"glattA": 3.88,
-"mind1B": 1.28,
-"mind1A": 1.44,
-"glattB": 2.91,
-"dreiSaetze": 2.2,
-"zweiSaetze": 1.714,
-"satz1A": 2.09,
-"satz1B": 1.775
-}
-},
-"tid": 3915,
-"p1Id": 223714,
-"p2Id": 127208,
-"sapId": 17488896,
-"landA": "HU",
-"landB": "DE",
-"runde": "Quarterfinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 9,
-"games7": 86,
-"min7": 389,
-"minN": 3,
-"letztesMin": 116,
-"letztesGames": 30,
-"dreisatz7": 3,
-"siege7": 2,
-"letztes": "2026-11-11T17:50:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-11T12:40:00Z",
-"turnier": "Orleans, France"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 6,
-"games7": 54,
-"min7": 214,
-"minN": 2,
-"letztesMin": 116,
-"letztesGames": 28,
-"dreisatz7": 2,
-"siege7": 2,
-"letztes": "2026-11-11T12:40:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-11T17:50:00Z",
-"turnier": "Orleans, France"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 101,
-"rangB": 63
-},
-{
-"id": "id1200391576417312",
-"start": "2026-11-13T10:00:00.000Z",
-"turnier": "Orleans Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Sascha Gueymard Wayenburg",
-"b": "Otto Virtanen",
-"aRoh": "Gueymard Wayenburg, Sascha",
-"bRoh": "Virtanen, Otto",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 3915,
-"p1Id": 679701,
-"p2Id": 276563,
-"sapId": 17488907,
-"landA": "FR",
-"landB": "FI",
-"runde": "Quarterfinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 6,
-"games7": 64,
-"min7": 246,
-"minN": 2,
-"letztesMin": 118,
-"letztesGames": 30,
-"dreisatz7": 2,
-"siege7": 2,
-"letztes": "2026-11-11T21:45:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-12T13:15:00Z",
-"turnier": "Orleans, France"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 49,
-"min7": 191,
-"minN": 2,
-"letztesMin": 70,
-"letztesGames": 21,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-12T13:15:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-11T21:45:00Z",
-"turnier": "Orleans, France"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 187,
-"rangB": 116
-},
-{
 "id": "id1204760676415492",
 "start": "2026-11-13T10:40:00.000Z",
 "turnier": "Hersonissos 3 Challenger",
@@ -2097,6 +1660,98 @@
 },
 "rangA": 552,
 "rangB": 236
+},
+{
+"id": "id1200391576417300",
+"start": "2026-11-13T12:00:00.000Z",
+"turnier": "Orleans Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Zsombor Piros",
+"b": "Daniel Altmaier",
+"aRoh": "Piros, Zsombor",
+"bRoh": "Altmaier, Daniel",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.15,
+1.62
+]
+},
+"pausiert": [],
+"pinnacle": [
+2.21,
+1.719
+],
+"maerkte": {
+"pinnacle": {
+"glattA": 3.95,
+"mind1B": 1.273,
+"mind1A": 1.454,
+"glattB": 2.85,
+"dreiSaetze": 2.21,
+"zweiSaetze": 1.709,
+"satz1A": 2.1,
+"satz1B": 1.763
+}
+},
+"tid": 3915,
+"p1Id": 223714,
+"p2Id": 127208,
+"sapId": 17488896,
+"landA": "HU",
+"landB": "DE",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 9,
+"games7": 86,
+"min7": 389,
+"minN": 3,
+"letztesMin": 116,
+"letztesGames": 30,
+"dreisatz7": 3,
+"siege7": 2,
+"letztes": "2026-11-11T17:50:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-11T12:40:00Z",
+"turnier": "Orleans, France"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 6,
+"games7": 54,
+"min7": 214,
+"minN": 2,
+"letztesMin": 116,
+"letztesGames": 28,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-11-11T12:40:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-11T17:50:00Z",
+"turnier": "Orleans, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 101,
+"rangB": 63
 },
 {
 "id": "id1204838176416612",
@@ -2250,6 +1905,79 @@
 "rangB": 251
 },
 {
+"id": "id1200309176430188",
+"start": "2026-11-13T13:00:00.000Z",
+"turnier": "ATP Stockholm",
+"kategorie": "ATP",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Alejandro Tabilo",
+"b": "Thiago Tirante",
+"aRoh": "Tabilo, Alejandro",
+"bRoh": "Tirante, Thiago Agustin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3091,
+"p1Id": 102151,
+"p2Id": 256875,
+"sapId": 17489485,
+"landA": "CL",
+"landB": "AR",
+"runde": "Semifinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 63,
+"min7": 288,
+"minN": 2,
+"letztesMin": 115,
+"letztesGames": 25,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-12T12:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SE",
+"tz": 1,
+"start": "2026-11-12T14:10:00Z",
+"turnier": "Stockholm, Sweden"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 57,
+"min7": 275,
+"minN": 2,
+"letztesMin": 170,
+"letztesGames": 35,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-12T14:10:00Z",
+"quali": false,
+"vorOrt": {
+"land": "SE",
+"tz": 1,
+"start": "2026-11-12T12:00:00Z",
+"turnier": "Stockholm, Sweden"
+}
+}
+},
+"ort": {
+"land": "SE",
+"tz": 1
+},
+"rangA": 30,
+"rangB": 53
+},
+{
 "id": "id1204838176416614",
 "start": "2026-11-13T13:10:00.000Z",
 "turnier": "Monastir Challenger",
@@ -2271,19 +1999,19 @@
 },
 "pausiert": [],
 "pinnacle": [
-2.71,
-1.495
+2.74,
+1.485
 ],
 "maerkte": {
 "pinnacle": {
-"glattA": 4.63,
-"mind1B": 1.215,
-"mind1A": 1.671,
-"glattB": 2.27,
-"dreiSaetze": 2.49,
-"zweiSaetze": 1.568,
-"satz1A": 2.47,
-"satz1B": 1.568
+"glattA": 4.68,
+"mind1B": 1.212,
+"mind1A": 1.684,
+"glattB": 2.25,
+"dreiSaetze": 2.51,
+"zweiSaetze": 1.564,
+"satz1A": 2.49,
+"satz1B": 1.558
 }
 },
 "tid": 48381,
@@ -2637,6 +2365,79 @@
 },
 "rangA": 151,
 "rangB": 432
+},
+{
+"id": "id1200391576417312",
+"start": "2026-11-13T18:00:00.000Z",
+"turnier": "Orleans Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Sascha Gueymard Wayenburg",
+"b": "Otto Virtanen",
+"aRoh": "Gueymard Wayenburg, Sascha",
+"bRoh": "Virtanen, Otto",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3915,
+"p1Id": 679701,
+"p2Id": 276563,
+"sapId": 17488907,
+"landA": "FR",
+"landB": "FI",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 6,
+"games7": 64,
+"min7": 246,
+"minN": 2,
+"letztesMin": 118,
+"letztesGames": 30,
+"dreisatz7": 2,
+"siege7": 2,
+"letztes": "2026-11-11T21:45:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-12T13:15:00Z",
+"turnier": "Orleans, France"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 49,
+"min7": 191,
+"minN": 2,
+"letztesMin": 70,
+"letztesGames": 21,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-12T13:15:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FR",
+"tz": 1,
+"start": "2026-11-11T21:45:00Z",
+"turnier": "Orleans, France"
+}
+}
+},
+"ort": {
+"land": "FR",
+"tz": 1
+},
+"rangA": 187,
+"rangB": 116
 }
 ]
 }

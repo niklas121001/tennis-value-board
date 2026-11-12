@@ -12899,7 +12899,7 @@
 },
 "17488908": {
 "id": 17488908,
-"start": "2026-11-12T18:00:00Z",
+"start": "2026-11-12T18:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -12913,16 +12913,21 @@
 "aL": "FR",
 "hR": 52,
 "aR": 274,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+4,
+3
+]
+]
 },
 "17488864": {
 "id": 17488864,
 "start": "2026-11-12T15:05:00Z",
-"min": null,
+"min": 108,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -12935,9 +12940,9 @@
 "aL": "DE",
 "hR": 349,
 "aR": 387,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -12945,8 +12950,8 @@
 7
 ],
 [
-3,
-3
+6,
+7
 ]
 ]
 },
@@ -12975,7 +12980,7 @@
 "17489782": {
 "id": 17489782,
 "start": "2026-11-12T16:05:00Z",
-"min": null,
+"min": 138,
 "kat": "Challenger",
 "turnier": "Lima, Peru",
 "belag": "clay",
@@ -12988,14 +12993,22 @@
 "aL": "AR",
 "hR": 496,
 "aR": 224,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
-1,
-2
+3,
+6
+],
+[
+7,
+6
+],
+[
+4,
+0
 ]
 ]
 },
@@ -13196,7 +13209,7 @@
 "17489490": {
 "id": 17489490,
 "start": "2026-11-12T14:10:00Z",
-"min": null,
+"min": 170,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
 "belag": "hard",
@@ -13209,9 +13222,9 @@
 "aL": "KZ",
 "hR": 53,
 "aR": 108,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -13220,7 +13233,11 @@
 ],
 [
 6,
-6
+7
+],
+[
+6,
+3
 ]
 ]
 },
@@ -13258,7 +13275,7 @@
 "17488862": {
 "id": 17488862,
 "start": "2026-11-12T14:00:00Z",
-"min": null,
+"min": 176,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -13271,9 +13288,9 @@
 "aL": "FR",
 "hR": 262,
 "aR": 838,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
@@ -13285,8 +13302,8 @@
 5
 ],
 [
-0,
-0
+6,
+2
 ]
 ]
 },
@@ -13367,7 +13384,7 @@
 },
 "17489786": {
 "id": 17489786,
-"start": "2026-11-12T17:10:00Z",
+"start": "2026-11-12T17:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Lima, Peru",
@@ -13456,7 +13473,7 @@
 "17489611": {
 "id": 17489611,
 "start": "2026-11-12T16:05:00Z",
-"min": null,
+"min": 83,
 "kat": "Challenger",
 "turnier": "Knoxville, USA",
 "belag": "hard",
@@ -13469,20 +13486,24 @@
 "aL": "US",
 "hR": 397,
 "aR": 100,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
-0,
-4
+1,
+6
+],
+[
+5,
+7
 ]
 ]
 },
 "17489610": {
 "id": 17489610,
-"start": "2026-11-12T17:10:00Z",
+"start": "2026-11-12T17:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Knoxville, USA",
@@ -13496,11 +13517,20 @@
 "aL": "US",
 "hR": 271,
 "aR": 205,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+2,
+0
+]
+]
 },
 "17489928": {
 "id": 17489928,
@@ -13711,7 +13741,7 @@
 },
 "17488896": {
 "id": 17488896,
-"start": "2026-11-13T10:00:00Z",
+"start": "2026-11-13T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -13747,9 +13777,9 @@
 "aL": "DK",
 "hR": 12,
 "aR": 433,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Walkover",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": []
 },
@@ -13843,7 +13873,7 @@
 },
 "17488907": {
 "id": 17488907,
-"start": "2026-11-13T10:00:00Z",
+"start": "2026-11-13T18:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -13865,7 +13895,7 @@
 },
 "17488910": {
 "id": 17488910,
-"start": "2026-11-13T10:30:00Z",
+"start": "2026-11-13T13:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -14048,12 +14078,100 @@
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Alejandro Tabilo",
-"a": "WQF4",
+"a": "Thiago Agustin Tirante",
 "hId": 102151,
-"aId": 393303,
+"aId": 221515,
 "hL": "CL",
-"aL": null,
+"aL": "AR",
 "hR": 30,
+"aR": 53,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17488874": {
+"id": 17488874,
+"start": "2026-11-13T13:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Kilian Feldbausch",
+"a": "Qf8",
+"hId": 377489,
+"aId": 393299,
+"hL": "CH",
+"aL": null,
+"hR": 262,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17488897": {
+"id": 17488897,
+"start": "2026-11-13T14:40:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Orleans, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Qf1",
+"a": "Pedro Martinez",
+"hId": 393292,
+"aId": 77223,
+"hL": null,
+"aL": "ES",
+"hR": null,
+"aR": 124,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17489601": {
+"id": 17489601,
+"start": "2026-11-13T15:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Knoxville, USA",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Qf7",
+"a": "Michael Zheng",
+"hId": 393298,
+"aId": 385285,
+"hL": null,
+"aL": "US",
+"hR": null,
+"aR": 100,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17489483": {
+"id": 17489483,
+"start": "2026-11-13T16:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Stockholm, Sweden",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Taylor Fritz",
+"a": "WQF2",
+"hId": 136042,
+"aId": 393301,
+"hL": "US",
+"aL": null,
+"hR": 12,
 "aR": null,
 "st": "notstarted",
 "desc": "Not started",
