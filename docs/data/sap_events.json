@@ -12733,7 +12733,7 @@
 "17488905": {
 "id": 17488905,
 "start": "2026-11-12T13:15:00Z",
-"min": null,
+"min": 70,
 "kat": "Challenger",
 "turnier": "Orleans, France",
 "belag": "hard",
@@ -12746,14 +12746,18 @@
 "aL": "FI",
 "hR": 119,
 "aR": 116,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
 3,
-1
+6
+],
+[
+5,
+7
 ]
 ]
 },
@@ -12861,7 +12865,7 @@
 "17488871": {
 "id": 17488871,
 "start": "2026-11-12T12:00:00Z",
-"min": null,
+"min": 168,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -12874,9 +12878,9 @@
 "aL": "TN",
 "hR": 227,
 "aR": 515,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
@@ -12884,8 +12888,12 @@
 6
 ],
 [
-5,
+6,
 2
+],
+[
+7,
+6
 ]
 ]
 },
@@ -12913,7 +12921,7 @@
 },
 "17488864": {
 "id": 17488864,
-"start": "2026-11-12T13:10:00Z",
+"start": "2026-11-12T15:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
@@ -12927,11 +12935,20 @@
 "aL": "DE",
 "hR": 349,
 "aR": 387,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+3,
+3
+]
+]
 },
 "17489598": {
 "id": 17489598,
@@ -12957,7 +12974,7 @@
 },
 "17489782": {
 "id": 17489782,
-"start": "2026-11-12T16:00:00Z",
+"start": "2026-11-12T16:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Lima, Peru",
@@ -12971,11 +12988,16 @@
 "aL": "AR",
 "hR": 496,
 "aR": 224,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+1,
+2
+]
+]
 },
 "17489781": {
 "id": 17489781,
@@ -13143,7 +13165,7 @@
 "17489484": {
 "id": 17489484,
 "start": "2026-11-12T12:00:00Z",
-"min": null,
+"min": 115,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
 "belag": "hard",
@@ -13156,9 +13178,9 @@
 "aL": "CL",
 "hR": 35,
 "aR": 30,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -13166,14 +13188,14 @@
 7
 ],
 [
-5,
-6
+6,
+7
 ]
 ]
 },
 "17489490": {
 "id": 17489490,
-"start": "2026-11-12T14:00:00Z",
+"start": "2026-11-12T14:10:00Z",
 "min": null,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
@@ -13187,16 +13209,25 @@
 "aL": "KZ",
 "hR": 53,
 "aR": 108,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+6,
+6
+]
+]
 },
 "17488867": {
 "id": 17488867,
 "start": "2026-11-12T12:00:00Z",
-"min": null,
+"min": 102,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -13209,9 +13240,9 @@
 "aL": "IT",
 "hR": 323,
 "aR": 272,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -13220,13 +13251,13 @@
 ],
 [
 4,
-4
+6
 ]
 ]
 },
 "17488862": {
 "id": 17488862,
-"start": "2026-11-12T13:10:00Z",
+"start": "2026-11-12T14:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
@@ -13240,11 +13271,24 @@
 "aL": "FR",
 "hR": 262,
 "aR": 838,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+7,
+5
+],
+[
+0,
+0
+]
+]
 },
 "17488909": {
 "id": 17488909,
@@ -13411,7 +13455,7 @@
 },
 "17489611": {
 "id": 17489611,
-"start": "2026-11-12T16:00:00Z",
+"start": "2026-11-12T16:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Knoxville, USA",
@@ -13425,11 +13469,16 @@
 "aL": "US",
 "hR": 397,
 "aR": 100,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+0,
+4
+]
+]
 },
 "17489610": {
 "id": 17489610,
@@ -13543,7 +13592,7 @@
 },
 "17488840": {
 "id": 17488840,
-"start": "2026-11-13T08:00:00Z",
+"start": "2026-11-13T09:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -13565,7 +13614,7 @@
 },
 "17488836": {
 "id": 17488836,
-"start": "2026-11-13T08:00:00Z",
+"start": "2026-11-13T09:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -13587,8 +13636,8 @@
 },
 "17488904": {
 "id": 17488904,
-"start": "2026-11-12T13:45:00Z",
-"min": null,
+"start": "2026-11-12T14:45:00Z",
+"min": 81,
 "kat": "Challenger",
 "turnier": "Orleans, France",
 "belag": "hard",
@@ -13601,15 +13650,24 @@
 "aL": "FR",
 "hR": 124,
 "aR": 244,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+2
+]
+]
 },
 "17488873": {
 "id": 17488873,
-"start": "2026-11-13T12:00:00Z",
+"start": "2026-11-13T13:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
@@ -13785,20 +13843,20 @@
 },
 "17488907": {
 "id": 17488907,
-"start": "2026-11-13T10:30:00Z",
+"start": "2026-11-13T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Sascha Gueymard Wayenburg",
-"a": "Qf4",
+"a": "Otto Virtanen",
 "hId": 340741,
-"aId": 393295,
+"aId": 229218,
 "hL": "FR",
-"aL": null,
+"aL": "FI",
 "hR": 187,
-"aR": null,
+"aR": 116,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13939,7 +13997,7 @@
 },
 "17488839": {
 "id": 17488839,
-"start": "2026-11-13T08:00:00Z",
+"start": "2026-11-13T10:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
@@ -13957,6 +14015,50 @@
 "desc": "Not started",
 "w": null,
 "runde": "Quarterfinals",
+"satz": []
+},
+"17488865": {
+"id": 17488865,
+"start": "2026-11-13T12:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Marvin Möller",
+"a": "Lorenzo Giustino",
+"hId": 226833,
+"aId": 48626,
+"hL": "DE",
+"aL": "IT",
+"hR": 227,
+"aR": 272,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17489485": {
+"id": 17489485,
+"start": "2026-11-13T13:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Stockholm, Sweden",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Alejandro Tabilo",
+"a": "WQF4",
+"hId": 102151,
+"aId": 393303,
+"hL": "CL",
+"aL": null,
+"hR": 30,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
 "satz": []
 }
 }
