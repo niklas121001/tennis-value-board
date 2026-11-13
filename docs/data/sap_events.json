@@ -12636,8 +12636,8 @@
 },
 "17488873": {
 "id": 17488873,
-"start": "2026-11-13T13:10:00Z",
-"min": null,
+"start": "2026-11-13T13:50:00Z",
+"min": 99,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -12650,16 +12650,25 @@
 "aL": "ES",
 "hR": 588,
 "aR": 238,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+6,
+4
+]
+]
 },
 "17488869": {
 "id": 17488869,
 "start": "2026-11-13T12:00:00Z",
-"min": null,
+"min": 95,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -12672,9 +12681,9 @@
 "aL": "HR",
 "hR": 308,
 "aR": 251,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -12682,15 +12691,15 @@
 6
 ],
 [
-3,
-2
+6,
+4
 ]
 ]
 },
 "17488896": {
 "id": 17488896,
 "start": "2026-11-13T12:00:00Z",
-"min": null,
+"min": 95,
 "kat": "Challenger",
 "turnier": "Orleans, France",
 "belag": "hard",
@@ -12703,9 +12712,9 @@
 "aL": "DE",
 "hR": 101,
 "aR": 63,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -12713,8 +12722,8 @@
 7
 ],
 [
-1,
-2
+4,
+6
 ]
 ]
 },
@@ -12897,7 +12906,7 @@
 "17488910": {
 "id": 17488910,
 "start": "2026-11-13T14:00:00Z",
-"min": null,
+"min": 72,
 "kat": "Challenger",
 "turnier": "Orleans, France",
 "belag": "hard",
@@ -12910,11 +12919,20 @@
 "aL": "US",
 "hR": 165,
 "aR": 128,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17489609": {
 "id": 17489609,
@@ -13069,7 +13087,7 @@
 "17488865": {
 "id": 17488865,
 "start": "2026-11-13T12:00:00Z",
-"min": null,
+"min": 137,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -13082,9 +13100,9 @@
 "aL": "IT",
 "hR": 227,
 "aR": 272,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -13093,14 +13111,18 @@
 ],
 [
 4,
-4
+6
+],
+[
+6,
+2
 ]
 ]
 },
 "17489485": {
 "id": 17489485,
 "start": "2026-11-13T13:00:00Z",
-"min": null,
+"min": 106,
 "kat": "ATP",
 "turnier": "Stockholm, Sweden",
 "belag": "hard",
@@ -13113,20 +13135,24 @@
 "aL": "AR",
 "hR": 30,
 "aR": 53,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Semifinals",
 "satz": [
 [
-2,
-2
+5,
+7
+],
+[
+6,
+7
 ]
 ]
 },
 "17488874": {
 "id": 17488874,
-"start": "2026-11-13T13:10:00Z",
+"start": "2026-11-13T14:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
@@ -13140,15 +13166,24 @@
 "aL": "DE",
 "hR": 262,
 "aR": 387,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+1,
+2
+]
+]
 },
 "17488897": {
 "id": 17488897,
-"start": "2026-11-13T15:10:00Z",
+"start": "2026-11-13T15:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -13375,13 +13410,13 @@
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Francesco Maestrelli",
-"a": "WQF2",
+"a": "Philip Henning",
 "hId": 261017,
-"aId": 393301,
+"aId": 238147,
 "hL": "IT",
-"aL": null,
+"aL": "ZA",
 "hR": 176,
-"aR": null,
+"aR": 236,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13408,6 +13443,72 @@
 "desc": "Not started",
 "w": null,
 "runde": "Semifinals",
+"satz": []
+},
+"17488899": {
+"id": 17488899,
+"start": "2026-11-14T10:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Orleans, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Nishesh Basavareddy",
+"a": "Daniel Altmaier",
+"hId": 407164,
+"aId": 127208,
+"hL": "US",
+"aL": "DE",
+"hR": 128,
+"aR": 63,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17488861": {
+"id": 17488861,
+"start": "2026-11-14T11:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Jonas Forejtek",
+"a": "Marvin Möller",
+"hId": 269291,
+"aId": 226833,
+"hL": "CZ",
+"aL": "DE",
+"hR": 308,
+"aR": 227,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17489481": {
+"id": 17489481,
+"start": "2026-11-14T12:00:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Stockholm, Sweden",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "WSF1",
+"a": "Thiago Agustin Tirante",
+"hId": 393304,
+"aId": 221515,
+"hL": null,
+"aL": "AR",
+"hR": null,
+"aR": 53,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Final",
 "satz": []
 }
 }
