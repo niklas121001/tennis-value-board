@@ -12625,7 +12625,7 @@
 "17488835": {
 "id": 17488835,
 "start": "2026-11-14T09:30:00Z",
-"min": null,
+"min": 185,
 "kat": "Challenger",
 "turnier": "Hersonissos 3, Greece",
 "belag": "hard",
@@ -12638,9 +12638,9 @@
 "aL": "ZA",
 "hR": 176,
 "aR": 236,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Semifinals",
 "satz": [
 [
@@ -12652,8 +12652,8 @@
 3
 ],
 [
-4,
-5
+6,
+7
 ]
 ]
 },
@@ -12713,7 +12713,7 @@
 "17488861": {
 "id": 17488861,
 "start": "2026-11-14T11:00:00Z",
-"min": null,
+"min": 96,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
 "belag": "hard",
@@ -12726,13 +12726,17 @@
 "aL": "DE",
 "hR": 308,
 "aR": 227,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Semifinals",
 "satz": [
 [
 6,
+7
+],
+[
+1,
 6
 ]
 ]
@@ -12754,19 +12758,27 @@
 "hR": 12,
 "aR": 53,
 "st": "inprogress",
-"desc": "1st set",
+"desc": "3rd set",
 "w": null,
 "runde": "Final",
 "satz": [
 [
-3,
+6,
+2
+],
+[
+4,
+6
+],
+[
+1,
 1
 ]
 ]
 },
 "17488872": {
 "id": 17488872,
-"start": "2026-11-14T12:40:00Z",
+"start": "2026-11-14T13:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir, Tunisia",
@@ -12780,11 +12792,16 @@
 "aL": "CH",
 "hR": 588,
 "aR": 262,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+1,
+3
+]
+]
 },
 "17488901": {
 "id": 17488901,
@@ -13212,13 +13229,13 @@
 "turnier": "Hersonissos 3, Greece",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "WSF1",
+"h": "Philip Henning",
 "a": "Michele Ribecai",
-"hId": 393304,
+"hId": 238147,
 "aId": 462168,
-"hL": null,
+"hL": "ZA",
 "aL": "IT",
-"hR": null,
+"hR": 236,
 "aR": 284,
 "st": "notstarted",
 "desc": "Not started",
@@ -14016,6 +14033,28 @@
 "desc": "Not started",
 "w": null,
 "runde": null,
+"satz": []
+},
+"17488866": {
+"id": 17488866,
+"start": "2026-11-15T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Marvin Möller",
+"a": "WSF2",
+"hId": 226833,
+"aId": 393305,
+"hL": "DE",
+"aL": null,
+"hR": 227,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Final",
 "satz": []
 }
 }
