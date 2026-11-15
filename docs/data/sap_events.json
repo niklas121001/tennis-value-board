@@ -13135,7 +13135,7 @@
 "17545024": {
 "id": 17545024,
 "start": "2026-11-15T13:00:00Z",
-"min": null,
+"min": 87,
 "kat": "ATP",
 "turnier": "Tour Finals Turin, Italy, Group A",
 "belag": "hard",
@@ -13148,11 +13148,20 @@
 "aL": "ES",
 "hR": 1,
 "aR": 10,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": null,
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+6,
+4
+]
+]
 },
 "17545044": {
 "id": 17545044,
@@ -13863,7 +13872,7 @@
 "aR": null,
 "st": "finished",
 "desc": "Ended",
-"w": null,
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -13879,7 +13888,7 @@
 "17560913": {
 "id": 17560913,
 "start": "2026-11-15T11:20:00Z",
-"min": null,
+"min": 127,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland, Qualifying",
 "belag": "hard",
@@ -13892,9 +13901,9 @@
 "aL": "SE",
 "hR": 241,
 "aR": 657,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -13906,8 +13915,8 @@
 2
 ],
 [
-2,
-3
+4,
+6
 ]
 ]
 },
@@ -13927,11 +13936,15 @@
 "aL": "UA",
 "hR": 687,
 "aR": 414,
-"st": "inprogress",
-"desc": "2nd set",
+"st": "finished",
+"desc": "Ended",
 "w": null,
 "runde": "Qualification Round 1",
 "satz": [
+[
+6,
+4
+],
 [
 5,
 4
@@ -13993,8 +14006,8 @@
 },
 "17560904": {
 "id": 17560904,
-"start": "2026-11-15T13:10:00Z",
-"min": null,
+"start": "2026-11-15T13:40:00Z",
+"min": 106,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland, Qualifying",
 "belag": "hard",
@@ -14007,16 +14020,29 @@
 "aL": "TN",
 "hR": 666,
 "aR": 349,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+6,
+3
+],
+[
+1,
+6
+]
+]
 },
 "17560907": {
 "id": 17560907,
-"start": "2026-11-15T13:10:00Z",
-"min": null,
+"start": "2026-11-15T13:15:00Z",
+"min": 58,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland, Qualifying",
 "belag": "hard",
@@ -14029,11 +14055,20 @@
 "aL": "FI",
 "hR": 251,
 "aR": 936,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+6,
+2
+]
+]
 },
 "17560909": {
 "id": 17560909,
@@ -14051,9 +14086,9 @@
 "aL": "RO",
 "hR": 265,
 "aR": 513,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 3,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -14064,8 +14099,8 @@
 },
 "17561152": {
 "id": 17561152,
-"start": "2026-11-15T13:10:00Z",
-"min": null,
+"start": "2026-11-15T14:20:00Z",
+"min": 73,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
 "belag": "hard",
@@ -14078,16 +14113,25 @@
 "aL": "FR",
 "hR": 266,
 "aR": 854,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+5,
+7
+]
+]
 },
 "17561157": {
 "id": 17561157,
 "start": "2026-11-15T12:15:00Z",
-"min": null,
+"min": 86,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
 "belag": "hard",
@@ -14100,24 +14144,24 @@
 "aL": "FR",
 "hR": 394,
 "aR": 292,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
-5,
-3
+6,
+2
 ],
 [
-1,
-1
+6,
+3
 ]
 ]
 },
 "17560906": {
 "id": 17560906,
-"start": "2026-11-15T14:20:00Z",
+"start": "2026-11-15T14:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland, Qualifying",
@@ -14131,15 +14175,24 @@
 "aL": "FI",
 "hR": 282,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+4,
+3
+]
+]
 },
 "17560911": {
 "id": 17560911,
-"start": "2026-11-15T14:20:00Z",
+"start": "2026-11-15T15:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland, Qualifying",
@@ -14153,11 +14206,16 @@
 "aL": "NO",
 "hR": 728,
 "aR": 482,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+1
+]
+]
 },
 "17561159": {
 "id": 17561159,
@@ -14183,8 +14241,8 @@
 },
 "17561154": {
 "id": 17561154,
-"start": "2026-11-15T13:30:00Z",
-"min": null,
+"start": "2026-11-15T13:55:00Z",
+"min": 69,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
 "belag": "hard",
@@ -14197,15 +14255,24 @@
 "aL": "FR",
 "hR": 487,
 "aR": 334,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17560908": {
 "id": 17560908,
-"start": "2026-11-15T14:00:00Z",
+"start": "2026-11-15T15:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland, Qualifying",
@@ -14219,15 +14286,24 @@
 "aL": "RO",
 "hR": 643,
 "aR": 468,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+0,
+0
+]
+]
 },
 "17561160": {
 "id": 17561160,
-"start": "2026-11-15T15:30:00Z",
+"start": "2026-11-15T16:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
@@ -14249,7 +14325,7 @@
 },
 "17561161": {
 "id": 17561161,
-"start": "2026-11-15T14:35:00Z",
+"start": "2026-11-15T15:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
@@ -14263,15 +14339,24 @@
 "aL": "CZ",
 "hR": null,
 "aR": 308,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+1,
+5
+]
+]
 },
 "17561153": {
 "id": 17561153,
-"start": "2026-11-15T15:45:00Z",
+"start": "2026-11-15T16:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
@@ -14293,7 +14378,7 @@
 },
 "17561163": {
 "id": 17561163,
-"start": "2026-11-15T16:40:00Z",
+"start": "2026-11-15T18:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
@@ -14315,7 +14400,7 @@
 },
 "17488900": {
 "id": 17488900,
-"start": "2026-11-15T15:00:00Z",
+"start": "2026-11-15T15:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Orleans, France",
@@ -14329,11 +14414,16 @@
 "aL": "US",
 "hR": 116,
 "aR": 128,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Final",
-"satz": []
+"satz": [
+[
+3,
+2
+]
+]
 },
 "17563210": {
 "id": 17563210,
@@ -14369,7 +14459,7 @@
 "17561941": {
 "id": 17561941,
 "start": "2026-11-15T13:00:00Z",
-"min": null,
+"min": 82,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay, Qualifying",
 "belag": "clay",
@@ -14382,16 +14472,25 @@
 "aL": "AR",
 "hR": null,
 "aR": 516,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17561943": {
 "id": 17561943,
 "start": "2026-11-15T13:00:00Z",
-"min": null,
+"min": 68,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay, Qualifying",
 "belag": "clay",
@@ -14404,16 +14503,25 @@
 "aL": "AR",
 "hR": 348,
 "aR": 757,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+6,
+0
+]
+]
 },
 "17561922": {
 "id": 17561922,
 "start": "2026-11-15T13:00:00Z",
-"min": null,
+"min": 45,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay, Qualifying",
 "belag": "clay",
@@ -14426,16 +14534,25 @@
 "aL": "EC",
 "hR": null,
 "aR": 392,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+0,
+6
+]
+]
 },
 "17561921": {
 "id": 17561921,
-"start": "2026-11-15T14:10:00Z",
-"min": null,
+"start": "2026-11-15T14:05:00Z",
+"min": 99,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay, Qualifying",
 "belag": "clay",
@@ -14448,15 +14565,24 @@
 "aL": "BR",
 "hR": null,
 "aR": 553,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+6,
+2
+]
+]
 },
 "17561928": {
 "id": 17561928,
-"start": "2026-11-15T14:10:00Z",
+"start": "2026-11-15T14:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay, Qualifying",
@@ -14470,15 +14596,24 @@
 "aL": "AR",
 "hR": 683,
 "aR": 595,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+0,
+3
+]
+]
 },
 "17561920": {
 "id": 17561920,
-"start": "2026-11-15T14:10:00Z",
+"start": "2026-11-15T14:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay, Qualifying",
@@ -14492,9 +14627,9 @@
 "aL": "BO",
 "hR": 340,
 "aR": 1287,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Walkover",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": []
 },
@@ -14588,7 +14723,7 @@
 },
 "17561948": {
 "id": 17561948,
-"start": "2026-11-15T16:00:00Z",
+"start": "2026-11-15T16:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay, Qualifying",
@@ -15064,8 +15199,8 @@
 "aL": "ZA",
 "hR": 1222,
 "aR": 716,
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Qualification Round 1",
 "satz": []
@@ -15402,7 +15537,7 @@
 },
 "17561573": {
 "id": 17561573,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T16:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15424,7 +15559,7 @@
 },
 "17561576": {
 "id": 17561576,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15446,7 +15581,7 @@
 },
 "17561577": {
 "id": 17561577,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15468,7 +15603,7 @@
 },
 "17561570": {
 "id": 17561570,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T16:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15490,7 +15625,7 @@
 },
 "17561572": {
 "id": 17561572,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15512,7 +15647,7 @@
 },
 "17561580": {
 "id": 17561580,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15534,7 +15669,7 @@
 },
 "17561578": {
 "id": 17561578,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15556,7 +15691,7 @@
 },
 "17561571": {
 "id": 17561571,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T15:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15578,7 +15713,7 @@
 },
 "17561574": {
 "id": 17561574,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15614,8 +15749,8 @@
 "aL": "DE",
 "hR": 159,
 "aR": 227,
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 32",
 "satz": []
@@ -15754,7 +15889,7 @@
 },
 "17561938": {
 "id": 17561938,
-"start": "2026-11-16T13:00:00Z",
+"start": "2026-11-16T23:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -15798,7 +15933,7 @@
 },
 "17561934": {
 "id": 17561934,
-"start": "2026-11-16T13:00:00Z",
+"start": "2026-11-16T21:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -15842,7 +15977,7 @@
 },
 "17563747": {
 "id": 17563747,
-"start": "2026-11-15T14:20:00Z",
+"start": "2026-11-15T15:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France, Qualifying",
@@ -15856,15 +15991,20 @@
 "aL": "FR",
 "hR": 1050,
 "aR": 492,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+0
+]
+]
 },
 "17561361": {
 "id": 17561361,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -15886,7 +16026,7 @@
 },
 "17561357": {
 "id": 17561357,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -15908,7 +16048,7 @@
 },
 "17561358": {
 "id": 17561358,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -15952,7 +16092,7 @@
 },
 "17561359": {
 "id": 17561359,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T18:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -15988,15 +16128,15 @@
 "aL": "FR",
 "hR": 173,
 "aR": 298,
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 32",
 "satz": []
 },
 "17561581": {
 "id": 17561581,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T13:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -16040,7 +16180,7 @@
 },
 "17561582": {
 "id": 17561582,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -16062,7 +16202,7 @@
 },
 "17561355": {
 "id": 17561355,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -16084,7 +16224,7 @@
 },
 "17561362": {
 "id": 17561362,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-16T17:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -16106,7 +16246,7 @@
 },
 "17561363": {
 "id": 17561363,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -16128,7 +16268,7 @@
 },
 "17561360": {
 "id": 17561360,
-"start": "2026-11-16T09:00:00Z",
+"start": "2026-11-17T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -16820,5 +16960,115 @@
 0
 ]
 ]
+},
+"17565746": {
+"id": 17565746,
+"start": "2026-11-16T10:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Helsinki, Finland, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Arvid Nordquist",
+"a": "Svyatoslav Gulin",
+"hId": 207077,
+"aId": 403858,
+"hL": "SE",
+"aL": "RU",
+"hR": 657,
+"aR": 407,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17566172": {
+"id": 17566172,
+"start": "2026-11-16T11:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Helsinki, Finland, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Cezar Cretu",
+"a": "Moez Echargui",
+"hId": 196920,
+"aId": 153826,
+"hL": "RO",
+"aL": "TN",
+"hR": 269,
+"aR": 349,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17565589": {
+"id": 17565589,
+"start": "2026-11-16T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Calvin Hemery",
+"a": "Matthew William Donald",
+"hId": 81271,
+"aId": 353705,
+"hL": "FR",
+"aL": "CZ",
+"hR": 274,
+"aR": 353,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17565930": {
+"id": 17565930,
+"start": "2026-11-16T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Luca Nardi",
+"a": "Stefan Latinovic",
+"hId": 289233,
+"aId": 227427,
+"hL": "IT",
+"aL": "RS",
+"hR": 239,
+"aR": 1378,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17566162": {
+"id": 17566162,
+"start": "2026-11-16T11:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Adrien Gobat",
+"a": "Hugo Grenier",
+"hId": 213079,
+"aId": 107357,
+"hL": "FR",
+"aL": "FR",
+"hR": 854,
+"aR": 394,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
 }
 }
