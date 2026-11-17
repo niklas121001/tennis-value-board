@@ -10946,7 +10946,7 @@
 },
 "17561578": {
 "id": 17561578,
-"start": "2026-11-18T13:00:00Z",
+"start": "2026-11-18T12:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -11082,7 +11082,7 @@
 },
 "17561936": {
 "id": 17561936,
-"start": "2026-11-17T18:50:00Z",
+"start": "2026-11-17T17:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -11104,7 +11104,7 @@
 },
 "17561939": {
 "id": 17561939,
-"start": "2026-11-17T17:40:00Z",
+"start": "2026-11-17T18:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -11118,15 +11118,20 @@
 "aL": "UY",
 "hR": 99,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+2
+]
+]
 },
 "17561937": {
 "id": 17561937,
-"start": "2026-11-17T16:30:00Z",
+"start": "2026-11-17T16:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -11140,15 +11145,28 @@
 "aL": "AR",
 "hR": 193,
 "aR": 185,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+3,
+6
+],
+[
+2,
+3
+]
+]
 },
 "17561932": {
 "id": 17561932,
-"start": "2026-11-17T21:10:00Z",
+"start": "2026-11-17T22:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -11237,7 +11255,7 @@
 "17561940": {
 "id": 17561940,
 "start": "2026-11-17T16:30:00Z",
-"min": null,
+"min": 82,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
 "belag": "clay",
@@ -11250,11 +11268,20 @@
 "aL": "AR",
 "hR": 260,
 "aR": 224,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+1,
+6
+]
+]
 },
 "17561934": {
 "id": 17561934,
@@ -11293,7 +11320,7 @@
 },
 "17561942": {
 "id": 17561942,
-"start": "2026-11-17T20:00:00Z",
+"start": "2026-11-17T21:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -11403,7 +11430,7 @@
 },
 "17561358": {
 "id": 17561358,
-"start": "2026-11-17T17:00:00Z",
+"start": "2026-11-17T17:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -11417,11 +11444,24 @@
 "aL": "FR",
 "hR": 95,
 "aR": 187,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+3,
+6
+],
+[
+0,
+2
+]
+]
 },
 "17561354": {
 "id": 17561354,
@@ -11585,7 +11625,7 @@
 "17561355": {
 "id": 17561355,
 "start": "2026-11-17T14:00:00Z",
-"min": null,
+"min": 110,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -11598,9 +11638,9 @@
 "aL": "FR",
 "hR": 231,
 "aR": 80,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -11612,8 +11652,8 @@
 6
 ],
 [
-2,
-4
+3,
+6
 ]
 ]
 },
@@ -11756,7 +11796,7 @@
 },
 "17563278": {
 "id": 17563278,
-"start": "2026-11-17T18:20:00Z",
+"start": "2026-11-17T18:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Champaign, USA",
@@ -11823,11 +11863,20 @@
 "aL": "US",
 "hR": 530,
 "aR": 489,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+5,
+2
+]
+]
 },
 "17563270": {
 "id": 17563270,
@@ -11862,7 +11911,7 @@
 },
 "17563274": {
 "id": 17563274,
-"start": "2026-11-17T17:10:00Z",
+"start": "2026-11-17T17:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Champaign, USA",
@@ -11876,11 +11925,20 @@
 "aL": "SI",
 "hR": 495,
 "aR": 538,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+1,
+1
+]
+]
 },
 "17563282": {
 "id": 17563282,
@@ -11946,8 +12004,8 @@
 },
 "17563272": {
 "id": 17563272,
-"start": "2026-11-17T16:00:00Z",
-"min": null,
+"start": "2026-11-17T16:05:00Z",
+"min": 55,
 "kat": "Challenger",
 "turnier": "Champaign, USA",
 "belag": "hard",
@@ -11960,15 +12018,24 @@
 "aL": "GB",
 "hR": 773,
 "aR": 270,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17563279": {
 "id": 17563279,
-"start": "2026-11-17T16:10:00Z",
+"start": "2026-11-17T16:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Drummondville, Canada",
@@ -11982,11 +12049,24 @@
 "aL": "US",
 "hR": 205,
 "aR": 285,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+2,
+6
+],
+[
+3,
+4
+]
+]
 },
 "17563271": {
 "id": 17563271,
@@ -12012,7 +12092,7 @@
 },
 "17563275": {
 "id": 17563275,
-"start": "2026-11-17T17:20:00Z",
+"start": "2026-11-17T18:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Drummondville, Canada",
@@ -12162,7 +12242,7 @@
 },
 "17563281": {
 "id": 17563281,
-"start": "2026-11-17T16:10:00Z",
+"start": "2026-11-17T17:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Drummondville, Canada",
@@ -12176,11 +12256,20 @@
 "aL": "DE",
 "hR": 115,
 "aR": 420,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+7
+],
+[
+2,
+0
+]
+]
 },
 "17563267": {
 "id": 17563267,
@@ -13987,7 +14076,7 @@
 "17572991": {
 "id": 17572991,
 "start": "2026-11-17T14:15:00Z",
-"min": null,
+"min": 145,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -14000,9 +14089,9 @@
 "aL": "CH",
 "hR": 155,
 "aR": 282,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -14010,8 +14099,12 @@
 6
 ],
 [
-0,
-0
+3,
+6
+],
+[
+5,
+7
 ]
 ]
 },
@@ -14053,7 +14146,7 @@
 "17572989": {
 "id": 17572989,
 "start": "2026-11-17T15:30:00Z",
-"min": null,
+"min": 110,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -14066,15 +14159,28 @@
 "aL": "FI",
 "hR": 349,
 "aR": 116,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+3,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17572986": {
 "id": 17572986,
-"start": "2026-11-17T16:40:00Z",
+"start": "2026-11-17T17:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -14088,11 +14194,20 @@
 "aL": "HR",
 "hR": 225,
 "aR": 133,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+2,
+3
+]
+]
 },
 "17573609": {
 "id": 17573609,
@@ -14167,7 +14282,7 @@
 "17573611": {
 "id": 17573611,
 "start": "2026-11-17T14:10:00Z",
-"min": null,
+"min": 88,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -14180,9 +14295,9 @@
 "aL": "IT",
 "hR": 492,
 "aR": 1028,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -14190,15 +14305,15 @@
 6
 ],
 [
-3,
-4
+4,
+6
 ]
 ]
 },
 "17573610": {
 "id": 17573610,
-"start": "2026-11-17T15:00:00Z",
-"min": null,
+"start": "2026-11-17T16:10:00Z",
+"min": 62,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -14211,15 +14326,24 @@
 "aL": "FR",
 "hR": 308,
 "aR": 249,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17573612": {
 "id": 17573612,
-"start": "2026-11-17T18:10:00Z",
+"start": "2026-11-17T18:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -14418,7 +14542,7 @@
 "17575968": {
 "id": 17575968,
 "start": "2026-11-17T15:05:00Z",
-"min": null,
+"min": 76,
 "kat": "Challenger",
 "turnier": "Drummondville, Canada",
 "belag": "hard",
@@ -14431,21 +14555,25 @@
 "aL": "US",
 "hR": 418,
 "aR": 554,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
+4,
+6
+],
+[
 2,
-3
+6
 ]
 ]
 },
 "17575966": {
 "id": 17575966,
 "start": "2026-11-17T15:05:00Z",
-"min": null,
+"min": 105,
 "kat": "Challenger",
 "turnier": "Drummondville, Canada",
 "belag": "hard",
@@ -14458,21 +14586,25 @@
 "aL": "PL",
 "hR": 869,
 "aR": 211,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
-1,
-1
+2,
+6
+],
+[
+6,
+7
 ]
 ]
 },
 "17577012": {
 "id": 17577012,
-"start": "2026-11-17T16:00:00Z",
-"min": null,
+"start": "2026-11-17T16:05:00Z",
+"min": 97,
 "kat": "Challenger",
 "turnier": "Champaign, USA",
 "belag": "hard",
@@ -14485,15 +14617,28 @@
 "aL": "GB",
 "hR": 472,
 "aR": 428,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+4,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17577194": {
 "id": 17577194,
-"start": "2026-11-17T16:30:00Z",
+"start": "2026-11-17T16:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -14507,15 +14652,20 @@
 "aL": "BR",
 "hR": 81,
 "aR": 348,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+1,
+1
+]
+]
 },
 "17575965": {
 "id": 17575965,
-"start": "2026-11-17T17:20:00Z",
+"start": "2026-11-17T18:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Drummondville, Canada",
@@ -14537,7 +14687,7 @@
 },
 "17577201": {
 "id": 17577201,
-"start": "2026-11-17T17:40:00Z",
+"start": "2026-11-17T18:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -14551,15 +14701,20 @@
 "aL": "AR",
 "hR": 150,
 "aR": 595,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+2
+]
+]
 },
 "17577200": {
 "id": 17577200,
-"start": "2026-11-17T17:40:00Z",
+"start": "2026-11-17T18:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -14581,7 +14736,7 @@
 },
 "17577016": {
 "id": 17577016,
-"start": "2026-11-17T18:20:00Z",
+"start": "2026-11-17T17:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Champaign, USA",
@@ -14603,7 +14758,7 @@
 },
 "17577197": {
 "id": 17577197,
-"start": "2026-11-17T18:50:00Z",
+"start": "2026-11-17T20:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -14625,7 +14780,7 @@
 },
 "17577011": {
 "id": 17577011,
-"start": "2026-11-17T19:30:00Z",
+"start": "2026-11-17T20:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Champaign, USA",
@@ -14647,7 +14802,7 @@
 },
 "17577199": {
 "id": 17577199,
-"start": "2026-11-17T20:00:00Z",
+"start": "2026-11-17T19:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Montevideo, Uruguay",
@@ -15071,13 +15226,13 @@
 "turnier": "Metz, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "R16P11",
+"h": "Filippo Moroni",
 "a": "Dino Prižmić",
-"hId": 393286,
+"hId": 286007,
 "aId": 349089,
-"hL": null,
+"hL": "IT",
 "aL": "HR",
-"hR": null,
+"hR": 1028,
 "aR": 92,
 "st": "notstarted",
 "desc": "Not started",
@@ -15138,13 +15293,13 @@
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Jack Kennedy",
-"a": "R16P14",
+"a": "Lui Maxted",
 "hId": 522293,
-"aId": 393289,
+"aId": 322489,
 "hL": "US",
-"aL": null,
+"aL": "GB",
 "hR": 396,
-"aR": null,
+"aR": 428,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -15241,19 +15396,19 @@
 },
 "17537274": {
 "id": 17537274,
-"start": "2026-11-18T16:00:00Z",
+"start": "2026-11-18T15:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Drummondville, Canada",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "R16P11",
+"h": "Maks Kasnikowski",
 "a": "Duncan Chan",
-"hId": 393286,
+"hId": 342835,
 "aId": 455334,
-"hL": null,
+"hL": "PL",
 "aL": "CA",
-"hR": null,
+"hR": 211,
 "aR": 470,
 "st": "notstarted",
 "desc": "Not started",
@@ -15395,7 +15550,7 @@
 },
 "17537880": {
 "id": 17537880,
-"start": "2026-11-18T08:00:00Z",
+"start": "2026-11-19T11:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -15431,6 +15586,169 @@
 "aL": null,
 "hR": 220,
 "aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17581526": {
+"id": 17581526,
+"start": "2026-11-17T16:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Montevideo, Uruguay",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Pedro Boscardin Dias",
+"a": "Felipe Meligeni Alves",
+"hId": 284096,
+"aId": 158748,
+"hL": "BR",
+"aL": "BR",
+"hR": 300,
+"aR": 348,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
+"runde": "Round of 32",
+"satz": [
+[
+4,
+6
+],
+[
+3,
+6
+]
+]
+},
+"17537969": {
+"id": 17537969,
+"start": "2026-11-18T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Montevideo, Uruguay",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Felipe Meligeni Alves",
+"a": "Alex Barrena",
+"hId": 158748,
+"aId": 303307,
+"hL": "BR",
+"aL": "AR",
+"hR": 348,
+"aR": 224,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17537917": {
+"id": 17537917,
+"start": "2026-11-18T09:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Pierre-Hugues Herbert",
+"a": "R16P8",
+"hId": 44553,
+"aId": 393283,
+"hL": "FR",
+"aL": null,
+"hR": 249,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17537927": {
+"id": 17537927,
+"start": "2026-11-18T09:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P15",
+"a": "Kyrian Jacquet",
+"hId": 393290,
+"aId": 267577,
+"hL": null,
+"aL": "FR",
+"hR": null,
+"aR": 80,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17537333": {
+"id": 17537333,
+"start": "2026-11-18T16:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Champaign, USA",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P11",
+"a": "Alastair Gray",
+"hId": 393286,
+"aId": 222958,
+"hL": null,
+"aL": "GB",
+"hR": null,
+"aR": 270,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17537279": {
+"id": 17537279,
+"start": "2026-11-18T16:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Drummondville, Canada",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P5",
+"a": "Samir Banerjee",
+"hId": 393280,
+"aId": 320820,
+"hL": null,
+"aL": "US",
+"hR": null,
+"aR": 554,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17537876": {
+"id": 17537876,
+"start": "2026-11-19T11:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Helsinki, Finland",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Alexander Ritschard",
+"a": "Otto Virtanen",
+"hId": 56017,
+"aId": 229218,
+"hL": "CH",
+"aL": "FI",
+"hR": 282,
+"aR": 116,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
