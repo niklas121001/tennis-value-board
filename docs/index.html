@@ -3196,13 +3196,31 @@ async function gh(method, url, body){
   return r.json();
 }
 async function findeGist(){
+  // Seit 17.11.2026: einmalig neu suchen (gist.id kann nach gelöschten Browserdaten auf einen neu angelegten, leeren Gist zeigen)
+  if(!store.get("gist.suche2", null)){ try{ localStorage.removeItem("tvb.gist.id"); }catch(_){} store.set("gist.suche2", 1); }
   let id = store.get("gist.id", null);
   if(id) return id;
+  // ALLE Gists mit meine_wetten.json suchen und deren Inhalt zusammenführen – so geht nichts verloren, wenn es (z. B. nach
+  // gelöschten Browserdaten) mehrere gibt. Weiter benutzt wird der mit den meisten Wetten.
+  const hits = [];
   for(let page = 1; page <= 5; page++){
     const liste = await gh("GET", `/gists?per_page=100&page=${page}`);
-    const hit = liste.find(g => g.files && g.files[GIST_FILE]);
-    if(hit){ store.set("gist.id", hit.id); return hit.id; }
+    hits.push(...liste.filter(g => g.files && g.files[GIST_FILE]));
     if(liste.length < 100) break;
+  }
+  if(hits.length){
+    let best = null, bestN = -1, merged = wLoad();
+    for(const h of hits){
+      try{
+        const g = await gh("GET", "/gists/" + h.id), f = g.files[GIST_FILE];
+        const txt = f.truncated ? await (await fetch(f.raw_url)).text() : f.content;
+        const d = JSON.parse(txt || "{}"), n = Object.keys((d && d.items) || {}).length;
+        merged = zusammenfuehren(merged, d || {});
+        if(n > bestN){ bestN = n; best = h.id; }
+      }catch(_){}
+    }
+    wSave(merged);
+    store.set("gist.id", best || hits[0].id); return best || hits[0].id;
   }
   const neu = await gh("POST", "/gists", {description: "Tennis Value Board – Meine Wetten", public: false,
     files: {[GIST_FILE]: {content: JSON.stringify(wLoad())}}});
@@ -3231,7 +3249,7 @@ async function syncPull(meldung){
     const merged = zusammenfuehren(wLoad(), remote);
     wSave(merged); renderWetten(); render();
     await gh("PATCH", "/gists/" + id, {files: {[GIST_FILE]: {content: JSON.stringify(merged)}}});
-    syncStatus("verbunden · zuletzt abgeglichen " + new Date().toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit"}));
+    syncStatus("verbunden · " + Object.keys(merged.items||{}).length + " Wetten · zuletzt abgeglichen " + new Date().toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit"}));
   }catch(err){ syncStatus("Abgleich fehlgeschlagen: " + err.message); }
   finally{ syncLaeuft = false; }
 }
