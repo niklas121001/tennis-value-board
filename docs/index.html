@@ -628,7 +628,7 @@ function showTab(t){
   if(BEREIT && t==="empf") renderEmpf();
   if(BEREIT && t==="live") renderLive();
   if(BEREIT && t==="protokoll") renderLog();          // Kurve braucht die sichtbare Breite
-  if(BEREIT && t==="wetten") renderWetten();
+  if(BEREIT && t==="wetten"){ renderWetten(); if(typeof syncPull === "function") syncPull(false); }   // beim Öffnen immer abgleichen (z. B. nach neuem Schlüssel)
   if(BEREIT && t==="rechner") renderTagesziel();
 }
 
@@ -2558,7 +2558,7 @@ function renderInfo(){
   <h2>Parameter</h2>
   <p>Alle Werte kommen aus dem Blatt PARAMETER. Nach Änderungen in der Excel einmal <code>scripts/excel_export.py</code> laufen lassen.</p>`;
   tlFilterAnwenden();
-  $("#gh-form").addEventListener("submit", (ev) => { ev.preventDefault(); const t = $("#gh-token").value.trim(); if(t){ store.set("gh.repo.token", t); renderInfo(); } });
+  $("#gh-form").addEventListener("submit", (ev) => { ev.preventDefault(); const t = $("#gh-token").value.trim(); if(t){ store.set("gh.repo.token", t); renderInfo(); if(typeof syncPull === "function") syncPull(false); } });
   if($("#gh-weg")) $("#gh-weg").addEventListener("click", () => { try{ localStorage.removeItem("tvb.gh.repo.token"); }catch(_){} renderInfo(); });
   $("#r-art").value = regeln().art;
   $("#r-form").addEventListener("submit", (ev) => {
