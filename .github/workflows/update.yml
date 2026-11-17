@@ -2,30 +2,33 @@ name: Daten aktualisieren
 
 on:
   schedule:
-    # Läufe um 07:30, 11:00, 14:05, 16:45 und 19:30 Uhr deutscher Zeit – ganzjährig (GitHub startet oft 20–40 Min. später). GitHub rechnet in UTC, daher je zwei Zeiten:
-    # Sommerzeit (UTC+2): 05:30 und 12:05 UTC · Winterzeit (UTC+1): 06:30 und 13:05 UTC.
-    # GitHub verzögert geplante Läufe teils um Stunden oder lässt sie ausfallen. Deshalb gibt es Ersatz-Zeiten,
-    # und der Job "zeitpruefung" entscheidet nach deutscher Uhrzeit und docs/data/lauf_status.json:
-    # Frühlauf ab 07:15 Uhr, Vormittagslauf ab 10:50 Uhr, Mittagslauf ab 13:50 Uhr, Nachmittagslauf ab 16:40 Uhr, Abendlauf ab 19:20 Uhr – jeweils einmal pro Tag, egal welcher Zeitplan ihn auslöst.
-    - cron: "30 5 * * *"
-    - cron: "5 12 * * *"
-    - cron: "30 6 * * *"
-    - cron: "5 13 * * *"
-    - cron: "45 7 * * *"     # Ersatz Frühlauf
-    - cron: "15 14 * * *"    # Ersatz Mittagslauf
-    - cron: "45 15 * * *"    # Nachmittagslauf Winterzeit (16:45 Uhr) bzw. Ersatz im Sommer
-    # Nachmittagslauf 16:45 Uhr (seit 11.11.2026: frischere Quoten, Pinnacle öfter da, genauere Schlussquoten)
-    - cron: "45 14 * * *"    # Sommerzeit 16:45 Uhr (im Winter 15:45 Uhr = noch Mittags-Slot, wird übersprungen)
-    - cron: "20 16 * * *"    # Ersatz Nachmittagslauf
-    # Vormittagslauf 11:00 Uhr (Sommer 09:00 UTC, Winter 10:00 UTC), Ersatz 11:30 bzw. 12:30 Uhr
-    - cron: "0 9 * * *"
-    - cron: "0 10 * * *"
-    - cron: "30 10 * * *"    # Ersatz Vormittagslauf
-    # Abendlauf 19:30 Uhr deutscher Zeit (Sommer 17:30 UTC, Winter 18:30 UTC), Ersatz 20:15 bzw. 21:00 Uhr
-    - cron: "30 17 * * *"
-    - cron: "30 18 * * *"
-    - cron: "15 19 * * *"    # Ersatz Abendlauf
-  workflow_dispatch: {}   # manuell starten: Actions → Daten aktualisieren → Run workflow
+    # Läufe deutscher Zeit: Früh ~07:37, Vormittag ~11:07, Mittag ~14:11, Nachmittag ~16:52, Abend ~19:37 – ganzjährig.
+    # Seit 17.11.2026 ungerade Minuten: GitHub lässt geplante Läufe zur vollen/halben Stunde bei hoher Last oft ausfallen.
+    # Hauptauslöser ist ein externer Wecker (cron-job.org, workflow_dispatch mit zeitplan=true); diese Zeiten sind Reserve.
+    # Der Job "zeitpruefung" entscheidet nach deutscher Uhrzeit und docs/data/lauf_status.json:
+    # Frühlauf ab 07:15 Uhr, Vormittagslauf ab 10:50 Uhr, Mittagslauf ab 13:50 Uhr, Nachmittagslauf ab 16:40 Uhr, Abendlauf ab 19:20 Uhr – jeweils einmal pro Tag.
+    # GitHub rechnet in UTC: je eine Zeit für Sommer (UTC+2) und Winter (UTC+1), dazu eine Ersatz-Zeit.
+    - cron: "37 5 * * *"     # Früh Sommer
+    - cron: "37 6 * * *"     # Früh Winter
+    - cron: "13 7 * * *"     # Ersatz Früh
+    - cron: "7 9 * * *"      # Vormittag Sommer
+    - cron: "7 10 * * *"     # Vormittag Winter
+    - cron: "41 10 * * *"    # Ersatz Vormittag
+    - cron: "11 12 * * *"    # Mittag Sommer
+    - cron: "11 13 * * *"    # Mittag Winter
+    - cron: "23 14 * * *"    # Ersatz Mittag
+    - cron: "52 14 * * *"    # Nachmittag Sommer
+    - cron: "52 15 * * *"    # Nachmittag Winter
+    - cron: "27 16 * * *"    # Ersatz Nachmittag
+    - cron: "37 17 * * *"    # Abend Sommer
+    - cron: "37 18 * * *"    # Abend Winter
+    - cron: "23 19 * * *"    # Ersatz Abend
+  workflow_dispatch:      # manuell starten: Actions → Daten aktualisieren → Run workflow
+    inputs:
+      zeitplan:
+        description: "wie ein geplanter Lauf behandeln (externer Wecker): nur laufen, wenn der Lauf dieses Zeitfensters heute noch fehlt"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -51,7 +54,7 @@ jobs:
           if [ "$hm" -ge 1920 ]; then slot=abend; elif [ "$hm" -ge 1640 ]; then slot=nachmittag; elif [ "$hm" -ge 1350 ]; then slot=mittag; elif [ "$hm" -ge 1050 ]; then slot=vormittag; elif [ "$hm" -ge 715 ]; then slot=frueh; else slot=""; fi
           erledigt=$(python3 -c "import json,sys; d=json.load(open('docs/data/lauf_status.json')) if __import__('os').path.exists('docs/data/lauf_status.json') else {}; print(d.get('$slot',''))" 2>/dev/null || true)
           laufen=true
-          if [ "${{ github.event_name }}" = "schedule" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event.inputs.zeitplan }}" = "true" ]; then
             if [ -z "$slot" ] || [ "$erledigt" = "$heute" ]; then laufen=false; fi
           fi
           [ -z "$slot" ] && slot=manuell
