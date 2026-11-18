@@ -9210,8 +9210,8 @@
 5
 ],
 [
-0,
-0
+3,
+1
 ]
 ]
 },
@@ -11720,7 +11720,7 @@
 "17537918": {
 "id": 17537918,
 "start": "2026-11-18T17:00:00Z",
-"min": null,
+"min": 87,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -11733,9 +11733,9 @@
 "aL": "ES",
 "hR": 156,
 "aR": 191,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -11744,7 +11744,7 @@
 ],
 [
 3,
-5
+6
 ]
 ]
 },
@@ -12653,7 +12653,7 @@
 },
 "17537926": {
 "id": 17537926,
-"start": "2026-11-18T18:20:00Z",
+"start": "2026-11-18T18:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -12800,13 +12800,17 @@
 "hR": 275,
 "aR": 397,
 "st": "inprogress",
-"desc": "1st set",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
 "satz": [
 [
 3,
-5
+6
+],
+[
+2,
+0
 ]
 ]
 },
@@ -13137,7 +13141,7 @@
 "satz": [
 [
 1,
-2
+5
 ]
 ]
 },
@@ -13755,6 +13759,28 @@
 "desc": "Not started",
 "w": null,
 "runde": "Round of 16",
+"satz": []
+},
+"17537930": {
+"id": 17537930,
+"start": "2026-11-20T09:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Inaki Montes-de la Torre",
+"a": "Qf2",
+"hId": 290568,
+"aId": 393293,
+"hL": "ES",
+"aL": null,
+"hR": 191,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
 "satz": []
 },
 "17537915": {
