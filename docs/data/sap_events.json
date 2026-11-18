@@ -7936,11 +7936,16 @@
 "aL": "FI",
 "hR": 70,
 "aR": 478,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+0
+]
+]
 },
 "17561578": {
 "id": 17561578,
@@ -7958,11 +7963,24 @@
 "aL": "LT",
 "hR": 284,
 "aR": 209,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+5,
+7
+],
+[
+3,
+5
+]
+]
 },
 "17561571": {
 "id": 17561571,
@@ -8753,8 +8771,8 @@
 },
 "17561363": {
 "id": 17561363,
-"start": "2026-11-18T13:50:00Z",
-"min": null,
+"start": "2026-11-18T13:55:00Z",
+"min": 78,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -8767,11 +8785,20 @@
 "aL": "FR",
 "hR": 236,
 "aR": 109,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+5,
+7
+]
+]
 },
 "17561360": {
 "id": 17561360,
@@ -9592,7 +9619,7 @@
 "17548249": {
 "id": 17548249,
 "start": "2026-11-18T13:00:00Z",
-"min": null,
+"min": 72,
 "kat": "ATP",
 "turnier": "Tour Finals Turin, Italy, Group B",
 "belag": "hard",
@@ -9605,14 +9632,18 @@
 "aL": "RU",
 "hR": 3,
 "aR": 5,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": null,
 "satz": [
 [
-3,
+6,
 2
+],
+[
+6,
+4
 ]
 ]
 },
@@ -11641,7 +11672,7 @@
 "17537874": {
 "id": 17537874,
 "start": "2026-11-18T13:05:00Z",
-"min": null,
+"min": 81,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -11654,14 +11685,18 @@
 "aL": "NO",
 "hR": 142,
 "aR": 182,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
-3,
-2
+6,
+7
+],
+[
+0,
+6
 ]
 ]
 },
@@ -12483,7 +12518,7 @@
 "17537871": {
 "id": 17537871,
 "start": "2026-11-18T13:30:00Z",
-"min": null,
+"min": 127,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -12496,11 +12531,24 @@
 "aL": "GB",
 "hR": 137,
 "aR": 90,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+1,
+6
+],
+[
+7,
+6
+]
+]
 },
 "17537973": {
 "id": 17537973,
@@ -12592,7 +12640,7 @@
 },
 "17537916": {
 "id": 17537916,
-"start": "2026-11-18T15:00:00Z",
+"start": "2026-11-18T15:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -12606,11 +12654,16 @@
 "aL": "HR",
 "hR": 1028,
 "aR": 92,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+0,
+1
+]
+]
 },
 "17575962": {
 "id": 17575962,
@@ -12884,13 +12937,13 @@
 "turnier": "Metz, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "R16P9",
+"h": "Matthew William Donald",
 "a": "Soonwoo Kwon",
-"hId": 393284,
+"hId": 353705,
 "aId": 97647,
-"hL": null,
+"hL": "CZ",
 "aL": "KR",
-"hR": null,
+"hR": 353,
 "aR": 160,
 "st": "notstarted",
 "desc": "Not started",
@@ -12922,7 +12975,7 @@
 },
 "17537880": {
 "id": 17537880,
-"start": "2026-11-19T11:30:00Z",
+"start": "2026-11-19T12:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -12951,13 +13004,13 @@
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Harold Mayot",
-"a": "R16P4",
+"a": "Hugo Gaston",
 "hId": 248846,
-"aId": 393279,
+"aId": 205906,
 "hL": "FR",
-"aL": null,
+"aL": "FR",
 "hR": 220,
-"aR": null,
+"aR": 109,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13019,20 +13072,20 @@
 },
 "17537917": {
 "id": 17537917,
-"start": "2026-11-19T09:00:00Z",
+"start": "2026-11-19T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Pierre-Hugues Herbert",
-"a": "R16P8",
+"a": "Zsombor Piros",
 "hId": 44553,
-"aId": 393283,
+"aId": 205795,
 "hL": "FR",
-"aL": null,
+"aL": "HU",
 "hR": 249,
-"aR": null,
+"aR": 101,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13107,7 +13160,7 @@
 },
 "17537876": {
 "id": 17537876,
-"start": "2026-11-19T11:30:00Z",
+"start": "2026-11-19T15:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -13525,7 +13578,7 @@
 },
 "17537885": {
 "id": 17537885,
-"start": "2026-11-20T08:00:00Z",
+"start": "2026-11-20T11:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -13548,7 +13601,7 @@
 "17585221": {
 "id": 17585221,
 "start": "2026-11-18T12:00:00Z",
-"min": null,
+"min": 140,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -13561,9 +13614,9 @@
 "aL": "CZ",
 "hR": 462,
 "aR": 353,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -13575,9 +13628,31 @@
 2
 ],
 [
-1,
-2
+4,
+6
 ]
 ]
+},
+"17537877": {
+"id": 17537877,
+"start": "2026-11-20T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Helsinki, Finland",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Nicolai Budkov Kjaer",
+"a": "Qf8",
+"hId": 483188,
+"aId": 393299,
+"hL": "NO",
+"aL": null,
+"hR": 182,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
 }
 }
