@@ -8341,7 +8341,7 @@
 "17545043": {
 "id": 17545043,
 "start": "2026-11-19T13:00:00Z",
-"min": null,
+"min": 127,
 "kat": "ATP",
 "turnier": "Tour Finals Turin, Italy, Group A",
 "belag": "hard",
@@ -8354,14 +8354,18 @@
 "aL": "ES",
 "hR": 4,
 "aR": 10,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": null,
 "satz": [
 [
-4,
-4
+7,
+6
+],
+[
+7,
+5
 ]
 ]
 },
@@ -11946,8 +11950,8 @@
 },
 "17537928": {
 "id": 17537928,
-"start": "2026-11-19T12:40:00Z",
-"min": null,
+"start": "2026-11-19T13:40:00Z",
+"min": 84,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -11958,18 +11962,27 @@
 "aId": 394384,
 "hL": "FR",
 "aL": "FR",
-"hR": 187,
-"aR": 337,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"hR": 191,
+"aR": 366,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+7,
+6
+]
+]
 },
 "17537880": {
 "id": 17537880,
 "start": "2026-11-19T12:50:00Z",
-"min": null,
+"min": 66,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -11982,9 +11995,9 @@
 "aL": "IT",
 "hR": 113,
 "aR": 175,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
@@ -11992,8 +12005,8 @@
 3
 ],
 [
-3,
-2
+6,
+3
 ]
 ]
 },
@@ -12011,8 +12024,8 @@
 "aId": 205906,
 "hL": "FR",
 "aL": "FR",
-"hR": 220,
-"aR": 109,
+"hR": 208,
+"aR": 111,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -12099,8 +12112,8 @@
 "aId": 205795,
 "hL": "FR",
 "aL": "HU",
-"hR": 249,
-"aR": 101,
+"hR": 254,
+"aR": 96,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -12109,7 +12122,7 @@
 },
 "17537927": {
 "id": 17537927,
-"start": "2026-11-19T13:50:00Z",
+"start": "2026-11-19T15:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -12121,13 +12134,18 @@
 "aId": 267577,
 "hL": "IT",
 "aL": "FR",
-"hR": 239,
-"aR": 80,
-"st": "notstarted",
-"desc": "Not started",
+"hR": 258,
+"aR": 86,
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+3,
+1
+]
+]
 },
 "17537333": {
 "id": 17537333,
@@ -12713,7 +12731,7 @@
 "17537872": {
 "id": 17537872,
 "start": "2026-11-19T13:10:00Z",
-"min": null,
+"min": 66,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -12726,14 +12744,18 @@
 "aL": "LT",
 "hR": 483,
 "aR": 210,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
 1,
-5
+6
+],
+[
+5,
+7
 ]
 ]
 },
@@ -12751,7 +12773,7 @@
 "aId": 393293,
 "hL": "ES",
 "aL": null,
-"hR": 191,
+"hR": 189,
 "aR": null,
 "st": "notstarted",
 "desc": "Not started",
@@ -12767,14 +12789,14 @@
 "turnier": "Metz, France",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "Qf5",
+"h": "Soonwoo Kwon",
 "a": "Dino Prižmić",
-"hId": 393296,
+"hId": 97647,
 "aId": 349089,
-"hL": null,
+"hL": "KR",
 "aL": "HR",
-"hR": null,
-"aR": 92,
+"hR": 156,
+"aR": 89,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -12959,20 +12981,86 @@
 },
 "17537870": {
 "id": 17537870,
+"start": "2026-11-20T12:40:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Helsinki, Finland",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Edas Butvilas",
+"a": "Nishesh Basavareddy",
+"hId": 385592,
+"aId": 407164,
+"hL": "LT",
+"aL": "US",
+"hR": 210,
+"aR": 117,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17537879": {
+"id": 17537879,
 "start": "2026-11-20T08:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "Qf1",
-"a": "Nishesh Basavareddy",
-"hId": 393292,
-"aId": 407164,
-"hL": null,
-"aL": "US",
-"hR": null,
-"aR": 117,
+"h": "Dalibor Svrčina",
+"a": "Qf4",
+"hId": 260122,
+"aId": 393295,
+"hL": "CZ",
+"aL": null,
+"hR": 113,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17537922": {
+"id": 17537922,
+"start": "2026-11-20T09:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Francesco Passaro",
+"a": "Qf4",
+"hId": 258908,
+"aId": 393295,
+"hL": "IT",
+"aL": null,
+"hR": 158,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17537923": {
+"id": 17537923,
+"start": "2026-11-20T09:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Metz, France",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Sascha Gueymard Wayenburg",
+"a": "Qf8",
+"hId": 340741,
+"aId": 393299,
+"hL": "FR",
+"aL": null,
+"hR": 191,
+"aR": null,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
