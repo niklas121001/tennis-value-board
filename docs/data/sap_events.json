@@ -7327,7 +7327,7 @@
 "17545045": {
 "id": 17545045,
 "start": "2026-11-20T13:00:00Z",
-"min": null,
+"min": 65,
 "kat": "ATP",
 "turnier": "Tour Finals Turin, Italy, Group B",
 "belag": "hard",
@@ -7340,14 +7340,18 @@
 "aL": "IT",
 "hR": 3,
 "aR": 6,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": null,
 "satz": [
 [
-4,
-3
+6,
+4
+],
+[
+6,
+1
 ]
 ]
 },
@@ -11998,8 +12002,8 @@
 },
 "17537915": {
 "id": 17537915,
-"start": "2026-11-20T12:30:00Z",
-"min": null,
+"start": "2026-11-20T12:35:00Z",
+"min": 117,
 "kat": "Challenger",
 "turnier": "Metz, France",
 "belag": "hard",
@@ -12012,11 +12016,20 @@
 "aL": "HR",
 "hR": 156,
 "aR": 89,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+7,
+6
+]
+]
 },
 "17537960": {
 "id": 17537960,
@@ -12241,7 +12254,7 @@
 "17537870": {
 "id": 17537870,
 "start": "2026-11-20T13:20:00Z",
-"min": null,
+"min": 70,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -12254,20 +12267,24 @@
 "aL": "US",
 "hR": 210,
 "aR": 117,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
 "satz": [
 [
-1,
-3
+2,
+6
+],
+[
+3,
+6
 ]
 ]
 },
 "17537879": {
 "id": 17537879,
-"start": "2026-11-20T15:30:00Z",
+"start": "2026-11-20T15:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -12281,11 +12298,16 @@
 "aL": "FI",
 "hR": 113,
 "aR": 107,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+0,
+1
+]
+]
 },
 "17537922": {
 "id": 17537922,
@@ -12311,7 +12333,7 @@
 },
 "17537923": {
 "id": 17537923,
-"start": "2026-11-20T13:40:00Z",
+"start": "2026-11-20T14:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Metz, France",
@@ -12325,11 +12347,20 @@
 "aL": "IT",
 "hR": 191,
 "aR": 258,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+5,
+2
+]
+]
 },
 "17537963": {
 "id": 17537963,
@@ -12597,7 +12628,7 @@
 },
 "17537884": {
 "id": 17537884,
-"start": "2026-11-21T11:30:00Z",
+"start": "2026-11-21T11:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -12611,6 +12642,50 @@
 "aL": "RS",
 "hR": 92,
 "aR": 137,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17537875": {
+"id": 17537875,
+"start": "2026-11-21T12:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Helsinki, Finland",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Nishesh Basavareddy",
+"a": "WQF2",
+"hId": 407164,
+"aId": 393301,
+"hL": "US",
+"aL": null,
+"hR": 117,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17600192": {
+"id": 17600192,
+"start": "2026-11-21T13:30:00Z",
+"min": null,
+"kat": "ATP",
+"turnier": "Tour Finals Turin, Italy",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Carlos Alcaraz",
+"a": "Ben Shelton",
+"hId": 275923,
+"aId": 385485,
+"hL": "ES",
+"aL": "US",
+"hR": 3,
+"aR": 4,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
