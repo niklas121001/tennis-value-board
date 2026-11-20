@@ -7340,11 +7340,16 @@
 "aL": "IT",
 "hR": 3,
 "aR": 6,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": null,
-"satz": []
+"satz": [
+[
+4,
+3
+]
+]
 },
 "17548249": {
 "id": 17548249,
@@ -11844,7 +11849,7 @@
 "17537885": {
 "id": 17537885,
 "start": "2026-11-20T11:30:00Z",
-"min": null,
+"min": 92,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -11857,11 +11862,20 @@
 "aL": "GB",
 "hR": 407,
 "aR": 92,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+7
+],
+[
+4,
+6
+]
+]
 },
 "17585221": {
 "id": 17585221,
@@ -11901,7 +11915,7 @@
 "17537877": {
 "id": 17537877,
 "start": "2026-11-20T11:30:00Z",
-"min": null,
+"min": 90,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
 "belag": "hard",
@@ -11914,11 +11928,20 @@
 "aL": "RS",
 "hR": 176,
 "aR": 137,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+4,
+6
+]
+]
 },
 "17537872": {
 "id": 17537872,
@@ -12217,7 +12240,7 @@
 },
 "17537870": {
 "id": 17537870,
-"start": "2026-11-20T12:40:00Z",
+"start": "2026-11-20T13:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Helsinki, Finland",
@@ -12231,11 +12254,16 @@
 "aL": "US",
 "hR": 210,
 "aR": 117,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+1,
+3
+]
+]
 },
 "17537879": {
 "id": 17537879,
@@ -12561,6 +12589,28 @@
 "aL": "JP",
 "hR": 451,
 "aR": 326,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17537884": {
+"id": 17537884,
+"start": "2026-11-21T11:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Helsinki, Finland",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Toby Samuel",
+"a": "Laslo Djere",
+"hId": 321791,
+"aId": 97231,
+"hL": "GB",
+"aL": "RS",
+"hR": 92,
+"aR": 137,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
