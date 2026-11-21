@@ -1,5 +1,5 @@
 {
-"stand": "2026-11-21T06:46:18Z",
+"stand": "2026-11-21T10:46:12Z",
 "partien": [
 {
 "id": "id1200398776694066",
@@ -174,7 +174,7 @@
 "quoten": {
 "winamax": [
 1.22,
-4.2
+4.6
 ]
 },
 "pausiert": [],
@@ -334,8 +334,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.1,
-1.64
+2.15,
+1.6
 ]
 },
 "pausiert": [],
@@ -412,8 +412,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-4.8,
-1.14
+5.2,
+1.12
 ]
 },
 "pausiert": [],
@@ -487,13 +487,8 @@
 "bRoh": "Chidekh, Clement",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.88,
-1.8
-]
-},
+"hatQuoten": false,
+"quoten": {},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -704,13 +699,8 @@
 "bRoh": "Draxl, Liam",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.8,
-1.37
-]
-},
+"hatQuoten": false,
+"quoten": {},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -848,6 +838,460 @@
 "rangB": 182
 },
 {
+"id": "id1202322177018286",
+"start": "2026-11-21T23:30:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Jesse Delaney",
+"b": "Chase Ferguson",
+"aRoh": "Delaney, Jesse",
+"bRoh": "Ferguson, Chase",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 154740,
+"p2Id": 247475,
+"sapId": 17604686,
+"landA": "AU",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-15T23:10:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 15,
+"min7": 64,
+"minN": 1,
+"letztesMin": 64,
+"letztesGames": 15,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-11-15T23:10:00Z",
+"quali": false
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 1151,
+"rangB": 677
+},
+{
+"id": "id1202322177018296",
+"start": "2026-11-21T23:30:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Ethan Cook",
+"b": "Sam Ryan Ziegann",
+"aRoh": "Cook, Ethan",
+"bRoh": "Ryan Ziegann, Sam",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 733153,
+"p2Id": 369548,
+"sapId": 17604455,
+"landA": "AU",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-14T23:00:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+},
+"b": {
+"spiele7": 0
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 1269,
+"rangB": 747
+},
+{
+"id": "id1202322177018288",
+"start": "2026-11-22T00:30:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Casey Hoole",
+"b": "Eric Padgham",
+"aRoh": "Hoole, Casey",
+"bRoh": "Padgham, Eric",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 507684,
+"p2Id": 883671,
+"sapId": 17604500,
+"landA": "AU",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 22,
+"min7": 88,
+"minN": 1,
+"letztesMin": 88,
+"letztesGames": 22,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-11-16T23:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-16T23:00:00Z",
+"turnier": "Sydney, Australia"
+}
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 598
+},
+{
+"id": "id1202322177018282",
+"start": "2026-11-22T00:40:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Zane Stevens",
+"b": "Benjamin O'Connell",
+"aRoh": "Stevens, Zane",
+"bRoh": "O'Connell, Benjamin",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 1086580,
+"p2Id": 297862,
+"sapId": 17604457,
+"landA": "AU",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-14T23:00:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+},
+"b": {
+"spiele7": 0
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 1223,
+"rangB": 945
+},
+{
+"id": "id1202322177018284",
+"start": "2026-11-22T00:40:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Thomas Fancutt",
+"b": "Mustafa Ege Sik",
+"aRoh": "Fancutt, Thomas",
+"bRoh": "Sik, Mustafa Ege",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 119150,
+"p2Id": 1242867,
+"sapId": 17604688,
+"landA": "AU",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 38,
+"min7": 175,
+"minN": 2,
+"letztesMin": 85,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-15T23:40:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-17T05:25:00Z",
+"turnier": "Sydney, Australia"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 17,
+"min7": 66,
+"minN": 1,
+"letztesMin": 66,
+"letztesGames": 17,
+"dreisatz7": 0,
+"siege7": 0,
+"letztes": "2026-11-17T05:25:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-15T23:40:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 664
+},
+{
+"id": "id1202322177018294",
+"start": "2026-11-22T01:40:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Reece Falck",
+"b": "Shinji Hazawa",
+"aRoh": "Falck, Reece",
+"bRoh": "Hazawa, Shinji",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 668903,
+"p2Id": 297608,
+"sapId": 17604458,
+"landA": "NZ",
+"landB": "JP",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-15T03:05:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"games7": 34,
+"min7": 153,
+"minN": 1,
+"letztesMin": 153,
+"letztesGames": 34,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-11-15T03:05:00Z",
+"quali": false
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 1335,
+"rangB": 740
+},
+{
+"id": "id1202322177018278",
+"start": "2026-11-22T01:50:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Billy Suarez",
+"b": "Stefan Vujic",
+"aRoh": "Suarez, Billy",
+"bRoh": "Vujic, Stefan",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 1196859,
+"p2Id": 157518,
+"sapId": 17604459,
+"landA": "US",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-14T23:00:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+},
+"b": {
+"spiele7": 0
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 1427,
+"rangB": 796
+},
+{
+"id": "id1202322177018280",
+"start": "2026-11-22T01:50:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Pavle Marinkov",
+"b": "Harrison Satara",
+"aRoh": "Marinkov, Pavle",
+"bRoh": "Satara, Harrison",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 822798,
+"p2Id": 1241443,
+"sapId": 17604456,
+"landA": "AU",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 9,
+"games7": 95,
+"min7": 409,
+"minN": 4,
+"letztesMin": 66,
+"letztesGames": 17,
+"dreisatz7": 1,
+"siege7": 2,
+"letztes": "2026-11-18T02:25:00Z",
+"quali": false,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-15T01:05:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+},
+"b": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-18T02:25:00Z",
+"turnier": "Sydney, Australia"
+}
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 665,
+"rangB": 1417
+},
+{
 "id": "id1200946176687408",
 "start": "2026-11-22T02:00:00.000Z",
 "turnier": "Sydney Challenger",
@@ -919,6 +1363,121 @@
 },
 "rangA": 361,
 "rangB": 294
+},
+{
+"id": "id1202322177018290",
+"start": "2026-11-22T03:00:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Yamato Sueoka",
+"b": "Herman Hoeyeraal",
+"aRoh": "Sueoka, Yamato",
+"bRoh": "Hoeyeraal, Herman",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 812360,
+"p2Id": 292388,
+"sapId": 17604687,
+"landA": "JP",
+"landB": "NO",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-15T05:55:00Z",
+"turnier": "Sydney, Australia, Qualifying"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"games7": 33,
+"min7": 145,
+"minN": 1,
+"letztesMin": 145,
+"letztesGames": 33,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-11-15T05:55:00Z",
+"quali": false
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangB": 674
+},
+{
+"id": "id1202322177018292",
+"start": "2026-11-22T03:00:00.000Z",
+"turnier": "Playford City Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Dominik Palan",
+"b": "Chen Dong",
+"aRoh": "Palan, Dominik",
+"bRoh": "Dong, Chen",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 23221,
+"p1Id": 459201,
+"p2Id": 405981,
+"sapId": 17604689,
+"landA": "CZ",
+"landB": "AU",
+"quali": true,
+"runde": "Qualifications",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 49,
+"min7": 221,
+"minN": 2,
+"letztesMin": 86,
+"letztesGames": 20,
+"dreisatz7": 1,
+"siege7": 0,
+"letztes": "2026-11-16T23:00:00Z",
+"quali": false
+},
+"b": {
+"spiele7": 0,
+"vorOrt": {
+"land": "AU",
+"tz": 10,
+"start": "2026-11-16T23:00:00Z",
+"turnier": "Sydney, Australia"
+}
+}
+},
+"ort": {
+"land": "AU",
+"tz": 10
+},
+"rangA": 591,
+"rangB": 1079
 },
 {
 "id": "id1201316776695074",
