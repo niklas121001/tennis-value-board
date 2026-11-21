@@ -1,82 +1,9 @@
 {
-"stand": "2026-11-21T13:42:22Z",
+"stand": "2026-11-21T15:46:07Z",
 "partien": [
 {
-"id": "id1205210676694614",
-"start": "2026-11-21T14:00:00.000Z",
-"turnier": "Metz Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Soon-Woo Kwon",
-"b": "Sascha Gueymard Wayenburg",
-"aRoh": "Kwon, Soonwoo",
-"bRoh": "Gueymard Wayenburg, Sascha",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 52106,
-"p1Id": 97647,
-"p2Id": 679701,
-"sapId": 17537925,
-"landA": "KR",
-"landB": "FR",
-"runde": "Semifinals",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 68,
-"min7": 304,
-"minN": 3,
-"letztesMin": 117,
-"letztesGames": 26,
-"dreisatz7": 0,
-"siege7": 3,
-"letztes": "2026-11-20T12:35:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-20T14:45:00Z",
-"turnier": "Metz, France"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 67,
-"min7": 229,
-"minN": 3,
-"letztesMin": 58,
-"letztesGames": 17,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-20T14:45:00Z",
-"quali": false,
-"vorOrt": {
-"land": "FR",
-"tz": 1,
-"start": "2026-11-20T12:35:00Z",
-"turnier": "Metz, France"
-}
-}
-},
-"ort": {
-"land": "FR",
-"tz": 1
-},
-"rangA": 156,
-"rangB": 191
-},
-{
 "id": "id1205210676694612",
-"start": "2026-11-21T15:10:00.000Z",
+"start": "2026-11-21T16:00:00.000Z",
 "turnier": "Metz Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -190,8 +117,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-5.2,
-1.12
+5.0,
+1.13
 ]
 },
 "pausiert": [],
@@ -2066,6 +1993,79 @@
 "seite": "B"
 }
 ]
+},
+{
+"id": "id1200398776694068",
+"start": "2026-11-22T11:00:00.000Z",
+"turnier": "Helsinki Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Otto Virtanen",
+"b": "Toby Samuel",
+"aRoh": "Virtanen, Otto",
+"bRoh": "Samuel, Toby",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 3987,
+"p1Id": 276563,
+"p2Id": 603106,
+"sapId": 17537882,
+"landA": "FI",
+"landB": "GB",
+"runde": "Final",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 5,
+"saetze7": 13,
+"games7": 123,
+"min7": 479,
+"minN": 5,
+"letztesMin": 72,
+"letztesGames": 18,
+"dreisatz7": 3,
+"siege7": 5,
+"letztes": "2026-11-21T12:05:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FI",
+"tz": 2,
+"start": "2026-11-21T11:00:00Z",
+"turnier": "Helsinki, Finland"
+}
+},
+"b": {
+"spiele7": 4,
+"saetze7": 10,
+"games7": 98,
+"min7": 381,
+"minN": 4,
+"letztesMin": 48,
+"letztesGames": 16,
+"dreisatz7": 2,
+"siege7": 4,
+"letztes": "2026-11-21T11:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "FI",
+"tz": 2,
+"start": "2026-11-21T12:05:00Z",
+"turnier": "Helsinki, Finland"
+}
+}
+},
+"ort": {
+"land": "FI",
+"tz": 2
+},
+"rangA": 107,
+"rangB": 92
 }
 ]
 }

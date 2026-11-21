@@ -11912,7 +11912,7 @@
 "17600192": {
 "id": 17600192,
 "start": "2026-11-21T13:30:00Z",
-"min": null,
+"min": 120,
 "kat": "ATP",
 "turnier": "Tour Finals Turin, Italy",
 "belag": "hard",
@@ -11925,11 +11925,24 @@
 "aL": "US",
 "hR": 3,
 "aR": 4,
-"st": "notstarted",
-"desc": "Not started",
+"st": "finished",
+"desc": "Ended",
 "w": null,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+6,
+3
+],
+[
+7,
+6
+]
+]
 },
 "17537970": {
 "id": 17537970,
@@ -12379,13 +12392,13 @@
 "turnier": "Helsinki, Finland",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "WSF1",
+"h": "Otto Virtanen",
 "a": "Toby Samuel",
-"hId": 393304,
+"hId": 229218,
 "aId": 321791,
-"hL": null,
+"hL": "FI",
 "aL": "GB",
-"hR": null,
+"hR": 107,
 "aR": 92,
 "st": "notstarted",
 "desc": "Not started",
