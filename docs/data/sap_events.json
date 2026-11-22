@@ -11832,7 +11832,7 @@
 "17604458": {
 "id": 17604458,
 "start": "2026-11-22T05:10:00Z",
-"min": null,
+"min": 123,
 "kat": "Challenger",
 "turnier": "Playford, Australia, Qualifying",
 "belag": "hard",
@@ -11845,9 +11845,9 @@
 "aL": "JP",
 "hR": 1335,
 "aR": 740,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualifications",
 "satz": [
 [
@@ -11855,8 +11855,12 @@
 6
 ],
 [
-6,
+7,
 5
+],
+[
+6,
+3
 ]
 ]
 },
@@ -11898,7 +11902,7 @@
 "17604456": {
 "id": 17604456,
 "start": "2026-11-22T04:50:00Z",
-"min": null,
+"min": 123,
 "kat": "Challenger",
 "turnier": "Playford, Australia, Qualifying",
 "belag": "hard",
@@ -11911,9 +11915,9 @@
 "aL": "AU",
 "hR": 665,
 "aR": 1417,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualifications",
 "satz": [
 [
@@ -11925,15 +11929,15 @@
 1
 ],
 [
-4,
-5
+6,
+7
 ]
 ]
 },
 "17604689": {
 "id": 17604689,
 "start": "2026-11-22T06:45:00Z",
-"min": null,
+"min": 121,
 "kat": "Challenger",
 "turnier": "Playford, Australia, Qualifying",
 "belag": "hard",
@@ -11946,16 +11950,29 @@
 "aL": "AU",
 "hR": 591,
 "aR": 1079,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualifications",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+6,
+7
+],
+[
+4,
+6
+]
+]
 },
 "17604687": {
 "id": 17604687,
-"start": "2026-11-22T06:20:00Z",
-"min": null,
+"start": "2026-11-22T07:10:00Z",
+"min": 44,
 "kat": "Challenger",
 "turnier": "Playford, Australia, Qualifying",
 "belag": "hard",
@@ -11968,11 +11985,20 @@
 "aL": "NO",
 "hR": null,
 "aR": 674,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualifications",
-"satz": []
+"satz": [
+[
+0,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17537882": {
 "id": 17537882,
@@ -12197,7 +12223,7 @@
 "17605019": {
 "id": 17605019,
 "start": "2026-11-22T06:10:00Z",
-"min": null,
+"min": 60,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan, Qualifying",
 "belag": "hard",
@@ -12210,9 +12236,9 @@
 "aL": "JP",
 "hR": 578,
 "aR": 883,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
 "satz": [
 [
@@ -12220,8 +12246,8 @@
 0
 ],
 [
-0,
-0
+6,
+3
 ]
 ]
 },
@@ -12290,7 +12316,7 @@
 "17604831": {
 "id": 17604831,
 "start": "2026-11-22T06:45:00Z",
-"min": null,
+"min": 48,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan, Qualifying",
 "belag": "hard",
@@ -12303,16 +12329,25 @@
 "aL": "RU",
 "hR": 1441,
 "aR": 840,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+6,
+1
+]
+]
 },
 "17604832": {
 "id": 17604832,
 "start": "2026-11-22T06:35:00Z",
-"min": null,
+"min": 74,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan, Qualifying",
 "belag": "hard",
@@ -12325,14 +12360,18 @@
 "aL": "JP",
 "hR": null,
 "aR": 711,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
 "satz": [
 [
-0,
-0
+3,
+6
+],
+[
+2,
+6
 ]
 ]
 },
@@ -12611,7 +12650,7 @@
 },
 "17605029": {
 "id": 17605029,
-"start": "2026-11-23T01:00:00Z",
+"start": "2026-11-24T01:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12633,7 +12672,7 @@
 },
 "17605027": {
 "id": 17605027,
-"start": "2026-11-23T01:00:00Z",
+"start": "2026-11-24T01:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12677,7 +12716,7 @@
 },
 "17605026": {
 "id": 17605026,
-"start": "2026-11-23T01:00:00Z",
+"start": "2026-11-24T01:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12765,7 +12804,7 @@
 },
 "17605031": {
 "id": 17605031,
-"start": "2026-11-23T01:00:00Z",
+"start": "2026-11-24T01:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12831,7 +12870,7 @@
 },
 "17605028": {
 "id": 17605028,
-"start": "2026-11-23T01:00:00Z",
+"start": "2026-11-24T01:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12853,7 +12892,7 @@
 },
 "17605023": {
 "id": 17605023,
-"start": "2026-11-23T01:00:00Z",
+"start": "2026-11-24T01:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12876,7 +12915,7 @@
 "17606736": {
 "id": 17606736,
 "start": "2026-11-22T08:00:00Z",
-"min": null,
+"min": 67,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
 "belag": "hard",
@@ -12889,16 +12928,25 @@
 "aL": "RO",
 "hR": null,
 "aR": 785,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17606737": {
 "id": 17606737,
 "start": "2026-11-22T08:00:00Z",
-"min": null,
+"min": 53,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
 "belag": "hard",
@@ -12911,16 +12959,25 @@
 "aL": "LB",
 "hR": 445,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+0
+],
+[
+6,
+0
+]
+]
 },
 "17606735": {
 "id": 17606735,
 "start": "2026-11-22T08:00:00Z",
-"min": null,
+"min": 87,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
 "belag": "hard",
@@ -12933,16 +12990,25 @@
 "aL": "GR",
 "hR": 618,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+1
+]
+]
 },
 "17606739": {
 "id": 17606739,
 "start": "2026-11-22T08:00:00Z",
-"min": null,
+"min": 123,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
 "belag": null,
@@ -12955,16 +13021,29 @@
 "aL": "RU",
 "hR": 654,
 "aR": 1203,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+4,
+6
+],
+[
+4,
+6
+]
+]
 },
 "17606356": {
 "id": 17606356,
 "start": "2026-11-22T08:00:00Z",
-"min": null,
+"min": 63,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
 "belag": null,
@@ -12977,16 +13056,25 @@
 "aL": "UZ",
 "hR": 1426,
 "aR": 845,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17606746": {
 "id": 17606746,
 "start": "2026-11-22T08:00:00Z",
-"min": null,
+"min": 109,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
 "belag": null,
@@ -12999,16 +13087,25 @@
 "aL": "RU",
 "hR": null,
 "aR": 1076,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+7,
+6
+]
+]
 },
 "17606513": {
 "id": 17606513,
 "start": "2026-11-22T09:10:00Z",
-"min": null,
+"min": 70,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
 "belag": "hard",
@@ -13021,15 +13118,24 @@
 "aL": "BG",
 "hR": null,
 "aR": 821,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+0,
+6
+],
+[
+5,
+7
+]
+]
 },
 "17606509": {
 "id": 17606509,
-"start": "2026-11-22T09:10:00Z",
+"start": "2026-11-22T09:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
@@ -13043,16 +13149,25 @@
 "aL": "GR",
 "hR": 608,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+0
+],
+[
+3,
+0
+]
+]
 },
 "17606506": {
 "id": 17606506,
-"start": "2026-11-22T09:10:00Z",
-"min": null,
+"start": "2026-11-22T09:25:00Z",
+"min": 72,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
 "belag": "hard",
@@ -13065,15 +13180,24 @@
 "aL": "US",
 "hR": 1246,
 "aR": 731,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+2,
+6
+]
+]
 },
 "17606747": {
 "id": 17606747,
-"start": "2026-11-22T09:10:00Z",
+"start": "2026-11-22T09:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
@@ -13087,15 +13211,28 @@
 "aL": "TR",
 "hR": 748,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+7
+],
+[
+3,
+0
+]
+]
 },
 "17606734": {
 "id": 17606734,
-"start": "2026-11-22T09:10:00Z",
+"start": "2026-11-22T10:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
@@ -13109,15 +13246,24 @@
 "aL": "DE",
 "hR": null,
 "aR": 933,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+0,
+3
+]
+]
 },
 "17606733": {
 "id": 17606733,
-"start": "2026-11-22T09:10:00Z",
+"start": "2026-11-22T10:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
@@ -13131,15 +13277,20 @@
 "aL": "RU",
 "hR": 795,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+0,
+5
+]
+]
 },
 "17606514": {
 "id": 17606514,
-"start": "2026-11-22T10:20:00Z",
+"start": "2026-11-22T10:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
@@ -13153,15 +13304,20 @@
 "aL": "ZA",
 "hR": 594,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Qualification Round 1",
-"satz": []
+"satz": [
+[
+2,
+0
+]
+]
 },
 "17606510": {
 "id": 17606510,
-"start": "2026-11-22T10:20:00Z",
+"start": "2026-11-22T10:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
@@ -13183,7 +13339,7 @@
 },
 "17606511": {
 "id": 17606511,
-"start": "2026-11-22T10:20:00Z",
+"start": "2026-11-22T10:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
@@ -13271,7 +13427,7 @@
 },
 "17606515": {
 "id": 17606515,
-"start": "2026-11-22T11:30:00Z",
+"start": "2026-11-22T11:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
@@ -13293,7 +13449,7 @@
 },
 "17606518": {
 "id": 17606518,
-"start": "2026-11-22T11:30:00Z",
+"start": "2026-11-22T11:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
@@ -13315,7 +13471,7 @@
 },
 "17606512": {
 "id": 17606512,
-"start": "2026-11-22T11:30:00Z",
+"start": "2026-11-22T12:05:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece, Qualifying",
@@ -13337,7 +13493,7 @@
 },
 "17606744": {
 "id": 17606744,
-"start": "2026-11-22T11:30:00Z",
+"start": "2026-11-22T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
@@ -13359,7 +13515,7 @@
 },
 "17606732": {
 "id": 17606732,
-"start": "2026-11-22T11:30:00Z",
+"start": "2026-11-22T12:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
@@ -13381,7 +13537,7 @@
 },
 "17606743": {
 "id": 17606743,
-"start": "2026-11-22T11:30:00Z",
+"start": "2026-11-22T12:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye, Qualifying",
@@ -15432,6 +15588,160 @@
 "desc": "Not started",
 "w": null,
 "runde": "Round of 32",
+"satz": []
+},
+"17610942": {
+"id": 17610942,
+"start": "2026-11-22T23:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Playford, Australia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Jason Kubler",
+"a": "Reece Falck",
+"hId": 39726,
+"aId": 337896,
+"hL": "AU",
+"aL": "NZ",
+"hR": 562,
+"aR": 1335,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17610943": {
+"id": 17610943,
+"start": "2026-11-23T00:40:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Playford, Australia, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Harrison Satara",
+"a": "Stefan Vujić",
+"hId": 1084375,
+"aId": 157518,
+"hL": "AU",
+"aL": "AU",
+"hR": 1417,
+"aR": 796,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17610971": {
+"id": 17610971,
+"start": "2026-11-23T02:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Yokohama, Japan, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Hikaru Shiraishi",
+"a": "Taiyo Yamanaka",
+"hId": 223152,
+"aId": 298618,
+"hL": "JP",
+"aL": "JP",
+"hR": 578,
+"aR": 791,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17610983": {
+"id": 17610983,
+"start": "2026-11-23T02:10:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Yokohama, Japan, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Takuya Kumasaka",
+"a": "David Poljak",
+"hId": 248232,
+"aId": 60614,
+"hL": "JP",
+"aL": "CZ",
+"hR": 653,
+"aR": 1441,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17611013": {
+"id": 17611013,
+"start": "2026-11-23T02:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Yokohama, Japan, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Finn Bass",
+"a": "Kokoro Isomura",
+"hId": 182086,
+"aId": 367815,
+"hL": "GB",
+"aL": "JP",
+"hR": 1188,
+"aR": 711,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17611148": {
+"id": 17611148,
+"start": "2026-11-23T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Hersonissos 4, Greece, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Gilles Arnaud Bailly",
+"a": "Rares Teodor Pieleanu",
+"hId": 406654,
+"aId": 477288,
+"hL": "BE",
+"aL": "RO",
+"hR": 445,
+"aR": 785,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
+"satz": []
+},
+"17611593": {
+"id": 17611593,
+"start": "2026-11-23T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Hersonissos 4, Greece, Qualifying",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Imanol Lopez Morillo",
+"a": "Anas Mazdrashki",
+"hId": 213951,
+"aId": 482548,
+"hL": "ES",
+"aL": "BG",
+"hR": 618,
+"aR": 821,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Qualification Final",
 "satz": []
 }
 }
