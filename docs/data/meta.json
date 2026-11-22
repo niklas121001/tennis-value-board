@@ -1,18 +1,18 @@
 {
  "hinweis": "Demo: Partien und Quoten aus dem aktuellen DASHBOARD der Excel. Live-Daten nach Einrichtung des OddsPapi-Keys.",
- "elo_update": "2026-11-22T15:45Z",
- "quoten_update": "2026-11-22T15:46:24Z",
+ "elo_update": "2026-11-22T18:45Z",
+ "quoten_update": "2026-11-22T18:46:10Z",
  "quoten_hinweis": null,
  "kontingent": {
-  "verbraucht": 111,
+  "verbraucht": 113,
   "limit": 250
  },
  "unbekannte_namen": [],
  "buchmacher_fehlen": [],
  "abdeckung": {},
  "historisch": {
-  "partien": 97,
-  "mit_quote": 14,
+  "partien": 90,
+  "mit_quote": 28,
   "mit_pinnacle": 0,
   "fehler": 5,
   "fehler_beispiele": [
@@ -20,9 +20,9 @@
   ]
  },
  "pin_schluss": {
-  "stand": "2026-11-22T15:49Z",
-  "abgerufen": 13,
-  "offen": 38,
+  "stand": "2026-11-22T18:47Z",
+  "abgerufen": 12,
+  "offen": 37,
   "fehler": 6,
   "fehler_beispiele": [
    "OddsPapi historical-odds: HTTP 403 – {\"error\":{\"message\":\"Restricted access to historical odds.\",\"code\":\"RESTRICTED_ACCESS\",\"details\":\"Historical odds are only ",
