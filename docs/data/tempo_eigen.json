@@ -1,7 +1,7 @@
 {
- "stand": "2026-11-22",
+ "stand": "2026-11-23",
  "quelle": "Eigene Schätzung aus Match-Statistiken (SportsAPIPro + Tennis Abstract): Asse je Aufschlagpunkt vs. Erwartung aus Aufschläger und Returner, 1,00 = Schnitt",
- "steigung_hold": 0.97,
+ "steigung_hold": 0.977,
  "turniere": [
   {
    "name": "bogota",
@@ -9,15 +9,15 @@
    "jahre": {
     "2026": {
      "seiten": 54,
-     "ass_index": 1.617,
-     "hold_dev": 0.449,
+     "ass_index": 1.611,
+     "hold_dev": 0.446,
      "hold": 0.8,
      "tb_satz": null
     },
     "2025": {
      "seiten": 54,
-     "ass_index": 1.608,
-     "hold_dev": 0.197,
+     "ass_index": 1.61,
+     "hold_dev": 0.201,
      "hold": 0.743,
      "tb_satz": null
     }
@@ -25,8 +25,8 @@
    "ch": true,
    "speed": 1.35,
    "roh": 1.476,
-   "ass": 1.613,
-   "hold_skala": 1.339,
+   "ass": 1.611,
+   "hold_skala": 1.341,
    "seiten": 108,
    "quelle": "eigen",
    "alias": []
@@ -37,17 +37,17 @@
    "jahre": {
     "2026": {
      "seiten": 56,
-     "ass_index": 1.889,
-     "hold_dev": 0.304,
+     "ass_index": 1.879,
+     "hold_dev": 0.3,
      "hold": 0.711,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.35,
-   "roh": 1.593,
-   "ass": 1.889,
-   "hold_skala": 1.296,
+   "speed": 1.34,
+   "roh": 1.587,
+   "ass": 1.879,
+   "hold_skala": 1.294,
    "seiten": 56,
    "quelle": "eigen",
    "alias": []
@@ -58,17 +58,17 @@
    "jahre": {
     "2026": {
      "seiten": 48,
-     "ass_index": 1.979,
-     "hold_dev": 0.197,
+     "ass_index": 1.971,
+     "hold_dev": 0.196,
      "hold": 0.688,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.32,
-   "roh": 1.586,
-   "ass": 1.979,
-   "hold_skala": 1.192,
+   "roh": 1.582,
+   "ass": 1.971,
+   "hold_skala": 1.193,
    "seiten": 48,
    "quelle": "eigen",
    "alias": []
@@ -79,39 +79,18 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 1.796,
-     "hold_dev": 0.229,
+     "ass_index": 1.793,
+     "hold_dev": 0.227,
      "hold": 0.725,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.27,
-   "roh": 1.51,
-   "ass": 1.796,
+   "roh": 1.508,
+   "ass": 1.793,
    "hold_skala": 1.223,
    "seiten": 46,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "buenos aires",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 54,
-     "ass_index": 1.674,
-     "hold_dev": 0.189,
-     "hold": 0.674,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.25,
-   "roh": 1.429,
-   "ass": 1.674,
-   "hold_skala": 1.185,
-   "seiten": 54,
    "quelle": "eigen",
    "alias": []
   },
@@ -121,39 +100,39 @@
    "jahre": {
     "2026": {
      "seiten": 76,
-     "ass_index": 1.629,
-     "hold_dev": 0.132,
+     "ass_index": 1.63,
+     "hold_dev": 0.137,
      "hold": 0.781,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.25,
-   "roh": 1.379,
-   "ass": 1.629,
-   "hold_skala": 1.129,
+   "roh": 1.383,
+   "ass": 1.63,
+   "hold_skala": 1.135,
    "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "lima",
+   "name": "buenos aires",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 90,
-     "ass_index": 1.358,
-     "hold_dev": 0.285,
-     "hold": 0.723,
-     "tb_satz": 0.19
+     "seiten": 56,
+     "ass_index": 1.612,
+     "hold_dev": 0.178,
+     "hold": 0.672,
+     "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.22,
-   "roh": 1.318,
-   "ass": 1.358,
-   "hold_skala": 1.278,
-   "seiten": 90,
+   "speed": 1.23,
+   "roh": 1.394,
+   "ass": 1.612,
+   "hold_skala": 1.175,
+   "seiten": 56,
    "quelle": "eigen",
    "alias": []
   },
@@ -163,18 +142,39 @@
    "jahre": {
     "2026": {
      "seiten": 38,
-     "ass_index": 1.424,
-     "hold_dev": 0.512,
+     "ass_index": 1.447,
+     "hold_dev": 0.528,
      "hold": 0.837,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.22,
-   "roh": 1.461,
-   "ass": 1.424,
-   "hold_skala": 1.498,
+   "speed": 1.23,
+   "roh": 1.482,
+   "ass": 1.447,
+   "hold_skala": 1.517,
    "seiten": 38,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "lima",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 90,
+     "ass_index": 1.353,
+     "hold_dev": 0.28,
+     "hold": 0.723,
+     "tb_satz": 0.19
+    }
+   },
+   "ch": true,
+   "speed": 1.22,
+   "roh": 1.314,
+   "ass": 1.353,
+   "hold_skala": 1.275,
+   "seiten": 90,
    "quelle": "eigen",
    "alias": []
   },
@@ -184,8 +184,8 @@
    "jahre": {
     "2026": {
      "seiten": 66,
-     "ass_index": 1.51,
-     "hold_dev": 0.174,
+     "ass_index": 1.512,
+     "hold_dev": 0.171,
      "hold": 0.679,
      "tb_satz": null
     }
@@ -193,8 +193,8 @@
    "ch": true,
    "speed": 1.21,
    "roh": 1.34,
-   "ass": 1.51,
-   "hold_skala": 1.17,
+   "ass": 1.512,
+   "hold_skala": 1.168,
    "seiten": 66,
    "quelle": "eigen",
    "alias": []
@@ -205,16 +205,16 @@
    "jahre": {
     "2026": {
      "seiten": 40,
-     "ass_index": 1.397,
-     "hold_dev": 0.439,
+     "ass_index": 1.394,
+     "hold_dev": 0.436,
      "hold": 0.818,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.21,
-   "roh": 1.412,
-   "ass": 1.397,
+   "roh": 1.411,
+   "ass": 1.394,
    "hold_skala": 1.427,
    "seiten": 40,
    "quelle": "eigen",
@@ -225,19 +225,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 62,
-     "ass_index": 1.304,
-     "hold_dev": 0.406,
-     "hold": 0.784,
+     "seiten": 66,
+     "ass_index": 1.288,
+     "hold_dev": 0.377,
+     "hold": 0.779,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.21,
-   "roh": 1.35,
-   "ass": 1.304,
-   "hold_skala": 1.395,
-   "seiten": 62,
+   "speed": 1.2,
+   "roh": 1.329,
+   "ass": 1.288,
+   "hold_skala": 1.37,
+   "seiten": 66,
    "quelle": "eigen",
    "alias": []
   },
@@ -248,16 +248,16 @@
     "2026": {
      "seiten": 100,
      "ass_index": 1.227,
-     "hold_dev": 0.332,
+     "hold_dev": 0.322,
      "hold": 0.752,
      "tb_satz": 0.12
     }
    },
    "ch": true,
-   "speed": 1.2,
-   "roh": 1.275,
+   "speed": 1.19,
+   "roh": 1.271,
    "ass": 1.227,
-   "hold_skala": 1.323,
+   "hold_skala": 1.316,
    "seiten": 100,
    "quelle": "eigen",
    "alias": []
@@ -268,17 +268,17 @@
    "jahre": {
     "2026": {
      "seiten": 166,
-     "ass_index": 1.235,
-     "hold_dev": 0.216,
+     "ass_index": 1.233,
+     "hold_dev": 0.21,
      "hold": 0.705,
      "tb_satz": 0.085
     }
    },
    "ch": true,
    "speed": 1.18,
-   "roh": 1.223,
-   "ass": 1.235,
-   "hold_skala": 1.211,
+   "roh": 1.22,
+   "ass": 1.233,
+   "hold_skala": 1.206,
    "seiten": 166,
    "quelle": "eigen",
    "alias": []
@@ -290,16 +290,16 @@
     "2026": {
      "seiten": 78,
      "ass_index": 1.249,
-     "hold_dev": 0.291,
+     "hold_dev": 0.286,
      "hold": 0.754,
      "tb_satz": 0.209
     }
    },
    "ch": true,
    "speed": 1.18,
-   "roh": 1.266,
+   "roh": 1.265,
    "ass": 1.249,
-   "hold_skala": 1.284,
+   "hold_skala": 1.281,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -310,39 +310,18 @@
    "jahre": {
     "2026": {
      "seiten": 48,
-     "ass_index": 1.259,
-     "hold_dev": 0.402,
+     "ass_index": 1.258,
+     "hold_dev": 0.396,
      "hold": 0.709,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.18,
-   "roh": 1.325,
-   "ass": 1.259,
-   "hold_skala": 1.391,
+   "roh": 1.323,
+   "ass": 1.258,
+   "hold_skala": 1.388,
    "seiten": 48,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "brasov",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 52,
-     "ass_index": 1.291,
-     "hold_dev": 0.306,
-     "hold": 0.779,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.17,
-   "roh": 1.295,
-   "ass": 1.291,
-   "hold_skala": 1.298,
-   "seiten": 52,
    "quelle": "eigen",
    "alias": []
   },
@@ -352,39 +331,18 @@
    "jahre": {
     "2026": {
      "seiten": 58,
-     "ass_index": 1.352,
-     "hold_dev": 0.234,
+     "ass_index": 1.346,
+     "hold_dev": 0.229,
      "hold": 0.728,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.17,
-   "roh": 1.29,
-   "ass": 1.352,
-   "hold_skala": 1.228,
+   "roh": 1.285,
+   "ass": 1.346,
+   "hold_skala": 1.225,
    "seiten": 58,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "trieste",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 64,
-     "ass_index": 1.341,
-     "hold_dev": 0.135,
-     "hold": 0.747,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.15,
-   "roh": 1.237,
-   "ass": 1.341,
-   "hold_skala": 1.132,
-   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -393,19 +351,82 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 50,
-     "ass_index": 1.303,
-     "hold_dev": 0.227,
-     "hold": 0.693,
+     "seiten": 52,
+     "ass_index": 1.339,
+     "hold_dev": 0.268,
+     "hold": 0.696,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.17,
+   "roh": 1.301,
+   "ass": 1.339,
+   "hold_skala": 1.263,
+   "seiten": 52,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "brasov",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 64,
+     "ass_index": 1.273,
+     "hold_dev": 0.246,
+     "hold": 0.773,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.16,
+   "roh": 1.257,
+   "ass": 1.273,
+   "hold_skala": 1.242,
+   "seiten": 64,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "cattolica",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 64,
+     "ass_index": 1.294,
+     "hold_dev": 0.194,
+     "hold": 0.745,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.15,
-   "roh": 1.262,
-   "ass": 1.303,
-   "hold_skala": 1.221,
-   "seiten": 50,
+   "roh": 1.242,
+   "ass": 1.294,
+   "hold_skala": 1.191,
+   "seiten": 64,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "trieste",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 68,
+     "ass_index": 1.314,
+     "hold_dev": 0.136,
+     "hold": 0.748,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.14,
+   "roh": 1.224,
+   "ass": 1.314,
+   "hold_skala": 1.134,
+   "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
@@ -415,38 +436,17 @@
    "jahre": {
     "2026": {
      "seiten": 60,
-     "ass_index": 1.317,
-     "hold_dev": 0.146,
+     "ass_index": 1.312,
+     "hold_dev": 0.149,
      "hold": 0.659,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.14,
-   "roh": 1.23,
-   "ass": 1.317,
-   "hold_skala": 1.143,
-   "seiten": 60,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "cervia",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 60,
-     "ass_index": 1.134,
-     "hold_dev": 0.308,
-     "hold": 0.757,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.13,
-   "roh": 1.217,
-   "ass": 1.134,
-   "hold_skala": 1.3,
+   "roh": 1.229,
+   "ass": 1.312,
+   "hold_skala": 1.147,
    "seiten": 60,
    "quelle": "eigen",
    "alias": []
@@ -456,19 +456,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 70,
-     "ass_index": 1.231,
-     "hold_dev": 0.18,
-     "hold": 0.775,
+     "seiten": 76,
+     "ass_index": 1.236,
+     "hold_dev": 0.196,
+     "hold": 0.772,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.13,
-   "roh": 1.203,
-   "ass": 1.231,
-   "hold_skala": 1.176,
-   "seiten": 70,
+   "speed": 1.14,
+   "roh": 1.214,
+   "ass": 1.236,
+   "hold_skala": 1.193,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -479,23 +479,23 @@
     "2026": {
      "seiten": 102,
      "ass_index": 1.196,
-     "hold_dev": 0.085,
+     "hold_dev": 0.083,
      "hold": 0.693,
      "tb_satz": 0.135
     },
     "2025": {
      "seiten": 28,
      "ass_index": 1.366,
-     "hold_dev": 0.138,
+     "hold_dev": 0.137,
      "hold": 0.7,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.12,
-   "roh": 1.157,
+   "roh": 1.156,
    "ass": 1.222,
-   "hold_skala": 1.092,
+   "hold_skala": 1.09,
    "seiten": 130,
    "quelle": "eigen",
    "alias": []
@@ -506,17 +506,38 @@
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 1.296,
-     "hold_dev": 0.08,
+     "ass_index": 1.293,
+     "hold_dev": 0.075,
      "hold": 0.654,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.12,
-   "roh": 1.187,
-   "ass": 1.296,
-   "hold_skala": 1.079,
+   "roh": 1.184,
+   "ass": 1.293,
+   "hold_skala": 1.075,
+   "seiten": 72,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "cervia",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 72,
+     "ass_index": 1.124,
+     "hold_dev": 0.261,
+     "hold": 0.744,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.12,
+   "roh": 1.19,
+   "ass": 1.124,
+   "hold_skala": 1.256,
    "seiten": 72,
    "quelle": "eigen",
    "alias": []
@@ -527,60 +548,60 @@
    "jahre": {
     "2026": {
      "seiten": 58,
-     "ass_index": 1.4,
-     "hold_dev": 0.001,
+     "ass_index": 1.39,
+     "hold_dev": -0.006,
      "hold": 0.617,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.12,
-   "roh": 1.201,
-   "ass": 1.4,
-   "hold_skala": 1.002,
+   "speed": 1.11,
+   "roh": 1.193,
+   "ass": 1.39,
+   "hold_skala": 0.995,
    "seiten": 58,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "cattolica",
+   "name": "sion",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 60,
-     "ass_index": 1.257,
-     "hold_dev": 0.162,
-     "hold": 0.743,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.12,
-   "roh": 1.208,
-   "ass": 1.257,
-   "hold_skala": 1.158,
-   "seiten": 60,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "cordenons",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 70,
-     "ass_index": 1.086,
-     "hold_dev": 0.281,
-     "hold": 0.729,
+     "seiten": 62,
+     "ass_index": 1.114,
+     "hold_dev": 0.254,
+     "hold": 0.765,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.11,
-   "roh": 1.18,
-   "ass": 1.086,
-   "hold_skala": 1.274,
-   "seiten": 70,
+   "roh": 1.182,
+   "ass": 1.114,
+   "hold_skala": 1.249,
+   "seiten": 62,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "brazzaville",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 22,
+     "ass_index": 1.296,
+     "hold_dev": 0.344,
+     "hold": 0.825,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.11,
+   "roh": 1.317,
+   "ass": 1.296,
+   "hold_skala": 1.337,
+   "seiten": 22,
    "quelle": "eigen",
    "alias": []
   },
@@ -590,18 +611,39 @@
    "jahre": {
     "2026": {
      "seiten": 62,
-     "ass_index": 1.153,
-     "hold_dev": 0.168,
+     "ass_index": 1.15,
+     "hold_dev": 0.169,
      "hold": 0.706,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.1,
-   "roh": 1.159,
-   "ass": 1.153,
-   "hold_skala": 1.164,
+   "roh": 1.158,
+   "ass": 1.15,
+   "hold_skala": 1.166,
    "seiten": 62,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "cordenons",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 80,
+     "ass_index": 1.083,
+     "hold_dev": 0.215,
+     "hold": 0.717,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.1,
+   "roh": 1.147,
+   "ass": 1.083,
+   "hold_skala": 1.211,
+   "seiten": 80,
    "quelle": "eigen",
    "alias": []
   },
@@ -610,61 +652,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 66,
-     "ass_index": 1.202,
-     "hold_dev": 0.138,
+     "seiten": 68,
+     "ass_index": 1.19,
+     "hold_dev": 0.14,
      "hold": 0.756,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.1,
-   "roh": 1.169,
-   "ass": 1.202,
-   "hold_skala": 1.135,
-   "seiten": 66,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "biella",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 50,
-     "ass_index": 1.243,
-     "hold_dev": 0.13,
-     "hold": 0.744,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.1,
-   "roh": 1.185,
-   "ass": 1.243,
-   "hold_skala": 1.127,
-   "seiten": 50,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "sion",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 58,
-     "ass_index": 1.103,
-     "hold_dev": 0.253,
-     "hold": 0.764,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.1,
-   "roh": 1.175,
-   "ass": 1.103,
-   "hold_skala": 1.247,
-   "seiten": 58,
+   "roh": 1.164,
+   "ass": 1.19,
+   "hold_skala": 1.138,
+   "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
@@ -673,19 +673,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 90,
-     "ass_index": 1.116,
-     "hold_dev": 0.147,
-     "hold": 0.691,
-     "tb_satz": 0.112
+     "seiten": 92,
+     "ass_index": 1.11,
+     "hold_dev": 0.152,
+     "hold": 0.695,
+     "tb_satz": 0.11
     }
    },
    "ch": true,
    "speed": 1.09,
    "roh": 1.13,
-   "ass": 1.116,
-   "hold_skala": 1.144,
-   "seiten": 90,
+   "ass": 1.11,
+   "hold_skala": 1.15,
+   "seiten": 92,
    "quelle": "eigen",
    "alias": []
   },
@@ -695,39 +695,39 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 1.174,
-     "hold_dev": 0.11,
+     "ass_index": 1.168,
+     "hold_dev": 0.104,
      "hold": 0.687,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.09,
-   "roh": 1.141,
-   "ass": 1.174,
-   "hold_skala": 1.108,
+   "roh": 1.135,
+   "ass": 1.168,
+   "hold_skala": 1.103,
    "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "como",
+   "name": "biella",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 58,
-     "ass_index": 1.21,
-     "hold_dev": 0.1,
-     "hold": 0.748,
+     "seiten": 64,
+     "ass_index": 1.19,
+     "hold_dev": 0.113,
+     "hold": 0.73,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.09,
-   "roh": 1.154,
-   "ass": 1.21,
-   "hold_skala": 1.098,
-   "seiten": 58,
+   "roh": 1.151,
+   "ass": 1.19,
+   "hold_skala": 1.112,
+   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -737,17 +737,17 @@
    "jahre": {
     "2026": {
      "seiten": 62,
-     "ass_index": 1.198,
-     "hold_dev": 0.106,
+     "ass_index": 1.188,
+     "hold_dev": 0.099,
      "hold": 0.776,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.09,
-   "roh": 1.151,
-   "ass": 1.198,
-   "hold_skala": 1.104,
+   "roh": 1.143,
+   "ass": 1.188,
+   "hold_skala": 1.098,
    "seiten": 62,
    "quelle": "eigen",
    "alias": []
@@ -758,17 +758,17 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 1.17,
-     "hold_dev": 0.122,
+     "ass_index": 1.174,
+     "hold_dev": 0.121,
      "hold": 0.771,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.08,
-   "roh": 1.145,
-   "ass": 1.17,
-   "hold_skala": 1.12,
+   "roh": 1.147,
+   "ass": 1.174,
+   "hold_skala": 1.119,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -779,8 +779,8 @@
    "jahre": {
     "2026": {
      "seiten": 58,
-     "ass_index": 1.11,
-     "hold_dev": 0.167,
+     "ass_index": 1.111,
+     "hold_dev": 0.165,
      "hold": 0.675,
      "tb_satz": null
     }
@@ -788,8 +788,8 @@
    "ch": true,
    "speed": 1.08,
    "roh": 1.137,
-   "ass": 1.11,
-   "hold_skala": 1.163,
+   "ass": 1.111,
+   "hold_skala": 1.162,
    "seiten": 58,
    "quelle": "eigen",
    "alias": []
@@ -800,39 +800,81 @@
    "jahre": {
     "2026": {
      "seiten": 70,
-     "ass_index": 1.146,
-     "hold_dev": 0.104,
+     "ass_index": 1.143,
+     "hold_dev": 0.103,
      "hold": 0.636,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.08,
-   "roh": 1.124,
-   "ass": 1.146,
+   "roh": 1.122,
+   "ass": 1.143,
    "hold_skala": 1.102,
    "seiten": 70,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "bonn",
+   "name": "hamburg",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 58,
-     "ass_index": 0.89,
-     "hold_dev": 0.314,
+     "seiten": 68,
+     "ass_index": 1.075,
+     "hold_dev": 0.174,
      "hold": 0.763,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.06,
-   "roh": 1.098,
-   "ass": 0.89,
-   "hold_skala": 1.306,
-   "seiten": 58,
+   "speed": 1.08,
+   "roh": 1.123,
+   "ass": 1.075,
+   "hold_skala": 1.171,
+   "seiten": 68,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "milan",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 68,
+     "ass_index": 1.204,
+     "hold_dev": 0.05,
+     "hold": 0.734,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.08,
+   "roh": 1.127,
+   "ass": 1.204,
+   "hold_skala": 1.05,
+   "seiten": 68,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "como",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 62,
+     "ass_index": 1.213,
+     "hold_dev": 0.049,
+     "hold": 0.728,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.08,
+   "roh": 1.131,
+   "ass": 1.213,
+   "hold_skala": 1.049,
+   "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
@@ -841,19 +883,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 68,
-     "ass_index": 1.02,
-     "hold_dev": 0.184,
-     "hold": 0.791,
+     "seiten": 78,
+     "ass_index": 1.018,
+     "hold_dev": 0.169,
+     "hold": 0.789,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.06,
-   "roh": 1.1,
-   "ass": 1.02,
-   "hold_skala": 1.18,
-   "seiten": 68,
+   "roh": 1.092,
+   "ass": 1.018,
+   "hold_skala": 1.166,
+   "seiten": 78,
    "quelle": "eigen",
    "alias": []
   },
@@ -863,17 +905,17 @@
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 1.061,
-     "hold_dev": 0.138,
+     "ass_index": 1.072,
+     "hold_dev": 0.13,
      "hold": 0.743,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.06,
-   "roh": 1.098,
-   "ass": 1.061,
-   "hold_skala": 1.135,
+   "roh": 1.1,
+   "ass": 1.072,
+   "hold_skala": 1.128,
    "seiten": 72,
    "quelle": "eigen",
    "alias": []
@@ -884,17 +926,17 @@
    "jahre": {
     "2025": {
      "seiten": 34,
-     "ass_index": 1.2,
-     "hold_dev": 0.055,
+     "ass_index": 1.194,
+     "hold_dev": 0.052,
      "hold": 0.658,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.06,
-   "roh": 1.127,
-   "ass": 1.2,
-   "hold_skala": 1.055,
+   "roh": 1.123,
+   "ass": 1.194,
+   "hold_skala": 1.052,
    "seiten": 34,
    "quelle": "eigen",
    "alias": []
@@ -905,18 +947,39 @@
    "jahre": {
     "2026": {
      "seiten": 66,
-     "ass_index": 1.084,
-     "hold_dev": 0.124,
+     "ass_index": 1.086,
+     "hold_dev": 0.119,
      "hold": 0.745,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.06,
-   "roh": 1.103,
-   "ass": 1.084,
-   "hold_skala": 1.122,
+   "roh": 1.102,
+   "ass": 1.086,
+   "hold_skala": 1.117,
    "seiten": 66,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "bonn",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 60,
+     "ass_index": 0.878,
+     "hold_dev": 0.309,
+     "hold": 0.761,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.05,
+   "roh": 1.091,
+   "ass": 0.878,
+   "hold_skala": 1.303,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -925,19 +988,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 60,
-     "ass_index": 1.136,
+     "seiten": 66,
+     "ass_index": 1.118,
      "hold_dev": 0.047,
-     "hold": 0.782,
+     "hold": 0.777,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.05,
-   "roh": 1.091,
-   "ass": 1.136,
+   "roh": 1.083,
+   "ass": 1.118,
    "hold_skala": 1.047,
-   "seiten": 60,
+   "seiten": 66,
    "quelle": "eigen",
    "alias": []
   },
@@ -947,81 +1010,18 @@
    "jahre": {
     "2026": {
      "seiten": 42,
-     "ass_index": 1.297,
-     "hold_dev": -0.096,
+     "ass_index": 1.296,
+     "hold_dev": -0.097,
      "hold": 0.611,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.05,
-   "roh": 1.103,
-   "ass": 1.297,
-   "hold_skala": 0.908,
+   "roh": 1.101,
+   "ass": 1.296,
+   "hold_skala": 0.906,
    "seiten": 42,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "liberec",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 54,
-     "ass_index": 1.109,
-     "hold_dev": 0.066,
-     "hold": 0.717,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.05,
-   "roh": 1.087,
-   "ass": 1.109,
-   "hold_skala": 1.065,
-   "seiten": 54,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "milan",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 52,
-     "ass_index": 1.18,
-     "hold_dev": 0.007,
-     "hold": 0.73,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.05,
-   "roh": 1.094,
-   "ass": 1.18,
-   "hold_skala": 1.008,
-   "seiten": 52,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "hamburg",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 64,
-     "ass_index": 0.988,
-     "hold_dev": 0.145,
-     "hold": 0.76,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.04,
-   "roh": 1.065,
-   "ass": 0.988,
-   "hold_skala": 1.142,
-   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -1030,19 +1030,61 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 40,
-     "ass_index": 0.958,
-     "hold_dev": 0.207,
-     "hold": 0.74,
+     "seiten": 46,
+     "ass_index": 0.941,
+     "hold_dev": 0.239,
+     "hold": 0.735,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.05,
+   "roh": 1.088,
+   "ass": 0.941,
+   "hold_skala": 1.235,
+   "seiten": 46,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "liberec",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 58,
+     "ass_index": 1.082,
+     "hold_dev": 0.081,
+     "hold": 0.717,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.05,
+   "roh": 1.081,
+   "ass": 1.082,
+   "hold_skala": 1.08,
+   "seiten": 58,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "royan",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 48,
+     "ass_index": 0.953,
+     "hold_dev": 0.181,
+     "hold": 0.722,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.04,
-   "roh": 1.08,
-   "ass": 0.958,
-   "hold_skala": 1.202,
-   "seiten": 40,
+   "roh": 1.066,
+   "ass": 0.953,
+   "hold_skala": 1.178,
+   "seiten": 48,
    "quelle": "eigen",
    "alias": []
   },
@@ -1053,16 +1095,16 @@
     "2026": {
      "seiten": 42,
      "ass_index": 1.097,
-     "hold_dev": 0.052,
+     "hold_dev": 0.053,
      "hold": 0.679,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.04,
-   "roh": 1.074,
+   "roh": 1.075,
    "ass": 1.097,
-   "hold_skala": 1.052,
+   "hold_skala": 1.053,
    "seiten": 42,
    "quelle": "eigen",
    "alias": []
@@ -1072,40 +1114,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 150,
-     "ass_index": 1.005,
-     "hold_dev": 0.074,
-     "hold": 0.728,
+     "seiten": 158,
+     "ass_index": 1.02,
+     "hold_dev": 0.065,
+     "hold": 0.726,
      "tb_satz": 0.235
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.039,
-   "ass": 1.005,
-   "hold_skala": 1.073,
-   "seiten": 150,
+   "roh": 1.042,
+   "ass": 1.02,
+   "hold_skala": 1.065,
+   "seiten": 158,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "royan",
+   "name": "perugia",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 48,
-     "ass_index": 0.947,
-     "hold_dev": 0.174,
-     "hold": 0.722,
+     "seiten": 60,
+     "ass_index": 0.963,
+     "hold_dev": 0.152,
+     "hold": 0.764,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.059,
-   "ass": 0.947,
-   "hold_skala": 1.17,
-   "seiten": 48,
+   "roh": 1.056,
+   "ass": 0.963,
+   "hold_skala": 1.15,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -1115,17 +1157,17 @@
    "jahre": {
     "2026": {
      "seiten": 58,
-     "ass_index": 1.076,
-     "hold_dev": 0.018,
+     "ass_index": 1.074,
+     "hold_dev": 0.014,
      "hold": 0.648,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.047,
-   "ass": 1.076,
-   "hold_skala": 1.019,
+   "roh": 1.044,
+   "ass": 1.074,
+   "hold_skala": 1.015,
    "seiten": 58,
    "quelle": "eigen",
    "alias": []
@@ -1135,26 +1177,26 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 190,
-     "ass_index": 1.016,
-     "hold_dev": -0.002,
-     "hold": 0.721,
+     "seiten": 226,
+     "ass_index": 1.026,
+     "hold_dev": -0.001,
+     "hold": 0.713,
      "tb_satz": 0.088
     },
     "2025": {
-     "seiten": 56,
-     "ass_index": 1.082,
-     "hold_dev": 0.117,
-     "hold": 0.715,
+     "seiten": 58,
+     "ass_index": 1.123,
+     "hold_dev": 0.112,
+     "hold": 0.712,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
-   "roh": 1.023,
-   "ass": 1.027,
-   "hold_skala": 1.018,
-   "seiten": 246,
+   "roh": 1.028,
+   "ass": 1.04,
+   "hold_skala": 1.016,
+   "seiten": 284,
    "quelle": "eigen",
    "alias": []
   },
@@ -1164,60 +1206,39 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 1.04,
-     "hold_dev": 0.011,
+     "ass_index": 1.033,
+     "hold_dev": 0.02,
      "hold": 0.754,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
-   "roh": 1.026,
-   "ass": 1.04,
-   "hold_skala": 1.012,
+   "roh": 1.027,
+   "ass": 1.033,
+   "hold_skala": 1.021,
    "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "seville",
+   "name": "todi",
    "belag": "clay",
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 1.007,
-     "hold_dev": 0.051,
-     "hold": 0.714,
+     "ass_index": 1.018,
+     "hold_dev": 0.04,
+     "hold": 0.695,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
    "roh": 1.029,
-   "ass": 1.007,
-   "hold_skala": 1.051,
+   "ass": 1.018,
+   "hold_skala": 1.04,
    "seiten": 72,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "rome",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 60,
-     "ass_index": 1.023,
-     "hold_dev": 0.031,
-     "hold": 0.723,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.02,
-   "roh": 1.027,
-   "ass": 1.023,
-   "hold_skala": 1.031,
-   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -1227,39 +1248,18 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 1.173,
-     "hold_dev": -0.093,
+     "ass_index": 1.168,
+     "hold_dev": -0.098,
      "hold": 0.616,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
-   "roh": 1.042,
-   "ass": 1.173,
-   "hold_skala": 0.911,
+   "roh": 1.037,
+   "ass": 1.168,
+   "hold_skala": 0.905,
    "seiten": 46,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "perugia",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 56,
-     "ass_index": 0.928,
-     "hold_dev": 0.142,
-     "hold": 0.761,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.02,
-   "roh": 1.034,
-   "ass": 0.928,
-   "hold_skala": 1.139,
-   "seiten": 56,
    "quelle": "eigen",
    "alias": []
   },
@@ -1268,19 +1268,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 60,
-     "ass_index": 1.062,
-     "hold_dev": -0.045,
-     "hold": 0.721,
+     "seiten": 72,
+     "ass_index": 1.035,
+     "hold_dev": 0.012,
+     "hold": 0.724,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.01,
-   "roh": 1.01,
-   "ass": 1.062,
-   "hold_skala": 0.958,
-   "seiten": 60,
+   "speed": 1.02,
+   "roh": 1.024,
+   "ass": 1.035,
+   "hold_skala": 1.013,
+   "seiten": 72,
    "quelle": "eigen",
    "alias": []
   },
@@ -1289,19 +1289,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 52,
-     "ass_index": 1.117,
+     "seiten": 56,
+     "ass_index": 1.148,
      "hold_dev": -0.077,
-     "hold": 0.723,
+     "hold": 0.712,
      "tb_satz": null
     }
    },
    "ch": true,
+   "speed": 1.02,
+   "roh": 1.037,
+   "ass": 1.148,
+   "hold_skala": 0.926,
+   "seiten": 56,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "lisbon",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 94,
+     "ass_index": 1.044,
+     "hold_dev": -0.004,
+     "hold": 0.724,
+     "tb_satz": 0.112
+    }
+   },
+   "ch": true,
    "speed": 1.01,
-   "roh": 1.022,
-   "ass": 1.117,
-   "hold_skala": 0.927,
-   "seiten": 52,
+   "roh": 1.021,
+   "ass": 1.044,
+   "hold_skala": 0.997,
+   "seiten": 94,
    "quelle": "eigen",
    "alias": []
   },
@@ -1311,18 +1332,102 @@
    "jahre": {
     "2026": {
      "seiten": 88,
-     "ass_index": 0.816,
-     "hold_dev": 0.197,
+     "ass_index": 0.823,
+     "hold_dev": 0.2,
      "hold": 0.691,
      "tb_satz": 0.047
     }
    },
    "ch": true,
-   "speed": 1.0,
-   "roh": 1.004,
-   "ass": 0.816,
-   "hold_skala": 1.192,
+   "speed": 1.01,
+   "roh": 1.01,
+   "ass": 0.823,
+   "hold_skala": 1.197,
    "seiten": 88,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "seville",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 74,
+     "ass_index": 1.001,
+     "hold_dev": 0.04,
+     "hold": 0.714,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.01,
+   "roh": 1.021,
+   "ass": 1.001,
+   "hold_skala": 1.04,
+   "seiten": 74,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "prague",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 62,
+     "ass_index": 0.994,
+     "hold_dev": 0.045,
+     "hold": 0.688,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.01,
+   "roh": 1.02,
+   "ass": 0.994,
+   "hold_skala": 1.045,
+   "seiten": 62,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "kosice",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 48,
+     "ass_index": 1.083,
+     "hold_dev": -0.046,
+     "hold": 0.707,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.01,
+   "roh": 1.02,
+   "ass": 1.083,
+   "hold_skala": 0.956,
+   "seiten": 48,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "bratislava",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 76,
+     "ass_index": 0.926,
+     "hold_dev": 0.086,
+     "hold": 0.749,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.0,
+   "roh": 1.006,
+   "ass": 0.926,
+   "hold_skala": 1.085,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -1332,18 +1437,39 @@
    "jahre": {
     "2026": {
      "seiten": 60,
-     "ass_index": 0.997,
-     "hold_dev": 0.004,
+     "ass_index": 0.987,
+     "hold_dev": 0.017,
      "hold": 0.733,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.0,
-   "roh": 1.001,
-   "ass": 0.997,
-   "hold_skala": 1.005,
+   "roh": 1.002,
+   "ass": 0.987,
+   "hold_skala": 1.018,
    "seiten": 60,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "rome",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 68,
+     "ass_index": 0.995,
+     "hold_dev": -0.005,
+     "hold": 0.727,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.0,
+   "roh": 0.996,
+   "ass": 0.995,
+   "hold_skala": 0.996,
+   "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
@@ -1353,39 +1479,18 @@
    "jahre": {
     "2026": {
      "seiten": 74,
-     "ass_index": 0.988,
-     "hold_dev": 0.022,
+     "ass_index": 0.981,
+     "hold_dev": 0.017,
      "hold": 0.68,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.0,
-   "roh": 1.005,
-   "ass": 0.988,
-   "hold_skala": 1.023,
+   "roh": 0.999,
+   "ass": 0.981,
+   "hold_skala": 1.018,
    "seiten": 74,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "kosice",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 44,
-     "ass_index": 1.028,
-     "hold_dev": -0.039,
-     "hold": 0.709,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.0,
-   "roh": 0.996,
-   "ass": 1.028,
-   "hold_skala": 0.964,
-   "seiten": 44,
    "quelle": "eigen",
    "alias": []
   },
@@ -1394,61 +1499,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 62,
-     "ass_index": 0.903,
-     "hold_dev": 0.053,
-     "hold": 0.747,
+     "seiten": 68,
+     "ass_index": 0.923,
+     "hold_dev": 0.059,
+     "hold": 0.75,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.99,
-   "roh": 0.978,
-   "ass": 0.903,
-   "hold_skala": 1.053,
-   "seiten": 62,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "todi",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 62,
-     "ass_index": 0.984,
-     "hold_dev": -0.005,
-     "hold": 0.692,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.99,
-   "roh": 0.99,
-   "ass": 0.984,
-   "hold_skala": 0.997,
-   "seiten": 62,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "bratislava",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 70,
-     "ass_index": 0.884,
-     "hold_dev": 0.051,
-     "hold": 0.746,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.98,
-   "roh": 0.967,
-   "ass": 0.884,
-   "hold_skala": 1.051,
-   "seiten": 70,
+   "roh": 0.991,
+   "ass": 0.923,
+   "hold_skala": 1.059,
+   "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
@@ -1458,17 +1521,17 @@
    "jahre": {
     "2026": {
      "seiten": 78,
-     "ass_index": 0.927,
-     "hold_dev": -0.001,
+     "ass_index": 0.931,
+     "hold_dev": -0.002,
      "hold": 0.729,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.98,
-   "roh": 0.964,
-   "ass": 0.927,
-   "hold_skala": 1.0,
+   "roh": 0.965,
+   "ass": 0.931,
+   "hold_skala": 0.999,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -1478,19 +1541,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 46,
-     "ass_index": 0.915,
-     "hold_dev": 0.028,
-     "hold": 0.723,
+     "seiten": 52,
+     "ass_index": 0.911,
+     "hold_dev": 0.032,
+     "hold": 0.72,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.98,
    "roh": 0.972,
-   "ass": 0.915,
-   "hold_skala": 1.029,
-   "seiten": 46,
+   "ass": 0.911,
+   "hold_skala": 1.032,
+   "seiten": 52,
    "quelle": "eigen",
    "alias": []
   },
@@ -1499,82 +1562,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 54,
-     "ass_index": 0.853,
-     "hold_dev": 0.064,
-     "hold": 0.734,
+     "seiten": 62,
+     "ass_index": 0.912,
+     "hold_dev": 0.034,
+     "hold": 0.73,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.98,
-   "roh": 0.958,
-   "ass": 0.853,
-   "hold_skala": 1.063,
-   "seiten": 54,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "prague",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 44,
-     "ass_index": 0.921,
-     "hold_dev": -0.008,
-     "hold": 0.69,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.98,
-   "roh": 0.957,
-   "ass": 0.921,
-   "hold_skala": 0.994,
-   "seiten": 44,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "lisbon",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 90,
-     "ass_index": 0.958,
-     "hold_dev": -0.044,
-     "hold": 0.719,
-     "tb_satz": 0.112
-    }
-   },
-   "ch": true,
-   "speed": 0.97,
-   "roh": 0.958,
-   "ass": 0.958,
-   "hold_skala": 0.959,
-   "seiten": 90,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "ostrava",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 64,
-     "ass_index": 0.901,
-     "hold_dev": 0.001,
-     "hold": 0.733,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.97,
-   "roh": 0.952,
-   "ass": 0.901,
-   "hold_skala": 1.002,
-   "seiten": 64,
+   "roh": 0.973,
+   "ass": 0.912,
+   "hold_skala": 1.034,
+   "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
@@ -1584,17 +1584,17 @@
    "jahre": {
     "2026": {
      "seiten": 84,
-     "ass_index": 0.987,
-     "hold_dev": -0.116,
+     "ass_index": 1.0,
+     "hold_dev": -0.099,
      "hold": 0.674,
      "tb_satz": 0.094
     }
    },
    "ch": true,
-   "speed": 0.96,
-   "roh": 0.938,
-   "ass": 0.987,
-   "hold_skala": 0.889,
+   "speed": 0.97,
+   "roh": 0.952,
+   "ass": 1.0,
+   "hold_skala": 0.905,
    "seiten": 84,
    "quelle": "eigen",
    "alias": []
@@ -1604,19 +1604,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 50,
-     "ass_index": 0.97,
-     "hold_dev": -0.115,
-     "hold": 0.73,
+     "seiten": 64,
+     "ass_index": 1.011,
+     "hold_dev": -0.11,
+     "hold": 0.722,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.96,
-   "roh": 0.93,
-   "ass": 0.97,
-   "hold_skala": 0.89,
-   "seiten": 50,
+   "speed": 0.97,
+   "roh": 0.952,
+   "ass": 1.011,
+   "hold_skala": 0.894,
+   "seiten": 64,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "ostrava",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 68,
+     "ass_index": 0.905,
+     "hold_dev": 0.012,
+     "hold": 0.728,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.97,
+   "roh": 0.959,
+   "ass": 0.905,
+   "hold_skala": 1.013,
+   "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
@@ -1627,16 +1648,16 @@
     "2026": {
      "seiten": 64,
      "ass_index": 0.922,
-     "hold_dev": -0.042,
+     "hold_dev": -0.047,
      "hold": 0.703,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.96,
-   "roh": 0.941,
+   "roh": 0.939,
    "ass": 0.922,
-   "hold_skala": 0.961,
+   "hold_skala": 0.955,
    "seiten": 64,
    "quelle": "eigen",
    "alias": []
@@ -1655,31 +1676,52 @@
    },
    "ch": true,
    "speed": 0.95,
-   "roh": 0.921,
+   "roh": 0.92,
    "ass": 1.0,
-   "hold_skala": 0.841,
+   "hold_skala": 0.84,
    "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "porto ctp",
+   "name": "mexico city",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 62,
-     "ass_index": 0.931,
-     "hold_dev": -0.157,
-     "hold": 0.694,
+     "seiten": 72,
+     "ass_index": 0.929,
+     "hold_dev": -0.138,
+     "hold": 0.743,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.93,
-   "roh": 0.89,
-   "ass": 0.931,
-   "hold_skala": 0.849,
-   "seiten": 62,
+   "roh": 0.898,
+   "ass": 0.929,
+   "hold_skala": 0.866,
+   "seiten": 72,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "plovdiv iii",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 60,
+     "ass_index": 0.736,
+     "hold_dev": 0.033,
+     "hold": 0.691,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.93,
+   "roh": 0.885,
+   "ass": 0.736,
+   "hold_skala": 1.033,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -1688,19 +1730,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 74,
-     "ass_index": 0.911,
-     "hold_dev": -0.168,
-     "hold": 0.696,
+     "seiten": 80,
+     "ass_index": 0.93,
+     "hold_dev": -0.19,
+     "hold": 0.691,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.92,
-   "roh": 0.875,
-   "ass": 0.911,
-   "hold_skala": 0.838,
-   "seiten": 74,
+   "roh": 0.873,
+   "ass": 0.93,
+   "hold_skala": 0.816,
+   "seiten": 80,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "porto ctp",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 70,
+     "ass_index": 0.88,
+     "hold_dev": -0.168,
+     "hold": 0.69,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.91,
+   "roh": 0.859,
+   "ass": 0.88,
+   "hold_skala": 0.837,
+   "seiten": 70,
    "quelle": "eigen",
    "alias": []
   },
@@ -1710,81 +1773,18 @@
    "jahre": {
     "2026": {
      "seiten": 40,
-     "ass_index": 0.725,
-     "hold_dev": -0.065,
+     "ass_index": 0.72,
+     "hold_dev": -0.066,
      "hold": 0.731,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.92,
-   "roh": 0.832,
-   "ass": 0.725,
-   "hold_skala": 0.938,
+   "speed": 0.91,
+   "roh": 0.828,
+   "ass": 0.72,
+   "hold_skala": 0.937,
    "seiten": 40,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "mexico city",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 68,
-     "ass_index": 0.92,
-     "hold_dev": -0.195,
-     "hold": 0.75,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.92,
-   "roh": 0.866,
-   "ass": 0.92,
-   "hold_skala": 0.812,
-   "seiten": 68,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "plovdiv iii",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 54,
-     "ass_index": 0.733,
-     "hold_dev": 0.003,
-     "hold": 0.686,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.92,
-   "roh": 0.869,
-   "ass": 0.733,
-   "hold_skala": 1.004,
-   "seiten": 54,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "francavilla al mare",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 52,
-     "ass_index": 0.792,
-     "hold_dev": -0.155,
-     "hold": 0.731,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.9,
-   "roh": 0.822,
-   "ass": 0.792,
-   "hold_skala": 0.851,
-   "seiten": 52,
    "quelle": "eigen",
    "alias": []
   },
@@ -1794,39 +1794,39 @@
    "jahre": {
     "2026": {
      "seiten": 56,
-     "ass_index": 0.816,
-     "hold_dev": -0.157,
+     "ass_index": 0.818,
+     "hold_dev": -0.155,
      "hold": 0.752,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.9,
-   "roh": 0.833,
-   "ass": 0.816,
-   "hold_skala": 0.849,
+   "roh": 0.834,
+   "ass": 0.818,
+   "hold_skala": 0.85,
    "seiten": 56,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "tampere",
+   "name": "francavilla al mare",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 80,
-     "ass_index": 0.764,
-     "hold_dev": -0.113,
-     "hold": 0.73,
+     "seiten": 54,
+     "ass_index": 0.793,
+     "hold_dev": -0.183,
+     "hold": 0.729,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.89,
-   "roh": 0.828,
-   "ass": 0.764,
-   "hold_skala": 0.892,
-   "seiten": 80,
+   "roh": 0.808,
+   "ass": 0.793,
+   "hold_skala": 0.822,
+   "seiten": 54,
    "quelle": "eigen",
    "alias": []
   },
@@ -1836,17 +1836,17 @@
    "jahre": {
     "2026": {
      "seiten": 82,
-     "ass_index": 0.764,
-     "hold_dev": -0.091,
+     "ass_index": 0.759,
+     "hold_dev": -0.097,
      "hold": 0.715,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.89,
-   "roh": 0.839,
-   "ass": 0.764,
-   "hold_skala": 0.913,
+   "roh": 0.833,
+   "ass": 0.759,
+   "hold_skala": 0.906,
    "seiten": 82,
    "quelle": "eigen",
    "alias": []
@@ -1857,16 +1857,16 @@
    "jahre": {
     "2026": {
      "seiten": 50,
-     "ass_index": 0.643,
-     "hold_dev": -0.04,
+     "ass_index": 0.641,
+     "hold_dev": -0.039,
      "hold": 0.734,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.89,
-   "roh": 0.803,
-   "ass": 0.643,
+   "roh": 0.802,
+   "ass": 0.641,
    "hold_skala": 0.963,
    "seiten": 50,
    "quelle": "eigen",
@@ -1878,17 +1878,17 @@
    "jahre": {
     "2026": {
      "seiten": 82,
-     "ass_index": 0.766,
-     "hold_dev": -0.106,
+     "ass_index": 0.762,
+     "hold_dev": -0.109,
      "hold": 0.725,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.89,
-   "roh": 0.832,
-   "ass": 0.766,
-   "hold_skala": 0.899,
+   "speed": 0.88,
+   "roh": 0.828,
+   "ass": 0.762,
+   "hold_skala": 0.895,
    "seiten": 82,
    "quelle": "eigen",
    "alias": []
@@ -1898,40 +1898,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 46,
-     "ass_index": 0.733,
-     "hold_dev": -0.168,
-     "hold": 0.711,
+     "seiten": 60,
+     "ass_index": 0.731,
+     "hold_dev": -0.13,
+     "hold": 0.699,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.89,
-   "roh": 0.786,
-   "ass": 0.733,
-   "hold_skala": 0.838,
-   "seiten": 46,
+   "speed": 0.88,
+   "roh": 0.803,
+   "ass": 0.731,
+   "hold_skala": 0.874,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "istanbul ttf",
+   "name": "tampere",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 44,
-     "ass_index": 0.658,
-     "hold_dev": -0.164,
-     "hold": 0.697,
+     "seiten": 86,
+     "ass_index": 0.742,
+     "hold_dev": -0.113,
+     "hold": 0.729,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.87,
-   "roh": 0.75,
-   "ass": 0.658,
-   "hold_skala": 0.842,
-   "seiten": 44,
+   "roh": 0.816,
+   "ass": 0.742,
+   "hold_skala": 0.891,
+   "seiten": 86,
    "quelle": "eigen",
    "alias": []
   },
@@ -1941,17 +1941,17 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 0.873,
-     "hold_dev": -0.295,
+     "ass_index": 0.872,
+     "hold_dev": -0.298,
      "hold": 0.611,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.87,
-   "roh": 0.794,
-   "ass": 0.873,
-   "hold_skala": 0.715,
+   "roh": 0.791,
+   "ass": 0.872,
+   "hold_skala": 0.71,
    "seiten": 68,
    "quelle": "eigen",
    "alias": []
@@ -1962,18 +1962,39 @@
    "jahre": {
     "2025": {
      "seiten": 58,
-     "ass_index": 0.761,
-     "hold_dev": -0.194,
+     "ass_index": 0.763,
+     "hold_dev": -0.192,
      "hold": 0.626,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.87,
-   "roh": 0.787,
-   "ass": 0.761,
-   "hold_skala": 0.813,
+   "roh": 0.788,
+   "ass": 0.763,
+   "hold_skala": 0.814,
    "seiten": 58,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "shymkent ii",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 64,
+     "ass_index": 0.764,
+     "hold_dev": -0.206,
+     "hold": 0.698,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.87,
+   "roh": 0.782,
+   "ass": 0.764,
+   "hold_skala": 0.8,
+   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -1982,19 +2003,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 52,
-     "ass_index": 0.697,
-     "hold_dev": -0.191,
-     "hold": 0.691,
+     "seiten": 54,
+     "ass_index": 0.714,
+     "hold_dev": -0.192,
+     "hold": 0.689,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.86,
-   "roh": 0.757,
-   "ass": 0.697,
-   "hold_skala": 0.816,
-   "seiten": 52,
+   "roh": 0.764,
+   "ass": 0.714,
+   "hold_skala": 0.814,
+   "seiten": 54,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "mauthausen",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 66,
+     "ass_index": 0.806,
+     "hold_dev": -0.293,
+     "hold": 0.671,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.85,
+   "roh": 0.76,
+   "ass": 0.806,
+   "hold_skala": 0.715,
+   "seiten": 66,
    "quelle": "eigen",
    "alias": []
   },
@@ -2004,18 +2046,39 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 0.768,
-     "hold_dev": -0.236,
+     "ass_index": 0.759,
+     "hold_dev": -0.239,
      "hold": 0.656,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.86,
-   "roh": 0.77,
-   "ass": 0.768,
-   "hold_skala": 0.773,
+   "speed": 0.85,
+   "roh": 0.763,
+   "ass": 0.759,
+   "hold_skala": 0.768,
    "seiten": 68,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "tunis",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 70,
+     "ass_index": 0.717,
+     "hold_dev": -0.227,
+     "hold": 0.663,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.84,
+   "roh": 0.748,
+   "ass": 0.717,
+   "hold_skala": 0.779,
+   "seiten": 70,
    "quelle": "eigen",
    "alias": []
   },
@@ -2024,40 +2087,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 40,
-     "ass_index": 0.606,
-     "hold_dev": -0.155,
-     "hold": 0.626,
+     "seiten": 46,
+     "ass_index": 0.593,
+     "hold_dev": -0.193,
+     "hold": 0.608,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.86,
-   "roh": 0.729,
-   "ass": 0.606,
-   "hold_skala": 0.851,
-   "seiten": 40,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "mauthausen",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 60,
-     "ass_index": 0.804,
-     "hold_dev": -0.321,
-     "hold": 0.672,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.85,
-   "roh": 0.747,
-   "ass": 0.804,
-   "hold_skala": 0.69,
-   "seiten": 60,
+   "speed": 0.84,
+   "roh": 0.703,
+   "ass": 0.593,
+   "hold_skala": 0.813,
+   "seiten": 46,
    "quelle": "eigen",
    "alias": []
   },
@@ -2067,60 +2109,39 @@
    "jahre": {
     "2026": {
      "seiten": 62,
-     "ass_index": 0.642,
-     "hold_dev": -0.192,
+     "ass_index": 0.639,
+     "hold_dev": -0.193,
      "hold": 0.751,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.84,
-   "roh": 0.729,
-   "ass": 0.642,
-   "hold_skala": 0.815,
+   "speed": 0.83,
+   "roh": 0.726,
+   "ass": 0.639,
+   "hold_skala": 0.813,
    "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "tunis",
+   "name": "istanbul ttf",
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 68,
-     "ass_index": 0.718,
-     "hold_dev": -0.228,
-     "hold": 0.667,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.84,
-   "roh": 0.749,
-   "ass": 0.718,
-   "hold_skala": 0.78,
-   "seiten": 68,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "shymkent ii",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 56,
-     "ass_index": 0.702,
-     "hold_dev": -0.301,
-     "hold": 0.691,
+     "seiten": 60,
+     "ass_index": 0.696,
+     "hold_dev": -0.283,
+     "hold": 0.663,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.83,
-   "roh": 0.706,
-   "ass": 0.702,
-   "hold_skala": 0.71,
-   "seiten": 56,
+   "roh": 0.71,
+   "ass": 0.696,
+   "hold_skala": 0.725,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -2129,19 +2150,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 46,
-     "ass_index": 0.671,
-     "hold_dev": -0.372,
-     "hold": 0.69,
+     "seiten": 50,
+     "ass_index": 0.703,
+     "hold_dev": -0.329,
+     "hold": 0.687,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.82,
-   "roh": 0.656,
-   "ass": 0.671,
-   "hold_skala": 0.641,
-   "seiten": 46,
+   "speed": 0.83,
+   "roh": 0.691,
+   "ass": 0.703,
+   "hold_skala": 0.68,
+   "seiten": 50,
    "quelle": "eigen",
    "alias": []
   },
@@ -2150,19 +2171,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 28,
-     "ass_index": 0.478,
-     "hold_dev": -0.441,
-     "hold": 0.684,
+     "seiten": 32,
+     "ass_index": 0.475,
+     "hold_dev": -0.386,
+     "hold": 0.688,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.8,
-   "roh": 0.526,
-   "ass": 0.478,
-   "hold_skala": 0.574,
-   "seiten": 28,
+   "roh": 0.55,
+   "ass": 0.475,
+   "hold_skala": 0.624,
+   "seiten": 32,
    "quelle": "eigen",
    "alias": []
   },
@@ -2172,17 +2193,17 @@
    "jahre": {
     "2026": {
      "seiten": 50,
-     "ass_index": 0.536,
-     "hold_dev": -0.307,
+     "ass_index": 0.52,
+     "hold_dev": -0.302,
      "hold": 0.639,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.79,
-   "roh": 0.62,
-   "ass": 0.536,
-   "hold_skala": 0.704,
+   "roh": 0.613,
+   "ass": 0.52,
+   "hold_skala": 0.706,
    "seiten": 50,
    "quelle": "eigen",
    "alias": []
@@ -2192,19 +2213,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 72,
-     "ass_index": 0.636,
-     "hold_dev": -0.316,
-     "hold": 0.7,
+     "seiten": 74,
+     "ass_index": 0.644,
+     "hold_dev": -0.298,
+     "hold": 0.703,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.79,
+   "roh": 0.677,
+   "ass": 0.644,
+   "hold_skala": 0.71,
+   "seiten": 74,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "valencia",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 58,
+     "ass_index": 0.506,
+     "hold_dev": -0.273,
+     "hold": 0.707,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.78,
-   "roh": 0.665,
-   "ass": 0.636,
-   "hold_skala": 0.695,
-   "seiten": 72,
+   "roh": 0.62,
+   "ass": 0.506,
+   "hold_skala": 0.735,
+   "seiten": 58,
    "quelle": "eigen",
    "alias": []
   },
@@ -2214,39 +2256,18 @@
    "jahre": {
     "2026": {
      "seiten": 36,
-     "ass_index": 0.53,
-     "hold_dev": -0.522,
+     "ass_index": 0.529,
+     "hold_dev": -0.525,
      "hold": 0.72,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.77,
-   "roh": 0.513,
-   "ass": 0.53,
-   "hold_skala": 0.495,
+   "roh": 0.509,
+   "ass": 0.529,
+   "hold_skala": 0.488,
    "seiten": 36,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "valencia",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 52,
-     "ass_index": 0.508,
-     "hold_dev": -0.396,
-     "hold": 0.697,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.75,
-   "roh": 0.563,
-   "ass": 0.508,
-   "hold_skala": 0.617,
-   "seiten": 52,
    "quelle": "eigen",
    "alias": []
   },
@@ -2255,19 +2276,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 60,
-     "ass_index": 0.431,
-     "hold_dev": -0.329,
-     "hold": 0.681,
+     "seiten": 64,
+     "ass_index": 0.477,
+     "hold_dev": -0.278,
+     "hold": 0.688,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.73,
-   "roh": 0.557,
-   "ass": 0.431,
-   "hold_skala": 0.682,
-   "seiten": 60,
+   "speed": 0.76,
+   "roh": 0.603,
+   "ass": 0.477,
+   "hold_skala": 0.73,
+   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -2276,40 +2297,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 44,
-     "ass_index": 0.457,
-     "hold_dev": -0.498,
-     "hold": 0.63,
+     "seiten": 46,
+     "ass_index": 0.466,
+     "hold_dev": -0.476,
+     "hold": 0.632,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.73,
-   "roh": 0.488,
-   "ass": 0.457,
-   "hold_skala": 0.519,
-   "seiten": 44,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "menorca",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 52,
-     "ass_index": 0.408,
-     "hold_dev": -0.407,
-     "hold": 0.635,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.72,
-   "roh": 0.507,
-   "ass": 0.408,
-   "hold_skala": 0.607,
-   "seiten": 52,
+   "roh": 0.501,
+   "ass": 0.466,
+   "hold_skala": 0.536,
+   "seiten": 46,
    "quelle": "eigen",
    "alias": []
   },
@@ -2318,19 +2318,40 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 56,
-     "ass_index": 0.446,
-     "hold_dev": -0.415,
-     "hold": 0.68,
+     "seiten": 58,
+     "ass_index": 0.441,
+     "hold_dev": -0.414,
+     "hold": 0.681,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.72,
-   "roh": 0.523,
-   "ass": 0.446,
-   "hold_skala": 0.599,
-   "seiten": 56,
+   "roh": 0.519,
+   "ass": 0.441,
+   "hold_skala": 0.597,
+   "seiten": 58,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "menorca",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 64,
+     "ass_index": 0.422,
+     "hold_dev": -0.416,
+     "hold": 0.625,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.7,
+   "roh": 0.508,
+   "ass": 0.422,
+   "hold_skala": 0.595,
+   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -2339,19 +2360,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 60,
-     "ass_index": 0.488,
-     "hold_dev": -0.457,
-     "hold": 0.65,
+     "seiten": 68,
+     "ass_index": 0.487,
+     "hold_dev": -0.467,
+     "hold": 0.638,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.71,
-   "roh": 0.523,
-   "ass": 0.488,
-   "hold_skala": 0.558,
-   "seiten": 60,
+   "speed": 0.7,
+   "roh": 0.516,
+   "ass": 0.487,
+   "hold_skala": 0.545,
+   "seiten": 68,
    "quelle": "eigen",
    "alias": []
   },
@@ -2361,17 +2382,17 @@
    "jahre": {
     "2026": {
      "seiten": 76,
-     "ass_index": 0.449,
-     "hold_dev": -0.426,
+     "ass_index": 0.448,
+     "hold_dev": -0.43,
      "hold": 0.637,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.68,
-   "roh": 0.519,
-   "ass": 0.449,
-   "hold_skala": 0.588,
+   "roh": 0.515,
+   "ass": 0.448,
+   "hold_skala": 0.581,
    "seiten": 76,
    "quelle": "eigen",
    "alias": []
@@ -2382,17 +2403,17 @@
    "jahre": {
     "2026": {
      "seiten": 86,
-     "ass_index": 1.105,
-     "hold_dev": 0.119,
+     "ass_index": 1.099,
+     "hold_dev": 0.113,
      "hold": 0.812,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.08,
-   "roh": 1.111,
-   "ass": 1.105,
-   "hold_skala": 1.117,
+   "speed": 1.07,
+   "roh": 1.105,
+   "ass": 1.099,
+   "hold_skala": 1.112,
    "seiten": 86,
    "quelle": "eigen",
    "alias": []
@@ -2402,19 +2423,19 @@
    "belag": "grass",
    "jahre": {
     "2026": {
-     "seiten": 58,
-     "ass_index": 1.126,
-     "hold_dev": 0.096,
-     "hold": 0.792,
+     "seiten": 62,
+     "ass_index": 1.097,
+     "hold_dev": 0.091,
+     "hold": 0.794,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.07,
-   "roh": 1.11,
-   "ass": 1.126,
-   "hold_skala": 1.094,
-   "seiten": 58,
+   "speed": 1.06,
+   "roh": 1.094,
+   "ass": 1.097,
+   "hold_skala": 1.09,
+   "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
@@ -2424,17 +2445,17 @@
    "jahre": {
     "2026": {
      "seiten": 62,
-     "ass_index": 0.9,
-     "hold_dev": 0.264,
+     "ass_index": 0.898,
+     "hold_dev": 0.26,
      "hold": 0.858,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.05,
-   "roh": 1.079,
-   "ass": 0.9,
-   "hold_skala": 1.257,
+   "roh": 1.077,
+   "ass": 0.898,
+   "hold_skala": 1.255,
    "seiten": 62,
    "quelle": "eigen",
    "alias": []
@@ -2445,17 +2466,17 @@
    "jahre": {
     "2026": {
      "seiten": 70,
-     "ass_index": 0.813,
-     "hold_dev": -0.037,
+     "ass_index": 0.801,
+     "hold_dev": -0.054,
      "hold": 0.78,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.93,
-   "roh": 0.889,
-   "ass": 0.813,
-   "hold_skala": 0.966,
+   "speed": 0.92,
+   "roh": 0.875,
+   "ass": 0.801,
+   "hold_skala": 0.948,
    "seiten": 70,
    "quelle": "eigen",
    "alias": []
@@ -2466,17 +2487,17 @@
    "jahre": {
     "2026": {
      "seiten": 80,
-     "ass_index": 0.788,
-     "hold_dev": -0.171,
+     "ass_index": 0.784,
+     "hold_dev": -0.175,
      "hold": 0.742,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.87,
-   "roh": 0.812,
-   "ass": 0.788,
-   "hold_skala": 0.836,
+   "roh": 0.807,
+   "ass": 0.784,
+   "hold_skala": 0.83,
    "seiten": 80,
    "quelle": "eigen",
    "alias": []
@@ -2487,8 +2508,8 @@
    "jahre": {
     "2026": {
      "seiten": 104,
-     "ass_index": 1.642,
-     "hold_dev": 0.409,
+     "ass_index": 1.644,
+     "hold_dev": 0.405,
      "hold": 0.823,
      "tb_satz": 0.2
     }
@@ -2496,8 +2517,8 @@
    "ch": true,
    "speed": 1.38,
    "roh": 1.52,
-   "ass": 1.642,
-   "hold_skala": 1.398,
+   "ass": 1.644,
+   "hold_skala": 1.397,
    "seiten": 104,
    "quelle": "eigen",
    "alias": []
@@ -2508,18 +2529,81 @@
    "jahre": {
     "2026": {
      "seiten": 100,
-     "ass_index": 1.558,
-     "hold_dev": 0.256,
+     "ass_index": 1.549,
+     "hold_dev": 0.258,
      "hold": 0.843,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.29,
-   "roh": 1.404,
-   "ass": 1.558,
-   "hold_skala": 1.25,
+   "roh": 1.401,
+   "ass": 1.549,
+   "hold_skala": 1.253,
    "seiten": 100,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "quimper",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 58,
+     "ass_index": 1.398,
+     "hold_dev": 0.38,
+     "hold": 0.822,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.23,
+   "roh": 1.385,
+   "ass": 1.398,
+   "hold_skala": 1.372,
+   "seiten": 58,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "lugano",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 78,
+     "ass_index": 1.297,
+     "hold_dev": 0.369,
+     "hold": 0.819,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.22,
+   "roh": 1.329,
+   "ass": 1.297,
+   "hold_skala": 1.362,
+   "seiten": 78,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "cesenatico",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 44,
+     "ass_index": 1.528,
+     "hold_dev": 0.3,
+     "hold": 0.792,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.22,
+   "roh": 1.411,
+   "ass": 1.528,
+   "hold_skala": 1.294,
+   "seiten": 44,
    "quelle": "eigen",
    "alias": []
   },
@@ -2529,17 +2613,17 @@
    "jahre": {
     "2025": {
      "seiten": 32,
-     "ass_index": 1.591,
-     "hold_dev": 0.36,
+     "ass_index": 1.596,
+     "hold_dev": 0.348,
      "hold": 0.736,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.21,
-   "roh": 1.471,
-   "ass": 1.591,
-   "hold_skala": 1.35,
+   "roh": 1.469,
+   "ass": 1.596,
+   "hold_skala": 1.341,
    "seiten": 32,
    "quelle": "eigen",
    "alias": []
@@ -2550,60 +2634,18 @@
    "jahre": {
     "2026": {
      "seiten": 110,
-     "ass_index": 1.271,
-     "hold_dev": 0.283,
+     "ass_index": 1.261,
+     "hold_dev": 0.277,
      "hold": 0.833,
      "tb_satz": 0.229
     }
    },
    "ch": true,
    "speed": 1.2,
-   "roh": 1.273,
-   "ass": 1.271,
-   "hold_skala": 1.276,
+   "roh": 1.266,
+   "ass": 1.261,
+   "hold_skala": 1.272,
    "seiten": 110,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "lugano",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 76,
-     "ass_index": 1.282,
-     "hold_dev": 0.352,
-     "hold": 0.817,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.2,
-   "roh": 1.312,
-   "ass": 1.282,
-   "hold_skala": 1.343,
-   "seiten": 76,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "quimper",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 52,
-     "ass_index": 1.355,
-     "hold_dev": 0.342,
-     "hold": 0.817,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.19,
-   "roh": 1.344,
-   "ass": 1.355,
-   "hold_skala": 1.333,
-   "seiten": 52,
    "quelle": "eigen",
    "alias": []
   },
@@ -2613,60 +2655,18 @@
    "jahre": {
     "2025": {
      "seiten": 54,
-     "ass_index": 1.348,
-     "hold_dev": 0.326,
+     "ass_index": 1.358,
+     "hold_dev": 0.329,
      "hold": 0.828,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.19,
-   "roh": 1.333,
-   "ass": 1.348,
-   "hold_skala": 1.317,
+   "speed": 1.2,
+   "roh": 1.34,
+   "ass": 1.358,
+   "hold_skala": 1.323,
    "seiten": 54,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "cesenatico",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 42,
-     "ass_index": 1.473,
-     "hold_dev": 0.291,
-     "hold": 0.796,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.19,
-   "roh": 1.378,
-   "ass": 1.473,
-   "hold_skala": 1.284,
-   "seiten": 42,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "taipei",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 92,
-     "ass_index": 1.253,
-     "hold_dev": 0.264,
-     "hold": 0.829,
-     "tb_satz": 0.268
-    }
-   },
-   "ch": true,
-   "speed": 1.18,
-   "roh": 1.255,
-   "ass": 1.253,
-   "hold_skala": 1.257,
-   "seiten": 92,
    "quelle": "eigen",
    "alias": []
   },
@@ -2676,17 +2676,17 @@
    "jahre": {
     "2026": {
      "seiten": 92,
-     "ass_index": 1.295,
-     "hold_dev": 0.23,
+     "ass_index": 1.309,
+     "hold_dev": 0.237,
      "hold": 0.771,
      "tb_satz": 0.125
     }
    },
    "ch": true,
-   "speed": 1.18,
-   "roh": 1.26,
-   "ass": 1.295,
-   "hold_skala": 1.224,
+   "speed": 1.19,
+   "roh": 1.271,
+   "ass": 1.309,
+   "hold_skala": 1.233,
    "seiten": 92,
    "quelle": "eigen",
    "alias": []
@@ -2696,19 +2696,82 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 70,
-     "ass_index": 1.339,
-     "hold_dev": 0.247,
-     "hold": 0.805,
+     "seiten": 74,
+     "ass_index": 1.349,
+     "hold_dev": 0.248,
+     "hold": 0.804,
      "tb_satz": null
     }
    },
    "ch": true,
+   "speed": 1.19,
+   "roh": 1.296,
+   "ass": 1.349,
+   "hold_skala": 1.244,
+   "seiten": 74,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "taipei",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 92,
+     "ass_index": 1.251,
+     "hold_dev": 0.267,
+     "hold": 0.829,
+     "tb_satz": 0.268
+    }
+   },
+   "ch": true,
    "speed": 1.18,
-   "roh": 1.29,
-   "ass": 1.339,
-   "hold_skala": 1.241,
-   "seiten": 70,
+   "roh": 1.257,
+   "ass": 1.251,
+   "hold_skala": 1.262,
+   "seiten": 92,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "glasgow",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 78,
+     "ass_index": 1.384,
+     "hold_dev": 0.134,
+     "hold": 0.792,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.17,
+   "roh": 1.258,
+   "ass": 1.384,
+   "hold_skala": 1.132,
+   "seiten": 78,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "villena",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 86,
+     "ass_index": 1.234,
+     "hold_dev": 0.248,
+     "hold": 0.798,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.16,
+   "roh": 1.239,
+   "ass": 1.234,
+   "hold_skala": 1.244,
+   "seiten": 86,
    "quelle": "eigen",
    "alias": []
   },
@@ -2718,17 +2781,17 @@
    "jahre": {
     "2026": {
      "seiten": 60,
-     "ass_index": 1.227,
-     "hold_dev": 0.333,
+     "ass_index": 1.223,
+     "hold_dev": 0.331,
      "hold": 0.827,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.17,
-   "roh": 1.276,
-   "ass": 1.227,
-   "hold_skala": 1.324,
+   "speed": 1.16,
+   "roh": 1.274,
+   "ass": 1.223,
+   "hold_skala": 1.325,
    "seiten": 60,
    "quelle": "eigen",
    "alias": []
@@ -2738,40 +2801,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 84,
-     "ass_index": 1.361,
-     "hold_dev": 0.115,
-     "hold": 0.804,
+     "seiten": 86,
+     "ass_index": 1.344,
+     "hold_dev": 0.1,
+     "hold": 0.801,
      "tb_satz": 0.198
     }
    },
    "ch": true,
-   "speed": 1.16,
-   "roh": 1.237,
-   "ass": 1.361,
-   "hold_skala": 1.113,
-   "seiten": 84,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "glasgow",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 72,
-     "ass_index": 1.382,
-     "hold_dev": 0.13,
-     "hold": 0.789,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.16,
-   "roh": 1.255,
-   "ass": 1.382,
-   "hold_skala": 1.127,
-   "seiten": 72,
+   "speed": 1.15,
+   "roh": 1.221,
+   "ass": 1.344,
+   "hold_skala": 1.099,
+   "seiten": 86,
    "quelle": "eigen",
    "alias": []
   },
@@ -2781,39 +2823,39 @@
    "jahre": {
     "2026": {
      "seiten": 74,
-     "ass_index": 1.289,
+     "ass_index": 1.285,
      "hold_dev": 0.194,
      "hold": 0.814,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.16,
-   "roh": 1.239,
-   "ass": 1.289,
-   "hold_skala": 1.189,
+   "speed": 1.15,
+   "roh": 1.238,
+   "ass": 1.285,
+   "hold_skala": 1.191,
    "seiten": 74,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "villena",
+   "name": "roanne",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 80,
-     "ass_index": 1.228,
-     "hold_dev": 0.223,
-     "hold": 0.798,
-     "tb_satz": null
+     "seiten": 162,
+     "ass_index": 1.161,
+     "hold_dev": 0.179,
+     "hold": 0.807,
+     "tb_satz": 0.234
     }
    },
    "ch": true,
-   "speed": 1.15,
-   "roh": 1.223,
-   "ass": 1.228,
-   "hold_skala": 1.218,
-   "seiten": 80,
+   "speed": 1.14,
+   "roh": 1.169,
+   "ass": 1.161,
+   "hold_skala": 1.176,
+   "seiten": 162,
    "quelle": "eigen",
    "alias": []
   },
@@ -2823,18 +2865,60 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 1.229,
-     "hold_dev": 0.223,
+     "ass_index": 1.218,
+     "hold_dev": 0.239,
      "hold": 0.818,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.14,
-   "roh": 1.223,
-   "ass": 1.229,
-   "hold_skala": 1.218,
+   "roh": 1.226,
+   "ass": 1.218,
+   "hold_skala": 1.235,
    "seiten": 68,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "segovia",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 62,
+     "ass_index": 1.034,
+     "hold_dev": 0.403,
+     "hold": 0.839,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.13,
+   "roh": 1.214,
+   "ass": 1.034,
+   "hold_skala": 1.395,
+   "seiten": 62,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "wuning ii",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 74,
+     "ass_index": 1.209,
+     "hold_dev": 0.208,
+     "hold": 0.797,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.13,
+   "roh": 1.207,
+   "ass": 1.209,
+   "hold_skala": 1.204,
+   "seiten": 74,
    "quelle": "eigen",
    "alias": []
   },
@@ -2844,60 +2928,18 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 1.189,
-     "hold_dev": 0.345,
+     "ass_index": 1.164,
+     "hold_dev": 0.339,
      "hold": 0.84,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.14,
-   "roh": 1.262,
-   "ass": 1.189,
-   "hold_skala": 1.336,
-   "seiten": 46,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "grodzisk mazowiecki",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 54,
-     "ass_index": 1.405,
-     "hold_dev": 0.076,
-     "hold": 0.74,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.14,
-   "roh": 1.24,
-   "ass": 1.405,
-   "hold_skala": 1.075,
-   "seiten": 54,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "roanne",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 160,
-     "ass_index": 1.157,
-     "hold_dev": 0.174,
-     "hold": 0.807,
-     "tb_satz": 0.234
-    }
-   },
-   "ch": true,
    "speed": 1.13,
-   "roh": 1.164,
-   "ass": 1.157,
-   "hold_skala": 1.17,
-   "seiten": 160,
+   "roh": 1.248,
+   "ass": 1.164,
+   "hold_skala": 1.332,
+   "seiten": 46,
    "quelle": "eigen",
    "alias": []
   },
@@ -2907,39 +2949,60 @@
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 1.31,
-     "hold_dev": 0.104,
+     "ass_index": 1.302,
+     "hold_dev": 0.102,
      "hold": 0.813,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.13,
-   "roh": 1.206,
-   "ass": 1.31,
-   "hold_skala": 1.102,
+   "roh": 1.201,
+   "ass": 1.302,
+   "hold_skala": 1.101,
    "seiten": 72,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "taranto",
+   "name": "koblenz",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 80,
-     "ass_index": 1.265,
-     "hold_dev": 0.057,
-     "hold": 0.741,
-     "tb_satz": 0.143
+     "seiten": 66,
+     "ass_index": 1.268,
+     "hold_dev": 0.116,
+     "hold": 0.784,
+     "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 1.11,
-   "roh": 1.161,
-   "ass": 1.265,
-   "hold_skala": 1.057,
-   "seiten": 80,
+   "speed": 1.12,
+   "roh": 1.191,
+   "ass": 1.268,
+   "hold_skala": 1.115,
+   "seiten": 66,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "grodzisk mazowiecki",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 56,
+     "ass_index": 1.373,
+     "hold_dev": 0.041,
+     "hold": 0.735,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.12,
+   "roh": 1.207,
+   "ass": 1.373,
+   "hold_skala": 1.041,
+   "seiten": 56,
    "quelle": "eigen",
    "alias": []
   },
@@ -2949,17 +3012,17 @@
    "jahre": {
     "2026": {
      "seiten": 100,
-     "ass_index": 1.207,
-     "hold_dev": 0.107,
+     "ass_index": 1.198,
+     "hold_dev": 0.099,
      "hold": 0.771,
      "tb_satz": 0.117
     }
    },
    "ch": true,
    "speed": 1.11,
-   "roh": 1.156,
-   "ass": 1.207,
-   "hold_skala": 1.105,
+   "roh": 1.148,
+   "ass": 1.198,
+   "hold_skala": 1.098,
    "seiten": 100,
    "quelle": "eigen",
    "alias": []
@@ -2970,39 +3033,18 @@
    "jahre": {
     "2026": {
      "seiten": 56,
-     "ass_index": 1.209,
-     "hold_dev": 0.184,
+     "ass_index": 1.195,
+     "hold_dev": 0.179,
      "hold": 0.826,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.11,
-   "roh": 1.194,
-   "ass": 1.209,
-   "hold_skala": 1.18,
+   "roh": 1.186,
+   "ass": 1.195,
+   "hold_skala": 1.176,
    "seiten": 56,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "segovia",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 58,
-     "ass_index": 0.989,
-     "hold_dev": 0.35,
-     "hold": 0.836,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.1,
-   "roh": 1.165,
-   "ass": 0.989,
-   "hold_skala": 1.341,
-   "seiten": 58,
    "quelle": "eigen",
    "alias": []
   },
@@ -3011,61 +3053,61 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 80,
-     "ass_index": 1.303,
-     "hold_dev": -0.001,
+     "seiten": 86,
+     "ass_index": 1.322,
+     "hold_dev": 0.014,
+     "hold": 0.773,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.11,
+   "roh": 1.168,
+   "ass": 1.322,
+   "hold_skala": 1.015,
+   "seiten": 86,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "taranto",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 84,
+     "ass_index": 1.236,
+     "hold_dev": 0.07,
+     "hold": 0.744,
+     "tb_satz": 0.143
+    }
+   },
+   "ch": true,
+   "speed": 1.1,
+   "roh": 1.153,
+   "ass": 1.236,
+   "hold_skala": 1.07,
+   "seiten": 84,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "pune",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 66,
+     "ass_index": 1.13,
+     "hold_dev": 0.204,
      "hold": 0.77,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.1,
-   "roh": 1.152,
-   "ass": 1.303,
-   "hold_skala": 1.0,
-   "seiten": 80,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "koblenz",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 64,
-     "ass_index": 1.246,
-     "hold_dev": 0.096,
-     "hold": 0.78,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.1,
-   "roh": 1.17,
-   "ass": 1.246,
-   "hold_skala": 1.094,
-   "seiten": 64,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "wuning ii",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 70,
-     "ass_index": 1.169,
-     "hold_dev": 0.153,
-     "hold": 0.797,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.1,
-   "roh": 1.159,
-   "ass": 1.169,
-   "hold_skala": 1.15,
-   "seiten": 70,
+   "roh": 1.165,
+   "ass": 1.13,
+   "hold_skala": 1.201,
+   "seiten": 66,
    "quelle": "eigen",
    "alias": []
   },
@@ -3075,17 +3117,17 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 1.124,
-     "hold_dev": 0.23,
+     "ass_index": 1.119,
+     "hold_dev": 0.225,
      "hold": 0.804,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.1,
-   "roh": 1.174,
-   "ass": 1.124,
-   "hold_skala": 1.224,
+   "roh": 1.17,
+   "ass": 1.119,
+   "hold_skala": 1.221,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -3096,17 +3138,17 @@
    "jahre": {
     "2026": {
      "seiten": 104,
-     "ass_index": 1.141,
-     "hold_dev": 0.098,
+     "ass_index": 1.132,
+     "hold_dev": 0.088,
      "hold": 0.787,
      "tb_satz": 0.206
     }
    },
    "ch": true,
-   "speed": 1.09,
-   "roh": 1.119,
-   "ass": 1.141,
-   "hold_skala": 1.096,
+   "speed": 1.08,
+   "roh": 1.11,
+   "ass": 1.132,
+   "hold_skala": 1.087,
    "seiten": 104,
    "quelle": "eigen",
    "alias": []
@@ -3117,17 +3159,17 @@
    "jahre": {
     "2026": {
      "seiten": 76,
-     "ass_index": 1.068,
-     "hold_dev": 0.174,
+     "ass_index": 1.073,
+     "hold_dev": 0.171,
      "hold": 0.819,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.08,
-   "roh": 1.119,
-   "ass": 1.068,
-   "hold_skala": 1.17,
+   "roh": 1.121,
+   "ass": 1.073,
+   "hold_skala": 1.168,
    "seiten": 76,
    "quelle": "eigen",
    "alias": []
@@ -3138,39 +3180,18 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 1.018,
-     "hold_dev": 0.235,
+     "ass_index": 1.014,
+     "hold_dev": 0.236,
      "hold": 0.835,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.08,
-   "roh": 1.124,
-   "ass": 1.018,
-   "hold_skala": 1.229,
+   "roh": 1.123,
+   "ass": 1.014,
+   "hold_skala": 1.232,
    "seiten": 68,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "pune",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 64,
-     "ass_index": 1.094,
-     "hold_dev": 0.177,
-     "hold": 0.765,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.08,
-   "roh": 1.133,
-   "ass": 1.094,
-   "hold_skala": 1.173,
-   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -3180,17 +3201,17 @@
    "jahre": {
     "2026": {
      "seiten": 54,
-     "ass_index": 1.226,
-     "hold_dev": 0.047,
+     "ass_index": 1.224,
+     "hold_dev": 0.046,
      "hold": 0.798,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.08,
-   "roh": 1.136,
-   "ass": 1.226,
-   "hold_skala": 1.047,
+   "roh": 1.135,
+   "ass": 1.224,
+   "hold_skala": 1.046,
    "seiten": 54,
    "quelle": "eigen",
    "alias": []
@@ -3201,39 +3222,18 @@
    "jahre": {
     "2026": {
      "seiten": 66,
-     "ass_index": 1.113,
-     "hold_dev": 0.103,
+     "ass_index": 1.11,
+     "hold_dev": 0.1,
      "hold": 0.804,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.07,
-   "roh": 1.107,
-   "ass": 1.113,
-   "hold_skala": 1.101,
+   "roh": 1.104,
+   "ass": 1.11,
+   "hold_skala": 1.099,
    "seiten": 66,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "brisbane ii",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 70,
-     "ass_index": 1.141,
-     "hold_dev": 0.065,
-     "hold": 0.806,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.07,
-   "roh": 1.103,
-   "ass": 1.141,
-   "hold_skala": 1.064,
-   "seiten": 70,
    "quelle": "eigen",
    "alias": []
   },
@@ -3243,17 +3243,17 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 1.176,
-     "hold_dev": 0.056,
+     "ass_index": 1.173,
+     "hold_dev": 0.05,
      "hold": 0.766,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.07,
-   "roh": 1.116,
-   "ass": 1.176,
-   "hold_skala": 1.056,
+   "roh": 1.112,
+   "ass": 1.173,
+   "hold_skala": 1.05,
    "seiten": 68,
    "quelle": "eigen",
    "alias": []
@@ -3263,19 +3263,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 74,
-     "ass_index": 1.067,
-     "hold_dev": 0.167,
-     "hold": 0.809,
+     "seiten": 76,
+     "ass_index": 1.069,
+     "hold_dev": 0.144,
+     "hold": 0.806,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.07,
-   "roh": 1.115,
-   "ass": 1.067,
-   "hold_skala": 1.163,
-   "seiten": 74,
+   "roh": 1.105,
+   "ass": 1.069,
+   "hold_skala": 1.142,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -3285,7 +3285,7 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 1.107,
+     "ass_index": 1.108,
      "hold_dev": 0.146,
      "hold": 0.788,
      "tb_satz": null
@@ -3293,9 +3293,9 @@
    },
    "ch": true,
    "speed": 1.07,
-   "roh": 1.125,
-   "ass": 1.107,
-   "hold_skala": 1.143,
+   "roh": 1.126,
+   "ass": 1.108,
+   "hold_skala": 1.144,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -3305,19 +3305,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 102,
-     "ass_index": 1.085,
-     "hold_dev": 0.078,
+     "seiten": 104,
+     "ass_index": 1.08,
+     "hold_dev": 0.073,
      "hold": 0.771,
-     "tb_satz": 0.147
+     "tb_satz": 0.144
     }
    },
    "ch": true,
    "speed": 1.06,
-   "roh": 1.081,
-   "ass": 1.085,
-   "hold_skala": 1.077,
-   "seiten": 102,
+   "roh": 1.076,
+   "ass": 1.08,
+   "hold_skala": 1.073,
+   "seiten": 104,
    "quelle": "eigen",
    "alias": []
   },
@@ -3327,18 +3327,39 @@
    "jahre": {
     "2026": {
      "seiten": 64,
-     "ass_index": 1.116,
-     "hold_dev": 0.091,
+     "ass_index": 1.113,
+     "hold_dev": 0.087,
      "hold": 0.797,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.06,
-   "roh": 1.103,
-   "ass": 1.116,
-   "hold_skala": 1.09,
+   "roh": 1.1,
+   "ass": 1.113,
+   "hold_skala": 1.086,
    "seiten": 64,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "brisbane ii",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 70,
+     "ass_index": 1.134,
+     "hold_dev": 0.062,
+     "hold": 0.806,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.06,
+   "roh": 1.098,
+   "ass": 1.134,
+   "hold_skala": 1.062,
+   "seiten": 70,
    "quelle": "eigen",
    "alias": []
   },
@@ -3348,17 +3369,17 @@
    "jahre": {
     "2026": {
      "seiten": 88,
-     "ass_index": 1.043,
-     "hold_dev": 0.137,
+     "ass_index": 1.038,
+     "hold_dev": 0.133,
      "hold": 0.787,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.06,
-   "roh": 1.089,
-   "ass": 1.043,
-   "hold_skala": 1.134,
+   "roh": 1.085,
+   "ass": 1.038,
+   "hold_skala": 1.131,
    "seiten": 88,
    "quelle": "eigen",
    "alias": []
@@ -3369,17 +3390,17 @@
    "jahre": {
     "2026": {
      "seiten": 86,
-     "ass_index": 1.202,
-     "hold_dev": -0.044,
+     "ass_index": 1.196,
+     "hold_dev": -0.051,
      "hold": 0.764,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.05,
-   "roh": 1.08,
-   "ass": 1.202,
-   "hold_skala": 0.959,
+   "roh": 1.074,
+   "ass": 1.196,
+   "hold_skala": 0.951,
    "seiten": 86,
    "quelle": "eigen",
    "alias": []
@@ -3390,17 +3411,17 @@
    "jahre": {
     "2026": {
      "seiten": 104,
-     "ass_index": 1.073,
-     "hold_dev": 0.033,
+     "ass_index": 1.07,
+     "hold_dev": 0.034,
      "hold": 0.758,
      "tb_satz": 0.092
     }
    },
    "ch": true,
    "speed": 1.04,
-   "roh": 1.053,
-   "ass": 1.073,
-   "hold_skala": 1.033,
+   "roh": 1.052,
+   "ass": 1.07,
+   "hold_skala": 1.034,
    "seiten": 104,
    "quelle": "eigen",
    "alias": []
@@ -3411,8 +3432,8 @@
    "jahre": {
     "2026": {
      "seiten": 44,
-     "ass_index": 1.153,
-     "hold_dev": -0.007,
+     "ass_index": 1.142,
+     "hold_dev": 0.004,
      "hold": 0.778,
      "tb_satz": null
     }
@@ -3420,8 +3441,8 @@
    "ch": true,
    "speed": 1.04,
    "roh": 1.074,
-   "ass": 1.153,
-   "hold_skala": 0.995,
+   "ass": 1.142,
+   "hold_skala": 1.005,
    "seiten": 44,
    "quelle": "eigen",
    "alias": []
@@ -3432,17 +3453,17 @@
    "jahre": {
     "2026": {
      "seiten": 104,
-     "ass_index": 0.995,
-     "hold_dev": 0.08,
+     "ass_index": 0.992,
+     "hold_dev": 0.081,
      "hold": 0.792,
      "tb_satz": 0.157
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.037,
-   "ass": 0.995,
-   "hold_skala": 1.079,
+   "roh": 1.036,
+   "ass": 0.992,
+   "hold_skala": 1.08,
    "seiten": 104,
    "quelle": "eigen",
    "alias": []
@@ -3453,17 +3474,17 @@
    "jahre": {
     "2026": {
      "seiten": 110,
-     "ass_index": 1.007,
-     "hold_dev": 0.076,
+     "ass_index": 1.003,
+     "hold_dev": 0.072,
      "hold": 0.772,
      "tb_satz": 0.114
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.041,
-   "ass": 1.007,
-   "hold_skala": 1.075,
+   "roh": 1.037,
+   "ass": 1.003,
+   "hold_skala": 1.072,
    "seiten": 110,
    "quelle": "eigen",
    "alias": []
@@ -3475,7 +3496,7 @@
     "2026": {
      "seiten": 80,
      "ass_index": 1.024,
-     "hold_dev": 0.054,
+     "hold_dev": 0.055,
      "hold": 0.799,
      "tb_satz": null
     }
@@ -3484,29 +3505,29 @@
    "speed": 1.03,
    "roh": 1.039,
    "ass": 1.024,
-   "hold_skala": 1.054,
+   "hold_skala": 1.055,
    "seiten": 80,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "nonthaburi ii",
+   "name": "lille",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 58,
-     "ass_index": 1.105,
-     "hold_dev": -0.013,
-     "hold": 0.774,
+     "seiten": 64,
+     "ass_index": 1.037,
+     "hold_dev": 0.046,
+     "hold": 0.783,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.047,
-   "ass": 1.105,
-   "hold_skala": 0.989,
-   "seiten": 58,
+   "roh": 1.042,
+   "ass": 1.037,
+   "hold_skala": 1.046,
+   "seiten": 64,
    "quelle": "eigen",
    "alias": []
   },
@@ -3515,40 +3536,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 60,
-     "ass_index": 1.031,
-     "hold_dev": 0.079,
-     "hold": 0.754,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.03,
-   "roh": 1.054,
-   "ass": 1.031,
-   "hold_skala": 1.078,
-   "seiten": 60,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "istanbul ted club",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 66,
-     "ass_index": 1.01,
+     "seiten": 70,
+     "ass_index": 1.023,
      "hold_dev": 0.078,
-     "hold": 0.776,
+     "hold": 0.749,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.03,
-   "roh": 1.044,
-   "ass": 1.01,
+   "roh": 1.05,
+   "ass": 1.023,
    "hold_skala": 1.077,
-   "seiten": 66,
+   "seiten": 70,
    "quelle": "eigen",
    "alias": []
   },
@@ -3558,8 +3558,8 @@
    "jahre": {
     "2026": {
      "seiten": 50,
-     "ass_index": 1.159,
-     "hold_dev": -0.052,
+     "ass_index": 1.156,
+     "hold_dev": -0.048,
      "hold": 0.765,
      "tb_satz": null
     }
@@ -3567,9 +3567,51 @@
    "ch": true,
    "speed": 1.03,
    "roh": 1.055,
-   "ass": 1.159,
-   "hold_skala": 0.951,
+   "ass": 1.156,
+   "hold_skala": 0.954,
    "seiten": 50,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "olbia",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 168,
+     "ass_index": 1.033,
+     "hold_dev": 0.018,
+     "hold": 0.749,
+     "tb_satz": 0.129
+    }
+   },
+   "ch": true,
+   "speed": 1.02,
+   "roh": 1.026,
+   "ass": 1.033,
+   "hold_skala": 1.019,
+   "seiten": 168,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "roehampton",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 44,
+     "ass_index": 1.117,
+     "hold_dev": -0.052,
+     "hold": 0.773,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.02,
+   "roh": 1.034,
+   "ass": 1.117,
+   "hold_skala": 0.95,
+   "seiten": 44,
    "quelle": "eigen",
    "alias": []
   },
@@ -3579,17 +3621,17 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 1.041,
-     "hold_dev": 0.016,
+     "ass_index": 1.036,
+     "hold_dev": 0.015,
      "hold": 0.796,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
-   "roh": 1.029,
-   "ass": 1.041,
-   "hold_skala": 1.017,
+   "roh": 1.026,
+   "ass": 1.036,
+   "hold_skala": 1.016,
    "seiten": 68,
    "quelle": "eigen",
    "alias": []
@@ -3600,81 +3642,60 @@
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 1.08,
-     "hold_dev": -0.024,
+     "ass_index": 1.084,
+     "hold_dev": -0.018,
      "hold": 0.795,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
-   "roh": 1.029,
-   "ass": 1.08,
-   "hold_skala": 0.978,
+   "roh": 1.034,
+   "ass": 1.084,
+   "hold_skala": 0.984,
    "seiten": 72,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "lille",
+   "name": "nonthaburi ii",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 64,
-     "ass_index": 1.039,
-     "hold_dev": 0.042,
-     "hold": 0.783,
+     "seiten": 60,
+     "ass_index": 1.085,
+     "hold_dev": -0.005,
+     "hold": 0.773,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
    "roh": 1.041,
-   "ass": 1.039,
-   "hold_skala": 1.042,
-   "seiten": 64,
+   "ass": 1.085,
+   "hold_skala": 0.996,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "baton rouge",
+   "name": "istanbul ted club",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 56,
-     "ass_index": 1.058,
-     "hold_dev": -0.005,
-     "hold": 0.75,
+     "seiten": 72,
+     "ass_index": 0.994,
+     "hold_dev": 0.072,
+     "hold": 0.77,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.02,
-   "roh": 1.027,
-   "ass": 1.058,
-   "hold_skala": 0.997,
-   "seiten": 56,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "olbia",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 158,
-     "ass_index": 1.023,
-     "hold_dev": 0.001,
-     "hold": 0.752,
-     "tb_satz": 0.129
-    }
-   },
-   "ch": true,
-   "speed": 1.01,
-   "roh": 1.013,
-   "ass": 1.023,
-   "hold_skala": 1.002,
-   "seiten": 158,
+   "roh": 1.033,
+   "ass": 0.994,
+   "hold_skala": 1.072,
+   "seiten": 72,
    "quelle": "eigen",
    "alias": []
   },
@@ -3684,17 +3705,17 @@
    "jahre": {
     "2026": {
      "seiten": 90,
-     "ass_index": 1.032,
-     "hold_dev": -0.011,
+     "ass_index": 1.028,
+     "hold_dev": -0.006,
      "hold": 0.804,
      "tb_satz": 0.223
     }
    },
    "ch": true,
    "speed": 1.01,
-   "roh": 1.011,
-   "ass": 1.032,
-   "hold_skala": 0.991,
+   "roh": 1.012,
+   "ass": 1.028,
+   "hold_skala": 0.995,
    "seiten": 90,
    "quelle": "eigen",
    "alias": []
@@ -3706,17 +3727,59 @@
     "2026": {
      "seiten": 60,
      "ass_index": 1.047,
-     "hold_dev": -0.02,
+     "hold_dev": -0.022,
      "hold": 0.746,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.01,
-   "roh": 1.014,
+   "roh": 1.013,
    "ass": 1.047,
-   "hold_skala": 0.982,
+   "hold_skala": 0.98,
    "seiten": 60,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "baton rouge",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 56,
+     "ass_index": 1.053,
+     "hold_dev": -0.003,
+     "hold": 0.75,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.01,
+   "roh": 1.026,
+   "ass": 1.053,
+   "hold_skala": 0.998,
+   "seiten": 56,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "tenerife",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 62,
+     "ass_index": 0.992,
+     "hold_dev": 0.033,
+     "hold": 0.729,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 1.01,
+   "roh": 1.013,
+   "ass": 0.992,
+   "hold_skala": 1.033,
+   "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
@@ -3726,60 +3789,18 @@
    "jahre": {
     "2026": {
      "seiten": 36,
-     "ass_index": 1.157,
-     "hold_dev": -0.108,
+     "ass_index": 1.155,
+     "hold_dev": -0.098,
      "hold": 0.794,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.01,
-   "roh": 1.027,
-   "ass": 1.157,
-   "hold_skala": 0.897,
+   "roh": 1.03,
+   "ass": 1.155,
+   "hold_skala": 0.905,
    "seiten": 36,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "san diego ii",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 84,
-     "ass_index": 0.968,
-     "hold_dev": 0.027,
-     "hold": 0.764,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.0,
-   "roh": 0.998,
-   "ass": 0.968,
-   "hold_skala": 1.028,
-   "seiten": 84,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "tenerife",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 54,
-     "ass_index": 0.95,
-     "hold_dev": 0.037,
-     "hold": 0.734,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 1.0,
-   "roh": 0.994,
-   "ass": 0.95,
-   "hold_skala": 1.037,
-   "seiten": 54,
    "quelle": "eigen",
    "alias": []
   },
@@ -3789,17 +3810,17 @@
    "jahre": {
     "2026": {
      "seiten": 64,
-     "ass_index": 0.893,
-     "hold_dev": 0.123,
+     "ass_index": 0.89,
+     "hold_dev": 0.121,
      "hold": 0.808,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 1.0,
-   "roh": 1.007,
-   "ass": 0.893,
-   "hold_skala": 1.121,
+   "roh": 1.005,
+   "ass": 0.89,
+   "hold_skala": 1.119,
    "seiten": 64,
    "quelle": "eigen",
    "alias": []
@@ -3810,17 +3831,17 @@
    "jahre": {
     "2026": {
      "seiten": 92,
-     "ass_index": 1.059,
-     "hold_dev": -0.083,
+     "ass_index": 1.055,
+     "hold_dev": -0.089,
      "hold": 0.753,
      "tb_satz": 0.092
     }
    },
    "ch": true,
    "speed": 0.99,
-   "roh": 0.99,
-   "ass": 1.059,
-   "hold_skala": 0.921,
+   "roh": 0.985,
+   "ass": 1.055,
+   "hold_skala": 0.914,
    "seiten": 92,
    "quelle": "eigen",
    "alias": []
@@ -3831,17 +3852,17 @@
    "jahre": {
     "2026": {
      "seiten": 70,
-     "ass_index": 0.879,
-     "hold_dev": 0.102,
+     "ass_index": 0.875,
+     "hold_dev": 0.097,
      "hold": 0.821,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.99,
-   "roh": 0.99,
-   "ass": 0.879,
-   "hold_skala": 1.1,
+   "roh": 0.985,
+   "ass": 0.875,
+   "hold_skala": 1.096,
    "seiten": 70,
    "quelle": "eigen",
    "alias": []
@@ -3851,19 +3872,40 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 58,
-     "ass_index": 1.033,
-     "hold_dev": -0.06,
-     "hold": 0.761,
+     "seiten": 62,
+     "ass_index": 1.021,
+     "hold_dev": -0.054,
+     "hold": 0.762,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.99,
-   "roh": 0.988,
-   "ass": 1.033,
-   "hold_skala": 0.943,
-   "seiten": 58,
+   "roh": 0.985,
+   "ass": 1.021,
+   "hold_skala": 0.948,
+   "seiten": 62,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "manacor",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 78,
+     "ass_index": 0.99,
+     "hold_dev": -0.011,
+     "hold": 0.746,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.99,
+   "roh": 0.99,
+   "ass": 0.99,
+   "hold_skala": 0.99,
+   "seiten": 78,
    "quelle": "eigen",
    "alias": []
   },
@@ -3873,18 +3915,39 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 1.01,
-     "hold_dev": -0.037,
+     "ass_index": 1.007,
+     "hold_dev": -0.042,
      "hold": 0.766,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.99,
-   "roh": 0.988,
-   "ass": 1.01,
-   "hold_skala": 0.966,
+   "roh": 0.984,
+   "ass": 1.007,
+   "hold_skala": 0.96,
    "seiten": 68,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "san diego ii",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 84,
+     "ass_index": 0.959,
+     "hold_dev": 0.019,
+     "hold": 0.764,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.99,
+   "roh": 0.989,
+   "ass": 0.959,
+   "hold_skala": 1.02,
+   "seiten": 84,
    "quelle": "eigen",
    "alias": []
   },
@@ -3893,19 +3956,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 80,
-     "ass_index": 0.997,
-     "hold_dev": -0.057,
-     "hold": 0.77,
+     "seiten": 82,
+     "ass_index": 0.999,
+     "hold_dev": -0.07,
+     "hold": 0.766,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.98,
-   "roh": 0.972,
-   "ass": 0.997,
-   "hold_skala": 0.946,
-   "seiten": 80,
+   "roh": 0.966,
+   "ass": 0.999,
+   "hold_skala": 0.933,
+   "seiten": 82,
    "quelle": "eigen",
    "alias": []
   },
@@ -3915,123 +3978,18 @@
    "jahre": {
     "2026": {
      "seiten": 68,
-     "ass_index": 0.987,
-     "hold_dev": -0.047,
+     "ass_index": 0.982,
+     "hold_dev": -0.055,
      "hold": 0.77,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.98,
-   "roh": 0.971,
-   "ass": 0.987,
-   "hold_skala": 0.956,
+   "roh": 0.965,
+   "ass": 0.982,
+   "hold_skala": 0.948,
    "seiten": 68,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "manacor",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 72,
-     "ass_index": 0.99,
-     "hold_dev": -0.04,
-     "hold": 0.743,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.98,
-   "roh": 0.976,
-   "ass": 0.99,
-   "hold_skala": 0.963,
-   "seiten": 72,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "roehampton",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 36,
-     "ass_index": 1.015,
-     "hold_dev": -0.128,
-     "hold": 0.766,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.97,
-   "roh": 0.946,
-   "ass": 1.015,
-   "hold_skala": 0.877,
-   "seiten": 36,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "vancouver",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 80,
-     "ass_index": 0.929,
-     "hold_dev": -0.031,
-     "hold": 0.762,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.97,
-   "roh": 0.95,
-   "ass": 0.929,
-   "hold_skala": 0.971,
-   "seiten": 80,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "phan thiet",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 74,
-     "ass_index": 1.035,
-     "hold_dev": -0.127,
-     "hold": 0.74,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.97,
-   "roh": 0.957,
-   "ass": 1.035,
-   "hold_skala": 0.878,
-   "seiten": 74,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "nonthaburi",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 54,
-     "ass_index": 1.038,
-     "hold_dev": -0.145,
-     "hold": 0.738,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.97,
-   "roh": 0.949,
-   "ass": 1.038,
-   "hold_skala": 0.861,
-   "seiten": 54,
    "quelle": "eigen",
    "alias": []
   },
@@ -4040,47 +3998,40 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 120,
-     "ass_index": 0.902,
-     "hold_dev": -0.008,
+     "seiten": 122,
+     "ass_index": 0.908,
+     "hold_dev": 0.001,
      "hold": 0.788,
      "tb_satz": 0.116
     }
    },
    "ch": true,
-   "speed": 0.96,
-   "roh": 0.948,
-   "ass": 0.902,
-   "hold_skala": 0.994,
-   "seiten": 120,
+   "speed": 0.97,
+   "roh": 0.955,
+   "ass": 0.908,
+   "hold_skala": 1.002,
+   "seiten": 122,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "sydney",
+   "name": "nonthaburi",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 100,
-     "ass_index": 0.875,
-     "hold_dev": 0.048,
-     "hold": 0.804,
-     "tb_satz": 0.214
-    },
-    "2025": {
-     "seiten": 56,
-     "ass_index": 0.877,
-     "hold_dev": -0.049,
-     "hold": 0.803,
+     "seiten": 60,
+     "ass_index": 1.028,
+     "hold_dev": -0.117,
+     "hold": 0.74,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.96,
-   "roh": 0.949,
-   "ass": 0.876,
-   "hold_skala": 1.022,
-   "seiten": 156,
+   "speed": 0.97,
+   "roh": 0.957,
+   "ass": 1.028,
+   "hold_skala": 0.887,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -4091,17 +4042,38 @@
     "2026": {
      "seiten": 52,
      "ass_index": 0.843,
-     "hold_dev": 0.0,
+     "hold_dev": -0.003,
      "hold": 0.802,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.96,
-   "roh": 0.922,
+   "roh": 0.921,
    "ass": 0.843,
-   "hold_skala": 1.001,
+   "hold_skala": 0.998,
    "seiten": 52,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "vancouver",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 80,
+     "ass_index": 0.924,
+     "hold_dev": -0.036,
+     "hold": 0.762,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.96,
+   "roh": 0.945,
+   "ass": 0.924,
+   "hold_skala": 0.966,
+   "seiten": 80,
    "quelle": "eigen",
    "alias": []
   },
@@ -4111,18 +4083,39 @@
    "jahre": {
     "2026": {
      "seiten": 80,
-     "ass_index": 0.921,
-     "hold_dev": -0.042,
+     "ass_index": 0.918,
+     "hold_dev": -0.046,
      "hold": 0.765,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.96,
-   "roh": 0.941,
-   "ass": 0.921,
-   "hold_skala": 0.961,
+   "roh": 0.937,
+   "ass": 0.918,
+   "hold_skala": 0.956,
    "seiten": 80,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "phan thiet",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 76,
+     "ass_index": 1.03,
+     "hold_dev": -0.15,
+     "hold": 0.734,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.96,
+   "roh": 0.942,
+   "ass": 1.03,
+   "hold_skala": 0.855,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -4132,7 +4125,7 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 0.965,
+     "ass_index": 0.961,
      "hold_dev": -0.11,
      "hold": 0.736,
      "tb_satz": null
@@ -4140,9 +4133,9 @@
    },
    "ch": true,
    "speed": 0.96,
-   "roh": 0.93,
-   "ass": 0.965,
-   "hold_skala": 0.895,
+   "roh": 0.927,
+   "ass": 0.961,
+   "hold_skala": 0.894,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -4153,17 +4146,17 @@
    "jahre": {
     "2026": {
      "seiten": 58,
-     "ass_index": 0.865,
-     "hold_dev": 0.005,
+     "ass_index": 0.86,
+     "hold_dev": -0.0,
      "hold": 0.799,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.96,
-   "roh": 0.936,
-   "ass": 0.865,
-   "hold_skala": 1.006,
+   "roh": 0.931,
+   "ass": 0.86,
+   "hold_skala": 1.001,
    "seiten": 58,
    "quelle": "eigen",
    "alias": []
@@ -4173,19 +4166,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 58,
-     "ass_index": 0.958,
-     "hold_dev": -0.114,
-     "hold": 0.741,
+     "seiten": 60,
+     "ass_index": 0.997,
+     "hold_dev": -0.121,
+     "hold": 0.738,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.96,
-   "roh": 0.924,
-   "ass": 0.958,
-   "hold_skala": 0.891,
-   "seiten": 58,
+   "roh": 0.94,
+   "ass": 0.997,
+   "hold_skala": 0.883,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -4195,18 +4188,46 @@
    "jahre": {
     "2026": {
      "seiten": 80,
-     "ass_index": 0.854,
-     "hold_dev": -0.0,
+     "ass_index": 0.85,
+     "hold_dev": -0.005,
      "hold": 0.77,
      "tb_satz": 0.138
     }
    },
    "ch": true,
    "speed": 0.95,
-   "roh": 0.928,
-   "ass": 0.854,
-   "hold_skala": 1.001,
+   "roh": 0.923,
+   "ass": 0.85,
+   "hold_skala": 0.996,
    "seiten": 80,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "sydney",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 100,
+     "ass_index": 0.859,
+     "hold_dev": 0.034,
+     "hold": 0.804,
+     "tb_satz": 0.214
+    },
+    "2025": {
+     "seiten": 56,
+     "ass_index": 0.875,
+     "hold_dev": -0.053,
+     "hold": 0.803,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.95,
+   "roh": 0.937,
+   "ass": 0.863,
+   "hold_skala": 1.011,
+   "seiten": 156,
    "quelle": "eigen",
    "alias": []
   },
@@ -4216,17 +4237,17 @@
    "jahre": {
     "2026": {
      "seiten": 24,
-     "ass_index": 0.9,
-     "hold_dev": -0.156,
+     "ass_index": 0.905,
+     "hold_dev": -0.15,
      "hold": 0.716,
      "tb_satz": 0.08
     }
    },
    "ch": true,
    "speed": 0.95,
-   "roh": 0.875,
-   "ass": 0.9,
-   "hold_skala": 0.85,
+   "roh": 0.88,
+   "ass": 0.905,
+   "hold_skala": 0.855,
    "seiten": 24,
    "quelle": "eigen",
    "alias": []
@@ -4237,8 +4258,8 @@
    "jahre": {
     "2026": {
      "seiten": 62,
-     "ass_index": 0.997,
-     "hold_dev": -0.166,
+     "ass_index": 1.001,
+     "hold_dev": -0.168,
      "hold": 0.728,
      "tb_satz": null
     }
@@ -4246,30 +4267,51 @@
    "ch": true,
    "speed": 0.95,
    "roh": 0.919,
-   "ass": 0.997,
-   "hold_skala": 0.84,
+   "ass": 1.001,
+   "hold_skala": 0.837,
    "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "granby",
+   "name": "pozoblanco",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 74,
-     "ass_index": 0.917,
-     "hold_dev": -0.09,
-     "hold": 0.762,
+     "seiten": 66,
+     "ass_index": 0.864,
+     "hold_dev": -0.019,
+     "hold": 0.734,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.95,
-   "roh": 0.916,
-   "ass": 0.917,
-   "hold_skala": 0.914,
-   "seiten": 74,
+   "roh": 0.923,
+   "ass": 0.864,
+   "hold_skala": 0.983,
+   "seiten": 66,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "new delhi",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 60,
+     "ass_index": 0.786,
+     "hold_dev": 0.042,
+     "hold": 0.741,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.95,
+   "roh": 0.914,
+   "ass": 0.786,
+   "hold_skala": 1.042,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -4279,17 +4321,17 @@
    "jahre": {
     "2026": {
      "seiten": 74,
-     "ass_index": 0.859,
-     "hold_dev": -0.018,
+     "ass_index": 0.854,
+     "hold_dev": -0.021,
      "hold": 0.795,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.95,
-   "roh": 0.921,
-   "ass": 0.859,
-   "hold_skala": 0.984,
+   "roh": 0.917,
+   "ass": 0.854,
+   "hold_skala": 0.981,
    "seiten": 74,
    "quelle": "eigen",
    "alias": []
@@ -4301,17 +4343,38 @@
     "2026": {
      "seiten": 36,
      "ass_index": 0.735,
-     "hold_dev": 0.041,
+     "hold_dev": 0.046,
      "hold": 0.738,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.95,
-   "roh": 0.888,
+   "roh": 0.891,
    "ass": 0.735,
-   "hold_skala": 1.041,
+   "hold_skala": 1.046,
    "seiten": 36,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "astana",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 46,
+     "ass_index": 0.917,
+     "hold_dev": -0.092,
+     "hold": 0.75,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.95,
+   "roh": 0.914,
+   "ass": 0.917,
+   "hold_skala": 0.911,
+   "seiten": 46,
    "quelle": "eigen",
    "alias": []
   },
@@ -4320,26 +4383,26 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 68,
-     "ass_index": 0.843,
-     "hold_dev": -0.087,
-     "hold": 0.727,
+     "seiten": 70,
+     "ass_index": 0.836,
+     "hold_dev": -0.074,
+     "hold": 0.731,
      "tb_satz": null
     },
     "2025": {
      "seiten": 28,
      "ass_index": 0.886,
-     "hold_dev": 0.205,
+     "hold_dev": 0.203,
      "hold": 0.739,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.94,
-   "roh": 0.915,
-   "ass": 0.852,
-   "hold_skala": 0.978,
-   "seiten": 96,
+   "roh": 0.916,
+   "ass": 0.847,
+   "hold_skala": 0.986,
+   "seiten": 98,
    "quelle": "eigen",
    "alias": []
   },
@@ -4349,81 +4412,39 @@
    "jahre": {
     "2026": {
      "seiten": 82,
-     "ass_index": 0.878,
-     "hold_dev": -0.05,
+     "ass_index": 0.877,
+     "hold_dev": -0.051,
      "hold": 0.785,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.94,
-   "roh": 0.915,
-   "ass": 0.878,
-   "hold_skala": 0.953,
+   "roh": 0.914,
+   "ass": 0.877,
+   "hold_skala": 0.951,
    "seiten": 82,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "tiburon",
+   "name": "granby",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 84,
-     "ass_index": 0.926,
-     "hold_dev": -0.121,
-     "hold": 0.759,
+     "seiten": 74,
+     "ass_index": 0.912,
+     "hold_dev": -0.095,
+     "hold": 0.762,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.94,
-   "roh": 0.905,
-   "ass": 0.926,
-   "hold_skala": 0.884,
-   "seiten": 84,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "pozoblanco",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 60,
-     "ass_index": 0.833,
-     "hold_dev": -0.024,
-     "hold": 0.738,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.94,
-   "roh": 0.906,
-   "ass": 0.833,
-   "hold_skala": 0.978,
-   "seiten": 60,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "new delhi",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 58,
-     "ass_index": 0.771,
-     "hold_dev": 0.034,
-     "hold": 0.734,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.94,
-   "roh": 0.903,
-   "ass": 0.771,
-   "hold_skala": 1.034,
-   "seiten": 58,
+   "roh": 0.91,
+   "ass": 0.912,
+   "hold_skala": 0.908,
+   "seiten": 74,
    "quelle": "eigen",
    "alias": []
   },
@@ -4433,67 +4454,39 @@
    "jahre": {
     "2026": {
      "seiten": 94,
-     "ass_index": 0.876,
-     "hold_dev": -0.075,
+     "ass_index": 0.878,
+     "hold_dev": -0.076,
      "hold": 0.763,
-     "tb_satz": 0.22
+     "tb_satz": 0.216
     }
    },
    "ch": true,
    "speed": 0.93,
    "roh": 0.902,
-   "ass": 0.876,
-   "hold_skala": 0.929,
+   "ass": 0.878,
+   "hold_skala": 0.927,
    "seiten": 94,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "yokohama",
+   "name": "tiburon",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 24,
-     "ass_index": 0.759,
-     "hold_dev": -0.192,
-     "hold": 0.689,
-     "tb_satz": 0.074
-    },
-    "2025": {
-     "seiten": 40,
-     "ass_index": 1.03,
-     "hold_dev": -0.101,
-     "hold": 0.765,
+     "seiten": 84,
+     "ass_index": 0.921,
+     "hold_dev": -0.123,
+     "hold": 0.759,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.93,
-   "roh": 0.882,
-   "ass": 0.902,
-   "hold_skala": 0.862,
-   "seiten": 64,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "astana",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 42,
-     "ass_index": 0.886,
-     "hold_dev": -0.15,
-     "hold": 0.745,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.93,
-   "roh": 0.871,
-   "ass": 0.886,
-   "hold_skala": 0.856,
-   "seiten": 42,
+   "roh": 0.901,
+   "ass": 0.921,
+   "hold_skala": 0.881,
+   "seiten": 84,
    "quelle": "eigen",
    "alias": []
   },
@@ -4503,8 +4496,8 @@
    "jahre": {
     "2026": {
      "seiten": 54,
-     "ass_index": 0.847,
-     "hold_dev": -0.101,
+     "ass_index": 0.849,
+     "hold_dev": -0.103,
      "hold": 0.741,
      "tb_satz": null
     }
@@ -4512,8 +4505,8 @@
    "ch": true,
    "speed": 0.93,
    "roh": 0.875,
-   "ass": 0.847,
-   "hold_skala": 0.903,
+   "ass": 0.849,
+   "hold_skala": 0.901,
    "seiten": 54,
    "quelle": "eigen",
    "alias": []
@@ -4525,16 +4518,16 @@
     "2026": {
      "seiten": 96,
      "ass_index": 0.799,
-     "hold_dev": -0.052,
+     "hold_dev": -0.047,
      "hold": 0.79,
      "tb_satz": 0.153
     }
    },
    "ch": true,
    "speed": 0.91,
-   "roh": 0.875,
+   "roh": 0.877,
    "ass": 0.799,
-   "hold_skala": 0.951,
+   "hold_skala": 0.955,
    "seiten": 96,
    "quelle": "eigen",
    "alias": []
@@ -4544,26 +4537,54 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 20,
-     "ass_index": 1.078,
-     "hold_dev": 0.095,
-     "hold": 0.792,
+     "seiten": 42,
+     "ass_index": 1.009,
+     "hold_dev": -0.05,
+     "hold": 0.784,
      "tb_satz": null
     },
     "2025": {
      "seiten": 76,
-     "ass_index": 0.794,
-     "hold_dev": -0.233,
+     "ass_index": 0.799,
+     "hold_dev": -0.229,
      "hold": 0.752,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.91,
-   "roh": 0.87,
-   "ass": 0.874,
-   "hold_skala": 0.865,
-   "seiten": 96,
+   "roh": 0.875,
+   "ass": 0.894,
+   "hold_skala": 0.857,
+   "seiten": 118,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "yokohama",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 36,
+     "ass_index": 0.789,
+     "hold_dev": -0.235,
+     "hold": 0.682,
+     "tb_satz": 0.047
+    },
+    "2025": {
+     "seiten": 40,
+     "ass_index": 1.028,
+     "hold_dev": -0.105,
+     "hold": 0.765,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.91,
+   "roh": 0.858,
+   "ass": 0.891,
+   "hold_skala": 0.826,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -4573,17 +4594,17 @@
    "jahre": {
     "2026": {
      "seiten": 66,
-     "ass_index": 0.886,
-     "hold_dev": -0.167,
+     "ass_index": 0.881,
+     "hold_dev": -0.172,
      "hold": 0.76,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.91,
-   "roh": 0.863,
-   "ass": 0.886,
-   "hold_skala": 0.839,
+   "roh": 0.857,
+   "ass": 0.881,
+   "hold_skala": 0.833,
    "seiten": 66,
    "quelle": "eigen",
    "alias": []
@@ -4594,39 +4615,18 @@
    "jahre": {
     "2026": {
      "seiten": 34,
-     "ass_index": 0.854,
-     "hold_dev": -0.237,
+     "ass_index": 0.846,
+     "hold_dev": -0.238,
      "hold": 0.753,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.91,
-   "roh": 0.813,
-   "ass": 0.854,
-   "hold_skala": 0.772,
+   "roh": 0.807,
+   "ass": 0.846,
+   "hold_skala": 0.769,
    "seiten": 34,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "lexington",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 88,
-     "ass_index": 0.894,
-     "hold_dev": -0.207,
-     "hold": 0.77,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.9,
-   "roh": 0.847,
-   "ass": 0.894,
-   "hold_skala": 0.801,
-   "seiten": 88,
    "quelle": "eigen",
    "alias": []
   },
@@ -4636,39 +4636,18 @@
    "jahre": {
     "2026": {
      "seiten": 48,
-     "ass_index": 0.971,
-     "hold_dev": -0.366,
+     "ass_index": 0.974,
+     "hold_dev": -0.362,
      "hold": 0.705,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.9,
-   "roh": 0.809,
-   "ass": 0.971,
-   "hold_skala": 0.647,
+   "roh": 0.811,
+   "ass": 0.974,
+   "hold_skala": 0.648,
    "seiten": 48,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "kingston",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 66,
-     "ass_index": 0.798,
-     "hold_dev": -0.14,
-     "hold": 0.709,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.9,
-   "roh": 0.832,
-   "ass": 0.798,
-   "hold_skala": 0.866,
-   "seiten": 66,
    "quelle": "eigen",
    "alias": []
   },
@@ -4677,19 +4656,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 54,
-     "ass_index": 0.88,
-     "hold_dev": -0.25,
-     "hold": 0.75,
+     "seiten": 56,
+     "ass_index": 0.897,
+     "hold_dev": -0.248,
+     "hold": 0.752,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.9,
-   "roh": 0.819,
-   "ass": 0.88,
+   "roh": 0.828,
+   "ass": 0.897,
    "hold_skala": 0.759,
-   "seiten": 54,
+   "seiten": 56,
    "quelle": "eigen",
    "alias": []
   },
@@ -4699,18 +4678,39 @@
    "jahre": {
     "2026": {
      "seiten": 54,
-     "ass_index": 0.867,
-     "hold_dev": -0.219,
+     "ass_index": 0.872,
+     "hold_dev": -0.216,
      "hold": 0.726,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.9,
-   "roh": 0.828,
-   "ass": 0.867,
-   "hold_skala": 0.789,
+   "roh": 0.831,
+   "ass": 0.872,
+   "hold_skala": 0.79,
    "seiten": 54,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "lexington",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 88,
+     "ass_index": 0.888,
+     "hold_dev": -0.213,
+     "hold": 0.77,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.89,
+   "roh": 0.841,
+   "ass": 0.888,
+   "hold_skala": 0.793,
+   "seiten": 88,
    "quelle": "eigen",
    "alias": []
   },
@@ -4719,40 +4719,40 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 72,
-     "ass_index": 0.766,
-     "hold_dev": -0.129,
-     "hold": 0.77,
+     "seiten": 82,
+     "ass_index": 0.8,
+     "hold_dev": -0.119,
+     "hold": 0.764,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.89,
-   "roh": 0.821,
-   "ass": 0.766,
-   "hold_skala": 0.876,
-   "seiten": 72,
+   "roh": 0.842,
+   "ass": 0.8,
+   "hold_skala": 0.885,
+   "seiten": 82,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "athens",
+   "name": "kingston",
    "belag": "hard",
    "jahre": {
-    "2025": {
-     "seiten": 38,
-     "ass_index": 0.792,
-     "hold_dev": -0.282,
-     "hold": 0.7,
+    "2026": {
+     "seiten": 66,
+     "ass_index": 0.795,
+     "hold_dev": -0.14,
+     "hold": 0.709,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.88,
-   "roh": 0.76,
-   "ass": 0.792,
-   "hold_skala": 0.728,
-   "seiten": 38,
+   "speed": 0.89,
+   "roh": 0.83,
+   "ass": 0.795,
+   "hold_skala": 0.864,
+   "seiten": 66,
    "quelle": "eigen",
    "alias": []
   },
@@ -4762,7 +4762,7 @@
    "jahre": {
     "2026": {
      "seiten": 66,
-     "ass_index": 0.7,
+     "ass_index": 0.699,
      "hold_dev": -0.126,
      "hold": 0.783,
      "tb_satz": null
@@ -4770,9 +4770,9 @@
    },
    "ch": true,
    "speed": 0.87,
-   "roh": 0.79,
-   "ass": 0.7,
-   "hold_skala": 0.879,
+   "roh": 0.789,
+   "ass": 0.699,
+   "hold_skala": 0.878,
    "seiten": 66,
    "quelle": "eigen",
    "alias": []
@@ -4783,17 +4783,17 @@
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 0.784,
-     "hold_dev": -0.217,
+     "ass_index": 0.785,
+     "hold_dev": -0.214,
      "hold": 0.751,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.86,
-   "roh": 0.787,
-   "ass": 0.784,
-   "hold_skala": 0.791,
+   "roh": 0.789,
+   "ass": 0.785,
+   "hold_skala": 0.792,
    "seiten": 72,
    "quelle": "eigen",
    "alias": []
@@ -4803,19 +4803,40 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 76,
-     "ass_index": 0.787,
-     "hold_dev": -0.252,
-     "hold": 0.749,
+     "seiten": 78,
+     "ass_index": 0.778,
+     "hold_dev": -0.242,
+     "hold": 0.754,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.85,
-   "roh": 0.772,
-   "ass": 0.787,
-   "hold_skala": 0.757,
-   "seiten": 76,
+   "roh": 0.771,
+   "ass": 0.778,
+   "hold_skala": 0.765,
+   "seiten": 78,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "hersonissos iii",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 86,
+     "ass_index": 0.649,
+     "hold_dev": -0.112,
+     "hold": 0.693,
+     "tb_satz": 0.171
+    }
+   },
+   "ch": true,
+   "speed": 0.84,
+   "roh": 0.77,
+   "ass": 0.649,
+   "hold_skala": 0.892,
+   "seiten": 86,
    "quelle": "eigen",
    "alias": []
   },
@@ -4825,39 +4846,18 @@
    "jahre": {
     "2026": {
      "seiten": 98,
-     "ass_index": 0.775,
-     "hold_dev": -0.259,
+     "ass_index": 0.773,
+     "hold_dev": -0.249,
      "hold": 0.73,
      "tb_satz": 0.147
     }
    },
    "ch": true,
    "speed": 0.83,
-   "roh": 0.763,
-   "ass": 0.775,
-   "hold_skala": 0.75,
+   "roh": 0.765,
+   "ass": 0.773,
+   "hold_skala": 0.758,
    "seiten": 98,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "hersonissos iii",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 76,
-     "ass_index": 0.648,
-     "hold_dev": -0.177,
-     "hold": 0.687,
-     "tb_satz": 0.171
-    }
-   },
-   "ch": true,
-   "speed": 0.83,
-   "roh": 0.739,
-   "ass": 0.648,
-   "hold_skala": 0.83,
-   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -4867,18 +4867,39 @@
    "jahre": {
     "2026": {
      "seiten": 22,
-     "ass_index": 0.568,
-     "hold_dev": -0.555,
+     "ass_index": 0.581,
+     "hold_dev": -0.541,
      "hold": 0.599,
      "tb_satz": 0.0
     }
    },
    "ch": true,
    "speed": 0.83,
-   "roh": 0.516,
-   "ass": 0.568,
-   "hold_skala": 0.463,
+   "roh": 0.527,
+   "ass": 0.581,
+   "hold_skala": 0.473,
    "seiten": 22,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "athens",
+   "belag": "hard",
+   "jahre": {
+    "2025": {
+     "seiten": 46,
+     "ass_index": 0.683,
+     "hold_dev": -0.328,
+     "hold": 0.697,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.83,
+   "roh": 0.682,
+   "ass": 0.683,
+   "hold_skala": 0.681,
+   "seiten": 46,
    "quelle": "eigen",
    "alias": []
   },
@@ -4888,18 +4909,60 @@
    "jahre": {
     "2026": {
      "seiten": 42,
-     "ass_index": 0.668,
-     "hold_dev": -0.396,
+     "ass_index": 0.666,
+     "hold_dev": -0.398,
      "hold": 0.716,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.82,
-   "roh": 0.643,
-   "ass": 0.668,
-   "hold_skala": 0.617,
+   "roh": 0.639,
+   "ass": 0.666,
+   "hold_skala": 0.612,
    "seiten": 42,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "manama ii",
+   "belag": "hard",
+   "jahre": {
+    "2025": {
+     "seiten": 54,
+     "ass_index": 0.718,
+     "hold_dev": -0.35,
+     "hold": 0.698,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.82,
+   "roh": 0.689,
+   "ass": 0.718,
+   "hold_skala": 0.659,
+   "seiten": 54,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "hersonissos ii",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 76,
+     "ass_index": 0.629,
+     "hold_dev": -0.218,
+     "hold": 0.657,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.81,
+   "roh": 0.709,
+   "ass": 0.629,
+   "hold_skala": 0.788,
+   "seiten": 76,
    "quelle": "eigen",
    "alias": []
   },
@@ -4909,81 +4972,18 @@
    "jahre": {
     "2026": {
      "seiten": 60,
-     "ass_index": 0.664,
-     "hold_dev": -0.29,
+     "ass_index": 0.663,
+     "hold_dev": -0.294,
      "hold": 0.731,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.82,
-   "roh": 0.692,
-   "ass": 0.664,
-   "hold_skala": 0.72,
-   "seiten": 60,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "manama ii",
-   "belag": "hard",
-   "jahre": {
-    "2025": {
-     "seiten": 52,
-     "ass_index": 0.704,
-     "hold_dev": -0.339,
-     "hold": 0.705,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.82,
-   "roh": 0.688,
-   "ass": 0.704,
-   "hold_skala": 0.673,
-   "seiten": 52,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "hersonissos ii",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 72,
-     "ass_index": 0.618,
-     "hold_dev": -0.21,
-     "hold": 0.655,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
    "speed": 0.81,
-   "roh": 0.708,
-   "ass": 0.618,
-   "hold_skala": 0.798,
-   "seiten": 72,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "hersonissos",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 66,
-     "ass_index": 0.625,
-     "hold_dev": -0.267,
-     "hold": 0.668,
-     "tb_satz": null
-    }
-   },
-   "ch": true,
-   "speed": 0.8,
-   "roh": 0.684,
-   "ass": 0.625,
-   "hold_skala": 0.743,
-   "seiten": 66,
+   "roh": 0.689,
+   "ass": 0.663,
+   "hold_skala": 0.714,
+   "seiten": 60,
    "quelle": "eigen",
    "alias": []
   },
@@ -4993,18 +4993,39 @@
    "jahre": {
     "2026": {
      "seiten": 100,
-     "ass_index": 0.763,
-     "hold_dev": -0.373,
+     "ass_index": 0.767,
+     "hold_dev": -0.362,
      "hold": 0.741,
      "tb_satz": 0.121
     }
    },
    "ch": true,
    "speed": 0.79,
-   "roh": 0.701,
-   "ass": 0.763,
-   "hold_skala": 0.64,
+   "roh": 0.707,
+   "ass": 0.767,
+   "hold_skala": 0.648,
    "seiten": 100,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "hersonissos",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 72,
+     "ass_index": 0.631,
+     "hold_dev": -0.302,
+     "hold": 0.661,
+     "tb_satz": null
+    }
+   },
+   "ch": true,
+   "speed": 0.79,
+   "roh": 0.669,
+   "ass": 0.631,
+   "hold_skala": 0.706,
+   "seiten": 72,
    "quelle": "eigen",
    "alias": []
   },
@@ -5013,19 +5034,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 90,
-     "ass_index": 0.604,
-     "hold_dev": -0.228,
-     "hold": 0.727,
+     "seiten": 92,
+     "ass_index": 0.6,
+     "hold_dev": -0.237,
+     "hold": 0.729,
      "tb_satz": null
     }
    },
    "ch": true,
-   "speed": 0.79,
-   "roh": 0.692,
-   "ass": 0.604,
-   "hold_skala": 0.78,
-   "seiten": 90,
+   "speed": 0.78,
+   "roh": 0.685,
+   "ass": 0.6,
+   "hold_skala": 0.77,
+   "seiten": 92,
    "quelle": "eigen",
    "alias": []
   },
@@ -5035,17 +5056,17 @@
    "jahre": {
     "2026": {
      "seiten": 80,
-     "ass_index": 0.607,
-     "hold_dev": -0.347,
+     "ass_index": 0.61,
+     "hold_dev": -0.343,
      "hold": 0.701,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.76,
-   "roh": 0.636,
-   "ass": 0.607,
-   "hold_skala": 0.665,
+   "roh": 0.638,
+   "ass": 0.61,
+   "hold_skala": 0.666,
    "seiten": 80,
    "quelle": "eigen",
    "alias": []
@@ -5056,17 +5077,17 @@
    "jahre": {
     "2026": {
      "seiten": 92,
-     "ass_index": 0.464,
-     "hold_dev": -0.295,
+     "ass_index": 0.463,
+     "hold_dev": -0.3,
      "hold": 0.71,
      "tb_satz": null
     }
    },
    "ch": true,
    "speed": 0.71,
-   "roh": 0.59,
-   "ass": 0.464,
-   "hold_skala": 0.715,
+   "roh": 0.586,
+   "ass": 0.463,
+   "hold_skala": 0.708,
    "seiten": 92,
    "quelle": "eigen",
    "alias": []
@@ -5074,44 +5095,44 @@
  ],
  "atp_test": [
   {
-   "name": "gstaad",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 48,
-     "ass_index": 0.848,
-     "hold_dev": 0.365,
-     "hold": 0.857,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 1.06,
-   "roh": 1.102,
-   "ass": 0.848,
-   "hold_skala": 1.355,
-   "seiten": 48,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
    "name": "kitzbuhel",
    "belag": "clay",
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 1.031,
-     "hold_dev": 0.152,
+     "ass_index": 1.028,
+     "hold_dev": 0.148,
      "hold": 0.778,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.05,
-   "roh": 1.09,
-   "ass": 1.031,
-   "hold_skala": 1.149,
+   "roh": 1.087,
+   "ass": 1.028,
+   "hold_skala": 1.146,
    "seiten": 46,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "gstaad",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 48,
+     "ass_index": 0.844,
+     "hold_dev": 0.362,
+     "hold": 0.857,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.05,
+   "roh": 1.099,
+   "ass": 0.844,
+   "hold_skala": 1.355,
+   "seiten": 48,
    "quelle": "eigen",
    "alias": []
   },
@@ -5121,17 +5142,17 @@
    "jahre": {
     "2026": {
      "seiten": 54,
-     "ass_index": 0.94,
-     "hold_dev": 0.102,
+     "ass_index": 0.936,
+     "hold_dev": 0.097,
      "hold": 0.792,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.01,
-   "roh": 1.02,
-   "ass": 0.94,
-   "hold_skala": 1.1,
+   "roh": 1.016,
+   "ass": 0.936,
+   "hold_skala": 1.096,
    "seiten": 54,
    "quelle": "eigen",
    "alias": []
@@ -5142,17 +5163,17 @@
    "jahre": {
     "2026": {
      "seiten": 48,
-     "ass_index": 0.988,
-     "hold_dev": -0.002,
+     "ass_index": 0.991,
+     "hold_dev": 0.005,
      "hold": 0.731,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.0,
-   "roh": 0.994,
-   "ass": 0.988,
-   "hold_skala": 0.999,
+   "roh": 0.999,
+   "ass": 0.991,
+   "hold_skala": 1.006,
    "seiten": 48,
    "quelle": "eigen",
    "alias": []
@@ -5163,17 +5184,17 @@
    "jahre": {
     "2026": {
      "seiten": 60,
-     "ass_index": 0.956,
-     "hold_dev": 0.057,
+     "ass_index": 0.953,
+     "hold_dev": 0.049,
      "hold": 0.75,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.0,
-   "roh": 1.006,
-   "ass": 0.956,
-   "hold_skala": 1.057,
+   "roh": 1.001,
+   "ass": 0.953,
+   "hold_skala": 1.049,
    "seiten": 60,
    "quelle": "eigen",
    "alias": []
@@ -5184,17 +5205,17 @@
    "jahre": {
     "2026": {
      "seiten": 58,
-     "ass_index": 0.735,
-     "hold_dev": 0.054,
+     "ass_index": 0.731,
+     "hold_dev": 0.047,
      "hold": 0.757,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 0.94,
-   "roh": 0.894,
-   "ass": 0.735,
-   "hold_skala": 1.054,
+   "speed": 0.93,
+   "roh": 0.889,
+   "ass": 0.731,
+   "hold_skala": 1.047,
    "seiten": 58,
    "quelle": "eigen",
    "alias": []
@@ -5206,16 +5227,16 @@
     "2026": {
      "seiten": 44,
      "ass_index": 0.737,
-     "hold_dev": -0.055,
+     "hold_dev": -0.057,
      "hold": 0.72,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.92,
-   "roh": 0.843,
+   "roh": 0.841,
    "ass": 0.737,
-   "hold_skala": 0.948,
+   "hold_skala": 0.946,
    "seiten": 44,
    "quelle": "eigen",
    "alias": []
@@ -5226,17 +5247,17 @@
    "jahre": {
     "2026": {
      "seiten": 50,
-     "ass_index": 0.831,
-     "hold_dev": -0.11,
+     "ass_index": 0.828,
+     "hold_dev": -0.12,
      "hold": 0.75,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.92,
-   "roh": 0.863,
-   "ass": 0.831,
-   "hold_skala": 0.895,
+   "roh": 0.856,
+   "ass": 0.828,
+   "hold_skala": 0.884,
    "seiten": 50,
    "quelle": "eigen",
    "alias": []
@@ -5247,17 +5268,17 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 0.862,
-     "hold_dev": -0.155,
+     "ass_index": 0.858,
+     "hold_dev": -0.163,
      "hold": 0.768,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.92,
-   "roh": 0.857,
-   "ass": 0.862,
-   "hold_skala": 0.851,
+   "roh": 0.85,
+   "ass": 0.858,
+   "hold_skala": 0.842,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -5268,18 +5289,39 @@
    "jahre": {
     "2026": {
      "seiten": 168,
-     "ass_index": 0.724,
-     "hold_dev": 0.065,
+     "ass_index": 0.721,
+     "hold_dev": 0.059,
      "hold": 0.827,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.91,
-   "roh": 0.894,
-   "ass": 0.724,
-   "hold_skala": 1.064,
+   "roh": 0.89,
+   "ass": 0.721,
+   "hold_skala": 1.059,
    "seiten": 168,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "bucharest",
+   "belag": "clay",
+   "jahre": {
+    "2026": {
+     "seiten": 32,
+     "ass_index": 0.556,
+     "hold_dev": -0.224,
+     "hold": 0.751,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.85,
+   "roh": 0.669,
+   "ass": 0.556,
+   "hold_skala": 0.782,
+   "seiten": 32,
    "quelle": "eigen",
    "alias": []
   },
@@ -5289,7 +5331,7 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 0.642,
+     "ass_index": 0.639,
      "hold_dev": -0.193,
      "hold": 0.782,
      "tb_satz": null
@@ -5297,9 +5339,9 @@
    },
    "ch": false,
    "speed": 0.85,
-   "roh": 0.728,
-   "ass": 0.642,
-   "hold_skala": 0.814,
+   "roh": 0.726,
+   "ass": 0.639,
+   "hold_skala": 0.813,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -5310,39 +5352,18 @@
    "jahre": {
     "2026": {
      "seiten": 50,
-     "ass_index": 0.571,
-     "hold_dev": -0.143,
+     "ass_index": 0.569,
+     "hold_dev": -0.152,
      "hold": 0.792,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.84,
-   "roh": 0.717,
-   "ass": 0.571,
-   "hold_skala": 0.863,
+   "roh": 0.711,
+   "ass": 0.569,
+   "hold_skala": 0.853,
    "seiten": 50,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "bucharest",
-   "belag": "clay",
-   "jahre": {
-    "2026": {
-     "seiten": 30,
-     "ass_index": 0.548,
-     "hold_dev": -0.296,
-     "hold": 0.738,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 0.84,
-   "roh": 0.631,
-   "ass": 0.548,
-   "hold_skala": 0.714,
-   "seiten": 30,
    "quelle": "eigen",
    "alias": []
   },
@@ -5352,17 +5373,17 @@
    "jahre": {
     "2026": {
      "seiten": 270,
-     "ass_index": 0.691,
-     "hold_dev": -0.068,
+     "ass_index": 0.69,
+     "hold_dev": -0.07,
      "hold": 0.775,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.84,
-   "roh": 0.813,
-   "ass": 0.691,
-   "hold_skala": 0.935,
+   "roh": 0.811,
+   "ass": 0.69,
+   "hold_skala": 0.933,
    "seiten": 270,
    "quelle": "eigen",
    "alias": []
@@ -5373,17 +5394,17 @@
    "jahre": {
     "2026": {
      "seiten": 62,
-     "ass_index": 0.678,
-     "hold_dev": -0.325,
+     "ass_index": 0.675,
+     "hold_dev": -0.324,
      "hold": 0.762,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.81,
-   "roh": 0.682,
-   "ass": 0.678,
-   "hold_skala": 0.686,
+   "roh": 0.68,
+   "ass": 0.675,
+   "hold_skala": 0.685,
    "seiten": 62,
    "quelle": "eigen",
    "alias": []
@@ -5394,17 +5415,17 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 0.463,
-     "hold_dev": -0.187,
+     "ass_index": 0.461,
+     "hold_dev": -0.19,
      "hold": 0.787,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.81,
-   "roh": 0.642,
-   "ass": 0.463,
-   "hold_skala": 0.82,
+   "roh": 0.638,
+   "ass": 0.461,
+   "hold_skala": 0.816,
    "seiten": 46,
    "quelle": "eigen",
    "alias": []
@@ -5414,19 +5435,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 50,
-     "ass_index": 0.411,
+     "seiten": 52,
+     "ass_index": 0.423,
      "hold_dev": -0.31,
-     "hold": 0.761,
+     "hold": 0.759,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.75,
-   "roh": 0.556,
-   "ass": 0.411,
-   "hold_skala": 0.701,
-   "seiten": 50,
+   "roh": 0.561,
+   "ass": 0.423,
+   "hold_skala": 0.698,
+   "seiten": 52,
    "quelle": "eigen",
    "alias": []
   },
@@ -5435,19 +5456,19 @@
    "belag": "clay",
    "jahre": {
     "2026": {
-     "seiten": 164,
-     "ass_index": 0.555,
-     "hold_dev": -0.281,
-     "hold": 0.759,
+     "seiten": 168,
+     "ass_index": 0.559,
+     "hold_dev": -0.27,
+     "hold": 0.76,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 0.71,
-   "roh": 0.642,
-   "ass": 0.555,
-   "hold_skala": 0.729,
-   "seiten": 164,
+   "speed": 0.72,
+   "roh": 0.648,
+   "ass": 0.559,
+   "hold_skala": 0.737,
+   "seiten": 168,
    "quelle": "eigen",
    "alias": []
   },
@@ -5457,17 +5478,17 @@
    "jahre": {
     "2026": {
      "seiten": 78,
-     "ass_index": 0.431,
-     "hold_dev": -0.769,
+     "ass_index": 0.429,
+     "hold_dev": -0.774,
      "hold": 0.699,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 0.57,
-   "roh": 0.343,
-   "ass": 0.431,
-   "hold_skala": 0.256,
+   "speed": 0.56,
+   "roh": 0.337,
+   "ass": 0.429,
+   "hold_skala": 0.245,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -5478,17 +5499,17 @@
    "jahre": {
     "2026": {
      "seiten": 56,
-     "ass_index": 1.07,
-     "hold_dev": 0.29,
+     "ass_index": 1.065,
+     "hold_dev": 0.285,
      "hold": 0.879,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.1,
-   "roh": 1.176,
-   "ass": 1.07,
-   "hold_skala": 1.283,
+   "roh": 1.172,
+   "ass": 1.065,
+   "hold_skala": 1.28,
    "seiten": 56,
    "quelle": "eigen",
    "alias": []
@@ -5499,17 +5520,17 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 0.995,
-     "hold_dev": 0.109,
+     "ass_index": 0.994,
+     "hold_dev": 0.106,
      "hold": 0.828,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.03,
-   "roh": 1.051,
-   "ass": 0.995,
-   "hold_skala": 1.107,
+   "roh": 1.049,
+   "ass": 0.994,
+   "hold_skala": 1.105,
    "seiten": 46,
    "quelle": "eigen",
    "alias": []
@@ -5520,17 +5541,17 @@
    "jahre": {
     "2026": {
      "seiten": 22,
-     "ass_index": 1.029,
-     "hold_dev": -0.007,
+     "ass_index": 1.021,
+     "hold_dev": -0.011,
      "hold": 0.79,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.0,
-   "roh": 1.012,
-   "ass": 1.029,
-   "hold_skala": 0.995,
+   "roh": 1.006,
+   "ass": 1.021,
+   "hold_skala": 0.99,
    "seiten": 22,
    "quelle": "eigen",
    "alias": []
@@ -5541,17 +5562,17 @@
    "jahre": {
     "2026": {
      "seiten": 60,
-     "ass_index": 0.934,
-     "hold_dev": 0.041,
+     "ass_index": 0.928,
+     "hold_dev": 0.037,
      "hold": 0.858,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.99,
-   "roh": 0.988,
-   "ass": 0.934,
-   "hold_skala": 1.041,
+   "roh": 0.983,
+   "ass": 0.928,
+   "hold_skala": 1.037,
    "seiten": 60,
    "quelle": "eigen",
    "alias": []
@@ -5562,17 +5583,17 @@
    "jahre": {
     "2026": {
      "seiten": 132,
-     "ass_index": 0.9,
-     "hold_dev": -0.006,
+     "ass_index": 0.896,
+     "hold_dev": -0.008,
      "hold": 0.821,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.96,
-   "roh": 0.948,
-   "ass": 0.9,
-   "hold_skala": 0.996,
+   "roh": 0.945,
+   "ass": 0.896,
+   "hold_skala": 0.993,
    "seiten": 132,
    "quelle": "eigen",
    "alias": []
@@ -5582,19 +5603,19 @@
    "belag": "grass",
    "jahre": {
     "2026": {
-     "seiten": 34,
-     "ass_index": 0.867,
-     "hold_dev": -0.033,
-     "hold": 0.801,
+     "seiten": 36,
+     "ass_index": 0.88,
+     "hold_dev": -0.037,
+     "hold": 0.805,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.96,
-   "roh": 0.918,
-   "ass": 0.867,
-   "hold_skala": 0.969,
-   "seiten": 34,
+   "roh": 0.923,
+   "ass": 0.88,
+   "hold_skala": 0.965,
+   "seiten": 36,
    "quelle": "eigen",
    "alias": []
   },
@@ -5604,17 +5625,17 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 0.823,
-     "hold_dev": -0.036,
+     "ass_index": 0.819,
+     "hold_dev": -0.041,
      "hold": 0.828,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.94,
-   "roh": 0.895,
-   "ass": 0.823,
-   "hold_skala": 0.966,
+   "roh": 0.89,
+   "ass": 0.819,
+   "hold_skala": 0.961,
    "seiten": 46,
    "quelle": "eigen",
    "alias": []
@@ -5625,17 +5646,17 @@
    "jahre": {
     "2026": {
      "seiten": 38,
-     "ass_index": 1.3,
-     "hold_dev": 0.387,
+     "ass_index": 1.296,
+     "hold_dev": 0.383,
      "hold": 0.861,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.16,
-   "roh": 1.338,
-   "ass": 1.3,
-   "hold_skala": 1.377,
+   "roh": 1.336,
+   "ass": 1.296,
+   "hold_skala": 1.375,
    "seiten": 38,
    "quelle": "eigen",
    "alias": []
@@ -5646,39 +5667,18 @@
    "jahre": {
     "2026": {
      "seiten": 82,
-     "ass_index": 1.073,
-     "hold_dev": 0.269,
+     "ass_index": 1.068,
+     "hold_dev": 0.261,
      "hold": 0.856,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.11,
-   "roh": 1.168,
-   "ass": 1.073,
-   "hold_skala": 1.262,
+   "roh": 1.162,
+   "ass": 1.068,
+   "hold_skala": 1.256,
    "seiten": 82,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "chengdu",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 48,
-     "ass_index": 1.087,
-     "hold_dev": 0.274,
-     "hold": 0.839,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 1.1,
-   "roh": 1.177,
-   "ass": 1.087,
-   "hold_skala": 1.267,
-   "seiten": 48,
    "quelle": "eigen",
    "alias": []
   },
@@ -5688,39 +5688,39 @@
    "jahre": {
     "2026": {
      "seiten": 62,
-     "ass_index": 1.035,
-     "hold_dev": 0.295,
+     "ass_index": 1.031,
+     "hold_dev": 0.289,
      "hold": 0.82,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.1,
-   "roh": 1.161,
-   "ass": 1.035,
-   "hold_skala": 1.287,
+   "roh": 1.157,
+   "ass": 1.031,
+   "hold_skala": 1.284,
    "seiten": 62,
    "quelle": "eigen",
    "alias": []
   },
   {
-   "name": "dubai",
+   "name": "chengdu",
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 38,
-     "ass_index": 1.195,
-     "hold_dev": 0.12,
-     "hold": 0.853,
+     "seiten": 48,
+     "ass_index": 1.083,
+     "hold_dev": 0.268,
+     "hold": 0.839,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 1.08,
-   "roh": 1.156,
-   "ass": 1.195,
-   "hold_skala": 1.118,
-   "seiten": 38,
+   "speed": 1.09,
+   "roh": 1.173,
+   "ass": 1.083,
+   "hold_skala": 1.263,
+   "seiten": 48,
    "quelle": "eigen",
    "alias": []
   },
@@ -5730,18 +5730,60 @@
    "jahre": {
     "2026": {
      "seiten": 78,
-     "ass_index": 1.037,
-     "hold_dev": 0.181,
+     "ass_index": 1.028,
+     "hold_dev": 0.175,
      "hold": 0.828,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.07,
-   "roh": 1.107,
-   "ass": 1.037,
-   "hold_skala": 1.177,
+   "roh": 1.1,
+   "ass": 1.028,
+   "hold_skala": 1.172,
    "seiten": 78,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "dubai",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 38,
+     "ass_index": 1.184,
+     "hold_dev": 0.114,
+     "hold": 0.853,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.07,
+   "roh": 1.148,
+   "ass": 1.184,
+   "hold_skala": 1.113,
+   "seiten": 38,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "paris",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 158,
+     "ass_index": 1.075,
+     "hold_dev": 0.065,
+     "hold": 0.841,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.06,
+   "roh": 1.07,
+   "ass": 1.075,
+   "hold_skala": 1.065,
+   "seiten": 158,
    "quelle": "eigen",
    "alias": []
   },
@@ -5751,17 +5793,17 @@
    "jahre": {
     "2026": {
      "seiten": 82,
-     "ass_index": 0.992,
-     "hold_dev": 0.177,
+     "ass_index": 0.989,
+     "hold_dev": 0.174,
      "hold": 0.84,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 1.06,
-   "roh": 1.082,
-   "ass": 0.992,
-   "hold_skala": 1.173,
+   "speed": 1.05,
+   "roh": 1.08,
+   "ass": 0.989,
+   "hold_skala": 1.171,
    "seiten": 82,
    "quelle": "eigen",
    "alias": []
@@ -5772,60 +5814,18 @@
    "jahre": {
     "2026": {
      "seiten": 86,
-     "ass_index": 1.055,
-     "hold_dev": 0.111,
+     "ass_index": 1.047,
+     "hold_dev": 0.106,
      "hold": 0.867,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 1.06,
-   "roh": 1.082,
-   "ass": 1.055,
-   "hold_skala": 1.109,
-   "seiten": 86,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "paris",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 158,
-     "ass_index": 1.081,
-     "hold_dev": 0.069,
-     "hold": 0.841,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 1.06,
-   "roh": 1.075,
-   "ass": 1.081,
-   "hold_skala": 1.068,
-   "seiten": 158,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "tour finals turin",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 28,
-     "ass_index": 1.16,
-     "hold_dev": 0.102,
-     "hold": 0.866,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
    "speed": 1.05,
-   "roh": 1.13,
-   "ass": 1.16,
-   "hold_skala": 1.1,
-   "seiten": 28,
+   "roh": 1.076,
+   "ass": 1.047,
+   "hold_skala": 1.105,
+   "seiten": 86,
    "quelle": "eigen",
    "alias": []
   },
@@ -5835,18 +5835,39 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 1.038,
-     "hold_dev": 0.136,
+     "ass_index": 1.032,
+     "hold_dev": 0.131,
      "hold": 0.857,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.05,
-   "roh": 1.086,
-   "ass": 1.038,
-   "hold_skala": 1.133,
+   "roh": 1.081,
+   "ass": 1.032,
+   "hold_skala": 1.129,
    "seiten": 52,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "tour finals turin",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 30,
+     "ass_index": 1.139,
+     "hold_dev": -0.001,
+     "hold": 0.856,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 1.03,
+   "roh": 1.07,
+   "ass": 1.139,
+   "hold_skala": 1.0,
+   "seiten": 30,
    "quelle": "eigen",
    "alias": []
   },
@@ -5856,17 +5877,17 @@
    "jahre": {
     "2026": {
      "seiten": 164,
-     "ass_index": 0.959,
-     "hold_dev": 0.112,
+     "ass_index": 0.954,
+     "hold_dev": 0.11,
      "hold": 0.824,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.03,
-   "roh": 1.034,
-   "ass": 0.959,
-   "hold_skala": 1.11,
+   "roh": 1.031,
+   "ass": 0.954,
+   "hold_skala": 1.109,
    "seiten": 164,
    "quelle": "eigen",
    "alias": []
@@ -5877,17 +5898,17 @@
    "jahre": {
     "2026": {
      "seiten": 168,
-     "ass_index": 0.989,
-     "hold_dev": 0.073,
+     "ass_index": 0.985,
+     "hold_dev": 0.07,
      "hold": 0.821,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.02,
-   "roh": 1.031,
-   "ass": 0.989,
-   "hold_skala": 1.072,
+   "roh": 1.027,
+   "ass": 0.985,
+   "hold_skala": 1.07,
    "seiten": 168,
    "quelle": "eigen",
    "alias": []
@@ -5898,39 +5919,18 @@
    "jahre": {
     "2025": {
      "seiten": 26,
-     "ass_index": 1.368,
-     "hold_dev": -0.375,
+     "ass_index": 1.369,
+     "hold_dev": -0.37,
      "hold": 0.722,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 1.0,
-   "roh": 1.003,
-   "ass": 1.368,
-   "hold_skala": 0.638,
+   "roh": 1.004,
+   "ass": 1.369,
+   "hold_skala": 0.64,
    "seiten": 26,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "miami",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 158,
-     "ass_index": 0.973,
-     "hold_dev": -0.006,
-     "hold": 0.82,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 0.99,
-   "roh": 0.984,
-   "ass": 0.973,
-   "hold_skala": 0.996,
-   "seiten": 158,
    "quelle": "eigen",
    "alias": []
   },
@@ -5939,19 +5939,19 @@
    "belag": "hard",
    "jahre": {
     "2026": {
-     "seiten": 324,
-     "ass_index": 1.021,
-     "hold_dev": -0.038,
-     "hold": 0.799,
+     "seiten": 326,
+     "ass_index": 1.014,
+     "hold_dev": -0.045,
+     "hold": 0.798,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.99,
-   "roh": 0.993,
-   "ass": 1.021,
-   "hold_skala": 0.965,
-   "seiten": 324,
+   "roh": 0.986,
+   "ass": 1.014,
+   "hold_skala": 0.957,
+   "seiten": 326,
    "quelle": "eigen",
    "alias": []
   },
@@ -5961,18 +5961,39 @@
    "jahre": {
     "2026": {
      "seiten": 34,
-     "ass_index": 0.871,
-     "hold_dev": 0.075,
+     "ass_index": 0.866,
+     "hold_dev": 0.07,
      "hold": 0.867,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.99,
-   "roh": 0.973,
-   "ass": 0.871,
-   "hold_skala": 1.074,
+   "roh": 0.968,
+   "ass": 0.866,
+   "hold_skala": 1.07,
    "seiten": 34,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "miami",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 158,
+     "ass_index": 0.968,
+     "hold_dev": -0.009,
+     "hold": 0.82,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.98,
+   "roh": 0.98,
+   "ass": 0.968,
+   "hold_skala": 0.992,
+   "seiten": 158,
    "quelle": "eigen",
    "alias": []
   },
@@ -5982,39 +6003,18 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 0.979,
-     "hold_dev": -0.024,
+     "ass_index": 0.974,
+     "hold_dev": -0.03,
      "hold": 0.81,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 0.99,
-   "roh": 0.979,
-   "ass": 0.979,
-   "hold_skala": 0.978,
+   "speed": 0.98,
+   "roh": 0.973,
+   "ass": 0.974,
+   "hold_skala": 0.972,
    "seiten": 52,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "stockholm",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 84,
-     "ass_index": 0.982,
-     "hold_dev": -0.086,
-     "hold": 0.824,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 0.97,
-   "roh": 0.95,
-   "ass": 0.982,
-   "hold_skala": 0.918,
-   "seiten": 84,
    "quelle": "eigen",
    "alias": []
   },
@@ -6024,17 +6024,17 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 0.957,
-     "hold_dev": -0.056,
+     "ass_index": 0.952,
+     "hold_dev": -0.061,
      "hold": 0.81,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.97,
-   "roh": 0.952,
-   "ass": 0.957,
-   "hold_skala": 0.947,
+   "roh": 0.947,
+   "ass": 0.952,
+   "hold_skala": 0.942,
    "seiten": 46,
    "quelle": "eigen",
    "alias": []
@@ -6045,18 +6045,39 @@
    "jahre": {
     "2026": {
      "seiten": 46,
-     "ass_index": 0.975,
-     "hold_dev": -0.092,
+     "ass_index": 0.965,
+     "hold_dev": -0.099,
      "hold": 0.787,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.97,
-   "roh": 0.944,
-   "ass": 0.975,
-   "hold_skala": 0.912,
+   "roh": 0.935,
+   "ass": 0.965,
+   "hold_skala": 0.905,
    "seiten": 46,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "stockholm",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 84,
+     "ass_index": 0.975,
+     "hold_dev": -0.088,
+     "hold": 0.824,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.96,
+   "roh": 0.945,
+   "ass": 0.975,
+   "hold_skala": 0.915,
+   "seiten": 84,
    "quelle": "eigen",
    "alias": []
   },
@@ -6066,17 +6087,17 @@
    "jahre": {
     "2026": {
      "seiten": 48,
-     "ass_index": 1.013,
-     "hold_dev": -0.186,
+     "ass_index": 1.009,
+     "hold_dev": -0.19,
      "hold": 0.789,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.95,
-   "roh": 0.917,
-   "ass": 1.013,
-   "hold_skala": 0.821,
+   "roh": 0.912,
+   "ass": 1.009,
+   "hold_skala": 0.816,
    "seiten": 48,
    "quelle": "eigen",
    "alias": []
@@ -6087,17 +6108,17 @@
    "jahre": {
     "2026": {
      "seiten": 44,
-     "ass_index": 0.869,
-     "hold_dev": -0.146,
+     "ass_index": 0.865,
+     "hold_dev": -0.156,
      "hold": 0.795,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.93,
-   "roh": 0.864,
-   "ass": 0.869,
-   "hold_skala": 0.86,
+   "roh": 0.857,
+   "ass": 0.865,
+   "hold_skala": 0.849,
    "seiten": 44,
    "quelle": "eigen",
    "alias": []
@@ -6108,17 +6129,17 @@
    "jahre": {
     "2026": {
      "seiten": 30,
-     "ass_index": 0.791,
-     "hold_dev": -0.174,
+     "ass_index": 0.788,
+     "hold_dev": -0.178,
      "hold": 0.795,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.92,
-   "roh": 0.812,
-   "ass": 0.791,
-   "hold_skala": 0.833,
+   "roh": 0.808,
+   "ass": 0.788,
+   "hold_skala": 0.827,
    "seiten": 30,
    "quelle": "eigen",
    "alias": []
@@ -6129,17 +6150,17 @@
    "jahre": {
     "2026": {
      "seiten": 36,
-     "ass_index": 0.792,
-     "hold_dev": -0.143,
+     "ass_index": 0.789,
+     "hold_dev": -0.146,
      "hold": 0.77,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.92,
-   "roh": 0.827,
-   "ass": 0.792,
-   "hold_skala": 0.863,
+   "roh": 0.824,
+   "ass": 0.789,
+   "hold_skala": 0.859,
    "seiten": 36,
    "quelle": "eigen",
    "alias": []
@@ -6150,60 +6171,18 @@
    "jahre": {
     "2026": {
      "seiten": 358,
-     "ass_index": 0.898,
-     "hold_dev": -0.135,
+     "ass_index": 0.894,
+     "hold_dev": -0.14,
      "hold": 0.773,
      "tb_satz": null
     }
    },
    "ch": false,
-   "speed": 0.9,
-   "roh": 0.884,
-   "ass": 0.898,
-   "hold_skala": 0.87,
-   "seiten": 358,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "acapulco",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 54,
-     "ass_index": 0.847,
-     "hold_dev": -0.248,
-     "hold": 0.786,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
    "speed": 0.89,
-   "roh": 0.804,
-   "ass": 0.847,
-   "hold_skala": 0.761,
-   "seiten": 54,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "cincinnati",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 156,
-     "ass_index": 0.827,
-     "hold_dev": -0.146,
-     "hold": 0.798,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 0.88,
-   "roh": 0.843,
-   "ass": 0.827,
-   "hold_skala": 0.86,
-   "seiten": 156,
+   "roh": 0.879,
+   "ass": 0.894,
+   "hold_skala": 0.864,
+   "seiten": 358,
    "quelle": "eigen",
    "alias": []
   },
@@ -6213,18 +6192,39 @@
    "jahre": {
     "2026": {
      "seiten": 72,
-     "ass_index": 0.742,
-     "hold_dev": -0.114,
+     "ass_index": 0.738,
+     "hold_dev": -0.119,
      "hold": 0.821,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.88,
-   "roh": 0.816,
-   "ass": 0.742,
-   "hold_skala": 0.891,
+   "roh": 0.811,
+   "ass": 0.738,
+   "hold_skala": 0.885,
    "seiten": 72,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "acapulco",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 54,
+     "ass_index": 0.842,
+     "hold_dev": -0.254,
+     "hold": 0.786,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.88,
+   "roh": 0.798,
+   "ass": 0.842,
+   "hold_skala": 0.753,
+   "seiten": 54,
    "quelle": "eigen",
    "alias": []
   },
@@ -6234,18 +6234,39 @@
    "jahre": {
     "2026": {
      "seiten": 86,
-     "ass_index": 0.751,
-     "hold_dev": -0.148,
+     "ass_index": 0.749,
+     "hold_dev": -0.147,
      "hold": 0.798,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.87,
-   "roh": 0.804,
-   "ass": 0.751,
+   "roh": 0.803,
+   "ass": 0.749,
    "hold_skala": 0.858,
    "seiten": 86,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "cincinnati",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 156,
+     "ass_index": 0.824,
+     "hold_dev": -0.149,
+     "hold": 0.798,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.87,
+   "roh": 0.84,
+   "ass": 0.824,
+   "hold_skala": 0.856,
+   "seiten": 156,
    "quelle": "eigen",
    "alias": []
   },
@@ -6255,39 +6276,18 @@
    "jahre": {
     "2026": {
      "seiten": 56,
-     "ass_index": 0.831,
-     "hold_dev": -0.32,
+     "ass_index": 0.826,
+     "hold_dev": -0.325,
      "hold": 0.716,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.86,
-   "roh": 0.761,
-   "ass": 0.831,
-   "hold_skala": 0.691,
+   "roh": 0.755,
+   "ass": 0.826,
+   "hold_skala": 0.684,
    "seiten": 56,
-   "quelle": "eigen",
-   "alias": []
-  },
-  {
-   "name": "doha",
-   "belag": "hard",
-   "jahre": {
-    "2026": {
-     "seiten": 52,
-     "ass_index": 0.649,
-     "hold_dev": -0.201,
-     "hold": 0.804,
-     "tb_satz": null
-    }
-   },
-   "ch": false,
-   "speed": 0.85,
-   "roh": 0.728,
-   "ass": 0.649,
-   "hold_skala": 0.806,
-   "seiten": 52,
    "quelle": "eigen",
    "alias": []
   },
@@ -6297,17 +6297,38 @@
    "jahre": {
     "2026": {
      "seiten": 52,
-     "ass_index": 0.777,
-     "hold_dev": -0.36,
+     "ass_index": 0.774,
+     "hold_dev": -0.364,
      "hold": 0.774,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.84,
-   "roh": 0.715,
-   "ass": 0.777,
-   "hold_skala": 0.652,
+   "roh": 0.71,
+   "ass": 0.774,
+   "hold_skala": 0.646,
+   "seiten": 52,
+   "quelle": "eigen",
+   "alias": []
+  },
+  {
+   "name": "doha",
+   "belag": "hard",
+   "jahre": {
+    "2026": {
+     "seiten": 52,
+     "ass_index": 0.643,
+     "hold_dev": -0.207,
+     "hold": 0.804,
+     "tb_satz": null
+    }
+   },
+   "ch": false,
+   "speed": 0.84,
+   "roh": 0.721,
+   "ass": 0.643,
+   "hold_skala": 0.799,
    "seiten": 52,
    "quelle": "eigen",
    "alias": []
@@ -6318,17 +6339,17 @@
    "jahre": {
     "2026": {
      "seiten": 78,
-     "ass_index": 0.762,
-     "hold_dev": -0.37,
+     "ass_index": 0.758,
+     "hold_dev": -0.374,
      "hold": 0.767,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.8,
-   "roh": 0.702,
-   "ass": 0.762,
-   "hold_skala": 0.643,
+   "roh": 0.697,
+   "ass": 0.758,
+   "hold_skala": 0.636,
    "seiten": 78,
    "quelle": "eigen",
    "alias": []
@@ -6339,17 +6360,17 @@
    "jahre": {
     "2026": {
      "seiten": 140,
-     "ass_index": 0.654,
-     "hold_dev": -0.324,
+     "ass_index": 0.651,
+     "hold_dev": -0.327,
      "hold": 0.766,
      "tb_satz": null
     }
    },
    "ch": false,
    "speed": 0.74,
-   "roh": 0.671,
-   "ass": 0.654,
-   "hold_skala": 0.687,
+   "roh": 0.666,
+   "ass": 0.651,
+   "hold_skala": 0.682,
    "seiten": 140,
    "quelle": "eigen",
    "alias": []
