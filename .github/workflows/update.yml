@@ -46,6 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
+          ref: main      # neuester Stand (nicht der beim Auslösen): ein wartender zweiter Start sieht so den gerade erledigten Lauf
           sparse-checkout: docs/data/lauf_status.json
           sparse-checkout-cone-mode: false
       - id: p
