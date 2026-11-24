@@ -7608,8 +7608,8 @@
 6
 ],
 [
-2,
-1
+5,
+3
 ]
 ]
 },
@@ -7773,7 +7773,7 @@
 },
 "17605031": {
 "id": 17605031,
-"start": "2026-11-24T06:30:00Z",
+"start": "2026-11-25T01:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -7881,8 +7881,8 @@
 6
 ],
 [
-2,
-0
+3,
+2
 ]
 ]
 },
@@ -8689,7 +8689,7 @@
 "17606565": {
 "id": 17606565,
 "start": "2026-11-24T08:00:00Z",
-"min": null,
+"min": 86,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -8702,16 +8702,25 @@
 "aL": "RO",
 "hR": 373,
 "aR": 280,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+4
+]
+]
 },
 "17606561": {
 "id": 17606561,
-"start": "2026-11-24T09:10:00Z",
-"min": null,
+"start": "2026-11-24T09:40:00Z",
+"min": 40,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -8724,11 +8733,16 @@
 "aL": "BG",
 "hR": 856,
 "aR": 369,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+4
+]
+]
 },
 "17606562": {
 "id": 17606562,
@@ -8838,7 +8852,7 @@
 },
 "17606560": {
 "id": 17606560,
-"start": "2026-11-24T09:10:00Z",
+"start": "2026-11-24T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -8852,16 +8866,25 @@
 "aL": "ZA",
 "hR": 482,
 "aR": 233,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+0,
+0
+]
+]
 },
 "17606558": {
 "id": 17606558,
 "start": "2026-11-24T08:00:00Z",
-"min": null,
+"min": 129,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -8874,15 +8897,28 @@
 "aL": "UA",
 "hR": 385,
 "aR": 506,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+6,
+4
+],
+[
+6,
+1
+]
+]
 },
 "17606559": {
 "id": 17606559,
-"start": "2026-11-24T11:30:00Z",
+"start": "2026-11-24T11:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -9115,7 +9151,7 @@
 },
 "17606370": {
 "id": 17606370,
-"start": "2026-11-24T09:10:00Z",
+"start": "2026-11-24T10:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -9138,7 +9174,7 @@
 "17606753": {
 "id": 17606753,
 "start": "2026-11-24T08:00:00Z",
-"min": null,
+"min": 78,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
@@ -9151,16 +9187,25 @@
 "aL": "TR",
 "hR": 540,
 "aR": 298,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+7,
+6
+]
+]
 },
 "17606759": {
 "id": 17606759,
 "start": "2026-11-24T08:00:00Z",
-"min": null,
+"min": 146,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
@@ -9173,11 +9218,24 @@
 "aL": "MK",
 "hR": 529,
 "aR": 436,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+7,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17537929": {
 "id": 17537929,
@@ -12476,7 +12534,7 @@
 "17617618": {
 "id": 17617618,
 "start": "2026-11-24T06:30:00Z",
-"min": null,
+"min": 66,
 "kat": "Challenger",
 "turnier": "Playford, Australia",
 "belag": "hard",
@@ -12489,13 +12547,17 @@
 "aL": "US",
 "hR": 294,
 "aR": 461,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
-3,
+6,
+1
+],
+[
+6,
 1
 ]
 ]
@@ -12782,7 +12844,7 @@
 ],
 [
 1,
-2
+4
 ]
 ]
 },
@@ -12920,7 +12982,7 @@
 },
 "17584095": {
 "id": 17584095,
-"start": "2026-11-25T01:00:00Z",
+"start": "2026-11-25T01:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12942,7 +13004,7 @@
 },
 "17584102": {
 "id": 17584102,
-"start": "2026-11-25T01:00:00Z",
+"start": "2026-11-25T03:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12996,7 +13058,7 @@
 "17620206": {
 "id": 17620206,
 "start": "2026-11-24T08:00:00Z",
-"min": null,
+"min": 106,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -13009,16 +13071,25 @@
 "aL": "GR",
 "hR": 608,
 "aR": 1436,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+4
+]
+]
 },
 "17620100": {
 "id": 17620100,
 "start": "2026-11-24T08:00:00Z",
-"min": null,
+"min": 102,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
@@ -13031,15 +13102,24 @@
 "aL": "RU",
 "hR": 438,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+6,
+1
+]
+]
 },
 "17620245": {
 "id": 17620245,
-"start": "2026-11-24T09:10:00Z",
+"start": "2026-11-24T10:25:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -13053,15 +13133,20 @@
 "aL": "BG",
 "hR": 432,
 "aR": 821,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+2,
+0
+]
+]
 },
 "17620101": {
 "id": 17620101,
-"start": "2026-11-24T09:10:00Z",
+"start": "2026-11-24T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -13075,15 +13160,24 @@
 "aL": "UZ",
 "hR": 956,
 "aR": 845,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+0,
+0
+]
+]
 },
 "17620248": {
 "id": 17620248,
-"start": "2026-11-24T10:20:00Z",
+"start": "2026-11-24T11:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -13105,7 +13199,7 @@
 },
 "17620246": {
 "id": 17620246,
-"start": "2026-11-24T10:20:00Z",
+"start": "2026-11-24T10:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -13127,7 +13221,7 @@
 },
 "17620249": {
 "id": 17620249,
-"start": "2026-11-24T10:20:00Z",
+"start": "2026-11-24T10:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -13149,7 +13243,7 @@
 },
 "17620098": {
 "id": 17620098,
-"start": "2026-11-24T10:20:00Z",
+"start": "2026-11-24T10:50:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -13171,7 +13265,7 @@
 },
 "17620247": {
 "id": 17620247,
-"start": "2026-11-24T11:30:00Z",
+"start": "2026-11-24T12:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -13193,7 +13287,7 @@
 },
 "17620097": {
 "id": 17620097,
-"start": "2026-11-24T11:30:00Z",
+"start": "2026-11-24T12:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -13244,13 +13338,13 @@
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Alejo Sanchez Quilez",
-"a": "R16P14",
+"a": "Dimitris Azoidis",
 "hId": 451920,
-"aId": 393289,
+"aId": 237562,
 "hL": "ES",
-"aL": null,
+"aL": "GR",
 "hR": 319,
-"aR": null,
+"aR": 856,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13259,7 +13353,7 @@
 },
 "17620099": {
 "id": 17620099,
-"start": "2026-11-24T09:10:00Z",
+"start": "2026-11-24T09:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -13273,11 +13367,20 @@
 "aL": "US",
 "hR": 185,
 "aR": 767,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+4,
+1
+]
+]
 },
 "17584197": {
 "id": 17584197,
@@ -13310,13 +13413,13 @@
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Melios Efstathiou",
-"a": "R16P2",
+"a": "Gabriel Ghetu",
 "hId": 182875,
-"aId": 393277,
+"aId": 480587,
 "hL": "CY",
-"aL": null,
+"aL": "RO",
 "hR": 560,
-"aR": null,
+"aR": 608,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13332,13 +13435,13 @@
 "belag": "hard",
 "gt": "Hardcourt indoor",
 "h": "Mert Naci Turker",
-"a": "R16P12",
+"a": "Tuncay Duran",
 "hId": 100317,
-"aId": 393287,
+"aId": 377355,
 "hL": "TR",
-"aL": null,
+"aL": "TR",
 "hR": 822,
-"aR": null,
+"aR": 540,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -14039,19 +14142,19 @@
 },
 "17584073": {
 "id": 17584073,
-"start": "2026-11-25T00:30:00Z",
+"start": "2026-11-26T00:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Playford, Australia",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "R16P9",
+"h": "Omar Jasika",
 "a": "Li Tu",
-"hId": 393284,
+"hId": 79467,
 "aId": 49417,
-"hL": null,
+"hL": "AU",
 "aL": "AU",
-"hR": null,
+"hR": 294,
 "aR": 499,
 "st": "notstarted",
 "desc": "Not started",
@@ -14185,6 +14288,72 @@
 "aL": "DK",
 "hR": 562,
 "aR": 324,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17584212": {
+"id": 17584212,
+"start": "2026-11-25T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Hersonissos 4, Greece",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Juan Cruz Martin Manzano",
+"a": "Andres Martin",
+"hId": 418785,
+"aId": 321862,
+"hL": "IT",
+"aL": "US",
+"hR": 385,
+"aR": 373,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17584282": {
+"id": 17584282,
+"start": "2026-11-25T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ankara, Turkiye",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P1",
+"a": "Oleg Prihodko",
+"hId": 393276,
+"aId": 152864,
+"hL": null,
+"aL": "MK",
+"hR": null,
+"aR": 436,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17584283": {
+"id": 17584283,
+"start": "2026-11-25T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ankara, Turkiye",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "R16P9",
+"a": "Vadym Ursu",
+"hId": 393284,
+"aId": 111857,
+"hL": null,
+"aL": "UA",
+"hR": null,
+"aR": 438,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
