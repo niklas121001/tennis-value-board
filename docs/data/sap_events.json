@@ -7865,7 +7865,7 @@
 },
 "17609588": {
 "id": 17609588,
-"start": "2026-11-25T13:40:00Z",
+"start": "2026-11-25T15:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -7879,11 +7879,16 @@
 "aL": "AR",
 "hR": 186,
 "aR": 331,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+0,
+1
+]
+]
 },
 "17609589": {
 "id": 17609589,
@@ -7918,7 +7923,7 @@
 },
 "17609585": {
 "id": 17609585,
-"start": "2026-11-25T13:40:00Z",
+"start": "2026-11-25T16:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -12055,7 +12060,7 @@
 },
 "17624372": {
 "id": 17624372,
-"start": "2026-11-25T13:00:00Z",
+"start": "2026-11-25T14:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -12069,21 +12074,21 @@
 "aL": "AR",
 "hR": 439,
 "aR": 583,
-"st": "interrupted",
-"desc": "Interrupted",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
 "satz": [
 [
-0,
-1
+5,
+6
 ]
 ]
 },
 "17624375": {
 "id": 17624375,
-"start": "2026-11-25T13:15:00Z",
-"min": null,
+"start": "2026-11-25T13:50:00Z",
+"min": 87,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -12096,9 +12101,9 @@
 "aL": "ES",
 "hR": 718,
 "aR": 625,
-"st": "interrupted",
-"desc": "Interrupted",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
@@ -12106,15 +12111,15 @@
 6
 ],
 [
-0,
-0
+1,
+6
 ]
 ]
 },
 "17624373": {
 "id": 17624373,
-"start": "2026-11-25T13:00:00Z",
-"min": null,
+"start": "2026-11-25T13:35:00Z",
+"min": 147,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -12127,9 +12132,9 @@
 "aL": "ES",
 "hR": 327,
 "aR": 638,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
 "satz": [
 [
@@ -12137,8 +12142,12 @@
 4
 ],
 [
-0,
-0
+3,
+6
+],
+[
+6,
+1
 ]
 ]
 },
@@ -12237,7 +12246,7 @@
 },
 "17624371": {
 "id": 17624371,
-"start": "2026-11-25T14:50:00Z",
+"start": "2026-11-25T15:15:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -12290,7 +12299,7 @@
 },
 "17624370": {
 "id": 17624370,
-"start": "2026-11-25T13:55:00Z",
+"start": "2026-11-25T15:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -12304,11 +12313,16 @@
 "aL": "BR",
 "hR": 631,
 "aR": 1257,
-"st": "notstarted",
-"desc": "Not started",
+"st": "canceled",
+"desc": "Canceled",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+0,
+0
+]
+]
 },
 "17623567": {
 "id": 17623567,
@@ -12758,7 +12772,7 @@
 "17584169": {
 "id": 17584169,
 "start": "2026-11-25T11:20:00Z",
-"min": null,
+"min": 165,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
 "belag": "hard",
@@ -12771,9 +12785,9 @@
 "aL": "RS",
 "hR": 216,
 "aR": 489,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
@@ -12785,8 +12799,8 @@
 6
 ],
 [
-2,
-3
+7,
+5
 ]
 ]
 },
@@ -13474,20 +13488,108 @@
 },
 "17584164": {
 "id": 17584164,
-"start": "2026-11-27T12:00:00Z",
+"start": "2026-11-26T10:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "Qf1",
+"h": "Kimmer Coppejans",
 "a": "Dali Blanch",
-"hId": 393292,
+"hId": 54955,
 "aId": 318573,
-"hL": null,
+"hL": "BE",
 "aL": "US",
-"hR": null,
+"hR": 216,
 "aR": 314,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17634411": {
+"id": 17634411,
+"start": "2026-11-25T14:40:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Florianopolis, Brazil",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Nicolas Zanellato",
+"a": "Leonardo Storck Franca",
+"hId": 381917,
+"aId": 1151355,
+"hL": "BR",
+"aL": "BR",
+"hR": 691,
+"aR": 1257,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 32",
+"satz": []
+},
+"17583992": {
+"id": 17583992,
+"start": "2026-11-26T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Florianopolis, Brazil",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Igor Marcondes",
+"a": "R16P10",
+"hId": 82157,
+"aId": 393285,
+"hL": "BR",
+"aL": null,
+"hR": 327,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17583990": {
+"id": 17583990,
+"start": "2026-11-26T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Florianopolis, Brazil",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Javier Barranco Cosano",
+"a": "R16P12",
+"hId": 177686,
+"aId": 393287,
+"hL": "ES",
+"aL": null,
+"hR": 625,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17584295": {
+"id": 17584295,
+"start": "2026-11-27T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ankara, Turkiye",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Diego Dedura",
+"a": "Qf2",
+"hId": 484219,
+"aId": 393293,
+"hL": "DE",
+"aL": null,
+"hR": 185,
+"aR": null,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
