@@ -7764,7 +7764,7 @@
 },
 "17609336": {
 "id": 17609336,
-"start": "2026-11-25T15:25:00Z",
+"start": "2026-11-25T18:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -7866,7 +7866,7 @@
 "17609588": {
 "id": 17609588,
 "start": "2026-11-25T15:15:00Z",
-"min": null,
+"min": 130,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -7879,14 +7879,22 @@
 "aL": "AR",
 "hR": 186,
 "aR": 331,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
-0,
-1
+3,
+6
+],
+[
+6,
+3
+],
+[
+3,
+6
 ]
 ]
 },
@@ -7923,7 +7931,7 @@
 },
 "17609585": {
 "id": 17609585,
-"start": "2026-11-25T16:45:00Z",
+"start": "2026-11-25T17:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -7937,15 +7945,20 @@
 "aL": "DK",
 "hR": 350,
 "aR": 149,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+4
+]
+]
 },
 "17609586": {
 "id": 17609586,
-"start": "2026-11-25T14:15:00Z",
+"start": "2026-11-25T17:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -7959,11 +7972,20 @@
 "aL": "AR",
 "hR": 459,
 "aR": 179,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+2,
+5
+]
+]
 },
 "17609335": {
 "id": 17609335,
@@ -8795,8 +8817,8 @@
 "aId": 204776,
 "hL": "US",
 "aL": "BR",
-"hR": 786,
-"aR": 417,
+"hR": 780,
+"aR": 425,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -8949,8 +8971,8 @@
 "aId": 457215,
 "hL": "CO",
 "aL": "CA",
-"hR": null,
-"aR": 1060,
+"hR": 587,
+"aR": 1017,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -8980,8 +9002,8 @@
 "aId": 478944,
 "hL": "CO",
 "aL": "GB",
-"hR": 637,
-"aR": 656,
+"hR": 633,
+"aR": 660,
 "st": "finished",
 "desc": "Ended",
 "w": 2,
@@ -9015,8 +9037,8 @@
 "aId": 517358,
 "hL": "IT",
 "aL": "BR",
-"hR": 710,
-"aR": 547,
+"hR": 700,
+"aR": 544,
 "st": "finished",
 "desc": "Ended",
 "w": 2,
@@ -9069,7 +9091,7 @@
 },
 "17610466": {
 "id": 17610466,
-"start": "2026-11-24T15:15:00Z",
+"start": "2026-11-24T17:15:00Z",
 "min": 122,
 "kat": "Challenger",
 "turnier": "San Salvador, El Salvador",
@@ -9081,8 +9103,8 @@
 "aId": 519193,
 "hL": "CO",
 "aL": "FR",
-"hR": 629,
-"aR": 827,
+"hR": 630,
+"aR": 821,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -9116,8 +9138,8 @@
 "aId": 339453,
 "hL": "FR",
 "aL": "IT",
-"hR": 334,
-"aR": 694,
+"hR": 330,
+"aR": 692,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -12061,7 +12083,7 @@
 "17624372": {
 "id": 17624372,
 "start": "2026-11-25T14:45:00Z",
-"min": null,
+"min": 140,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -12074,13 +12096,21 @@
 "aL": "AR",
 "hR": 439,
 "aR": 583,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 32",
 "satz": [
 [
 5,
+7
+],
+[
+6,
+1
+],
+[
+0,
 6
 ]
 ]
@@ -12197,7 +12227,7 @@
 "hL": "BR",
 "aL": "IL",
 "hR": 574,
-"aR": 895,
+"aR": 862,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -12228,7 +12258,7 @@
 "hL": "GT",
 "aL": "US",
 "hR": null,
-"aR": 941,
+"aR": 812,
 "st": "finished",
 "desc": "Retired",
 "w": 2,
@@ -12246,7 +12276,7 @@
 },
 "17624371": {
 "id": 17624371,
-"start": "2026-11-25T15:15:00Z",
+"start": "2026-11-25T17:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -12260,11 +12290,20 @@
 "aL": "BR",
 "hR": 757,
 "aR": 322,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+1,
+1
+]
+]
 },
 "17623564": {
 "id": 17623564,
@@ -12281,7 +12320,7 @@
 "hL": "CO",
 "aL": "AR",
 "hR": null,
-"aR": 336,
+"aR": 360,
 "st": "finished",
 "desc": "Ended",
 "w": 2,
@@ -12338,8 +12377,8 @@
 "aId": 199198,
 "hL": "US",
 "aL": "MX",
-"hR": 975,
-"aR": 736,
+"hR": 951,
+"aR": 894,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -12405,7 +12444,7 @@
 "hL": "US",
 "aL": "US",
 "hR": null,
-"aR": 455,
+"aR": 457,
 "st": "finished",
 "desc": "Ended",
 "w": 2,
@@ -12872,7 +12911,7 @@
 },
 "17584202": {
 "id": 17584202,
-"start": "2026-11-26T08:00:00Z",
+"start": "2026-11-26T10:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -12894,7 +12933,7 @@
 },
 "17584291": {
 "id": 17584291,
-"start": "2026-11-26T08:00:00Z",
+"start": "2026-11-26T09:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -12916,7 +12955,7 @@
 },
 "17584294": {
 "id": 17584294,
-"start": "2026-11-26T08:00:00Z",
+"start": "2026-11-26T09:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -12982,7 +13021,7 @@
 },
 "17584244": {
 "id": 17584244,
-"start": "2026-11-25T17:10:00Z",
+"start": "2026-11-25T17:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "San Salvador, El Salvador",
@@ -12994,13 +13033,22 @@
 "aId": 523621,
 "hL": "JM",
 "aL": "US",
-"hR": 389,
-"aR": 941,
-"st": "notstarted",
-"desc": "Not started",
+"hR": 394,
+"aR": 812,
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+7
+],
+[
+0,
+1
+]
+]
 },
 "17584245": {
 "id": 17584245,
@@ -13026,8 +13074,8 @@
 },
 "17584243": {
 "id": 17584243,
-"start": "2026-11-25T16:00:00Z",
-"min": null,
+"start": "2026-11-25T16:05:00Z",
+"min": 75,
 "kat": "Challenger",
 "turnier": "San Salvador, El Salvador",
 "belag": "hard",
@@ -13038,13 +13086,22 @@
 "aId": 333081,
 "hL": "NI",
 "aL": "AR",
-"hR": 969,
-"aR": 336,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"hR": 966,
+"aR": 360,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+2,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17584240": {
 "id": 17584240,
@@ -13060,8 +13117,8 @@
 "aId": 517358,
 "hL": "GB",
 "aL": "BR",
-"hR": 656,
-"aR": 547,
+"hR": 660,
+"aR": 544,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13114,7 +13171,7 @@
 },
 "17584160": {
 "id": 17584160,
-"start": "2026-11-26T10:00:00Z",
+"start": "2026-11-26T11:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
@@ -13170,8 +13227,8 @@
 "aId": 853637,
 "hL": "US",
 "aL": "US",
-"hR": 975,
-"aR": 786,
+"hR": 951,
+"aR": 780,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13192,7 +13249,7 @@
 "aId": 406660,
 "hL": "CO",
 "aL": "MX",
-"hR": null,
+"hR": 587,
 "aR": null,
 "st": "notstarted",
 "desc": "Not started",
@@ -13214,7 +13271,7 @@
 "aId": 381419,
 "hL": "CO",
 "aL": "IL",
-"hR": 629,
+"hR": 630,
 "aR": 479,
 "st": "notstarted",
 "desc": "Not started",
@@ -13236,8 +13293,8 @@
 "aId": 199453,
 "hL": "FR",
 "aL": "US",
-"hR": 334,
-"aR": 455,
+"hR": 330,
+"aR": 457,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13334,7 +13391,7 @@
 },
 "17584200": {
 "id": 17584200,
-"start": "2026-11-26T08:00:00Z",
+"start": "2026-11-27T08:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -13429,13 +13486,13 @@
 "belag": "clay",
 "gt": "Red clay",
 "h": "Juan Manuel La Serna",
-"a": "R16P6",
+"a": "Thiago Cigarran",
 "hId": 379442,
-"aId": 393281,
+"aId": 303908,
 "hL": "AR",
-"aL": null,
+"aL": "AR",
 "hR": 212,
-"aR": null,
+"aR": 583,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -13511,7 +13568,7 @@
 "17634411": {
 "id": 17634411,
 "start": "2026-11-25T14:40:00Z",
-"min": null,
+"min": 130,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -13524,11 +13581,20 @@
 "aL": "BR",
 "hR": 691,
 "aR": 1257,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 32",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+7,
+6
+]
+]
 },
 "17583992": {
 "id": 17583992,
@@ -13594,6 +13660,50 @@
 "desc": "Not started",
 "w": null,
 "runde": "Quarterfinals",
+"satz": []
+},
+"17583985": {
+"id": 17583985,
+"start": "2026-11-26T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Florianopolis, Brazil",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Carlos Maria Zarate",
+"a": "R16P14",
+"hId": 511702,
+"aId": 393289,
+"hL": "AR",
+"aL": null,
+"hR": 331,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
+"satz": []
+},
+"17583993": {
+"id": 17583993,
+"start": "2026-11-26T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Florianopolis, Brazil",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Nicolas Zanellato",
+"a": "R16P16",
+"hId": 381917,
+"aId": 393291,
+"hL": "BR",
+"aL": null,
+"hR": 691,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Round of 16",
 "satz": []
 }
 }

@@ -1,284 +1,9 @@
 {
-"stand": "2026-11-25T16:00:22Z",
+"stand": "2026-11-25T18:46:10Z",
 "partien": [
 {
-"id": "id1205387876916458",
-"start": "2026-11-25T16:00:00.000Z",
-"turnier": "San Salvador Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Joaquin Guilleme",
-"b": "Luciano Emanuel Ambrogi",
-"aRoh": "Guilleme, Joaquin",
-"bRoh": "Ambrogi, Luciano Emanuel",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 53878,
-"p1Id": 925411,
-"p2Id": 652290,
-"sapId": 17584243,
-"landA": "NI",
-"landB": "AR",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 24,
-"min7": 119,
-"minN": 1,
-"letztesMin": 119,
-"letztesGames": 24,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T02:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SV",
-"tz": -6,
-"start": "2026-11-24T18:25:00Z",
-"turnier": "San Salvador, El Salvador"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 22,
-"min7": 130,
-"minN": 1,
-"letztesMin": 130,
-"letztesGames": 22,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T18:25:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SV",
-"tz": -6,
-"start": "2026-11-24T02:05:00Z",
-"turnier": "San Salvador, El Salvador"
-}
-}
-},
-"ort": {
-"land": "SV",
-"tz": -6
-},
-"rangA": 969,
-"rangB": 336
-},
-{
-"id": "id1200670777031294",
-"start": "2026-11-25T16:35:00.000Z",
-"turnier": "Florianopolis Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Pedro Sakamoto",
-"b": "Guido Ivan Justo",
-"aRoh": "Sakamoto, Pedro",
-"bRoh": "Justo, Guido Ivan",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.65,
-1.23
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 6707,
-"p1Id": 65576,
-"p2Id": 341188,
-"sapId": 17609586,
-"landA": "BR",
-"landB": "AR",
-"runde": "Round of 32",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 0,
-"vorOrt": {
-"land": "UY",
-"tz": -3,
-"start": "2026-11-21T21:30:00Z",
-"turnier": "Montevideo, Uruguay"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 8,
-"games7": 70,
-"min7": 394,
-"minN": 3,
-"letztesMin": 92,
-"letztesGames": 19,
-"dreisatz7": 2,
-"siege7": 2,
-"letztes": "2026-11-21T21:30:00Z",
-"quali": false
-}
-},
-"ort": {
-"land": "BR",
-"tz": -3
-},
-"rangA": 459,
-"rangB": 179
-},
-{
-"id": "id1200670777031288",
-"start": "2026-11-25T16:55:00.000Z",
-"turnier": "Florianopolis Challenger",
-"kategorie": "Challenger",
-"belag": "clay",
-"belagQuelle": "spieldaten",
-"a": "Nicolas Kicker",
-"b": "Elmer Moeller",
-"aRoh": "Kicker, Nicolas",
-"bRoh": "Moller, Elmer",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.1,
-1.31
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 6707,
-"p1Id": 66086,
-"p2Id": 1084926,
-"sapId": 17609585,
-"landA": "AR",
-"landB": "DK",
-"runde": "Round of 32",
-"gt": "Red clay",
-"form": {
-"a": {
-"spiele7": 0,
-"vorOrt": {
-"land": "UY",
-"tz": -3,
-"start": "2026-11-21T20:00:00Z",
-"turnier": "Montevideo, Uruguay"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 57,
-"min7": 263,
-"minN": 3,
-"letztesMin": 72,
-"letztesGames": 16,
-"dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-21T20:00:00Z",
-"quali": false
-}
-},
-"ort": {
-"land": "BR",
-"tz": -3
-},
-"rangA": 350,
-"rangB": 149
-},
-{
-"id": "id1205387876916478",
-"start": "2026-11-25T17:10:00.000Z",
-"turnier": "San Salvador Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Blaise Bicknell",
-"b": "Theodore Dean",
-"aRoh": "Bicknell, Blaise",
-"bRoh": "Dean, Theodore",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.26,
-3.45
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 53878,
-"p1Id": 516848,
-"p2Id": 1144655,
-"sapId": 17584244,
-"landA": "JM",
-"landB": "US",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 29,
-"min7": 123,
-"minN": 1,
-"letztesMin": 123,
-"letztesGames": 29,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-23T21:55:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SV",
-"tz": -6,
-"start": "2026-11-24T16:00:00Z",
-"turnier": "San Salvador, El Salvador"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 10,
-"min7": 50,
-"minN": 1,
-"letztesMin": 50,
-"letztesGames": 10,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T16:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "SV",
-"tz": -6,
-"start": "2026-11-23T21:55:00Z",
-"turnier": "San Salvador, El Salvador"
-}
-}
-},
-"ort": {
-"land": "SV",
-"tz": -6
-},
-"rangA": 389,
-"rangB": 941
-},
-{
 "id": "id1200670777031296",
-"start": "2026-11-25T17:45:00.000Z",
+"start": "2026-11-25T18:55:00.000Z",
 "turnier": "Florianopolis Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
@@ -338,8 +63,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.94,
-1.76
+2.0,
+1.7
 ]
 },
 "pausiert": [],
@@ -397,8 +122,8 @@
 "land": "SV",
 "tz": -6
 },
-"rangA": 656,
-"rangB": 547
+"rangA": 660,
+"rangB": 544
 },
 {
 "id": "id1202322176915322",
@@ -494,8 +219,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.66,
-1.88
+1.68,
+1.86
 ]
 },
 "pausiert": [],
@@ -573,7 +298,7 @@
 "quoten": {
 "winamax": [
 1.05,
-7.5
+7.75
 ]
 },
 "pausiert": [],
@@ -859,7 +584,7 @@
 },
 {
 "id": "id1200917976915386",
-"start": "2026-11-26T03:20:00.000Z",
+"start": "2026-11-26T03:10:00.000Z",
 "turnier": "Yokohama Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -946,8 +671,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-4.9,
-1.13
+4.6,
+1.15
 ]
 },
 "pausiert": [],
@@ -1009,33 +734,6 @@
 "rangB": 209
 },
 {
-"id": "id1204762476916404",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Hersonissos 4 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "kalender",
-"a": "Gabriel Ghetu",
-"b": "Andres Martin",
-"aRoh": "Ghetu, Gabriel",
-"bRoh": "Martin, Andres",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-5.1,
-1.12
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 47624,
-"p1Id": 1024673,
-"p2Id": 603420
-},
-{
 "id": "id1204762476916408",
 "start": "2026-11-26T08:00:00.000Z",
 "turnier": "Hersonissos 4 Challenger",
@@ -1051,8 +749,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.38,
-2.75
+1.4,
+2.7
 ]
 },
 "pausiert": [],
@@ -1112,84 +810,6 @@
 },
 "rangA": 292,
 "rangB": 626
-},
-{
-"id": "id1204762476916410",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Hersonissos 4 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Ryan Peniston",
-"b": "Ioannis Xilas",
-"aRoh": "Peniston, Ryan",
-"bRoh": "Xilas, Ioannis",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.15,
-1.58
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 47624,
-"p1Id": 91240,
-"p2Id": 583711,
-"sapId": 17584202,
-"landA": "GB",
-"landB": "GR",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 20,
-"min7": 124,
-"minN": 1,
-"letztesMin": 124,
-"letztesGames": 20,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T12:15:00Z",
-"quali": false,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-24T15:10:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 20,
-"min7": 114,
-"minN": 1,
-"letztesMin": 114,
-"letztesGames": 20,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T15:10:00Z",
-"quali": false,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-24T12:15:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-}
-},
-"ort": {
-"land": "GR",
-"tz": 2
-},
-"rangA": 1409,
-"rangB": 514
 },
 {
 "id": "id1204762476916412",
@@ -1348,152 +968,6 @@
 "rangB": 684
 },
 {
-"id": "id1205397476916748",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Ankara Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Jannik Maute",
-"b": "Ergi Kirkin",
-"aRoh": "Maute, Jannik",
-"bRoh": "Kirkin, Ergi",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 53974,
-"p1Id": 853635,
-"p2Id": 186629,
-"sapId": 17584291,
-"landA": "DE",
-"landB": "TR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 69,
-"min7": 253,
-"minN": 3,
-"letztesMin": 76,
-"letztesGames": 20,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-24T12:40:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-25T10:05:00Z",
-"turnier": "Ankara, Turkiye"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 22,
-"min7": 101,
-"minN": 1,
-"letztesMin": 101,
-"letztesGames": 22,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-25T10:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-24T12:40:00Z",
-"turnier": "Ankara, Turkiye"
-}
-}
-},
-"ort": {
-"land": "TR",
-"tz": 3
-},
-"rangA": 901,
-"rangB": 518
-},
-{
-"id": "id1205397476916756",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Ankara Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Robert Guna",
-"b": "Max Wiskandt",
-"aRoh": "Guna, Robert",
-"bRoh": "Wiskandt, Max",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 53974,
-"p1Id": 930853,
-"p2Id": 508496,
-"sapId": 17584294,
-"landA": "RO",
-"landB": "DE",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 8,
-"games7": 86,
-"min7": 321,
-"minN": 3,
-"letztesMin": 97,
-"letztesGames": 32,
-"dreisatz7": 2,
-"siege7": 3,
-"letztes": "2026-11-24T13:15:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-25T08:00:00Z",
-"turnier": "Ankara, Turkiye"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 32,
-"min7": 125,
-"minN": 1,
-"letztesMin": 125,
-"letztesGames": 32,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-25T08:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-24T13:15:00Z",
-"turnier": "Ankara, Turkiye"
-}
-}
-},
-"ort": {
-"land": "TR",
-"tz": 3
-},
-"rangA": 765,
-"rangB": 396
-},
-{
 "id": "id1205397476916758",
 "start": "2026-11-26T08:00:00.000Z",
 "turnier": "Ankara Challenger",
@@ -1567,16 +1041,16 @@
 "rangB": 456
 },
 {
-"id": "id1205210076916316",
-"start": "2026-11-26T10:00:00.000Z",
-"turnier": "Monastir 2 Challenger",
+"id": "id1205397476916748",
+"start": "2026-11-26T09:20:00.000Z",
+"turnier": "Ankara Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
 "belagQuelle": "spieldaten",
-"a": "Kimmer Coppejans",
-"b": "Dali Blanch",
-"aRoh": "Coppejans, Kimmer",
-"bRoh": "Blanch, Dali",
+"a": "Jannik Maute",
+"b": "Ergi Kirkin",
+"aRoh": "Maute, Jannik",
+"bRoh": "Kirkin, Ergi",
 "aInDb": true,
 "bInDb": true,
 "hatQuoten": false,
@@ -1584,60 +1058,133 @@
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
-"tid": 52100,
-"p1Id": 54955,
-"p2Id": 588075,
-"sapId": 17584164,
-"landA": "BE",
-"landB": "US",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
+"tid": 53974,
+"p1Id": 853635,
+"p2Id": 186629,
+"sapId": 17584291,
+"landA": "DE",
+"landB": "TR",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
 "form": {
 "a": {
-"spiele7": 2,
-"saetze7": 5,
-"games7": 52,
-"min7": 256,
-"minN": 2,
-"letztesMin": 165,
-"letztesGames": 34,
+"spiele7": 3,
+"saetze7": 7,
+"games7": 69,
+"min7": 253,
+"minN": 3,
+"letztesMin": 76,
+"letztesGames": 20,
 "dreisatz7": 1,
-"siege7": 2,
-"letztes": "2026-11-25T11:20:00Z",
-"quali": false,
+"siege7": 3,
+"letztes": "2026-11-24T12:40:00Z",
+"quali": true,
 "vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-25T10:00:00Z",
-"turnier": "Monastir 2, Tunisia"
+"land": "TR",
+"tz": 3,
+"start": "2026-11-25T10:05:00Z",
+"turnier": "Ankara, Turkiye"
 }
 },
 "b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 35,
-"min7": 149,
-"minN": 2,
-"letztesMin": 73,
-"letztesGames": 18,
+"spiele7": 1,
+"saetze7": 2,
+"games7": 22,
+"min7": 101,
+"minN": 1,
+"letztesMin": 101,
+"letztesGames": 22,
 "dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-25T10:00:00Z",
+"siege7": 1,
+"letztes": "2026-11-25T10:05:00Z",
 "quali": false,
 "vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-25T11:20:00Z",
-"turnier": "Monastir 2, Tunisia"
+"land": "TR",
+"tz": 3,
+"start": "2026-11-24T12:40:00Z",
+"turnier": "Ankara, Turkiye"
 }
 }
 },
 "ort": {
-"land": "TN",
-"tz": 1
+"land": "TR",
+"tz": 3
 },
-"rangA": 216,
-"rangB": 314
+"rangA": 901,
+"rangB": 518
+},
+{
+"id": "id1205397476916756",
+"start": "2026-11-26T09:20:00.000Z",
+"turnier": "Ankara Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Robert Guna",
+"b": "Max Wiskandt",
+"aRoh": "Guna, Robert",
+"bRoh": "Wiskandt, Max",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 53974,
+"p1Id": 930853,
+"p2Id": 508496,
+"sapId": 17584294,
+"landA": "RO",
+"landB": "DE",
+"runde": "Round of 16",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 8,
+"games7": 86,
+"min7": 321,
+"minN": 3,
+"letztesMin": 97,
+"letztesGames": 32,
+"dreisatz7": 2,
+"siege7": 3,
+"letztes": "2026-11-24T13:15:00Z",
+"quali": true,
+"vorOrt": {
+"land": "TR",
+"tz": 3,
+"start": "2026-11-25T08:00:00Z",
+"turnier": "Ankara, Turkiye"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 3,
+"games7": 32,
+"min7": 125,
+"minN": 1,
+"letztesMin": 125,
+"letztesGames": 32,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-11-25T08:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "TR",
+"tz": 3,
+"start": "2026-11-24T13:15:00Z",
+"turnier": "Ankara, Turkiye"
+}
+}
+},
+"ort": {
+"land": "TR",
+"tz": 3
+},
+"rangA": 765,
+"rangB": 396
 },
 {
 "id": "id1205210076916324",
@@ -1874,8 +1421,86 @@
 "rangB": 612
 },
 {
+"id": "id1204762476916410",
+"start": "2026-11-26T10:40:00.000Z",
+"turnier": "Hersonissos 4 Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Ryan Peniston",
+"b": "Ioannis Xilas",
+"aRoh": "Peniston, Ryan",
+"bRoh": "Xilas, Ioannis",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.15,
+1.58
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 47624,
+"p1Id": 91240,
+"p2Id": 583711,
+"sapId": 17584202,
+"landA": "GB",
+"landB": "GR",
+"runde": "Round of 16",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 20,
+"min7": 124,
+"minN": 1,
+"letztesMin": 124,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-24T12:15:00Z",
+"quali": false,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-24T15:10:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+},
+"b": {
+"spiele7": 1,
+"saetze7": 2,
+"games7": 20,
+"min7": 114,
+"minN": 1,
+"letztesMin": 114,
+"letztesGames": 20,
+"dreisatz7": 0,
+"siege7": 1,
+"letztes": "2026-11-24T15:10:00Z",
+"quali": false,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-24T12:15:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+}
+},
+"ort": {
+"land": "GR",
+"tz": 2
+},
+"rangA": 1409,
+"rangB": 514
+},
+{
 "id": "id1205210076916330",
-"start": "2026-11-26T10:00:00.000Z",
+"start": "2026-11-26T11:10:00.000Z",
 "turnier": "Monastir 2 Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -1950,6 +1575,84 @@
 },
 "rangA": 448,
 "rangB": 258
+},
+{
+"id": "id1200670776914724",
+"start": "2026-11-26T13:00:00.000Z",
+"turnier": "Florianopolis Challenger",
+"kategorie": "Challenger",
+"belag": "clay",
+"belagQuelle": "spieldaten",
+"a": "Juan Manuel La Serna",
+"b": "Thiago Cigarran",
+"aRoh": "La Serna, Juan Manuel",
+"bRoh": "Cigarran, Thiago",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.1,
+5.7
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 6707,
+"p1Id": 785974,
+"p2Id": 518802,
+"sapId": 17583987,
+"landA": "AR",
+"landB": "AR",
+"runde": "Round of 16",
+"gt": "Red clay",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 5,
+"games7": 56,
+"min7": 326,
+"minN": 2,
+"letztesMin": 119,
+"letztesGames": 21,
+"dreisatz7": 1,
+"siege7": 1,
+"letztes": "2026-11-25T13:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-25T14:45:00Z",
+"turnier": "Florianopolis, Brazil"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 8,
+"games7": 76,
+"min7": 395,
+"minN": 3,
+"letztesMin": 140,
+"letztesGames": 25,
+"dreisatz7": 2,
+"siege7": 3,
+"letztes": "2026-11-25T14:45:00Z",
+"quali": true,
+"vorOrt": {
+"land": "BR",
+"tz": -3,
+"start": "2026-11-25T13:00:00Z",
+"turnier": "Florianopolis, Brazil"
+}
+}
+},
+"ort": {
+"land": "BR",
+"tz": -3
+},
+"rangA": 212,
+"rangB": 583
 },
 {
 "id": "id1200670776914726",
@@ -2042,8 +1745,13 @@
 "bRoh": "Alvarez Valdes, Luis Carlos",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+5.8,
+1.09
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -2098,7 +1806,8 @@
 "ort": {
 "land": "SV",
 "tz": -6
-}
+},
+"rangA": 587
 },
 {
 "id": "id1205387876916470",
@@ -2113,8 +1822,13 @@
 "bRoh": "Willwerth, Benjamin",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.45,
+1.48
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -2170,8 +1884,8 @@
 "land": "SV",
 "tz": -6
 },
-"rangA": 975,
-"rangB": 786
+"rangA": 951,
+"rangB": 780
 },
 {
 "id": "id1205387876916474",
@@ -2186,8 +1900,13 @@
 "bRoh": "Poling, Karl",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.12,
+5.1
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -2243,8 +1962,8 @@
 "land": "SV",
 "tz": -6
 },
-"rangA": 334,
-"rangB": 455
+"rangA": 330,
+"rangB": 457
 },
 {
 "id": "id1205387876916476",
@@ -2259,8 +1978,13 @@
 "bRoh": "Vales, Amit",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+3.4,
+1.27
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -2283,7 +2007,7 @@
 "letztesGames": 24,
 "dreisatz7": 1,
 "siege7": 1,
-"letztes": "2026-11-24T15:15:00Z",
+"letztes": "2026-11-24T17:15:00Z",
 "quali": false,
 "vorOrt": {
 "land": "SV",
@@ -2307,7 +2031,7 @@
 "vorOrt": {
 "land": "SV",
 "tz": -6,
-"start": "2026-11-24T15:15:00Z",
+"start": "2026-11-24T17:15:00Z",
 "turnier": "San Salvador, El Salvador"
 }
 }
@@ -2316,7 +2040,7 @@
 "land": "SV",
 "tz": -6
 },
-"rangA": 629,
+"rangA": 630,
 "rangB": 479
 }
 ]
