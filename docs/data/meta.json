@@ -1,18 +1,18 @@
 {
  "hinweis": "Demo: Partien und Quoten aus dem aktuellen DASHBOARD der Excel. Live-Daten nach Einrichtung des OddsPapi-Keys.",
- "elo_update": "2026-11-25T06:45Z",
- "quoten_update": "2026-11-25T06:46:09Z",
+ "elo_update": "2026-11-25T10:45Z",
+ "quoten_update": "2026-11-25T10:46:14Z",
  "quoten_hinweis": null,
  "kontingent": {
-  "verbraucht": 137,
+  "verbraucht": 140,
   "limit": 250
  },
  "unbekannte_namen": [],
  "buchmacher_fehlen": [],
  "abdeckung": {},
  "historisch": {
-  "partien": 47,
-  "mit_quote": 29,
+  "partien": 32,
+  "mit_quote": 23,
   "mit_pinnacle": 0,
   "fehler": 5,
   "fehler_beispiele": [
@@ -20,12 +20,13 @@
   ]
  },
  "pin_schluss": {
-  "stand": "2026-11-25T06:51Z",
-  "abgerufen": 0,
-  "offen": 126,
+  "stand": "2026-11-25T10:47Z",
+  "abgerufen": 15,
+  "offen": 135,
   "fehler": 6,
   "fehler_beispiele": [
-   "OddsPapi historical-odds: HTTP 403 – {\"error\":{\"message\":\"Restricted access to historical odds.\",\"code\":\"RESTRICTED_ACCESS\",\"details\":\"Historical odds are only "
+   "OddsPapi historical-odds: HTTP 403 – {\"error\":{\"message\":\"Restricted access to historical odds.\",\"code\":\"RESTRICTED_ACCESS\",\"details\":\"Historical odds are only ",
+   "OddsPapi historical-odds: HTTP 404 – {\"error\":{\"message\":\"No historical odds found.\",\"code\":\"NOT_FOUND\",\"details\":\"Please check the provided filters and try aga"
   ]
  }
 }
