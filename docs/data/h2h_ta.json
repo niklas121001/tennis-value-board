@@ -166,7 +166,7 @@
 "ok": true
 },
 "Petr Bar Biryukov": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Liam Broady": {
@@ -706,7 +706,7 @@
 "ok": true
 },
 "Federico Bondioli": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Georgii Kravchenko": {
@@ -1047,7 +1047,7 @@
 "ok": true
 },
 "Filippo Romano": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Peter Makk": {
@@ -1543,7 +1543,7 @@
 "ok": true
 },
 "Eliakim Coulibaly": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Luca Nardi": {
@@ -1910,7 +1910,7 @@
 "ok": true
 },
 "Yannik Kelm": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Carlos Taberner": {
@@ -1918,7 +1918,7 @@
 "ok": true
 },
 "Semen Pankin": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Nicolas Parizzia": {
@@ -2201,7 +2201,7 @@
 "ok": true
 },
 "Robert Guna": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Dusan Obradovic": {
@@ -2229,11 +2229,11 @@
 "ok": true
 },
 "Giorgio Tabacco": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Mathieu Scaglia": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ok": true
 },
 "Wissam Abderrahman": {
@@ -13417,6 +13417,35 @@
 "Svyatoslav Gulin|Vadym Ursu": {
 "datum": "2026-11-25",
 "duelle": []
+},
+"Max Wiskandt|Robert Guna": {
+"datum": "2026-11-25",
+"duelle": []
+},
+"Federico Bondioli|Mathieu Scaglia": {
+"datum": "2026-11-25",
+"duelle": []
+},
+"Petr Bar Biryukov|Semen Pankin": {
+"datum": "2026-11-25",
+"duelle": [
+[
+"20261026",
+"Ningbo CH",
+"H",
+"R32",
+0,
+"6-7(1) 7-6(5) 6-4"
+]
+]
+},
+"Eliakim Coulibaly|Giorgio Tabacco": {
+"datum": "2026-11-25",
+"duelle": []
+},
+"Filippo Romano|Yannik Kelm": {
+"datum": "2026-11-25",
+"duelle": []
 }
 },
 "hb": {
@@ -18551,7 +18580,7 @@
 }
 },
 "Petr Bar Biryukov": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
@@ -49361,7 +49390,7 @@
 }
 },
 "Federico Bondioli": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
@@ -69341,9 +69370,15 @@
 }
 },
 "Filippo Romano": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
+"202611": [
+0,
+0,
+1,
+0
+],
 "202610": [
 0,
 0,
@@ -94733,13 +94768,13 @@
 }
 },
 "Eliakim Coulibaly": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 0,
-0,
+1,
 1
 ],
 "202609": [
@@ -111299,13 +111334,13 @@
 }
 },
 "Yannik Kelm": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 0,
-1,
+2,
 2
 ],
 "202607": [
@@ -111689,7 +111724,7 @@
 }
 },
 "Semen Pankin": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
@@ -122249,11 +122284,11 @@
 }
 },
 "Robert Guna": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
-0,
+1,
 0,
 2,
 0
@@ -123419,13 +123454,13 @@
 }
 },
 "Giorgio Tabacco": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 0,
-1,
+2,
 0
 ],
 "202609": [
@@ -123593,7 +123628,7 @@
 }
 },
 "Mathieu Scaglia": {
-"datum": "2026-11-24",
+"datum": "2026-11-25",
 "ab": "202301",
 "m": {
 "202611": [
@@ -126949,7 +126984,7 @@
 },
 "Federico Bondioli": {
 "g": [
-91,
+92,
 16
 ],
 "v": [
@@ -128349,7 +128384,7 @@
 },
 "Petr Bar Biryukov": {
 "g": [
-114,
+115,
 18
 ],
 "v": [
@@ -128709,7 +128744,7 @@
 },
 "Filippo Romano": {
 "g": [
-68,
+69,
 15
 ],
 "v": [
@@ -130099,7 +130134,7 @@
 },
 "Eliakim Coulibaly": {
 "g": [
-134,
+135,
 14
 ],
 "v": [
@@ -131009,7 +131044,7 @@
 },
 "Yannik Kelm": {
 "g": [
-53,
+54,
 13
 ],
 "v": [
@@ -131029,7 +131064,7 @@
 },
 "Semen Pankin": {
 "g": [
-81,
+82,
 14
 ],
 "v": [
@@ -131673,7 +131708,7 @@
 6
 ],
 "v": [
-4,
+5,
 20
 ]
 },
@@ -131743,13 +131778,13 @@
 18
 ],
 "v": [
-13,
+14,
 51
 ]
 },
 "Mathieu Scaglia": {
 "g": [
-26,
+27,
 9
 ],
 "v": [
