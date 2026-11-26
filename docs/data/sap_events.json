@@ -10555,8 +10555,8 @@
 "aId": 415575,
 "hL": "PE",
 "aL": "BR",
-"hR": 633,
-"aR": 1084,
+"hR": 631,
+"aR": 1150,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -10586,8 +10586,8 @@
 "aId": 54477,
 "hL": "ES",
 "aL": "BR",
-"hR": 642,
-"aR": 681,
+"hR": 638,
+"aR": 718,
 "st": "finished",
 "desc": "Ended",
 "w": 1,
@@ -10617,8 +10617,8 @@
 "aId": 286518,
 "hL": "BR",
 "aL": "AR",
-"hR": 671,
-"aR": 682,
+"hR": 691,
+"aR": 688,
 "st": "finished",
 "desc": "Retired",
 "w": 2,
@@ -11551,7 +11551,7 @@
 },
 "17583991": {
 "id": 17583991,
-"start": "2026-11-26T15:45:00Z",
+"start": "2026-11-26T16:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -11565,11 +11565,24 @@
 "aL": "AR",
 "hR": 297,
 "aR": 238,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+4
+],
+[
+2,
+6
+],
+[
+2,
+2
+]
+]
 },
 "17584201": {
 "id": 17584201,
@@ -11733,7 +11746,7 @@
 "17583986": {
 "id": 17583986,
 "start": "2026-11-26T14:35:00Z",
-"min": null,
+"min": 115,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -11746,9 +11759,9 @@
 "aL": "UY",
 "hR": 386,
 "aR": 210,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -11756,8 +11769,8 @@
 6
 ],
 [
-1,
-1
+5,
+7
 ]
 ]
 },
@@ -12010,7 +12023,7 @@
 },
 "17584249": {
 "id": 17584249,
-"start": "2026-11-26T18:10:00Z",
+"start": "2026-11-26T18:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "San Salvador, El Salvador",
@@ -12032,8 +12045,8 @@
 },
 "17584238": {
 "id": 17584238,
-"start": "2026-11-26T17:00:00Z",
-"min": null,
+"start": "2026-11-26T17:10:00Z",
+"min": 69,
 "kat": "Challenger",
 "turnier": "San Salvador, El Salvador",
 "belag": "hard",
@@ -12046,16 +12059,25 @@
 "aL": "MX",
 "hR": 587,
 "aR": null,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+1,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17584246": {
 "id": 17584246,
 "start": "2026-11-26T17:00:00Z",
-"min": null,
+"min": 80,
 "kat": "Challenger",
 "turnier": "San Salvador, El Salvador",
 "belag": "hard",
@@ -12068,11 +12090,20 @@
 "aL": "IL",
 "hR": 630,
 "aR": 479,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+6,
+3
+]
+]
 },
 "17584248": {
 "id": 17584248,
@@ -12403,7 +12434,7 @@
 "17583992": {
 "id": 17583992,
 "start": "2026-11-26T15:35:00Z",
-"min": null,
+"min": 80,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -12416,14 +12447,18 @@
 "aL": "CH",
 "hR": 327,
 "aR": 418,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Round of 16",
 "satz": [
 [
-0,
-0
+6,
+2
+],
+[
+6,
+4
 ]
 ]
 },
@@ -12483,7 +12518,7 @@
 "17583985": {
 "id": 17583985,
 "start": "2026-11-26T14:55:00Z",
-"min": null,
+"min": 59,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -12496,9 +12531,9 @@
 "aL": "BR",
 "hR": 331,
 "aR": 322,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Round of 16",
 "satz": [
 [
@@ -12507,13 +12542,13 @@
 ],
 [
 1,
-0
+6
 ]
 ]
 },
 "17583993": {
 "id": 17583993,
-"start": "2026-11-26T16:45:00Z",
+"start": "2026-11-26T17:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -12527,11 +12562,24 @@
 "aL": "DK",
 "hR": 691,
 "aR": 149,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Round of 16",
-"satz": []
+"satz": [
+[
+0,
+6
+],
+[
+6,
+4
+],
+[
+1,
+0
+]
+]
 },
 "17584079": {
 "id": 17584079,
@@ -12762,13 +12810,13 @@
 "belag": "clay",
 "gt": "Red clay",
 "h": "Eduardo Ribeiro",
-"a": "Qf2",
+"a": "Franco Roncadelli",
 "hId": 199488,
-"aId": 393293,
+"aId": 240797,
 "hL": "BR",
-"aL": null,
+"aL": "UY",
 "hR": 408,
-"aR": null,
+"aR": 210,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
@@ -12805,14 +12853,80 @@
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
 "gt": "Red clay",
-"h": "Qf5",
+"h": "Igor Marcondes",
 "a": "Guido Ivan Justo",
-"hId": 393296,
+"hId": 82157,
 "aId": 255418,
-"hL": null,
+"hL": "BR",
 "aL": "AR",
-"hR": null,
+"hR": 327,
 "aR": 179,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17583994": {
+"id": 17583994,
+"start": "2026-11-27T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Florianopolis, Brazil",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Felipe Meligeni Alves",
+"a": "Qf8",
+"hId": 158748,
+"aId": 393299,
+"hL": "BR",
+"aL": null,
+"hR": 322,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17584237": {
+"id": 17584237,
+"start": "2026-11-27T18:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "San Salvador, El Salvador",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Luis Carlos Alvarez Valdes",
+"a": "Qf6",
+"hId": 406660,
+"aId": 393297,
+"hL": "MX",
+"aL": null,
+"hR": null,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Quarterfinals",
+"satz": []
+},
+"17584250": {
+"id": 17584250,
+"start": "2026-11-27T18:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "San Salvador, El Salvador",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Qf1",
+"a": "Samuel Heredia",
+"hId": 393292,
+"aId": 400534,
+"hL": null,
+"aL": "CO",
+"hR": null,
+"aR": 630,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
