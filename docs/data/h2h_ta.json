@@ -1027,7 +1027,7 @@
 "ok": true
 },
 "Thomas Faurel": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Felix Gill": {
@@ -1567,7 +1567,7 @@
 "ok": true
 },
 "Daniel Rincon": {
-"datum": "2026-11-24",
+"datum": "2026-11-26",
 "ok": true
 },
 "Timo Legout": {
@@ -1838,7 +1838,7 @@
 "ok": true
 },
 "Matthew William Donald": {
-"datum": "2026-11-23",
+"datum": "2026-11-26",
 "ok": true
 },
 "Joshua Charlton": {
@@ -1870,7 +1870,7 @@
 "ok": true
 },
 "Tuncay Duran": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Gokberk Saritas": {
@@ -13640,6 +13640,22 @@
 "duelle": []
 },
 "Hayato Matsuoka|Rio Noguchi": {
+"datum": "2026-11-26",
+"duelle": []
+},
+"Benjamin Pietri|Gilles Arnaud Bailly": {
+"datum": "2026-11-26",
+"duelle": []
+},
+"Robert Guna|Thomas Faurel": {
+"datum": "2026-11-26",
+"duelle": []
+},
+"Tuncay Duran|Vadym Ursu": {
+"datum": "2026-11-26",
+"duelle": []
+},
+"Daniel Rincon|Matthew William Donald": {
 "datum": "2026-11-26",
 "duelle": []
 }
@@ -68486,7 +68502,7 @@
 }
 },
 "Thomas Faurel": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -96068,13 +96084,13 @@
 }
 },
 "Daniel Rincon": {
-"datum": "2026-11-24",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 0,
-0,
+1,
 2
 ],
 "202610": [
@@ -107816,13 +107832,13 @@
 }
 },
 "Matthew William Donald": {
-"datum": "2026-11-23",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 0,
-2,
+4,
 4
 ],
 "202610": [
@@ -109544,7 +109560,7 @@
 }
 },
 "Tuncay Duran": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -129203,7 +129219,7 @@
 },
 "Thomas Faurel": {
 "g": [
-59,
+60,
 14
 ],
 "v": [
@@ -129543,7 +129559,7 @@
 },
 "Gilles Arnaud Bailly": {
 "g": [
-106,
+107,
 16
 ],
 "v": [
@@ -130703,7 +130719,7 @@
 },
 "Daniel Rincon": {
 "g": [
-115,
+117,
 16
 ],
 "v": [
@@ -131363,12 +131379,12 @@
 },
 "Matthew William Donald": {
 "g": [
-89,
+91,
 13
 ],
 "v": [
 18,
-93
+92
 ]
 },
 "Joshua Charlton": {
@@ -131453,7 +131469,7 @@
 },
 "Tuncay Duran": {
 "g": [
-58,
+59,
 12
 ],
 "v": [
@@ -138361,18 +138377,7 @@
 ]
 },
 "Loann Massard": {},
-"Thomas Faurel": {
-"clay": {
-"mittel": [
-4,
-2
-]
-},
-"draussen": [
-4,
-2
-]
-},
+"Thomas Faurel": {},
 "Felix Gill": {
 "hard": {
 "mittel": [
@@ -139373,35 +139378,23 @@
 "Menelaos Efstathiou": {},
 "Gilles Arnaud Bailly": {
 "hard": {
+"mittel": [
+2,
+1
+],
 "schnell": [
 6,
-4
-],
-"mittel": [
-2,
-2
+3
 ]
 },
-"halle": [
-6,
-4
-],
 "draussen": [
 2,
-4
+1
 ],
-"grass": {
-"mittel": [
-0,
-1
+"halle": [
+6,
+3
 ]
-},
-"clay": {
-"mittel": [
-0,
-1
-]
-}
 },
 "Andrej Nedic": {},
 "Radu Mihai Papoe": {},
@@ -141611,28 +141604,28 @@
 "Filip Jeff Planinsek": {},
 "Santiago De La Fuente": {},
 "Daniel Rincon": {
-"hard": {
-"mittel": [
-3,
-4
-]
-},
-"draussen": [
-8,
-13
-],
 "grass": {
 "mittel": [
 0,
 3
 ]
 },
+"draussen": [
+6,
+12
+],
 "clay": {
 "mittel": [
 5,
 4
 ],
 "langsam": [
+1,
+3
+]
+},
+"hard": {
+"mittel": [
 1,
 3
 ]
