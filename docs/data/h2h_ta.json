@@ -356,7 +356,7 @@
 "ok": true
 },
 "Carl Emil Overbeck": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Lukas Pokorny": {
@@ -641,11 +641,11 @@
 "ok": true
 },
 "Omar Jasika": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Yuta Shimizu": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Mitsuki Wei Kang Leong": {
@@ -1350,7 +1350,7 @@
 "ok": true
 },
 "Naoya Honda": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Juncheng Shang": {
@@ -1378,7 +1378,7 @@
 "ok": true
 },
 "Dane Sweeny": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Hikaru Shiraishi": {
@@ -1435,7 +1435,7 @@
 "ok": true
 },
 "Alex Bolt": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Pierre-Hugues Herbert": {
@@ -1463,7 +1463,7 @@
 "ok": true
 },
 "Rio Noguchi": {
-"datum": "2026-11-23",
+"datum": "2026-11-26",
 "ok": true
 },
 "Lorenzo Angelini": {
@@ -2094,7 +2094,7 @@
 "ok": true
 },
 "Hayato Matsuoka": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ok": true
 },
 "Evan Zhu": {
@@ -9755,11 +9755,19 @@
 "duelle": []
 },
 "Alex Bolt|Omar Jasika": {
-"datum": "2026-11-15",
+"datum": "2026-11-26",
 "duelle": [
 [
+"20261116",
+"Sydney CH",
+"H",
+"R32",
+1,
+"4-6 6-3 7-5"
+],
+[
 "20260923",
-"Hangzhou",
+"zhou",
 "H",
 "Q1",
 0,
@@ -9767,7 +9775,7 @@
 ],
 [
 "20260209",
-"Brisbane 2 CH",
+"bane 2 CH",
 "H",
 "R16",
 0,
@@ -13605,6 +13613,35 @@
 "6-1 5-7 7-6(3)"
 ]
 ]
+},
+"Carl Emil Overbeck|Dane Sweeny": {
+"datum": "2026-11-26",
+"duelle": [
+[
+"20251027",
+"M25 Brisbane",
+"H",
+"F",
+1,
+"6-7(5) 6-3 6-2"
+],
+[
+"20251020",
+"M25 Brisbane",
+"H",
+"R16",
+1,
+"6-4 6-1"
+]
+]
+},
+"Naoya Honda|Yuta Shimizu": {
+"datum": "2026-11-26",
+"duelle": []
+},
+"Hayato Matsuoka|Rio Noguchi": {
+"datum": "2026-11-26",
+"duelle": []
 }
 },
 "hb": {
@@ -30109,7 +30146,7 @@
 }
 },
 "Carl Emil Overbeck": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -45811,7 +45848,7 @@
 }
 },
 "Omar Jasika": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -46069,7 +46106,7 @@
 }
 },
 "Yuta Shimizu": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -85495,7 +85532,7 @@
 }
 },
 "Naoya Honda": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -86623,7 +86660,7 @@
 }
 },
 "Dane Sweeny": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -89395,7 +89432,7 @@
 }
 },
 "Alex Bolt": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -91087,13 +91124,13 @@
 }
 },
 "Rio Noguchi": {
-"datum": "2026-11-23",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 0,
-4,
+5,
 2
 ],
 "202610": [
@@ -117541,7 +117578,7 @@
 }
 },
 "Hayato Matsuoka": {
-"datum": "2026-11-25",
+"datum": "2026-11-26",
 "ab": "202301",
 "m": {
 "202611": [
@@ -130386,7 +130423,7 @@
 },
 "Rio Noguchi": {
 "g": [
-97,
+98,
 15
 ],
 "v": [
@@ -134604,18 +134641,18 @@
 },
 "Omar Jasika": {
 "hard": {
-"schnell": [
-1,
-5
-],
 "mittel": [
 3,
 6
+],
+"schnell": [
+1,
+4
 ]
 },
 "draussen": [
 4,
-16
+15
 ],
 "grass": {
 "mittel": [
@@ -140627,33 +140664,33 @@
 "Casey Hoole": {},
 "Dane Sweeny": {
 "hard": {
-"schnell": [
-6,
-6
-],
 "mittel": [
-10,
-7
+8,
+4
+],
+"schnell": [
+3,
+2
 ],
 "langsam": [
 0,
-2
+1
 ]
 },
 "draussen": [
-20,
-22
+13,
+12
 ],
 "grass": {
 "mittel": [
-2,
-3
+0,
+2
 ]
 },
 "clay": {
 "mittel": [
 0,
-3
+2
 ]
 }
 },
@@ -140826,23 +140863,23 @@
 },
 "Alex Bolt": {
 "hard": {
-"schnell": [
-3,
-7
-],
 "mittel": [
-6,
-9
+5,
+6
+],
+"schnell": [
+1,
+4
 ]
 },
 "draussen": [
-29,
-29
+22,
+19
 ],
 "grass": {
 "mittel": [
-7,
-5
+6,
+3
 ],
 "schnell": [
 2,
@@ -140855,8 +140892,8 @@
 },
 "clay": {
 "mittel": [
-3,
-4
+0,
+2
 ]
 }
 },
@@ -141207,33 +141244,33 @@
 "Ymerali Ibraimi": {},
 "Rio Noguchi": {
 "hard": {
-"schnell": [
+"mittel": [
 2,
 4
 ],
-"mittel": [
-2,
-5
+"schnell": [
+1,
+2
 ]
 },
 "draussen": [
-5,
-14
+4,
+9
 ],
 "grass": {
-"mittel": [
-1,
-2
-],
 "schnell": [
 0,
+1
+],
+"mittel": [
+1,
 1
 ]
 },
 "clay": {
 "mittel": [
 0,
-2
+1
 ]
 }
 },
@@ -143375,18 +143412,7 @@
 2
 ]
 },
-"Hayato Matsuoka": {
-"hard": {
-"schnell": [
-1,
-1
-]
-},
-"draussen": [
-1,
-1
-]
-},
+"Hayato Matsuoka": {},
 "Evan Zhu": {
 "hard": {
 "mittel": [

@@ -1,711 +1,9 @@
 {
-"stand": "2026-11-26T06:46:13Z",
+"stand": "2026-11-26T10:46:20Z",
 "partien": [
 {
-"id": "id1204762476916408",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Hersonissos 4 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Georgii Kravchenko",
-"b": "Oleksandr Ovcharenko",
-"aRoh": "Kravchenko, Georgii",
-"bRoh": "Ovcharenko, Oleksandr",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.42,
-2.65
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 47624,
-"p1Id": 256393,
-"p2Id": 301896,
-"sapId": 17584197,
-"landA": "UA",
-"landB": "UA",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 14,
-"min7": 51,
-"minN": 1,
-"letztesMin": 51,
-"letztesGames": 14,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-23T12:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-24T14:00:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 51,
-"min7": 223,
-"minN": 3,
-"letztesMin": 53,
-"letztesGames": 14,
-"dreisatz7": 0,
-"siege7": 3,
-"letztes": "2026-11-24T14:00:00Z",
-"quali": true,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-23T12:30:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-}
-},
-"ort": {
-"land": "GR",
-"tz": 2
-},
-"rangA": 292,
-"rangB": 626
-},
-{
-"id": "id1204762476916412",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Hersonissos 4 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Gilles Arnaud Bailly",
-"b": "Miles Jones",
-"aRoh": "Bailly, Gilles Arnaud",
-"bRoh": "Jones, Miles",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.17,
-4.3
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 47624,
-"p1Id": 870877,
-"p2Id": 342978,
-"sapId": 17584205,
-"landA": "BE",
-"landB": "US",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 6,
-"games7": 43,
-"min7": 205,
-"minN": 3,
-"letztesMin": 68,
-"letztesGames": 15,
-"dreisatz7": 0,
-"siege7": 3,
-"letztes": "2026-11-24T10:35:00Z",
-"quali": true,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-24T13:10:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 50,
-"min7": 221,
-"minN": 2,
-"letztesMin": null,
-"letztesGames": 9,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-24T13:10:00Z",
-"quali": true,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-24T10:35:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-}
-},
-"ort": {
-"land": "GR",
-"tz": 2
-},
-"rangA": 446,
-"rangB": 711
-},
-{
-"id": "id1204762476916414",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Hersonissos 4 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Yaroslav Demin",
-"b": "Benjamin Pietri",
-"aRoh": "Demin, Yaroslav",
-"bRoh": "Pietri, Benjamin",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.32,
-3.05
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 47624,
-"p1Id": 762700,
-"p2Id": 196546,
-"sapId": 17584201,
-"landA": "RU",
-"landB": "FR",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 23,
-"min7": 103,
-"minN": 1,
-"letztesMin": 103,
-"letztesGames": 23,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T14:20:00Z",
-"quali": false,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-24T11:35:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 57,
-"min7": 268,
-"minN": 3,
-"letztesMin": 130,
-"letztesGames": 24,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-24T11:35:00Z",
-"quali": true,
-"vorOrt": {
-"land": "GR",
-"tz": 2,
-"start": "2026-11-24T14:20:00Z",
-"turnier": "Hersonissos 4, Greece"
-}
-}
-},
-"ort": {
-"land": "GR",
-"tz": 2
-},
-"rangA": 359,
-"rangB": 684
-},
-{
-"id": "id1205397476916758",
-"start": "2026-11-26T08:00:00.000Z",
-"turnier": "Ankara Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Svyatoslav Gulin",
-"b": "Vadym Ursu",
-"aRoh": "Gulin, Svyatoslav",
-"bRoh": "Ursu, Vadym",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.18,
-4.2
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 53974,
-"p1Id": 863263,
-"p2Id": 111857,
-"sapId": 17584283,
-"landA": "RU",
-"landB": "UA",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 41,
-"min7": 154,
-"minN": 2,
-"letztesMin": 62,
-"letztesGames": 18,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T11:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-24T08:00:00Z",
-"turnier": "Ankara, Turkiye"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 20,
-"min7": 102,
-"minN": 1,
-"letztesMin": 102,
-"letztesGames": 20,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T08:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-24T11:05:00Z",
-"turnier": "Ankara, Turkiye"
-}
-}
-},
-"ort": {
-"land": "TR",
-"tz": 3
-},
-"rangA": 370,
-"rangB": 456
-},
-{
-"id": "id1205397476916748",
-"start": "2026-11-26T09:10:00.000Z",
-"turnier": "Ankara Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Jannik Maute",
-"b": "Ergi Kirkin",
-"aRoh": "Maute, Jannik",
-"bRoh": "Kirkin, Ergi",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-3.45,
-1.25
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 53974,
-"p1Id": 853635,
-"p2Id": 186629,
-"sapId": 17584291,
-"landA": "DE",
-"landB": "TR",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 69,
-"min7": 253,
-"minN": 3,
-"letztesMin": 76,
-"letztesGames": 20,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-24T12:40:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-25T10:05:00Z",
-"turnier": "Ankara, Turkiye"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 22,
-"min7": 101,
-"minN": 1,
-"letztesMin": 101,
-"letztesGames": 22,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-25T10:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-24T12:40:00Z",
-"turnier": "Ankara, Turkiye"
-}
-}
-},
-"ort": {
-"land": "TR",
-"tz": 3
-},
-"rangA": 901,
-"rangB": 518
-},
-{
-"id": "id1205397476916756",
-"start": "2026-11-26T09:10:00.000Z",
-"turnier": "Ankara Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Robert Guna",
-"b": "Max Wiskandt",
-"aRoh": "Guna, Robert",
-"bRoh": "Wiskandt, Max",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.35,
-1.5
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 53974,
-"p1Id": 930853,
-"p2Id": 508496,
-"sapId": 17584294,
-"landA": "RO",
-"landB": "DE",
-"runde": "Round of 16",
-"gt": "Hardcourt indoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 8,
-"games7": 86,
-"min7": 321,
-"minN": 3,
-"letztesMin": 97,
-"letztesGames": 32,
-"dreisatz7": 2,
-"siege7": 3,
-"letztes": "2026-11-24T13:15:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-25T08:00:00Z",
-"turnier": "Ankara, Turkiye"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 3,
-"games7": 32,
-"min7": 125,
-"minN": 1,
-"letztesMin": 125,
-"letztesGames": 32,
-"dreisatz7": 1,
-"siege7": 1,
-"letztes": "2026-11-25T08:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TR",
-"tz": 3,
-"start": "2026-11-24T13:15:00Z",
-"turnier": "Ankara, Turkiye"
-}
-}
-},
-"ort": {
-"land": "TR",
-"tz": 3
-},
-"rangA": 765,
-"rangB": 396
-},
-{
-"id": "id1205210076916324",
-"start": "2026-11-26T10:00:00.000Z",
-"turnier": "Monastir 2 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Federico Bondioli",
-"b": "Mathieu Scaglia",
-"aRoh": "Bondioli, Federico",
-"bRoh": "Scaglia, Mathieu",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.16,
-4.5
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 52100,
-"p1Id": 873679,
-"p2Id": 151296,
-"sapId": 17584173,
-"landA": "IT",
-"landB": "FR",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 22,
-"min7": 88,
-"minN": 1,
-"letztesMin": 88,
-"letztesGames": 22,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T15:05:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-24T15:50:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 77,
-"min7": 333,
-"minN": 3,
-"letztesMin": 115,
-"letztesGames": 26,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-24T15:50:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-24T15:05:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-}
-},
-"ort": {
-"land": "TN",
-"tz": 1
-},
-"rangA": 335,
-"rangB": 975
-},
-{
-"id": "id1205210076916326",
-"start": "2026-11-26T10:00:00.000Z",
-"turnier": "Monastir 2 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Semen Pankin",
-"b": "Petr Bar Biryukov",
-"aRoh": "Pankin, Semen",
-"bRoh": "Bar Biryukov, Petr",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.35,
-1.52
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 52100,
-"p1Id": 312348,
-"p2Id": 768772,
-"sapId": 17584168,
-"landA": "RU",
-"landB": "RU",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 24,
-"min7": 105,
-"minN": 1,
-"letztesMin": 105,
-"letztesGames": 24,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T13:55:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-24T13:50:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-},
-"b": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 17,
-"min7": 65,
-"minN": 1,
-"letztesMin": 65,
-"letztesGames": 17,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T13:50:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-24T13:55:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-}
-},
-"ort": {
-"land": "TN",
-"tz": 1
-},
-"rangA": 423,
-"rangB": 274
-},
-{
-"id": "id1205210076916328",
-"start": "2026-11-26T10:00:00.000Z",
-"turnier": "Monastir 2 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Eliakim Coulibaly",
-"b": "Giorgio Tabacco",
-"aRoh": "Coulibaly, Eliakim",
-"bRoh": "Tabacco, Giorgio",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-1.27,
-3.35
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 52100,
-"p1Id": 603820,
-"p2Id": 755041,
-"sapId": 17584171,
-"landA": "CI",
-"landB": "IT",
-"runde": "Round of 16",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 1,
-"saetze7": 2,
-"games7": 19,
-"min7": 86,
-"minN": 1,
-"letztesMin": 86,
-"letztesGames": 19,
-"dreisatz7": 0,
-"siege7": 1,
-"letztes": "2026-11-24T14:00:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-24T15:55:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-},
-"b": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 60,
-"min7": 281,
-"minN": 3,
-"letztesMin": 125,
-"letztesGames": 25,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-24T15:55:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-24T14:00:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-}
-},
-"ort": {
-"land": "TN",
-"tz": 1
-},
-"rangA": 344,
-"rangB": 612
-},
-{
 "id": "id1204762476916410",
-"start": "2026-11-26T10:20:00.000Z",
+"start": "2026-11-26T11:05:00.000Z",
 "turnier": "Hersonissos 4 Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -719,7 +17,7 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.15,
+2.2,
 1.58
 ]
 },
@@ -797,8 +95,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.55,
-1.44
+2.5,
+1.45
 ]
 },
 "pausiert": [],
@@ -1187,8 +485,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.68,
-2.05
+1.64,
+2.1
 ]
 },
 "pausiert": [],
@@ -1265,8 +563,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-7.5,
-1.05
+7.75,
+1.04
 ]
 },
 "pausiert": [],
@@ -1343,8 +641,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-5.6,
-1.1
+6.5,
+1.07
 ]
 },
 "pausiert": [],
@@ -1498,8 +796,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.45,
-1.48
+2.85,
+1.36
 ]
 },
 "pausiert": [],
@@ -1717,7 +1015,7 @@
 },
 {
 "id": "id1202322176915334",
-"start": "2026-11-26T23:30:00.000Z",
+"start": "2026-11-27T00:30:00.000Z",
 "turnier": "Playford City Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -1728,8 +1026,13 @@
 "bRoh": "Overbeck, Carl Emil",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.37,
+2.8
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -1789,79 +1092,6 @@
 "rangB": 337
 },
 {
-"id": "id1202322176915338",
-"start": "2026-11-26T23:30:00.000Z",
-"turnier": "Playford City Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Omar Jasika",
-"b": "Alex Bolt",
-"aRoh": "Jasika, Omar",
-"bRoh": "Bolt, Alex",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": false,
-"quoten": {},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 23221,
-"p1Id": 79467,
-"p2Id": 58369,
-"sapId": 17584078,
-"landA": "AU",
-"landB": "AU",
-"runde": "Quarterfinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 5,
-"saetze7": 10,
-"games7": 84,
-"min7": 417,
-"minN": 5,
-"letztesMin": 96,
-"letztesGames": 21,
-"dreisatz7": 0,
-"siege7": 4,
-"letztes": "2026-11-26T00:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "AU",
-"tz": 10,
-"start": "2026-11-26T03:30:00Z",
-"turnier": "Playford, Australia"
-}
-},
-"b": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 34,
-"min7": 118,
-"minN": 2,
-"letztesMin": 53,
-"letztesGames": 16,
-"dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-26T03:30:00Z",
-"quali": false,
-"vorOrt": {
-"land": "AU",
-"tz": 10,
-"start": "2026-11-26T00:30:00Z",
-"turnier": "Playford, Australia"
-}
-}
-},
-"ort": {
-"land": "AU",
-"tz": 10
-},
-"rangA": 250,
-"rangB": 217
-},
-{
 "id": "id1202322176915336",
 "start": "2026-11-27T00:30:00.000Z",
 "turnier": "Playford City Challenger",
@@ -1877,8 +1107,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.3,
-1.52
+2.15,
+1.62
 ]
 },
 "pausiert": [],
@@ -1940,8 +1170,86 @@
 "rangB": 224
 },
 {
+"id": "id1200917976915400",
+"start": "2026-11-27T02:00:00.000Z",
+"turnier": "Yokohama Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Yuta Shimizu",
+"b": "Naoya Honda",
+"aRoh": "Shimizu, Yuta",
+"bRoh": "Honda, Naoya",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.25,
+3.5
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 9179,
+"p1Id": 250231,
+"p2Id": 978607,
+"sapId": 17584099,
+"landA": "JP",
+"landB": "JP",
+"runde": "Quarterfinals",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 35,
+"min7": 133,
+"minN": 2,
+"letztesMin": 60,
+"letztesGames": 16,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-26T02:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "JP",
+"tz": 9,
+"start": "2026-11-26T04:00:00Z",
+"turnier": "Yokohama, Japan"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 35,
+"min7": 153,
+"minN": 2,
+"letztesMin": 76,
+"letztesGames": 16,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-26T04:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "JP",
+"tz": 9,
+"start": "2026-11-26T02:00:00Z",
+"turnier": "Yokohama, Japan"
+}
+}
+},
+"ort": {
+"land": "JP",
+"tz": 9
+},
+"rangA": 373,
+"rangB": 567
+},
+{
 "id": "id1200917976915402",
-"start": "2026-11-27T01:00:00.000Z",
+"start": "2026-11-27T02:00:00.000Z",
 "turnier": "Yokohama Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -1952,8 +1260,13 @@
 "bRoh": "Matsuoka, Hayato",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.6,
+2.15
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
@@ -2014,7 +1327,7 @@
 },
 {
 "id": "id1200917976915388",
-"start": "2026-11-27T02:00:00.000Z",
+"start": "2026-11-27T03:10:00.000Z",
 "turnier": "Yokohama Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -2092,7 +1405,7 @@
 },
 {
 "id": "id1200917976915390",
-"start": "2026-11-27T02:00:00.000Z",
+"start": "2026-11-27T03:10:00.000Z",
 "turnier": "Yokohama Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
@@ -2169,77 +1482,82 @@
 "rangB": 371
 },
 {
-"id": "id1200917976915400",
-"start": "2026-11-27T02:00:00.000Z",
-"turnier": "Yokohama Challenger",
+"id": "id1202322176915338",
+"start": "2026-11-27T03:20:00.000Z",
+"turnier": "Playford City Challenger",
 "kategorie": "Challenger",
 "belag": "hard",
 "belagQuelle": "spieldaten",
-"a": "Yuta Shimizu",
-"b": "Naoya Honda",
-"aRoh": "Shimizu, Yuta",
-"bRoh": "Honda, Naoya",
+"a": "Omar Jasika",
+"b": "Alex Bolt",
+"aRoh": "Jasika, Omar",
+"bRoh": "Bolt, Alex",
 "aInDb": true,
 "bInDb": true,
-"hatQuoten": false,
-"quoten": {},
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.0,
+1.7
+]
+},
 "pausiert": [],
 "pinnacle": null,
 "maerkte": null,
-"tid": 9179,
-"p1Id": 250231,
-"p2Id": 978607,
-"sapId": 17584099,
-"landA": "JP",
-"landB": "JP",
+"tid": 23221,
+"p1Id": 79467,
+"p2Id": 58369,
+"sapId": 17584078,
+"landA": "AU",
+"landB": "AU",
 "runde": "Quarterfinals",
 "gt": "Hardcourt outdoor",
 "form": {
 "a": {
-"spiele7": 2,
-"saetze7": 4,
-"games7": 35,
-"min7": 133,
-"minN": 2,
-"letztesMin": 60,
-"letztesGames": 16,
+"spiele7": 4,
+"saetze7": 8,
+"games7": 65,
+"min7": 307,
+"minN": 4,
+"letztesMin": 96,
+"letztesGames": 21,
 "dreisatz7": 0,
-"siege7": 2,
-"letztes": "2026-11-26T02:00:00Z",
+"siege7": 3,
+"letztes": "2026-11-26T00:30:00Z",
 "quali": false,
 "vorOrt": {
-"land": "JP",
-"tz": 9,
-"start": "2026-11-26T04:00:00Z",
-"turnier": "Yokohama, Japan"
+"land": "AU",
+"tz": 10,
+"start": "2026-11-26T03:30:00Z",
+"turnier": "Playford, Australia"
 }
 },
 "b": {
 "spiele7": 2,
 "saetze7": 4,
-"games7": 35,
-"min7": 153,
+"games7": 34,
+"min7": 118,
 "minN": 2,
-"letztesMin": 76,
+"letztesMin": 53,
 "letztesGames": 16,
 "dreisatz7": 0,
 "siege7": 2,
-"letztes": "2026-11-26T04:00:00Z",
+"letztes": "2026-11-26T03:30:00Z",
 "quali": false,
 "vorOrt": {
-"land": "JP",
-"tz": 9,
-"start": "2026-11-26T02:00:00Z",
-"turnier": "Yokohama, Japan"
+"land": "AU",
+"tz": 10,
+"start": "2026-11-26T00:30:00Z",
+"turnier": "Playford, Australia"
 }
 }
 },
 "ort": {
-"land": "JP",
-"tz": 9
+"land": "AU",
+"tz": 10
 },
-"rangA": 373,
-"rangB": 567
+"rangA": 250,
+"rangB": 217
 },
 {
 "id": "id1204762476916404",
@@ -2257,8 +1575,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-4.7,
-1.15
+3.7,
+1.23
 ]
 },
 "pausiert": [],
@@ -2320,6 +1638,79 @@
 "rangB": 362
 },
 {
+"id": "id1205397476916768",
+"start": "2026-11-27T08:00:00.000Z",
+"turnier": "Ankara Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Vadym Ursu",
+"b": "Tuncay Duran",
+"aRoh": "Ursu, Vadym",
+"bRoh": "Duran, Tuncay",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 53974,
+"p1Id": 111857,
+"p2Id": 780650,
+"sapId": 17584293,
+"landA": "UA",
+"landB": "TR",
+"runde": "Quarterfinals",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 41,
+"min7": 174,
+"minN": 2,
+"letztesMin": 72,
+"letztesGames": 21,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-26T08:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "TR",
+"tz": 3,
+"start": "2026-11-25T08:00:00Z",
+"turnier": "Ankara, Turkiye"
+}
+},
+"b": {
+"spiele7": 2,
+"saetze7": 4,
+"games7": 48,
+"min7": 180,
+"minN": 2,
+"letztesMin": 102,
+"letztesGames": 26,
+"dreisatz7": 0,
+"siege7": 2,
+"letztes": "2026-11-25T08:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "TR",
+"tz": 3,
+"start": "2026-11-26T08:00:00Z",
+"turnier": "Ankara, Turkiye"
+}
+}
+},
+"ort": {
+"land": "TR",
+"tz": 3
+},
+"rangA": 456,
+"rangB": 530
+},
+{
 "id": "id1205210076916316",
 "start": "2026-11-27T10:00:00.000Z",
 "turnier": "Monastir 2 Challenger",
@@ -2335,8 +1726,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.54,
-2.25
+1.56,
+2.2
 ]
 },
 "pausiert": [],
