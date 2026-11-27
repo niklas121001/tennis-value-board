@@ -11208,16 +11208,29 @@
 "aL": "ZA",
 "hR": 321,
 "aR": 236,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "3rd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+3
+],
+[
+3,
+6
+],
+[
+0,
+0
+]
+]
 },
 "17584293": {
 "id": 17584293,
 "start": "2026-11-27T08:00:00Z",
-"min": null,
+"min": 70,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
@@ -11230,16 +11243,25 @@
 "aL": "TR",
 "hR": 456,
 "aR": 530,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 2,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+5,
+7
+],
+[
+1,
+5
+]
+]
 },
 "17584284": {
 "id": 17584284,
 "start": "2026-11-27T08:00:00Z",
-"min": null,
+"min": 98,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
@@ -11252,11 +11274,20 @@
 "aL": "RO",
 "hR": 293,
 "aR": 765,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+6,
+2
+]
+]
 },
 "17584172": {
 "id": 17584172,
@@ -11274,11 +11305,16 @@
 "aL": "FR",
 "hR": 520,
 "aR": 554,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+2,
+4
+]
+]
 },
 "17583987": {
 "id": 17583987,
@@ -11313,7 +11349,7 @@
 },
 "17584199": {
 "id": 17584199,
-"start": "2026-11-27T10:10:00Z",
+"start": "2026-11-27T10:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -11335,7 +11371,7 @@
 },
 "17584287": {
 "id": 17584287,
-"start": "2026-11-27T09:10:00Z",
+"start": "2026-11-27T09:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -11349,11 +11385,16 @@
 "aL": "ES",
 "hR": 361,
 "aR": 235,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+4,
+5
+]
+]
 },
 "17584164": {
 "id": 17584164,
@@ -11371,11 +11412,16 @@
 "aL": "US",
 "hR": 216,
 "aR": 314,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+4,
+2
+]
+]
 },
 "17634411": {
 "id": 17634411,
@@ -11472,7 +11518,7 @@
 },
 "17584295": {
 "id": 17584295,
-"start": "2026-11-27T09:10:00Z",
+"start": "2026-11-27T09:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -11486,11 +11532,20 @@
 "aL": "TR",
 "hR": 185,
 "aR": 518,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+7,
+5
+],
+[
+1,
+1
+]
+]
 },
 "17583985": {
 "id": 17583985,
@@ -11736,7 +11791,7 @@
 },
 "17584210": {
 "id": 17584210,
-"start": "2026-11-27T10:10:00Z",
+"start": "2026-11-27T10:40:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -11772,11 +11827,20 @@
 "aL": "GR",
 "hR": 626,
 "aR": 514,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+2,
+2
+]
+]
 },
 "17584170": {
 "id": 17584170,
@@ -11978,7 +12042,7 @@
 },
 "17584103": {
 "id": 17584103,
-"start": "2026-11-28T01:00:00Z",
+"start": "2026-11-28T02:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
@@ -12028,14 +12092,58 @@
 "turnier": "Playford, Australia",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "WQF3",
+"h": "Omar Jasika",
 "a": "Tristan Schoolkate",
-"hId": 393302,
+"hId": 79467,
 "aId": 275471,
-"hL": null,
+"hL": "AU",
 "aL": "AU",
-"hR": null,
+"hR": 250,
 "aR": 143,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17584288": {
+"id": 17584288,
+"start": "2026-11-28T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ankara, Turkiye",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "Tuncay Duran",
+"a": "WQF4",
+"hId": 377355,
+"aId": 393303,
+"hL": "TR",
+"aL": null,
+"hR": 530,
+"aR": null,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17584281": {
+"id": 17584281,
+"start": "2026-11-28T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ankara, Turkiye",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "WQF1",
+"a": "Thomas Faurel",
+"hId": 393300,
+"aId": 462179,
+"hL": null,
+"aL": "FR",
+"hR": null,
+"aR": 293,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
