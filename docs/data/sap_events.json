@@ -11804,11 +11804,16 @@
 "aL": "AR",
 "hR": 574,
 "aR": 360,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+5,
+1
+]
+]
 },
 "17584210": {
 "id": 17584210,
@@ -11970,7 +11975,7 @@
 },
 "17583983": {
 "id": 17583983,
-"start": "2026-11-27T17:30:00Z",
+"start": "2026-11-27T18:55:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -11993,7 +11998,7 @@
 "17583989": {
 "id": 17583989,
 "start": "2026-11-27T13:00:00Z",
-"min": null,
+"min": 171,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -12006,9 +12011,9 @@
 "aL": "AR",
 "hR": 327,
 "aR": 179,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -12020,15 +12025,15 @@
 4
 ],
 [
-4,
-2
+6,
+3
 ]
 ]
 },
 "17583994": {
 "id": 17583994,
-"start": "2026-11-27T14:30:00Z",
-"min": null,
+"start": "2026-11-27T16:10:00Z",
+"min": 76,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
 "belag": "clay",
@@ -12041,11 +12046,20 @@
 "aL": "BR",
 "hR": 322,
 "aR": 691,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
-"satz": []
+"satz": [
+[
+6,
+2
+],
+[
+6,
+4
+]
+]
 },
 "17584237": {
 "id": 17584237,
@@ -12225,7 +12239,7 @@
 },
 "17584206": {
 "id": 17584206,
-"start": "2026-11-28T09:00:00Z",
+"start": "2026-11-28T08:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -12247,7 +12261,7 @@
 },
 "17584198": {
 "id": 17584198,
-"start": "2026-11-28T09:00:00Z",
+"start": "2026-11-28T09:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -12291,7 +12305,7 @@
 },
 "17584165": {
 "id": 17584165,
-"start": "2026-11-28T12:00:00Z",
+"start": "2026-11-28T11:10:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
@@ -12305,6 +12319,28 @@
 "aL": "IT",
 "hR": 423,
 "aR": 612,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17583984": {
+"id": 17583984,
+"start": "2026-11-28T13:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Florianopolis, Brazil",
+"belag": "clay",
+"gt": "Red clay",
+"h": "Igor Marcondes",
+"a": "Felipe Meligeni Alves",
+"hId": 82157,
+"aId": 158748,
+"hL": "BR",
+"aL": "BR",
+"hR": 327,
+"aR": 322,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
