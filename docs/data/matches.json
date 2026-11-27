@@ -1,9 +1,9 @@
 {
-"stand": "2026-11-27T13:46:13Z",
+"stand": "2026-11-27T15:46:09Z",
 "partien": [
 {
 "id": "id1200670776914740",
-"start": "2026-11-27T14:10:00.000Z",
+"start": "2026-11-27T16:00:00.000Z",
 "turnier": "Florianopolis Challenger",
 "kategorie": "Challenger",
 "belag": "clay",
@@ -17,8 +17,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.03,
-8.5
+1.04,
+8.0
 ]
 },
 "pausiert": [],
@@ -96,7 +96,7 @@
 "quoten": {
 "winamax": [
 1.9,
-1.78
+1.8
 ]
 },
 "pausiert": [],
@@ -173,8 +173,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.66,
-2.05
+1.64,
+2.1
 ]
 },
 "pausiert": [],
@@ -406,8 +406,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.09,
-5.9
+1.07,
+6.5
 ]
 },
 "pausiert": [],
@@ -485,7 +485,7 @@
 "quoten": {
 "winamax": [
 2.1,
-1.64
+1.62
 ]
 },
 "pausiert": [],
@@ -713,8 +713,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.5,
-1.46
+2.45,
+1.48
 ]
 },
 "pausiert": [],
@@ -776,6 +776,84 @@
 "rangB": 143
 },
 {
+"id": "id1204762476916396",
+"start": "2026-11-28T08:00:00.000Z",
+"turnier": "Hersonissos 4 Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Andres Martin",
+"b": "Oleksandr Ovcharenko",
+"aRoh": "Martin, Andres",
+"bRoh": "Ovcharenko, Oleksandr",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+1.47,
+2.45
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 47624,
+"p1Id": 603420,
+"p2Id": 301896,
+"sapId": 17584206,
+"landA": "US",
+"landB": "UA",
+"runde": "Semifinals",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 3,
+"saetze7": 6,
+"games7": 52,
+"min7": 244,
+"minN": 3,
+"letztesMin": 80,
+"letztesGames": 16,
+"dreisatz7": 0,
+"siege7": 3,
+"letztes": "2026-11-27T12:20:00Z",
+"quali": false,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-27T09:00:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+},
+"b": {
+"spiele7": 5,
+"saetze7": 11,
+"games7": 100,
+"min7": 493,
+"minN": 5,
+"letztesMin": 184,
+"letztesGames": 30,
+"dreisatz7": 1,
+"siege7": 5,
+"letztes": "2026-11-27T09:00:00Z",
+"quali": true,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-27T12:20:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+}
+},
+"ort": {
+"land": "GR",
+"tz": 2
+},
+"rangA": 362,
+"rangB": 626
+},
+{
 "id": "id1205397476916760",
 "start": "2026-11-28T08:00:00.000Z",
 "turnier": "Ankara Challenger",
@@ -792,7 +870,7 @@
 "quoten": {
 "winamax": [
 2.05,
-1.68
+1.66
 ]
 },
 "pausiert": [],
@@ -854,6 +932,84 @@
 "rangB": 361
 },
 {
+"id": "id1204762476916398",
+"start": "2026-11-28T08:35:00.000Z",
+"turnier": "Hersonissos 4 Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Gilles Arnaud Bailly",
+"b": "Philip Henning",
+"aRoh": "Bailly, Gilles Arnaud",
+"bRoh": "Henning, Philip",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": true,
+"quoten": {
+"winamax": [
+2.05,
+1.68
+]
+},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 47624,
+"p1Id": 870877,
+"p2Id": 299818,
+"sapId": 17584198,
+"landA": "BE",
+"landB": "ZA",
+"runde": "Semifinals",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 5,
+"saetze7": 11,
+"games7": 85,
+"min7": 459,
+"minN": 5,
+"letztesMin": 153,
+"letztesGames": 26,
+"dreisatz7": 1,
+"siege7": 5,
+"letztes": "2026-11-27T11:10:00Z",
+"quali": true,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-27T09:00:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+},
+"b": {
+"spiele7": 3,
+"saetze7": 7,
+"games7": 56,
+"min7": 269,
+"minN": 3,
+"letztesMin": 115,
+"letztesGames": 24,
+"dreisatz7": 1,
+"siege7": 3,
+"letztes": "2026-11-27T09:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-27T11:10:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+}
+},
+"ort": {
+"land": "GR",
+"tz": 2
+},
+"rangA": 446,
+"rangB": 236
+},
+{
 "id": "id1205397476916772",
 "start": "2026-11-28T09:10:00.000Z",
 "turnier": "Ankara Challenger",
@@ -869,8 +1025,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.0,
-1.7
+1.96,
+1.74
 ]
 },
 "pausiert": [],

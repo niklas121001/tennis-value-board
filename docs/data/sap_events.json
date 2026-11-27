@@ -11354,7 +11354,7 @@
 "17584199": {
 "id": 17584199,
 "start": "2026-11-27T12:20:00Z",
-"min": null,
+"min": 80,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -11367,9 +11367,9 @@
 "aL": "US",
 "hR": 599,
 "aR": 362,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -11378,7 +11378,7 @@
 ],
 [
 1,
-5
+6
 ]
 ]
 },
@@ -11813,7 +11813,7 @@
 "17584210": {
 "id": 17584210,
 "start": "2026-11-27T11:10:00Z",
-"min": null,
+"min": 153,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -11826,9 +11826,9 @@
 "aL": "FR",
 "hR": 446,
 "aR": 684,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -11840,8 +11840,8 @@
 1
 ],
 [
-3,
-3
+6,
+4
 ]
 ]
 },
@@ -11883,7 +11883,7 @@
 "17584170": {
 "id": 17584170,
 "start": "2026-11-27T11:55:00Z",
-"min": null,
+"min": 171,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
 "belag": "hard",
@@ -11896,9 +11896,9 @@
 "aL": "RU",
 "hR": 335,
 "aR": 423,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -11906,15 +11906,19 @@
 7
 ],
 [
-1,
-2
+6,
+3
+],
+[
+6,
+7
 ]
 ]
 },
 "17584162": {
 "id": 17584162,
 "start": "2026-11-27T12:20:00Z",
-"min": null,
+"min": 74,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
 "belag": "hard",
@@ -11927,9 +11931,9 @@
 "aL": "DE",
 "hR": 612,
 "aR": 448,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Quarterfinals",
 "satz": [
 [
@@ -11937,8 +11941,8 @@
 1
 ],
 [
-1,
-2
+6,
+3
 ]
 ]
 },
@@ -12003,19 +12007,27 @@
 "hR": 327,
 "aR": 179,
 "st": "inprogress",
-"desc": "1st set",
+"desc": "3rd set",
 "w": null,
 "runde": "Quarterfinals",
 "satz": [
 [
-3,
+6,
+7
+],
+[
+6,
+4
+],
+[
+4,
 2
 ]
 ]
 },
 "17583994": {
 "id": 17583994,
-"start": "2026-11-27T14:10:00Z",
+"start": "2026-11-27T14:30:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Florianopolis, Brazil",
@@ -12213,19 +12225,19 @@
 },
 "17584206": {
 "id": 17584206,
-"start": "2026-11-28T08:00:00Z",
+"start": "2026-11-28T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "WQF1",
+"h": "Andres Martin",
 "a": "Oleksandr Ovcharenko",
-"hId": 393300,
+"hId": 321862,
 "aId": 238867,
-"hL": null,
+"hL": "US",
 "aL": "UA",
-"hR": null,
+"hR": 362,
 "aR": 626,
 "st": "notstarted",
 "desc": "Not started",
@@ -12235,19 +12247,19 @@
 },
 "17584198": {
 "id": 17584198,
-"start": "2026-11-28T08:00:00Z",
+"start": "2026-11-28T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
-"h": "WQF3",
+"h": "Gilles Arnaud Bailly",
 "a": "Philip Henning",
-"hId": 393302,
+"hId": 406654,
 "aId": 238147,
-"hL": null,
+"hL": "BE",
 "aL": "ZA",
-"hR": null,
+"hR": 446,
 "aR": 236,
 "st": "notstarted",
 "desc": "Not started",
@@ -12271,6 +12283,28 @@
 "aL": "FR",
 "hR": 216,
 "aR": 554,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Semifinals",
+"satz": []
+},
+"17584165": {
+"id": 17584165,
+"start": "2026-11-28T12:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir 2, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Semen Pankin",
+"a": "Giorgio Tabacco",
+"hId": 245046,
+"aId": 369288,
+"hL": "RU",
+"aL": "IT",
+"hR": 423,
+"aR": 612,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,
