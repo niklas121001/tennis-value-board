@@ -11366,7 +11366,7 @@
 "17584281": {
 "id": 17584281,
 "start": "2026-11-28T09:35:00Z",
-"min": null,
+"min": 101,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
@@ -11379,9 +11379,9 @@
 "aL": "FR",
 "hR": 185,
 "aR": 293,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Semifinals",
 "satz": [
 [
@@ -11389,8 +11389,8 @@
 6
 ],
 [
-2,
-1
+6,
+7
 ]
 ]
 },
@@ -11428,7 +11428,7 @@
 "17584198": {
 "id": 17584198,
 "start": "2026-11-28T09:45:00Z",
-"min": null,
+"min": 96,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -11441,9 +11441,9 @@
 "aL": "ZA",
 "hR": 446,
 "aR": 236,
-"st": "inprogress",
-"desc": "2nd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Semifinals",
 "satz": [
 [
@@ -11451,15 +11451,15 @@
 6
 ],
 [
-1,
-1
+4,
+6
 ]
 ]
 },
 "17584167": {
 "id": 17584167,
 "start": "2026-11-28T10:00:00Z",
-"min": null,
+"min": 128,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
 "belag": "hard",
@@ -11472,20 +11472,28 @@
 "aL": "FR",
 "hR": 216,
 "aR": 554,
-"st": "inprogress",
-"desc": "1st set",
-"w": null,
+"st": "finished",
+"desc": "Retired",
+"w": 2,
 "runde": "Semifinals",
 "satz": [
 [
-4,
-4
+7,
+5
+],
+[
+6,
+7
+],
+[
+0,
+2
 ]
 ]
 },
 "17584165": {
 "id": 17584165,
-"start": "2026-11-28T11:10:00Z",
+"start": "2026-11-28T12:20:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Monastir 2, Tunisia",
@@ -11499,11 +11507,20 @@
 "aL": "IT",
 "hR": 423,
 "aR": 612,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+2,
+2
+]
+]
 },
 "17583984": {
 "id": 17583984,
@@ -11639,19 +11656,19 @@
 },
 "17584286": {
 "id": 17584286,
-"start": "2026-11-29T08:00:00Z",
+"start": "2026-11-29T09:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
 "gt": "Hardcourt indoor",
-"h": "WSF1",
+"h": "Thomas Faurel",
 "a": "Tuncay Duran",
-"hId": 393304,
+"hId": 462179,
 "aId": 377355,
-"hL": null,
+"hL": "FR",
 "aL": "TR",
-"hR": null,
+"hR": 293,
 "aR": 530,
 "st": "notstarted",
 "desc": "Not started",
@@ -11661,19 +11678,41 @@
 },
 "17584204": {
 "id": 17584204,
-"start": "2026-11-29T09:00:00Z",
+"start": "2026-11-29T08:00:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
 "gt": "Hardcourt outdoor",
 "h": "Oleksandr Ovcharenko",
-"a": "WSF2",
+"a": "Philip Henning",
 "hId": 238867,
-"aId": 393305,
+"aId": 238147,
 "hL": "UA",
-"aL": null,
+"aL": "ZA",
 "hR": 626,
+"aR": 236,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Final",
+"satz": []
+},
+"17584166": {
+"id": 17584166,
+"start": "2026-11-29T10:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Monastir 2, Tunisia",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Gabriel Debru",
+"a": "WSF2",
+"hId": 375536,
+"aId": 393305,
+"hL": "FR",
+"aL": null,
+"hR": 554,
 "aR": null,
 "st": "notstarted",
 "desc": "Not started",

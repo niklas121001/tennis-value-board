@@ -1,84 +1,6 @@
 {
-"stand": "2026-11-28T10:46:14Z",
+"stand": "2026-11-28T13:46:21Z",
 "partien": [
-{
-"id": "id1205210076916312",
-"start": "2026-11-28T11:10:00.000Z",
-"turnier": "Monastir 2 Challenger",
-"kategorie": "Challenger",
-"belag": "hard",
-"belagQuelle": "spieldaten",
-"a": "Semen Pankin",
-"b": "Giorgio Tabacco",
-"aRoh": "Pankin, Semen",
-"bRoh": "Tabacco, Giorgio",
-"aInDb": true,
-"bInDb": true,
-"hatQuoten": true,
-"quoten": {
-"winamax": [
-2.45,
-1.47
-]
-},
-"pausiert": [],
-"pinnacle": null,
-"maerkte": null,
-"tid": 52100,
-"p1Id": 312348,
-"p2Id": 755041,
-"sapId": 17584165,
-"landA": "RU",
-"landB": "IT",
-"runde": "Semifinals",
-"gt": "Hardcourt outdoor",
-"form": {
-"a": {
-"spiele7": 3,
-"saetze7": 7,
-"games7": 80,
-"min7": 362,
-"minN": 3,
-"letztesMin": 171,
-"letztesGames": 35,
-"dreisatz7": 1,
-"siege7": 3,
-"letztes": "2026-11-27T11:55:00Z",
-"quali": false,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-27T12:20:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-},
-"b": {
-"spiele7": 5,
-"saetze7": 11,
-"games7": 90,
-"min7": 437,
-"minN": 5,
-"letztesMin": 74,
-"letztesGames": 16,
-"dreisatz7": 1,
-"siege7": 5,
-"letztes": "2026-11-27T12:20:00Z",
-"quali": true,
-"vorOrt": {
-"land": "TN",
-"tz": 1,
-"start": "2026-11-27T11:55:00Z",
-"turnier": "Monastir 2, Tunisia"
-}
-}
-},
-"ort": {
-"land": "TN",
-"tz": 1
-},
-"rangA": 423,
-"rangB": 612
-},
 {
 "id": "id1200670776914744",
 "start": "2026-11-28T14:00:00.000Z",
@@ -173,8 +95,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-2.05,
-1.68
+2.1,
+1.62
 ]
 },
 "pausiert": [],
@@ -251,8 +173,8 @@
 "hatQuoten": true,
 "quoten": {
 "winamax": [
-1.58,
-2.2
+1.52,
+2.3
 ]
 },
 "pausiert": [],
@@ -468,6 +390,152 @@
 },
 "rangA": 338,
 "rangB": 419
+},
+{
+"id": "id1204762476916416",
+"start": "2026-11-29T08:00:00.000Z",
+"turnier": "Hersonissos 4 Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Oleksandr Ovcharenko",
+"b": "Philip Henning",
+"aRoh": "Ovcharenko, Oleksandr",
+"bRoh": "Henning, Philip",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 47624,
+"p1Id": 301896,
+"p2Id": 299818,
+"sapId": 17584204,
+"landA": "UA",
+"landB": "ZA",
+"runde": "Final",
+"gt": "Hardcourt outdoor",
+"form": {
+"a": {
+"spiele7": 6,
+"saetze7": 13,
+"games7": 118,
+"min7": 581,
+"minN": 6,
+"letztesMin": 88,
+"letztesGames": 18,
+"dreisatz7": 1,
+"siege7": 6,
+"letztes": "2026-11-28T08:00:00Z",
+"quali": true,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-28T09:45:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+},
+"b": {
+"spiele7": 4,
+"saetze7": 9,
+"games7": 75,
+"min7": 365,
+"minN": 4,
+"letztesMin": 96,
+"letztesGames": 19,
+"dreisatz7": 1,
+"siege7": 4,
+"letztes": "2026-11-28T09:45:00Z",
+"quali": false,
+"vorOrt": {
+"land": "GR",
+"tz": 2,
+"start": "2026-11-28T08:00:00Z",
+"turnier": "Hersonissos 4, Greece"
+}
+}
+},
+"ort": {
+"land": "GR",
+"tz": 2
+},
+"rangA": 626,
+"rangB": 236
+},
+{
+"id": "id1205397476916762",
+"start": "2026-11-29T09:00:00.000Z",
+"turnier": "Ankara Challenger",
+"kategorie": "Challenger",
+"belag": "hard",
+"belagQuelle": "spieldaten",
+"a": "Thomas Faurel",
+"b": "Tuncay Duran",
+"aRoh": "Faurel, Thomas",
+"bRoh": "Duran, Tuncay",
+"aInDb": true,
+"bInDb": true,
+"hatQuoten": false,
+"quoten": {},
+"pausiert": [],
+"pinnacle": null,
+"maerkte": null,
+"tid": 53974,
+"p1Id": 983487,
+"p2Id": 780650,
+"sapId": 17584286,
+"landA": "FR",
+"landB": "TR",
+"runde": "Final",
+"gt": "Hardcourt indoor",
+"form": {
+"a": {
+"spiele7": 4,
+"saetze7": 8,
+"games7": 79,
+"min7": 332,
+"minN": 4,
+"letztesMin": 101,
+"letztesGames": 23,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-11-28T09:35:00Z",
+"quali": false,
+"vorOrt": {
+"land": "TR",
+"tz": 3,
+"start": "2026-11-28T08:00:00Z",
+"turnier": "Ankara, Turkiye"
+}
+},
+"b": {
+"spiele7": 4,
+"saetze7": 8,
+"games7": 88,
+"min7": 328,
+"minN": 4,
+"letztesMin": 78,
+"letztesGames": 22,
+"dreisatz7": 0,
+"siege7": 4,
+"letztes": "2026-11-28T08:00:00Z",
+"quali": false,
+"vorOrt": {
+"land": "TR",
+"tz": 3,
+"start": "2026-11-28T09:35:00Z",
+"turnier": "Ankara, Turkiye"
+}
+}
+},
+"ort": {
+"land": "TR",
+"tz": 3
+},
+"rangA": 293,
+"rangB": 530
 }
 ]
 }
