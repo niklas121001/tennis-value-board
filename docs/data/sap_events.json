@@ -11265,7 +11265,7 @@
 "17584096": {
 "id": 17584096,
 "start": "2026-11-28T04:35:00Z",
-"min": null,
+"min": 152,
 "kat": "Challenger",
 "turnier": "Yokohama, Japan",
 "belag": "hard",
@@ -11278,9 +11278,9 @@
 "aL": "JP",
 "hR": 567,
 "aR": 338,
-"st": "inprogress",
-"desc": "3rd set",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Semifinals",
 "satz": [
 [
@@ -11292,8 +11292,8 @@
 4
 ],
 [
-3,
-3
+4,
+6
 ]
 ]
 },
@@ -11335,7 +11335,7 @@
 "17584288": {
 "id": 17584288,
 "start": "2026-11-28T08:00:00Z",
-"min": null,
+"min": 78,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
 "belag": "hard",
@@ -11348,15 +11348,24 @@
 "aL": "CZ",
 "hR": 530,
 "aR": 361,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 1,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+7,
+6
+],
+[
+6,
+3
+]
+]
 },
 "17584281": {
 "id": 17584281,
-"start": "2026-11-28T09:10:00Z",
+"start": "2026-11-28T09:35:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Ankara, Turkiye",
@@ -11370,16 +11379,25 @@
 "aL": "FR",
 "hR": 185,
 "aR": 293,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+4,
+6
+],
+[
+2,
+1
+]
+]
 },
 "17584206": {
 "id": 17584206,
 "start": "2026-11-28T08:00:00Z",
-"min": null,
+"min": 88,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
 "belag": "hard",
@@ -11392,15 +11410,24 @@
 "aL": "UA",
 "hR": 362,
 "aR": 626,
-"st": "notstarted",
-"desc": "Not started",
-"w": null,
+"st": "finished",
+"desc": "Ended",
+"w": 2,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+3,
+6
+]
+]
 },
 "17584198": {
 "id": 17584198,
-"start": "2026-11-28T09:10:00Z",
+"start": "2026-11-28T09:45:00Z",
 "min": null,
 "kat": "Challenger",
 "turnier": "Hersonissos 4, Greece",
@@ -11414,11 +11441,20 @@
 "aL": "ZA",
 "hR": 446,
 "aR": 236,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "2nd set",
 "w": null,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+3,
+6
+],
+[
+1,
+1
+]
+]
 },
 "17584167": {
 "id": 17584167,
@@ -11436,11 +11472,16 @@
 "aL": "FR",
 "hR": 216,
 "aR": 554,
-"st": "notstarted",
-"desc": "Not started",
+"st": "inprogress",
+"desc": "1st set",
 "w": null,
 "runde": "Semifinals",
-"satz": []
+"satz": [
+[
+4,
+4
+]
+]
 },
 "17584165": {
 "id": 17584165,
@@ -11568,6 +11609,72 @@
 "aL": "AU",
 "hR": 123,
 "aR": 143,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Final",
+"satz": []
+},
+"17584106": {
+"id": 17584106,
+"start": "2026-11-29T02:30:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Yokohama, Japan",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Hayato Matsuoka",
+"a": "Masamichi Imamura",
+"hId": 420914,
+"aId": 197935,
+"hL": "JP",
+"aL": "JP",
+"hR": 338,
+"aR": 419,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Final",
+"satz": []
+},
+"17584286": {
+"id": 17584286,
+"start": "2026-11-29T08:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Ankara, Turkiye",
+"belag": "hard",
+"gt": "Hardcourt indoor",
+"h": "WSF1",
+"a": "Tuncay Duran",
+"hId": 393304,
+"aId": 377355,
+"hL": null,
+"aL": "TR",
+"hR": null,
+"aR": 530,
+"st": "notstarted",
+"desc": "Not started",
+"w": null,
+"runde": "Final",
+"satz": []
+},
+"17584204": {
+"id": 17584204,
+"start": "2026-11-29T09:00:00Z",
+"min": null,
+"kat": "Challenger",
+"turnier": "Hersonissos 4, Greece",
+"belag": "hard",
+"gt": "Hardcourt outdoor",
+"h": "Oleksandr Ovcharenko",
+"a": "WSF2",
+"hId": 238867,
+"aId": 393305,
+"hL": "UA",
+"aL": null,
+"hR": 626,
+"aR": null,
 "st": "notstarted",
 "desc": "Not started",
 "w": null,

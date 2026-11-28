@@ -556,7 +556,7 @@
 "ok": true
 },
 "Masamichi Imamura": {
-"datum": "2026-11-27",
+"datum": "2026-11-28",
 "ok": true
 },
 "Lloyd Harris": {
@@ -1366,7 +1366,7 @@
 "ok": true
 },
 "Tristan Schoolkate": {
-"datum": "2026-11-27",
+"datum": "2026-11-28",
 "ok": true
 },
 "Cruz Hewitt": {
@@ -1378,7 +1378,7 @@
 "ok": true
 },
 "Dane Sweeny": {
-"datum": "2026-11-26",
+"datum": "2026-11-28",
 "ok": true
 },
 "Hikaru Shiraishi": {
@@ -2094,7 +2094,7 @@
 "ok": true
 },
 "Hayato Matsuoka": {
-"datum": "2026-11-26",
+"datum": "2026-11-28",
 "ok": true
 },
 "Evan Zhu": {
@@ -13868,6 +13868,56 @@
 "Luis Guto Miguel|Timo Legout": {
 "datum": "2026-11-28",
 "duelle": []
+},
+"Dane Sweeny|Tristan Schoolkate": {
+"datum": "2026-11-28",
+"duelle": [
+[
+"20261007",
+"Shanghai Masters",
+"H",
+"Q1",
+0,
+"3-6 6-3 6-2"
+],
+[
+"20260202",
+"Brisbane 1 CH",
+"H",
+"F",
+0,
+"3-6 7-6(5) 7-6(4)"
+],
+[
+"20220321",
+"M25 Canberra",
+"C",
+"QF",
+1,
+"6-2 6-1"
+],
+[
+"20220228",
+"M25 Bendigo",
+"H",
+"R32",
+1,
+"6-3 6-4"
+]
+]
+},
+"Hayato Matsuoka|Masamichi Imamura": {
+"datum": "2026-11-28",
+"duelle": [
+[
+"20260601",
+"Tyler CH",
+"H",
+"Q2",
+1,
+"6-4 7-5"
+]
+]
 }
 },
 "hb": {
@@ -41166,13 +41216,13 @@
 }
 },
 "Masamichi Imamura": {
-"datum": "2026-11-27",
+"datum": "2026-11-28",
 "ab": "202301",
 "m": {
 "202611": [
 1,
 0,
-5,
+6,
 4
 ],
 "202610": [
@@ -86460,11 +86510,11 @@
 }
 },
 "Tristan Schoolkate": {
-"datum": "2026-11-27",
+"datum": "2026-11-28",
 "ab": "202301",
 "m": {
 "202611": [
-0,
+1,
 0,
 4,
 1
@@ -86886,13 +86936,13 @@
 }
 },
 "Dane Sweeny": {
-"datum": "2026-11-26",
+"datum": "2026-11-28",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 1,
-1,
+3,
 1
 ],
 "202610": [
@@ -117804,13 +117854,13 @@
 }
 },
 "Hayato Matsuoka": {
-"datum": "2026-11-26",
+"datum": "2026-11-28",
 "ab": "202301",
 "m": {
 "202611": [
 0,
 0,
-1,
+3,
 0
 ],
 "202610": [
@@ -128405,7 +128455,7 @@
 },
 "Masamichi Imamura": {
 "g": [
-111,
+112,
 13
 ],
 "v": [
@@ -130385,7 +130435,7 @@
 },
 "Tristan Schoolkate": {
 "g": [
-120,
+121,
 22
 ],
 "v": [
@@ -130415,7 +130465,7 @@
 },
 "Dane Sweeny": {
 "g": [
-111,
+114,
 22
 ],
 "v": [
@@ -132195,11 +132245,11 @@
 },
 "Hayato Matsuoka": {
 "g": [
-64,
+66,
 22
 ],
 "v": [
-17,
+18,
 68
 ]
 },
@@ -134971,7 +135021,18 @@
 ]
 }
 },
-"Masamichi Imamura": {},
+"Masamichi Imamura": {
+"hard": {
+"schnell": [
+0,
+1
+]
+},
+"draussen": [
+0,
+1
+]
+},
 "Mitsuki Wei Kang Leong": {},
 "Yanki Erel": {
 "hard": {
@@ -140796,13 +140857,13 @@
 },
 "Tristan Schoolkate": {
 "hard": {
-"mittel": [
-15,
-13
-],
 "schnell": [
-5,
-8
+6,
+12
+],
+"mittel": [
+20,
+17
 ],
 "langsam": [
 0,
@@ -140810,17 +140871,13 @@
 ]
 },
 "draussen": [
-23,
-25
-],
-"halle": [
-1,
-3
+32,
+35
 ],
 "grass": {
 "mittel": [
-1,
-2
+3,
+3
 ],
 "langsam": [
 3,
@@ -140829,10 +140886,14 @@
 },
 "clay": {
 "mittel": [
-0,
-2
+1,
+3
 ]
-}
+},
+"halle": [
+1,
+3
+]
 },
 "Cruz Hewitt": {
 "hard": {
@@ -140853,33 +140914,33 @@
 "Casey Hoole": {},
 "Dane Sweeny": {
 "hard": {
-"mittel": [
-8,
-4
-],
 "schnell": [
-3,
-2
+6,
+6
+],
+"mittel": [
+10,
+7
 ],
 "langsam": [
 0,
-1
+2
 ]
 },
 "draussen": [
-13,
-12
+20,
+22
 ],
 "grass": {
 "mittel": [
-0,
-2
+2,
+3
 ]
 },
 "clay": {
 "mittel": [
 0,
-2
+3
 ]
 }
 },
@@ -143590,7 +143651,18 @@
 2
 ]
 },
-"Hayato Matsuoka": {},
+"Hayato Matsuoka": {
+"hard": {
+"schnell": [
+1,
+1
+]
+},
+"draussen": [
+1,
+1
+]
+},
 "Evan Zhu": {
 "hard": {
 "mittel": [
